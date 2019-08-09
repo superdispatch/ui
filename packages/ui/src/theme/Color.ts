@@ -1,4 +1,14 @@
-export enum SuperColors {
+export type ColorVariant =
+  | 'grey'
+  | 'silver'
+  | 'blue'
+  | 'green'
+  | 'purple'
+  | 'teal'
+  | 'red'
+  | 'yellow';
+
+export enum Color {
   //
   // ???
   //
