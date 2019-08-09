@@ -52,8 +52,12 @@ function outlinedColor(
 }
 
 const useStyles = makeStyles({
+  root: { fontSize: '14px', lineHeight: '20px' },
+  small: { fontSize: '14px', lineHeight: '20px' },
+  large: { fontSize: '16px', lineHeight: '24px' },
+
+  contained: { padding: '6px 16px' },
   containedSmall: { padding: '2px 16px' },
-  containedMedium: { padding: '6px 16px' },
   containedLarge: { padding: '10px 40px' },
 
   containedBlue: containedColor(Color.Blue, Color.Blue85, Color.Blue25),
@@ -61,8 +65,8 @@ const useStyles = makeStyles({
   containedGrey: containedColor(Color.Grey, Color.Grey60, Color.Grey25),
   containedGreen: containedColor(Color.Green, Color.Green70, Color.Green25),
 
+  outlined: { padding: '5px 15px' },
   outlinedSmall: { padding: '1px 15px' },
-  outlinedMedium: { padding: '5px 15px' },
   outlinedLarge: { padding: '9px 39px' },
 
   outlinedBlue: outlinedColor(Color.Grey15, Color.Silver80, Color.Blue95, Color.Blue, Color.Blue40),
@@ -96,20 +100,18 @@ export interface ButtonProps
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
+      children,
       disabled,
       isLoading,
-      children,
-      className,
       size = 'medium',
       color = 'blue',
       variant = 'outlined',
+      classes: overrides = {},
       ...props
     },
     ref,
   ) => {
     const classes = useStyles();
-    const isSmall = size === 'small';
-    const isMedium = size === 'medium';
     const isLarge = size === 'large';
     const isOutlined = variant === 'outlined';
 
@@ -130,34 +132,66 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={isOutlined ? 'outlined' : 'contained'}
         color={color == null ? undefined : isBlue ? 'primary' : 'secondary'}
         classes={{
+          ...overrides,
+
+          root: clsx(classes.root, overrides.root),
+
+          outlined: clsx(
+            classes.outlined,
+            isRed
+              ? classes.outlinedRed
+              : isBlue
+              ? classes.outlinedBlue
+              : isGrey
+              ? classes.outlinedGrey
+              : isGreen
+              ? classes.outlinedGreen
+              : undefined,
+            overrides.outlined,
+          ),
+
+          contained: clsx(
+            classes.contained,
+            isRed
+              ? classes.containedRed
+              : isBlue
+              ? classes.containedBlue
+              : isGrey
+              ? classes.containedGrey
+              : isGreen
+              ? classes.containedGreen
+              : undefined,
+            overrides.contained,
+          ),
+
+          sizeSmall: clsx(
+            classes.small,
+            isOutlined ? classes.outlinedSmall : classes.containedSmall,
+            overrides.sizeSmall,
+          ),
+
+          sizeLarge: clsx(
+            classes.large,
+            isOutlined ? classes.outlinedLarge : classes.containedLarge,
+            overrides.sizeLarge,
+          ),
+
           disabled: !isLoading
             ? undefined
-            : clsx(classes.loading, {
-                [classes.loadingContainedBlue]: !isOutlined && isBlue,
-                [classes.loadingContainedRed]: !isOutlined && isRed,
-                [classes.loadingContainedGrey]: !isOutlined && isGrey,
-                [classes.loadingContainedGreen]: !isOutlined && isGreen,
-              }),
+            : clsx(
+                classes.loading,
+                !isOutlined &&
+                  (isRed
+                    ? classes.loadingContainedRed
+                    : isBlue
+                    ? classes.loadingContainedBlue
+                    : isGrey
+                    ? classes.loadingContainedGrey
+                    : isGreen
+                    ? classes.loadingContainedGreen
+                    : undefined),
+              ),
         }}
-        className={clsx(className, {
-          [classes.containedSmall]: !isOutlined && isSmall,
-          [classes.containedMedium]: !isOutlined && isMedium,
-          [classes.containedLarge]: !isOutlined && isLarge,
-
-          [classes.containedBlue]: !isOutlined && isBlue,
-          [classes.containedRed]: !isOutlined && isRed,
-          [classes.containedGrey]: !isOutlined && isGrey,
-          [classes.containedGreen]: !isOutlined && isGreen,
-
-          [classes.outlinedSmall]: isOutlined && isSmall,
-          [classes.outlinedMedium]: isOutlined && isMedium,
-          [classes.outlinedLarge]: isOutlined && isLarge,
-
-          [classes.outlinedBlue]: isOutlined && isBlue,
-          [classes.outlinedRed]: isOutlined && isRed,
-          [classes.outlinedGrey]: isOutlined && isGrey,
-          [classes.outlinedGreen]: isOutlined && isGreen,
-        })}
       >
         {!isLoading ? (
           children
@@ -167,13 +201,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
             <CircularProgress
               size={progressSize}
-              className={clsx(classes.progress, {
-                [classes.progressContained]: !isOutlined,
-                [classes.progressOutlinedBlue]: isOutlined && isBlue,
-                [classes.progressOutlinedRed]: isOutlined && isRed,
-                [classes.progressOutlinedGrey]: isOutlined && isGrey,
-                [classes.progressOutlinedGreen]: isOutlined && isGreen,
-              })}
+              className={clsx(
+                classes.progress,
+                !isOutlined
+                  ? classes.progressContained
+                  : isRed
+                  ? classes.progressOutlinedRed
+                  : isBlue
+                  ? classes.progressOutlinedBlue
+                  : isGrey
+                  ? classes.progressOutlinedGrey
+                  : isGreen
+                  ? classes.progressOutlinedGreen
+                  : undefined,
+              )}
               style={{ marginTop: -(progressSize / 2), marginLeft: -(progressSize / 2) }}
             />
           </>
