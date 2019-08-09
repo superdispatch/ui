@@ -1,0 +1,26 @@
+{
+  "name": "@superdispatch/form-adapters",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superdispatch/ui.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ]
+    ]
+  },
+  "scripts": {
+    "build": "pika-pack build"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@superdispatch/ui",
+  "private": true,
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "bump": "lerna version",
+    "tdd": "jest --watch",
+    "test": "jest --coverage",
+    "lint": "js-tools lint",
+    "start": "start-storybook --port=9001"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@material-ui/core": "^4.3.0",
+    "@storybook/addon-info": "^5.1.10",
+    "@storybook/addon-viewport": "^5.1.10",
+    "@storybook/react": "^5.1.10",
+    "@superdispatch/eslint-plugin": "^0.1.7",
+    "@superdispatch/js-tools": "^0.1.6",
+    "@superdispatch/prettier-config": "^0.1.0",
+    "@superdispatch/tsconfig": "^0.1.1",
+    "@types/lodash": "^4.14.136",
+    "@types/react": "^16.8.24",
+    "@types/storybook__react": "^4.0.2",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.1.0",
+    "lerna": "^3.16.4",
+    "lodash": "^4.17.15",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "react-docgen-typescript-loader": "^3.1.0",
+    "react-dom": "^16.8.6",
+    "typescript": "^3.5.3"
+  }
+}
