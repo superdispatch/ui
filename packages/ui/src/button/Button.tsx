@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
-import { Button as MaterialButton, makeStyles } from '@material-ui/core';
+import { Button as MaterialButton, makeStyles, CircularProgress } from '@material-ui/core';
 import { ButtonProps as MaterialButtonProps } from '@material-ui/core/Button';
 import { ColorVariant, Color } from '..';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
@@ -69,6 +69,19 @@ const useStyles = makeStyles({
   outlinedRed: outlinedColor(Color.Red, Color.Red45, Color.Red95),
   outlinedGrey: outlinedColor(Color.Grey, Color.Grey45, Color.Silver80),
   outlinedGreen: outlinedColor(Color.Green, Color.Green35, Color.Green95),
+
+  loading: { '&&': { color: 'transparent' } },
+  loadingContainedBlue: { '&&': { backgroundColor: Color.Blue } },
+  loadingContainedRed: { '&&': { backgroundColor: Color.Red } },
+  loadingContainedGreen: { '&&': { backgroundColor: Color.Green } },
+  loadingContainedGrey: { '&&': { backgroundColor: Color.Grey } },
+
+  progress: { top: '50%', left: '50%', position: 'absolute' },
+  progressContained: { color: 'white' },
+  progressOutlinedBlue: { '&&': { color: Color.Blue } },
+  progressOutlinedRed: { '&&': { color: Color.Red } },
+  progressOutlinedGreen: { '&&': { color: Color.Green } },
+  progressOutlinedGrey: { '&&': { color: Color.Grey } },
 });
 
 export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | 'yellow'>;
@@ -76,11 +89,24 @@ export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | '
 export interface ButtonProps
   extends Omit<MaterialButtonProps, 'color' | 'variant' | 'disableFocusRipple'> {
   color?: ButtonColor;
+  isLoading?: boolean;
   variant?: 'outlined' | 'contained';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, size = 'medium', color = 'blue', variant = 'outlined', ...props }, ref) => {
+  (
+    {
+      disabled,
+      isLoading,
+      children,
+      className,
+      size = 'medium',
+      color = 'blue',
+      variant = 'outlined',
+      ...props
+    },
+    ref,
+  ) => {
     const classes = useStyles();
     const isSmall = size === 'small';
     const isMedium = size === 'medium';
@@ -92,14 +118,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const isGrey = color === 'grey';
     const isGreen = color === 'green';
 
+    const progressSize = isLarge ? 24 : 16;
+
     return (
       <MaterialButton
         {...props}
         ref={ref}
         disableFocusRipple={true}
         size={size}
+        disabled={disabled || isLoading}
         variant={isOutlined ? 'outlined' : 'contained'}
         color={color == null ? undefined : isBlue ? 'primary' : 'secondary'}
+        classes={{
+          disabled: !isLoading
+            ? undefined
+            : clsx(classes.loading, {
+                [classes.loadingContainedBlue]: !isOutlined && isBlue,
+                [classes.loadingContainedRed]: !isOutlined && isRed,
+                [classes.loadingContainedGrey]: !isOutlined && isGrey,
+                [classes.loadingContainedGreen]: !isOutlined && isGreen,
+              }),
+        }}
         className={clsx(className, {
           [classes.containedSmall]: !isOutlined && isSmall,
           [classes.containedMedium]: !isOutlined && isMedium,
@@ -119,7 +158,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           [classes.outlinedGrey]: isOutlined && isGrey,
           [classes.outlinedGreen]: isOutlined && isGreen,
         })}
-      />
+      >
+        {!isLoading ? (
+          children
+        ) : (
+          <>
+            {children}
+
+            <CircularProgress
+              size={progressSize}
+              className={clsx(classes.progress, {
+                [classes.progressContained]: !isOutlined,
+                [classes.progressOutlinedBlue]: isOutlined && isBlue,
+                [classes.progressOutlinedRed]: isOutlined && isRed,
+                [classes.progressOutlinedGrey]: isOutlined && isGrey,
+                [classes.progressOutlinedGreen]: isOutlined && isGreen,
+              })}
+              style={{ marginTop: -(progressSize / 2), marginLeft: -(progressSize / 2) }}
+            />
+          </>
+        )}
+      </MaterialButton>
     );
   },
 );

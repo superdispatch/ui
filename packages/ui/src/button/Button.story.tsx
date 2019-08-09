@@ -11,6 +11,7 @@ storiesOf('UI', module)
     const colors: Array<ButtonProps['color']> = ['blue', 'red', 'green', 'grey'];
     const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
     const variants: Array<ButtonProps['variant']> = ['contained', 'outlined'];
+    const samples: Array<Partial<ButtonProps>> = [{}, { isLoading: true }, { disabled: true }];
 
     return (
       <Box padding={2}>
@@ -25,14 +26,9 @@ storiesOf('UI', module)
                     <Grid container={true} spacing={1}>
                       {variants.map(variant => (
                         <Fragment key={variant}>
-                          {[false, true].map(disabled => (
-                            <Grid key={String(disabled)} item={true} xs={6} sm={3}>
-                              <Button
-                                size={size}
-                                color={color}
-                                variant={variant}
-                                disabled={disabled}
-                              >
+                          {samples.map((props, idx) => (
+                            <Grid key={idx} item={true} xs={4}>
+                              <Button {...props} size={size} color={color} variant={variant}>
                                 {text}
                               </Button>
                             </Grid>
