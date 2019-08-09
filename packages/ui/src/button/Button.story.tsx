@@ -8,7 +8,7 @@ import { startCase } from 'lodash';
 storiesOf('UI', module)
   .addDecorator(story => <SuperThemeProvider>{story()}</SuperThemeProvider>)
   .add('Button', () => {
-    const colors: Array<ButtonProps['color']> = ['blue', 'red', 'green', 'grey'];
+    const colors: Array<ButtonProps['color']> = ['blue', 'red', 'green'];
     const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
     const variants: Array<ButtonProps['variant']> = ['contained', 'outlined'];
     const samples: Array<Partial<ButtonProps>> = [{}, { isLoading: true }, { disabled: true }];

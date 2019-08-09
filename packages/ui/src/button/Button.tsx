@@ -13,41 +13,29 @@ function containedColor(
   return {
     backgroundColor,
     boxShadow: '0 0 0 0 transparent',
-
-    '&:focus': {
-      boxShadow: `0 0 0 3px ${boxShadowColor}`,
-    },
-
-    '&:hover': {
-      backgroundColor: hoverBackgroundColor,
-    },
+    '&:hover': { backgroundColor: hoverBackgroundColor },
+    '&:focus': { boxShadow: `0 0 0 3px ${boxShadowColor}` },
   };
 }
 
 function outlinedColor(
-  staleTextColor: Color,
-  staleBorderColor: Color,
-  hoverBackgroundColor: Color,
-  activeTextColor: Color = staleTextColor,
-  activeBorderColor: Color = staleBorderColor,
+  activeColor: Color,
+  activeShadowColor: Color,
+  activeBackgroundColor: Color,
+  staleColor: Color = activeColor,
+  staleBorderColor: Color = activeColor,
 ): CSSProperties {
   return {
-    color: staleTextColor,
+    color: staleColor,
     borderColor: staleBorderColor,
     boxShadow: '0 0 0 0 transparent',
 
-    '&:hover, &:active, &:focus': {
-      color: activeTextColor,
-      borderColor: activeBorderColor,
+    '&:hover, &:active, &:focus': { color: activeColor },
+    '&:hover, &:active': {
+      borderColor: activeColor,
+      backgroundColor: activeBackgroundColor,
     },
-
-    '&:hover': {
-      backgroundColor: hoverBackgroundColor,
-    },
-
-    '&:focus': {
-      boxShadow: `0 0 0 1px ${activeBorderColor}`,
-    },
+    '&:focus': { boxShadow: `0 0 0 2px ${activeShadowColor}` },
   };
 }
 
@@ -56,36 +44,35 @@ const useStyles = makeStyles({
   small: { fontSize: '14px', lineHeight: '20px' },
   large: { fontSize: '16px', lineHeight: '24px' },
 
+  outlined: { padding: '5px 15px' },
+  outlinedSmall: { padding: '1px 15px' },
+  outlinedLarge: { padding: '9px 39px' },
+
+  outlinedBlue: outlinedColor(Color.Blue, Color.Blue85, Color.Blue95, Color.Grey15, Color.Silver80),
+  outlinedRed: outlinedColor(Color.Red, Color.Red80, Color.Red95),
+  outlinedGreen: outlinedColor(Color.Green, Color.Green70, Color.Green95),
+
   contained: { padding: '6px 16px' },
   containedSmall: { padding: '2px 16px' },
   containedLarge: { padding: '10px 40px' },
 
   containedBlue: containedColor(Color.Blue, Color.Blue85, Color.Blue25),
   containedRed: containedColor(Color.Red, Color.Red80, Color.Red45),
-  containedGrey: containedColor(Color.Grey, Color.Grey60, Color.Grey25),
   containedGreen: containedColor(Color.Green, Color.Green70, Color.Green25),
 
-  outlined: { padding: '5px 15px' },
-  outlinedSmall: { padding: '1px 15px' },
-  outlinedLarge: { padding: '9px 39px' },
-
-  outlinedBlue: outlinedColor(Color.Grey15, Color.Silver80, Color.Blue95, Color.Blue, Color.Blue40),
-  outlinedRed: outlinedColor(Color.Red, Color.Red45, Color.Red95),
-  outlinedGrey: outlinedColor(Color.Grey, Color.Grey45, Color.Silver80),
-  outlinedGreen: outlinedColor(Color.Green, Color.Green35, Color.Green95),
+  disabledOutlined: { '&&': { color: Color.Silver80, borderColor: Color.Silver90 } },
+  disabledContained: { '&&': { color: Color.Silver80, backgroundColor: Color.Silver } },
 
   loading: { '&&': { color: 'transparent' } },
   loadingContainedBlue: { '&&': { backgroundColor: Color.Blue } },
   loadingContainedRed: { '&&': { backgroundColor: Color.Red } },
   loadingContainedGreen: { '&&': { backgroundColor: Color.Green } },
-  loadingContainedGrey: { '&&': { backgroundColor: Color.Grey } },
 
   progress: { top: '50%', left: '50%', position: 'absolute' },
   progressContained: { color: 'white' },
-  progressOutlinedBlue: { '&&': { color: Color.Blue } },
+  progressOutlinedBlue: { '&&': { color: Color.Grey45 } },
   progressOutlinedRed: { '&&': { color: Color.Red } },
   progressOutlinedGreen: { '&&': { color: Color.Green } },
-  progressOutlinedGrey: { '&&': { color: Color.Grey } },
 });
 
 export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | 'yellow'>;
@@ -117,7 +104,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const isBlue = color === 'blue';
     const isRed = color === 'red';
-    const isGrey = color === 'grey';
     const isGreen = color === 'green';
 
     const progressSize = isLarge ? 24 : 16;
@@ -142,8 +128,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ? classes.outlinedRed
               : isBlue
               ? classes.outlinedBlue
-              : isGrey
-              ? classes.outlinedGrey
               : isGreen
               ? classes.outlinedGreen
               : undefined,
@@ -156,8 +140,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ? classes.containedRed
               : isBlue
               ? classes.containedBlue
-              : isGrey
-              ? classes.containedGrey
               : isGreen
               ? classes.containedGreen
               : undefined,
@@ -176,20 +158,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             overrides.sizeLarge,
           ),
 
-          disabled: !isLoading
-            ? undefined
-            : clsx(
+          disabled: isLoading
+            ? clsx(
                 classes.loading,
                 !isOutlined &&
                   (isRed
                     ? classes.loadingContainedRed
                     : isBlue
                     ? classes.loadingContainedBlue
-                    : isGrey
-                    ? classes.loadingContainedGrey
                     : isGreen
                     ? classes.loadingContainedGreen
                     : undefined),
+              )
+            : clsx(
+                isOutlined ? classes.disabledOutlined : classes.disabledContained,
+                overrides.disabled,
               ),
         }}
       >
@@ -209,8 +192,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   ? classes.progressOutlinedRed
                   : isBlue
                   ? classes.progressOutlinedBlue
-                  : isGrey
-                  ? classes.progressOutlinedGrey
                   : isGreen
                   ? classes.progressOutlinedGreen
                   : undefined,
