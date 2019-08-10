@@ -34,7 +34,8 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "clsx": "^1.0.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
