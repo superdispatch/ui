@@ -11,6 +11,10 @@ notifications:
 node_js:
   - '10'
 
+cache:
+  - npm
+  - yarn
+
 before_install:
   - npm i -g yarn
 
@@ -21,4 +25,3 @@ script:
   - yarn tsc
   - yarn lint
   - yarn build
-
