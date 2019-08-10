@@ -1,0 +1,7 @@
+{
+  "exclude": ["**/*.story.*"],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false
+  }
+}

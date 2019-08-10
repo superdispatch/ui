@@ -1,2 +1,4 @@
+pkg/
+.docz/
 coverage/
 node_modules/

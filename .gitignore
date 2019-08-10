@@ -10,6 +10,7 @@ node_modules/
 
 # distributive
 *.tgz
+packages/*/pkg/
 
 # logs
 logs
