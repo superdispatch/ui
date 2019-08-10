@@ -1,3 +1,5 @@
+pkg/
+.docz/
 coverage/
 lerna.json
 package.json

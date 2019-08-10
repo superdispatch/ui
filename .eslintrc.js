@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  settings: { react: { version: 'detect' } },
   overrides: [
     { files: '*.js', extends: 'plugin:@superdispatch/node' },
     { files: ['*.ts', '*.tsx'], extends: 'plugin:@superdispatch/typescript' },
