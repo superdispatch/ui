@@ -12,11 +12,13 @@
   },
   "scripts": {
     "bump": "lerna version",
+    "publish-all": "lerna publish from-git --yes --contents pkg",
     "tdd": "jest --watch",
     "test": "jest --coverage",
     "lint": "js-tools lint",
     "start": "start-storybook --port=9001",
-    "build": "yarn workspaces run build"
+    "build": "yarn workspaces run build",
+    "build-storybook": "build-storybook --output-dir docs"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

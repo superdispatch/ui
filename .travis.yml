@@ -25,3 +25,28 @@ script:
   - yarn tsc
   - yarn lint
   - yarn build
+  - yarn build-storybook
+
+before_deploy:
+  - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+  - npm whoami
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: yarn publish-all
+    on:
+      node: '10'
+      tags: true
+      branch: master
+      repo: superdispatch/ui
+
+  - provider: pages
+    local-dir: docs
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    on:
+      node: '10'
+      tags: true
+      branch: master
+      repo: superdispatch/ui
