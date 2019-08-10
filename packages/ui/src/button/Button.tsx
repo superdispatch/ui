@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 import { Button as MaterialButton, makeStyles, CircularProgress } from '@material-ui/core';
-import { ButtonProps as MaterialButtonProps } from '@material-ui/core/Button/Button';
+import { ButtonProps as MaterialButtonProps } from '@material-ui/core/Button';
 import { ColorVariant, Color } from '../theme/Color';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
