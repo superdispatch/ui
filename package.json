@@ -18,7 +18,7 @@
     "lint": "js-tools lint",
     "start": "start-storybook --port=9001",
     "build": "yarn workspaces run build",
-    "build-storybook": "build-storybook --output-dir docs"
+    "build-storybook": "build-storybook --quiet --output-dir docs"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
