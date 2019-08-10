@@ -1,5 +1,5 @@
 {
-  "exclude": ["**/*.story.*"],
+  "exclude": ["**/pkg/**/*", "**/*.fixture.*"],
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false

@@ -25,7 +25,7 @@ script:
   - yarn tsc
   - yarn lint
   - yarn build
-  - yarn build-storybook
+  - yarn build-docs
 
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc

@@ -1,7 +1,6 @@
 import React, { useMemo, ReactNode } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
-import { TypographyStyleOptions } from '@material-ui/core/styles/createTypography';
 import { Color } from './Color';
 
 const MOBILE_MEDIA = '@media (max-width: 767px)';
@@ -15,29 +14,24 @@ function textVariant(
   fontWeight: number,
   fontSize: [string, string],
   lineHeight: [string, string],
-): TypographyStyleOptions {
+): any {
   return {
     fontWeight,
     fontSize: fontSize[0],
     lineHeight: lineHeight[0],
     fontFamily: fontFamily(font),
-
     [MOBILE_MEDIA]: {
       fontSize: fontSize[1],
       lineHeight: lineHeight[1],
-    } as TypographyStyleOptions,
-  } as TypographyStyleOptions;
+    },
+  };
 }
 
 function createTheme() {
   return createMuiTheme({
     palette: {
-      primary: {
-        main: Color.Blue,
-      },
-      secondary: {
-        main: Color.Red,
-      },
+      primary: { main: Color.Blue },
+      secondary: { main: Color.Red },
     },
 
     typography: {
@@ -52,28 +46,23 @@ function createTheme() {
       body1: textVariant('SF Pro Text', 600, ['14px', '16px'], ['20px', '24px']),
       caption: textVariant('SF Pro Text', 400, ['12px', '13px'], ['16px', '18px']),
 
-      button: {
-        fontSize: '14px',
-        fontWeight: 600,
-        lineHeight: '20px',
-        textTransform: 'none',
-      },
+      button: { textTransform: 'none' },
     },
   });
 }
 
-interface SuperThemeProviderProps {
+interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export function SuperThemeProvider({ children }: SuperThemeProviderProps) {
+export function ThemeProvider({ children }: ThemeProviderProps) {
   const theme = useMemo(createTheme, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <MaterialThemeProvider theme={theme}>
       <CssBaseline />
 
       {children}
-    </ThemeProvider>
+    </MaterialThemeProvider>
   );
 }
