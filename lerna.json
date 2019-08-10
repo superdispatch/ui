@@ -9,8 +9,7 @@
     "publish": {
       "message": "chore(release): Publish",
       "ignoreChanges": [
-        "**/__tests__/*.*",
-        "**/__testutils__/*.*"
+        "**/*.story.*"
       ]
     }
   }
