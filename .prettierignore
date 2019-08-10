@@ -1,4 +1,5 @@
 pkg/
+docs/
 coverage/
 lerna.json
 package.json

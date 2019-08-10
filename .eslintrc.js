@@ -8,7 +8,7 @@ module.exports = {
     { files: '*.tsx', extends: 'plugin:@superdispatch/react' },
     { files: ['*.story.ts', '*.story.tsx'], env: { node: true } },
     {
-      files: ['*.fixture.ts', '*.fixture.tsx'],
+      files: ['**/__fixtures__/**.*'],
       rules: { 'import/no-anonymous-default-export': 'off' },
     },
   ],
