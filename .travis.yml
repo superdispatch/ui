@@ -1,0 +1,24 @@
+language: node_js
+
+notifications:
+  email: false
+  slack:
+    on_success: change
+    on_failure: always
+    rooms:
+      - secure: PWvVxg4Rn8IdMu39vX6ByIKjA/3667MFJvlp3LAteiWLRMXQrcvadJBmwLaEhEETULr2EW5i5dY2qj8d9Z4tHj2OPSToxryfM6ZC1+qaG97DpP6q3JfE8ZsJtDTOveyH4aSJfGSMLRQ3VD2xxWJU1dTy0YJHaG/Id064hMin3ucvdYSrLSIqS4+Y5CSBEqV1NRj1Df5ykySHsI1nkkf3lbX6YJsgkf14iXTeM+mVKZvlVTCMNg6TtnFM7hKLyF9Wh/v6ZSFYVsxi9JJdFUG+AVRSQWSxi6WbiQ3YpT3S5s822d4OQNFt36OWl3kr5seftvRZFTtSn4GpK+/9pDKIBnt/4VD0c+UjUnva4l8miLP1RaG7LfY9CdxMf/8O3CM53t+KzX65ANtxzVqKcHnpp43oMlU5mDOjZ4c0vPkzYxUw119UE+43G0v2YL6vSt0m6TpiPUpTKpYL8KHNCqoirJwFfd3rTbNu1ESe1YRkE15mkfLm7r31EEYuPxcZv/CidKlOPj9mGP8Ivjtd80Z7Dxao5yhMT3a0gGlUpw0xWD6LTbuMuDdsX1l7npVe6pVCsSzuBk6V8tfCxy85HC5TegWM507ioTX7thPearGkjqklcTSd1/gF1k4Kepgw02HLmqYXLrHPvK9Ma3V4K3/n6ypdkXA7kDt2DHsvKDEbQ4Q=
+
+node_js:
+  - '10'
+
+before_install:
+  - npm i -g yarn
+
+install:
+  - yarn install
+
+script:
+  - yarn tsc
+  - yarn lint
+  - yarn build
+
