@@ -12,14 +12,15 @@ node_js:
   - '10'
 
 cache:
-  - npm
-  - yarn
+  directories:
+    - $HOME/.npm
+    - $HOME/.yarn
 
 before_install:
   - npm i -g yarn
 
 install:
-  - yarn install
+  - yarn install --cache-folder $HOME/.yarn
 
 script:
   - yarn tsc
