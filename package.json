@@ -11,6 +11,7 @@
     ]
   },
   "scripts": {
+    "nuke": "git clean -xdfe \".idea\"",
     "bump": "lerna version",
     "publish-all": "lerna publish from-git --yes --contents pkg",
     "tdd": "jest --watch",
@@ -18,7 +19,7 @@
     "lint": "js-tools lint",
     "start": "cosmos",
     "build": "yarn workspaces run build",
-    "build-docs": "cosmos-export"
+    "build:docs": "cosmos-export"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
