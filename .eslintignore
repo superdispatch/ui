@@ -1,4 +1,5 @@
 pkg/
 docs/
+.netlify/
 coverage/
 node_modules/

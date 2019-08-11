@@ -1,0 +1,4 @@
+[build]
+  publish = "docs"
+  command = "yarn build:docs"
+

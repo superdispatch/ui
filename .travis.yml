@@ -26,13 +26,6 @@ script:
   - yarn tsc
   - yarn lint --quiet
   - yarn build
-  - yarn build:docs
-  - ls -al
-  - ls -al docs
-  - ls -al docs/ui
-  - ls -al docs/ui/ui
-  - mv docs/ui/ui/* docs/ui
-  - echo "" > docs/ui/.nojekyll
 
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
@@ -45,15 +38,5 @@ deploy:
     on:
       node: '10'
       tags: true
-      branch: master
-      repo: superdispatch/ui
-
-  - provider: pages
-    local-dir: docs/ui
-    skip-cleanup: true
-    github-token: $GITHUB_TOKEN
-    on:
-      node: '10'
-      tags: false
       branch: master
       repo: superdispatch/ui
