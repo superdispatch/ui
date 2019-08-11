@@ -20,7 +20,7 @@ before_install:
   - npm i -g yarn
 
 install:
-  - yarn install --cache-folder $HOME/.yarn
+  - yarn install --force --cache-folder $HOME/.yarn
 
 script:
   - yarn tsc
