@@ -48,6 +48,6 @@ deploy:
     github-token: $GITHUB_TOKEN
     on:
       node: '10'
-      tags: true
+      tags: false
       branch: master
       repo: superdispatch/ui
