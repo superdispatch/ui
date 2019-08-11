@@ -24,7 +24,7 @@ install:
 
 script:
   - yarn tsc
-  - yarn lint
+  - yarn lint --quiet
   - yarn build
   - yarn build:docs
   - ls -al
