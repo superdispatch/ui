@@ -43,7 +43,7 @@ deploy:
       repo: superdispatch/ui
 
   - provider: pages
-    local-dir: docs
+    local-dir: docs/ui
     skip-cleanup: true
     github-token: $GITHUB_TOKEN
     on:
