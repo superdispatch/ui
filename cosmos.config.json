@@ -1,6 +1,5 @@
 {
   "$schema": "http://json.schemastore.org/cosmos-config",
   "publicUrl": "/ui",
-  "exportPath": "docs/ui",
-  "staticPath": "docs-public"
+  "exportPath": "docs/ui"
 }

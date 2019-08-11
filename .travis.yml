@@ -27,6 +27,7 @@ script:
   - yarn lint
   - yarn build
   - yarn build-docs
+  - echo "" > docs/ui/.nojekyll
 
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
