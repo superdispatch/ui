@@ -1,5 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/cosmos-config",
   "publicUrl": "/ui",
-  "exportPath": "docs/ui"
+  "exportPath": "docs/ui",
+  "watchDirs": ["__fixtures__"]
 }
