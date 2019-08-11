@@ -28,7 +28,11 @@ script:
   - yarn build
   - yarn build-docs
   - echo "" > docs/ui/.nojekyll
-  - mv docs/ui/ui/_renderer.html docs/ui/_renderer.html
+  - ls -al
+  - ls -al docs
+  - ls -al docs/ui
+  - ls -al docs/ui/ui
+  - mv ./docs/ui/ui/_renderer.html ./docs/ui/_renderer.html
 
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
