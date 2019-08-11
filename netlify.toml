@@ -1,4 +1,3 @@
 [build]
   publish = "docs"
-  command = "yarn build:docs"
-  environment = { YARN_VERSION = "1.17.3" }
+  command = "npm i -g yarn && yarn nuke && yarn install && yarn build:docs"
