@@ -32,6 +32,10 @@ function createTheme() {
     palette: {
       primary: { main: Color.Blue },
       secondary: { main: Color.Red },
+      action: {
+        hover: Color.Silver97,
+        selected: Color.Silver90,
+      },
     },
 
     typography: {
@@ -47,6 +51,36 @@ function createTheme() {
       caption: textVariant('SF Pro Text', 400, ['12px', '13px'], ['16px', '18px']),
 
       button: { textTransform: 'none' },
+    },
+
+    overrides: {
+      MuiTouchRipple: {
+        ripple: {
+          color: Color.Silver80,
+        },
+      },
+
+      MuiMenuItem: {
+        root: {
+          fontSize: '14px',
+          lineHeight: '20px',
+          paddingTop: '8px',
+          paddingBottom: '8px',
+        },
+      },
+    },
+
+    props: {
+      MuiMenu: {
+        keepMounted: true,
+        getContentAnchorEl: null,
+        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+        transformOrigin: { vertical: 'top', horizontal: 'left' },
+      },
+
+      MuiMenuItem: {
+        dense: true,
+      },
     },
   });
 }
