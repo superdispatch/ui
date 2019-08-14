@@ -33,7 +33,7 @@ function createTheme() {
       primary: { main: Color.Blue },
       secondary: { main: Color.Red },
       action: {
-        hover: Color.Silver93,
+        hover: Color.Silver97,
         selected: Color.Silver90,
       },
     },
