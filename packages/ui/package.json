@@ -15,7 +15,7 @@
         "@pika/plugin-standard-pkg",
         {
           "exclude": [
-            "**/*.fixture.*"
+            "**/*.demo.*"
           ]
         }
       ],

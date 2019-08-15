@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Box, Menu, MenuItem } from '@material-ui/core';
 import { ThemeProvider } from '@superdispatch/ui/src/theme/ThemeProvider';
-import { Button } from '../packages/ui/src';
+import { Button } from '../button/Button';
 
 const options = ['Profile', 'My account', 'Logout'];
 
-function DropdownDemo({ label }: { label: string }) {
+function Demo({ label }: { label: string }) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -34,20 +34,18 @@ function DropdownDemo({ label }: { label: string }) {
   );
 }
 
-export default {
-  Demo() {
-    return (
-      <ThemeProvider>
-        <Box component="section" padding={2} display="flex" justifyContent="space-between">
-          <div>
-            <DropdownDemo label="Left" />
-          </div>
+export function MenuDemo() {
+  return (
+    <ThemeProvider>
+      <Box component="section" padding={2} display="flex" justifyContent="space-between">
+        <div>
+          <Demo label="Left" />
+        </div>
 
-          <div>
-            <DropdownDemo label="Right" />
-          </div>
-        </Box>
-      </ThemeProvider>
-    );
-  },
-};
+        <div>
+          <Demo label="Right" />
+        </div>
+      </Box>
+    </ThemeProvider>
+  );
+}
