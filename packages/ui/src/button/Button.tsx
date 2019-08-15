@@ -39,8 +39,14 @@ function outlinedColor(
   };
 }
 
-const useStyles = makeStyles({
-  root: { fontSize: '14px', lineHeight: '20px' },
+const useStyles = makeStyles(theme => ({
+  root: {
+    fontSize: '14px',
+    lineHeight: '20px',
+    transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
+      duration: theme.transitions.duration.short,
+    }),
+  },
   small: { fontSize: '14px', lineHeight: '20px' },
   large: { fontSize: '16px', lineHeight: '24px' },
 
@@ -73,7 +79,7 @@ const useStyles = makeStyles({
   progressOutlinedBlue: { '&&': { color: Color.Grey45 } },
   progressOutlinedRed: { '&&': { color: Color.Red } },
   progressOutlinedGreen: { '&&': { color: Color.Green } },
-});
+}));
 
 export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | 'yellow'>;
 

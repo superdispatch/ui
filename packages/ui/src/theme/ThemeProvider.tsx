@@ -1,5 +1,5 @@
 import React, { useMemo, ReactNode } from 'react';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as MaterialThemeProvider, CSSProperties } from '@material-ui/styles';
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
 import { Color } from './Color';
 
@@ -28,7 +28,7 @@ function textVariant(
 }
 
 function createTheme() {
-  return createMuiTheme({
+  const theme = createMuiTheme({
     palette: {
       primary: { main: Color.Blue },
       secondary: { main: Color.Red },
@@ -55,9 +55,7 @@ function createTheme() {
 
     overrides: {
       MuiTouchRipple: {
-        ripple: {
-          color: Color.Silver80,
-        },
+        ripple: { color: Color.Silver80 },
       },
 
       MuiMenuItem: {
@@ -66,6 +64,30 @@ function createTheme() {
           lineHeight: '20px',
           paddingTop: '8px',
           paddingBottom: '8px',
+        },
+      },
+
+      MuiTabs: {
+        root: { minHeight: '40px' },
+      },
+
+      MuiTab: {
+        root: { minHeight: '40px' },
+
+        wrapper: {
+          fontWeight: 400,
+          fontSize: '14px',
+          lineHeight: '20px',
+
+          [MOBILE_MEDIA]: {
+            fontSize: '16px',
+            lineHeight: '24px',
+          },
+        },
+
+        textColorPrimary: {
+          color: Color.Grey15,
+          '&:hover, &:focus': { color: Color.Blue },
         },
       },
     },
@@ -78,11 +100,18 @@ function createTheme() {
         transformOrigin: { vertical: 'top', horizontal: 'left' },
       },
 
-      MuiMenuItem: {
-        dense: true,
-      },
+      MuiMenuItem: { dense: true },
+      MuiTabs: { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' },
     },
   });
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  (theme.overrides!.MuiTab!
+    .textColorPrimary as CSSProperties).transition = theme.transitions.create(['color'], {
+    duration: theme.transitions.duration.short,
+  });
+
+  return theme;
 }
 
 interface ThemeProviderProps {
