@@ -55,9 +55,7 @@ function createTheme() {
 
     overrides: {
       MuiTouchRipple: {
-        ripple: {
-          color: Color.Silver80,
-        },
+        ripple: { color: Color.Silver80 },
       },
 
       MuiMenuItem: {
@@ -66,6 +64,25 @@ function createTheme() {
           lineHeight: '20px',
           paddingTop: '8px',
           paddingBottom: '8px',
+        },
+      },
+
+      MuiTabs: {
+        root: { minHeight: '40px' },
+      },
+
+      MuiTab: {
+        root: { minHeight: '40px' },
+
+        wrapper: {
+          fontWeight: 400,
+          fontSize: '14px',
+          lineHeight: '20px',
+
+          [MOBILE_MEDIA]: {
+            fontSize: '16px',
+            lineHeight: '24px',
+          },
         },
       },
     },
@@ -78,9 +95,8 @@ function createTheme() {
         transformOrigin: { vertical: 'top', horizontal: 'left' },
       },
 
-      MuiMenuItem: {
-        dense: true,
-      },
+      MuiMenuItem: { dense: true },
+      MuiTabs: { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' },
     },
   });
 }
