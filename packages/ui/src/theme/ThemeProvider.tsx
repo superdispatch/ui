@@ -84,6 +84,10 @@ function createTheme() {
             lineHeight: '24px',
           },
         },
+
+        textColorPrimary: {
+          color: Color.Grey15,
+        },
       },
     },
 
