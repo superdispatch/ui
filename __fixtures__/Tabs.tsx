@@ -1,19 +1,38 @@
 import React from 'react';
-import { Tabs, Tab } from '@material-ui/core';
+import { Tabs, Tab, Box, Typography } from '@material-ui/core';
 import { ThemeProvider } from '../packages/ui/src';
 
 export default {
   Demo() {
     const [value, setValue] = React.useState(0);
+    const options = [
+      'Available (235)',
+      'Requested (7)',
+      'Booked (5)',
+      'Suggested (375)',
+      'Saved (800)',
+    ];
 
     return (
       <ThemeProvider>
-        <Tabs scrollButtons="auto" value={value} onChange={(_, nextValue) => setValue(nextValue)}>
-          <Tab label="Available (235)" />
-          <Tab label="Requested (1)" />
-          <Tab label="Booked (1)" />
-          <Tab label="Suggested" />
-          <Tab label="Saved" />
+        <Box padding={2}>
+          <Typography>With Scroll Buttons</Typography>
+        </Box>
+
+        <Tabs scrollButtons="on" value={value} onChange={(_, nextValue) => setValue(nextValue)}>
+          {options.map(x => (
+            <Tab key={x} label={x} />
+          ))}
+        </Tabs>
+
+        <Box padding={2}>
+          <Typography>Without Scroll Buttons</Typography>
+        </Box>
+
+        <Tabs value={value} onChange={(_, nextValue) => setValue(nextValue)}>
+          {options.map(x => (
+            <Tab key={x} label={x} />
+          ))}
         </Tabs>
       </ThemeProvider>
     );
