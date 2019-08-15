@@ -1,5 +1,5 @@
 import React, { useMemo, ReactNode } from 'react';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as MaterialThemeProvider, CSSProperties } from '@material-ui/styles';
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
 import { Color } from './Color';
 
@@ -28,7 +28,7 @@ function textVariant(
 }
 
 function createTheme() {
-  return createMuiTheme({
+  const theme = createMuiTheme({
     palette: {
       primary: { main: Color.Blue },
       secondary: { main: Color.Red },
@@ -87,6 +87,7 @@ function createTheme() {
 
         textColorPrimary: {
           color: Color.Grey15,
+          '&:hover, &:focus': { color: Color.Blue },
         },
       },
     },
@@ -103,6 +104,14 @@ function createTheme() {
       MuiTabs: { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' },
     },
   });
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  (theme.overrides!.MuiTab!
+    .textColorPrimary as CSSProperties).transition = theme.transitions.create(['color'], {
+    duration: theme.transitions.duration.short,
+  });
+
+  return theme;
 }
 
 interface ThemeProviderProps {
