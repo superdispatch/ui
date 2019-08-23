@@ -18,7 +18,7 @@
     "test": "jest --coverage",
     "lint": "js-tools lint",
     "start": "cosmos",
-    "build": "yarn workspaces run build",
+    "build": "yarn lerna run build --stream",
     "build:docs": "cosmos-export"
   },
   "devDependencies": {
