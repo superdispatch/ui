@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "clsx": "^1.0.0"
+    "clsx": "^1.0.0",
+    "react-day-picker": "^7.3.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
