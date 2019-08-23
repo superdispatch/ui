@@ -34,7 +34,7 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: yarn publish-all
+    script: yarn lerna publish from-git --yes
     on:
       node: '10'
       tags: true

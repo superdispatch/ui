@@ -13,7 +13,6 @@
   "scripts": {
     "nuke": "git clean -xdfe \".idea\"",
     "bump": "lerna version",
-    "publish-all": "lerna publish from-git --yes --contents pkg",
     "tdd": "jest --watch",
     "test": "jest --coverage",
     "lint": "js-tools lint",
