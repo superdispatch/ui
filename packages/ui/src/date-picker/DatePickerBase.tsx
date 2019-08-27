@@ -36,7 +36,12 @@ export function DatePickerBase({ InputComponent, value, ...props }: DatePickerBa
         onClose={handleClose}
       >
         <Paper>
-          <DayPicker classNames={classNames} weekdaysShort={WEEKDAYS_SHORT} {...props} />
+          <DayPicker
+            classNames={classNames}
+            weekdaysShort={WEEKDAYS_SHORT}
+            showOutsideDays={true}
+            {...props}
+          />
         </Paper>
       </Popover>
     </>

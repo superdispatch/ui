@@ -1,23 +1,39 @@
 import { CSSProperties, makeStyles, createStyles } from '@material-ui/styles';
 import { Color } from '../theme/Color';
 
+const navButtonArrowStyles: CSSProperties = {
+  content: '""',
+  display: 'block',
+  width: '11px',
+  height: '11px',
+  border: 'solid currentColor',
+  borderWidth: '0 0 2px 2px',
+  transform: 'rotate(45deg)',
+};
+
 const navButtonStyles: CSSProperties = {
   top: '1em',
-  display: 'inline-block',
-  marginTop: '2px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   width: '1.25em',
   height: '1.25em',
-  backgroundPosition: 'center',
-  backgroundSize: '50%',
-  backgroundRepeat: 'no-repeat',
   color: '#8B9898',
-  cursor: 'pointer',
   position: 'absolute',
+
+  '&:after': {
+    ...navButtonArrowStyles,
+  },
+  '&:hover': {
+    cursor: 'pointer',
+    color: Color.Blue,
+  },
 };
 
 const cutoffRangeDayStyles: CSSProperties = {
   // FIX ME: Don't use `!important`
   background: `${Color.Blue} !important`,
+  color: '#FFF !important',
 };
 
 export const datePickerStyles = createStyles({
@@ -51,14 +67,18 @@ export const datePickerStyles = createStyles({
   navButtonPrev: {
     ...navButtonStyles,
     left: 0,
-    backgroundImage:
-      'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuNDEgMTAuNThMMi44MyA2TDcuNDEgMS40MUw2IDBMMCA2TDYgMTJMNy40MSAxMC41OFoiIGZpbGw9IiM5NzlDQTQiLz48L3N2Zz4=)',
+    '&:after': {
+      ...navButtonArrowStyles,
+      borderWidth: '0 0 2px 2px',
+    },
   },
   navButtonNext: {
     ...navButtonStyles,
     right: 0,
-    backgroundImage:
-      'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAuNTg5ODQ0IDEwLjU4TDUuMTY5ODQgNkwwLjU4OTg0NCAxLjQxTDEuOTk5ODQgMEw3Ljk5OTg0IDZMMS45OTk4NCAxMkwwLjU4OTg0NCAxMC41OFoiIGZpbGw9IiM5Mjk3QTAiLz48L3N2Zz4=)',
+    '&:after': {
+      ...navButtonArrowStyles,
+      borderWidth: '2px 2px 0 0',
+    },
   },
   navButtonInteractionDisabled: {
     display: 'none',
@@ -105,6 +125,7 @@ export const datePickerStyles = createStyles({
     cursor: 'pointer',
   },
   day: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -137,9 +158,12 @@ export const datePickerStyles = createStyles({
   },
   selected: {
     background: Color.Blue95,
+    color: Color.Blue25,
   },
   disabled: {},
-  outside: {},
+  outside: {
+    visibility: 'hidden',
+  },
 });
 
 export const useStyles = makeStyles(datePickerStyles);
