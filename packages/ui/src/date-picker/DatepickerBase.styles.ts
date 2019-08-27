@@ -1,4 +1,4 @@
-import { CSSProperties, makeStyles, createStyles } from '@material-ui/styles';
+import { CSSProperties, createStyles } from '@material-ui/styles';
 import { Color } from '../theme/Color';
 
 const navButtonArrowStyles: CSSProperties = {
@@ -30,13 +30,7 @@ const navButtonStyles: CSSProperties = {
   },
 };
 
-const cutoffRangeDayStyles: CSSProperties = {
-  // FIX ME: Don't use `!important`
-  background: `${Color.Blue} !important`,
-  color: '#FFF !important',
-};
-
-export const datePickerStyles = createStyles({
+export const datePickerBaseStyles = createStyles({
   container: {
     display: 'inline-block',
     fontSize: '1rem',
@@ -133,14 +127,6 @@ export const datePickerStyles = createStyles({
     height: '40px',
     cursor: 'pointer',
   },
-  firstDayOfRange: {
-    borderRadius: '4px 0 0 4px',
-    ...cutoffRangeDayStyles,
-  },
-  lastDayOfRange: {
-    borderRadius: '0 4px 4px 0',
-    ...cutoffRangeDayStyles,
-  },
   footer: { paddingTop: '0.5em' },
   todayButton: {
     border: 'none',
@@ -156,14 +142,9 @@ export const datePickerStyles = createStyles({
   today: {
     color: Color.Blue,
   },
-  selected: {
-    background: Color.Blue95,
-    color: Color.Blue25,
-  },
+  selected: {},
   disabled: {},
   outside: {
     visibility: 'hidden',
   },
 });
-
-export const useStyles = makeStyles(datePickerStyles);

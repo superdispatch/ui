@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useStyles } from './DatepickerBase.styles';
+import { useStyles } from './DateRangePicker.styles';
 import {
   DatePickerBase,
   DatePickerBaseProps,
@@ -19,11 +19,12 @@ export interface DateRangePickerProps extends DatePickerBaseProps {
 }
 
 export function DateRangePicker({ value, onChange, ...props }: DateRangePickerProps) {
-  const { firstDayOfRange, lastDayOfRange } = useStyles();
+  const { firstDayOfRange, lastDayOfRange, ...classNames } = useStyles();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [startDate, setStartDate] = useState(value[0]);
   const [endDate, setEndDate] = useState(value[1]);
   const selectedDays = startDate && endDate && { from: startDate, to: endDate };
+
   const modifiers = { [firstDayOfRange]: startDate, [lastDayOfRange]: endDate };
 
   const handleDayClick = (date: Date) => {
@@ -44,6 +45,7 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
 
   return (
     <DatePickerBase
+      classNames={classNames}
       selectedDays={selectedDays}
       onDayClick={handleDayClick}
       modifiers={modifiers}

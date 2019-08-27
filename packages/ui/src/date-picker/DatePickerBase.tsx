@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DayPicker, { DayPickerProps } from 'react-day-picker';
 import { Popover, Paper } from '@material-ui/core';
-import { useStyles } from './DatepickerBase.styles';
 import { WEEKDAYS_SHORT } from './DatePickerBase.constants';
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
@@ -16,8 +15,12 @@ export interface DatePickerBaseProps extends DayPickerProps {
   InputComponent: DatePickerBaseInputComponent<any>;
 }
 
-export function DatePickerBase({ InputComponent, value, ...props }: DatePickerBaseProps) {
-  const { ...classNames } = useStyles();
+export function DatePickerBase({
+  InputComponent,
+  classNames,
+  value,
+  ...props
+}: DatePickerBaseProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLInputElement | null>(null);
 
   const handleOpen = (event: React.MouseEvent<HTMLInputElement>) =>

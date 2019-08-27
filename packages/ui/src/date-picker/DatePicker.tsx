@@ -5,6 +5,7 @@ import {
   DatePickerBaseInputComponent,
   DatePickerBaseInputComponentProps,
 } from './DatePickerBase';
+import { useStyles } from './DatePicker.styles';
 
 export type DatePickerValue = Date;
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
@@ -15,5 +16,14 @@ export interface DatePickerProps extends DatePickerBaseProps {
 }
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
-  return <DatePickerBase onDayClick={onChange} selectedDays={value} value={value} {...props} />;
+  const { ...classNames } = useStyles();
+  return (
+    <DatePickerBase
+      classNames={classNames}
+      onDayClick={onChange}
+      selectedDays={value}
+      value={value}
+      {...props}
+    />
+  );
 }
