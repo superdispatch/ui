@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
 import { Box, Menu, MenuItem } from '@material-ui/core';
 import { ThemeProvider } from '@superdispatch/ui/src/theme/ThemeProvider';
+import React, { useRef, useState } from 'react';
+
 import { Button } from '../button/Button';
 
 const options = ['Profile', 'My account', 'Logout'];

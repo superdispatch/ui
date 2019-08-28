@@ -1,6 +1,7 @@
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { TypographyProps } from '@material-ui/core/Typography';
+import React from 'react';
+
 import { ThemeProvider } from '../theme/ThemeProvider';
 
 const headings: Array<TypographyProps['variant']> = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];

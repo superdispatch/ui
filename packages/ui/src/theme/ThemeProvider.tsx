@@ -1,6 +1,7 @@
-import React, { useMemo, ReactNode } from 'react';
-import { ThemeProvider as MaterialThemeProvider, CSSProperties } from '@material-ui/styles';
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
+import { CSSProperties, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import React, { ReactNode, useMemo } from 'react';
+
 import { Color } from './Color';
 
 const MOBILE_MEDIA = '@media (max-width: 767px)';
