@@ -16,7 +16,7 @@ export interface DatePickerProps extends DatePickerBaseProps {
 }
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
-  const { ...classNames } = useDatePickerStyles();
+  const classNames = useDatePickerStyles();
   return (
     <DatePickerBase
       classNames={classNames}
