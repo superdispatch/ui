@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useDateRangePickerStyles } from './DateRangePicker.styles';
+
 import {
   DatePickerBase,
-  DatePickerBaseProps,
   DatePickerBaseInputComponent,
   DatePickerBaseInputComponentProps,
+  DatePickerBaseProps,
+  useDatePickerBaseState,
 } from './DatePickerBase';
+import { useDateRangePickerStyles } from './DateRangePicker.styles';
 
 export type DateRangePickerValue = [Date?, Date?];
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
@@ -25,6 +27,7 @@ const sortDates = (dates: DateRangePickerValue) => dates.sort(compareDates);
 
 export function DateRangePicker({ value, onChange, ...props }: DateRangePickerProps) {
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
+  const { handleClose, ...stateProps } = useDatePickerBaseState();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [startDate, endDate] = value;
   const selectedDays = startDate && endDate && { from: startDate, to: endDate };
@@ -43,6 +46,7 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
       const newValue: DateRangePickerValue = [startDate, date];
       onChange(sortDates(newValue));
       setPickingDateType('start');
+      handleClose();
     }
   };
 
@@ -54,6 +58,8 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
       modifiers={modifiers}
       value={value}
       {...props}
+      handleClose={handleClose}
+      {...stateProps}
     />
   );
 }

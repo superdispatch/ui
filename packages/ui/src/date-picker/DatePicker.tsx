@@ -1,11 +1,13 @@
 import React from 'react';
+
+import { useDatePickerStyles } from './DatePicker.styles';
 import {
   DatePickerBase,
-  DatePickerBaseProps,
   DatePickerBaseInputComponent,
   DatePickerBaseInputComponentProps,
+  DatePickerBaseProps,
+  useDatePickerBaseState,
 } from './DatePickerBase';
-import { useDatePickerStyles } from './DatePicker.styles';
 
 export type DatePickerValue = Date;
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
@@ -17,13 +19,20 @@ export interface DatePickerProps extends DatePickerBaseProps {
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
   const classNames = useDatePickerStyles();
+  const { handleClose, ...stateProps } = useDatePickerBaseState();
+  const handleDayClick = (day: DatePickerValue) => {
+    onChange(day);
+    handleClose();
+  };
   return (
     <DatePickerBase
       classNames={classNames}
-      onDayClick={onChange}
+      onDayClick={handleDayClick}
       selectedDays={value}
       value={value}
       {...props}
+      handleClose={handleClose}
+      {...stateProps}
     />
   );
 }
