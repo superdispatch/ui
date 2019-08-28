@@ -18,6 +18,11 @@ export interface DateRangePickerProps extends DatePickerBaseProps {
   onChange: (value: DateRangePickerValue) => void;
 }
 
+const compareDates = (dateA?: Date, dateB?: Date) =>
+  dateA && dateB ? dateA.getTime() - dateB.getTime() : 0;
+
+const sortDates = (dates: DateRangePickerValue) => dates.sort(compareDates);
+
 export function DateRangePicker({ value, onChange, ...props }: DateRangePickerProps) {
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
@@ -25,14 +30,18 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
   const selectedDays = startDate && endDate && { from: startDate, to: endDate };
   const modifiers = { [firstDayOfRange]: startDate, [lastDayOfRange]: endDate };
 
+  [].sort;
+
   const handleDayClick = (date: Date) => {
     if (pickingDateType === 'start') {
-      onChange([date, endDate]);
+      const newValue: DateRangePickerValue = [date];
+      onChange(newValue);
       setPickingDateType('end');
     }
 
     if (pickingDateType === 'end') {
-      onChange([startDate, date]);
+      const newValue: DateRangePickerValue = [startDate, date];
+      onChange(sortDates(newValue));
       setPickingDateType('start');
     }
   };
