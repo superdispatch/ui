@@ -7,7 +7,7 @@ import {
   DatePickerBaseInputComponentProps,
 } from './DatePickerBase';
 
-export type DateRangePickerValue = Date[];
+export type DateRangePickerValue = [Date?, Date?];
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue
 >;
