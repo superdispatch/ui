@@ -12,13 +12,13 @@
   },
   "scripts": {
     "nuke": "git clean -xdfe \".idea\"",
+    "prebump": "yarn tsc && yarn lint",
     "bump": "lerna version",
-    "publish-all": "lerna publish from-git --yes --contents pkg",
     "tdd": "jest --watch",
     "test": "jest --coverage",
     "lint": "js-tools lint",
     "start": "cosmos",
-    "build": "yarn workspaces run build",
+    "build": "yarn lerna run build --stream",
     "build:docs": "cosmos-export"
   },
   "devDependencies": {

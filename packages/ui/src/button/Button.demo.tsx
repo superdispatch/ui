@@ -1,8 +1,9 @@
-import { ButtonProps, Button } from './Button';
 import { Box, Grid } from '@material-ui/core';
-import React, { Fragment } from 'react';
-import { ThemeProvider } from '..';
 import { startCase } from 'lodash';
+import React, { Fragment } from 'react';
+
+import { ThemeProvider } from '..';
+import { Button, ButtonProps } from './Button';
 
 const colors: Array<ButtonProps['color']> = ['blue', 'red', 'green'];
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];

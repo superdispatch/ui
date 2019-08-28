@@ -13,14 +13,13 @@ node_js:
 
 cache:
   directories:
-    - $HOME/.npm
     - $HOME/.yarn
 
 before_install:
   - npm i -g yarn
 
 install:
-  - yarn install --force --cache-folder $HOME/.yarn
+  - yarn install --force --frozen-lockfile --cache-folder $HOME/.yarn
 
 script:
   - yarn tsc
@@ -34,7 +33,7 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: yarn publish-all
+    script: yarn lerna publish from-git --yes
     on:
       node: '10'
       tags: true

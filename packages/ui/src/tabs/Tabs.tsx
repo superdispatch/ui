@@ -1,5 +1,6 @@
+import { Box, Tab, Tabs, Typography } from '@material-ui/core';
 import React from 'react';
-import { Tabs, Tab, Box, Typography } from '@material-ui/core';
+
 import { ThemeProvider } from '../index';
 
 export function TabsDemo() {
