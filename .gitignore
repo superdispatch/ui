@@ -2,7 +2,6 @@
 coverage
 
 # dependencies
-yarn.lock
 node_modules/
 
 # distributive
