@@ -12,7 +12,7 @@ export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<Da
 export interface DatePickerProps extends DatePickerBaseProps {
   value: DatePickerValue;
   InputComponent: DatePickerBaseInputComponent<DatePickerInputComponentProps>;
-  onChange: (value: Date) => void;
+  onChange: (value?: Date) => void;
 }
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
