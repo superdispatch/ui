@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DayPicker, { DayPickerProps } from 'react-day-picker';
 import { Popover, Paper } from '@material-ui/core';
-import { WEEKDAYS_SHORT } from './DatePickerBase.constants';
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
@@ -21,6 +20,7 @@ export function DatePickerBase({
   value,
   ...props
 }: DatePickerBaseProps) {
+  const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const [anchorEl, setAnchorEl] = useState<HTMLInputElement | null>(null);
 
   const handleOpen = (event: React.MouseEvent<HTMLInputElement>) =>
@@ -41,7 +41,7 @@ export function DatePickerBase({
         <Paper>
           <DayPicker
             classNames={classNames}
-            weekdaysShort={WEEKDAYS_SHORT}
+            weekdaysShort={weekdaysShort}
             showOutsideDays={true}
             {...props}
           />
