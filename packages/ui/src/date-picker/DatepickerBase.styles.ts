@@ -98,6 +98,10 @@ export const datePickerBaseStyles = createStyles({
     width: '40px',
     height: '32px',
     color: '#8B9898',
+
+    '& > abbr': {
+      textDecoration: 'none',
+    },
   },
   body: {
     display: 'flex',
