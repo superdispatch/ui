@@ -1,4 +1,5 @@
-import { CSSProperties, createStyles } from '@material-ui/styles';
+import { createStyles, CSSProperties } from '@material-ui/styles';
+
 import { Color } from '../theme/Color';
 
 const navButtonArrowStyles: CSSProperties = {
@@ -109,7 +110,6 @@ export const datePickerBaseStyles = createStyles({
   },
   week: {
     display: 'flex',
-    margin: '1px 0',
   },
   weekNumber: {
     display: 'table-cell',
@@ -124,6 +124,7 @@ export const datePickerBaseStyles = createStyles({
   },
   day: {
     position: 'relative',
+    margin: '1px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
