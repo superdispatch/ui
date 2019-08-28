@@ -24,4 +24,4 @@ export const dateRangePickerStyles = {
   },
 };
 
-export const useStyles = makeStyles(dateRangePickerStyles);
+export const useDateRangePickerStyles = makeStyles(dateRangePickerStyles);
