@@ -29,9 +29,13 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
   const { handleClose, ...stateProps } = useDatePickerBaseState();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
+  const [hoveredDate, setHoveredDate] = useState();
   const [startDate, endDate] = value;
-  const selectedDays = startDate && endDate && { from: startDate, to: endDate };
-  const modifiers = { [firstDayOfRange]: startDate, [lastDayOfRange]: endDate };
+  const selectedDaysFrom = startDate;
+  const selectedDaysTo = pickingDateType === 'end' ? hoveredDate : endDate;
+  const selectedDays = selectedDaysFrom &&
+    selectedDaysTo && { from: selectedDaysFrom, to: selectedDaysTo };
+  const modifiers = { [firstDayOfRange]: selectedDaysFrom, [lastDayOfRange]: selectedDaysTo };
 
   [].sort;
 
@@ -50,11 +54,16 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
     }
   };
 
+  const handleDayMouseEnter = (date: Date) => {
+    setHoveredDate(date);
+  };
+
   return (
     <DatePickerBase
       classNames={classNames}
       selectedDays={selectedDays}
       onDayClick={handleDayClick}
+      onDayMouseEnter={handleDayMouseEnter}
       modifiers={modifiers}
       value={value}
       {...props}
