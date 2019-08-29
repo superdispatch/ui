@@ -2,11 +2,20 @@ import { createStyles, CSSProperties } from '@material-ui/styles';
 
 import { Color } from '../theme/Color';
 
+const cellStyles: CSSProperties = {
+  margin: '1px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '40px',
+  height: '40px',
+};
+
 const navButtonArrowStyles: CSSProperties = {
   content: '""',
   display: 'block',
-  width: '11px',
-  height: '11px',
+  width: '10px',
+  height: '10px',
   border: 'solid currentColor',
   borderWidth: '0 0 2px 2px',
   transform: 'rotate(45deg)',
@@ -17,9 +26,9 @@ const navButtonStyles: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '1.25em',
-  height: '1.25em',
-  color: '#8B9898',
+  width: '28px',
+  height: '28px',
+  color: Color.Grey15,
   position: 'absolute',
 
   '&:after': {
@@ -93,12 +102,8 @@ export const datePickerBaseStyles = createStyles({
     margin: '8px 0',
   },
   weekday: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '32px',
-    color: '#8B9898',
+    ...cellStyles,
+    color: Color.Grey,
 
     '& > abbr': {
       textDecoration: 'none',
@@ -123,13 +128,9 @@ export const datePickerBaseStyles = createStyles({
     cursor: 'pointer',
   },
   day: {
+    ...cellStyles,
+    color: Color.Grey15,
     position: 'relative',
-    margin: '1px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '40px',
     cursor: 'pointer',
   },
   footer: { paddingTop: '0.5em' },

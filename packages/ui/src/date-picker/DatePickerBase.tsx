@@ -1,6 +1,10 @@
-import { Paper,Popover } from '@material-ui/core';
+import { Paper, Popover, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import DayPicker, { DayPickerProps } from 'react-day-picker';
+import DayPicker, {
+  DayPickerProps,
+  CaptionElementProps,
+  WeekdayElementProps,
+} from 'react-day-picker';
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
@@ -32,6 +36,20 @@ export function useDatePickerBaseState() {
   };
 }
 
+const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+const captionElement = ({ date, localeUtils, classNames, ...props }: CaptionElementProps) => (
+  <Typography variant="h4" className={classNames.caption} {...props}>
+    {localeUtils.formatMonthTitle(date)}
+  </Typography>
+);
+
+const weekdayElement = ({ weekday, localeUtils, locale, ...props }: WeekdayElementProps) => (
+  <Typography variant="h5" {...props}>
+    {weekdaysShort[weekday]}
+  </Typography>
+);
+
 export function DatePickerBase({
   InputComponent,
   classNames,
@@ -41,8 +59,6 @@ export function DatePickerBase({
   handleClose,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
-  const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
   return (
     <>
       <InputComponent onClick={handleOpen} value={value} readOnly={true} />
@@ -57,7 +73,8 @@ export function DatePickerBase({
           <DayPicker
             classNames={classNames}
             weekdaysShort={weekdaysShort}
-            showOutsideDays={true}
+            captionElement={captionElement}
+            weekdayElement={weekdayElement}
             {...props}
           />
         </Paper>
