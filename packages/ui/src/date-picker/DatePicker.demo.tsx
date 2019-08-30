@@ -1,13 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import moment from 'moment';
 import { Box, Typography } from '@material-ui/core';
 import TextField from '@sdkit/textfield';
+import moment from 'moment';
+import React, { useCallback, useState } from 'react';
+
 import { ThemeProvider } from '..';
-import { DatePicker, DatePickerProps, DatePickerInputComponentProps } from './DatePicker';
+import { DatePicker, DatePickerInputComponentProps, DatePickerProps } from './DatePicker';
 import {
   DateRangePicker,
-  DateRangePickerProps,
   DateRangePickerInputComponentProps,
+  DateRangePickerProps,
 } from './DateRangePicker';
 const formatValue = (date?: Date) => (date ? moment(date).format('MMM DD, YYYY') : '');
 

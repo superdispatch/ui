@@ -1,8 +1,8 @@
 import { Paper, Popover, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import DayPicker, {
-  DayPickerProps,
   CaptionElementProps,
+  DayPickerProps,
   WeekdayElementProps,
 } from 'react-day-picker';
 
