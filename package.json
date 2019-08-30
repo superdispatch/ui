@@ -54,5 +54,10 @@
     "react-dom": "^16.8.6",
     "typescript": "^3.5.3",
     "webpack": "^4.39.1"
+  },
+  "dependencies": {
+    "@sdkit/textfield": "^1.2.2",
+    "moment": "^2.24.0",
+    "styled-components": "^4.3.2"
   }
 }
