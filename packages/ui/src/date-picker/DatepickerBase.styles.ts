@@ -104,10 +104,6 @@ export const datePickerBaseStyles = createStyles({
   weekday: {
     ...cellStyles,
     color: Color.Grey,
-
-    '& > abbr': {
-      textDecoration: 'none',
-    },
   },
   body: {
     display: 'flex',

@@ -44,8 +44,8 @@ const captionElement = ({ date, localeUtils, classNames, ...props }: CaptionElem
   </Typography>
 );
 
-const weekdayElement = ({ weekday, localeUtils, locale, ...props }: WeekdayElementProps) => (
-  <Typography variant="h5" {...props}>
+const weekdayElement = ({ weekday, className }: WeekdayElementProps) => (
+  <Typography variant="h5" className={className}>
     {weekdaysShort[weekday]}
   </Typography>
 );
@@ -72,7 +72,6 @@ export function DatePickerBase({
         <Paper>
           <DayPicker
             classNames={classNames}
-            weekdaysShort={weekdaysShort}
             captionElement={captionElement}
             weekdayElement={weekdayElement}
             {...props}
