@@ -20,7 +20,7 @@ export interface DatePickerBaseState {
 }
 
 export interface DatePickerBaseProps extends DayPickerProps {
-  value: Date | [Date?, Date?];
+  value?: Date | [Date?, Date?];
   InputComponent: DatePickerBaseInputComponent<any>;
 }
 
