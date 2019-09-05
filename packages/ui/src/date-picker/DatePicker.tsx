@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useDatePickerStyles } from './DatePicker.styles';
 import {
   DatePickerBase,
   DatePickerBaseInputComponent,
@@ -8,6 +7,7 @@ import {
   DatePickerBaseProps,
   useDatePickerBaseState,
 } from './DatePickerBase';
+import { useDatePickerStyles } from './DatePickerStyles';
 
 export type DatePickerValue = Date;
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;

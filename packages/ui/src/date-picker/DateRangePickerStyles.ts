@@ -1,7 +1,7 @@
 import { createStyles, CSSProperties, makeStyles } from '@material-ui/styles';
 
 import { Color } from '../theme/Color';
-import { datePickerBaseStyles } from './DatepickerBase.styles';
+import { datePickerBaseStyles } from './DatepickerBaseStyles';
 
 const cutoffRangeDayStyles: CSSProperties = {
   // FIX ME: Don't use `!important`
