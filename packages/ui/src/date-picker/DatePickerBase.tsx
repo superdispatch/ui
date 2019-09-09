@@ -1,10 +1,12 @@
-import { Paper, Popover, Typography } from '@material-ui/core';
+import { Grid, List, ListItem, Paper, Popover, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import DayPicker, {
   CaptionElementProps,
   DayPickerProps,
   WeekdayElementProps,
 } from 'react-day-picker';
+
+export type Value = Date | [Date?, Date?];
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
@@ -19,9 +21,17 @@ export interface DatePickerBaseState {
   handleClose: () => void;
 }
 
+export interface DatePickerBaseQuickSelectionItem {
+  label: string;
+  value: Value;
+}
+
 export interface DatePickerBaseProps extends DayPickerProps {
-  value?: Date | [Date?, Date?];
+  classNames?: DayPickerProps['classNames'] & { quickSelection: string };
+  value?: Value;
+  quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
   InputComponent: DatePickerBaseInputComponent<any>;
+  onChange: (value: any) => void;
 }
 
 export function useDatePickerBaseState() {
@@ -54,9 +64,11 @@ export function DatePickerBase({
   InputComponent,
   classNames,
   value,
+  onChange,
   anchorEl,
   handleOpen,
   handleClose,
+  quickSelectionItems,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
@@ -70,12 +82,39 @@ export function DatePickerBase({
         onClose={handleClose}
       >
         <Paper>
-          <DayPicker
-            classNames={classNames}
-            captionElement={captionElement}
-            weekdayElement={weekdayElement}
-            {...props}
-          />
+          <Grid container={true}>
+            {quickSelectionItems && (
+              <Grid className={classNames && classNames.quickSelection}>
+                <List>
+                  <ListItem>
+                    <Typography variant="h4">Quick Selection</Typography>
+                  </ListItem>
+
+                  {quickSelectionItems.map(quickSelectionItem => (
+                    <ListItem
+                      key={quickSelectionItem.label}
+                      button={true}
+                      onClick={() => {
+                        onChange(quickSelectionItem.value);
+                        handleClose();
+                      }}
+                    >
+                      {quickSelectionItem.label}
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            )}
+
+            <Grid>
+              <DayPicker
+                classNames={classNames}
+                captionElement={captionElement}
+                weekdayElement={weekdayElement}
+                {...props}
+              />
+            </Grid>
+          </Grid>
         </Paper>
       </Popover>
     </>

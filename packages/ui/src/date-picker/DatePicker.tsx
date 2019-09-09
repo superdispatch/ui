@@ -30,6 +30,7 @@ export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
       onDayClick={handleDayClick}
       selectedDays={value}
       value={value}
+      onChange={onChange}
       {...props}
       handleClose={handleClose}
       {...stateProps}
