@@ -6,16 +6,39 @@ import React, { forwardRef } from 'react';
 
 import { Color, ColorVariant } from '../theme/Color';
 
+const CLASS_SMALL = '.MuiButton-sizeSmall';
+const CLASS_LARGE = '.MuiButton-sizeLarge';
+const CLASS_OUTLINED = '.MuiButton-outlined';
+const CLASS_CONTAINED = '.MuiButton-contained';
+
+const CLASS_RED = '.Button-red';
+const CLASS_BLUE = '.Button-blue';
+const CLASS_GREEN = '.Button-green';
+
+const CLASS_DISABLED = '.Mui-disabled';
+const CLASS_IS_LOADING = '.Button-isLoading';
+
+const DEFAULT_PROGRESS_SIZE = 16;
+const LARGE_PROGRESS_SIZE = 24;
+
 function containedColor(
   backgroundColor: Color,
   boxShadowColor: Color,
   hoverBackgroundColor: Color,
 ): CSSProperties {
   return {
+    color: '#fff',
     backgroundColor,
     boxShadow: '0 0 0 0 transparent',
+
     '&:hover': { backgroundColor: hoverBackgroundColor },
     '&:focus': { boxShadow: `0 0 0 3px ${boxShadowColor}` },
+    [`&${CLASS_DISABLED}`]: {
+      boxShadow: 'none',
+      color: Color.Silver80,
+      backgroundColor: Color.Silver,
+    },
+    [`&${CLASS_IS_LOADING}`]: { color: 'transparent', backgroundColor },
   };
 }
 
@@ -32,55 +55,82 @@ function outlinedColor(
     boxShadow: '0 0 0 0 transparent',
 
     '&:hover, &:active, &:focus': { color: activeColor },
-    '&:hover, &:active': {
-      borderColor: activeColor,
-      backgroundColor: activeBackgroundColor,
-    },
+    '&:hover, &:active': { borderColor: activeColor, backgroundColor: activeBackgroundColor },
     '&:focus': { boxShadow: `0 0 0 2px ${activeShadowColor}` },
+    [`&${CLASS_DISABLED}`]: {
+      boxShadow: 'none',
+      color: Color.Silver80,
+      borderColor: Color.Silver90,
+      backgroundColor: 'transparent',
+    },
+    [`&${CLASS_IS_LOADING}`]: { color: 'transparent' },
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    fontSize: '14px',
-    lineHeight: '20px',
-    transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
-      duration: theme.transitions.duration.short,
-    }),
-  },
-  small: { fontSize: '14px', lineHeight: '20px' },
-  large: { fontSize: '16px', lineHeight: '24px' },
+const useStyles = makeStyles(
+  theme => ({
+    button: {
+      fontSize: '14px',
+      lineHeight: '20px',
 
-  outlined: { padding: '5px 15px' },
-  outlinedSmall: { padding: '1px 15px' },
-  outlinedLarge: { padding: '9px 39px' },
+      transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
+        duration: theme.transitions.duration.short,
+      }),
 
-  outlinedBlue: outlinedColor(Color.Blue, Color.Blue85, Color.Blue95, Color.Grey15, Color.Silver80),
-  outlinedRed: outlinedColor(Color.Red, Color.Red80, Color.Red95),
-  outlinedGreen: outlinedColor(Color.Green, Color.Green70, Color.Green95),
+      [`&${CLASS_SMALL}`]: { fontSize: '14px', lineHeight: '20px' },
+      [`&${CLASS_LARGE}`]: { fontSize: '16px', lineHeight: '24px' },
 
-  contained: { padding: '6px 16px' },
-  containedSmall: { padding: '2px 16px' },
-  containedLarge: { padding: '10px 40px' },
+      [`&${CLASS_OUTLINED}`]: {
+        padding: '5px 15px',
 
-  containedBlue: containedColor(Color.Blue, Color.Blue85, Color.Blue25),
-  containedRed: containedColor(Color.Red, Color.Red80, Color.Red45),
-  containedGreen: containedColor(Color.Green, Color.Green70, Color.Green25),
+        [`&${CLASS_SMALL}`]: { padding: '1px 15px' },
+        [`&${CLASS_LARGE}`]: { padding: '9px 39px' },
 
-  disabledOutlined: { '&&': { color: Color.Silver80, borderColor: Color.Silver90 } },
-  disabledContained: { '&&': { color: Color.Silver80, backgroundColor: Color.Silver } },
+        [`&${CLASS_BLUE}`]: outlinedColor(
+          Color.Blue,
+          Color.Blue85,
+          Color.Blue95,
+          Color.Grey15,
+          Color.Silver80,
+        ),
+        [`&${CLASS_RED}`]: outlinedColor(Color.Red, Color.Red80, Color.Red95),
+        [`&${CLASS_GREEN}`]: outlinedColor(Color.Green, Color.Green70, Color.Green95),
+      },
 
-  loading: { '&&': { color: 'transparent' } },
-  loadingContainedBlue: { '&&': { backgroundColor: Color.Blue } },
-  loadingContainedRed: { '&&': { backgroundColor: Color.Red } },
-  loadingContainedGreen: { '&&': { backgroundColor: Color.Green } },
+      [`&${CLASS_CONTAINED}`]: {
+        padding: '6px 16px',
 
-  progress: { top: '50%', left: '50%', position: 'absolute' },
-  progressContained: { color: 'white' },
-  progressOutlinedBlue: { '&&': { color: Color.Grey45 } },
-  progressOutlinedRed: { '&&': { color: Color.Red } },
-  progressOutlinedGreen: { '&&': { color: Color.Green } },
-}));
+        [`&${CLASS_SMALL}`]: { padding: '2px 16px' },
+        [`&${CLASS_LARGE}`]: { padding: '10px 40px' },
+
+        [`&${CLASS_RED}`]: containedColor(Color.Red, Color.Red80, Color.Red45),
+        [`&${CLASS_BLUE}`]: containedColor(Color.Blue, Color.Blue85, Color.Blue25),
+        [`&${CLASS_GREEN}`]: containedColor(Color.Green, Color.Green70, Color.Green25),
+      },
+    },
+
+    progress: {
+      top: '50%',
+      left: '50%',
+      position: 'absolute',
+
+      marginTop: -(DEFAULT_PROGRESS_SIZE / 2),
+      marginLeft: -(DEFAULT_PROGRESS_SIZE / 2),
+
+      [`${CLASS_LARGE} &`]: {
+        marginTop: -(LARGE_PROGRESS_SIZE / 2),
+        marginLeft: -(LARGE_PROGRESS_SIZE / 2),
+      },
+
+      [`${CLASS_CONTAINED} &`]: { color: 'white' },
+
+      [`${CLASS_OUTLINED + CLASS_RED} &`]: { color: Color.Red },
+      [`${CLASS_OUTLINED + CLASS_BLUE} &`]: { color: Color.Grey45 },
+      [`${CLASS_OUTLINED + CLASS_GREEN} &`]: { color: Color.Green },
+    },
+  }),
+  { name: 'Button' },
+);
 
 export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | 'yellow'>;
 
@@ -97,91 +147,30 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       disabled,
       isLoading,
+      className,
       size = 'medium',
       color = 'blue',
       variant = 'outlined',
-      classes: overrides = {},
       ...props
     },
     ref,
   ) => {
     const classes = useStyles();
-    const isLarge = size === 'large';
-    const isOutlined = variant === 'outlined';
-
-    const isBlue = color === 'blue';
-    const isRed = color === 'red';
-    const isGreen = color === 'green';
-
-    const progressSize = isLarge ? 24 : 16;
 
     return (
       <MaterialButton
         {...props}
         ref={ref}
-        disableFocusRipple={true}
         size={size}
+        disableFocusRipple={true}
         disabled={disabled || isLoading}
-        variant={isOutlined ? 'outlined' : 'contained'}
-        color={color == null ? undefined : isBlue ? 'primary' : 'secondary'}
-        classes={{
-          ...overrides,
-
-          root: clsx(classes.root, overrides.root),
-
-          outlined: clsx(
-            classes.outlined,
-            isRed
-              ? classes.outlinedRed
-              : isBlue
-              ? classes.outlinedBlue
-              : isGreen
-              ? classes.outlinedGreen
-              : undefined,
-            overrides.outlined,
-          ),
-
-          contained: clsx(
-            classes.contained,
-            isRed
-              ? classes.containedRed
-              : isBlue
-              ? classes.containedBlue
-              : isGreen
-              ? classes.containedGreen
-              : undefined,
-            overrides.contained,
-          ),
-
-          sizeSmall: clsx(
-            classes.small,
-            isOutlined ? classes.outlinedSmall : classes.containedSmall,
-            overrides.sizeSmall,
-          ),
-
-          sizeLarge: clsx(
-            classes.large,
-            isOutlined ? classes.outlinedLarge : classes.containedLarge,
-            overrides.sizeLarge,
-          ),
-
-          disabled: isLoading
-            ? clsx(
-                classes.loading,
-                !isOutlined &&
-                  (isRed
-                    ? classes.loadingContainedRed
-                    : isBlue
-                    ? classes.loadingContainedBlue
-                    : isGreen
-                    ? classes.loadingContainedGreen
-                    : undefined),
-              )
-            : clsx(
-                isOutlined ? classes.disabledOutlined : classes.disabledContained,
-                overrides.disabled,
-              ),
-        }}
+        variant={variant === 'outlined' ? 'outlined' : 'contained'}
+        className={clsx(
+          classes.button,
+          `Button-${color}`,
+          isLoading && `Button-isLoading`,
+          className,
+        )}
       >
         {!isLoading ? (
           children
@@ -190,20 +179,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {children}
 
             <CircularProgress
-              size={progressSize}
-              className={clsx(
-                classes.progress,
-                !isOutlined
-                  ? classes.progressContained
-                  : isRed
-                  ? classes.progressOutlinedRed
-                  : isBlue
-                  ? classes.progressOutlinedBlue
-                  : isGreen
-                  ? classes.progressOutlinedGreen
-                  : undefined,
-              )}
-              style={{ marginTop: -(progressSize / 2), marginLeft: -(progressSize / 2) }}
+              className={classes.progress}
+              size={size === 'large' ? LARGE_PROGRESS_SIZE : DEFAULT_PROGRESS_SIZE}
             />
           </>
         )}
