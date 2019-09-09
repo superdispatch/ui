@@ -49,13 +49,26 @@ jobs:
     steps:
       - attach_workspace:
           at: ./
-      - run: ls -la
+      - run:
+          name: Login to NPM
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
+      - run:
+          name: Publish to NPM
+          command: yarn lerna publish from-git --yes
 
 workflows:
   version: 2
   build:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /.*/
       - deploy:
           requires:
             - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
