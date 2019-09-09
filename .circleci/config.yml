@@ -1,0 +1,74 @@
+version: 2.1
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+
+commands:
+  install:
+    steps:
+      - restore_cache:
+          keys:
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-{{ .Branch }}
+            - yarn-
+
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+jobs:
+  build:
+    executor: node
+    steps:
+      - checkout
+      - install
+      - run:
+          name: Lint
+          command: |
+            yarn tsc
+            yarn lint --quiet
+      - run:
+          name: Build
+          command: yarn build
+
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - ./
+
+  deploy:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Login to NPM
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
+      - run:
+          name: Publish to NPM
+          command: yarn lerna publish from-git --yes
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

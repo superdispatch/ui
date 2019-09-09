@@ -12,7 +12,7 @@
   },
   "scripts": {
     "nuke": "git clean -xdfe \".idea\"",
-    "prebump": "yarn tsc && yarn lint",
+    "prebump": "yarn install && yarn tsc && yarn lint",
     "bump": "lerna version",
     "tdd": "jest --watch",
     "test": "jest --coverage",
@@ -35,6 +35,7 @@
     "@pika/plugin-bundle-types": "^0.6.0",
     "@pika/plugin-bundle-web": "^0.6.0",
     "@pika/plugin-standard-pkg": "^0.6.0",
+    "@sdkit/textfield": "^1.2.2",
     "@superdispatch/eslint-plugin": "^0.1.7",
     "@superdispatch/js-tools": "^0.1.6",
     "@superdispatch/prettier-config": "^0.1.0",
@@ -48,16 +49,14 @@
     "lerna": "^3.16.4",
     "lint-staged": "^9.2.1",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-cosmos": "^5.0.0-alpha.24",
     "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2",
     "typescript": "^3.5.3",
     "webpack": "^4.39.1"
   },
-  "dependencies": {
-    "@sdkit/textfield": "^1.2.2",
-    "moment": "^2.24.0",
-    "styled-components": "^4.3.2"
-  }
+  "dependencies": {}
 }
