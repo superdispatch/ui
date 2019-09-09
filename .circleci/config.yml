@@ -11,8 +11,8 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - yarn-{{ checksum "yarn.lock" }}-{{ .Branch }}
-            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-{{ .Branch }}
             - yarn-
 
       - run:
@@ -22,7 +22,7 @@ commands:
       - save_cache:
           paths:
             - ~/.cache/yarn
-          key: yarn-{{ checksum "yarn.lock" }}-{{ .Branch }}
+          key: yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
 jobs:
   build:
