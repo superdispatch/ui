@@ -88,7 +88,12 @@ export function DatePickerBase({
         <Paper>
           <Grid container={true}>
             {quickSelectionItems && (
-              <Grid xs={12} sm="auto" className={classNames && classNames.quickSelection}>
+              <Grid
+                item={true}
+                xs={12}
+                sm="auto"
+                className={classNames && classNames.quickSelection}
+              >
                 <List>
                   <ListItem>
                     <Typography variant="h4">Quick Selection</Typography>
@@ -111,7 +116,7 @@ export function DatePickerBase({
               </Grid>
             )}
 
-            <Grid xs={12} sm="auto">
+            <Grid item={true} xs={12} sm="auto">
               <DayPicker
                 classNames={classNames}
                 captionElement={captionElement}
