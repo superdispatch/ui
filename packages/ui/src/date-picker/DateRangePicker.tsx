@@ -31,7 +31,23 @@ const compareDates = (dateA?: Date, dateB?: Date) =>
 
 const sortDates = (dates: DateRangePickerValue) => dates.sort(compareDates);
 
-export function DateRangePicker({ value, onChange, ...props }: DateRangePickerProps) {
+const isSameDate = (dateA?: Date, dateB?: Date) =>
+  dateA && dateB && dateA.getTime() === dateB.getTime();
+
+const isSameValue = (valueA: DateRangePickerValue, valueB: DateRangePickerValue) => {
+  const sortedValueA = sortDates(valueA);
+  const sortedValueB = sortDates(valueB);
+  return (
+    isSameDate(sortedValueA[0], sortedValueB[0]) && isSameDate(sortedValueA[1], sortedValueB[1])
+  );
+};
+
+export function DateRangePicker({
+  value,
+  onChange,
+  quickSelectionItems,
+  ...props
+}: DateRangePickerProps) {
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
   const { handleClose, ...stateProps } = useDatePickerBaseState();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
@@ -42,8 +58,6 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
   const selectedDays = selectedDaysFrom &&
     selectedDaysTo && { from: selectedDaysFrom, to: selectedDaysTo };
   const modifiers = { [firstDayOfRange]: selectedDaysFrom, [lastDayOfRange]: selectedDaysTo };
-
-  [].sort;
 
   const handleDayClick = (date: Date) => {
     if (pickingDateType === 'start') {
@@ -64,6 +78,9 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
     setHoveredDate(date);
   };
 
+  const quickSelectionSelectedItem =
+    quickSelectionItems && quickSelectionItems.find(item => isSameValue(item.value, value));
+
   return (
     <DatePickerBase
       classNames={classNames}
@@ -73,6 +90,8 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
       modifiers={modifiers}
       value={value}
       onChange={onChange}
+      quickSelectionItems={quickSelectionItems}
+      quickSelectionSelectedItem={quickSelectionSelectedItem}
       {...props}
       handleClose={handleClose}
       {...stateProps}

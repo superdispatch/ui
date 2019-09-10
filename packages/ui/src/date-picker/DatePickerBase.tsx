@@ -30,6 +30,7 @@ export interface DatePickerBaseProps extends DayPickerProps {
   classNames?: DayPickerProps['classNames'] & { quickSelection: string };
   value?: DatePickerBaseValue;
   quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
+  quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem;
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
   footer?: React.ReactNode;
@@ -70,6 +71,7 @@ export function DatePickerBase({
   handleOpen,
   handleClose,
   quickSelectionItems,
+  quickSelectionSelectedItem,
   footer,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
@@ -96,6 +98,7 @@ export function DatePickerBase({
                     <ListItem
                       key={quickSelectionItem.label}
                       button={true}
+                      selected={quickSelectionSelectedItem === quickSelectionItem}
                       onClick={() => {
                         onChange(quickSelectionItem.value);
                         handleClose();

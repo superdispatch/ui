@@ -67,6 +67,13 @@ function createTheme() {
           paddingBottom: '8px',
         },
       },
+      MuiListItem: {
+        root: {
+          '&$selected, &$selected:hover': {
+            color: Color.Blue,
+          },
+        },
+      },
 
       MuiTabs: {
         root: { minHeight: '40px' },
