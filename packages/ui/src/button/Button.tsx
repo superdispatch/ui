@@ -33,12 +33,14 @@ function containedColor(
 
     '&:hover': { backgroundColor: hoverBackgroundColor },
     '&:focus': { boxShadow: `0 0 0 3px ${boxShadowColor}` },
+
     [`&${CLASS_DISABLED}`]: {
       boxShadow: 'none',
       color: Color.Silver80,
       backgroundColor: Color.Silver,
+
+      [`&${CLASS_IS_LOADING}`]: { color: 'transparent', backgroundColor },
     },
-    [`&${CLASS_IS_LOADING}`]: { color: 'transparent', backgroundColor },
   };
 }
 
@@ -62,8 +64,9 @@ function outlinedColor(
       color: Color.Silver80,
       borderColor: Color.Silver90,
       backgroundColor: 'transparent',
+
+      [`&${CLASS_IS_LOADING}`]: { color: 'transparent' },
     },
-    [`&${CLASS_IS_LOADING}`]: { color: 'transparent' },
   };
 }
 
