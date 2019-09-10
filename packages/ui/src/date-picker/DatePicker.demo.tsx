@@ -9,13 +9,36 @@ import {
   DateRangePicker,
   DateRangePickerInputComponentProps,
   DateRangePickerProps,
+  DateRangePickerQuickSelectionItem,
 } from './DateRangePicker';
+
+const today = new Date();
+const addDays = (date: Date, daysCount: number) =>
+  moment(date)
+    .add(daysCount, 'days')
+    .toDate();
+
 const formatValue = (date?: Date) => (date ? moment(date).format('MMM DD, YYYY') : '');
 
 const DateInputComponent = ({ value, ...props }: DatePickerInputComponentProps) => {
   const formattedValue = formatValue(value);
   return <TextField value={formattedValue} {...props} />;
 };
+
+const dateRangePickerQuickSelectionItems: DateRangePickerQuickSelectionItem[] = [
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+].map(daysCount => ({
+  label: `${daysCount} days`,
+  value: [today, addDays(today, daysCount - 1)],
+}));
 
 const DateRangeInputComponent = ({ value, ...props }: DateRangePickerInputComponentProps) => {
   const [startDate, endDate] = value;
@@ -61,6 +84,20 @@ export function DatePickerDemo() {
           value={dateRangePickeerValue}
           onChange={handleDateRangePickerChange}
           InputComponent={DateRangeInputComponent}
+          numberOfMonths={2}
+        />
+      </Box>
+
+      <Box p={2}>
+        <Typography variant="h2">Quick Selection</Typography>
+      </Box>
+
+      <Box p={2} width={270}>
+        <DateRangePicker
+          value={dateRangePickeerValue}
+          onChange={handleDateRangePickerChange}
+          InputComponent={DateRangeInputComponent}
+          quickSelectionItems={dateRangePickerQuickSelectionItems}
           numberOfMonths={2}
         />
       </Box>
