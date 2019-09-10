@@ -129,7 +129,7 @@ export const datePickerBaseStyles = createStyles({
     position: 'relative',
     cursor: 'pointer',
   },
-  footer: { paddingTop: '0.5em' },
+  footer: { padding: '1em' },
   todayButton: {
     border: 'none',
     backgroundColor: 'transparent',
