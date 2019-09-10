@@ -32,6 +32,7 @@ export interface DatePickerBaseProps extends DayPickerProps {
   quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
+  footer?: React.ReactNode;
 }
 
 export function useDatePickerBaseState() {
@@ -69,6 +70,7 @@ export function DatePickerBase({
   handleOpen,
   handleClose,
   quickSelectionItems,
+  footer,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
@@ -84,7 +86,7 @@ export function DatePickerBase({
         <Paper>
           <Grid container={true}>
             {quickSelectionItems && (
-              <Grid className={classNames && classNames.quickSelection}>
+              <Grid xs={12} sm="auto" className={classNames && classNames.quickSelection}>
                 <List>
                   <ListItem>
                     <Typography variant="h4">Quick Selection</Typography>
@@ -106,13 +108,15 @@ export function DatePickerBase({
               </Grid>
             )}
 
-            <Grid>
+            <Grid xs={12} sm="auto">
               <DayPicker
                 classNames={classNames}
                 captionElement={captionElement}
                 weekdayElement={weekdayElement}
                 {...props}
               />
+
+              {footer && <div className={classNames && classNames.footer}>{footer}</div>}
             </Grid>
           </Grid>
         </Paper>
