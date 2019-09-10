@@ -19,21 +19,21 @@ export interface DatePickerProps extends DatePickerBaseProps {
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
   const classNames = useDatePickerStyles();
-  const { handleClose, ...stateProps } = useDatePickerBaseState();
+  const stateProps = useDatePickerBaseState();
+  const { onClose } = stateProps;
   const handleDayClick = (day: DatePickerValue) => {
     onChange(day);
-    handleClose();
+    onClose();
   };
   return (
     <DatePickerBase
+      {...stateProps}
       classNames={classNames}
       onDayClick={handleDayClick}
       selectedDays={value}
       value={value}
       onChange={onChange}
       {...props}
-      handleClose={handleClose}
-      {...stateProps}
     />
   );
 }

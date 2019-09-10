@@ -48,8 +48,9 @@ export function DateRangePicker({
   quickSelectionItems,
   ...props
 }: DateRangePickerProps) {
+  const stateProps = useDatePickerBaseState();
+  const { onClose } = stateProps;
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
-  const { handleClose, ...stateProps } = useDatePickerBaseState();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [hoveredDate, setHoveredDate] = useState();
   const [startDate, endDate] = value;
@@ -58,6 +59,11 @@ export function DateRangePicker({
   const selectedDays = selectedDaysFrom &&
     selectedDaysTo && { from: selectedDaysFrom, to: selectedDaysTo };
   const modifiers = { [firstDayOfRange]: selectedDaysFrom, [lastDayOfRange]: selectedDaysTo };
+
+  const handleClose = () => {
+    setPickingDateType('start');
+    onClose();
+  };
 
   const handleDayClick = (date: Date) => {
     if (pickingDateType === 'start') {
@@ -69,7 +75,6 @@ export function DateRangePicker({
     if (pickingDateType === 'end') {
       const newValue: DateRangePickerValue = [startDate, date];
       onChange(sortDates(newValue));
-      setPickingDateType('start');
       handleClose();
     }
   };
@@ -83,6 +88,8 @@ export function DateRangePicker({
 
   return (
     <DatePickerBase
+      {...stateProps}
+      onClose={handleClose}
       classNames={classNames}
       selectedDays={selectedDays}
       onDayClick={handleDayClick}
@@ -93,8 +100,6 @@ export function DateRangePicker({
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
       {...props}
-      handleClose={handleClose}
-      {...stateProps}
     />
   );
 }

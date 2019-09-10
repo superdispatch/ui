@@ -17,8 +17,8 @@ export interface DatePickerBaseInputComponentProps<TValue>
 
 export interface DatePickerBaseState {
   anchorEl: HTMLInputElement | null;
-  handleOpen: (event: React.MouseEvent<HTMLInputElement>) => void;
-  handleClose: () => void;
+  onOpen: (event: React.MouseEvent<HTMLInputElement>) => void;
+  onClose: () => void;
 }
 
 export interface DatePickerBaseQuickSelectionItem {
@@ -38,13 +38,13 @@ export interface DatePickerBaseProps extends DayPickerProps {
 
 export function useDatePickerBaseState() {
   const [anchorEl, setAnchorEl] = useState<DatePickerBaseState['anchorEl']>(null);
-  const handleOpen: DatePickerBaseState['handleOpen'] = event => setAnchorEl(event.currentTarget);
-  const handleClose: DatePickerBaseState['handleClose'] = () => setAnchorEl(null);
+  const onOpen: DatePickerBaseState['onOpen'] = event => setAnchorEl(event.currentTarget);
+  const onClose: DatePickerBaseState['onClose'] = () => setAnchorEl(null);
 
   return {
     anchorEl,
-    handleOpen,
-    handleClose,
+    onOpen,
+    onClose,
   };
 }
 
@@ -68,8 +68,8 @@ export function DatePickerBase({
   value,
   onChange,
   anchorEl,
-  handleOpen,
-  handleClose,
+  onOpen,
+  onClose,
   quickSelectionItems,
   quickSelectionSelectedItem,
   footer,
@@ -77,13 +77,13 @@ export function DatePickerBase({
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
     <>
-      <InputComponent onClick={handleOpen} value={value} readOnly={true} />
+      <InputComponent onClick={onOpen} value={value} readOnly={true} />
 
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        onClose={handleClose}
+        onClose={onClose}
       >
         <Paper>
           <Grid container={true}>
@@ -106,7 +106,7 @@ export function DatePickerBase({
                       selected={quickSelectionSelectedItem === quickSelectionItem}
                       onClick={() => {
                         onChange(quickSelectionItem.value);
-                        handleClose();
+                        onClose();
                       }}
                     >
                       {quickSelectionItem.label}
