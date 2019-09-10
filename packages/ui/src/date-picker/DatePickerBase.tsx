@@ -6,7 +6,7 @@ import DayPicker, {
   WeekdayElementProps,
 } from 'react-day-picker';
 
-export type Value = Date | [Date?, Date?];
+export type DatePickerBaseValue = Date | [Date?, Date?];
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
@@ -23,12 +23,12 @@ export interface DatePickerBaseState {
 
 export interface DatePickerBaseQuickSelectionItem {
   label: string;
-  value: Value;
+  value: DatePickerBaseValue;
 }
 
 export interface DatePickerBaseProps extends DayPickerProps {
   classNames?: DayPickerProps['classNames'] & { quickSelection: string };
-  value?: Value;
+  value?: DatePickerBaseValue;
   quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
