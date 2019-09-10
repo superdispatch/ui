@@ -55,6 +55,12 @@ function createTheme() {
     },
 
     overrides: {
+      MuiLink: {
+        button: {
+          textAlign: 'initial',
+        },
+      },
+
       MuiTouchRipple: {
         ripple: { color: Color.Silver80 },
       },
@@ -101,13 +107,15 @@ function createTheme() {
     },
 
     props: {
+      MuiLink: {
+        underline: 'none',
+      },
       MuiMenu: {
         keepMounted: true,
         getContentAnchorEl: null,
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         transformOrigin: { vertical: 'top', horizontal: 'left' },
       },
-
       MuiMenuItem: { dense: true },
       MuiTabs: { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' },
     },
