@@ -72,7 +72,7 @@ function outlinedColor(
 
 const useStyles = makeStyles(
   theme => ({
-    button: {
+    root: {
       fontSize: '14px',
       lineHeight: '20px',
 
@@ -169,7 +169,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         variant={variant === 'outlined' ? 'outlined' : 'contained'}
         className={clsx(
-          classes.button,
+          classes.root,
           `Button-${color}`,
           isLoading && `Button-isLoading`,
           className,
