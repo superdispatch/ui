@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 
 import { Color } from '../theme/Color';
-import { datePickerBaseStyles } from './DatepickerBase.styles';
+import { datePickerBaseStyles } from './DatepickerBaseStyles';
 
 export const datePickerStyles = {
   ...datePickerBaseStyles,

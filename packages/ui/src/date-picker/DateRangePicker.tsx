@@ -5,17 +5,23 @@ import {
   DatePickerBaseInputComponent,
   DatePickerBaseInputComponentProps,
   DatePickerBaseProps,
+  DatePickerBaseQuickSelectionItem,
   useDatePickerBaseState,
 } from './DatePickerBase';
-import { useDateRangePickerStyles } from './DateRangePicker.styles';
+import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
 export type DateRangePickerValue = [Date?, Date?];
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue
 >;
 
+export interface DateRangePickerQuickSelectionItem extends DatePickerBaseQuickSelectionItem {
+  value: DateRangePickerValue;
+}
+
 export interface DateRangePickerProps extends DatePickerBaseProps {
   value: DateRangePickerValue;
+  quickSelectionItems?: DateRangePickerQuickSelectionItem[];
   InputComponent: DatePickerBaseInputComponent<DateRangePickerInputComponentProps>;
   onChange: (value: DateRangePickerValue) => void;
 }
@@ -66,6 +72,7 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
       onDayMouseEnter={handleDayMouseEnter}
       modifiers={modifiers}
       value={value}
+      onChange={onChange}
       {...props}
       handleClose={handleClose}
       {...stateProps}
