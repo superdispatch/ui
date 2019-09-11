@@ -149,8 +149,4 @@ export const datePickerBaseStyles = createStyles({
   outside: {
     visibility: 'hidden',
   },
-
-  quickSelection: {
-    borderRight: `1px solid ${Color.Silver90}`,
-  },
 });

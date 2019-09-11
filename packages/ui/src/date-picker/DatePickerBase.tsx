@@ -1,4 +1,14 @@
-import { Grid, List, ListItem, Paper, Popover, Typography } from '@material-ui/core';
+import {
+  Divider,
+  Grid,
+  Hidden,
+  List,
+  ListItem,
+  Paper,
+  Popover,
+  Typography,
+} from '@material-ui/core';
+import { PopoverOrigin } from '@material-ui/core/Popover';
 import React, { useState } from 'react';
 import DayPicker, {
   CaptionElementProps,
@@ -27,13 +37,15 @@ export interface DatePickerBaseQuickSelectionItem {
 }
 
 export interface DatePickerBaseProps extends DayPickerProps {
-  classNames?: DayPickerProps['classNames'] & { quickSelection: string };
+  classNames?: DayPickerProps['classNames'];
   value?: DatePickerBaseValue;
   quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
   quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem;
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
   footer?: React.ReactNode;
+  anchorOrigin?: PopoverOrigin;
+  transformOrigin?: PopoverOrigin;
 }
 
 export function useDatePickerBaseState() {
@@ -73,6 +85,8 @@ export function DatePickerBase({
   quickSelectionItems,
   quickSelectionSelectedItem,
   footer,
+  anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
+  transformOrigin = { vertical: 'top', horizontal: 'left' },
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
@@ -82,38 +96,51 @@ export function DatePickerBase({
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
         onClose={onClose}
       >
         <Paper>
-          <Grid container={true}>
+          <Grid
+            container={true}
+            direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
+          >
             {quickSelectionItems && (
-              <Grid
-                item={true}
-                xs={12}
-                sm="auto"
-                className={classNames && classNames.quickSelection}
-              >
-                <List>
-                  <ListItem>
-                    <Typography variant="h4">Quick Selection</Typography>
-                  </ListItem>
-
-                  {quickSelectionItems.map(quickSelectionItem => (
-                    <ListItem
-                      key={quickSelectionItem.label}
-                      button={true}
-                      selected={quickSelectionSelectedItem === quickSelectionItem}
-                      onClick={() => {
-                        onChange(quickSelectionItem.value);
-                        onClose();
-                      }}
-                    >
-                      {quickSelectionItem.label}
+              <>
+                <Grid item={true} xs={12} sm="auto">
+                  <List>
+                    <ListItem>
+                      <Typography variant="h4">Quick Selection</Typography>
                     </ListItem>
-                  ))}
-                </List>
-              </Grid>
+
+                    {quickSelectionItems.map(quickSelectionItem => (
+                      <ListItem
+                        key={quickSelectionItem.label}
+                        button={true}
+                        selected={quickSelectionSelectedItem === quickSelectionItem}
+                        onClick={() => {
+                          onChange(quickSelectionItem.value);
+                          onClose();
+                        }}
+                      >
+                        {quickSelectionItem.label}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
+
+                <Hidden xsDown={true}>
+                  <Grid item={true} sm="auto">
+                    <Divider orientation="vertical" />
+                  </Grid>
+                </Hidden>
+
+                <Hidden smUp={true}>
+                  <Grid item={true} xs={12}>
+                    <Divider orientation="horizontal" />
+                  </Grid>
+                </Hidden>
+              </>
             )}
 
             <Grid item={true} xs={12} sm="auto">
