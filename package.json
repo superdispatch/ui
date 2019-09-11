@@ -12,7 +12,7 @@
   },
   "scripts": {
     "nuke": "git clean -xdfe \".idea\"",
-    "prebump": "yarn install && yarn tsc && yarn lint",
+    "prebump": "yarn install && yarn tsc && yarn lint && yarn build",
     "bump": "lerna version",
     "tdd": "jest --watch",
     "test": "jest --coverage",
