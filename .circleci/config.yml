@@ -64,6 +64,7 @@ workflows:
             tags:
               only: /.*/
       - deploy:
+          context: npm-pkg
           requires:
             - build
           filters:
