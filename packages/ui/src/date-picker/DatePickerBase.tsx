@@ -1,4 +1,5 @@
-import { Grid, List, ListItem, Paper, Popover, Typography } from '@material-ui/core';
+import { Grid, List, ListItem, Paper, Typography } from '@material-ui/core';
+import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
 import React, { useState } from 'react';
 import DayPicker, {
   CaptionElementProps,
@@ -34,6 +35,7 @@ export interface DatePickerBaseProps extends DayPickerProps {
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
   footer?: React.ReactNode;
+  anchorOrigin?: PopoverOrigin;
 }
 
 export function useDatePickerBaseState() {
@@ -73,6 +75,7 @@ export function DatePickerBase({
   quickSelectionItems,
   quickSelectionSelectedItem,
   footer,
+  anchorOrigin,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
@@ -82,7 +85,7 @@ export function DatePickerBase({
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={anchorOrigin || { vertical: 'bottom', horizontal: 'left' }}
         onClose={onClose}
       >
         <Paper>
