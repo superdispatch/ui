@@ -31,9 +31,26 @@ const compareDates = (dateA?: Date, dateB?: Date) =>
 
 const sortDates = (dates: DateRangePickerValue) => dates.sort(compareDates);
 
-export function DateRangePicker({ value, onChange, ...props }: DateRangePickerProps) {
+const isSameDate = (dateA?: Date, dateB?: Date) =>
+  dateA && dateB && dateA.getTime() === dateB.getTime();
+
+const isSameValue = (valueA: DateRangePickerValue, valueB: DateRangePickerValue) => {
+  const sortedValueA = sortDates(valueA);
+  const sortedValueB = sortDates(valueB);
+  return (
+    isSameDate(sortedValueA[0], sortedValueB[0]) && isSameDate(sortedValueA[1], sortedValueB[1])
+  );
+};
+
+export function DateRangePicker({
+  value,
+  onChange,
+  quickSelectionItems,
+  ...props
+}: DateRangePickerProps) {
+  const stateProps = useDatePickerBaseState();
+  const { onClose } = stateProps;
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
-  const { handleClose, ...stateProps } = useDatePickerBaseState();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [hoveredDate, setHoveredDate] = useState();
   const [startDate, endDate] = value;
@@ -43,7 +60,10 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
     selectedDaysTo && { from: selectedDaysFrom, to: selectedDaysTo };
   const modifiers = { [firstDayOfRange]: selectedDaysFrom, [lastDayOfRange]: selectedDaysTo };
 
-  [].sort;
+  const handleClose = () => {
+    setPickingDateType('start');
+    onClose();
+  };
 
   const handleDayClick = (date: Date) => {
     if (pickingDateType === 'start') {
@@ -55,7 +75,6 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
     if (pickingDateType === 'end') {
       const newValue: DateRangePickerValue = [startDate, date];
       onChange(sortDates(newValue));
-      setPickingDateType('start');
       handleClose();
     }
   };
@@ -64,8 +83,13 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
     setHoveredDate(date);
   };
 
+  const quickSelectionSelectedItem =
+    quickSelectionItems && quickSelectionItems.find(item => isSameValue(item.value, value));
+
   return (
     <DatePickerBase
+      {...stateProps}
+      onClose={handleClose}
       classNames={classNames}
       selectedDays={selectedDays}
       onDayClick={handleDayClick}
@@ -73,9 +97,9 @@ export function DateRangePicker({ value, onChange, ...props }: DateRangePickerPr
       modifiers={modifiers}
       value={value}
       onChange={onChange}
+      quickSelectionItems={quickSelectionItems}
+      quickSelectionSelectedItem={quickSelectionSelectedItem}
       {...props}
-      handleClose={handleClose}
-      {...stateProps}
     />
   );
 }
