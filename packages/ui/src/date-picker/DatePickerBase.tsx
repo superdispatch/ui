@@ -75,7 +75,7 @@ export function DatePickerBase({
   quickSelectionItems,
   quickSelectionSelectedItem,
   footer,
-  anchorOrigin,
+  anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
@@ -85,7 +85,7 @@ export function DatePickerBase({
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        anchorOrigin={anchorOrigin || { vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={anchorOrigin}
         onClose={onClose}
       >
         <Paper>
