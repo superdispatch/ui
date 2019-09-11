@@ -12,7 +12,11 @@ import {
   DateRangePickerQuickSelectionItem,
 } from './DateRangePicker';
 
-const today = new Date();
+const today = moment()
+  .startOf('day')
+  .hours(12)
+  .toDate();
+
 const addDays = (date: Date, daysCount: number) =>
   moment(date)
     .add(daysCount, 'days')

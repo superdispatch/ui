@@ -17,8 +17,8 @@ export interface DatePickerBaseInputComponentProps<TValue>
 
 export interface DatePickerBaseState {
   anchorEl: HTMLInputElement | null;
-  handleOpen: (event: React.MouseEvent<HTMLInputElement>) => void;
-  handleClose: () => void;
+  onOpen: (event: React.MouseEvent<HTMLInputElement>) => void;
+  onClose: () => void;
 }
 
 export interface DatePickerBaseQuickSelectionItem {
@@ -30,6 +30,7 @@ export interface DatePickerBaseProps extends DayPickerProps {
   classNames?: DayPickerProps['classNames'] & { quickSelection: string };
   value?: DatePickerBaseValue;
   quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
+  quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem;
   InputComponent: DatePickerBaseInputComponent<any>;
   onChange: (value: any) => void;
   footer?: React.ReactNode;
@@ -37,13 +38,13 @@ export interface DatePickerBaseProps extends DayPickerProps {
 
 export function useDatePickerBaseState() {
   const [anchorEl, setAnchorEl] = useState<DatePickerBaseState['anchorEl']>(null);
-  const handleOpen: DatePickerBaseState['handleOpen'] = event => setAnchorEl(event.currentTarget);
-  const handleClose: DatePickerBaseState['handleClose'] = () => setAnchorEl(null);
+  const onOpen: DatePickerBaseState['onOpen'] = event => setAnchorEl(event.currentTarget);
+  const onClose: DatePickerBaseState['onClose'] = () => setAnchorEl(null);
 
   return {
     anchorEl,
-    handleOpen,
-    handleClose,
+    onOpen,
+    onClose,
   };
 }
 
@@ -67,26 +68,32 @@ export function DatePickerBase({
   value,
   onChange,
   anchorEl,
-  handleOpen,
-  handleClose,
+  onOpen,
+  onClose,
   quickSelectionItems,
+  quickSelectionSelectedItem,
   footer,
   ...props
 }: DatePickerBaseProps & DatePickerBaseState) {
   return (
     <>
-      <InputComponent onClick={handleOpen} value={value} readOnly={true} />
+      <InputComponent onClick={onOpen} value={value} readOnly={true} />
 
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        onClose={handleClose}
+        onClose={onClose}
       >
         <Paper>
           <Grid container={true}>
             {quickSelectionItems && (
-              <Grid xs={12} sm="auto" className={classNames && classNames.quickSelection}>
+              <Grid
+                item={true}
+                xs={12}
+                sm="auto"
+                className={classNames && classNames.quickSelection}
+              >
                 <List>
                   <ListItem>
                     <Typography variant="h4">Quick Selection</Typography>
@@ -96,9 +103,10 @@ export function DatePickerBase({
                     <ListItem
                       key={quickSelectionItem.label}
                       button={true}
+                      selected={quickSelectionSelectedItem === quickSelectionItem}
                       onClick={() => {
                         onChange(quickSelectionItem.value);
-                        handleClose();
+                        onClose();
                       }}
                     >
                       {quickSelectionItem.label}
@@ -108,7 +116,7 @@ export function DatePickerBase({
               </Grid>
             )}
 
-            <Grid xs={12} sm="auto">
+            <Grid item={true} xs={12} sm="auto">
               <DayPicker
                 classNames={classNames}
                 captionElement={captionElement}
