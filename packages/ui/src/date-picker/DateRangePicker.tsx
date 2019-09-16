@@ -2,34 +2,24 @@ import React, { useState } from 'react';
 
 import {
   DatePickerBase,
-  DatePickerBaseInputComponent,
-  DatePickerBaseInputComponentProps,
   DatePickerBaseProps,
   DatePickerBaseQuickSelectionItem,
   useDatePickerBaseState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
-export type DateRangePickerValue = [Date?, Date?];
-export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
+export type DateRangePickerValue = [Date?, Date?] | undefined;
+
+export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem<
   DateRangePickerValue
 >;
 
-export interface DateRangePickerQuickSelectionItem extends DatePickerBaseQuickSelectionItem {
-  value: DateRangePickerValue;
-}
-
-export interface DateRangePickerProps extends DatePickerBaseProps {
-  value: DateRangePickerValue;
-  quickSelectionItems?: DateRangePickerQuickSelectionItem[];
-  InputComponent: DatePickerBaseInputComponent<DateRangePickerInputComponentProps>;
-  onChange: (value: DateRangePickerValue) => void;
-}
+export type DateRangePickerProps = DatePickerBaseProps<DateRangePickerValue>;
 
 const compareDates = (dateA?: Date, dateB?: Date) =>
   dateA && dateB ? dateA.getTime() - dateB.getTime() : 0;
 
-const sortDates = (dates: DateRangePickerValue) => dates.sort(compareDates);
+const sortDates = (dates: DateRangePickerValue) => dates && dates.sort(compareDates);
 
 const isSameDate = (dateA?: Date, dateB?: Date) =>
   dateA && dateB && dateA.getTime() === dateB.getTime();
@@ -38,7 +28,9 @@ const isSameValue = (valueA: DateRangePickerValue, valueB: DateRangePickerValue)
   const sortedValueA = sortDates(valueA);
   const sortedValueB = sortDates(valueB);
   return (
-    isSameDate(sortedValueA[0], sortedValueB[0]) && isSameDate(sortedValueA[1], sortedValueB[1])
+    sortedValueA &&
+    sortedValueB &&
+    (isSameDate(sortedValueA[0], sortedValueB[0]) && isSameDate(sortedValueA[1], sortedValueB[1]))
   );
 };
 
@@ -53,7 +45,7 @@ export function DateRangePicker({
   const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [hoveredDate, setHoveredDate] = useState();
-  const [startDate, endDate] = value;
+  const [startDate, endDate] = value ? value : [undefined, undefined];
   const selectedDaysFrom = startDate;
   const selectedDaysTo = pickingDateType === 'end' ? hoveredDate : endDate;
   const selectedDays = selectedDaysFrom &&
