@@ -16,13 +16,13 @@ import DayPicker, {
   WeekdayElementProps,
 } from 'react-day-picker';
 
-export type DatePickerBaseValue = Date | [Date?, Date?];
+export type DatePickerBaseValue = Date | [Date?, Date?] | undefined;
 
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
 export interface DatePickerBaseInputComponentProps<TValue>
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
-  value: TValue;
+  value?: TValue;
 }
 
 export interface DatePickerBaseState {
@@ -31,18 +31,18 @@ export interface DatePickerBaseState {
   onClose: () => void;
 }
 
-export interface DatePickerBaseQuickSelectionItem {
+export interface DatePickerBaseQuickSelectionItem<TValue> {
   label: string;
-  value: DatePickerBaseValue;
+  value: TValue;
 }
 
-export interface DatePickerBaseProps extends DayPickerProps {
+export interface DatePickerBaseProps<TValue> extends DayPickerProps {
   classNames?: DayPickerProps['classNames'];
-  value?: DatePickerBaseValue;
-  quickSelectionItems?: DatePickerBaseQuickSelectionItem[];
-  quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem;
-  InputComponent: DatePickerBaseInputComponent<any>;
-  onChange: (value: any) => void;
+  value?: TValue;
+  quickSelectionItems?: Array<DatePickerBaseQuickSelectionItem<TValue>>;
+  quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem<TValue>;
+  InputComponent: DatePickerBaseInputComponent<DatePickerBaseInputComponentProps<TValue>>;
+  onChange: (value: TValue) => void;
   footer?: React.ReactNode;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
@@ -74,7 +74,7 @@ const weekdayElement = ({ weekday, className }: WeekdayElementProps) => (
   </Typography>
 );
 
-export function DatePickerBase({
+export function DatePickerBase<TValue extends DatePickerBaseValue>({
   InputComponent,
   classNames,
   value,
@@ -88,7 +88,7 @@ export function DatePickerBase({
   anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   transformOrigin = { vertical: 'top', horizontal: 'left' },
   ...props
-}: DatePickerBaseProps & DatePickerBaseState) {
+}: DatePickerBaseProps<TValue> & DatePickerBaseState) {
   return (
     <>
       <InputComponent onClick={onOpen} value={value} readOnly={true} />

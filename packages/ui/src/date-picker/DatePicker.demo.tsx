@@ -4,10 +4,9 @@ import moment from 'moment';
 import React, { useCallback, useState } from 'react';
 
 import { ThemeProvider } from '..';
-import { DatePicker, DatePickerInputComponentProps, DatePickerProps } from './DatePicker';
+import { DatePicker, DatePickerProps } from './DatePicker';
 import {
   DateRangePicker,
-  DateRangePickerInputComponentProps,
   DateRangePickerProps,
   DateRangePickerQuickSelectionItem,
 } from './DateRangePicker';
@@ -24,7 +23,7 @@ const addDays = (date: Date, daysCount: number) =>
 
 const formatValue = (date?: Date) => (date ? moment(date).format('MMM DD, YYYY') : '');
 
-const DateInputComponent = ({ value, ...props }: DatePickerInputComponentProps) => {
+const DateInputComponent: DatePickerProps['InputComponent'] = ({ value, ...props }) => {
   const formattedValue = formatValue(value);
   return <TextField value={formattedValue} {...props} />;
 };
@@ -44,8 +43,8 @@ const dateRangePickerQuickSelectionItems: DateRangePickerQuickSelectionItem[] = 
   value: [today, addDays(today, daysCount - 1)],
 }));
 
-const DateRangeInputComponent = ({ value, ...props }: DateRangePickerInputComponentProps) => {
-  const [startDate, endDate] = value;
+const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({ value, ...props }) => {
+  const [startDate, endDate] = value ? value : [];
   const formattedValue =
     startDate || endDate ? `${formatValue(startDate)} - ${formatValue(endDate)}` : '';
   return <TextField value={formattedValue} {...props} />;

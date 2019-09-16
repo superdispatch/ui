@@ -1,21 +1,11 @@
 import React from 'react';
 
-import {
-  DatePickerBase,
-  DatePickerBaseInputComponent,
-  DatePickerBaseInputComponentProps,
-  DatePickerBaseProps,
-  useDatePickerBaseState,
-} from './DatePickerBase';
+import { DatePickerBase, DatePickerBaseProps, useDatePickerBaseState } from './DatePickerBase';
 import { useDatePickerStyles } from './DatePickerStyles';
 
-export type DatePickerValue = Date;
-export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
-export interface DatePickerProps extends DatePickerBaseProps {
-  value?: DatePickerValue;
-  InputComponent: DatePickerBaseInputComponent<DatePickerInputComponentProps>;
-  onChange: (value?: Date) => void;
-}
+export type DatePickerValue = Date | undefined;
+
+export type DatePickerProps = DatePickerBaseProps<DatePickerValue>;
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
   const classNames = useDatePickerStyles();
