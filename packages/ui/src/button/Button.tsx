@@ -16,6 +16,7 @@ const CLASS_BLUE = '.Button-blue';
 const CLASS_GREEN = '.Button-green';
 
 const CLASS_DISABLED = '.Mui-disabled';
+const CLASS_IS_ACTIVE = '.Button-isActive';
 const CLASS_IS_LOADING = '.Button-isLoading';
 
 const DEFAULT_PROGRESS_SIZE = 16;
@@ -31,7 +32,7 @@ function containedColor(
     backgroundColor,
     boxShadow: '0 0 0 0 transparent',
 
-    '&:hover': { backgroundColor: hoverBackgroundColor },
+    [`&:hover, &${CLASS_IS_ACTIVE}`]: { backgroundColor: hoverBackgroundColor },
     '&:focus': { boxShadow: `0 0 0 3px ${boxShadowColor}` },
 
     [`&${CLASS_DISABLED}`]: {
@@ -56,9 +57,13 @@ function outlinedColor(
     borderColor: staleBorderColor,
     boxShadow: '0 0 0 0 transparent',
 
-    '&:hover, &:active, &:focus': { color: activeColor },
-    '&:hover, &:active': { borderColor: activeColor, backgroundColor: activeBackgroundColor },
+    [`&:hover, &:active, &:focus, &${CLASS_IS_ACTIVE}`]: { color: activeColor },
+    [`&:hover, &:active, &${CLASS_IS_ACTIVE}`]: {
+      borderColor: activeColor,
+      backgroundColor: activeBackgroundColor,
+    },
     '&:focus': { boxShadow: `0 0 0 2px ${activeShadowColor}` },
+
     [`&${CLASS_DISABLED}`]: {
       boxShadow: 'none',
       color: Color.Silver80,
@@ -135,11 +140,12 @@ const useStyles = makeStyles(
   { name: 'Button' },
 );
 
-export type ButtonColor = Exclude<ColorVariant, 'silver' | 'purple' | 'teal' | 'yellow'>;
+export type ButtonColor = Exclude<ColorVariant, 'grey' | 'silver' | 'purple' | 'teal' | 'yellow'>;
 
 export interface ButtonProps
   extends Omit<MaterialButtonProps, 'color' | 'variant' | 'disableFocusRipple'> {
   color?: ButtonColor;
+  isActive?: boolean;
   isLoading?: boolean;
   variant?: 'outlined' | 'contained';
 }
@@ -149,6 +155,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       disabled,
+      isActive,
       isLoading,
       className,
       size = 'medium',
@@ -171,7 +178,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={clsx(
           classes.root,
           `Button-${color}`,
-          isLoading && `Button-isLoading`,
+          isActive && CLASS_IS_ACTIVE.slice(1),
+          isLoading && CLASS_IS_LOADING.slice(1),
           className,
         )}
       >
