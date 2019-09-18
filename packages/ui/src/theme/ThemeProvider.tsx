@@ -59,7 +59,7 @@ function createTheme() {
       },
 
       MuiTouchRipple: {
-        ripple: { color: Color.Silver80 },
+        ripple: { color: Color.Silver100 },
       },
 
       MuiMenuItem: {

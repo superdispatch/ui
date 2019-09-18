@@ -100,7 +100,7 @@ export const datePickerBaseStyles = createStyles({
   },
   weekday: {
     ...cellStyles,
-    color: Color.Grey,
+    color: Color.Grey300,
   },
   body: {
     display: 'flex',
@@ -122,7 +122,7 @@ export const datePickerBaseStyles = createStyles({
   },
   day: {
     ...cellStyles,
-    color: Color.Grey15,
+    color: Color.Grey500,
     position: 'relative',
     cursor: 'pointer',
   },

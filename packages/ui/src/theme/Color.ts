@@ -32,97 +32,9 @@ export enum Color {
   Silver400 = '#E1E5EA',
   Silver500 = '#C4CDD5',
 
-  /** @deprecated */
-  Grey15 = '#192334',
-  /** @deprecated */
-  Grey25 = '#323C4E',
-  /** @deprecated */
-  Grey = '#5B6371',
-  /** @deprecated */
-  Grey45 = '#6A707C',
-  /** @deprecated */
-  Grey60 = '#9297A0',
-
-  /** @deprecated */
-  Silver80 = '#C4CDD5',
-  /** @deprecated */
-  Silver90 = '#E1E5EA',
-  /** @deprecated */
-  Silver93 = '#E8ECF0',
-  /** @deprecated */
-  Silver = '#F3F5F8',
-  /** @deprecated */
-  Silver97 = '#F6F7F8',
-
   //
   // Extended Palette
   //
-
-  /** @deprecated */
-  Blue25 = '#003980',
-  /** @deprecated */
-  Blue40 = '#005FCC',
-  /** @deprecated */
-  Blue = '#0075FF',
-  /** @deprecated */
-  Blue85 = '#B3D5FF',
-  /** @deprecated */
-  Blue95 = '#E7F2FF',
-
-  /** @deprecated */
-  Green25 = '#1E642E',
-  /** @deprecated */
-  Green35 = '#338049',
-  /** @deprecated */
-  Green = '#36B352',
-  /** @deprecated */
-  Green70 = '#91D5A0',
-  /** @deprecated */
-  Green95 = '#ECF7EF',
-
-  /** @deprecated */
-  Purple35 = '#41367B',
-  /** @deprecated */
-  Purple45 = '#51469E',
-  /** @deprecated */
-  Purple = '#6757C1',
-  /** @deprecated */
-  Purple85 = '#CDC8EA',
-  /** @deprecated */
-  Purple95 = '#EFEDF8',
-
-  /** @deprecated */
-  Teal25 = '#015F7E',
-  /** @deprecated */
-  Teal35 = '#097CAA',
-  /** @deprecated */
-  Teal = '#0298CA',
-  /** @deprecated */
-  Teal85 = '#BDE8F5',
-  /** @deprecated */
-  Teal95 = '#E7F6FB',
-
-  /** @deprecated */
-  Red30 = '#931E06',
-  /** @deprecated */
-  Red45 = '#DB2D0A',
-  /** @deprecated */
-  Red = '#EC310B',
-  /** @deprecated */
-  Red80 = '#F7AFA1',
-  /** @deprecated */
-  Red95 = '#FDEDE8',
-
-  /** @deprecated */
-  Yellow30 = '#9B6C00',
-  /** @deprecated */
-  Yellow45 = '#E8A200',
-  /** @deprecated */
-  Yellow = '#FFB202',
-  /** @deprecated */
-  Yellow85 = '#FFE8B3',
-  /** @deprecated */
-  Yellow95 = '#FFF8E7',
 
   Blue50 = '#EBF4FF',
   Blue75 = '#CCE5FF',
