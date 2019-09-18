@@ -6,9 +6,9 @@ import { datePickerBaseStyles } from './DatepickerBaseStyles';
 export const datePickerStyles = {
   ...datePickerBaseStyles,
   selected: {
-    background: Color.Blue,
-    color: '#FFF',
     borderRadius: '4px',
+    color: Color.White,
+    background: Color.Blue300,
   },
 };
 
