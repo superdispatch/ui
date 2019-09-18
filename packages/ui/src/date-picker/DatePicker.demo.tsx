@@ -108,20 +108,30 @@ export function DateRangePickerQuickSelectionDemo() {
 
         <pre>{JSON.stringify({ value }, null, 2)}</pre>
       </Box>
+    </ThemeProvider>
+  );
+}
 
+export function DateRangePickerDisabled() {
+  const [value, setValue] = useState<DateRangePickerProps['value']>([]);
+
+  return (
+    <ThemeProvider>
       <Box p={2}>
         <Typography variant="h2">Disabled</Typography>
       </Box>
 
       <Box p={2} width={270}>
         <DateRangePicker
-          value={dateRangePickeerValue}
-          onChange={handleDateRangePickerChange}
+          value={value}
+          onChange={setValue}
           InputComponent={DateRangeInputComponent}
           quickSelectionItems={dateRangePickerQuickSelectionItems}
           numberOfMonths={2}
           disabled={true}
         />
+
+        <pre>{JSON.stringify({ value }, null, 2)}</pre>
       </Box>
     </ThemeProvider>
   );
