@@ -37,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ) : (
         <>
           {children}
-          <CircularProgress className={ButtonClassNames.progress} />
+          <CircularProgress color="inherit" className={ButtonClassNames.progress} />
         </>
       )}
     </MaterialButton>

@@ -22,6 +22,8 @@ function outlinedColorVariant(
   return {
     [`&.${ButtonClassNames.isLoading}`]: { borderColor: staleBorderColor },
 
+    [`& .${ButtonClassNames.progress}`]: { color: activeColor },
+
     '&:not($disabled)': {
       color: staleColor,
       borderColor: staleBorderColor,
@@ -139,7 +141,7 @@ export function applyButtonStyles(theme: Theme) {
     ),
 
     contained: {
-      color: '#fff',
+      color: Color.White,
       padding: '6px 16px',
       boxShadow: '0 0 0 0 transparent',
       '&:active': { boxShadow: undefined },
@@ -157,7 +159,7 @@ export function applyButtonStyles(theme: Theme) {
         Color.Green500,
       ),
 
-      [`& .${ButtonClassNames.progress}`]: { color: 'white' },
+      [`& .${ButtonClassNames.progress}`]: { color: Color.White },
     },
 
     containedPrimary: containedColorVariant(Color.Blue300, Color.Blue100, Color.Blue500),

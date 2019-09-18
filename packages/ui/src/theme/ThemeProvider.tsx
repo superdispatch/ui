@@ -73,9 +73,7 @@ function createTheme() {
 
       MuiListItem: {
         root: {
-          '&$selected, &$selected:hover': {
-            color: Color.Blue,
-          },
+          '&$selected, &$selected:hover': { color: Color.Blue300 },
         },
       },
 
