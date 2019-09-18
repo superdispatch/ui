@@ -16,7 +16,7 @@ const cutoffRangeDayStyles: CSSProperties = {
     right: 0,
     bottom: 0,
     borderRadius: 4,
-    background: `${Color.Blue}`,
+    background: `${Color.Blue300}`,
   },
 };
 
@@ -41,7 +41,7 @@ export const dateRangePickerStyles = createStyles({
     },
   },
   selected: {
-    color: Color.Blue25,
+    color: Color.Blue500,
     '&:before': {
       content: '""',
       position: 'absolute',
@@ -50,7 +50,7 @@ export const dateRangePickerStyles = createStyles({
       left: -1,
       right: -1,
       bottom: 0,
-      background: Color.Blue95,
+      background: Color.Blue50,
     },
     '&:first-of-type:before': {
       borderRadius: '4px 0 0 4px',

@@ -28,16 +28,13 @@ const navButtonStyles: CSSProperties = {
   justifyContent: 'center',
   width: '28px',
   height: '28px',
-  color: Color.Grey15,
+  color: Color.Grey500,
   position: 'absolute',
 
   '&:after': {
     ...navButtonArrowStyles,
   },
-  '&:hover': {
-    cursor: 'pointer',
-    color: Color.Blue,
-  },
+  '&:hover': { cursor: 'pointer', color: Color.Blue300 },
 };
 
 export const datePickerBaseStyles = createStyles({
@@ -141,9 +138,7 @@ export const datePickerBaseStyles = createStyles({
   },
 
   // default modifiers
-  today: {
-    color: Color.Blue,
-  },
+  today: { color: Color.Blue300 },
   selected: {},
   disabled: {},
   outside: {
