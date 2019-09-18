@@ -46,6 +46,7 @@ export interface DatePickerBaseProps<TValue> extends DayPickerProps {
   footer?: React.ReactNode;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
+  disabled?: boolean;
 }
 
 export function useDatePickerBaseState() {
@@ -87,11 +88,12 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
   footer,
   anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   transformOrigin = { vertical: 'top', horizontal: 'left' },
+  disabled,
   ...props
 }: DatePickerBaseProps<TValue> & DatePickerBaseState) {
   return (
     <>
-      <InputComponent onClick={onOpen} value={value} readOnly={true} />
+      <InputComponent onClick={onOpen} value={value} readOnly={true} disabled={disabled} />
 
       <Popover
         open={Boolean(anchorEl)}
