@@ -2,6 +2,7 @@ import { createMuiTheme, CssBaseline } from '@material-ui/core';
 import { CSSProperties, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import React, { ReactNode, useMemo } from 'react';
 
+import { applyButtonStyles } from '../button/ButtonStyles';
 import { Color } from './Color';
 
 const MOBILE_MEDIA = '@media (max-width: 767px)';
@@ -31,12 +32,8 @@ function textVariant(
 function createTheme() {
   const theme = createMuiTheme({
     palette: {
-      primary: { main: Color.Blue },
-      secondary: { main: Color.Red },
-      action: {
-        hover: Color.Silver97,
-        selected: Color.Silver90,
-      },
+      primary: { main: Color.Blue300 },
+      action: { hover: Color.Silver100, selected: Color.Silver400 },
     },
 
     typography: {
@@ -73,6 +70,7 @@ function createTheme() {
           paddingBottom: '8px',
         },
       },
+
       MuiListItem: {
         root: {
           '&$selected, &$selected:hover': {
@@ -100,8 +98,8 @@ function createTheme() {
         },
 
         textColorPrimary: {
-          color: Color.Grey15,
-          '&:hover, &:focus': { color: Color.Blue },
+          color: Color.Grey500,
+          '&:hover, &:focus': { color: Color.Blue300 },
         },
       },
     },
@@ -110,13 +108,16 @@ function createTheme() {
       MuiLink: {
         underline: 'none',
       },
+
       MuiMenu: {
         keepMounted: true,
         getContentAnchorEl: null,
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         transformOrigin: { vertical: 'top', horizontal: 'left' },
       },
+
       MuiMenuItem: { dense: true },
+
       MuiTabs: { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' },
     },
   });
@@ -126,6 +127,8 @@ function createTheme() {
     .textColorPrimary as CSSProperties).transition = theme.transitions.create(['color'], {
     duration: theme.transitions.duration.short,
   });
+
+  applyButtonStyles(theme);
 
   return theme;
 }

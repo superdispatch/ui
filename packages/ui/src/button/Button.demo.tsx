@@ -1,19 +1,28 @@
-import { Box, FormControlLabel, Grid, MenuItem, Switch, TextField } from '@material-ui/core';
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+} from '@material-ui/core';
 import { startCase } from 'lodash';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import { ButtonColor, ThemeProvider } from '..';
 import { Button, ButtonProps } from './Button';
 
-const colors: Array<ButtonProps['color']> = ['blue', 'red', 'green'];
+type State = 'stale' | 'disabled' | 'active' | 'loading';
+const states: State[] = ['stale', 'disabled', 'active', 'loading'];
+const colors: Array<ButtonProps['color']> = ['primary', 'success', 'error'];
+
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
 const variants: Array<ButtonProps['variant']> = ['contained', 'outlined'];
 
 export function ButtonDemo() {
-  const [color, setColor] = useState<ButtonColor>('blue');
-  const [disabled, setDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [state, setState] = useState<State>('stale');
+  const [color, setColor] = useState<ButtonColor>('primary');
   const [lastClicked, setLastClicked] = useState(0);
 
   useEffect(() => {
@@ -21,11 +30,11 @@ export function ButtonDemo() {
       return;
     }
 
-    setIsLoading(true);
+    setState('loading');
 
     const timeout = setTimeout(() => {
+      setState('stale');
       setLastClicked(0);
-      setIsLoading(false);
     }, 1000);
 
     return () => clearTimeout(timeout);
@@ -36,56 +45,35 @@ export function ButtonDemo() {
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm={true} xs={12}>
-            <TextField
-              select={true}
-              value={color}
-              fullWidth={true}
-              onChange={event => setColor(event.target.value as ButtonColor)}
-            >
-              {colors.map(x => (
-                <MenuItem key={x} value={x}>
-                  {startCase(x)}
-                </MenuItem>
-              ))}
-            </TextField>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">State</FormLabel>
+              <RadioGroup
+                row={true}
+                value={state}
+                name="state"
+                onChange={(_, value) => setState(value as State)}
+              >
+                {states.map(x => (
+                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                ))}
+              </RadioGroup>
+            </FormControl>
           </Grid>
 
           <Grid item={true} sm={true} xs={12}>
-            <FormControlLabel
-              label="Disabled"
-              control={
-                <Switch
-                  value={disabled}
-                  checked={disabled}
-                  onChange={(_, checked) => setDisabled(checked)}
-                />
-              }
-            />
-          </Grid>
-
-          <Grid item={true} sm={true} xs={12}>
-            <FormControlLabel
-              label="Loading"
-              control={
-                <Switch
-                  value={isLoading}
-                  checked={isLoading}
-                  onChange={(_, checked) => setIsLoading(checked)}
-                />
-              }
-            />
-          </Grid>
-          <Grid item={true} sm={true} xs={12}>
-            <FormControlLabel
-              label="Active"
-              control={
-                <Switch
-                  value={isActive}
-                  checked={isActive}
-                  onChange={(_, checked) => setIsActive(checked)}
-                />
-              }
-            />
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Color</FormLabel>
+              <RadioGroup
+                row={true}
+                name="color"
+                value={color}
+                onChange={(_, value) => setColor(value as ButtonColor)}
+              >
+                {colors.map(x => (
+                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                ))}
+              </RadioGroup>
+            </FormControl>
           </Grid>
         </Grid>
       </Box>
@@ -95,17 +83,17 @@ export function ButtonDemo() {
           {variants.map(variant => (
             <Fragment key={variant}>
               {sizes.map(size => (
-                <Grid item={true} key={variant} sm={4} xs={12}>
+                <Grid item={true} key={size} sm={4} xs={12}>
                   <Button
                     size={size}
                     color={color}
                     variant={variant}
-                    disabled={disabled}
-                    isActive={isActive}
-                    isLoading={isLoading}
+                    disabled={state === 'disabled'}
+                    isActive={state === 'active'}
+                    isLoading={state === 'loading'}
                     onClick={() => setLastClicked(Date.now())}
                   >
-                    Stale
+                    Button
                   </Button>
                 </Grid>
               ))}
