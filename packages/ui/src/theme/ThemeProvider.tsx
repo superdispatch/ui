@@ -3,6 +3,7 @@ import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
+import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
 import { applyTabsStyles } from '../tabs/TabsStyles';
@@ -32,6 +33,7 @@ function createTheme() {
   });
 
   applyButtonStyles(theme);
+  applyIconButtonStyles(theme);
   applyLinkStyles(theme);
   applyMenuStyles(theme);
   applyTabsStyles(theme);

@@ -6,11 +6,10 @@ import React, { Fragment } from 'react';
 import { ThemeProvider } from '..';
 
 const colors: Array<LinkProps['color']> = [
-  'initial',
-  'error',
   'inherit',
   'primary',
   'secondary',
+  'error',
   'textPrimary',
   'textSecondary',
 ];
@@ -26,9 +25,7 @@ const variants: Array<LinkProps['variant']> = [
   'body1',
   'body2',
   'caption',
-  'button',
   'overline',
-  'inherit',
 ];
 
 export function LinkDemo() {
@@ -42,7 +39,7 @@ export function LinkDemo() {
                 {variants.map(variant => {
                   const text = (
                     <>
-                      <code>{variant}</code> {startCase(color)}
+                      <code>{variant}</code> {startCase(color || 'default')}
                     </>
                   );
 
