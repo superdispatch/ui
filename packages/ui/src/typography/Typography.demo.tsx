@@ -26,9 +26,6 @@ const variants: Array<TypographyProps['variant']> = [
   'subtitle2',
   'body1',
   'body2',
-  'caption',
-  'button',
-  'overline',
 ];
 
 export function TypographyDemo() {
