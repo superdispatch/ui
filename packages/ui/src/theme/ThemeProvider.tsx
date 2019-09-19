@@ -7,6 +7,7 @@ import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
 import { applyTabsStyles } from '../tabs/TabsStyles';
+import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import { applyTypographyStyles, createTypographyOptions } from '../typography/TypographyStyles';
 import { Color } from './Color';
 
@@ -37,6 +38,7 @@ function createTheme() {
   applyLinkStyles(theme);
   applyMenuStyles(theme);
   applyTabsStyles(theme);
+  applyTooltipStyles(theme);
   applyTypographyStyles(theme);
 
   return theme;
