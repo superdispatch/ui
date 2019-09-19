@@ -69,6 +69,7 @@ export function applyButtonStyles(theme: Theme) {
     root: {
       fontSize: '14px',
       lineHeight: '20px',
+      textTransform: undefined,
       transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
         duration: theme.transitions.duration.short,
       }),
