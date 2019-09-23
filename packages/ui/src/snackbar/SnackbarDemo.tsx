@@ -16,6 +16,8 @@ import { Snackbar, SnackbarVariant, ThemeProvider } from '..';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
+const AUTO_HIDE_DURATION = 5000;
+
 export function SnackbarDemo() {
   const [isOpen, setIsOpen] = useState(true);
   const [isShort, setIsShort] = useState(true);
@@ -34,7 +36,7 @@ export function SnackbarDemo() {
     const startTime = Date.now();
 
     function run() {
-      const nextHidesAfter = (5000 - (Date.now() - startTime)) / 1000;
+      const nextHidesAfter = (AUTO_HIDE_DURATION - (Date.now() - startTime)) / 1000;
 
       if (nextHidesAfter >= 0) {
         setHidesAfter(nextHidesAfter);
@@ -115,7 +117,7 @@ export function SnackbarDemo() {
         variant={variant}
         hasCloseButton={hasCloseButton}
         onClose={() => setIsOpen(false)}
-        autoHideDuration={hasAutoHideDuration ? 5000 : undefined}
+        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
         key={`${variant}-${isShort}-${hasCloseButton}-${hasAutoHideDuration}`}
       >
         {isShort
