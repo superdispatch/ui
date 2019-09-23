@@ -17,16 +17,9 @@ export function applySnackbarStyles(theme: Theme) {
 
       [theme.breakpoints.up('sm')]: { width: '432px', maxWidth: '432px' },
 
-      [`.${SnackbarClassNames.Default} &`]: {
-        color: Color.Grey500,
-        backgroundColor: Color.White,
-      },
-      [`.${SnackbarClassNames.Success} &`]: {
-        backgroundColor: Color.Green300,
-      },
-      [`.${SnackbarClassNames.Error} &`]: {
-        backgroundColor: Color.Red300,
-      },
+      [`&.${SnackbarClassNames.Default}`]: { color: Color.Grey500, backgroundColor: Color.White },
+      [`&.${SnackbarClassNames.Success}`]: { backgroundColor: Color.Green300 },
+      [`&.${SnackbarClassNames.Error}`]: { backgroundColor: Color.Red300 },
     },
 
     message: {

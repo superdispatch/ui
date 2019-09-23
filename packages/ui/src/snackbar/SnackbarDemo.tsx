@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -12,20 +13,24 @@ import {
 import { startCase } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { Snackbar, SnackbarVariant, ThemeProvider } from '..';
+import { Snackbar, SnackbarVariant, useSnackbarAPI } from '..';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
 const AUTO_HIDE_DURATION = 5000;
 
 export function SnackbarDemo() {
+  const { addSnackbar } = useSnackbarAPI();
   const [isOpen, setIsOpen] = useState(true);
-  const [isShort, setIsShort] = useState(true);
+  const [isLong, setIsLong] = useState(false);
   const [hasCloseButton, setHasCloseButton] = useState(true);
   const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
   const [hidesAfter, setHidesAfter] = useState(0);
   const [variant, setVariant] = useState<SnackbarVariant>('default');
-  const key = `${variant}-${isShort}-${hasCloseButton}-${hasAutoHideDuration}`;
+  const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
+  const snackbarText = !isLong
+    ? 'I love snackbar.'
+    : 'I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate. I love pancakes. I love sumalak. I love novot.';
 
   useEffect(() => {
     if (!isOpen || !hasAutoHideDuration) {
@@ -55,7 +60,19 @@ export function SnackbarDemo() {
   }, [key, isOpen, hasAutoHideDuration]);
 
   return (
-    <ThemeProvider>
+    <>
+      <Snackbar
+        key={key}
+        open={isOpen}
+        variant={variant}
+        hasCloseButton={hasCloseButton}
+        onClose={() => setIsOpen(false)}
+        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
+      >
+        {snackbarText}
+        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
+      </Snackbar>
+
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm="auto" xs={12}>
@@ -71,10 +88,10 @@ export function SnackbarDemo() {
                 />
 
                 <FormControlLabel
-                  label="Short"
+                  label="Long"
                   control={<Switch />}
-                  checked={isShort}
-                  onChange={(_, checked) => setIsShort(checked)}
+                  checked={isLong}
+                  onChange={(_, checked) => setIsLong(checked)}
                 />
 
                 <FormControlLabel
@@ -109,23 +126,33 @@ export function SnackbarDemo() {
               </RadioGroup>
             </FormControl>
           </Grid>
+
+          <Grid item={true} sm="auto" xs={12}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Stack</FormLabel>
+
+              <FormGroup row={true}>
+                <Button
+                  onClick={() =>
+                    addSnackbar(
+                      <>
+                        {snackbarText} ({new Date().toISOString().slice(11, 22)})
+                      </>,
+                      {
+                        variant,
+                        hasCloseButton,
+                        autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
+                      },
+                    )
+                  }
+                >
+                  Add Snackbar
+                </Button>
+              </FormGroup>
+            </FormControl>
+          </Grid>
         </Grid>
       </Box>
-
-      <Snackbar
-        open={isOpen}
-        variant={variant}
-        hasCloseButton={hasCloseButton}
-        onClose={() => setIsOpen(false)}
-        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
-        key={`${variant}-${isShort}-${hasCloseButton}-${hasAutoHideDuration}`}
-      >
-        {isShort
-          ? 'I love snackbar.'
-          : 'I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate. I love pancakes. I love sumalak. I love navad.'}
-
-        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
-      </Snackbar>
-    </ThemeProvider>
+    </>
   );
 }
