@@ -122,7 +122,7 @@ export function SnackbarDemo() {
           ? 'I love snackbar.'
           : 'I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate. I love pancakes. I love sumalak. I love navad.'}
 
-        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}ms)</>}
+        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
       </Snackbar>
     </ThemeProvider>
   );
