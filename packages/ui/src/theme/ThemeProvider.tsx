@@ -1,7 +1,6 @@
 import { createMuiTheme, CssBaseline, useMediaQuery } from '@material-ui/core';
-import { SnackbarOrigin } from '@material-ui/core/Snackbar';
 import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
-import { SnackbarProvider } from 'notistack';
+import { SnackbarProvider, SnackbarProviderProps } from 'notistack';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
@@ -54,19 +53,24 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const theme = useMemo(createTheme, []);
-  const snackbarOrigin: SnackbarOrigin = useMemo(
-    () => ({ vertical: 'top', horizontal: 'right' }),
-    [],
-  );
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const snackbarProviderProps = useMemo(
+    (): SnackbarProviderProps =>
+      isDesktop
+        ? { anchorOrigin: { vertical: 'top', horizontal: 'right' } }
+        : {
+            dense: true,
+            maxSnack: 1,
+            anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
+          },
+    [isDesktop],
+  );
 
   return (
     <MaterialThemeProvider theme={theme}>
       <CssBaseline />
 
-      <SnackbarProvider maxSnack={isDesktop ? 3 : 1} anchorOrigin={snackbarOrigin}>
-        {children}
-      </SnackbarProvider>
+      <SnackbarProvider {...snackbarProviderProps}>{children}</SnackbarProvider>
     </MaterialThemeProvider>
   );
 }

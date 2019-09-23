@@ -11,15 +11,27 @@ export enum SnackbarClassNames {
 
 export function applySnackbarStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
+
+  theme.overrides.MuiSnackbar = {
+    root: {
+      [theme.breakpoints.down('sm')]: {
+        left: 0,
+        right: 0,
+        '&$anchorOriginBottomCenter': { bottom: 0 },
+      },
+    },
+  };
+
   theme.overrides.MuiSnackbarContent = {
     root: {
       minHeight: '60px',
 
-      [theme.breakpoints.up('sm')]: { width: '432px', maxWidth: '432px' },
-
       [`&.${SnackbarClassNames.Default}`]: { color: Color.Grey500, backgroundColor: Color.White },
       [`&.${SnackbarClassNames.Success}`]: { backgroundColor: Color.Green300 },
       [`&.${SnackbarClassNames.Error}`]: { backgroundColor: Color.Red300 },
+
+      [theme.breakpoints.up('sm')]: { width: '432px', maxWidth: '432px' },
+      [theme.breakpoints.down('sm')]: { borderRadius: 0 },
     },
 
     message: {
@@ -27,9 +39,13 @@ export function applySnackbarStyles(theme: Theme) {
       display: 'flex',
 
       [`& .${SnackbarClassNames.Icon}`]: {
-        fontSize: '16px',
-        marginTop: '2px',
+        left: 0,
+        top: '2px',
+        fontSize: '18px',
         marginRight: '8px',
+        position: 'relative',
+
+        [theme.breakpoints.up('sm')]: { fontSize: '16px' },
       },
     },
   };
