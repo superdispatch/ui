@@ -8,6 +8,8 @@ import { ButtonClassNames } from './ButtonStyles';
 export type ButtonColor = 'primary' | 'error' | 'success';
 
 export interface ButtonProps extends Omit<MaterialButtonProps, 'color' | 'variant'> {
+  rel?: string;
+  target?: string;
   color?: ButtonColor;
   isActive?: boolean;
   isLoading?: boolean;
