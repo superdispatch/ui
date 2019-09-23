@@ -1,5 +1,5 @@
 import { createMuiTheme, CssBaseline, useMediaQuery } from '@material-ui/core';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import { SnackbarProvider, SnackbarProviderProps } from 'notistack';
 import React, { ReactNode, useMemo } from 'react';
 
@@ -68,9 +68,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   return (
     <MaterialThemeProvider theme={theme}>
-      <CssBaseline />
+      <StylesProvider injectFirst={true}>
+        <CssBaseline />
 
-      <SnackbarProvider {...snackbarProviderProps}>{children}</SnackbarProvider>
+        <SnackbarProvider {...snackbarProviderProps}>{children}</SnackbarProvider>
+      </StylesProvider>
     </MaterialThemeProvider>
   );
 }
