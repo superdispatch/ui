@@ -4,12 +4,13 @@ import React, { forwardRef } from 'react';
 
 import { TooltipClassNames } from './TooltipStyles';
 
-export const Tooltip = forwardRef(({ title, PopperProps, ...props }: TooltipProps) => {
+export const Tooltip = forwardRef(({ title, PopperProps, ...props }: TooltipProps, ref) => {
   const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(null);
 
   return (
     <MaterialTooltip
       {...props}
+      ref={ref}
       PopperProps={{
         ...PopperProps,
         modifiers: {
