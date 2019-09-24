@@ -7,23 +7,17 @@ export enum TooltipClassNames {
   Arrow = 'Tooltip-arrow',
 }
 
-function arrowSelector(placement?: TooltipProps['placement']) {
-  let selector = '&';
+const arrowSelector = (placement?: TooltipProps['placement']) =>
+  `& ${
+    !placement
+      ? `[x-placement]`
+      : placement.includes('-')
+      ? `[x-placement="${placement}"]`
+      : `[x-placement*="${placement}"]`
+  } .${TooltipClassNames.Arrow}`;
 
-  if (!placement) {
-    selector += '[x-placement]';
-  } else if (placement.includes('-')) {
-    selector += `[x-placement="${placement}"]`;
-  } else {
-    selector += `[x-placement*="${placement}"]`;
-  }
-
-  return `${selector} .${TooltipClassNames.Arrow}`;
-}
-
-function transformArrow(x: number, y: number) {
-  return `translate3d(${x}px, ${y}px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)`;
-}
+const transformArrow = (x: number, y: number) =>
+  `translate3d(${x}px, ${y}px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)`;
 
 export function applyTooltipStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
