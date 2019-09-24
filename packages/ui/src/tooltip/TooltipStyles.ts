@@ -1,4 +1,5 @@
 import { Theme } from '@material-ui/core';
+import { TooltipProps } from '@material-ui/core/Tooltip';
 
 import { Color } from '../theme/Color';
 
@@ -6,12 +7,30 @@ export enum TooltipClassNames {
   Arrow = 'Tooltip-arrow',
 }
 
+function arrowSelector(placement?: TooltipProps['placement']) {
+  let selector = '&';
+
+  if (!placement) {
+    selector += '[x-placement]';
+  } else if (placement.includes('-')) {
+    selector += `[x-placement="${placement}"]`;
+  } else {
+    selector += `[x-placement*="${placement}"]`;
+  }
+
+  return `${selector} .${TooltipClassNames.Arrow}`;
+}
+
+function transformArrow(x: number, y: number) {
+  return `translate3d(${x}px, ${y}px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)`;
+}
+
 export function applyTooltipStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
 
   theme.overrides.MuiTooltip = {
     popper: {
-      [`& .${TooltipClassNames.Arrow}`]: {
+      [arrowSelector()]: {
         width: 8,
         height: 8,
         content: '""',
@@ -19,44 +38,35 @@ export function applyTooltipStyles(theme: Theme) {
         pointerEvents: 'none',
         backfaceVisibility: 'hidden',
         backgroundColor: Color.Grey400,
-        filter: 'blur(0)',
-        transform: 'translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg) scale3d(1, 1, 1)',
+        transform: transformArrow(0, 0),
       },
 
-      [`&[x-placement*="bottom"] .${TooltipClassNames.Arrow}`]: {
+      [arrowSelector('bottom')]: {
         top: 0,
         borderTopLeftRadius: 2,
-        transform: 'translate3d(0, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: transformArrow(0, -3),
       },
-      [`&[x-placement="bottom-end"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(3px, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
-      },
-      [`&[x-placement="bottom-start"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(-3px, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
-      },
+      [arrowSelector('bottom-end')]: { transform: transformArrow(3, -3) },
+      [arrowSelector('bottom-start')]: { transform: transformArrow(-3, -3) },
 
-      [`&[x-placement*="top"] .${TooltipClassNames.Arrow}`]: {
+      [arrowSelector('top')]: {
         bottom: 0,
         borderBottomRightRadius: 2,
-        transform: 'translate3d(0, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: transformArrow(0, 3),
       },
-      [`&[x-placement="top-end"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(3px, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
-      },
-      [`&[x-placement="top-start"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(-3px, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
-      },
+      [arrowSelector('top-end')]: { transform: transformArrow(3, 3) },
+      [arrowSelector('top-start')]: { transform: transformArrow(-3, 3) },
 
-      [`&[x-placement*="right"] .${TooltipClassNames.Arrow}`]: {
+      [arrowSelector('right')]: {
         left: 0,
         borderBottomLeftRadius: 2,
-        transform: 'translate3d(-3px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: transformArrow(-3, 0),
       },
 
-      [`&[x-placement*="left"] .${TooltipClassNames.Arrow}`]: {
+      [arrowSelector('left')]: {
         right: 0,
         borderTopRightRadius: 2,
-        transform: 'translate3d(3px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: transformArrow(3, 0),
       },
     },
 
