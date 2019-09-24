@@ -64,6 +64,7 @@ export function applyTooltipStyles(theme: Theme) {
     tooltip: {
       fontSize: '14px',
       lineHeight: '20px',
+      padding: '8px 12px',
       position: 'relative',
       backgroundColor: Color.Grey400,
     },
