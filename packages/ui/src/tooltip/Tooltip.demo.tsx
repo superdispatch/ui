@@ -1,26 +1,114 @@
-import { Box, Button, Fade, Tooltip, Zoom } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Grid,
+  MenuItem,
+  Switch,
+  TextField,
+  Tooltip,
+} from '@material-ui/core';
+import { PopperPlacementType } from '@material-ui/core/Popper';
+import { startCase } from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { ThemeProvider } from '..';
 
+const placements: PopperPlacementType[] = [
+  'bottom-end',
+  'bottom-start',
+  'bottom',
+  'left-end',
+  'left-start',
+  'left',
+  'right-end',
+  'right-start',
+  'right',
+  'top-end',
+  'top-start',
+  'top',
+];
+
 export function TooltipDemo() {
+  const [placement, setPlacement] = useState<PopperPlacementType>('bottom');
+  const [isOpen, setIsOpen] = useState(true);
+  const [isStickedToBottom, setIsStickedToBottom] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const reset = useCallback(() => setIsClicked(false), []);
   const toggle = useCallback(() => setIsClicked(x => !x), []);
   const title = isClicked ? 'Clicked' : 'Click';
+  const key = `${isOpen}-${isClicked}-${isStickedToBottom}`;
 
   return (
     <ThemeProvider>
-      <Box padding={2} key={title}>
-        <Tooltip title={title} onClose={reset}>
-          <Button onClick={toggle}>Grow</Button>
-        </Tooltip>
-        <Tooltip title={title} onClose={reset} TransitionComponent={Fade}>
-          <Button onClick={toggle}>Fade</Button>
-        </Tooltip>
-        <Tooltip title={title} onClose={reset} TransitionComponent={Zoom}>
-          <Button onClick={toggle}>Zoom</Button>
-        </Tooltip>
+      <Box
+        padding={2}
+        height="100vh"
+        display="flex"
+        flexDirection="column"
+        justifyContent={isStickedToBottom ? 'flex-end' : 'flex-start'}
+      >
+        <Grid container={true} alignItems="flex-end" spacing={2}>
+          <Grid item={true} xs="auto">
+            <Tooltip
+              key={key}
+              title={title}
+              onClose={reset}
+              placement={placement}
+              open={isOpen || undefined}
+            >
+              <Button onClick={toggle}>Hover</Button>
+            </Tooltip>
+          </Grid>
+
+          <Grid item={true} sm={true} xs={12}>
+            <TextField
+              select={true}
+              label="Placement"
+              value={placement}
+              onChange={event => setPlacement(event.target.value as PopperPlacementType)}
+            >
+              {placements.map(option => (
+                <MenuItem key={option} value={option}>
+                  {startCase(option)}
+                </MenuItem>
+              ))}
+            </TextField>{' '}
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Visibility</FormLabel>
+              <FormGroup row={true}>
+                <FormControlLabel
+                  label="Open"
+                  checked={isOpen}
+                  control={<Switch />}
+                  onChange={(_, checked) => setIsOpen(checked)}
+                />
+
+                <FormControlLabel
+                  label="Stick to Bottom"
+                  checked={isStickedToBottom}
+                  control={<Switch />}
+                  onChange={(_, checked) => setIsStickedToBottom(checked)}
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+
+          <Grid item={true} xs="auto">
+            <Tooltip
+              key={key}
+              title={title}
+              onClose={reset}
+              placement={placement}
+              open={isOpen || undefined}
+            >
+              <Button onClick={toggle}>Hover</Button>
+            </Tooltip>
+          </Grid>
+        </Grid>
       </Box>
     </ThemeProvider>
   );
