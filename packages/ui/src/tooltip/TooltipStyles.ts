@@ -8,7 +8,7 @@ export enum TooltipClassNames {
 }
 
 const arrowSelector = (placement?: TooltipProps['placement']) =>
-  `& ${
+  `&${
     !placement
       ? `[x-placement]`
       : placement.includes('-')
