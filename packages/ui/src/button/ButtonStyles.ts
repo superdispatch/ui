@@ -113,12 +113,10 @@ export function applyButtonStyles(theme: Theme) {
 
     outlined: {
       padding: '5px 15px',
+      backgroundColor: Color.White,
       border: '1px solid transparent',
 
-      '&$disabled': {
-        color: Color.Silver500,
-        borderColor: Color.Silver400,
-      },
+      '&$disabled': { color: Color.Silver500, borderColor: Color.Silver400 },
 
       [`&.${ButtonClassNames.colorError}`]: outlinedColorVariant(
         Color.Red300,
