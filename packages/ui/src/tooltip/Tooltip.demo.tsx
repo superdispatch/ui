@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { PopperPlacementType } from '@material-ui/core/Popper';
 import { startCase } from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ThemeProvider } from '../theme/ThemeProvider';
 import { Tooltip } from './Tooltip';
@@ -33,19 +33,18 @@ const placements: PopperPlacementType[] = [
 ];
 
 export function TooltipDemo() {
+  const [text, setText] = useState('Hey Alan 💀');
+  const [title, setTitle] = useState(text);
   const [placement, setPlacement] = useState<PopperPlacementType>('bottom');
   const [isOpen, setIsOpen] = useState(false);
-  const [isLong, setIsLong] = useState(false);
   const [isStickedToBottom, setIsStickedToBottom] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const reset = useCallback(() => setIsClicked(false), []);
-  const toggle = useCallback(() => setIsClicked(x => !x), []);
-  const title = isLong
-    ? 'Orders assigned to a driver and scheduled delivery date has already passed.'
-    : isClicked
-    ? 'Clicked'
-    : 'Click';
-  const key = `${isOpen}-${isLong}-${isClicked}-${isStickedToBottom}`;
+  const key = `${title}-${isOpen}-${isStickedToBottom}`;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setTitle(text), 1000);
+
+    return () => clearTimeout(timeout);
+  }, [text]);
 
   return (
     <ThemeProvider>
@@ -58,14 +57,8 @@ export function TooltipDemo() {
       >
         <Grid container={true} alignItems="flex-end" spacing={2}>
           <Grid item={true} xs="auto">
-            <Tooltip
-              key={key}
-              title={title}
-              onClose={reset}
-              placement={placement}
-              open={isOpen || undefined}
-            >
-              <Button onClick={toggle}>Show Tooltip</Button>
+            <Tooltip key={key} title={title} placement={placement} open={isOpen || undefined}>
+              <Button>Show Tooltip</Button>
             </Tooltip>
           </Grid>
 
@@ -82,6 +75,7 @@ export function TooltipDemo() {
                 </MenuItem>
               ))}
             </TextField>{' '}
+            <TextField label="Text" value={text} onChange={event => setText(event.target.value)} />{' '}
             <FormControl component="fieldset">
               <FormLabel component="legend">Visibility</FormLabel>
               <FormGroup row={true}>
@@ -90,13 +84,6 @@ export function TooltipDemo() {
                   checked={isOpen}
                   control={<Switch />}
                   onChange={(_, checked) => setIsOpen(checked)}
-                />
-
-                <FormControlLabel
-                  label="Long"
-                  checked={isLong}
-                  control={<Switch />}
-                  onChange={(_, checked) => setIsLong(checked)}
                 />
 
                 <FormControlLabel
@@ -110,14 +97,8 @@ export function TooltipDemo() {
           </Grid>
 
           <Grid item={true} xs="auto">
-            <Tooltip
-              key={key}
-              title={title}
-              onClose={reset}
-              placement={placement}
-              open={isOpen || undefined}
-            >
-              <Button onClick={toggle}>Show Tooltip</Button>
+            <Tooltip key={key} title={title} placement={placement} open={isOpen || undefined}>
+              <Button>Show Tooltip</Button>
             </Tooltip>
           </Grid>
         </Grid>
