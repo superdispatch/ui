@@ -10,7 +10,7 @@ export function applyTabsStyles(theme: Theme) {
   theme.overrides.MuiTabs = { root: { minHeight: '40px' } };
 
   theme.overrides.MuiTab = {
-    root: { minHeight: '40px' },
+    root: { minHeight: '40px', textTransform: undefined },
 
     wrapper: {
       fontWeight: 400,
