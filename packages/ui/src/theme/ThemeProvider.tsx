@@ -1,5 +1,5 @@
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
@@ -53,9 +53,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   return (
     <MaterialThemeProvider theme={theme}>
-      <CssBaseline />
+      <StylesProvider injectFirst={true}>
+        <CssBaseline />
 
-      {children}
+        {children}
+      </StylesProvider>
     </MaterialThemeProvider>
   );
 }
