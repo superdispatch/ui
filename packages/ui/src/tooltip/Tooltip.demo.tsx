@@ -9,13 +9,13 @@ import {
   MenuItem,
   Switch,
   TextField,
-  Tooltip,
 } from '@material-ui/core';
 import { PopperPlacementType } from '@material-ui/core/Popper';
 import { startCase } from 'lodash';
 import React, { useCallback, useState } from 'react';
 
-import { ThemeProvider } from '..';
+import { ThemeProvider } from '../theme/ThemeProvider';
+import { Tooltip } from './Tooltip';
 
 const placements: PopperPlacementType[] = [
   'bottom-end',
@@ -65,7 +65,7 @@ export function TooltipDemo() {
               placement={placement}
               open={isOpen || undefined}
             >
-              <Button onClick={toggle}>Hover</Button>
+              <Button onClick={toggle}>Show Tooltip</Button>
             </Tooltip>
           </Grid>
 
@@ -117,7 +117,7 @@ export function TooltipDemo() {
               placement={placement}
               open={isOpen || undefined}
             >
-              <Button onClick={toggle}>Hover</Button>
+              <Button onClick={toggle}>Show Tooltip</Button>
             </Tooltip>
           </Grid>
         </Grid>
