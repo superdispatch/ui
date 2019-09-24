@@ -35,12 +35,17 @@ const placements: PopperPlacementType[] = [
 export function TooltipDemo() {
   const [placement, setPlacement] = useState<PopperPlacementType>('bottom');
   const [isOpen, setIsOpen] = useState(true);
+  const [isLong, setIsLong] = useState(false);
   const [isStickedToBottom, setIsStickedToBottom] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const reset = useCallback(() => setIsClicked(false), []);
   const toggle = useCallback(() => setIsClicked(x => !x), []);
-  const title = isClicked ? 'Clicked' : 'Click';
-  const key = `${isOpen}-${isClicked}-${isStickedToBottom}`;
+  const title = isLong
+    ? 'Orders assigned to a driver and scheduled delivery date has already passed.'
+    : isClicked
+    ? 'Clicked'
+    : 'Click';
+  const key = `${isOpen}-${isLong}-${isClicked}-${isStickedToBottom}`;
 
   return (
     <ThemeProvider>
@@ -85,6 +90,13 @@ export function TooltipDemo() {
                   checked={isOpen}
                   control={<Switch />}
                   onChange={(_, checked) => setIsOpen(checked)}
+                />
+
+                <FormControlLabel
+                  label="Long"
+                  checked={isLong}
+                  control={<Switch />}
+                  onChange={(_, checked) => setIsLong(checked)}
                 />
 
                 <FormControlLabel

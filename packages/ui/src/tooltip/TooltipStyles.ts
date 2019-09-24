@@ -7,8 +7,8 @@ export function applyTooltipStyles(theme: Theme) {
 
   theme.overrides.MuiTooltip = {
     tooltip: {
-      fontSize: '12px',
-      lineHeight: '16px',
+      fontSize: '14px',
+      lineHeight: '20px',
       position: 'relative',
       backgroundColor: Color.Grey400,
 
