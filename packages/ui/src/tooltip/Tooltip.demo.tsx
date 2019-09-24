@@ -33,7 +33,7 @@ const placements: PopperPlacementType[] = [
 ];
 
 export function TooltipDemo() {
-  const [text, setText] = useState('Hey Alan 💀');
+  const [text, setText] = useState('Hint!');
   const [title, setTitle] = useState(text);
   const [placement, setPlacement] = useState<PopperPlacementType>('bottom');
   const [isOpen, setIsOpen] = useState(false);

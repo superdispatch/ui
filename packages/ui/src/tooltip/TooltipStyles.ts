@@ -24,39 +24,39 @@ export function applyTooltipStyles(theme: Theme) {
       },
 
       [`&[x-placement*="bottom"] .${TooltipClassNames.Arrow}`]: {
-        bottom: '100%',
+        top: 0,
         borderTopLeftRadius: 2,
-        transform: 'translate3d(0, 5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(0, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
       [`&[x-placement="bottom-end"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(3px, 5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(3px, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
       [`&[x-placement="bottom-start"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(-3px, 5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(-3px, -3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
 
       [`&[x-placement*="top"] .${TooltipClassNames.Arrow}`]: {
-        top: '100%',
+        bottom: 0,
         borderBottomRightRadius: 2,
-        transform: 'translate3d(0, -5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(0, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
       [`&[x-placement="top-end"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(3px, -5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(3px, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
       [`&[x-placement="top-start"] .${TooltipClassNames.Arrow}`]: {
-        transform: 'translate3d(-3px, -5px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(-3px, 3px, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
 
       [`&[x-placement*="right"] .${TooltipClassNames.Arrow}`]: {
-        right: '100%',
+        left: 0,
         borderBottomLeftRadius: 2,
-        transform: 'translate3d(5px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(-3px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
 
       [`&[x-placement*="left"] .${TooltipClassNames.Arrow}`]: {
-        left: '100%',
+        right: 0,
         borderTopRightRadius: 2,
-        transform: 'translate3d(-5px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
+        transform: 'translate3d(3px, 0, 0) rotate3d(0, 0, 1, 45deg) scale3d(1, 1, 1)',
       },
     },
 
