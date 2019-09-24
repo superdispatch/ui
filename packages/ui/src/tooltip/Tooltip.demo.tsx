@@ -34,7 +34,7 @@ const placements: PopperPlacementType[] = [
 
 export function TooltipDemo() {
   const [placement, setPlacement] = useState<PopperPlacementType>('bottom');
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLong, setIsLong] = useState(false);
   const [isStickedToBottom, setIsStickedToBottom] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
