@@ -55,14 +55,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const theme = useMemo(createTheme, []);
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const snackbarProviderProps = useMemo(
-    (): SnackbarProviderProps =>
-      isDesktop
-        ? { anchorOrigin: { vertical: 'top', horizontal: 'right' } }
-        : {
-            dense: true,
-            maxSnack: 1,
-            anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-          },
+    (): SnackbarProviderProps => ({
+      dense: !isDesktop,
+      maxSnack: !isDesktop ? 1 : 3,
+      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
+    }),
     [isDesktop],
   );
 
