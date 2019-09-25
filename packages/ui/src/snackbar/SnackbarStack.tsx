@@ -62,7 +62,7 @@ function StackItem({ item, style }: StackItemProps) {
   }, [onClose, autoHideDuration]);
 
   return (
-    <animated.div style={style}>
+    <Box width="100%" style={style} component={animated.div}>
       <SnackbarContent
         ref={node => {
           if (node) {
@@ -74,7 +74,7 @@ function StackItem({ item, style }: StackItemProps) {
       >
         {message}
       </SnackbarContent>
-    </animated.div>
+    </Box>
   );
 }
 
@@ -85,10 +85,16 @@ export interface SnackbarStackProviderProps {
 export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
   const [belowElements, setBelowElements] = useState<HTMLElement[]>([]);
+  const maxBelowElementHeight = useMemo(
+    () => belowElements.reduce((acc, node) => Math.max(acc, node.offsetHeight), 0),
+    [belowElements],
+  );
+
   const [items, setItems] = useState<StackItemOptions[]>([]);
   const stack = useMemo(() => items.slice(isMobile ? -1 : -3), [items, isMobile]);
 
-  const transitions = useTransition(stack, item => item.key, {
+  const transitions = useTransition(stack, item => `${item.key}-${isMobile}`, {
+    config: { tension: 340 },
     from: { opacity: 0, height: 0, marginTop: 0 },
     enter: item =>
       ((next: any) => {
@@ -97,15 +103,12 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
         return next({ opacity: 1, height: !node ? 60 : node.offsetHeight, marginTop: 8 });
       }) as any,
     leave: { opacity: 0, height: 0, marginTop: 0 },
-    config: { tension: 340 },
   });
 
-  const marginBottom = useMemo(() => {
-    const maxHeight = belowElements.reduce((acc, node) => Math.max(acc, node.offsetHeight), 0);
-
-    return maxHeight === 0 ? 0 : maxHeight + 8;
-  }, [belowElements]);
-  const containerStyle = useSpring({ marginBottom });
+  const containerStyle = useSpring({
+    config: { tension: 340 },
+    marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + 8,
+  });
 
   const api = useMemo(
     (): SnackbarStack => ({

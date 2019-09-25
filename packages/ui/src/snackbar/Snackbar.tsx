@@ -1,4 +1,4 @@
-import { Snackbar as MaterialSnackbar } from '@material-ui/core';
+import { Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
 import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
 import React, { ReactNode } from 'react';
 
@@ -25,6 +25,7 @@ export function Snackbar({
   hasCloseButton = onClose != null,
   ...props
 }: SnackbarProps) {
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
   const { addBelowElement, removeBelowElement } = useSnackbarStack();
 
   const handleClose = (reason: string | SnackbarCloseReason) => {
@@ -36,6 +37,7 @@ export function Snackbar({
   return (
     <MaterialSnackbar
       {...props}
+      key={`${isMobile}`}
       open={open}
       onClose={(_, reason) => handleClose(reason)}
       onEnter={(node, isAppearing) => {

@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { startCase } from 'lodash';
 import { loremIpsum } from 'lorem-ipsum';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { Snackbar } from './Snackbar';
 import { SnackbarVariant } from './SnackbarContent';
@@ -21,6 +21,10 @@ import { useSnackbarStack } from './SnackbarStack';
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
 const AUTO_HIDE_DURATION = 5000;
+
+function makeMessage(isLong: boolean) {
+  return loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 });
+}
 
 export function SnackbarDemo() {
   const { addSnackbar } = useSnackbarStack();
@@ -31,9 +35,7 @@ export function SnackbarDemo() {
   const [hidesAfter, setHidesAfter] = useState(0);
   const [variant, setVariant] = useState<SnackbarVariant>('default');
   const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
-  const snackbarText = !isLong
-    ? 'I love snackbar.'
-    : 'I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate. I love pancakes. I love sumalak. I love novot.';
+  const message = useMemo(() => makeMessage(isLong), [isLong]);
 
   useEffect(() => {
     if (!isOpen || !hasAutoHideDuration) {
@@ -64,18 +66,6 @@ export function SnackbarDemo() {
 
   return (
     <>
-      <Snackbar
-        key={key}
-        open={isOpen}
-        variant={variant}
-        hasCloseButton={hasCloseButton}
-        onClose={() => setIsOpen(false)}
-        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
-      >
-        {snackbarText}
-        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
-      </Snackbar>
-
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm="auto" xs={12}>
@@ -137,10 +127,10 @@ export function SnackbarDemo() {
               <FormGroup row={true}>
                 <Button
                   onClick={() =>
-                    addSnackbar(<>{loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 })}</>, {
+                    addSnackbar(<>{makeMessage(isLong)}</>, {
                       variant,
                       hasCloseButton,
-                      autoHideDuration: 60 * 1000, // !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
+                      autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
                     })
                   }
                 >
@@ -151,6 +141,18 @@ export function SnackbarDemo() {
           </Grid>
         </Grid>
       </Box>
+
+      <Snackbar
+        key={key}
+        open={isOpen}
+        variant={variant}
+        hasCloseButton={hasCloseButton}
+        onClose={() => setIsOpen(false)}
+        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
+      >
+        {message}
+        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
+      </Snackbar>
     </>
   );
 }

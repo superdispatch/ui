@@ -26,8 +26,8 @@ export function applySnackbarStyles(theme: Theme) {
       [`&.${SnackbarClassNames.Success}`]: { backgroundColor: Color.Green300 },
       [`&.${SnackbarClassNames.Error}`]: { backgroundColor: Color.Red300 },
 
-      [theme.breakpoints.up('sm')]: { width: '432px', maxWidth: '432px' },
-      [theme.breakpoints.down('sm')]: { borderRadius: 0 },
+      [theme.breakpoints.up('xs')]: { width: '432px', maxWidth: '432px' },
+      [theme.breakpoints.only('xs')]: { width: '100%', borderRadius: 0 },
     },
 
     message: {
