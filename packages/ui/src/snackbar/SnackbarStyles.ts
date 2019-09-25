@@ -13,12 +13,8 @@ export function applySnackbarStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
 
   theme.overrides.MuiSnackbar = {
-    root: {
-      [theme.breakpoints.down('sm')]: {
-        left: 0,
-        right: 0,
-        '&$anchorOriginBottomCenter': { bottom: 0 },
-      },
+    anchorOriginBottomCenter: {
+      [theme.breakpoints.only('xs')]: { left: 0, right: 0, bottom: 0 },
     },
   };
 

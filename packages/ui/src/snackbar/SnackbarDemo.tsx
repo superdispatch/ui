@@ -11,16 +11,19 @@ import {
   Switch,
 } from '@material-ui/core';
 import { startCase } from 'lodash';
+import { loremIpsum } from 'lorem-ipsum';
 import React, { useEffect, useState } from 'react';
 
-import { Snackbar, SnackbarVariant, useSnackbarAPI } from '..';
+import { Snackbar } from './Snackbar';
+import { SnackbarVariant } from './SnackbarContent';
+import { useSnackbarStack } from './SnackbarStack';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
 const AUTO_HIDE_DURATION = 5000;
 
 export function SnackbarDemo() {
-  const { addSnackbar } = useSnackbarAPI();
+  const { addSnackbar } = useSnackbarStack();
   const [isOpen, setIsOpen] = useState(true);
   const [isLong, setIsLong] = useState(false);
   const [hasCloseButton, setHasCloseButton] = useState(true);
@@ -134,16 +137,11 @@ export function SnackbarDemo() {
               <FormGroup row={true}>
                 <Button
                   onClick={() =>
-                    addSnackbar(
-                      <>
-                        {snackbarText} ({new Date().toISOString().slice(11, 22)})
-                      </>,
-                      {
-                        variant,
-                        hasCloseButton,
-                        autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
-                      },
-                    )
+                    addSnackbar(<>{loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 })}</>, {
+                      variant,
+                      hasCloseButton,
+                      autoHideDuration: 60 * 1000, // !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
+                    })
                   }
                 >
                   Add Snackbar

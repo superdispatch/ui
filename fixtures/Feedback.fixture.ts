@@ -1,4 +1,4 @@
-import { SnackbarDemo } from '@superdispatch/ui/src/snackbar/SnackbarDemo';
+import { SnackbarDemo } from '../packages/ui/src/snackbar/SnackbarDemo';
 
 export default {
   Snackbar: SnackbarDemo,
