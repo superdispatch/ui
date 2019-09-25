@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -32,7 +33,7 @@ export function SnackbarDemo() {
   const [isLong, setIsLong] = useState(false);
   const [hasCloseButton, setHasCloseButton] = useState(true);
   const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
-  const [hidesAfter, setHidesAfter] = useState(0);
+  const [hideProgress, setHideProgress] = useState(0);
   const [variant, setVariant] = useState<SnackbarVariant>('default');
   const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
   const message = useMemo(() => makeMessage(isLong), [isLong]);
@@ -43,15 +44,16 @@ export function SnackbarDemo() {
     }
 
     let id: number;
-    const startTime = Date.now();
+    const closesAt = Date.now() + AUTO_HIDE_DURATION;
 
     function run() {
-      const nextHidesAfter = (AUTO_HIDE_DURATION - (Date.now() - startTime)) / 1000;
+      const timeLeft = closesAt - Date.now();
 
-      if (nextHidesAfter >= 0) {
-        setHidesAfter(nextHidesAfter);
+      if (timeLeft <= 0) {
+        return;
       }
 
+      setHideProgress(100 - Math.ceil((timeLeft * 100) / AUTO_HIDE_DURATION));
       id = requestAnimationFrame(run);
     }
 
@@ -150,8 +152,22 @@ export function SnackbarDemo() {
         onClose={() => setIsOpen(false)}
         autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
       >
-        {message}
-        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
+        {!hasAutoHideDuration ? (
+          message
+        ) : (
+          <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
+            <Box display="flex" flexGrow={1}>
+              {message}
+            </Box>
+            <Box display="flex" marginLeft={2} flexShrink={0}>
+              <CircularProgress
+                color="inherit"
+                value={hideProgress}
+                variant={hideProgress <= 1 ? 'indeterminate' : 'static'}
+              />
+            </Box>
+          </Box>
+        )}
       </Snackbar>
     </>
   );

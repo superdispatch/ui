@@ -1,6 +1,7 @@
 import { Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
 import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
 import React, { ReactNode } from 'react';
+import { useEventCallback } from 'utility-hooks';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 import { useSnackbarStack } from './SnackbarStack';
@@ -34,26 +35,34 @@ export function Snackbar({
     }
   };
 
+  const handleSnackbarClose = useEventCallback((_: React.SyntheticEvent, reason: string) =>
+    handleClose(reason),
+  );
+
+  const handleEnter = useEventCallback((node: HTMLElement, isAppearing: boolean) => {
+    if (onEnter) {
+      onEnter(node, isAppearing);
+    }
+
+    addBelowElement(node);
+  });
+
+  const handleExit = useEventCallback((node: HTMLElement) => {
+    if (onExit) {
+      onExit(node);
+    }
+
+    removeBelowElement(node);
+  });
+
   return (
     <MaterialSnackbar
       {...props}
       key={`${isMobile}`}
       open={open}
-      onClose={(_, reason) => handleClose(reason)}
-      onEnter={(node, isAppearing) => {
-        if (onEnter) {
-          onEnter(node, isAppearing);
-        }
-
-        addBelowElement(node);
-      }}
-      onExit={node => {
-        if (onExit) {
-          onExit(node);
-        }
-
-        removeBelowElement(node);
-      }}
+      onExit={handleExit}
+      onEnter={handleEnter}
+      onClose={handleSnackbarClose}
     >
       <SnackbarContent
         action={action}
