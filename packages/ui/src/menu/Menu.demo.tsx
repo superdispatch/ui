@@ -1,5 +1,4 @@
 import { Box, Button, Menu, MenuItem } from '@material-ui/core';
-import { ThemeProvider } from '@superdispatch/ui/src/theme/ThemeProvider';
 import React, { useRef, useState } from 'react';
 
 const options = ['Profile', 'My account', 'Logout'];
@@ -35,16 +34,14 @@ function Demo({ label }: { label: string }) {
 
 export function MenuDemo() {
   return (
-    <ThemeProvider>
-      <Box component="section" padding={2} display="flex" justifyContent="space-between">
-        <div>
-          <Demo label="Left" />
-        </div>
+    <Box component="section" padding={2} display="flex" justifyContent="space-between">
+      <div>
+        <Demo label="Left" />
+      </div>
 
-        <div>
-          <Demo label="Right" />
-        </div>
-      </Box>
-    </ThemeProvider>
+      <div>
+        <Demo label="Right" />
+      </div>
+    </Box>
   );
 }

@@ -10,7 +10,7 @@ import {
 import { startCase } from 'lodash';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { ButtonColor, ThemeProvider } from '..';
+import { ButtonColor } from '..';
 import { Button, ButtonProps } from './Button';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
@@ -41,7 +41,7 @@ export function ButtonDemo() {
   }, [lastClicked]);
 
   return (
-    <ThemeProvider>
+    <>
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm={true} xs={12}>
@@ -101,6 +101,6 @@ export function ButtonDemo() {
           ))}
         </Grid>
       </Box>
-    </ThemeProvider>
+    </>
   );
 }

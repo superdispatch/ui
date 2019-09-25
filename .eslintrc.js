@@ -10,7 +10,7 @@ module.exports = {
     },
 
     {
-      files: ['**/__fixtures__/**.*'],
+      files: ['**/fixtures/**.*'],
       rules: { 'import/no-anonymous-default-export': 'off' },
     },
   ],
