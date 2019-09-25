@@ -13,8 +13,6 @@ import { Check } from '@material-ui/icons';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
-import { ThemeProvider } from '../theme/ThemeProvider';
-
 type State = 'stale' | 'disabled';
 const states: State[] = ['stale', 'disabled'];
 const colors: Array<IconButtonProps['color']> = ['primary', 'secondary', 'inherit'];
@@ -26,7 +24,7 @@ export function IconButtonDemo() {
   const [color, setColor] = useState<IconButtonProps['color']>('primary');
 
   return (
-    <ThemeProvider>
+    <>
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm={true} xs={12}>
@@ -74,6 +72,6 @@ export function IconButtonDemo() {
           ))}
         </Grid>
       </Box>
-    </ThemeProvider>
+    </>
   );
 }

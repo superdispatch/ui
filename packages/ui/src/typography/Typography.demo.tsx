@@ -3,8 +3,6 @@ import { TypographyProps } from '@material-ui/core/Typography';
 import { startCase } from 'lodash';
 import React from 'react';
 
-import { ThemeProvider } from '..';
-
 const colors: Array<TypographyProps['color']> = [
   'initial',
   'error',
@@ -30,24 +28,22 @@ const variants: Array<TypographyProps['variant']> = [
 
 export function TypographyDemo() {
   return (
-    <ThemeProvider>
-      <Box padding={2}>
-        <Grid container={true} spacing={1} direction="column">
-          {colors.map(color => (
-            <Grid key={color} item={true}>
-              <Grid container={true} spacing={1}>
-                {variants.map(variant => (
-                  <Grid key={variant} item={true} xs={12}>
-                    <Typography color={color} variant={variant}>
-                      <code>{variant}</code> {startCase(color)}
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
+    <Box padding={2}>
+      <Grid container={true} spacing={1} direction="column">
+        {colors.map(color => (
+          <Grid key={color} item={true}>
+            <Grid container={true} spacing={1}>
+              {variants.map(variant => (
+                <Grid key={variant} item={true} xs={12}>
+                  <Typography color={color} variant={variant}>
+                    <code>{variant}</code> {startCase(color)}
+                  </Typography>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </ThemeProvider>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 }

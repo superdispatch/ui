@@ -9,7 +9,6 @@ import {
   DateRangePicker,
   DateRangePickerProps,
   DateRangePickerQuickSelectionItem,
-  ThemeProvider,
 } from '..';
 
 const formatValue = (date?: Date) => (date ? moment(date).format('MMM DD, YYYY') : '');
@@ -23,13 +22,11 @@ export function DatePickerDemo() {
   const [value, setValue] = useState();
 
   return (
-    <ThemeProvider>
-      <Box p={2} width={270}>
-        <DatePicker value={value} onChange={setValue} InputComponent={DateInputComponent} />
+    <Box p={2} width={270}>
+      <DatePicker value={value} onChange={setValue} InputComponent={DateInputComponent} />
 
-        <pre>{JSON.stringify({ value }, null, 2)}</pre>
-      </Box>
-    </ThemeProvider>
+      <pre>{JSON.stringify({ value }, null, 2)}</pre>
+    </Box>
   );
 }
 
@@ -44,18 +41,16 @@ export function DateRangePickerDemo() {
   const [value, setValue] = useState<DateRangePickerProps['value']>([]);
 
   return (
-    <ThemeProvider>
-      <Box p={2} width={270}>
-        <DateRangePicker
-          value={value}
-          onChange={setValue}
-          InputComponent={DateRangeInputComponent}
-          numberOfMonths={2}
-        />
+    <Box p={2} width={270}>
+      <DateRangePicker
+        value={value}
+        onChange={setValue}
+        InputComponent={DateRangeInputComponent}
+        numberOfMonths={2}
+      />
 
-        <pre>{JSON.stringify({ value }, null, 2)}</pre>
-      </Box>
-    </ThemeProvider>
+      <pre>{JSON.stringify({ value }, null, 2)}</pre>
+    </Box>
   );
 }
 
@@ -88,27 +83,25 @@ export function DateRangePickerQuickSelectionDemo() {
   const [value, setValue] = useState<DateRangePickerProps['value']>([]);
 
   return (
-    <ThemeProvider>
-      <Box p={2} width={270}>
-        <DateRangePicker
-          value={value}
-          onChange={setValue}
-          InputComponent={DateRangeInputComponent}
-          quickSelectionItems={dateRangePickerQuickSelectionItems}
-          numberOfMonths={2}
-          footer={
-            <Typography variant="body2" color="textSecondary">
-              Selected date range allows preferred carriers to instantly book loads inside the Super
-              Loadboard.
-              <br />
-              Dates out of selected range will still be available to request.
-            </Typography>
-          }
-        />
+    <Box p={2} width={270}>
+      <DateRangePicker
+        value={value}
+        onChange={setValue}
+        InputComponent={DateRangeInputComponent}
+        quickSelectionItems={dateRangePickerQuickSelectionItems}
+        numberOfMonths={2}
+        footer={
+          <Typography variant="body2" color="textSecondary">
+            Selected date range allows preferred carriers to instantly book loads inside the Super
+            Loadboard.
+            <br />
+            Dates out of selected range will still be available to request.
+          </Typography>
+        }
+      />
 
-        <pre>{JSON.stringify({ value }, null, 2)}</pre>
-      </Box>
-    </ThemeProvider>
+      <pre>{JSON.stringify({ value }, null, 2)}</pre>
+    </Box>
   );
 }
 
@@ -116,23 +109,17 @@ export function DateRangePickerDisabled() {
   const [value, setValue] = useState<DateRangePickerProps['value']>([]);
 
   return (
-    <ThemeProvider>
-      <Box p={2}>
-        <Typography variant="h2">Disabled</Typography>
-      </Box>
+    <Box p={2} width={270}>
+      <DateRangePicker
+        value={value}
+        onChange={setValue}
+        InputComponent={DateRangeInputComponent}
+        quickSelectionItems={dateRangePickerQuickSelectionItems}
+        numberOfMonths={2}
+        disabled={true}
+      />
 
-      <Box p={2} width={270}>
-        <DateRangePicker
-          value={value}
-          onChange={setValue}
-          InputComponent={DateRangeInputComponent}
-          quickSelectionItems={dateRangePickerQuickSelectionItems}
-          numberOfMonths={2}
-          disabled={true}
-        />
-
-        <pre>{JSON.stringify({ value }, null, 2)}</pre>
-      </Box>
-    </ThemeProvider>
+      <pre>{JSON.stringify({ value }, null, 2)}</pre>
+    </Box>
   );
 }

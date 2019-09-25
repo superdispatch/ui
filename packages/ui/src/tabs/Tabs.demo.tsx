@@ -1,8 +1,6 @@
 import { Box, Tab, Tabs, Typography } from '@material-ui/core';
 import React from 'react';
 
-import { ThemeProvider } from '../index';
-
 export function TabsDemo() {
   const [value, setValue] = React.useState(0);
   const options = [
@@ -14,7 +12,7 @@ export function TabsDemo() {
   ];
 
   return (
-    <ThemeProvider>
+    <>
       <Box padding={2}>
         <Typography>With Scroll Buttons</Typography>
       </Box>
@@ -34,6 +32,6 @@ export function TabsDemo() {
           <Tab key={x} label={x} />
         ))}
       </Tabs>
-    </ThemeProvider>
+    </>
   );
 }
