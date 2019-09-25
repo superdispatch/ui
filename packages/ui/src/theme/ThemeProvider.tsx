@@ -64,12 +64,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   );
 
   return (
-    <MaterialThemeProvider theme={theme}>
-      <StylesProvider injectFirst={true}>
+    <StylesProvider injectFirst={true}>
+      <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 
         <SnackbarProvider {...snackbarProviderProps}>{children}</SnackbarProvider>
-      </StylesProvider>
-    </MaterialThemeProvider>
+      </MaterialThemeProvider>
+    </StylesProvider>
   );
 }
