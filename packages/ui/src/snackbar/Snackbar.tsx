@@ -26,6 +26,7 @@ export const Snackbar = forwardRef(
       onEnter,
       onExit,
       hasCloseButton = onClose != null,
+      ContentProps,
       ...props
     }: SnackbarProps,
     ref,
@@ -70,6 +71,7 @@ export const Snackbar = forwardRef(
         onClose={handleSnackbarClose}
       >
         <SnackbarContent
+          {...ContentProps}
           action={action}
           variant={variant}
           onClose={!hasCloseButton ? undefined : () => handleClose('explicit')}
