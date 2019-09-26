@@ -25,8 +25,8 @@ export const Snackbar = forwardRef(
       children,
       onEnter,
       onExit,
-      hasCloseButton = onClose != null,
       ContentProps,
+      hasCloseButton = onClose != null,
       ...props
     }: SnackbarProps,
     ref,
