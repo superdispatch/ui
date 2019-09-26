@@ -7,12 +7,21 @@ export enum SnackbarClassNames {
   Default = 'Snackbar-variantDefault',
   Success = 'Snackbar-variantSuccess',
   Error = 'Snackbar-variantError',
+  StackContainer = 'Snackbar-stackContainer',
+  StackItem = 'Snackbar-stackItem',
 }
 
 export function applySnackbarStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
 
   theme.overrides.MuiSnackbar = {
+    root: {
+      [`&.${SnackbarClassNames.StackContainer}`]: {
+        flexDirection: 'column',
+        [`& .${SnackbarClassNames.StackItem}`]: { width: '100%' },
+      },
+    },
+
     anchorOriginBottomCenter: {
       [theme.breakpoints.only('xs')]: { left: 0, right: 0, bottom: 0 },
     },

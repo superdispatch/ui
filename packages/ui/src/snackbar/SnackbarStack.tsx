@@ -1,17 +1,10 @@
-import { Box, Theme, useMediaQuery } from '@material-ui/core';
-import React, {
-  createContext,
-  CSSProperties,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { Theme, useMediaQuery } from '@material-ui/core';
+import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { animated, useSpring, useTransition } from 'react-spring';
+import { animated, AnimatedProps, useSpring, useTransition } from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
+import { SnackbarClassNames } from './SnackbarStyles';
 
 const SNACKBAR_OFFSET = 8;
 
@@ -48,7 +41,7 @@ export function useSnackbarStack(): SnackbarStack {
 
 interface StackItemProps {
   item: StackItemOptions;
-  style: CSSProperties;
+  style: AnimatedProps<object>;
 }
 
 function StackItem({ item, style }: StackItemProps) {
@@ -65,7 +58,7 @@ function StackItem({ item, style }: StackItemProps) {
   }, [onClose, autoHideDuration]);
 
   return (
-    <Box width="100%" style={style} component={animated.div}>
+    <animated.div style={style} className={SnackbarClassNames.StackItem}>
       <SnackbarContent
         ref={node => {
           if (node) {
@@ -77,7 +70,7 @@ function StackItem({ item, style }: StackItemProps) {
       >
         {message}
       </SnackbarContent>
-    </Box>
+    </animated.div>
   );
 }
 
@@ -98,23 +91,26 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
 
   const transitions = useTransition(stack, item => `${item.key}-${isMobile}`, {
     config: { tension: 340 },
-    from: { opacity: 0, height: 0, marginTop: 0 },
-    enter: item =>
-      ((next: any) => {
-        const { node } = item;
+    from: { opacity: 0, height: 0, marginTop: 0, width: '100%' },
+    enter: item => next => {
+      const { node } = item;
 
-        return next({
+      return Promise.resolve(
+        next({
           opacity: 1,
           marginTop: SNACKBAR_OFFSET,
           height: !node ? 60 : node.offsetHeight,
-        });
-      }) as any,
+        }),
+      );
+    },
     leave: { opacity: 0, height: 0, marginTop: 0 },
   });
 
   const containerStyle = useSpring({
     config: { tension: 340 },
-    marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + SNACKBAR_OFFSET,
+    to: {
+      marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + SNACKBAR_OFFSET,
+    },
   });
 
   const api = useMemo(
@@ -161,16 +157,14 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
 
       {transitions.length > 0 &&
         createPortal(
-          <Box
-            flexDirection="column"
+          <animated.div
             style={containerStyle}
-            component={animated.div}
-            className="MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter"
+            className={`MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter ${SnackbarClassNames.StackContainer}`}
           >
             {transitions.map(({ key, item, props: style }) => (
               <StackItem key={key} item={item} style={style} />
             ))}
-          </Box>,
+          </animated.div>,
           document.body,
         )}
     </Context.Provider>
