@@ -1,6 +1,5 @@
-import { Theme, useMediaQuery } from '@material-ui/core';
+import { Portal, Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { animated, AnimatedProps, useSpring, useTransition } from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
@@ -91,7 +90,7 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
 
   const transitions = useTransition(stack, item => `${item.key}-${isMobile}`, {
     config: { tension: 340 },
-    from: { opacity: 0, height: 0, marginTop: 0, width: '100%' },
+    from: { opacity: 0, height: 0, marginTop: 0 },
     enter: item => next => {
       const { node } = item;
 
@@ -155,18 +154,17 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
     <Context.Provider value={api}>
       {children}
 
-      {transitions.length > 0 &&
-        createPortal(
-          <animated.div
-            style={containerStyle}
-            className={`MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter ${SnackbarClassNames.StackContainer}`}
-          >
-            {transitions.map(({ key, item, props: style }) => (
-              <StackItem key={key} item={item} style={style} />
-            ))}
-          </animated.div>,
-          document.body,
-        )}
+      {transitions.length > 0 && (
+        <Portal>
+          <MaterialSnackbar open={true}>
+            <animated.div style={containerStyle} className={SnackbarClassNames.StackContainer}>
+              {transitions.map(({ key, item, props: style }) => (
+                <StackItem key={key} item={item} style={style} />
+              ))}
+            </animated.div>
+          </MaterialSnackbar>
+        </Portal>
+      )}
     </Context.Provider>
   );
 }
