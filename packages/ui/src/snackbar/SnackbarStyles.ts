@@ -16,10 +16,7 @@ export function applySnackbarStyles(theme: Theme) {
 
   theme.overrides.MuiSnackbar = {
     root: {
-      [`&.${SnackbarClassNames.StackContainer}`]: {
-        flexDirection: 'column',
-        [`& .${SnackbarClassNames.StackItem}`]: { width: '100%' },
-      },
+      [`& .${SnackbarClassNames.StackContainer}`]: { width: '100%' },
     },
 
     anchorOriginBottomCenter: {
