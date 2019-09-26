@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import {
   DatePickerBase,
+  DatePickerBaseInputComponentProps,
   DatePickerBaseProps,
   DatePickerBaseQuickSelectionItem,
   useDatePickerBaseState,
@@ -10,11 +11,15 @@ import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
 export type DateRangePickerValue = [Date?, Date?] | undefined;
 
-export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem<
+export type DateRangePickerProps = DatePickerBaseProps<DateRangePickerValue>;
+
+export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue
 >;
 
-export type DateRangePickerProps = DatePickerBaseProps<DateRangePickerValue>;
+export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem<
+  DateRangePickerValue
+>;
 
 const compareDates = (dateA?: Date, dateB?: Date) =>
   dateA && dateB ? dateA.getTime() - dateB.getTime() : 0;
