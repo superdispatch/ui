@@ -12,6 +12,8 @@ import { animated, useSpring, useTransition } from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 
+const SNACKBAR_OFFSET = 8;
+
 export interface SnackbarStackOptions {
   key?: number | string;
   variant?: SnackbarVariant;
@@ -100,14 +102,18 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
       ((next: any) => {
         const { node } = item;
 
-        return next({ opacity: 1, height: !node ? 60 : node.offsetHeight, marginTop: 8 });
+        return next({
+          opacity: 1,
+          marginTop: SNACKBAR_OFFSET,
+          height: !node ? 60 : node.offsetHeight,
+        });
       }) as any,
     leave: { opacity: 0, height: 0, marginTop: 0 },
   });
 
   const containerStyle = useSpring({
     config: { tension: 340 },
-    marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + 8,
+    marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + SNACKBAR_OFFSET,
   });
 
   const api = useMemo(
