@@ -143,11 +143,13 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
           },
         };
 
-        function closeSnackbar() {
-          setItems(prevState => prevState.filter(x => x !== item));
-        }
+        setItems(prevItems => [...prevItems, item]);
 
-        setItems(prev => [...prev, item]);
+        function closeSnackbar() {
+          setItems(prevItems =>
+            !prevItems.includes(item) ? prevItems : prevItems.filter(prev => prev !== item),
+          );
+        }
 
         return closeSnackbar;
       },
