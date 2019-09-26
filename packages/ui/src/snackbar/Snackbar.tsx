@@ -1,4 +1,4 @@
-import { Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
+import { Portal, Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
 import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
 import React, { forwardRef, ReactNode } from 'react';
 import { useEventCallback } from 'utility-hooks';
@@ -61,24 +61,26 @@ export const Snackbar = forwardRef(
     });
 
     return (
-      <MaterialSnackbar
-        {...props}
-        ref={ref}
-        open={open}
-        key={`${isMobile}`}
-        onExit={handleExit}
-        onEnter={handleEnter}
-        onClose={handleSnackbarClose}
-      >
-        <SnackbarContent
-          {...ContentProps}
-          action={action}
-          variant={variant}
-          onClose={!hasCloseButton ? undefined : () => handleClose('explicit')}
+      <Portal>
+        <MaterialSnackbar
+          {...props}
+          ref={ref}
+          open={open}
+          key={`${isMobile}`}
+          onExit={handleExit}
+          onEnter={handleEnter}
+          onClose={handleSnackbarClose}
         >
-          {children}
-        </SnackbarContent>
-      </MaterialSnackbar>
+          <SnackbarContent
+            {...ContentProps}
+            action={action}
+            variant={variant}
+            onClose={!hasCloseButton ? undefined : () => handleClose('explicit')}
+          >
+            {children}
+          </SnackbarContent>
+        </MaterialSnackbar>
+      </Portal>
     );
   },
 );
