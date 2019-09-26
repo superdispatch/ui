@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { animated, useSpring, useTransition } from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
@@ -158,18 +159,20 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
     <Context.Provider value={api}>
       {children}
 
-      {transitions.length > 0 && (
-        <Box
-          flexDirection="column"
-          style={containerStyle}
-          component={animated.div}
-          className="MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter"
-        >
-          {transitions.map(({ key, item, props: style }) => (
-            <StackItem key={key} item={item} style={style} />
-          ))}
-        </Box>
-      )}
+      {transitions.length > 0 &&
+        createPortal(
+          <Box
+            flexDirection="column"
+            style={containerStyle}
+            component={animated.div}
+            className="MuiSnackbar-root MuiSnackbar-anchorOriginBottomCenter"
+          >
+            {transitions.map(({ key, item, props: style }) => (
+              <StackItem key={key} item={item} style={style} />
+            ))}
+          </Box>,
+          document.body,
+        )}
     </Context.Provider>
   );
 }
