@@ -31,6 +31,7 @@ export function SnackbarDemo() {
   const { addSnackbar } = useSnackbarStack();
   const [isOpen, setIsOpen] = useState(true);
   const [isLong, setIsLong] = useState(false);
+  const [stackClose, setStackClose] = useState<Array<() => void>>([]);
   const [hasCloseButton, setHasCloseButton] = useState(true);
   const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
   const [hideProgress, setHideProgress] = useState(0);
@@ -128,15 +129,26 @@ export function SnackbarDemo() {
 
               <FormGroup row={true}>
                 <Button
-                  onClick={() =>
-                    addSnackbar(<>{makeMessage(isLong)}</>, {
+                  onClick={() => {
+                    const close = addSnackbar(<>{makeMessage(isLong)}</>, {
                       variant,
                       hasCloseButton,
                       autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
-                    })
-                  }
+                    });
+
+                    setStackClose(x => [...x, close]);
+                  }}
                 >
-                  Add Snackbar
+                  Add To Stack
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    setStackClose([]);
+                    stackClose.forEach(close => close());
+                  }}
+                >
+                  Clear Stack
                 </Button>
               </FormGroup>
             </FormControl>

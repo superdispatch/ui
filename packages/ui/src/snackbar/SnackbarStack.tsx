@@ -23,7 +23,7 @@ interface StackItemOptions extends Required<SnackbarStackOptions> {
 export interface SnackbarStack {
   addBelowElement: (node: HTMLElement) => void;
   removeBelowElement: (node: HTMLElement) => void;
-  addSnackbar: (message: ReactNode, options: SnackbarStackOptions) => void;
+  addSnackbar: (message: ReactNode, options: SnackbarStackOptions) => () => void;
 }
 
 const Context = createContext<undefined | SnackbarStack>(undefined);
@@ -127,25 +127,30 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
           hasCloseButton = true,
           autoHideDuration = 5000,
         },
-      ) =>
-        setItems(prev => {
-          const item: StackItemOptions = {
-            key,
-            message,
-            variant,
-            hasCloseButton,
-            autoHideDuration,
-            onClose: reason => {
-              setItems(prevState => prevState.filter(x => x !== item));
+      ) => {
+        const item: StackItemOptions = {
+          key,
+          message,
+          variant,
+          hasCloseButton,
+          autoHideDuration,
+          onClose: reason => {
+            closeSnackbar();
 
-              if (onClose) {
-                onClose(reason);
-              }
-            },
-          };
+            if (onClose) {
+              onClose(reason);
+            }
+          },
+        };
 
-          return [...prev, item];
-        }),
+        function closeSnackbar() {
+          setItems(prevState => prevState.filter(x => x !== item));
+        }
+
+        setItems(prev => [...prev, item]);
+
+        return closeSnackbar;
+      },
     }),
     [],
   );
