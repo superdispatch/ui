@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -11,26 +12,31 @@ import {
   Switch,
 } from '@material-ui/core';
 import { startCase } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import { loremIpsum } from 'lorem-ipsum';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { Snackbar, SnackbarVariant, useSnackbarAPI } from '..';
+import { Snackbar } from './Snackbar';
+import { SnackbarVariant } from './SnackbarContent';
+import { useSnackbarStack } from './SnackbarStack';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
 const AUTO_HIDE_DURATION = 5000;
 
+function makeMessage(isLong: boolean) {
+  return loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 });
+}
+
 export function SnackbarDemo() {
-  const { addSnackbar } = useSnackbarAPI();
+  const { addSnackbar } = useSnackbarStack();
   const [isOpen, setIsOpen] = useState(true);
   const [isLong, setIsLong] = useState(false);
   const [hasCloseButton, setHasCloseButton] = useState(true);
   const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
-  const [hidesAfter, setHidesAfter] = useState(0);
+  const [hideProgress, setHideProgress] = useState(0);
   const [variant, setVariant] = useState<SnackbarVariant>('default');
   const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
-  const snackbarText = !isLong
-    ? 'I love snackbar.'
-    : 'I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate. I love pancakes. I love sumalak. I love novot.';
+  const message = useMemo(() => makeMessage(isLong), [isLong]);
 
   useEffect(() => {
     if (!isOpen || !hasAutoHideDuration) {
@@ -38,15 +44,16 @@ export function SnackbarDemo() {
     }
 
     let id: number;
-    const startTime = Date.now();
+    const closesAt = Date.now() + AUTO_HIDE_DURATION;
 
     function run() {
-      const nextHidesAfter = (AUTO_HIDE_DURATION - (Date.now() - startTime)) / 1000;
+      const timeLeft = closesAt - Date.now();
 
-      if (nextHidesAfter >= 0) {
-        setHidesAfter(nextHidesAfter);
+      if (timeLeft <= 0) {
+        return;
       }
 
+      setHideProgress(100 - Math.ceil((timeLeft * 100) / AUTO_HIDE_DURATION));
       id = requestAnimationFrame(run);
     }
 
@@ -61,18 +68,6 @@ export function SnackbarDemo() {
 
   return (
     <>
-      <Snackbar
-        key={key}
-        open={isOpen}
-        variant={variant}
-        hasCloseButton={hasCloseButton}
-        onClose={() => setIsOpen(false)}
-        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
-      >
-        {snackbarText}
-        {hasAutoHideDuration && <> (Closes after {hidesAfter.toFixed(2)}s)</>}
-      </Snackbar>
-
       <Box padding={2}>
         <Grid container={true} spacing={1}>
           <Grid item={true} sm="auto" xs={12}>
@@ -134,16 +129,11 @@ export function SnackbarDemo() {
               <FormGroup row={true}>
                 <Button
                   onClick={() =>
-                    addSnackbar(
-                      <>
-                        {snackbarText} ({new Date().toISOString().slice(11, 22)})
-                      </>,
-                      {
-                        variant,
-                        hasCloseButton,
-                        autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
-                      },
-                    )
+                    addSnackbar(<>{makeMessage(isLong)}</>, {
+                      variant,
+                      hasCloseButton,
+                      autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
+                    })
                   }
                 >
                   Add Snackbar
@@ -153,6 +143,32 @@ export function SnackbarDemo() {
           </Grid>
         </Grid>
       </Box>
+
+      <Snackbar
+        key={key}
+        open={isOpen}
+        variant={variant}
+        hasCloseButton={hasCloseButton}
+        onClose={() => setIsOpen(false)}
+        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
+      >
+        {!hasAutoHideDuration ? (
+          message
+        ) : (
+          <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
+            <Box display="flex" flexGrow={1}>
+              {message}
+            </Box>
+            <Box display="flex" marginLeft={2} flexShrink={0}>
+              <CircularProgress
+                color="inherit"
+                value={hideProgress}
+                variant={hideProgress <= 1 ? 'indeterminate' : 'static'}
+              />
+            </Box>
+          </Box>
+        )}
+      </Snackbar>
     </>
   );
 }

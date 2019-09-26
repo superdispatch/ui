@@ -2,7 +2,6 @@
 
 module.exports = {
   hooks: {
-    'pre-push': 'tsc',
-    'pre-commit': 'lint-staged',
+    'pre-commit': 'tsc && lint-staged',
   },
 };

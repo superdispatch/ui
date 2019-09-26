@@ -1,12 +1,12 @@
-import { createMuiTheme, CssBaseline, useMediaQuery } from '@material-ui/core';
+import { createMuiTheme, CssBaseline } from '@material-ui/core';
 import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
-import { SnackbarProvider, SnackbarProviderProps } from 'notistack';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
+import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { applyTabsStyles } from '../tabs/TabsStyles';
 import { applyTooltipStyles } from '../tooltip/TooltipStyles';
@@ -53,22 +53,13 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const theme = useMemo(createTheme, []);
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-  const snackbarProviderProps = useMemo(
-    (): SnackbarProviderProps => ({
-      dense: !isDesktop,
-      maxSnack: !isDesktop ? 1 : 3,
-      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-    }),
-    [isDesktop],
-  );
 
   return (
     <StylesProvider injectFirst={true}>
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 
-        <SnackbarProvider {...snackbarProviderProps}>{children}</SnackbarProvider>
+        <SnackbarStackProvider>{children}</SnackbarStackProvider>
       </MaterialThemeProvider>
     </StylesProvider>
   );

@@ -13,12 +13,8 @@ export function applySnackbarStyles(theme: Theme) {
   theme.overrides = theme.overrides || {};
 
   theme.overrides.MuiSnackbar = {
-    root: {
-      [theme.breakpoints.down('sm')]: {
-        left: 0,
-        right: 0,
-        '&$anchorOriginBottomCenter': { bottom: 0 },
-      },
+    anchorOriginBottomCenter: {
+      [theme.breakpoints.only('xs')]: { left: 0, right: 0, bottom: 0 },
     },
   };
 
@@ -30,8 +26,8 @@ export function applySnackbarStyles(theme: Theme) {
       [`&.${SnackbarClassNames.Success}`]: { backgroundColor: Color.Green300 },
       [`&.${SnackbarClassNames.Error}`]: { backgroundColor: Color.Red300 },
 
-      [theme.breakpoints.up('sm')]: { width: '432px', maxWidth: '432px' },
-      [theme.breakpoints.down('sm')]: { borderRadius: 0 },
+      [theme.breakpoints.up('xs')]: { width: '432px', maxWidth: '432px' },
+      [theme.breakpoints.only('xs')]: { width: '100%', borderRadius: 0 },
     },
 
     message: {
