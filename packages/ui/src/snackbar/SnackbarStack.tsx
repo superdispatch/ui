@@ -16,11 +16,13 @@ export interface SnackbarStackOptions {
 }
 
 interface StackItemOptions extends Required<SnackbarStackOptions> {
+  id: number;
   message: ReactNode;
   node?: HTMLDivElement;
 }
 
 export interface SnackbarStack {
+  clearStack: () => void;
   addBelowElement: (node: HTMLElement) => void;
   removeBelowElement: (node: HTMLElement) => void;
   addSnackbar: (message: ReactNode, options: SnackbarStackOptions) => () => void;
@@ -85,10 +87,16 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
     [belowElements],
   );
 
-  const [items, setItems] = useState<StackItemOptions[]>([]);
-  const stack = useMemo(() => items.slice(isMobile ? -1 : -3), [items, isMobile]);
+  const [snackbarMap, setSnackbarMap] = useState(
+    new Map<StackItemOptions['key'], StackItemOptions>(),
+  );
 
-  const transitions = useTransition(stack, item => `${item.key}-${isMobile}`, {
+  const stack = useMemo(() => Array.from(snackbarMap.values()).slice(isMobile ? -1 : -3), [
+    snackbarMap,
+    isMobile,
+  ]);
+
+  const transitions = useTransition(stack, item => `${item.id}-${isMobile}`, {
     config: { tension: 340 },
     from: { opacity: 0, height: 0, marginTop: 0 },
     enter: item => next => {
@@ -114,6 +122,7 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
 
   const api = useMemo(
     (): SnackbarStack => ({
+      clearStack: () => setSnackbarMap(x => (x.size === 0 ? x : new Map())),
       addBelowElement: node =>
         setBelowElements(prev => (prev.includes(node) ? prev : [...prev, node])),
       removeBelowElement: node =>
@@ -128,14 +137,28 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
           autoHideDuration = 5000,
         },
       ) => {
+        const close = () =>
+          setSnackbarMap(prev => {
+            if (!prev.has(key)) {
+              return prev;
+            }
+
+            const next = new Map(prev);
+
+            next.delete(key);
+
+            return next;
+          });
+
         const item: StackItemOptions = {
+          id: Math.random(),
           key,
           message,
           variant,
           hasCloseButton,
           autoHideDuration,
           onClose: reason => {
-            closeSnackbar();
+            close();
 
             if (onClose) {
               onClose(reason);
@@ -143,15 +166,17 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
           },
         };
 
-        setItems(prevItems => [...prevItems, item]);
+        setSnackbarMap(prev => {
+          const next = new Map(prev);
 
-        function closeSnackbar() {
-          setItems(prevItems =>
-            !prevItems.includes(item) ? prevItems : prevItems.filter(prev => prev !== item),
-          );
-        }
+          if (next.has(key)) {
+            next.delete(key);
+          }
 
-        return closeSnackbar;
+          return next.set(key, item);
+        });
+
+        return close;
       },
     }),
     [],
