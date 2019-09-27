@@ -28,14 +28,14 @@ function makeMessage(isLong: boolean) {
 }
 
 export function SnackbarDemo() {
-  const { addSnackbar } = useSnackbarStack();
+  const { addSnackbar, clearStack } = useSnackbarStack();
   const [isOpen, setIsOpen] = useState(true);
   const [isLong, setIsLong] = useState(false);
-  const [stackClose, setStackClose] = useState<Array<() => void>>([]);
   const [hasCloseButton, setHasCloseButton] = useState(true);
   const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
   const [hideProgress, setHideProgress] = useState(0);
   const [variant, setVariant] = useState<SnackbarVariant>('default');
+
   const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
   const message = useMemo(() => makeMessage(isLong), [isLong]);
 
@@ -70,7 +70,7 @@ export function SnackbarDemo() {
   return (
     <>
       <Box padding={2}>
-        <Grid container={true} spacing={1}>
+        <Grid container={true} spacing={1} alignItems="center">
           <Grid item={true} sm="auto" xs={12}>
             <FormControl component="fieldset">
               <FormLabel component="legend">Visual</FormLabel>
@@ -129,27 +129,18 @@ export function SnackbarDemo() {
 
               <FormGroup row={true}>
                 <Button
-                  onClick={() => {
-                    const close = addSnackbar(<>{makeMessage(isLong)}</>, {
+                  onClick={() =>
+                    addSnackbar(<>{makeMessage(isLong)}</>, {
                       variant,
                       hasCloseButton,
                       autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
-                    });
-
-                    setStackClose(x => [...x, close]);
-                  }}
+                    })
+                  }
                 >
                   Add To Stack
                 </Button>
 
-                <Button
-                  onClick={() => {
-                    setStackClose([]);
-                    stackClose.forEach(close => close());
-                  }}
-                >
-                  Clear Stack
-                </Button>
+                <Button onClick={() => clearStack()}>Clear Stack</Button>
               </FormGroup>
             </FormControl>
           </Grid>
