@@ -3,4 +3,3 @@ docs/
 .netlify/
 coverage/
 lerna.json
-package.json
