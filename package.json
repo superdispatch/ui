@@ -1,9 +1,10 @@
 {
   "name": "@superdispatch/ui",
-  "private": true,
   "version": "0.0.0",
-  "engines": {
-    "node": ">=10.0.0"
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superdispatch/ui.git"
   },
   "workspaces": {
     "packages": [
@@ -11,15 +12,15 @@
     ]
   },
   "scripts": {
-    "nuke": "git clean -xdfe \".idea\"",
+    "build": "yarn lerna run build --stream",
+    "build:docs": "cosmos-export",
     "prebump": "yarn install && yarn tsc && yarn lint && yarn build",
     "bump": "lerna version",
-    "tdd": "jest --watch",
-    "test": "jest --coverage",
     "lint": "js-tools lint",
+    "nuke": "git clean -xdfe \".idea\"",
     "start": "cosmos",
-    "build": "yarn lerna run build --stream",
-    "build:docs": "cosmos-export"
+    "tdd": "jest --watch",
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -60,5 +61,8 @@
     "styled-components": "^4.3.2",
     "typescript": "^3.5.3",
     "webpack": "^4.39.1"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
