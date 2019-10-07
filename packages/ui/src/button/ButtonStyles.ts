@@ -143,6 +143,7 @@ export function applyButtonStyles(theme: Theme) {
       color: Color.White,
       padding: '6px 16px',
       boxShadow: '0 0 0 0 transparent',
+      '&:hover': { boxShadow: undefined },
       '&:active': { boxShadow: undefined },
       '&$disabled': { color: Color.Silver500, backgroundColor: Color.Silver200 },
 
