@@ -20,6 +20,12 @@ function outlinedColorVariant(
   staleBorderColor: Color = activeColor,
 ): CSSProperties {
   return {
+    '&:hover': {
+      border: undefined,
+      backgroundColor: undefined,
+      '@media (hover: none)': { backgroundColor: undefined },
+    },
+
     [`&.${ButtonClassNames.isLoading}`]: { borderColor: staleBorderColor },
 
     [`& .${ButtonClassNames.progress}`]: { color: activeColor },
@@ -45,6 +51,11 @@ function containedColorVariant(
   hoverBackgroundColor: Color,
 ): CSSProperties {
   return {
+    '&:hover': {
+      backgroundColor: undefined,
+      '@media (hover: none)': { backgroundColor: undefined },
+    },
+
     [`&.${ButtonClassNames.isLoading}`]: { backgroundColor },
 
     '&:not($disabled)': {
@@ -73,6 +84,12 @@ export function applyButtonStyles(theme: Theme) {
       transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
         duration: theme.transitions.duration.short,
       }),
+
+      '&:hover': {
+        backgroundColor: undefined,
+        '&$disabled': { backgroundColor: undefined },
+        '@media (hover: none)': { backgroundColor: undefined },
+      },
 
       '&$disabled': { color: undefined },
 
@@ -143,9 +160,20 @@ export function applyButtonStyles(theme: Theme) {
       color: Color.White,
       padding: '6px 16px',
       boxShadow: '0 0 0 0 transparent',
-      '&:hover': { boxShadow: undefined },
+
+      '&:hover': {
+        boxShadow: undefined,
+        backgroundColor: undefined,
+        '&$disabled': { backgroundColor: undefined },
+        '@media (hover: none)': { boxShadow: undefined, backgroundColor: undefined },
+      },
+      '&$focusVisible': { boxShadow: undefined },
       '&:active': { boxShadow: undefined },
-      '&$disabled': { color: Color.Silver500, backgroundColor: Color.Silver200 },
+      '&$disabled': {
+        boxShadow: undefined,
+        color: Color.Silver500,
+        backgroundColor: Color.Silver200,
+      },
 
       [`&.${ButtonClassNames.colorError}`]: containedColorVariant(
         Color.Red300,
