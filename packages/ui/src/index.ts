@@ -6,3 +6,4 @@ export * from './snackbar/SnackbarContent';
 export * from './snackbar/SnackbarStack';
 export * from './theme/ThemeProvider';
 export * from './theme/Color';
+export * from './tooltip/Tooltip';
