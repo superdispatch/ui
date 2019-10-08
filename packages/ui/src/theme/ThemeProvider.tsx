@@ -8,6 +8,7 @@ import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
+import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
 import { applyTabsStyles } from '../tabs/TabsStyles';
 import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import { applyTypographyStyles, createTypographyOptions } from '../typography/TypographyStyles';
@@ -40,6 +41,7 @@ function createTheme() {
   applyLinkStyles(theme);
   applyMenuStyles(theme);
   applySnackbarStyles(theme);
+  applySvgIconStyles(theme);
   applyTabsStyles(theme);
   applyTooltipStyles(theme);
   applyTypographyStyles(theme);
