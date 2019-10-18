@@ -130,7 +130,7 @@ export function SnackbarDemo() {
               <FormGroup row={true}>
                 <Button
                   onClick={() =>
-                    addSnackbar(<>{makeMessage(isLong)}</>, {
+                    addSnackbar(makeMessage(isLong), {
                       variant,
                       hasCloseButton,
                       autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
