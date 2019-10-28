@@ -1,5 +1,4 @@
 import { Box, Typography } from '@material-ui/core';
-import TextField from '@sdkit/textfield';
 import moment from 'moment';
 import React, { useState } from 'react';
 
@@ -15,7 +14,7 @@ const formatValue = (date?: Date) => (date ? moment(date).format('MMM DD, YYYY')
 
 const DateInputComponent: DatePickerProps['InputComponent'] = ({ value, ...props }) => {
   const formattedValue = formatValue(value);
-  return <TextField value={formattedValue} {...props} />;
+  return <input value={formattedValue} {...props} />;
 };
 
 export function DatePickerDemo() {
@@ -34,7 +33,7 @@ const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({ value
   const [startDate, endDate] = value ? value : [];
   const formattedValue =
     startDate || endDate ? `${formatValue(startDate)} - ${formatValue(endDate)}` : '';
-  return <TextField value={formattedValue} {...props} />;
+  return <input value={formattedValue} {...props} />;
 };
 
 export function DateRangePickerDemo() {
