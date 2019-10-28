@@ -17,8 +17,21 @@ import { Color } from './Color';
 function createTheme() {
   const theme = createMuiTheme({
     palette: {
-      primary: { main: Color.Blue300 },
-      action: { hover: Color.Silver100, selected: Color.Silver400 },
+      primary: {
+        main: Color.Blue300,
+      },
+
+      action: {
+        hover: Color.Silver100,
+        selected: Color.Silver400,
+      },
+
+      text: {
+        primary: Color.Grey500,
+        secondary: Color.Grey200,
+        hint: Color.Grey100,
+        disabled: Color.Grey100,
+      },
     },
 
     typography: createTypographyOptions(),
