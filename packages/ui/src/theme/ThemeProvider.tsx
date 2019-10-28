@@ -6,6 +6,7 @@ import { applyButtonStyles } from '../button/ButtonStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
+import { applyPaperStyles } from '../paper/PaperStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
@@ -53,6 +54,7 @@ function createTheme() {
   applyIconButtonStyles(theme);
   applyLinkStyles(theme);
   applyMenuStyles(theme);
+  applyPaperStyles(theme);
   applySnackbarStyles(theme);
   applySvgIconStyles(theme);
   applyTabsStyles(theme);
