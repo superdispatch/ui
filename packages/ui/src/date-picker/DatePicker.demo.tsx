@@ -91,7 +91,7 @@ export function DateRangePickerQuickSelectionDemo() {
         quickSelectionItems={dateRangePickerQuickSelectionItems}
         numberOfMonths={2}
         footer={
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary">
             Selected date range allows preferred carriers to instantly book loads inside the Super
             Loadboard.
             <br />
