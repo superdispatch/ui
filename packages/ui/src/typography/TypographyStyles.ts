@@ -34,7 +34,12 @@ export function createTypographyOptions(): TypographyOptions {
 }
 
 export function applyTypographyStyles(theme: Theme) {
+  theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
+
+  theme.props.MuiTypography = {
+    variant: 'body2',
+  };
 
   theme.overrides.MuiTypography = {
     h1: makeTextVariant(theme, 'SF Pro Display', 700, ['40px', '44px'], ['32px', '34px']),

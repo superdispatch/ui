@@ -6,7 +6,7 @@ export function CardDemo() {
     <Box padding={2} marginX="auto" maxWidth="280px">
       <Card>
         <CardContent>
-          <Typography color="textSecondary" variant="body2" gutterBottom={true}>
+          <Typography color="textSecondary" gutterBottom={true}>
             Word of the Day
           </Typography>
 
@@ -14,11 +14,11 @@ export function CardDemo() {
             be•nev•o•lent
           </Typography>
 
-          <Typography color="textSecondary" variant="body2" gutterBottom={true}>
+          <Typography color="textSecondary" gutterBottom={true}>
             adjective
           </Typography>
 
-          <Typography variant="body2" component="p" gutterBottom={true}>
+          <Typography component="p" gutterBottom={true}>
             well meaning and kindly.
             <br />
             ”a benevolent smile”
