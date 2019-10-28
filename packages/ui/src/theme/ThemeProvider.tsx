@@ -3,6 +3,7 @@ import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@materia
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
+import { applyCardStyles } from '../card/CardStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
@@ -51,6 +52,7 @@ function createTheme() {
   });
 
   applyButtonStyles(theme);
+  applyCardStyles(theme);
   applyIconButtonStyles(theme);
   applyLinkStyles(theme);
   applyMenuStyles(theme);
