@@ -9,9 +9,7 @@ import {
 import { useDatePickerStyles } from './DatePickerStyles';
 
 export type DatePickerValue = Date | undefined;
-
 export type DatePickerProps = DatePickerBaseProps<DatePickerValue>;
-
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
 
 export function DatePicker({ value, onChange, ...props }: DatePickerProps) {

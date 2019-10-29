@@ -5,18 +5,26 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  Paper,
   Switch,
+  Typography,
 } from '@material-ui/core';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Calendar } from '..';
 
 export function CalendarDemo() {
   const [disabled, setDisabled] = useState(false);
-  const today = moment()
-    .startOf('day')
-    .toDate();
+  const [hasFooter, setHasFooter] = useState(false);
+
+  const today = useMemo(
+    () =>
+      moment()
+        .startOf('day')
+        .toDate(),
+    [],
+  );
 
   return (
     <Box p={2}>
@@ -31,12 +39,26 @@ export function CalendarDemo() {
                 checked={disabled}
                 onChange={(_, checked) => setDisabled(checked)}
               />
+
+              <FormControlLabel
+                label="With Footer"
+                control={<Switch />}
+                checked={hasFooter}
+                onChange={(_, checked) => setHasFooter(checked)}
+              />
             </FormGroup>
           </FormControl>
         </Grid>
       </Grid>
 
-      <Calendar disabledDays={!disabled ? undefined : { before: today }} />
+      <Box display="flex">
+        <Paper elevation={8}>
+          <Calendar
+            disabledDays={!disabled ? undefined : { before: today }}
+            footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
+          />
+        </Paper>
+      </Box>
     </Box>
   );
 }

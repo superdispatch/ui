@@ -10,34 +10,29 @@ import {
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
 export type DateRangePickerValue = [Date?, Date?] | undefined;
-
 export type DateRangePickerProps = DatePickerBaseProps<DateRangePickerValue>;
-
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue
 >;
-
 export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem<
   DateRangePickerValue
 >;
 
-const compareDates = (dateA?: Date, dateB?: Date) =>
-  dateA && dateB ? dateA.getTime() - dateB.getTime() : 0;
+function sortDates(dates: DateRangePickerValue) {
+  return dates && dates.sort((a, b) => (a && b ? a.getTime() - b.getTime() : 0));
+}
 
-const sortDates = (dates: DateRangePickerValue) => dates && dates.sort(compareDates);
+function isSameDate(dateA?: Date, dateB?: Date) {
+  return dateA && dateB && dateA.getTime() === dateB.getTime();
+}
 
-const isSameDate = (dateA?: Date, dateB?: Date) =>
-  dateA && dateB && dateA.getTime() === dateB.getTime();
-
-const isSameValue = (valueA: DateRangePickerValue, valueB: DateRangePickerValue) => {
-  const sortedValueA = sortDates(valueA);
-  const sortedValueB = sortDates(valueB);
+function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue) {
+  const rangeA = sortDates(a);
+  const rangeB = sortDates(b);
   return (
-    sortedValueA &&
-    sortedValueB &&
-    (isSameDate(sortedValueA[0], sortedValueB[0]) && isSameDate(sortedValueA[1], sortedValueB[1]))
+    !!rangeA && !!rangeB && (isSameDate(rangeA[0], rangeB[0]) && isSameDate(rangeA[1], rangeB[1]))
   );
-};
+}
 
 export function DateRangePicker({
   value,
@@ -81,7 +76,7 @@ export function DateRangePicker({
   };
 
   const quickSelectionSelectedItem =
-    quickSelectionItems && quickSelectionItems.find(item => isSameValue(item.value, value));
+    quickSelectionItems && quickSelectionItems.find(item => isSameRange(item.value, value));
 
   return (
     <DatePickerBase

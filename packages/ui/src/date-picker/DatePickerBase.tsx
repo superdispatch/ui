@@ -1,8 +1,13 @@
-import { Divider, Grid, Hidden, List, ListItem, Popover, Typography } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
 import React, { useState } from 'react';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
+import {
+  Calendar,
+  CalendarProps,
+  CalendarQuickSelection,
+  CalendarQuickSelectionItem,
+} from '../calendar/Calendar';
 
 export type DatePickerBaseValue = Date | [Date?, Date?] | undefined;
 
@@ -34,13 +39,13 @@ export interface DatePickerBaseQuickSelectionItem<TValue> {
   value: TValue;
 }
 
-export interface DatePickerBaseProps<TValue> extends CalendarProps {
+export interface DatePickerBaseProps<TValue>
+  extends Omit<CalendarProps, 'direction' | 'quickSelection'> {
   value?: TValue;
   quickSelectionItems?: Array<DatePickerBaseQuickSelectionItem<TValue>>;
   quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem<TValue>;
   InputComponent: DatePickerBaseInputComponent<DatePickerBaseInputComponentProps<TValue>>;
   onChange: (value: TValue) => void;
-  footer?: React.ReactNode;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
   disabled?: boolean;
@@ -48,7 +53,6 @@ export interface DatePickerBaseProps<TValue> extends CalendarProps {
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   InputComponent,
-  classes,
   value,
   onChange,
   anchorEl,
@@ -56,10 +60,9 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
   onClose,
   quickSelectionItems,
   quickSelectionSelectedItem,
-  footer,
+  disabled,
   anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   transformOrigin = { vertical: 'top', horizontal: 'left' },
-  disabled,
   ...props
 }: DatePickerBaseProps<TValue> & DatePickerBaseState) {
   return (
@@ -73,54 +76,28 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
         transformOrigin={transformOrigin}
         onClose={onClose}
       >
-        <Grid
-          container={true}
+        <Calendar
+          {...props}
           direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
-        >
-          {quickSelectionItems && (
-            <>
-              <Grid item={true} xs={12} sm="auto">
-                <List>
-                  <ListItem>
-                    <Typography variant="h4">Quick Selection</Typography>
-                  </ListItem>
-
-                  {quickSelectionItems.map(quickSelectionItem => (
-                    <ListItem
-                      key={quickSelectionItem.label}
-                      button={true}
-                      selected={quickSelectionSelectedItem === quickSelectionItem}
-                      onClick={() => {
-                        onChange(quickSelectionItem.value);
-                        onClose();
-                      }}
-                    >
-                      {quickSelectionItem.label}
-                    </ListItem>
-                  ))}
-                </List>
-              </Grid>
-
-              <Hidden xsDown={true}>
-                <Grid item={true} sm="auto">
-                  <Divider orientation="vertical" />
-                </Grid>
-              </Hidden>
-
-              <Hidden smUp={true}>
-                <Grid item={true} xs={12}>
-                  <Divider orientation="horizontal" />
-                </Grid>
-              </Hidden>
-            </>
-          )}
-
-          <Grid item={true} xs={12} sm="auto">
-            <Calendar {...props} classes={classes} />
-
-            {footer && <div className={classes && classes.footer}>{footer}</div>}
-          </Grid>
-        </Grid>
+          quickSelection={
+            !!quickSelectionItems && (
+              <CalendarQuickSelection>
+                {quickSelectionItems.map(quickSelectionItem => (
+                  <CalendarQuickSelectionItem
+                    key={quickSelectionItem.label}
+                    selected={quickSelectionSelectedItem === quickSelectionItem}
+                    onClick={() => {
+                      onChange(quickSelectionItem.value);
+                      onClose();
+                    }}
+                  >
+                    {quickSelectionItem.label}
+                  </CalendarQuickSelectionItem>
+                ))}
+              </CalendarQuickSelection>
+            )
+          }
+        />
       </Popover>
     </>
   );
