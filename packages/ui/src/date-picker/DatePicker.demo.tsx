@@ -60,16 +60,7 @@ export function DatePickerDemo() {
         onChange={setDate}
         disabledDays={!disabled ? undefined : { before: today }}
         InputComponent={DateInputComponent}
-        footer={
-          hasFooter && (
-            <Typography color="textSecondary">
-              Selected date range allows preferred carriers to instantly book loads inside the Super
-              Loadboard.
-              <br />
-              Dates out of selected range will still be available to request.
-            </Typography>
-          )
-        }
+        footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
       />
 
       <pre>{JSON.stringify({ date }, null, 2)}</pre>
