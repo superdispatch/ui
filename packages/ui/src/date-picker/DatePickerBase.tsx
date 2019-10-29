@@ -52,32 +52,37 @@ export interface DatePickerBaseProps<TValue>
 }
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
-  InputComponent,
+  // Input
   value,
-  onChange,
-  anchorEl,
   onOpen,
-  onClose,
-  quickSelectionItems,
-  quickSelectionSelectedItem,
+  onChange,
   disabled,
+  InputComponent,
+
+  // Popover
+  anchorEl,
+  onClose,
   anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   transformOrigin = { vertical: 'top', horizontal: 'left' },
-  ...props
+
+  // Calendar
+  quickSelectionItems,
+  quickSelectionSelectedItem,
+  ...calendarProps
 }: DatePickerBaseProps<TValue> & DatePickerBaseState) {
   return (
     <>
       <InputComponent onClick={onOpen} value={value} readOnly={true} disabled={disabled} />
 
       <Popover
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
+        onClose={onClose}
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
-        onClose={onClose}
       >
         <Calendar
-          {...props}
+          {...calendarProps}
           direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
           quickSelection={
             !!quickSelectionItems && (
