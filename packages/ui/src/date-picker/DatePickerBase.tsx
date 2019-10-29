@@ -10,11 +10,8 @@ import {
 } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
 import React, { useState } from 'react';
-import DayPicker, {
-  CaptionElementProps,
-  DayPickerProps,
-  WeekdayElementProps,
-} from 'react-day-picker';
+
+import { Calendar, CalendarProps } from '../calendar/Calendar';
 
 export type DatePickerBaseValue = Date | [Date?, Date?] | undefined;
 
@@ -46,8 +43,7 @@ export interface DatePickerBaseQuickSelectionItem<TValue> {
   value: TValue;
 }
 
-export interface DatePickerBaseProps<TValue> extends DayPickerProps {
-  classNames?: DayPickerProps['classNames'];
+export interface DatePickerBaseProps<TValue> extends CalendarProps {
   value?: TValue;
   quickSelectionItems?: Array<DatePickerBaseQuickSelectionItem<TValue>>;
   quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem<TValue>;
@@ -59,27 +55,9 @@ export interface DatePickerBaseProps<TValue> extends DayPickerProps {
   disabled?: boolean;
 }
 
-function DatePickerBaseCaption({ date, localeUtils, classNames, ...props }: CaptionElementProps) {
-  return (
-    <Typography variant="h4" className={classNames.caption} {...props}>
-      {localeUtils.formatMonthTitle(date)}
-    </Typography>
-  );
-}
-
-function DatePickerBaseWeekday({ weekday, className }: WeekdayElementProps) {
-  const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-  return (
-    <Typography variant="h5" className={className}>
-      {weekdaysShort[weekday]}
-    </Typography>
-  );
-}
-
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   InputComponent,
-  classNames,
+  classes,
   value,
   onChange,
   anchorEl,
@@ -148,14 +126,9 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
             )}
 
             <Grid item={true} xs={12} sm="auto">
-              <DayPicker
-                classNames={classNames}
-                captionElement={DatePickerBaseCaption}
-                weekdayElement={DatePickerBaseWeekday}
-                {...props}
-              />
+              <Calendar {...props} classes={classes} />
 
-              {footer && <div className={classNames && classNames.footer}>{footer}</div>}
+              {footer && <div className={classes && classes.footer}>{footer}</div>}
             </Grid>
           </Grid>
         </Paper>

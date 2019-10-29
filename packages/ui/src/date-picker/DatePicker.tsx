@@ -25,7 +25,7 @@ export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
   return (
     <DatePickerBase
       {...stateProps}
-      classNames={classNames}
+      classes={classNames}
       onDayClick={handleDayClick}
       selectedDays={value}
       value={value}

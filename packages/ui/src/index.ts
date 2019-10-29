@@ -1,4 +1,5 @@
 export * from './button/Button';
+export * from './calendar/Calendar';
 export * from './date-picker/DatePicker';
 export * from './date-picker/DateRangePicker';
 export * from './snackbar/Snackbar';
