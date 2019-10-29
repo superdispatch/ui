@@ -1,13 +1,4 @@
-import {
-  Divider,
-  Grid,
-  Hidden,
-  List,
-  ListItem,
-  Paper,
-  Popover,
-  Typography,
-} from '@material-ui/core';
+import { Divider, Grid, Hidden, List, ListItem, Popover, Typography } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
 import React, { useState } from 'react';
 
@@ -82,56 +73,54 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
         transformOrigin={transformOrigin}
         onClose={onClose}
       >
-        <Paper>
-          <Grid
-            container={true}
-            direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
-          >
-            {quickSelectionItems && (
-              <>
-                <Grid item={true} xs={12} sm="auto">
-                  <List>
-                    <ListItem>
-                      <Typography variant="h4">Quick Selection</Typography>
+        <Grid
+          container={true}
+          direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
+        >
+          {quickSelectionItems && (
+            <>
+              <Grid item={true} xs={12} sm="auto">
+                <List>
+                  <ListItem>
+                    <Typography variant="h4">Quick Selection</Typography>
+                  </ListItem>
+
+                  {quickSelectionItems.map(quickSelectionItem => (
+                    <ListItem
+                      key={quickSelectionItem.label}
+                      button={true}
+                      selected={quickSelectionSelectedItem === quickSelectionItem}
+                      onClick={() => {
+                        onChange(quickSelectionItem.value);
+                        onClose();
+                      }}
+                    >
+                      {quickSelectionItem.label}
                     </ListItem>
+                  ))}
+                </List>
+              </Grid>
 
-                    {quickSelectionItems.map(quickSelectionItem => (
-                      <ListItem
-                        key={quickSelectionItem.label}
-                        button={true}
-                        selected={quickSelectionSelectedItem === quickSelectionItem}
-                        onClick={() => {
-                          onChange(quickSelectionItem.value);
-                          onClose();
-                        }}
-                      >
-                        {quickSelectionItem.label}
-                      </ListItem>
-                    ))}
-                  </List>
+              <Hidden xsDown={true}>
+                <Grid item={true} sm="auto">
+                  <Divider orientation="vertical" />
                 </Grid>
+              </Hidden>
 
-                <Hidden xsDown={true}>
-                  <Grid item={true} sm="auto">
-                    <Divider orientation="vertical" />
-                  </Grid>
-                </Hidden>
+              <Hidden smUp={true}>
+                <Grid item={true} xs={12}>
+                  <Divider orientation="horizontal" />
+                </Grid>
+              </Hidden>
+            </>
+          )}
 
-                <Hidden smUp={true}>
-                  <Grid item={true} xs={12}>
-                    <Divider orientation="horizontal" />
-                  </Grid>
-                </Hidden>
-              </>
-            )}
+          <Grid item={true} xs={12} sm="auto">
+            <Calendar {...props} classes={classes} />
 
-            <Grid item={true} xs={12} sm="auto">
-              <Calendar {...props} classes={classes} />
-
-              {footer && <div className={classes && classes.footer}>{footer}</div>}
-            </Grid>
+            {footer && <div className={classes && classes.footer}>{footer}</div>}
           </Grid>
-        </Paper>
+        </Grid>
       </Popover>
     </>
   );
