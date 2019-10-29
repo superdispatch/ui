@@ -31,6 +31,16 @@ export interface DatePickerBaseState {
   onClose: () => void;
 }
 
+export function useDatePickerBaseState(): DatePickerBaseState {
+  const [anchorEl, setAnchorEl] = useState<DatePickerBaseState['anchorEl']>(null);
+
+  return {
+    anchorEl,
+    onOpen: event => setAnchorEl(event.currentTarget),
+    onClose: () => setAnchorEl(null),
+  };
+}
+
 export interface DatePickerBaseQuickSelectionItem<TValue> {
   label: string;
   value: TValue;
@@ -49,31 +59,23 @@ export interface DatePickerBaseProps<TValue> extends DayPickerProps {
   disabled?: boolean;
 }
 
-export function useDatePickerBaseState() {
-  const [anchorEl, setAnchorEl] = useState<DatePickerBaseState['anchorEl']>(null);
-  const onOpen: DatePickerBaseState['onOpen'] = event => setAnchorEl(event.currentTarget);
-  const onClose: DatePickerBaseState['onClose'] = () => setAnchorEl(null);
-
-  return {
-    anchorEl,
-    onOpen,
-    onClose,
-  };
+function DatePickerBaseCaption({ date, localeUtils, classNames, ...props }: CaptionElementProps) {
+  return (
+    <Typography variant="h4" className={classNames.caption} {...props}>
+      {localeUtils.formatMonthTitle(date)}
+    </Typography>
+  );
 }
 
-const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+function DatePickerBaseWeekday({ weekday, className }: WeekdayElementProps) {
+  const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-const captionElement = ({ date, localeUtils, classNames, ...props }: CaptionElementProps) => (
-  <Typography variant="h4" className={classNames.caption} {...props}>
-    {localeUtils.formatMonthTitle(date)}
-  </Typography>
-);
-
-const weekdayElement = ({ weekday, className }: WeekdayElementProps) => (
-  <Typography variant="h5" className={className}>
-    {weekdaysShort[weekday]}
-  </Typography>
-);
+  return (
+    <Typography variant="h5" className={className}>
+      {weekdaysShort[weekday]}
+    </Typography>
+  );
+}
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   InputComponent,
@@ -148,8 +150,8 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
             <Grid item={true} xs={12} sm="auto">
               <DayPicker
                 classNames={classNames}
-                captionElement={captionElement}
-                weekdayElement={weekdayElement}
+                captionElement={DatePickerBaseCaption}
+                weekdayElement={DatePickerBaseWeekday}
                 {...props}
               />
 
