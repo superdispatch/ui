@@ -47,7 +47,7 @@ export function DateRangePicker({
 }: DateRangePickerProps) {
   const stateProps = useDatePickerBaseState();
   const { onClose } = stateProps;
-  const { firstDayOfRange, lastDayOfRange, ...classNames } = useDateRangePickerStyles();
+  const { firstDayOfRange, lastDayOfRange, ...styles } = useDateRangePickerStyles();
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
   const [hoveredDate, setHoveredDate] = useState();
   const [startDate, endDate] = value ? value : [undefined, undefined];
@@ -87,7 +87,7 @@ export function DateRangePicker({
     <DatePickerBase
       {...stateProps}
       onClose={handleClose}
-      classNames={classNames}
+      classes={styles}
       selectedDays={selectedDays}
       onDayClick={handleDayClick}
       onDayMouseEnter={handleDayMouseEnter}
