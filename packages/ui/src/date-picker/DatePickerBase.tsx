@@ -10,7 +10,6 @@ import {
 } from '../calendar/Calendar';
 
 export type DatePickerBaseValue = Date | [Date?, Date?] | undefined;
-
 export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
 
 export interface DatePickerBaseInputComponentProps<TValue>
@@ -39,7 +38,7 @@ export interface DatePickerBaseQuickSelectionItem<TValue> {
   value: TValue;
 }
 
-export interface DatePickerBaseProps<TValue>
+export interface CommonDatePickerProps<TValue>
   extends Omit<CalendarProps, 'direction' | 'quickSelection'> {
   value?: TValue;
   quickSelectionItems?: Array<DatePickerBaseQuickSelectionItem<TValue>>;
@@ -50,6 +49,8 @@ export interface DatePickerBaseProps<TValue>
   transformOrigin?: PopoverOrigin;
   disabled?: boolean;
 }
+
+export type DatePickerBaseProps<TValue> = DatePickerBaseState & CommonDatePickerProps<TValue>;
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   // Input
@@ -69,7 +70,7 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
   quickSelectionItems,
   quickSelectionSelectedItem,
   ...calendarProps
-}: DatePickerBaseProps<TValue> & DatePickerBaseState) {
+}: DatePickerBaseProps<TValue>) {
   return (
     <>
       <InputComponent onClick={onOpen} value={value} readOnly={true} disabled={disabled} />
