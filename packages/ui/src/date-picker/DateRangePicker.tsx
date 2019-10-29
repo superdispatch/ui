@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 import {
+  CommonDatePickerProps,
   DatePickerBase,
   DatePickerBaseInputComponentProps,
-  DatePickerBaseProps,
   DatePickerBaseQuickSelectionItem,
   useDatePickerBaseState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
 export type DateRangePickerValue = [Date?, Date?] | undefined;
-export type DateRangePickerProps = DatePickerBaseProps<DateRangePickerValue>;
+export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue
 >;
