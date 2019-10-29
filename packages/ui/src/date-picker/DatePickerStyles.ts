@@ -12,4 +12,4 @@ export const datePickerStyles = {
   },
 };
 
-export const useDatePickerStyles = makeStyles(datePickerStyles);
+export const useDatePickerStyles = makeStyles(datePickerStyles, { name: 'DatePickerStyles' });

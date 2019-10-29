@@ -141,7 +141,5 @@ export const datePickerBaseStyles = createStyles({
   today: { color: Color.Blue300 },
   selected: {},
   disabled: {},
-  outside: {
-    visibility: 'hidden',
-  },
+  outside: { visibility: 'hidden' },
 });

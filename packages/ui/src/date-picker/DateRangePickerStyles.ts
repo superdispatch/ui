@@ -61,4 +61,6 @@ export const dateRangePickerStyles = createStyles({
   },
 });
 
-export const useDateRangePickerStyles = makeStyles(dateRangePickerStyles);
+export const useDateRangePickerStyles = makeStyles(dateRangePickerStyles, {
+  name: 'DateRangePickerStyles',
+});
