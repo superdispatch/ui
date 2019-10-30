@@ -1,19 +1,56 @@
-import { Divider, Grid, Hidden, List, ListItem, Typography } from '@material-ui/core';
+import { Divider, Grid, Hidden, IconButton, List, ListItem, Typography } from '@material-ui/core';
 import { GridDirection } from '@material-ui/core/Grid';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import React, { forwardRef, ReactNode } from 'react';
 import DayPicker, {
   CaptionElementProps,
   ClassNames,
   DayPickerProps,
+  NavbarElementProps,
   WeekdayElementProps,
 } from 'react-day-picker';
 
 import { useCalendarStyles } from './CalendarStyles';
 
-function CalendarCaption({ date, localeUtils, classNames, ...props }: CaptionElementProps) {
+function CalendarNavbar({
+  labels,
+  classNames,
+  onNextClick,
+  onPreviousClick,
+  showNextButton,
+  showPreviousButton,
+}: NavbarElementProps) {
   return (
-    <Typography variant="h4" className={classNames.caption} {...props}>
+    <>
+      <IconButton
+        size="small"
+        color="primary"
+        disabled={!showPreviousButton}
+        onClick={() => onPreviousClick()}
+        aria-label={labels.previousMonth}
+        className={classNames.navButtonPrev}
+      >
+        <ChevronLeft />
+      </IconButton>
+
+      <IconButton
+        size="small"
+        color="primary"
+        disabled={!showNextButton}
+        onClick={() => onNextClick()}
+        aria-label={labels.nextMonth}
+        className={classNames.navButtonNext}
+      >
+        <ChevronRight />
+      </IconButton>
+    </>
+  );
+}
+
+function CalendarCaption({ date, localeUtils, classNames, onClick }: CaptionElementProps) {
+  return (
+    <Typography variant="h4" onClick={onClick} className={classNames.caption}>
       {localeUtils.formatMonthTitle(date)}
     </Typography>
   );
@@ -52,16 +89,19 @@ export interface CalendarQuickSelectionItemProps {
 }
 
 export const CalendarQuickSelectionItem = forwardRef<
-  HTMLUListElement,
+  HTMLDivElement,
   CalendarQuickSelectionItemProps
->(({ onClick, selected, children }) => (
-  <ListItem button={true} selected={selected} onClick={onClick}>
+>(({ onClick, selected, children }, ref) => (
+  <ListItem ref={ref} button={true} selected={selected} onClick={onClick}>
     {children}
   </ListItem>
 ));
 
 export interface CalendarProps
-  extends Omit<DayPickerProps, 'classNames' | 'captionElement' | 'weekdayElement'> {
+  extends Omit<
+    DayPickerProps,
+    'classNames' | 'navbarElement' | 'captionElement' | 'weekdayElement'
+  > {
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
 
@@ -98,6 +138,7 @@ export function Calendar({ footer, classes, direction, quickSelection, ...props 
         <DayPicker
           {...props}
           classNames={styles}
+          navbarElement={CalendarNavbar}
           captionElement={CalendarCaption}
           weekdayElement={CalendarWeekDay}
         />

@@ -6,41 +6,19 @@ import { Color } from '../theme/Color';
 
 function makeNavButton(type: 'prev' | 'next'): CSSProperties {
   return {
-    width: '28px',
-    height: '28px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
     color: Color.Grey500,
-
-    top: '1em',
     position: 'absolute',
-    left: type === 'prev' ? 0 : undefined,
-    right: type === 'next' ? 0 : undefined,
-
-    '&:hover': {
-      cursor: 'pointer',
-      color: Color.Blue300,
-    },
-
-    '&:after': {
-      content: '""',
-      display: 'block',
-      width: '10px',
-      height: '10px',
-      border: 'solid currentColor',
-      transform: 'rotate(45deg)',
-      borderWidth: type === 'prev' ? '0 0 2px 2px' : '2px 2px 0 0',
-    },
+    top: 12,
+    left: type === 'prev' ? 12 : undefined,
+    right: type === 'next' ? 12 : undefined,
   };
 }
 
 export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
   {
     container: {
-      display: 'inline-block',
       fontSize: '1rem',
+      display: 'inline-block',
     },
 
     wrapper: {
@@ -50,19 +28,12 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
       paddingBottom: '1em',
     },
 
-    interactionDisabled: {
-      // display: 'none',
-    },
+    interactionDisabled: {},
 
-    navBar: {
-      margin: '0 1em',
-      position: 'relative',
-    },
+    navBar: {},
     navButtonPrev: makeNavButton('prev'),
     navButtonNext: makeNavButton('next'),
-    navButtonInteractionDisabled: {
-      // display: 'none',
-    },
+    navButtonInteractionDisabled: {},
 
     months: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' },
     month: { margin: '0 1em', marginTop: '1em', userSelect: 'none' },
