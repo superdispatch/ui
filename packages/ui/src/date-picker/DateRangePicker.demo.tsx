@@ -27,25 +27,18 @@ const today = moment()
   .hours(12)
   .toDate();
 
-const dateRangePickerQuickSelectionItems: DateRangePickerQuickSelectionItem[] = [
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-].map(daysCount => ({
-  label: `${daysCount} days`,
-  value: [
-    today,
-    moment(today)
-      .add(daysCount - 1, 'days')
-      .toDate(),
-  ],
-}));
+const dateRangePickerQuickSelectionItems = Array.from(
+  { length: 8 },
+  (_, idx): DateRangePickerQuickSelectionItem => ({
+    label: `${idx + 2} days`,
+    value: [
+      today,
+      moment(today)
+        .add(idx + 1, 'days')
+        .toDate(),
+    ],
+  }),
+);
 
 const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({ value, ...props }) => {
   const [startDate, endDate] = value ? value : [];
