@@ -1,5 +1,6 @@
-import { createMuiTheme, CssBaseline } from '@material-ui/core';
+import { createGenerateClassName, createMuiTheme, CssBaseline } from '@material-ui/core';
 import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { Rule, StyleSheet } from 'jss';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
@@ -70,11 +71,21 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
+const generateMaterialClassName = createGenerateClassName();
+
+function generateClassName(rule: Rule, sheet?: StyleSheet<string>) {
+  const sheetMeta = sheet && sheet.options.meta;
+
+  return rule.type === 'style' && sheetMeta && sheetMeta.startsWith('SuperDispatch')
+    ? `${sheetMeta}-${rule.key}`
+    : generateMaterialClassName(rule, sheet);
+}
+
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const theme = useMemo(createTheme, []);
 
   return (
-    <StylesProvider injectFirst={true}>
+    <StylesProvider injectFirst={true} generateClassName={generateClassName}>
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 

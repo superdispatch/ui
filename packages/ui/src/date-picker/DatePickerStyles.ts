@@ -10,5 +10,5 @@ export const useDatePickerStyles = makeStyles(
       background: Color.Blue300,
     },
   },
-  { name: 'DatePickerStyles' },
+  { name: 'SuperDispatchDatePicker' },
 );

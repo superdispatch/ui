@@ -101,5 +101,5 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
     disabled: {},
     outside: {},
   },
-  { name: 'Calendar' },
+  { name: 'SuperDispatchCalendar' },
 );
