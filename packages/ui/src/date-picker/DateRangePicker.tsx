@@ -39,6 +39,16 @@ function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue): boolean 
   return isSameDate(fromA, toA) && isSameDate(fromB, toB);
 }
 
+function isMonthStart(date: Date): boolean {
+  return date.getDate() === 1;
+}
+
+function isMonthEnd(date: Date): boolean {
+  return (
+    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
+  );
+}
+
 export function DateRangePicker({
   value,
   onChange,
@@ -47,7 +57,7 @@ export function DateRangePicker({
   ...props
 }: DateRangePickerProps) {
   const { onClose, ...stateProps } = useDatePickerBaseState();
-  const { firstDayOfRange, lastDayOfRange, ...styles } = useDateRangePickerStyles();
+  const { rangeStart, rangeEnd, monthStart, monthEnd, ...styles } = useDateRangePickerStyles();
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
 
@@ -76,7 +86,13 @@ export function DateRangePicker({
       value={value}
       month={fromDate || actualToDate}
       onChange={onChange}
-      modifiers={{ ...modifiers, [firstDayOfRange]: fromDate, [lastDayOfRange]: toDate }}
+      modifiers={{
+        ...modifiers,
+        [rangeStart]: fromDate,
+        [rangeEnd]: toDate,
+        [monthStart]: isMonthStart,
+        [monthEnd]: isMonthEnd,
+      }}
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
       onDayMouseEnter={date => setHoveredDate(date)}

@@ -76,14 +76,18 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
     week: { display: 'flex' },
     day: {
       margin: '1px',
+      width: '40px',
+      height: '40px',
+      borderRadius: '4px',
+
+      cursor: 'pointer',
+      position: 'relative',
+
+      color: Color.Grey500,
+
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '40px',
-      height: '40px',
-      color: Color.Grey500,
-      position: 'relative',
-      cursor: 'pointer',
     },
     footer: { padding: '1em' },
     todayButton: {
@@ -97,7 +101,15 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
     },
 
     today: { color: Color.Blue300 },
-    selected: {},
+    selected: {
+      color: Color.White,
+      backgroundColor: Color.Blue300,
+
+      '&$outside': {
+        color: Color.Grey500,
+        backgroundColor: 'transparent',
+      },
+    },
     disabled: {},
     outside: {},
   },
