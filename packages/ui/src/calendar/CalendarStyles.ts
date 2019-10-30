@@ -15,7 +15,7 @@ function makeNavButton(type: 'prev' | 'next'): CSSProperties {
 }
 
 export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
-  {
+  theme => ({
     container: {
       fontSize: '1rem',
       display: 'inline-block',
@@ -73,7 +73,10 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
       flexDirection: 'column',
     },
 
-    week: { display: 'flex' },
+    week: {
+      display: 'flex',
+    },
+
     day: {
       margin: '1px',
       width: '40px',
@@ -88,8 +91,23 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+
+      transition: theme.transitions.create('background-color', {
+        duration: theme.transitions.duration.short,
+      }),
+
+      '&:not($disabled):not($selected)': {
+        '&:hover, &:focus': {
+          outline: 'none',
+          backgroundColor: Color.Blue50,
+        },
+      },
     },
-    footer: { padding: '1em' },
+
+    footer: {
+      padding: '1em',
+    },
+
     todayButton: {
       border: 'none',
       backgroundColor: 'transparent',
@@ -112,6 +130,6 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
     },
     disabled: {},
     outside: {},
-  },
+  }),
   { name: 'SuperDispatchCalendar' },
 );
