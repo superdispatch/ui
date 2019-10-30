@@ -14,9 +14,6 @@ import React, { useMemo, useState } from 'react';
 
 import { Calendar, CalendarQuickSelection, CalendarQuickSelectionItem } from '..';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const rtf1 = new (Intl as any).RelativeTimeFormat('en', { numeric: 'auto' });
-
 export function CalendarDemo() {
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
@@ -72,7 +69,10 @@ export function CalendarDemo() {
                 <CalendarQuickSelection>
                   {Array.from({ length: 7 }, (_, idx) => (
                     <CalendarQuickSelectionItem key={idx}>
-                      {rtf1.format(idx - 3, 'day')}
+                      {moment()
+                        .startOf('day')
+                        .add(idx + 3, 'day')
+                        .toNow(true)}
                     </CalendarQuickSelectionItem>
                   ))}
                 </CalendarQuickSelection>
