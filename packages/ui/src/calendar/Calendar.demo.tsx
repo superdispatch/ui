@@ -64,6 +64,7 @@ export function CalendarDemo() {
       <Box display="flex">
         <Paper elevation={8}>
           <Calendar
+            fromMonth={!disabled ? undefined : today}
             disabledDays={!disabled ? undefined : { before: today }}
             footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
             quickSelection={
