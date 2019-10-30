@@ -50,8 +50,8 @@ export function DateRangePicker({
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
 
-  const fromDate = value && value[0];
-  const toDate = pickingDateType === 'end' ? hoveredDate : value && value[1];
+  const [fromDate, actualToDate] = normalizeRange(value);
+  const toDate = pickingDateType === 'end' ? hoveredDate : actualToDate;
   const selectedDays = useMemo(() => fromDate && toDate && { from: fromDate, to: toDate }, [
     fromDate,
     toDate,
@@ -79,6 +79,7 @@ export function DateRangePicker({
       onClose={handleClose}
       selectedDays={selectedDays}
       value={value}
+      month={fromDate || actualToDate}
       onChange={onChange}
       modifiers={modifiers}
       quickSelectionItems={quickSelectionItems}
