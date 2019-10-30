@@ -1,10 +1,11 @@
+import { Theme } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 
 import { Color } from '../theme/Color';
 
 function makeRangeStyles(type: 'first' | 'last'): CSSProperties {
   return {
-    '&$selected': {
+    '&&&': {
       color: Color.White,
 
       '&:before': {
@@ -28,19 +29,10 @@ function makeRangeStyles(type: 'first' | 'last'): CSSProperties {
   };
 }
 
-export const useDateRangePickerStyles = makeStyles(
-  {
-    day: { zIndex: 1 },
-
-    monthStart: {},
-    monthEnd: {},
-
-    rangeStart: makeRangeStyles('first'),
-    rangeEnd: makeRangeStyles('last'),
-
-    selected: {
-      color: Color.Blue500,
-      backgroundColor: 'transparent',
+export const useDateRangePickerStyles = makeStyles<Theme>(
+  theme => ({
+    day: {
+      zIndex: 1,
 
       '&:before': {
         content: '""',
@@ -50,7 +42,28 @@ export const useDateRangePickerStyles = makeStyles(
         bottom: 0,
         zIndex: -1,
         position: 'absolute',
-        background: Color.Blue50,
+        backgroundColor: 'transparent',
+
+        transition: theme.transitions.create('background-color', {
+          duration: theme.transitions.duration.short,
+        }),
+      },
+    },
+
+    monthStart: {},
+    monthEnd: {},
+
+    rangeStart: makeRangeStyles('first'),
+    rangeEnd: makeRangeStyles('last'),
+
+    selected: {
+      '&&': {
+        color: Color.Blue500,
+        backgroundColor: 'transparent',
+      },
+
+      '&:before': {
+        backgroundColor: Color.Blue50,
       },
 
       '&:first-child, &$monthStart': {
@@ -65,6 +78,6 @@ export const useDateRangePickerStyles = makeStyles(
     outside: {
       visibility: 'hidden',
     },
-  },
+  }),
   { name: 'SuperDispatchDateRangePicker' },
 );
