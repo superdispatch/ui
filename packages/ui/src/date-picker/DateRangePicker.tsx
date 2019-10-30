@@ -42,6 +42,7 @@ function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue): boolean 
 export function DateRangePicker({
   value,
   onChange,
+  modifiers,
   quickSelectionItems,
   ...props
 }: DateRangePickerProps) {
@@ -54,12 +55,6 @@ export function DateRangePicker({
   const toDate = pickingDateType === 'end' ? hoveredDate : actualToDate;
   const selectedDays = useMemo(() => fromDate && toDate && { from: fromDate, to: toDate }, [
     fromDate,
-    toDate,
-  ]);
-  const modifiers = useMemo(() => ({ [firstDayOfRange]: fromDate, [lastDayOfRange]: toDate }), [
-    firstDayOfRange,
-    fromDate,
-    lastDayOfRange,
     toDate,
   ]);
   const quickSelectionSelectedItem = useMemo(
@@ -81,7 +76,7 @@ export function DateRangePicker({
       value={value}
       month={fromDate || actualToDate}
       onChange={onChange}
-      modifiers={modifiers}
+      modifiers={{ ...modifiers, [firstDayOfRange]: fromDate, [lastDayOfRange]: toDate }}
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
       onDayMouseEnter={date => setHoveredDate(date)}
