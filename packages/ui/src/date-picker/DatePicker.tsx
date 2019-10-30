@@ -22,6 +22,7 @@ export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
       onClose={onClose}
       classes={styles}
       value={value}
+      month={value}
       selectedDays={value}
       onChange={onChange}
       onDayClick={day => {
