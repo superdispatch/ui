@@ -4,8 +4,8 @@ export type ColorVariant =
   | 'blue'
   | 'green'
   | 'purple'
-  | 'teal'
   | 'red'
+  | 'teal'
   | 'yellow';
 
 export enum Color {

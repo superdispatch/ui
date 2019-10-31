@@ -8,11 +8,12 @@ import DayPicker, {
   ClassNames,
   DayModifiers,
   DayPickerProps,
+  Modifier,
   NavbarElementProps,
   WeekdayElementProps,
 } from 'react-day-picker';
 
-import { useCalendarStyles } from './CalendarStyles';
+import { CalendarDayHighlightColor, useCalendarStyles } from './CalendarStyles';
 
 //
 // Date Utils
@@ -152,6 +153,8 @@ export interface CalendarProps
 
   footer?: ReactNode;
   quickSelection?: ReactNode;
+
+  highlightedDays?: Partial<Record<CalendarDayHighlightColor, Modifier | Modifier[]>>;
 }
 
 export function Calendar({
@@ -160,6 +163,7 @@ export function Calendar({
   direction,
   modifiers,
   quickSelection,
+  highlightedDays,
 
   onDayClick,
   onDayKeyDown,
@@ -172,7 +176,17 @@ export function Calendar({
 
   ...props
 }: CalendarProps) {
-  const { firstDayOfMonth, lastDayOfMonth, ...styles } = useCalendarStyles({ classes });
+  const {
+    blue,
+    green,
+    purple,
+    red,
+    teal,
+    yellow,
+    firstDayOfMonth,
+    lastDayOfMonth,
+    ...styles
+  } = useCalendarStyles({ classes });
   const handlers = toDayPickerDayEventHandlers(styles, {
     onDayClick,
     onDayKeyDown,
@@ -212,6 +226,12 @@ export function Calendar({
           {...handlers}
           modifiers={{
             ...modifiers,
+            [blue]: highlightedDays && highlightedDays.blue,
+            [green]: highlightedDays && highlightedDays.green,
+            [purple]: highlightedDays && highlightedDays.purple,
+            [red]: highlightedDays && highlightedDays.red,
+            [teal]: highlightedDays && highlightedDays.teal,
+            [yellow]: highlightedDays && highlightedDays.yellow,
             [firstDayOfMonth]: isFirstDayOfMonth,
             [lastDayOfMonth]: isLastDayOfMonth,
           }}
