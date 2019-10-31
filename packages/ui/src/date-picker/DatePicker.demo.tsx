@@ -58,6 +58,7 @@ export function DatePickerDemo() {
       <DatePicker
         value={date}
         onChange={setDate}
+        fromMonth={!disabled ? undefined : today}
         disabledDays={!disabled ? undefined : { before: today }}
         InputComponent={DateInputComponent}
         footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}

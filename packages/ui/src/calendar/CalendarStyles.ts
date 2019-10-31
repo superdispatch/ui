@@ -14,7 +14,9 @@ function makeNavButton(type: 'prev' | 'next'): CSSProperties {
   };
 }
 
-export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
+export type CalendarClassNames = keyof ClassNames | 'firstDayOfMonth' | 'lastDayOfMonth';
+
+export const useCalendarStyles = makeStyles<Theme, {}, CalendarClassNames>(
   theme => ({
     container: {
       fontSize: '1rem',
@@ -77,29 +79,95 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
       display: 'flex',
     },
 
+    // Day modifiers.
+    today: {},
+    outside: {},
+    selected: {},
+    disabled: {},
+    firstDayOfMonth: {},
+    lastDayOfMonth: {},
+
     day: {
+      zIndex: 1,
       margin: '1px',
       width: '40px',
       height: '40px',
       borderRadius: '4px',
 
-      cursor: 'pointer',
       position: 'relative',
-
-      color: Color.Grey500,
 
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
 
-      transition: theme.transitions.create('background-color', {
-        duration: theme.transitions.duration.short,
-      }),
+      transition: theme.transitions.create(['color', 'background-color']),
 
-      '&:not($disabled):not($selected)': {
-        '&:hover, &:focus': {
-          outline: 'none',
-          backgroundColor: Color.Blue50,
+      '&:before': {
+        content: '""',
+        top: 0,
+        left: -1,
+        right: -1,
+        bottom: 0,
+        zIndex: -1,
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        transition: theme.transitions.create('background-color'),
+      },
+
+      '&:first-child, &$firstDayOfMonth': {
+        '&:before': { borderRadius: '4px 0 0 4px' },
+      },
+
+      '&:last-child, &$lastDayOfMonth': {
+        '&:before': { borderRadius: '0 4px 4px 0' },
+      },
+
+      '&:after': {
+        content: '""',
+        borderRadius: 4,
+
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: -1,
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        transition: theme.transitions.create('background-color'),
+      },
+
+      '&:hover, &:focus': {
+        outline: 'none',
+      },
+
+      '&$disabled': {
+        color: Color.Grey100,
+
+        '&$selected:not($outside):after': {
+          backgroundColor: `${Color.Silver300}`,
+        },
+      },
+
+      '&:not($outside):not($disabled)': {
+        cursor: 'pointer',
+        color: Color.Grey500,
+
+        '&:not($selected)': {
+          '&$today': {
+            color: Color.Blue300,
+          },
+
+          '&:hover, &:focus': {
+            backgroundColor: Color.Silver100,
+          },
+        },
+
+        '&:active, &$selected': {
+          color: Color.White,
+
+          '&:after': {
+            backgroundColor: `${Color.Blue300}`,
+          },
         },
       },
     },
@@ -117,19 +185,6 @@ export const useCalendarStyles = makeStyles<Theme, {}, keyof ClassNames>(
       fontSize: '0.875em',
       cursor: 'pointer',
     },
-
-    today: { color: Color.Blue300 },
-    selected: {
-      color: Color.White,
-      backgroundColor: Color.Blue300,
-
-      '&$outside': {
-        color: Color.Grey500,
-        backgroundColor: 'transparent',
-      },
-    },
-    disabled: {},
-    outside: {},
   }),
   { name: 'SuperDispatchCalendar' },
 );
