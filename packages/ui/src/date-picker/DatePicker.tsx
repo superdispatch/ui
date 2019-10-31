@@ -11,7 +11,7 @@ export type DatePickerValue = Date | undefined;
 export type DatePickerProps = CommonDatePickerProps<DatePickerValue>;
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
 
-export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
+export function DatePicker({ value, onChange, onDayClick, ...props }: DatePickerProps) {
   const { onClose, ...stateProps } = useDatePickerBaseState();
 
   return (
@@ -22,9 +22,15 @@ export function DatePicker({ value, onChange, ...props }: DatePickerProps) {
       month={value}
       selectedDays={value}
       onChange={onChange}
-      onDayClick={day => {
-        onChange(day);
-        onClose();
+      onDayClick={(day, modifiers) => {
+        if (onDayClick) {
+          onDayClick(day, modifiers);
+        }
+
+        if (!modifiers.disabled) {
+          onChange(day);
+          onClose();
+        }
       }}
       {...props}
     />

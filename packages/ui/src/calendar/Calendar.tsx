@@ -1,17 +1,36 @@
-import { Divider, Grid, Hidden, IconButton, List, ListItem, Typography } from '@material-ui/core';
+import { Divider, Grid, Hidden, IconButton, Typography } from '@material-ui/core';
 import { GridDirection } from '@material-ui/core/Grid';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
-import React, { forwardRef, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import DayPicker, {
   CaptionElementProps,
   ClassNames,
+  DayModifiers,
   DayPickerProps,
   NavbarElementProps,
   WeekdayElementProps,
 } from 'react-day-picker';
 
 import { useCalendarStyles } from './CalendarStyles';
+
+//
+// Date Utils
+//
+
+function isFirstDayOfMonth(date: Date): boolean {
+  return date.getDate() === 1;
+}
+
+function isLastDayOfMonth(date: Date): boolean {
+  return (
+    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
+  );
+}
+
+//
+// Internal Components
+//
 
 function CalendarNavbar({
   labels,
@@ -66,42 +85,68 @@ function CalendarWeekDay({ weekday, className }: WeekdayElementProps) {
   );
 }
 
-export interface CalendarQuickSelectionProps {
-  children: ReactNode;
+//
+// Day event and it's handlers
+//
+
+export interface CalendarDayModifiers {
+  disabled: boolean;
+  selected: boolean;
 }
 
-export const CalendarQuickSelection = forwardRef<HTMLUListElement, CalendarQuickSelectionProps>(
-  ({ children }, ref) => (
-    <List ref={ref}>
-      <ListItem>
-        <Typography variant="h4">Quick Selection</Typography>
-      </ListItem>
+export type CalendarDayEventHandler = (date: Date, modifiers: CalendarDayModifiers) => void;
 
-      {children}
-    </List>
-  ),
-);
+type CalendarDayEventHandlerName =
+  | 'onDayClick'
+  | 'onDayKeyDown'
+  | 'onDayMouseEnter'
+  | 'onDayMouseLeave'
+  | 'onDayMouseDown'
+  | 'onDayMouseUp'
+  | 'onDayTouchEnd'
+  | 'onDayTouchStart';
 
-export interface CalendarQuickSelectionItemProps {
-  children: ReactNode;
-  selected?: boolean;
-  onClick?: () => void;
+type CalendarDayEventProps = Partial<Record<CalendarDayEventHandlerName, CalendarDayEventHandler>>;
+
+type DayPickerDayEventHandlers = Partial<
+  Record<CalendarDayEventHandlerName, (day: Date, modifiers: DayModifiers) => void>
+>;
+
+function toDayPickerDayEventHandlers(
+  styles: ClassNameMap<keyof ClassNames>,
+  handlers: CalendarDayEventProps,
+): DayPickerDayEventHandlers {
+  return Object.keys(handlers).reduce<DayPickerDayEventHandlers>((acc, x) => {
+    const key = x as CalendarDayEventHandlerName;
+    const handler = handlers[key];
+
+    if (handler) {
+      acc[key] = (date, modifiers) => {
+        handler(date, {
+          disabled: !!modifiers[styles.disabled],
+          selected: !!modifiers[styles.selected],
+        });
+      };
+    }
+
+    return acc;
+  }, {});
 }
 
-export const CalendarQuickSelectionItem = forwardRef<
-  HTMLDivElement,
-  CalendarQuickSelectionItemProps
->(({ onClick, selected, children }, ref) => (
-  <ListItem ref={ref} button={true} selected={selected} onClick={onClick}>
-    {children}
-  </ListItem>
-));
+//
+// Main Component
+//
 
 export interface CalendarProps
-  extends Omit<
-    DayPickerProps,
-    'classNames' | 'navbarElement' | 'captionElement' | 'weekdayElement'
-  > {
+  extends CalendarDayEventProps,
+    Omit<
+      DayPickerProps,
+      | 'classNames'
+      | 'navbarElement'
+      | 'captionElement'
+      | 'weekdayElement'
+      | CalendarDayEventHandlerName
+    > {
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
 
@@ -109,8 +154,35 @@ export interface CalendarProps
   quickSelection?: ReactNode;
 }
 
-export function Calendar({ footer, classes, direction, quickSelection, ...props }: CalendarProps) {
-  const styles = useCalendarStyles({ classes });
+export function Calendar({
+  footer,
+  classes,
+  direction,
+  modifiers,
+  quickSelection,
+
+  onDayClick,
+  onDayKeyDown,
+  onDayMouseEnter,
+  onDayMouseLeave,
+  onDayMouseDown,
+  onDayMouseUp,
+  onDayTouchEnd,
+  onDayTouchStart,
+
+  ...props
+}: CalendarProps) {
+  const { firstDayOfMonth, lastDayOfMonth, ...styles } = useCalendarStyles({ classes });
+  const handlers = toDayPickerDayEventHandlers(styles, {
+    onDayClick,
+    onDayKeyDown,
+    onDayMouseEnter,
+    onDayMouseLeave,
+    onDayMouseDown,
+    onDayMouseUp,
+    onDayTouchEnd,
+    onDayTouchStart,
+  });
 
   return (
     <Grid container={true} direction={direction}>
@@ -137,6 +209,12 @@ export function Calendar({ footer, classes, direction, quickSelection, ...props 
       <Grid item={true} xs={12} sm="auto">
         <DayPicker
           {...props}
+          {...handlers}
+          modifiers={{
+            ...modifiers,
+            [firstDayOfMonth]: isFirstDayOfMonth,
+            [lastDayOfMonth]: isLastDayOfMonth,
+          }}
           classNames={styles}
           navbarElement={CalendarNavbar}
           captionElement={CalendarCaption}
@@ -147,9 +225,4 @@ export function Calendar({ footer, classes, direction, quickSelection, ...props 
       </Grid>
     </Grid>
   );
-}
-
-if (process.env.NODE_ENV === 'development') {
-  CalendarQuickSelection.displayName = 'CalendarQuickSelection';
-  CalendarQuickSelectionItem.displayName = 'CalendarQuickSelectionItem';
 }
