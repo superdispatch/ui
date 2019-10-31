@@ -89,6 +89,7 @@ export function DateRangePickerDemo() {
         value={range}
         onChange={setRange}
         numberOfMonths={2}
+        fromMonth={!disabled ? undefined : today}
         disabledDays={!disabled ? undefined : { before: today }}
         quickSelectionItems={!hasQuickSelection ? undefined : dateRangePickerQuickSelectionItems}
         InputComponent={DateRangeInputComponent}

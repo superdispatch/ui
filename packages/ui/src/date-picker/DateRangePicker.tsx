@@ -39,34 +39,27 @@ function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue): boolean 
   return isSameDate(fromA, toA) && isSameDate(fromB, toB);
 }
 
-function isMonthStart(date: Date): boolean {
-  return date.getDate() === 1;
-}
-
-function isMonthEnd(date: Date): boolean {
-  return (
-    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
-  );
-}
-
 export function DateRangePicker({
   value,
   onChange,
   modifiers,
+  onDayClick,
+  onDayMouseEnter,
   quickSelectionItems,
   ...props
 }: DateRangePickerProps) {
   const { onClose, ...stateProps } = useDatePickerBaseState();
-  const { rangeStart, rangeEnd, monthStart, monthEnd, ...styles } = useDateRangePickerStyles();
+  const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles();
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
 
   const [fromDate, actualToDate] = normalizeRange(value);
-  const toDate = pickingDateType === 'end' ? hoveredDate : actualToDate;
-  const selectedDays = useMemo(() => fromDate && toDate && { from: fromDate, to: toDate }, [
-    fromDate,
-    toDate,
-  ]);
+  const toDate = hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
+  const selectedDays = useMemo(
+    () => (!fromDate || !toDate ? [fromDate, toDate] : { from: fromDate, to: toDate }),
+    [fromDate, toDate],
+  );
+
   const quickSelectionSelectedItem = useMemo(
     () => quickSelectionItems && quickSelectionItems.find(item => isSameRange(item.value, value)),
     [value, quickSelectionItems],
@@ -84,27 +77,33 @@ export function DateRangePicker({
       onClose={handleClose}
       selectedDays={selectedDays}
       value={value}
-      month={fromDate || actualToDate}
+      initialMonth={fromDate || actualToDate}
       onChange={onChange}
-      modifiers={{
-        ...modifiers,
-        [rangeStart]: fromDate,
-        [rangeEnd]: toDate,
-        [monthStart]: isMonthStart,
-        [monthEnd]: isMonthEnd,
-      }}
+      modifiers={{ ...modifiers, [rangeStart]: fromDate, [rangeEnd]: toDate }}
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
-      onDayMouseEnter={date => setHoveredDate(date)}
-      onDayClick={date => {
-        if (pickingDateType === 'start') {
-          onChange([date]);
-          setPickingDateType('end');
+      onDayMouseEnter={(date, dateModifiers) => {
+        if (onDayMouseEnter) {
+          onDayMouseEnter(date, dateModifiers);
         }
 
-        if (pickingDateType === 'end') {
-          onChange(normalizeRange([fromDate, date]));
-          handleClose();
+        setHoveredDate(!dateModifiers.disabled ? date : undefined);
+      }}
+      onDayClick={(date, dateModifiers) => {
+        if (onDayClick) {
+          onDayClick(date, dateModifiers);
+        }
+
+        if (!dateModifiers.disabled) {
+          if (pickingDateType === 'start') {
+            onChange([date]);
+            setPickingDateType('end');
+          }
+
+          if (pickingDateType === 'end') {
+            onChange(normalizeRange([fromDate, date]));
+            handleClose();
+          }
         }
       }}
       {...props}
