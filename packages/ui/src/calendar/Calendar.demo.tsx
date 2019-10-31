@@ -6,15 +6,22 @@ import {
   FormLabel,
   Grid,
   Paper,
+  Radio,
+  RadioGroup,
   Switch,
   Typography,
 } from '@material-ui/core';
+import { startCase } from 'lodash';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 
 import { Calendar, CalendarQuickSelection, CalendarQuickSelectionItem } from '..';
+import { CalendarDayHighlightColor } from './CalendarStyles';
+
+const colors: CalendarDayHighlightColor[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 
 export function CalendarDemo() {
+  const [color, setColor] = useState<CalendarDayHighlightColor>('blue');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
@@ -23,6 +30,16 @@ export function CalendarDemo() {
       moment()
         .startOf('day')
         .toDate(),
+    [],
+  );
+
+  const highlightedDays = useMemo(
+    () =>
+      Array.from({ length: 7 }, (_, idx) =>
+        moment()
+          .startOf('month')
+          .add(idx, 'day'),
+      ),
     [],
   );
 
@@ -56,6 +73,24 @@ export function CalendarDemo() {
             </FormGroup>
           </FormControl>
         </Grid>
+
+        <Grid item={true} sm={true} xs={12}>
+          <Grid item={true} sm={true} xs={12}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Highlight Color</FormLabel>
+              <RadioGroup
+                row={true}
+                name="color"
+                value={color}
+                onChange={(_, value) => setColor(value as CalendarDayHighlightColor)}
+              >
+                {colors.map(x => (
+                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Box display="flex">
@@ -64,15 +99,13 @@ export function CalendarDemo() {
             fromMonth={!disabled ? undefined : today}
             disabledDays={!disabled ? undefined : { before: today }}
             footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
+            highlightedDays={{ [color]: highlightedDays.map(x => x.toDate()) }}
             quickSelection={
               hasQuickSelection && (
                 <CalendarQuickSelection>
-                  {Array.from({ length: 7 }, (_, idx) => (
+                  {highlightedDays.map((day, idx) => (
                     <CalendarQuickSelectionItem key={idx}>
-                      {moment()
-                        .startOf('day')
-                        .add(idx + 3, 'day')
-                        .toNow(true)}
+                      {day.format('MM/DD/YYYY')}
                     </CalendarQuickSelectionItem>
                   ))}
                 </CalendarQuickSelection>

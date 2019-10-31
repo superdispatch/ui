@@ -2,7 +2,7 @@ import { Theme } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import { ClassNames } from 'react-day-picker';
 
-import { Color } from '../theme/Color';
+import { Color, ColorVariant } from '../theme/Color';
 
 function makeNavButton(type: 'prev' | 'next'): CSSProperties {
   return {
@@ -14,7 +14,13 @@ function makeNavButton(type: 'prev' | 'next'): CSSProperties {
   };
 }
 
-export type CalendarClassNames = keyof ClassNames | 'firstDayOfMonth' | 'lastDayOfMonth';
+export type CalendarDayHighlightColor = Exclude<ColorVariant, 'grey' | 'silver'>;
+
+export type CalendarClassNames =
+  | keyof ClassNames
+  | CalendarDayHighlightColor
+  | 'firstDayOfMonth'
+  | 'lastDayOfMonth';
 
 export const useCalendarStyles = makeStyles<Theme, {}, CalendarClassNames>(
   theme => ({
@@ -87,6 +93,13 @@ export const useCalendarStyles = makeStyles<Theme, {}, CalendarClassNames>(
     firstDayOfMonth: {},
     lastDayOfMonth: {},
 
+    blue: {},
+    green: {},
+    purple: {},
+    red: {},
+    teal: {},
+    yellow: {},
+
     day: {
       zIndex: 1,
       margin: '1px',
@@ -152,14 +165,16 @@ export const useCalendarStyles = makeStyles<Theme, {}, CalendarClassNames>(
         cursor: 'pointer',
         color: Color.Grey500,
 
-        '&:not($selected)': {
-          '&$today': {
-            color: Color.Blue300,
-          },
+        '&:not($selected):not(:active)': {
+          '&$today': { color: Color.Blue300 },
+          '&:hover, &:focus': { backgroundColor: Color.Silver100 },
 
-          '&:hover, &:focus': {
-            backgroundColor: Color.Silver100,
-          },
+          '&$blue': { color: Color.Blue500, '&': { backgroundColor: Color.Blue50 } },
+          '&$green': { color: Color.Green500, '&': { backgroundColor: Color.Green50 } },
+          '&$purple': { color: Color.Purple500, '&': { backgroundColor: Color.Purple50 } },
+          '&$red': { color: Color.Red500, '&': { backgroundColor: Color.Red50 } },
+          '&$teal': { color: Color.Teal500, '&': { backgroundColor: Color.Teal50 } },
+          '&$yellow': { color: Color.Yellow500, '&': { backgroundColor: Color.Yellow50 } },
         },
 
         '&:active, &$selected': {
