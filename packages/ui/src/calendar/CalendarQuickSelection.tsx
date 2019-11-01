@@ -32,7 +32,7 @@ export const CalendarQuickSelectionItem = forwardRef<
   </ListItem>
 ));
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   CalendarQuickSelection.displayName = 'CalendarQuickSelection';
   CalendarQuickSelectionItem.displayName = 'CalendarQuickSelectionItem';
 }
