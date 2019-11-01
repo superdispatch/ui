@@ -6,6 +6,7 @@ export * from './date-picker/DateRangePicker';
 export * from './snackbar/Snackbar';
 export * from './snackbar/SnackbarContent';
 export * from './snackbar/SnackbarStack';
+export * from './tag/Tag';
 export * from './theme/ThemeProvider';
 export * from './theme/Color';
 export * from './tooltip/Tooltip';
