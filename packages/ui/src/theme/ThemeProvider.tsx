@@ -31,7 +31,7 @@ function createTheme() {
 
       action: {
         hover: Color.Silver100,
-        selected: Color.Silver400,
+        selected: Color.Silver300,
         disabled: Color.Silver400,
       },
 

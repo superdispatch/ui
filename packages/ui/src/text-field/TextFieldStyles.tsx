@@ -23,41 +23,25 @@ export function applyTextFieldStyles(theme: Theme) {
       marginBottom: '4px',
       color: Color.Grey400,
     },
-
     formControl: {
       top: undefined,
       left: undefined,
       position: undefined,
       transform: undefined,
     },
-
-    shrink: {
-      transform: undefined,
-    },
-
+    shrink: { transform: undefined },
     outlined: {
       transform: undefined,
       pointerEvents: undefined,
-
-      '&$shrink': {
-        transform: undefined,
-      },
+      '&$shrink': { transform: undefined },
     },
   };
 
   theme.overrides.MuiFormLabel = {
     root: {
-      '&$error': {
-        color: undefined,
-      },
-
-      '&$disabled': {
-        color: undefined,
-      },
-
-      '&$focused': {
-        color: undefined,
-      },
+      '&$error': { color: undefined },
+      '&$focused': { color: undefined },
+      '&$disabled': { color: undefined },
     },
   };
 
@@ -74,6 +58,16 @@ export function applyTextFieldStyles(theme: Theme) {
 
     multiline: {
       padding: '6px 8px',
+    },
+
+    inputSelect: {
+      paddingRight: theme.spacing(4),
+    },
+  };
+
+  theme.overrides.MuiSelect = {
+    icon: {
+      fontSize: '24px',
     },
   };
 

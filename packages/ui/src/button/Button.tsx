@@ -5,26 +5,23 @@ import React, { forwardRef } from 'react';
 
 import { ButtonClassNames } from './ButtonStyles';
 
-export type ButtonColor = 'primary' | 'error' | 'success';
-
 export interface ButtonProps extends Omit<MaterialButtonProps, 'color' | 'variant'> {
   rel?: string;
   target?: string;
   isActive?: boolean;
   isLoading?: boolean;
-  color: ButtonColor;
-  variant: 'outlined' | 'contained';
+  color: 'primary' | 'error' | 'success';
+  variant: 'text' | 'outlined' | 'contained';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ size, color, variant, children, disabled, isActive, isLoading, className, ...props }, ref) => (
+  ({ size, color, children, disabled, isActive, isLoading, className, ...props }, ref) => (
     <MaterialButton
       {...props}
       ref={ref}
       size={size}
       disabled={disabled || isLoading}
       color={color === 'primary' ? color : undefined}
-      variant={variant === 'contained' ? variant : 'outlined'}
       className={clsx(
         ButtonClassNames.root,
         isActive && ButtonClassNames.isActive,
@@ -46,4 +43,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ),
 );
 
-Button.displayName = 'Button';
+if (process.env.NODE_ENV !== 'production') {
+  Button.displayName = 'Button';
+}
