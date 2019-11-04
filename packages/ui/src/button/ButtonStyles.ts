@@ -12,7 +12,35 @@ export enum ButtonClassNames {
   progress = 'Button-progress',
 }
 
-function outlinedColorVariant(
+export function textVariant(
+  textColor: Color,
+  boxShadowColor: Color,
+  backgroundColor: Color,
+): CSSProperties {
+  return {
+    [`& .${ButtonClassNames.progress}`]: { color: textColor },
+
+    '&$disabled': {
+      [`&:not(.${ButtonClassNames.isLoading})`]: {
+        color: boxShadowColor,
+      },
+    },
+
+    '&:not($disabled)': {
+      color: textColor,
+
+      [`&.${ButtonClassNames.isActive}, &:hover, &:active, &:focus`]: {
+        backgroundColor,
+      },
+
+      '&:focus': {
+        boxShadow: `0 0 0 2px ${boxShadowColor}`,
+      },
+    },
+  };
+}
+
+function outlinedVariant(
   activeColor: Color,
   activeShadowColor: Color,
   activeBackgroundColor: Color,
@@ -45,7 +73,7 @@ function outlinedColorVariant(
   };
 }
 
-function containedColorVariant(
+function containedVariant(
   backgroundColor: Color,
   boxShadowColor: Color,
   hoverBackgroundColor: Color,
@@ -110,7 +138,7 @@ export function applyButtonStyles(theme: Theme) {
       lineHeight: '20px',
 
       '&$outlined': { padding: '1px 15px' },
-      '&$contained': { padding: '2px 16px' },
+      '&$text, &$contained': { padding: '2px 16px' },
     },
 
     sizeLarge: {
@@ -118,7 +146,7 @@ export function applyButtonStyles(theme: Theme) {
       lineHeight: '24px',
 
       '&$outlined': { padding: '9px 39px' },
-      '&$contained': { padding: '10px 40px' },
+      '&$text, &$contained': { padding: '10px 40px' },
 
       [`& .${ButtonClassNames.progress}`]: {
         marginTop: -(LARGE_PROGRESS_SIZE / 2),
@@ -135,20 +163,20 @@ export function applyButtonStyles(theme: Theme) {
 
       '&$disabled': { color: Color.Silver500, borderColor: Color.Silver400 },
 
-      [`&.${ButtonClassNames.colorError}`]: outlinedColorVariant(
+      [`&.${ButtonClassNames.colorError}`]: outlinedVariant(
         Color.Red300,
         Color.Red100,
         Color.Red50,
       ),
 
-      [`&.${ButtonClassNames.colorSuccess}`]: outlinedColorVariant(
+      [`&.${ButtonClassNames.colorSuccess}`]: outlinedVariant(
         Color.Green300,
         Color.Green100,
         Color.Green50,
       ),
     },
 
-    outlinedPrimary: outlinedColorVariant(
+    outlinedPrimary: outlinedVariant(
       Color.Blue300,
       Color.Blue100,
       Color.Blue50,
@@ -175,13 +203,13 @@ export function applyButtonStyles(theme: Theme) {
         backgroundColor: Color.Silver200,
       },
 
-      [`&.${ButtonClassNames.colorError}`]: containedColorVariant(
+      [`&.${ButtonClassNames.colorError}`]: containedVariant(
         Color.Red300,
         Color.Red100,
         Color.Red500,
       ),
 
-      [`&.${ButtonClassNames.colorSuccess}`]: containedColorVariant(
+      [`&.${ButtonClassNames.colorSuccess}`]: containedVariant(
         Color.Green300,
         Color.Green100,
         Color.Green500,
@@ -190,7 +218,22 @@ export function applyButtonStyles(theme: Theme) {
       [`& .${ButtonClassNames.progress}`]: { color: Color.White },
     },
 
-    containedPrimary: containedColorVariant(Color.Blue300, Color.Blue100, Color.Blue500),
+    containedPrimary: containedVariant(Color.Blue300, Color.Blue100, Color.Blue500),
+
+    text: {
+      padding: '6px 16px',
+      boxShadow: '0 0 0 0 transparent',
+
+      [`&.${ButtonClassNames.colorError}`]: textVariant(Color.Red300, Color.Red100, Color.Red50),
+
+      [`&.${ButtonClassNames.colorSuccess}`]: textVariant(
+        Color.Green300,
+        Color.Green100,
+        Color.Green50,
+      ),
+    },
+
+    textPrimary: textVariant(Color.Blue300, Color.Blue100, Color.Blue50),
 
     disabled: {
       boxShadow: 'none',

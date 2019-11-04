@@ -84,5 +84,6 @@ export const Snackbar = forwardRef(
     );
   },
 );
-
-Snackbar.displayName = 'Snackbar';
+if (process.env.NODE_ENV !== 'production') {
+  Snackbar.displayName = 'Snackbar';
+}

@@ -28,4 +28,6 @@ export const Tooltip = forwardRef(({ title, PopperProps, ...props }: TooltipProp
   );
 });
 
-Tooltip.displayName = 'Tooltip';
+if (process.env.NODE_ENV !== 'production') {
+  Tooltip.displayName = 'Tooltip';
+}
