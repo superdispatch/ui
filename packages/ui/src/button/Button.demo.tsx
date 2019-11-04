@@ -10,7 +10,6 @@ import {
 import { startCase } from 'lodash';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { ButtonColor } from '..';
 import { Button, ButtonProps } from './Button';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
@@ -18,11 +17,11 @@ const states: State[] = ['stale', 'disabled', 'active', 'loading'];
 const colors: Array<ButtonProps['color']> = ['primary', 'success', 'error'];
 
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
-const variants: Array<ButtonProps['variant']> = ['contained', 'outlined'];
+const variants: Array<ButtonProps['variant']> = ['text', 'contained', 'outlined'];
 
 export function ButtonDemo() {
   const [state, setState] = useState<State>('stale');
-  const [color, setColor] = useState<ButtonColor>('primary');
+  const [color, setColor] = useState<ButtonProps['color']>('primary');
   const [lastClicked, setLastClicked] = useState(0);
 
   useEffect(() => {
@@ -67,7 +66,7 @@ export function ButtonDemo() {
                 row={true}
                 name="color"
                 value={color}
-                onChange={(_, value) => setColor(value as ButtonColor)}
+                onChange={(_, value) => setColor(value as ButtonProps['color'])}
               >
                 {colors.map(x => (
                   <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
