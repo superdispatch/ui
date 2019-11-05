@@ -53,6 +53,14 @@ export function applyTextFieldStyles(theme: Theme) {
     root: {
       '& .MuiSvgIcon-root': {
         fontSize: theme.spacing(3),
+
+        [theme.breakpoints.up('sm')]: {
+          fontSize: theme.spacing(2.5),
+        },
+      },
+
+      '&:hover $notchedOutline': {
+        borderColor: Color.Grey100,
       },
     },
 
