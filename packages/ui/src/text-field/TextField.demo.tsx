@@ -5,10 +5,12 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  InputAdornment,
   MenuItem,
   Switch,
   TextField,
 } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -23,6 +25,8 @@ export function TextFieldDemo() {
   const [isFullWidth, setIsFullWidth] = useState(false);
   const [isMultiline, setIsMultiline] = useState(false);
   const [hasHelperText, setHasHelperText] = useState(false);
+  const [hasStartIcon, setHasStartIcon] = useState(false);
+  const [hasEndIcon, setHasEndIcon] = useState(false);
 
   return (
     <>
@@ -74,6 +78,20 @@ export function TextFieldDemo() {
                   checked={hasHelperText}
                   onChange={(_, checked) => setHasHelperText(checked)}
                 />
+
+                <FormControlLabel
+                  label="Has Start Icon"
+                  control={<Switch />}
+                  checked={hasStartIcon}
+                  onChange={(_, checked) => setHasStartIcon(checked)}
+                />
+
+                <FormControlLabel
+                  label="Has End Icon"
+                  control={<Switch />}
+                  checked={hasEndIcon}
+                  onChange={(_, checked) => setHasEndIcon(checked)}
+                />
               </FormGroup>
             </FormControl>
           </Grid>
@@ -95,6 +113,18 @@ export function TextFieldDemo() {
               helperText={
                 !hasHelperText ? undefined : hasError ? 'Invalid Email' : 'Enter your email'
               }
+              InputProps={{
+                startAdornment: hasStartIcon && (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+                endAdornment: hasEndIcon && (
+                  <InputAdornment position="end">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
 
@@ -115,6 +145,13 @@ export function TextFieldDemo() {
                   ? 'Invalid subscription type'
                   : 'Choose subscription type'
               }
+              InputProps={{
+                startAdornment: hasStartIcon && (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             >
               {subscriptionTypes.map(x => (
                 <MenuItem key={x} value={x}>

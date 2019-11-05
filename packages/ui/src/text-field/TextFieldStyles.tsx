@@ -20,7 +20,7 @@ export function applyTextFieldStyles(theme: Theme) {
     root: {
       fontSize: '14px',
       lineHeight: '20px',
-      marginBottom: '4px',
+      marginBottom: theme.spacing(0.5),
       color: Color.Grey400,
     },
     formControl: {
@@ -50,34 +50,41 @@ export function applyTextFieldStyles(theme: Theme) {
   };
 
   theme.overrides.MuiOutlinedInput = {
+    root: {
+      '& .MuiSvgIcon-root': {
+        fontSize: theme.spacing(3),
+      },
+    },
+
     input: {
-      height: '20px',
       fontSize: '14px',
-      padding: '6px 8px',
+      height: theme.spacing(2.5),
+      padding: theme.spacing(0.75, 1),
     },
 
     multiline: {
-      padding: '6px 8px',
+      padding: theme.spacing(0.75, 1),
     },
 
-    inputSelect: {
-      paddingRight: theme.spacing(4),
-    },
+    inputSelect: { paddingRight: theme.spacing(4) },
+    adornedStart: { paddingLeft: theme.spacing(1) },
+    adornedEnd: { paddingRight: theme.spacing(1) },
   };
 
   theme.overrides.MuiSelect = {
     icon: {
-      fontSize: '24px',
+      fontSize: theme.spacing(3),
     },
   };
 
   theme.overrides.MuiFormHelperText = {
     root: {
       fontSize: '14px',
+      lineHeight: '20px',
     },
 
     contained: {
-      margin: '4px 0 0 0',
+      margin: theme.spacing(0.5, 0, 0, 0),
     },
   };
 }
