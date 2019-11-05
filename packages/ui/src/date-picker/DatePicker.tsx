@@ -4,7 +4,7 @@ import {
   CommonDatePickerProps,
   DatePickerBase,
   DatePickerBaseInputComponentProps,
-  useDatePickerBaseState,
+  useDatePickerPopoverState,
 } from './DatePickerBase';
 
 export type DatePickerValue = Date | undefined;
@@ -12,15 +12,14 @@ export type DatePickerProps = CommonDatePickerProps<DatePickerValue>;
 export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
 
 export function DatePicker({ value, onChange, onDayClick, ...props }: DatePickerProps) {
-  const { onClose, ...stateProps } = useDatePickerBaseState();
+  const { onClose, ...stateProps } = useDatePickerPopoverState();
 
   return (
     <DatePickerBase
       {...stateProps}
       onClose={onClose}
       value={value}
-      month={value}
-      selectedDays={value}
+      selectedDays={[value]}
       onChange={onChange}
       onDayClick={(day, modifiers) => {
         if (onDayClick) {

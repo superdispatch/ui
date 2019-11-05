@@ -1,6 +1,7 @@
 export * from './button/Button';
 export * from './calendar/Calendar';
 export * from './calendar/CalendarQuickSelection';
+export * from './date-picker/DateField';
 export * from './date-picker/DatePicker';
 export * from './date-picker/DateRangePicker';
 export * from './snackbar/Snackbar';

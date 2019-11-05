@@ -34,6 +34,7 @@ export const useCalendarStyles = makeStyles<Theme, {}, CalendarClassNames>(
       position: 'relative',
       flexDirection: 'row',
       paddingBottom: '1em',
+      '&:focus': { outline: 'none' },
     },
 
     interactionDisabled: {},

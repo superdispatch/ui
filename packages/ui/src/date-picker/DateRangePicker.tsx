@@ -5,9 +5,10 @@ import {
   DatePickerBase,
   DatePickerBaseInputComponentProps,
   DatePickerBaseQuickSelectionItem,
-  useDatePickerBaseState,
+  useDatePickerPopoverState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
+import { normalizeDateRange } from './DateUtils';
 
 export type DateRangePickerValue = [Date?, Date?] | undefined;
 export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
@@ -18,23 +19,13 @@ export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem
   DateRangePickerValue
 >;
 
-function normalizeRange(dates: DateRangePickerValue): NonNullable<DateRangePickerValue> {
-  if (!dates) {
-    return [];
-  }
-
-  const [from, to] = dates;
-
-  return !from || !to ? dates : from.getTime() <= to.getTime() ? dates : [to, from];
-}
-
 function isSameDate(dateA?: Date, dateB?: Date): boolean {
   return !!dateA && !!dateB && dateA.getTime() === dateB.getTime();
 }
 
 function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue): boolean {
-  const [fromA, toA] = normalizeRange(a);
-  const [fromB, toB] = normalizeRange(b);
+  const [fromA, toA] = normalizeDateRange(a);
+  const [fromB, toB] = normalizeDateRange(b);
 
   return isSameDate(fromA, toA) && isSameDate(fromB, toB);
 }
@@ -48,17 +39,13 @@ export function DateRangePicker({
   quickSelectionItems,
   ...props
 }: DateRangePickerProps) {
-  const { onClose, ...stateProps } = useDatePickerBaseState();
+  const { onClose, ...stateProps } = useDatePickerPopoverState();
   const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles();
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
   const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
 
-  const [fromDate, actualToDate] = normalizeRange(value);
+  const [fromDate, actualToDate] = normalizeDateRange(value);
   const toDate = hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
-  const selectedDays = useMemo(
-    () => (!fromDate || !toDate ? [fromDate, toDate] : { from: fromDate, to: toDate }),
-    [fromDate, toDate],
-  );
 
   const quickSelectionSelectedItem = useMemo(
     () => quickSelectionItems && quickSelectionItems.find(item => isSameRange(item.value, value)),
@@ -75,10 +62,9 @@ export function DateRangePicker({
       {...stateProps}
       classes={styles}
       onClose={handleClose}
-      selectedDays={selectedDays}
       value={value}
-      initialMonth={fromDate || actualToDate}
       onChange={onChange}
+      selectedDays={[fromDate, toDate]}
       modifiers={{ ...modifiers, [rangeStart]: fromDate, [rangeEnd]: toDate }}
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
@@ -101,7 +87,7 @@ export function DateRangePicker({
           }
 
           if (pickingDateType === 'end') {
-            onChange(normalizeRange([fromDate, date]));
+            onChange(normalizeDateRange([fromDate, date]));
             handleClose();
           }
         }
