@@ -13,6 +13,7 @@ import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
 import { applyTabsStyles } from '../tabs/TabsStyles';
+import { applyTextFieldStyles } from '../text-field/TextFieldStyles';
 import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import { applyTypographyStyles, createTypographyOptions } from '../typography/TypographyStyles';
 import { Color } from './Color';
@@ -24,9 +25,14 @@ function createTheme() {
         main: Color.Blue300,
       },
 
+      error: {
+        main: Color.Red300,
+      },
+
       action: {
         hover: Color.Silver100,
-        selected: Color.Silver400,
+        selected: Color.Silver300,
+        disabled: Color.Silver400,
       },
 
       text: {
@@ -41,12 +47,16 @@ function createTheme() {
 
     overrides: {
       MuiTouchRipple: {
-        ripple: { color: Color.Silver100 },
+        ripple: {
+          color: Color.Silver100,
+        },
       },
 
       MuiListItem: {
         root: {
-          '&$selected, &$selected:hover': { color: Color.Blue300 },
+          '&$selected, &$selected:hover': {
+            color: Color.Blue300,
+          },
         },
       },
     },
@@ -61,6 +71,7 @@ function createTheme() {
   applySnackbarStyles(theme);
   applySvgIconStyles(theme);
   applyTabsStyles(theme);
+  applyTextFieldStyles(theme);
   applyTooltipStyles(theme);
   applyTypographyStyles(theme);
 
