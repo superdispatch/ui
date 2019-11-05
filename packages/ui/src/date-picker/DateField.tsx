@@ -6,13 +6,13 @@ import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { formatDate } from './DateUtils';
 
-export interface DatePickerFieldProps
+export interface DateFieldProps
   extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
   value: undefined | Date;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | Date) => void;
-  CalendarProps?: CalendarProps;
+  CalendarProps?: Omit<CalendarProps, 'selectedDays'>;
 }
 
 export function DateField({
@@ -23,7 +23,7 @@ export function DateField({
   inputProps,
   CalendarProps: { onDayClick, ...calendarProps } = {},
   ...textFieldProps
-}: DatePickerFieldProps) {
+}: DateFieldProps) {
   const { anchorEl, onOpen, onClose } = useDatePickerPopoverState();
   const textValue = useMemo(() => formatDate(value), [value]);
 

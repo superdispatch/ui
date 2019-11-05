@@ -8,7 +8,7 @@ import {
   useDatePickerPopoverState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
-import { normalizeDateRange } from './DateUtils';
+import { isSameDateRange, normalizeDateRange } from './DateUtils';
 
 export type DateRangePickerValue = [Date?, Date?] | undefined;
 export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
@@ -18,17 +18,6 @@ export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentPro
 export type DateRangePickerQuickSelectionItem = DatePickerBaseQuickSelectionItem<
   DateRangePickerValue
 >;
-
-function isSameDate(dateA?: Date, dateB?: Date): boolean {
-  return !!dateA && !!dateB && dateA.getTime() === dateB.getTime();
-}
-
-function isSameRange(a: DateRangePickerValue, b: DateRangePickerValue): boolean {
-  const [fromA, toA] = normalizeDateRange(a);
-  const [fromB, toB] = normalizeDateRange(b);
-
-  return isSameDate(fromA, toA) && isSameDate(fromB, toB);
-}
 
 export function DateRangePicker({
   value,
@@ -48,7 +37,8 @@ export function DateRangePicker({
   const toDate = hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
 
   const quickSelectionSelectedItem = useMemo(
-    () => quickSelectionItems && quickSelectionItems.find(item => isSameRange(item.value, value)),
+    () =>
+      quickSelectionItems && quickSelectionItems.find(item => isSameDateRange(item.value, value)),
     [value, quickSelectionItems],
   );
 
