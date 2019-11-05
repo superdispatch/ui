@@ -1,6 +1,6 @@
 import { Popover } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
-import React, { useState } from 'react';
+import React, { ComponentType, InputHTMLAttributes, useState } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import {
@@ -9,25 +9,25 @@ import {
 } from '../calendar/CalendarQuickSelection';
 
 export type DatePickerBaseValue = Date | [Date?, Date?] | undefined;
-export type DatePickerBaseInputComponent<TProps> = React.ComponentType<TProps>;
+export type DatePickerBaseInputComponent<TProps> = ComponentType<TProps>;
 
 export interface DatePickerBaseInputComponentProps<TValue>
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> {
   value?: TValue;
 }
 
-export interface DatePickerBaseState {
-  anchorEl: HTMLInputElement | null;
-  onOpen: (event: React.MouseEvent<HTMLInputElement>) => void;
+export interface DatePickerPopoverState {
+  anchorEl: HTMLElement | null;
+  onOpen: (anchorEl: HTMLElement) => void;
   onClose: () => void;
 }
 
-export function useDatePickerBaseState(): DatePickerBaseState {
-  const [anchorEl, setAnchorEl] = useState<DatePickerBaseState['anchorEl']>(null);
+export function useDatePickerPopoverState(): DatePickerPopoverState {
+  const [anchorEl, setAnchorEl] = useState<DatePickerPopoverState['anchorEl']>(null);
 
   return {
     anchorEl,
-    onOpen: event => setAnchorEl(event.currentTarget),
+    onOpen: setAnchorEl,
     onClose: () => setAnchorEl(null),
   };
 }
@@ -49,7 +49,7 @@ export interface CommonDatePickerProps<TValue>
   disabled?: boolean;
 }
 
-export type DatePickerBaseProps<TValue> = DatePickerBaseState & CommonDatePickerProps<TValue>;
+export type DatePickerBaseProps<TValue> = DatePickerPopoverState & CommonDatePickerProps<TValue>;
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   // Input
@@ -72,7 +72,12 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
 }: DatePickerBaseProps<TValue>) {
   return (
     <>
-      <InputComponent onClick={onOpen} value={value} readOnly={true} disabled={disabled} />
+      <InputComponent
+        value={value}
+        readOnly={true}
+        disabled={disabled}
+        onClick={event => onOpen(event.currentTarget)}
+      />
 
       <Popover
         open={!!anchorEl}

@@ -13,6 +13,7 @@ import DayPicker, {
   WeekdayElementProps,
 } from 'react-day-picker';
 
+import { normalizeDateRange } from '../date-picker/DateUtils';
 import { CalendarDayHighlightColor, useCalendarStyles } from './CalendarStyles';
 
 //
@@ -51,7 +52,7 @@ function CalendarNavbar({
         aria-label={labels.previousMonth}
         className={classNames.navButtonPrev}
       >
-        <ChevronLeft />
+        <ChevronLeft color="action" />
       </IconButton>
 
       <IconButton
@@ -62,7 +63,7 @@ function CalendarNavbar({
         aria-label={labels.nextMonth}
         className={classNames.navButtonNext}
       >
-        <ChevronRight />
+        <ChevronRight color="action" />
       </IconButton>
     </>
   );
@@ -142,12 +143,18 @@ export interface CalendarProps
   extends CalendarDayEventProps,
     Omit<
       DayPickerProps,
+      | 'month'
+      | 'months'
+      | 'initialMonth'
+      | 'selectedDays'
       | 'classNames'
       | 'navbarElement'
       | 'captionElement'
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
+  selectedDays?: [Date?, Date?];
+
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
 
@@ -163,6 +170,7 @@ export function Calendar({
   direction,
   modifiers,
   quickSelection,
+  selectedDays,
   highlightedDays,
 
   onDayClick,
@@ -198,6 +206,8 @@ export function Calendar({
     onDayTouchStart,
   });
 
+  const [selectedFrom, selectedTo] = normalizeDateRange(selectedDays);
+
   return (
     <Grid container={true} direction={direction}>
       {!!quickSelection && (
@@ -224,21 +234,25 @@ export function Calendar({
         <DayPicker
           {...props}
           {...handlers}
+          classNames={styles}
+          navbarElement={CalendarNavbar}
+          captionElement={CalendarCaption}
+          weekdayElement={CalendarWeekDay}
+          initialMonth={selectedFrom}
+          selectedDays={
+            selectedFrom && selectedTo ? { from: selectedFrom, to: selectedTo } : selectedFrom
+          }
           modifiers={{
             ...modifiers,
+            [firstDayOfMonth]: isFirstDayOfMonth,
+            [lastDayOfMonth]: isLastDayOfMonth,
             [blue]: highlightedDays && highlightedDays.blue,
             [green]: highlightedDays && highlightedDays.green,
             [purple]: highlightedDays && highlightedDays.purple,
             [red]: highlightedDays && highlightedDays.red,
             [teal]: highlightedDays && highlightedDays.teal,
             [yellow]: highlightedDays && highlightedDays.yellow,
-            [firstDayOfMonth]: isFirstDayOfMonth,
-            [lastDayOfMonth]: isLastDayOfMonth,
           }}
-          classNames={styles}
-          navbarElement={CalendarNavbar}
-          captionElement={CalendarCaption}
-          weekdayElement={CalendarWeekDay}
         />
 
         {!!footer && <div className={styles.footer}>{footer}</div>}
