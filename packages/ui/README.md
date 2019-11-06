@@ -5,7 +5,7 @@
 #### Installation
 
 ```bash
-yarn add @superdispatch/ui @material-ui/core @material-ui/icons
+yarn add @superdispatch/ui @material-ui/core @material-ui/icons @mdi/js
 ```
 
 #### Usage
