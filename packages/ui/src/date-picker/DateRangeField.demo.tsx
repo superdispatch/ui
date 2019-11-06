@@ -5,11 +5,9 @@ import {
   FormGroup,
   FormLabel,
   Grid,
-  InputAdornment,
   Switch,
   Typography,
 } from '@material-ui/core';
-import { DateRange } from '@material-ui/icons';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 
@@ -62,13 +60,6 @@ export function DateRangeFieldDemo() {
             fullWidth={true}
             value={range}
             onChange={setRange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <DateRange color="action" />
-                </InputAdornment>
-              ),
-            }}
             CalendarProps={{
               fromMonth: !disabled ? undefined : today,
               disabledDays: !disabled ? undefined : { before: today },
