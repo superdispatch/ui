@@ -1,19 +1,26 @@
 import { Popover } from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
-import React, { useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
 import { formatDate } from './DateUtils';
 
+interface DateFieldAPI {
+  close: () => void;
+  change: (value: undefined | Date) => void;
+}
+
 export interface DateFieldProps
   extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
   value: undefined | Date;
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange?: (value: undefined | Date) => void;
-  CalendarProps?: Omit<CalendarProps, 'selectedDays'>;
+  onChange: (value: undefined | Date) => void;
+  renderFooter?: (api: DateFieldAPI) => ReactNode;
+  renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
+  CalendarProps?: Omit<CalendarProps, 'footer' | 'selectedDays' | 'quickSelection'>;
 }
 
 export function DateField({
@@ -21,6 +28,8 @@ export function DateField({
   onBlur,
   onFocus,
   onChange,
+  renderFooter,
+  renderQuickSelection,
   CalendarProps: { onDayClick, ...calendarProps } = {},
   ...textFieldProps
 }: DateFieldProps) {
@@ -33,6 +42,16 @@ export function DateField({
     if (onBlur) {
       onBlur();
     }
+  };
+
+  const handleChange = (nextValue: undefined | Date) => {
+    onChange(nextValue);
+    handleClose();
+  };
+
+  const api: DateFieldAPI = {
+    close: handleClose,
+    change: handleChange,
   };
 
   return (
@@ -54,17 +73,15 @@ export function DateField({
         <Calendar
           {...calendarProps}
           selectedDays={[value]}
+          footer={renderFooter && renderFooter(api)}
+          quickSelection={renderQuickSelection && renderQuickSelection(api)}
           onDayClick={(day, modifiers) => {
             if (onDayClick) {
               onDayClick(day, modifiers);
             }
 
             if (!modifiers.disabled) {
-              if (onChange) {
-                onChange(day);
-              }
-
-              handleClose();
+              handleChange(day);
             }
           }}
         />

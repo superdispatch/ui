@@ -1,6 +1,6 @@
 import { Popover } from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
-import React, { useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useState } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
@@ -8,13 +8,20 @@ import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
 import { formatDateRange, normalizeDateRange } from './DateUtils';
 
+interface DateRangeFieldAPI {
+  close: () => void;
+  change: (value: undefined | [Date?, Date?]) => void;
+}
+
 export interface DateRangeFieldProps
   extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
   value: undefined | [Date?, Date?];
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange?: (value: undefined | [Date?, Date?]) => void;
-  CalendarProps?: Omit<CalendarProps, 'selectedDays'>;
+  onChange: (value: undefined | [Date?, Date?]) => void;
+  renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
+  renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
+  CalendarProps?: Omit<CalendarProps, 'footer' | 'selectedDays' | 'quickSelection'>;
 }
 
 export function DateRangeField({
@@ -22,6 +29,8 @@ export function DateRangeField({
   onBlur,
   onFocus,
   onChange,
+  renderFooter,
+  renderQuickSelection,
   CalendarProps: {
     modifiers,
     onDayClick,
@@ -49,6 +58,21 @@ export function DateRangeField({
     }
   };
 
+  const handleChange = (nextValue: undefined | [Date?, Date?]) => {
+    const nextRange = normalizeDateRange(nextValue);
+
+    onChange(nextRange);
+
+    if (nextRange.length === 2) {
+      handleClose();
+    }
+  };
+
+  const api: DateRangeFieldAPI = {
+    close: handleClose,
+    change: handleChange,
+  };
+
   return (
     <>
       <DateTextField
@@ -71,6 +95,8 @@ export function DateRangeField({
           classes={styles}
           selectedDays={[fromDate, toDate]}
           modifiers={{ ...modifiers, [rangeStart]: fromDate, [rangeEnd]: toDate }}
+          footer={renderFooter && renderFooter(api)}
+          quickSelection={renderQuickSelection && renderQuickSelection(api)}
           onDayMouseEnter={(date, dateModifiers) => {
             if (onDayMouseEnter) {
               onDayMouseEnter(date, dateModifiers);
@@ -83,12 +109,11 @@ export function DateRangeField({
               onDayClick(date, dateModifiers);
             }
 
-            if (onChange && !dateModifiers.disabled) {
+            if (!dateModifiers.disabled) {
               if (fromDate && !actualToDate) {
-                onChange([fromDate, date]);
-                handleClose();
+                handleChange([fromDate, date]);
               } else {
-                onChange([date]);
+                handleChange([date]);
               }
             }
           }}

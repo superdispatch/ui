@@ -60,18 +60,18 @@ export function DateRangeFieldDemo() {
             fullWidth={true}
             value={range}
             onChange={setRange}
-            CalendarProps={{
-              fromMonth: !disabled ? undefined : today,
-              disabledDays: !disabled ? undefined : { before: today },
-              footer: hasFooter && (
+            renderFooter={() =>
+              hasFooter && (
                 <Typography color="textSecondary">
                   Selected date range allows preferred carriers to instantly book loads inside the
                   Super Loadboard.
                   <br />
                   Dates out of selected range will still be available to request.
                 </Typography>
-              ),
-              quickSelection: hasQuickSelection && (
+              )
+            }
+            renderQuickSelection={({ change }) =>
+              hasQuickSelection && (
                 <CalendarQuickSelection>
                   {Array.from({ length: 5 }, (_, idx) => {
                     const targetRange: [Date, Date] = [
@@ -84,7 +84,7 @@ export function DateRangeFieldDemo() {
                     return (
                       <CalendarQuickSelectionItem
                         key={idx}
-                        onClick={() => setRange(targetRange)}
+                        onClick={() => change(targetRange)}
                         selected={isSameDateRange(range, targetRange)}
                       >
                         {idx + 2} days
@@ -92,7 +92,11 @@ export function DateRangeFieldDemo() {
                     );
                   })}
                 </CalendarQuickSelection>
-              ),
+              )
+            }
+            CalendarProps={{
+              fromMonth: !disabled ? undefined : today,
+              disabledDays: !disabled ? undefined : { before: today },
             }}
           />
         </Grid>
