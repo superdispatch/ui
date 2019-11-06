@@ -49,10 +49,12 @@ export function DateFieldDemo() {
       <DateField
         value={date}
         onChange={setDate}
+        renderFooter={() =>
+          hasFooter && <Typography color="textSecondary">Footer helper text</Typography>
+        }
         CalendarProps={{
           fromMonth: !disabled ? undefined : today,
           disabledDays: !disabled ? undefined : { before: today },
-          footer: hasFooter && <Typography color="textSecondary">Footer helper text</Typography>,
         }}
       />
     </Box>

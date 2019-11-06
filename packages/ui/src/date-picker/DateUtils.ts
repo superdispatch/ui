@@ -12,22 +12,6 @@ export function isSameDate(a?: Date, b?: Date): boolean {
   );
 }
 
-export function normalizeDateRange(range: undefined | [Date?, Date?] = []): [Date?, Date?] {
-  return !range
-    ? []
-    : (range.filter(isValidDate).sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?]);
-}
-
-export function isSameDateRange(
-  a: undefined | [Date?, Date?],
-  b: undefined | [Date?, Date?],
-): boolean {
-  const [fromA, toA] = normalizeDateRange(a);
-  const [fromB, toB] = normalizeDateRange(b);
-
-  return isSameDate(fromA, fromB) && isSameDate(toA, toB);
-}
-
 export function formatDate(date: unknown): string {
   if (!isValidDate(date)) {
     return '';
@@ -42,6 +26,22 @@ export function formatDate(date: unknown): string {
   } catch (e) {
     return date.toLocaleDateString();
   }
+}
+
+export function normalizeDateRange(range: undefined | [Date?, Date?] = []): [Date?, Date?] {
+  return !range
+    ? []
+    : (range.filter(isValidDate).sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?]);
+}
+
+export function isSameDateRange(
+  a: undefined | [Date?, Date?],
+  b: undefined | [Date?, Date?],
+): boolean {
+  const [fromA, toA] = normalizeDateRange(a);
+  const [fromB, toB] = normalizeDateRange(b);
+
+  return isSameDate(fromA, fromB) && isSameDate(toA, toB);
 }
 
 export function formatDateRange(range?: [Date?, Date?]): string {
