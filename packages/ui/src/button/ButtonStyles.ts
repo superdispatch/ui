@@ -95,10 +95,10 @@ function containedVariant(
   };
 }
 
-const DEFAULT_PROGRESS_SIZE = 16;
-const LARGE_PROGRESS_SIZE = 24;
-
 export function applyButtonStyles(theme: Theme) {
+  const progressSize = theme.spacing(2);
+  const largeProgressSize = theme.spacing(3);
+
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
 
@@ -106,9 +106,10 @@ export function applyButtonStyles(theme: Theme) {
 
   theme.overrides.MuiButton = {
     root: {
-      fontSize: '14px',
+      fontSize: 14,
       lineHeight: '20px',
       textTransform: undefined,
+      minWidth: theme.spacing(6),
       transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
         duration: theme.transitions.duration.short,
       }),
@@ -121,38 +122,44 @@ export function applyButtonStyles(theme: Theme) {
 
       '&$disabled': { color: undefined },
 
+      '& $label > .MuiSvgIcon-root': { fontSize: 20 },
+
       [`& .${ButtonClassNames.progress}`]: {
         top: '50%',
         left: '50%',
         position: 'absolute',
 
-        marginTop: -(DEFAULT_PROGRESS_SIZE / 2),
-        marginLeft: -(DEFAULT_PROGRESS_SIZE / 2),
-        width: `${DEFAULT_PROGRESS_SIZE}px !important`,
-        height: `${DEFAULT_PROGRESS_SIZE}px !important`,
+        marginTop: -(progressSize / 2),
+        marginLeft: -(progressSize / 2),
+        width: `${progressSize}px !important`,
+        height: `${progressSize}px !important`,
       },
     },
 
     sizeSmall: {
-      fontSize: '14px',
+      fontSize: 14,
       lineHeight: '20px',
+
+      '& $label > .MuiSvgIcon-root': { fontSize: 20 },
 
       '&$outlined': { padding: '1px 15px' },
       '&$text, &$contained': { padding: '2px 16px' },
     },
 
     sizeLarge: {
-      fontSize: '16px',
+      fontSize: 16,
       lineHeight: '24px',
 
       '&$outlined': { padding: '9px 39px' },
       '&$text, &$contained': { padding: '10px 40px' },
 
+      '& $label > .MuiSvgIcon-root': { fontSize: 24 },
+
       [`& .${ButtonClassNames.progress}`]: {
-        marginTop: -(LARGE_PROGRESS_SIZE / 2),
-        marginLeft: -(LARGE_PROGRESS_SIZE / 2),
-        width: `${LARGE_PROGRESS_SIZE}px !important`,
-        height: `${LARGE_PROGRESS_SIZE}px !important`,
+        marginTop: -(largeProgressSize / 2),
+        marginLeft: -(largeProgressSize / 2),
+        width: `${largeProgressSize}px !important`,
+        height: `${largeProgressSize}px !important`,
       },
     },
 
@@ -161,7 +168,10 @@ export function applyButtonStyles(theme: Theme) {
       backgroundColor: Color.White,
       border: '1px solid transparent',
 
-      '&$disabled': { color: Color.Silver500, borderColor: Color.Silver400 },
+      '&$disabled': {
+        color: Color.Silver500,
+        borderColor: Color.Silver400,
+      },
 
       [`&.${ButtonClassNames.colorError}`]: outlinedVariant(
         Color.Red300,

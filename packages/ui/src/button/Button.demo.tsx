@@ -2,11 +2,14 @@ import {
   Box,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   Grid,
   Radio,
   RadioGroup,
+  Switch,
 } from '@material-ui/core';
+import { MoreHoriz, Save, Send } from '@material-ui/icons';
 import { startCase } from 'lodash';
 import React, { Fragment, useEffect, useState } from 'react';
 
@@ -23,6 +26,8 @@ export function ButtonDemo() {
   const [state, setState] = useState<State>('stale');
   const [color, setColor] = useState<ButtonProps['color']>('primary');
   const [lastClicked, setLastClicked] = useState(0);
+  const [hasEndIcon, setHasEndIcon] = useState(false);
+  const [hasStartIcon, setHasStartIcon] = useState(false);
 
   useEffect(() => {
     if (!lastClicked) {
@@ -43,6 +48,27 @@ export function ButtonDemo() {
     <>
       <Box padding={2}>
         <Grid container={true} spacing={1}>
+          <Grid item={true} sm={true} xs={12}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Content</FormLabel>
+              <FormGroup row={true}>
+                <FormControlLabel
+                  value={hasStartIcon}
+                  label="Has Start Icon"
+                  control={<Switch />}
+                  onChange={(_, checked) => setHasStartIcon(checked)}
+                />
+
+                <FormControlLabel
+                  value={hasEndIcon}
+                  label="Has End Icon"
+                  control={<Switch />}
+                  onChange={(_, checked) => setHasEndIcon(checked)}
+                />
+              </FormGroup>
+            </FormControl>
+          </Grid>
+
           <Grid item={true} sm={true} xs={12}>
             <FormControl component="fieldset">
               <FormLabel component="legend">State</FormLabel>
@@ -83,17 +109,37 @@ export function ButtonDemo() {
             <Fragment key={variant}>
               {sizes.map(size => (
                 <Grid item={true} key={size} sm={4} xs={12}>
-                  <Button
-                    size={size}
-                    color={color}
-                    variant={variant}
-                    disabled={state === 'disabled'}
-                    isActive={state === 'active'}
-                    isLoading={state === 'loading'}
-                    onClick={() => setLastClicked(Date.now())}
-                  >
-                    Button
-                  </Button>
+                  <Grid container={true} spacing={1}>
+                    <Grid item={true}>
+                      <Button
+                        size={size}
+                        color={color}
+                        variant={variant}
+                        disabled={state === 'disabled'}
+                        isActive={state === 'active'}
+                        isLoading={state === 'loading'}
+                        startIcon={hasStartIcon && <Save />}
+                        endIcon={hasEndIcon && <Send />}
+                        onClick={() => setLastClicked(Date.now())}
+                      >
+                        Button
+                      </Button>
+                    </Grid>
+
+                    <Grid item={true}>
+                      <Button
+                        size={size}
+                        color={color}
+                        variant={variant}
+                        disabled={state === 'disabled'}
+                        isActive={state === 'active'}
+                        isLoading={state === 'loading'}
+                        onClick={() => setLastClicked(Date.now())}
+                      >
+                        <MoreHoriz />
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Grid>
               ))}
             </Fragment>
