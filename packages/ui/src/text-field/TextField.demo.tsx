@@ -18,7 +18,7 @@ const subscriptionTypes = ['starter', 'pro', 'enterprise'];
 
 export function TextFieldDemo() {
   const [text, setText] = useState('');
-  const [subscriptionType, setSubscriptionType] = useState<null | string>(null);
+  const [subscriptionType, setSubscriptionType] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [hasLabel, setHasLabel] = useState(false);
   const [hasError, setHasError] = useState(false);
