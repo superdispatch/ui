@@ -51,7 +51,7 @@ export function applyTextFieldStyles(theme: Theme) {
 
   theme.overrides.MuiOutlinedInput = {
     root: {
-      '& .MuiSvgIcon-root': {
+      '& .MuiInputAdornment-root .MuiSvgIcon-root': {
         fontSize: theme.spacing(3),
 
         [theme.breakpoints.up('sm')]: {
