@@ -83,6 +83,9 @@ export function applyTextFieldStyles(theme: Theme) {
     icon: {
       fontSize: theme.spacing(3),
     },
+    selectMenu: {
+      lineHeight: `${theme.spacing(2.5)}px`,
+    },
   };
 
   theme.overrides.MuiFormHelperText = {
