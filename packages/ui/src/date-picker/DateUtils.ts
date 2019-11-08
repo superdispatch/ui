@@ -12,7 +12,10 @@ export function isSameDate(a?: Date, b?: Date): boolean {
   );
 }
 
-export function formatDate(date: unknown): string {
+export function formatDate(
+  date: unknown,
+  options?: Pick<Intl.DateTimeFormatOptions, 'year'>,
+): string {
   if (!isValidDate(date)) {
     return '';
   }
@@ -22,6 +25,7 @@ export function formatDate(date: unknown): string {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
+      ...options,
     }).format(date);
   } catch (e) {
     return date.toLocaleDateString();
@@ -46,7 +50,10 @@ export function isSameDateRange(
 
 export function formatDateRange(range?: [Date?, Date?]): string {
   const [from, to] = normalizeDateRange(range);
-  const fromText = formatDate(from);
+  const fromText = formatDate(
+    from,
+    !from || !to || from.getFullYear() !== to.getFullYear() ? undefined : { year: undefined },
+  );
   const toText = formatDate(to);
 
   return !fromText ? '' : `${fromText} - ${toText || '…'}`;
