@@ -46,16 +46,14 @@ function createTheme() {
     typography: createTypographyOptions(),
 
     overrides: {
-      MuiTouchRipple: {
-        ripple: {
-          color: Color.Silver100,
-        },
-      },
-
       MuiListItem: {
         root: {
           '&$selected, &$selected:hover': {
             backgroundColor: Color.Blue50,
+          },
+
+          '& .MuiTouchRipple-root': {
+            color: Color.Blue100,
           },
         },
       },
