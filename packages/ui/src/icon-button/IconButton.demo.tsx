@@ -19,7 +19,7 @@ const colors: Array<IconButtonProps['color']> = ['primary', 'secondary', 'inheri
 
 const sizes: Array<IconButtonProps['size']> = ['small', 'medium'];
 
-export function IconButtonDemo() {
+export default function IconButtonDemo() {
   const [state, setState] = useState<State>('stale');
   const [color, setColor] = useState<IconButtonProps['color']>('primary');
 

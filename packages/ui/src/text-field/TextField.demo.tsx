@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 
 const subscriptionTypes = ['starter', 'pro', 'enterprise'];
 
-export function TextFieldDemo() {
+export default function TextFieldDemo() {
   const [text, setText] = useState('');
   const [subscriptionType, setSubscriptionType] = useState('');
   const [disabled, setDisabled] = useState(false);

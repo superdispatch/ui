@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 const colors: Array<SvgIconProps['color']> = ['inherit', 'primary', 'action', 'disabled', 'error'];
 const fontSizes: Array<SvgIconProps['fontSize']> = ['small', 'default', 'large'];
 
-export function SvgIconDemo() {
+export default function SvgIconDemo() {
   const [color, setColor] = useState<SvgIconProps['color']>('primary');
 
   return (

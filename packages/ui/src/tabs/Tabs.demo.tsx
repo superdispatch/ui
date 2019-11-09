@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs, Typography } from '@material-ui/core';
 import React from 'react';
 
-export function TabsDemo() {
+export default function TabsDemo() {
   const [value, setValue] = React.useState(0);
   const options = [
     'Available (235)',

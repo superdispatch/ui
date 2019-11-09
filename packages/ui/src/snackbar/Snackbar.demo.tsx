@@ -27,7 +27,7 @@ function makeMessage(isLong: boolean) {
   return loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 });
 }
 
-export function SnackbarDemo() {
+export default function SnackbarDemo() {
   const { addSnackbar, clearStack } = useSnackbarStack();
   const [isOpen, setIsOpen] = useState(true);
   const [isLong, setIsLong] = useState(false);
