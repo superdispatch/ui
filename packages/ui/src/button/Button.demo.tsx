@@ -22,7 +22,7 @@ const colors: Array<ButtonProps['color']> = ['primary', 'success', 'error'];
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
 const variants: Array<ButtonProps['variant']> = ['text', 'contained', 'outlined'];
 
-export function ButtonDemo() {
+export default function ButtonDemo() {
   const [state, setState] = useState<State>('stale');
   const [color, setColor] = useState<ButtonProps['color']>('primary');
   const [lastClicked, setLastClicked] = useState(0);

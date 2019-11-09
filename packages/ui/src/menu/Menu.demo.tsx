@@ -32,7 +32,7 @@ function Demo({ label }: { label: string }) {
   );
 }
 
-export function MenuDemo() {
+export default function MenuDemo() {
   return (
     <Box component="section" padding={2} display="flex" justifyContent="space-between">
       <div>

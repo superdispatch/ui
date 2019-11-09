@@ -14,7 +14,7 @@ import React, { useMemo, useState } from 'react';
 import { CalendarQuickSelection, CalendarQuickSelectionItem, DateRangeField } from '..';
 import { isSameDateRange } from './DateUtils';
 
-export function DateRangeFieldDemo() {
+export default function DateRangeFieldDemo() {
   const [range, setRange] = useState<[Date?, Date?]>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);

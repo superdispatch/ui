@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 
 import { DateField, DatePickerValue } from '..';
 
-export function DateFieldDemo() {
+export default function DateFieldDemo() {
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);

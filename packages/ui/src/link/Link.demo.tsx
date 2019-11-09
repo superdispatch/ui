@@ -26,7 +26,7 @@ const variants: Array<LinkProps['variant']> = [
   'overline',
 ];
 
-export function LinkDemo() {
+export default function LinkDemo() {
   return (
     <Box padding={2}>
       <Grid container={true} spacing={1} direction="column">

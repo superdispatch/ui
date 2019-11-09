@@ -22,7 +22,7 @@ const DateInputComponent: DatePickerProps['InputComponent'] = ({ value, ...props
   return <input value={formattedValue} {...props} />;
 };
 
-export function DatePickerDemo() {
+export default function DatePickerDemo() {
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);

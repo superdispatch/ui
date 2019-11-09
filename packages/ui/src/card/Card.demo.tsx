@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
 import React from 'react';
 
-export function CardDemo() {
+export default function CardDemo() {
   return (
     <Box padding={2} marginX="auto" maxWidth="280px">
       <Card>

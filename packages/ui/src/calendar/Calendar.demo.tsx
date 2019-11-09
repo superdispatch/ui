@@ -20,7 +20,7 @@ import { CalendarDayHighlightColor } from './CalendarStyles';
 
 const colors: CalendarDayHighlightColor[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 
-export function CalendarDemo() {
+export default function CalendarDemo() {
   const [color, setColor] = useState<CalendarDayHighlightColor>('blue');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);

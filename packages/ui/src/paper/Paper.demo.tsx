@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 
-export function PaperDemo() {
+export default function PaperDemo() {
   return (
     <Box padding={2}>
       <Paper>

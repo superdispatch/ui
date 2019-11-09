@@ -31,7 +31,7 @@ const placements: PopperPlacementType[] = [
   'top',
 ];
 
-export function TooltipDemo() {
+export default function TooltipDemo() {
   const [text, setText] = useState('Hint!');
   const [title, setTitle] = useState(text);
   const [placement, setPlacement] = useState<PopperPlacementType>('bottom');

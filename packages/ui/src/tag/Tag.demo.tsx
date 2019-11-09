@@ -15,7 +15,7 @@ import { Tag, TagColor, TagVariant } from '..';
 const colors: TagColor[] = ['grey', 'blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 const variants: TagVariant[] = ['subtle', 'bold'];
 
-export function TagDemo() {
+export default function TagDemo() {
   const [color, setColor] = useState<TagColor>('blue');
 
   return (

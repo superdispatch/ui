@@ -47,7 +47,7 @@ const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({ value
   return <input value={formattedValue} {...props} />;
 };
 
-export function DateRangePickerDemo() {
+export default function DateRangePickerDemo() {
   const [range, setRange] = useState<DateRangePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);

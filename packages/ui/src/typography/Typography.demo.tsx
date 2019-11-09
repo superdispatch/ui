@@ -26,7 +26,7 @@ const variants: Array<TypographyProps['variant']> = [
   'body2',
 ];
 
-export function TypographyDemo() {
+export default function TypographyDemo() {
   return (
     <Box padding={2}>
       <Grid container={true} spacing={1} direction="column">
