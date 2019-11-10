@@ -2,6 +2,9 @@
 
 const { getParameters } = require('codesandbox/lib/api/define');
 
+const rootPkg = require('../package');
+const uiPkg = require('../packages/ui/package');
+
 const indexFile = `
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,27 +12,19 @@ import { ThemeProvider } from '@superdispatch/ui';
 import Demo from './demo';
 
 ReactDOM.render(<ThemeProvider><Demo /></ThemeProvider>, document.getElementById('root'));
-`;
+`.trim();
 
 const packageJson = {
   title: 'Super Dispatch UI Demo',
   scripts: { start: 'react-scripts start' },
   main: 'index.tsx',
   dependencies: {
-    '@material-ui/core': 'latest',
-    '@material-ui/icons': 'latest',
-    '@mdi/js': 'latest',
-    '@superdispatch/ui': 'latest',
-    lodash: 'latest',
-    moment: 'latest',
-    react: 'latest',
-    'react-dom': 'latest',
+    '@superdispatch/ui': uiPkg.version,
+    ...rootPkg.dependencies,
   },
   devDependencies: {
-    '@types/react': 'latest',
-    '@types/react-dom': 'latest',
-    typescript: 'latest',
     'react-scripts': 'latest',
+    typescript: rootPkg.devDependencies.typescript,
   },
 };
 

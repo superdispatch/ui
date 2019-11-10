@@ -159,10 +159,9 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
           autoHideDuration,
           onClose: reason => {
             close();
-
-            if (onClose) {
-              onClose(reason);
-            }
+            // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+            // eslint-disable-next-line no-unused-expressions
+            onClose?.(reason);
           },
         };
 

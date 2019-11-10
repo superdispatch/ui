@@ -11,17 +11,22 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
+import {
+  Calendar,
+  CalendarProps,
+  CalendarQuickSelection,
+  CalendarQuickSelectionItem,
+} from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 
-import { Calendar, CalendarQuickSelection, CalendarQuickSelectionItem } from '..';
-import { CalendarDayHighlightColor } from './CalendarStyles';
+type Color = keyof NonNullable<CalendarProps['highlightedDays']>;
 
-const colors: CalendarDayHighlightColor[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
+const colors: Color[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 
 export default function CalendarDemo() {
-  const [color, setColor] = useState<CalendarDayHighlightColor>('blue');
+  const [color, setColor] = useState<Color>('blue');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
@@ -82,7 +87,7 @@ export default function CalendarDemo() {
                 row={true}
                 name="color"
                 value={color}
-                onChange={(_, value) => setColor(value as CalendarDayHighlightColor)}
+                onChange={(_, value) => setColor(value as Color)}
               >
                 {colors.map(x => (
                   <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
