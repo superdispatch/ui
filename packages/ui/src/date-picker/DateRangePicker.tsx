@@ -37,8 +37,7 @@ export function DateRangePicker({
   const toDate = hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
 
   const quickSelectionSelectedItem = useMemo(
-    () =>
-      quickSelectionItems && quickSelectionItems.find(item => isSameDateRange(item.value, value)),
+    () => quickSelectionItems?.find(item => isSameDateRange(item.value, value)),
     [value, quickSelectionItems],
   );
 

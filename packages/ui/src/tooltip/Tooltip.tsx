@@ -14,7 +14,7 @@ export const Tooltip = forwardRef(({ title, PopperProps, ...props }: TooltipProp
       PopperProps={{
         ...PopperProps,
         modifiers: {
-          ...(PopperProps && PopperProps.modifiers),
+          ...PopperProps?.modifiers,
           arrow: { element: arrowRef, enabled: arrowRef != null },
         },
       }}

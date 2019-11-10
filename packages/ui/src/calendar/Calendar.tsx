@@ -246,12 +246,12 @@ export function Calendar({
             ...modifiers,
             [firstDayOfMonth]: isFirstDayOfMonth,
             [lastDayOfMonth]: isLastDayOfMonth,
-            [blue]: highlightedDays && highlightedDays.blue,
-            [green]: highlightedDays && highlightedDays.green,
-            [purple]: highlightedDays && highlightedDays.purple,
-            [red]: highlightedDays && highlightedDays.red,
-            [teal]: highlightedDays && highlightedDays.teal,
-            [yellow]: highlightedDays && highlightedDays.yellow,
+            [blue]: highlightedDays?.blue,
+            [green]: highlightedDays?.green,
+            [purple]: highlightedDays?.purple,
+            [red]: highlightedDays?.red,
+            [teal]: highlightedDays?.teal,
+            [yellow]: highlightedDays?.yellow,
           }}
         />
 
