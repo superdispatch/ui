@@ -4,19 +4,19 @@ import { Rule, StyleSheet } from 'jss';
 import React, { ReactNode, useMemo } from 'react';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
-import { applyCardStyles } from '../card/CardStyles';
-import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
-import { applyLinkStyles } from '../link/LinkStyles';
-import { applyMenuStyles } from '../menu/MenuStyles';
-import { applyPaperStyles } from '../paper/PaperStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
-import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
-import { applyTabsStyles } from '../tabs/TabsStyles';
-import { applyTextFieldStyles } from '../text-field/TextFieldStyles';
 import { applyTooltipStyles } from '../tooltip/TooltipStyles';
-import { applyTypographyStyles, createTypographyOptions } from '../typography/TypographyStyles';
+import { applyCardStyles } from './CardStyles';
 import { Color } from './Color';
+import { applyIconButtonStyles } from './IconButtonStyles';
+import { applyLinkStyles } from './LinkStyles';
+import { applyMenuStyles } from './MenuStyles';
+import { applyPaperStyles } from './PaperStyles';
+import { applySvgIconStyles } from './SvgIconStyles';
+import { applyTabsStyles } from './TabsStyles';
+import { applyTextFieldStyles } from './TextFieldStyles';
+import { applyTypographyStyles, createTypographyOptions } from './TypographyStyles';
 
 function createTheme() {
   const theme = createMuiTheme({

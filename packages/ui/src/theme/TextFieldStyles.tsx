@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-import { Color } from '../theme/Color';
+import { Color } from './Color';
 
 export function applyTextFieldStyles(theme: Theme) {
   theme.props = theme.props || {};
