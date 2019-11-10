@@ -35,8 +35,10 @@ export const Snackbar = forwardRef(
     const { addBelowElement, removeBelowElement } = useSnackbarStack();
 
     const handleClose = (reason: string | SnackbarCloseReason) => {
-      if (onClose && reason !== 'clickaway') {
-        onClose(reason === 'timeout' ? 'timeout' : 'explicit');
+      if (reason !== 'clickaway') {
+        // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+        // eslint-disable-next-line no-unused-expressions
+        onClose?.(reason === 'timeout' ? 'timeout' : 'explicit');
       }
     };
 
@@ -45,18 +47,16 @@ export const Snackbar = forwardRef(
     );
 
     const handleEnter = useEventCallback((node: HTMLElement, isAppearing: boolean) => {
-      if (onEnter) {
-        onEnter(node, isAppearing);
-      }
-
+      // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+      // eslint-disable-next-line no-unused-expressions
+      onEnter?.(node, isAppearing);
       addBelowElement(node);
     });
 
     const handleExit = useEventCallback((node: HTMLElement) => {
-      if (onExit) {
-        onExit(node);
-      }
-
+      // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+      // eslint-disable-next-line no-unused-expressions
+      onExit?.(node);
       removeBelowElement(node);
     });
 

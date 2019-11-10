@@ -95,13 +95,12 @@ export function DateRangeField({
           classes={styles}
           selectedDays={[fromDate, toDate]}
           modifiers={{ ...modifiers, [rangeStart]: fromDate, [rangeEnd]: toDate }}
-          footer={renderFooter && renderFooter(api)}
-          quickSelection={renderQuickSelection && renderQuickSelection(api)}
+          footer={renderFooter?.(api)}
+          quickSelection={renderQuickSelection?.(api)}
           onDayMouseEnter={(date, dateModifiers) => {
-            if (onDayMouseEnter) {
-              onDayMouseEnter(date, dateModifiers);
-            }
-
+            // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+            // eslint-disable-next-line no-unused-expressions
+            onDayMouseEnter?.(date, dateModifiers);
             setHoveredDate(!dateModifiers.disabled ? date : undefined);
           }}
           onDayClick={(date, dateModifiers) => {

@@ -83,9 +83,9 @@ interface ThemeProviderProps {
 const generateMaterialClassName = createGenerateClassName();
 
 function generateClassName(rule: Rule, sheet?: StyleSheet<string>) {
-  const sheetMeta = sheet && sheet.options.meta;
+  const sheetMeta = sheet?.options.meta;
 
-  return rule.type === 'style' && sheetMeta && sheetMeta.startsWith('SuperDispatch')
+  return rule.type === 'style' && sheetMeta?.startsWith('SuperDispatch')
     ? `${sheetMeta}-${rule.key}`
     : generateMaterialClassName(rule, sheet);
 }

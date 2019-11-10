@@ -21,8 +21,11 @@ const iconVariant: Record<SnackbarVariant, undefined | SvgIconComponent> = {
 };
 
 export const SnackbarContent = forwardRef(
-  ({ action, variant, children, onClose, className, ...props }: SnackbarContentProps, ref) => {
-    const Icon = (variant && iconVariant[variant]) || iconVariant.default;
+  (
+    { action, children, onClose, className, variant = 'default', ...props }: SnackbarContentProps,
+    ref,
+  ) => {
+    const Icon = iconVariant[variant];
 
     return (
       <MaterialSnackbarContent

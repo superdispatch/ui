@@ -73,13 +73,12 @@ export function DateField({
         <Calendar
           {...calendarProps}
           selectedDays={[value]}
-          footer={renderFooter && renderFooter(api)}
-          quickSelection={renderQuickSelection && renderQuickSelection(api)}
+          footer={renderFooter?.(api)}
+          quickSelection={renderQuickSelection?.(api)}
           onDayClick={(day, modifiers) => {
-            if (onDayClick) {
-              onDayClick(day, modifiers);
-            }
-
+            // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
+            // eslint-disable-next-line no-unused-expressions
+            onDayClick?.(day, modifiers);
             if (!modifiers.disabled) {
               handleChange(day);
             }
