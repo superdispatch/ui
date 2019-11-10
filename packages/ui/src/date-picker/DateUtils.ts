@@ -6,9 +6,9 @@ export function isSameDate(a?: Date, b?: Date): boolean {
   return (
     isValidDate(a) &&
     isValidDate(b) &&
-    (a.getFullYear() === b.getFullYear() &&
-      a.getMonth() === b.getMonth() &&
-      a.getDate() === b.getDate())
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
   );
 }
 
@@ -33,9 +33,7 @@ export function formatDate(
 }
 
 export function normalizeDateRange(range: undefined | [Date?, Date?] = []): [Date?, Date?] {
-  return !range
-    ? []
-    : (range.filter(isValidDate).sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?]);
+  return range.filter(isValidDate).sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?];
 }
 
 export function isSameDateRange(
@@ -52,8 +50,9 @@ export function formatDateRange(range?: [Date?, Date?]): string {
   const [from, to] = normalizeDateRange(range);
   const fromText = formatDate(
     from,
-    !from || !to || from.getFullYear() !== to.getFullYear() ? undefined : { year: undefined },
+    from?.getFullYear() !== to?.getFullYear() ? undefined : { year: undefined },
   );
+
   const toText = formatDate(to);
 
   return !fromText ? '' : `${fromText} - ${toText || '…'}`;
