@@ -8,11 +8,20 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
+import {
+  CalendarQuickSelection,
+  CalendarQuickSelectionItem,
+  DateRangeField,
+} from '@superdispatch/ui';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 
-import { CalendarQuickSelection, CalendarQuickSelectionItem, DateRangeField } from '..';
-import { isSameDateRange } from './DateUtils';
+export function isSameDateRange(
+  a: undefined | [Date?, Date?],
+  b: undefined | [Date?, Date?],
+): boolean {
+  return !!a && !!b && moment(a[0]).isSame(b[0], 'date') && moment(a[1]).isSame(b[1], 'date');
+}
 
 export default function DateRangeFieldDemo() {
   const [range, setRange] = useState<[Date?, Date?]>();

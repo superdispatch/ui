@@ -8,12 +8,20 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
+import { DatePicker, DatePickerProps, DatePickerValue } from '@superdispatch/ui';
 import moment from 'moment';
 import React, { useState } from 'react';
 
-import { DateField, DatePickerValue } from '..';
+function formatValue(date?: Date) {
+  return date ? moment(date).format('MMM DD, YYYY') : '';
+}
 
-export default function DateFieldDemo() {
+const DateInputComponent: DatePickerProps['InputComponent'] = ({ value, ...props }) => {
+  const formattedValue = formatValue(value);
+  return <input value={formattedValue} {...props} />;
+};
+
+export default function DatePickerDemo() {
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
@@ -46,17 +54,16 @@ export default function DateFieldDemo() {
         </Grid>
       </Grid>
 
-      <DateField
+      <DatePicker
         value={date}
         onChange={setDate}
-        renderFooter={() =>
-          hasFooter && <Typography color="textSecondary">Footer helper text</Typography>
-        }
-        CalendarProps={{
-          fromMonth: !disabled ? undefined : today,
-          disabledDays: !disabled ? undefined : { before: today },
-        }}
+        fromMonth={!disabled ? undefined : today}
+        disabledDays={!disabled ? undefined : { before: today }}
+        InputComponent={DateInputComponent}
+        footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
       />
+
+      <pre>{JSON.stringify({ date }, null, 2)}</pre>
     </Box>
   );
 }

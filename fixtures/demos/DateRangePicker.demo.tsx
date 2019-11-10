@@ -8,15 +8,14 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
-import moment from 'moment';
-import React, { useState } from 'react';
-
 import {
   DateRangePicker,
   DateRangePickerProps,
   DateRangePickerQuickSelectionItem,
   DateRangePickerValue,
-} from '..';
+} from '@superdispatch/ui';
+import moment from 'moment';
+import React, { useState } from 'react';
 
 function formatValue(date?: Date) {
   return date ? moment(date).format('MMM DD, YYYY') : '';

@@ -11,13 +11,10 @@ import {
   RadioGroup,
   Switch,
 } from '@material-ui/core';
+import { Snackbar, SnackbarVariant, useSnackbarStack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import { loremIpsum } from 'lorem-ipsum';
 import React, { useEffect, useMemo, useState } from 'react';
-
-import { Snackbar } from './Snackbar';
-import { SnackbarVariant } from './SnackbarContent';
-import { useSnackbarStack } from './SnackbarStack';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 

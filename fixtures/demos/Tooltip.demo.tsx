@@ -11,10 +11,9 @@ import {
   TextField,
 } from '@material-ui/core';
 import { PopperPlacementType } from '@material-ui/core/Popper';
+import { Tooltip } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useEffect, useState } from 'react';
-
-import { Tooltip } from './Tooltip';
 
 const placements: PopperPlacementType[] = [
   'bottom-end',
