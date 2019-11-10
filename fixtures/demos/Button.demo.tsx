@@ -10,10 +10,9 @@ import {
   Switch,
 } from '@material-ui/core';
 import { MoreHoriz, Save, Send } from '@material-ui/icons';
+import { Button, ButtonProps } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { Fragment, useEffect, useState } from 'react';
-
-import { Button, ButtonProps } from './Button';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
 const states: State[] = ['stale', 'disabled', 'active', 'loading'];

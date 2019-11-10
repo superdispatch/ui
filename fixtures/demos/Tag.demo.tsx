@@ -7,10 +7,9 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
+import { Tag, TagColor, TagVariant } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
-
-import { Tag, TagColor, TagVariant } from '..';
 
 const colors: TagColor[] = ['grey', 'blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 const variants: TagVariant[] = ['subtle', 'bold'];

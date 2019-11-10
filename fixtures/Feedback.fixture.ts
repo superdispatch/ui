@@ -1,4 +1,4 @@
-import SnackbarDemo from '../packages/ui/src/snackbar/Snackbar.demo';
+import SnackbarDemo from './demos/Snackbar.demo';
 
 export default {
   Snackbar: SnackbarDemo,

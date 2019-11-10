@@ -1,11 +1,11 @@
-import ButtonDemo from '../packages/ui/src/button/Button.demo';
-import CalendarDemo from '../packages/ui/src/calendar/Calendar.demo';
-import DateFieldDemo from '../packages/ui/src/date-picker/DateField.demo';
-import DatePickerDemo from '../packages/ui/src/date-picker/DatePicker.demo';
-import DateRangeFieldDemo from '../packages/ui/src/date-picker/DateRangeField.demo';
-import DateRangePickerDemo from '../packages/ui/src/date-picker/DateRangePicker.demo';
-import IconButtonDemo from '../packages/ui/src/icon-button/IconButton.demo';
-import TextFieldDemo from '../packages/ui/src/text-field/TextField.demo';
+import ButtonDemo from './demos/Button.demo';
+import CalendarDemo from './demos/Calendar.demo';
+import DateFieldDemo from './demos/DateField.demo';
+import DatePickerDemo from './demos/DatePicker.demo';
+import DateRangeFieldDemo from './demos/DateRangeField.demo';
+import DateRangePickerDemo from './demos/DateRangePicker.demo';
+import IconButtonDemo from './demos/IconButton.demo';
+import TextFieldDemo from './demos/TextField.demo';
 
 export default {
   Button: ButtonDemo,
