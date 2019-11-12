@@ -7,18 +7,18 @@ import React, { forwardRef } from 'react';
 import { ColorVariant } from '../theme/Color';
 import { ButtonClassKey, useTagStyles } from './TagStyles';
 
-export type TagColor = Exclude<ColorVariant, 'silver'>;
-export type TagVariant = 'subtle' | 'bold';
-
 export interface TagProps extends Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
   classes?: ClassNameMap<ButtonClassKey>;
 
-  color: TagColor;
-  variant: TagVariant;
+  color: Exclude<ColorVariant, 'silver'>;
+  variant: 'subtle' | 'bold';
 }
 
 export const Tag = forwardRef<HTMLSpanElement, TagProps>(
-  ({ color, variant, children, classes, className, ...props }, ref) => {
+  (
+    { color, variant, children, classes, className, noWrap = true, component = 'div', ...props },
+    ref,
+  ) => {
     const styles = useTagStyles({ classes });
 
     return (
@@ -26,7 +26,8 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(
         {...props}
         ref={ref}
         variant="body1"
-        component="span"
+        noWrap={noWrap}
+        component={component}
         className={cx(
           styles.root,
           color === 'grey' && styles.colorGrey,

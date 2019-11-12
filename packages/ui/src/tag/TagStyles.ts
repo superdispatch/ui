@@ -17,10 +17,13 @@ export type ButtonClassKey =
 export const useTagStyles = makeStyles<Theme, {}, ButtonClassKey>(
   () => ({
     root: {
-      borderRadius: '4px',
+      maxWidth: '100%',
+      alignItems: 'center',
+      display: 'inline-flex',
+
       paddingLeft: '4px',
       paddingRight: '4px',
-      display: 'inline-block',
+      borderRadius: '4px',
     },
 
     variantSubtle: {
