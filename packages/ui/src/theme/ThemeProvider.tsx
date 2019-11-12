@@ -1,7 +1,8 @@
-import { createGenerateClassName, createMuiTheme, CssBaseline } from '@material-ui/core';
+import { createGenerateClassName, createMuiTheme, CssBaseline, Theme } from '@material-ui/core';
 import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
 import { Rule, StyleSheet } from 'jss';
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode } from 'react';
+import { useConstant } from 'utility-hooks';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
@@ -76,10 +77,6 @@ function createTheme() {
   return theme;
 }
 
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
 const generateMaterialClassName = createGenerateClassName();
 
 function generateClassName(rule: Rule, sheet?: StyleSheet<string>) {
@@ -90,8 +87,17 @@ function generateClassName(rule: Rule, sheet?: StyleSheet<string>) {
     : generateMaterialClassName(rule, sheet);
 }
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const theme = useMemo(createTheme, []);
+interface ThemeProviderProps {
+  children: ReactNode;
+  modifier?: (theme: Theme) => Theme;
+}
+
+export function ThemeProvider({ modifier, children }: ThemeProviderProps) {
+  const theme = useConstant(() => {
+    const nextTheme = createTheme();
+
+    return !modifier ? nextTheme : modifier(nextTheme);
+  });
 
   return (
     <StylesProvider injectFirst={true} generateClassName={generateClassName}>
