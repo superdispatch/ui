@@ -1,6 +1,6 @@
 'use strict';
 
-const { getParameters } = require('codesandbox/lib/api/define');
+const { getParameters } = require('codesandbox-import-utils/lib/api/define');
 
 const rootPkg = require('../package');
 const uiPkg = require('../packages/ui/package');
