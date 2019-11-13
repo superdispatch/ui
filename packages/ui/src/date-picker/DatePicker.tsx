@@ -22,9 +22,7 @@ export function DatePicker({ value, onChange, onDayClick, ...props }: DatePicker
       selectedDays={[value]}
       onChange={onChange}
       onDayClick={(day, modifiers) => {
-        if (onDayClick) {
-          onDayClick(day, modifiers);
-        }
+        onDayClick?.(day, modifiers);
 
         if (!modifiers.disabled) {
           onChange(day);
