@@ -58,16 +58,11 @@ export function DateRangePicker({
       quickSelectionItems={quickSelectionItems}
       quickSelectionSelectedItem={quickSelectionSelectedItem}
       onDayMouseEnter={(date, dateModifiers) => {
-        if (onDayMouseEnter) {
-          onDayMouseEnter(date, dateModifiers);
-        }
-
+        onDayMouseEnter?.(date, dateModifiers);
         setHoveredDate(!dateModifiers.disabled ? date : undefined);
       }}
       onDayClick={(date, dateModifiers) => {
-        if (onDayClick) {
-          onDayClick(date, dateModifiers);
-        }
+        onDayClick?.(date, dateModifiers);
 
         if (!dateModifiers.disabled) {
           if (pickingDateType === 'start') {

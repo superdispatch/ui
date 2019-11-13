@@ -36,8 +36,6 @@ export const Snackbar = forwardRef(
 
     const handleClose = (reason: string | SnackbarCloseReason) => {
       if (reason !== 'clickaway') {
-        // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
-        // eslint-disable-next-line no-unused-expressions
         onClose?.(reason === 'timeout' ? 'timeout' : 'explicit');
       }
     };
@@ -47,15 +45,11 @@ export const Snackbar = forwardRef(
     );
 
     const handleEnter = useEventCallback((node: HTMLElement, isAppearing: boolean) => {
-      // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
-      // eslint-disable-next-line no-unused-expressions
       onEnter?.(node, isAppearing);
       addBelowElement(node);
     });
 
     const handleExit = useEventCallback((node: HTMLElement) => {
-      // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
-      // eslint-disable-next-line no-unused-expressions
       onExit?.(node);
       removeBelowElement(node);
     });

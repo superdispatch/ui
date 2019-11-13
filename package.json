@@ -49,7 +49,7 @@
     "@pika/plugin-bundle-types": "^0.7.1",
     "@pika/plugin-bundle-web": "^0.7.1",
     "@pika/plugin-standard-pkg": "^0.7.1",
-    "@superdispatch/eslint-plugin": "^0.1.23",
+    "@superdispatch/eslint-plugin": "^0.1.25",
     "@superdispatch/js-tools": "^0.1.6",
     "@superdispatch/prettier-config": "^0.1.0",
     "@superdispatch/tsconfig": "^0.1.1",

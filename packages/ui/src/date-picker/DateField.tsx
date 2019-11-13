@@ -38,10 +38,7 @@ export function DateField({
 
   const handleClose = () => {
     onClose();
-
-    if (onBlur) {
-      onBlur();
-    }
+    onBlur?.();
   };
 
   const handleChange = (nextValue: undefined | Date) => {
@@ -76,8 +73,6 @@ export function DateField({
           footer={renderFooter?.(api)}
           quickSelection={renderQuickSelection?.(api)}
           onDayClick={(day, modifiers) => {
-            // TODO: Enable after https://github.com/typescript-eslint/typescript-eslint/pull/1169 release
-            // eslint-disable-next-line no-unused-expressions
             onDayClick?.(day, modifiers);
             if (!modifiers.disabled) {
               handleChange(day);
