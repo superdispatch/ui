@@ -11,7 +11,18 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@superdispatch/ui';
 import Demo from './demo';
 
-ReactDOM.render(<ThemeProvider><Demo /></ThemeProvider>, document.getElementById('root'));
+ReactDOM.render(
+  <ThemeProvider
+    modifier={theme => {
+      // Modify theme here.
+
+      return theme;
+    }}
+  >
+    <Demo />
+  </ThemeProvider>,
+  document.getElementById('root')
+);
 `.trim();
 
 const packageJson = {
