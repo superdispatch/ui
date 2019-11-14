@@ -1,0 +1,50 @@
+{
+  "name": "@superdispatch/phones",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superdispatch/ui.git"
+  },
+  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "pika build"
+  },
+  "dependencies": {
+    "utility-hooks": "^0.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.3.0",
+    "@material-ui/icons": "^4.3.0",
+    "google-libphonenumber": "^3.2.0",
+    "react": "^16.8.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "pkg"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "**/*.demo.*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ]
+    ]
+  }
+}

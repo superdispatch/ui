@@ -2077,6 +2077,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google-libphonenumber@^7.4.17":
+  version "7.4.17"
+  resolved "https://registry.yarnpkg.com/@types/google-libphonenumber/-/google-libphonenumber-7.4.17.tgz#26974213353cb459e403a5740812115a596cf170"
+  integrity sha512-NdqFHXBGxwiGjJn7dTAjcCckgxE+LbE3jik6/SNiC9ZfG4BxHJM1X6m8w+/ZpSGRN5s0+4dIL+MaD/KSXywp1g==
+
 "@types/json-schema@^7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
@@ -5314,6 +5319,11 @@ globby@^9.2.0:
     ignore "^4.0.3"
     pify "^4.0.1"
     slash "^2.0.0"
+
+google-libphonenumber@^3.2.0:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.6.tgz#3d725b48ff44706b80246e77f95f2c2fdc6fd729"
+  integrity sha512-6QCQAaKJlSd/1dUqvdQf7zzfb3uiZHsG8yhCfOdCVRfMuPZ/VDIEB47y5SYwjPQJPs7ebfW5jj6PeobB9JJ4JA==
 
 got@^9.6.0:
   version "9.6.0"
