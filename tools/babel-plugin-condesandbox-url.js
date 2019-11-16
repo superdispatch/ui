@@ -8,7 +8,7 @@ const uiPkg = require('../packages/ui/package');
 const indexFile = `
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@superdispatch/ui';
+import { ThemeProvider } from '${uiPkg.name}';
 import Demo from './demo';
 
 ReactDOM.render(
@@ -26,12 +26,16 @@ ReactDOM.render(
 `.trim();
 
 function makeParameters(code, codeDependencies) {
-  const allDependencies = new Set(codeDependencies).add('react-dom').add('react-scripts');
+  const allDependencies = new Set([
+    'react',
+    'react-dom',
+    'react-scripts',
+    uiPkg.name,
+    ...Object.keys(uiPkg.peerDependencies),
+    ...codeDependencies,
+  ]);
 
-  if (allDependencies.has('@superdispatch/ui')) {
-    Object.keys(uiPkg.dependencies).forEach(id => allDependencies.delete(id));
-    Object.keys(uiPkg.peerDependencies).forEach(id => allDependencies.add(id));
-  }
+  Object.keys(uiPkg.dependencies).forEach(id => allDependencies.delete(id));
 
   return getParameters({
     files: {
@@ -43,7 +47,7 @@ function makeParameters(code, codeDependencies) {
           scripts: { start: 'react-scripts start' },
           main: 'index.tsx',
           dependencies: Array.from(allDependencies).reduce((acc, id) => {
-            if (id === '@superdispatch/ui') {
+            if (id === uiPkg.name) {
               acc[id] = uiPkg.version;
             } else {
               acc[id] = rootPkg.devDependencies[id] || 'latest';
