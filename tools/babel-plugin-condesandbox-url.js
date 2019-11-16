@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const { getParameters } = require('codesandbox-import-utils/lib/api/define');
 
 const rootPkg = require('../package');
@@ -25,8 +26,8 @@ ReactDOM.render(
 );
 `.trim();
 
-function makeParameters(code, codeDependencies) {
-  const allDependencies = new Set([
+function makeParameters(name, code, codeDependencies) {
+  const demoDependencies = new Set([
     'react',
     'react-dom',
     'react-scripts',
@@ -35,7 +36,7 @@ function makeParameters(code, codeDependencies) {
     ...codeDependencies,
   ]);
 
-  Object.keys(uiPkg.dependencies).forEach(id => allDependencies.delete(id));
+  Object.keys(uiPkg.dependencies).forEach(id => demoDependencies.delete(id));
 
   return getParameters({
     files: {
@@ -43,10 +44,10 @@ function makeParameters(code, codeDependencies) {
       'index.tsx': { content: indexFile },
       'package.json': {
         content: {
-          title: 'Super Dispatch UI Demo',
+          title: `${_.startCase(name)} | Super Dispatch UI`,
           scripts: { start: 'react-scripts start' },
           main: 'index.tsx',
-          dependencies: Array.from(allDependencies).reduce((acc, id) => {
+          dependencies: Array.from(demoDependencies).reduce((acc, id) => {
             if (id === uiPkg.name) {
               acc[id] = uiPkg.version;
             } else {
@@ -94,13 +95,15 @@ module.exports = ({ types }) => {
           return;
         }
 
-        const parameters = makeParameters(file.code, dependencies);
+        const { name } = path.node.declaration.id;
+
+        const parameters = makeParameters(name, file.code, dependencies);
 
         path.insertAfter(
           types.assignmentExpression(
             '=',
             types.memberExpression(
-              types.identifier(path.node.declaration.id.name),
+              types.identifier(name),
               types.identifier('codeSandboxParameters'),
             ),
             types.stringLiteral(parameters),
