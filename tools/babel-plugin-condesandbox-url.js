@@ -25,49 +25,84 @@ ReactDOM.render(
 );
 `.trim();
 
-const packageJson = {
-  title: 'Super Dispatch UI Demo',
-  scripts: { start: 'react-scripts start' },
-  main: 'index.tsx',
-  dependencies: {
-    '@superdispatch/ui': uiPkg.version,
-    ...rootPkg.dependencies,
-  },
-  devDependencies: {
-    'react-scripts': 'latest',
-    typescript: rootPkg.devDependencies.typescript,
-  },
-};
+function makeParameters(code, codeDependencies) {
+  const allDependencies = new Set(codeDependencies).add('react-dom').add('react-scripts');
 
-function makeParameters(code) {
+  if (allDependencies.has('@superdispatch/ui')) {
+    Object.keys(uiPkg.dependencies).forEach(id => allDependencies.delete(id));
+    Object.keys(uiPkg.peerDependencies).forEach(id => allDependencies.add(id));
+  }
+
   return getParameters({
     files: {
       'demo.tsx': { content: code },
       'index.tsx': { content: indexFile },
-      'package.json': { content: packageJson },
+      'package.json': {
+        content: {
+          title: 'Super Dispatch UI Demo',
+          scripts: { start: 'react-scripts start' },
+          main: 'index.tsx',
+          dependencies: Array.from(allDependencies).reduce((acc, id) => {
+            if (id === '@superdispatch/ui') {
+              acc[id] = uiPkg.version;
+            } else {
+              acc[id] = rootPkg.devDependencies[id] || 'latest';
+
+              const typesId = `@types/${id}`;
+              if (rootPkg.devDependencies[typesId]) {
+                acc[typesId] = rootPkg.devDependencies[typesId];
+              }
+            }
+
+            return acc;
+          }, {}),
+        },
+      },
     },
   });
 }
 
-module.exports = ({ types }) => ({
-  visitor: {
-    ExportDefaultDeclaration(path, { file, filename }) {
-      if (!filename.match(/\.demo\.tsx?$/)) {
-        return;
-      }
+module.exports = ({ types }) => {
+  const dependencies = new Set();
+  let skip = false;
 
-      const parameters = makeParameters(file.code);
+  return {
+    visitor: {
+      Program(path, { filename }) {
+        dependencies.clear();
+        skip = !filename.match(/\.demo\.tsx?$/);
+      },
 
-      path.insertAfter(
-        types.assignmentExpression(
-          '=',
-          types.memberExpression(
-            types.identifier(path.node.declaration.id.name),
-            types.identifier('codeSandboxParameters'),
+      ImportDeclaration(path) {
+        if (skip) {
+          return;
+        }
+
+        const source = path.node.source && path.node.source.value;
+
+        if (source && !source.startsWith('.')) {
+          dependencies.add(source);
+        }
+      },
+
+      ExportDefaultDeclaration(path, { file }) {
+        if (skip) {
+          return;
+        }
+
+        const parameters = makeParameters(file.code, dependencies);
+
+        path.insertAfter(
+          types.assignmentExpression(
+            '=',
+            types.memberExpression(
+              types.identifier(path.node.declaration.id.name),
+              types.identifier('codeSandboxParameters'),
+            ),
+            types.stringLiteral(parameters),
           ),
-          types.stringLiteral(parameters),
-        ),
-      );
+        );
+      },
     },
-  },
-});
+  };
+};
