@@ -5,10 +5,10 @@ import cx from 'clsx';
 import React, { forwardRef } from 'react';
 
 import { ColorVariant } from '../theme/Color';
-import { ButtonClassKey, useTagStyles } from './TagStyles';
+import { TagClassKey, useTagStyles } from './TagStyles';
 
 export interface TagProps extends Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
-  classes?: ClassNameMap<ButtonClassKey>;
+  classes?: ClassNameMap<TagClassKey>;
 
   color: Exclude<ColorVariant, 'silver'>;
   variant: 'subtle' | 'bold';
