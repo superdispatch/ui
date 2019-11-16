@@ -12,6 +12,12 @@ export function applyTextFieldStyles(theme: Theme) {
     variant: 'outlined',
   };
 
+  theme.overrides.MuiInputBase = {
+    inputMultiline: {
+      resize: 'vertical',
+    },
+  };
+
   theme.props.MuiInputLabel = {
     shrink: true,
   };
