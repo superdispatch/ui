@@ -15,15 +15,13 @@ export type TagClassKey =
   | 'variantBold';
 
 export const useTagStyles = makeStyles<Theme, {}, TagClassKey>(
-  () => ({
+  theme => ({
     root: {
       maxWidth: '100%',
       alignItems: 'center',
       display: 'inline-flex',
-
-      paddingLeft: '4px',
-      paddingRight: '4px',
-      borderRadius: '4px',
+      borderRadius: theme.spacing(0.5),
+      padding: theme.spacing(0, 0.5),
     },
 
     variantSubtle: {
