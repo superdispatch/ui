@@ -2,7 +2,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 
 import { Color } from '../theme/Color';
 
-export type ButtonClassKey =
+export type TagClassKey =
   | 'root'
   | 'colorGrey'
   | 'colorBlue'
@@ -14,7 +14,7 @@ export type ButtonClassKey =
   | 'variantSubtle'
   | 'variantBold';
 
-export const useTagStyles = makeStyles<Theme, {}, ButtonClassKey>(
+export const useTagStyles = makeStyles<Theme, {}, TagClassKey>(
   () => ({
     root: {
       maxWidth: '100%',
