@@ -7,6 +7,14 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       extends: ['plugin:@superdispatch/react', 'plugin:@superdispatch/typescript'],
       settings: { react: { version: 'detect' } },
+      rules: {
+        'react-hooks/exhaustive-deps': [
+          'error',
+          {
+            additionalHooks: '^(useMemoWith|usePromise)$',
+          },
+        ],
+      },
     },
 
     {

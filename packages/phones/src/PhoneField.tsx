@@ -1,8 +1,8 @@
-import { InputAdornment, Select,TextField } from '@material-ui/core';
+import { InputAdornment, Select, TextField } from '@material-ui/core';
 import React from 'react';
 
-import { usePhonesContext } from './PhonesContext';
 import { PhoneData } from './PhoneHelpers';
+import { usePhonesContext } from './PhonesContext';
 
 export interface PhoneFieldProps {
   value: string;
@@ -10,8 +10,7 @@ export interface PhoneFieldProps {
 }
 
 export function PhoneField() {
-  const libPhoneNumber = usePhonesContext();
-  const phoneNumberUtil = libPhoneNumber?.PhoneNumberUtil.getInstance();
+  const { lib, util } = usePhonesContext();
 
   return (
     <TextField

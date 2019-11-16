@@ -11,7 +11,7 @@
     "build": "pika build"
   },
   "dependencies": {
-    "utility-hooks": "^0.4.1"
+    "utility-hooks": "^0.5.1"
   },
   "devDependencies": {
     "typescript": "^3.7.2"
