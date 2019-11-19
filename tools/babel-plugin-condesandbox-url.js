@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const { getParameters } = require('codesandbox-import-utils/lib/api/define');
 
 const rootPkg = require('../package');
@@ -8,7 +9,7 @@ const uiPkg = require('../packages/ui/package');
 const indexFile = `
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@superdispatch/ui';
+import { ThemeProvider } from '${uiPkg.name}';
 import Demo from './demo';
 
 ReactDOM.render(
@@ -25,49 +26,90 @@ ReactDOM.render(
 );
 `.trim();
 
-const packageJson = {
-  title: 'Super Dispatch UI Demo',
-  scripts: { start: 'react-scripts start' },
-  main: 'index.tsx',
-  dependencies: {
-    '@superdispatch/ui': uiPkg.version,
-    ...rootPkg.dependencies,
-  },
-  devDependencies: {
-    'react-scripts': 'latest',
-    typescript: rootPkg.devDependencies.typescript,
-  },
-};
+function makeParameters(name, code, codeDependencies) {
+  const demoDependencies = new Set([
+    'react',
+    'react-dom',
+    'react-scripts',
+    uiPkg.name,
+    ...Object.keys(uiPkg.peerDependencies),
+    ...codeDependencies,
+  ]);
 
-function makeParameters(code) {
+  Object.keys(uiPkg.dependencies).forEach(id => demoDependencies.delete(id));
+
   return getParameters({
     files: {
       'demo.tsx': { content: code },
       'index.tsx': { content: indexFile },
-      'package.json': { content: packageJson },
+      'package.json': {
+        content: {
+          title: `${_.startCase(name)} | Super Dispatch UI`,
+          scripts: { start: 'react-scripts start' },
+          main: 'index.tsx',
+          dependencies: Array.from(demoDependencies).reduce((acc, id) => {
+            if (id === uiPkg.name) {
+              acc[id] = uiPkg.version;
+            } else {
+              acc[id] = rootPkg.devDependencies[id] || 'latest';
+
+              const typesId = `@types/${id}`;
+              if (rootPkg.devDependencies[typesId]) {
+                acc[typesId] = rootPkg.devDependencies[typesId];
+              }
+            }
+
+            return acc;
+          }, {}),
+        },
+      },
     },
   });
 }
 
-module.exports = ({ types }) => ({
-  visitor: {
-    ExportDefaultDeclaration(path, { file, filename }) {
-      if (!filename.match(/\.demo\.tsx?$/)) {
-        return;
-      }
+module.exports = ({ types }) => {
+  const dependencies = new Set();
+  let skip = false;
 
-      const parameters = makeParameters(file.code);
+  return {
+    visitor: {
+      Program(path, { filename }) {
+        dependencies.clear();
+        skip = !filename.match(/\.demo\.tsx?$/);
+      },
 
-      path.insertAfter(
-        types.assignmentExpression(
-          '=',
-          types.memberExpression(
-            types.identifier(path.node.declaration.id.name),
-            types.identifier('codeSandboxParameters'),
+      ImportDeclaration(path) {
+        if (skip) {
+          return;
+        }
+
+        const source = path.node.source && path.node.source.value;
+
+        if (source && !source.startsWith('.')) {
+          dependencies.add(source);
+        }
+      },
+
+      ExportDefaultDeclaration(path, { file }) {
+        if (skip) {
+          return;
+        }
+
+        const { name } = path.node.declaration.id;
+
+        const parameters = makeParameters(name, file.code, dependencies);
+
+        path.insertAfter(
+          types.assignmentExpression(
+            '=',
+            types.memberExpression(
+              types.identifier(name),
+              types.identifier('codeSandboxParameters'),
+            ),
+            types.stringLiteral(parameters),
           ),
-          types.stringLiteral(parameters),
-        ),
-      );
+        );
+      },
     },
-  },
-});
+  };
+};
