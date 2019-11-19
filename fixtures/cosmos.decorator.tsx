@@ -20,8 +20,6 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
 
   return (
     <ThemeProvider>
-      {children}
-
       {codeSandboxParameters && (
         <Box position="fixed" top="8px" right="8px">
           <form
@@ -37,6 +35,8 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
           </form>
         </Box>
       )}
+
+      <Box marginTop={5}>{children}</Box>
     </ThemeProvider>
   );
 }
