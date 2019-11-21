@@ -79,9 +79,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
   theme => ({
     root: {},
 
-    label: {
-      '$isLoading &': { visibility: 'hidden' },
-    },
+    label: { '$isLoading &': { visibility: 'hidden' } },
 
     sizeSmall: {},
     sizeLarge: {},
