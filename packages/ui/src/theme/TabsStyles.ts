@@ -1,6 +1,7 @@
 import { Theme } from '@material-ui/core';
 
 import { Color } from './Color';
+import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
 export function applyTabsStyles(theme: Theme) {
   theme.props = theme.props || {};
@@ -10,25 +11,27 @@ export function applyTabsStyles(theme: Theme) {
   theme.overrides.MuiTabs = { root: { minHeight: '40px' } };
 
   theme.overrides.MuiTab = {
-    root: { minHeight: '40px', textTransform: undefined },
+    root: {
+      fontWeight: undefined,
+      textTransform: undefined,
+      minHeight: theme.spacing(5),
 
-    wrapper: {
-      fontWeight: 400,
-      fontSize: '14px',
-      lineHeight: '20px',
+      transition: theme.transitions.create(['color'], {
+        duration: theme.transitions.duration.short,
+      }),
 
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '16px',
-        lineHeight: '24px',
+      fontSize: fontSizeVariant('body1', true),
+      lineHeight: fontHeightVariant('body1', true),
+
+      [theme.breakpoints.up('sm')]: {
+        fontSize: fontSizeVariant('body1'),
+        lineHeight: fontHeightVariant('body1'),
       },
     },
 
     textColorPrimary: {
       color: Color.Grey500,
       '&:hover, &:focus': { color: Color.Blue300 },
-      transition: theme.transitions.create(['color'], {
-        duration: theme.transitions.duration.short,
-      }),
     },
   };
 }

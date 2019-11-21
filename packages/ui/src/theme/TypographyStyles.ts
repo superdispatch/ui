@@ -2,7 +2,7 @@ import { Theme } from '@material-ui/core';
 import { ThemeStyle, TypographyOptions } from '@material-ui/core/styles/createTypography';
 import { CSSProperties } from '@material-ui/styles';
 
-export function fontWeightVariant(variant: ThemeStyle): number {
+export function fontWeightVariant(variant?: ThemeStyle): number {
   switch (variant) {
     case 'h1':
     case 'h6':
