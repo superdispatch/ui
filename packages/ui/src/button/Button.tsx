@@ -67,6 +67,7 @@ function outlinedVariant(
 function containedVariant(stale: Color, outline: Color, active: Color): CSSProperties {
   return {
     backgroundColor: stale,
+    '&$disabled': { backgroundColor: outline },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
       '&:hover, &:active, &$isActive': { backgroundColor: active },
@@ -127,10 +128,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     outlinedSizeSmall: {},
     outlinedSizeLarge: {},
 
-    contained: {
-      color: Color.White,
-      '&$disabled:not($isLoading)': { color: Color.Silver500, backgroundColor: Color.Silver200 },
-    },
+    contained: { color: Color.White },
     containedError: containedVariant(Color.Red300, Color.Red100, Color.Red500),
     containedSuccess: containedVariant(Color.Green300, Color.Green100, Color.Green500),
     containedPrimary: containedVariant(Color.Blue300, Color.Blue100, Color.Blue500),
