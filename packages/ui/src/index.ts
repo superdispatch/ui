@@ -1,6 +1,7 @@
 export * from './button/Button';
 export * from './calendar/Calendar';
 export * from './calendar/CalendarQuickSelection';
+export * from './calendar/CalendarQuickSelectionItem';
 export * from './card-button/CardButton';
 export * from './date-picker/DateTextField';
 export * from './date-picker/DateField';
