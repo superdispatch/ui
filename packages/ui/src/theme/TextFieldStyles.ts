@@ -13,9 +13,8 @@ export function applyTextFieldStyles(theme: Theme) {
   };
 
   theme.overrides.MuiInputBase = {
-    inputMultiline: {
-      resize: 'vertical',
-    },
+    root: { '&$disabled': { backgroundColor: Color.Silver100 } },
+    inputMultiline: { resize: 'vertical' },
   };
 
   theme.props.MuiInputLabel = {
@@ -105,10 +104,10 @@ export function applyTextFieldStyles(theme: Theme) {
   theme.overrides.MuiSelect = {
     icon: {
       fontSize: theme.spacing(3),
+      '$disabled &': { color: Color.Grey100 },
     },
     selectMenu: {
       lineHeight: `${theme.spacing(2.5)}px`,
-
       [theme.breakpoints.only('xs')]: {
         lineHeight: `${theme.spacing(3)}px`,
       },
