@@ -1,9 +1,25 @@
-import { Portal, Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
+import {
+  makeStyles,
+  Portal,
+  Snackbar as MaterialSnackbar,
+  Theme,
+  useMediaQuery,
+} from '@material-ui/core';
+import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { animated, AnimatedProps, useSpring, useTransition } from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
-import { SnackbarClassNames } from './SnackbarStyles';
+
+export type SnackbarStackClassKey = 'root' | 'item';
+
+const useStyles = makeStyles<Theme, {}, SnackbarStackClassKey>(
+  {
+    root: { width: '100%' },
+    item: {},
+  },
+  { name: 'SuperDispatchSnackbarStack' },
+);
 
 const SNACKBAR_OFFSET = 8;
 
@@ -41,11 +57,12 @@ export function useSnackbarStack(): SnackbarStack {
 }
 
 interface StackItemProps {
+  className?: string;
   item: StackItemOptions;
   style: AnimatedProps<object>;
 }
 
-function StackItem({ item, style }: StackItemProps) {
+function StackItem({ item, style, className }: StackItemProps) {
   const { variant, message, onClose, hasCloseButton, autoHideDuration } = item;
 
   useEffect(() => {
@@ -59,7 +76,7 @@ function StackItem({ item, style }: StackItemProps) {
   }, [onClose, autoHideDuration]);
 
   return (
-    <animated.div style={style} className={SnackbarClassNames.StackItem}>
+    <animated.div style={style} className={className}>
       <SnackbarContent
         ref={node => {
           if (node) {
@@ -76,10 +93,12 @@ function StackItem({ item, style }: StackItemProps) {
 }
 
 export interface SnackbarStackProviderProps {
+  classes?: Partial<ClassNameMap<SnackbarStackClassKey>>;
   children: ReactNode;
 }
 
-export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) {
+export function SnackbarStackProvider({ classes, children }: SnackbarStackProviderProps) {
+  const styles = useStyles({ classes });
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
   const [belowElements, setBelowElements] = useState<HTMLElement[]>([]);
   const maxBelowElementHeight = useMemo(
@@ -186,9 +205,9 @@ export function SnackbarStackProvider({ children }: SnackbarStackProviderProps) 
       {transitions.length > 0 && (
         <Portal>
           <MaterialSnackbar open={true}>
-            <animated.div style={containerStyle} className={SnackbarClassNames.StackContainer}>
+            <animated.div style={containerStyle} className={styles.root}>
               {transitions.map(({ key, item, props: style }) => (
-                <StackItem key={key} item={item} style={style} />
+                <StackItem key={key} item={item} style={style} className={styles.item} />
               ))}
             </animated.div>
           </MaterialSnackbar>
