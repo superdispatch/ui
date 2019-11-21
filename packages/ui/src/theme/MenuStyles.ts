@@ -11,10 +11,6 @@ export function applyMenuStyles(theme: Theme) {
     transformOrigin: { vertical: 'top', horizontal: 'left' },
   };
 
-  theme.props.MuiMenuItem = {
-    dense: true,
-  };
-
   theme.overrides.MuiMenuItem = {
     root: {
       fontSize: '14px',
@@ -23,12 +19,6 @@ export function applyMenuStyles(theme: Theme) {
       paddingTop: `${theme.spacing(1)}px`,
       paddingBottom: `${theme.spacing(1)}px`,
 
-      [theme.breakpoints.only('xs')]: {
-        fontSize: '16px',
-        lineHeight: `${theme.spacing(3)}px`,
-      },
-    },
-    dense: {
       [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
         lineHeight: `${theme.spacing(3)}px`,
