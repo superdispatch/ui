@@ -49,7 +49,7 @@ export function applyTextFieldStyles(theme: Theme) {
       '&$focused': { color: undefined },
       '&$disabled': { color: undefined },
 
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
       },
     },
@@ -79,7 +79,7 @@ export function applyTextFieldStyles(theme: Theme) {
       height: theme.spacing(2.5),
       padding: theme.spacing(0.75, 1),
 
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
 
         height: theme.spacing(3),
@@ -103,7 +103,7 @@ export function applyTextFieldStyles(theme: Theme) {
     selectMenu: {
       lineHeight: `${theme.spacing(2.5)}px`,
 
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.only('xs')]: {
         lineHeight: `${theme.spacing(3)}px`,
       },
     },
@@ -114,7 +114,7 @@ export function applyTextFieldStyles(theme: Theme) {
       fontSize: '14px',
       lineHeight: '20px',
 
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
         lineHeight: '24px',
       },
