@@ -28,6 +28,11 @@ export function applyTextFieldStyles(theme: Theme) {
       lineHeight: '20px',
       marginBottom: theme.spacing(0.5),
       color: Color.Grey400,
+
+      [theme.breakpoints.only('xs')]: {
+        fontSize: '16px',
+        lineHeight: '24px',
+      },
     },
     formControl: {
       top: undefined,
@@ -51,6 +56,7 @@ export function applyTextFieldStyles(theme: Theme) {
 
       [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
+        lineHeight: '24px',
       },
     },
   };
