@@ -3,10 +3,10 @@ import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import React, { ReactNode, useMemo, useState } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
+import { formatDateRange, normalizeDateRange } from '../calendar/DateUtils';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
-import { formatDateRange, normalizeDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
   close: () => void;

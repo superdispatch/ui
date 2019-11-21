@@ -17,22 +17,6 @@ export const CalendarQuickSelection = forwardRef<HTMLUListElement, CalendarQuick
   ),
 );
 
-export interface CalendarQuickSelectionItemProps {
-  children: ReactNode;
-  selected?: boolean;
-  onClick?: () => void;
-}
-
-export const CalendarQuickSelectionItem = forwardRef<
-  HTMLDivElement,
-  CalendarQuickSelectionItemProps
->(({ onClick, selected, children }, ref) => (
-  <ListItem ref={ref} button={true} selected={selected} onClick={onClick}>
-    {children}
-  </ListItem>
-));
-
 if (process.env.NODE_ENV !== 'production') {
   CalendarQuickSelection.displayName = 'CalendarQuickSelection';
-  CalendarQuickSelectionItem.displayName = 'CalendarQuickSelectionItem';
 }
