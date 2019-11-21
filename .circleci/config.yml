@@ -24,8 +24,12 @@ commands:
           key: yarn-{{ checksum "yarn.lock" }}
 
 jobs:
-  build:
+  main:
     executor: node
+    parameters:
+      publish:
+        type: boolean
+        default: false
     steps:
       - checkout
       - install
@@ -37,36 +41,29 @@ jobs:
       - run:
           name: Build
           command: yarn build
-
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - ./
-
-  deploy:
-    executor: node
-    steps:
-      - attach_workspace:
-          at: ./
-      - run:
-          name: Login to NPM
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
-      - run:
-          name: Publish to NPM
-          command: yarn lerna publish from-git --yes
+      - when:
+          condition: << parameters.publish >>
+          steps:
+            - run:
+                name: Login to NPM
+                command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
+            - run:
+                name: Publish to NPM
+                command: yarn lerna publish from-git --yes
 
 workflows:
   version: 2
-  build:
+  ci:
     jobs:
-      - build:
+      - main:
+          name: build
           filters:
             tags:
-              only: /.*/
-      - deploy:
-          context: npm-pkg
-          requires:
-            - build
+              ignore: /.*/
+
+      - main:
+          name: publish
+          publish: true
           filters:
             tags:
               only: /^v.*/
