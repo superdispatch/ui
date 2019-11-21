@@ -18,9 +18,19 @@ export function applyMenuStyles(theme: Theme) {
   theme.overrides.MuiMenuItem = {
     root: {
       fontSize: '14px',
-      lineHeight: '20px',
-      paddingTop: '8px',
-      paddingBottom: '8px',
+      lineHeight: `${theme.spacing(2.5)}px`,
+
+      paddingTop: `${theme.spacing(1)}px`,
+      paddingBottom: `${theme.spacing(1)}px`,
+
+      [theme.breakpoints.only('xs')]: {
+        fontSize: '16px',
+      },
+    },
+    dense: {
+      [theme.breakpoints.only('xs')]: {
+        fontSize: '16px',
+      },
     },
   };
 }
