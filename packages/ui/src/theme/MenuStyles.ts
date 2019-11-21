@@ -24,13 +24,14 @@ export function applyMenuStyles(theme: Theme) {
       paddingBottom: `${theme.spacing(1)}px`,
 
       [theme.breakpoints.only('xs')]: {
-        lineHeight: `${theme.spacing(3)}px`,
         fontSize: '16px',
+        lineHeight: `${theme.spacing(3)}px`,
       },
     },
     dense: {
       [theme.breakpoints.only('xs')]: {
         fontSize: '16px',
+        lineHeight: `${theme.spacing(3)}px`,
       },
     },
   };
