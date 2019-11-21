@@ -48,6 +48,10 @@ export function applyTextFieldStyles(theme: Theme) {
       '&$error': { color: undefined },
       '&$focused': { color: undefined },
       '&$disabled': { color: undefined },
+
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '16px',
+      },
     },
   };
 
@@ -74,6 +78,13 @@ export function applyTextFieldStyles(theme: Theme) {
       fontSize: '14px',
       height: theme.spacing(2.5),
       padding: theme.spacing(0.75, 1),
+
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '16px',
+
+        height: theme.spacing(3),
+        padding: theme.spacing(1.25, 2),
+      },
     },
 
     multiline: {
@@ -91,6 +102,10 @@ export function applyTextFieldStyles(theme: Theme) {
     },
     selectMenu: {
       lineHeight: `${theme.spacing(2.5)}px`,
+
+      [theme.breakpoints.down('xs')]: {
+        lineHeight: `${theme.spacing(3)}px`,
+      },
     },
   };
 
@@ -98,6 +113,11 @@ export function applyTextFieldStyles(theme: Theme) {
     root: {
       fontSize: '14px',
       lineHeight: '20px',
+
+      [theme.breakpoints.down('xs')]: {
+        fontSize: '16px',
+        lineHeight: '24px',
+      },
     },
 
     contained: {
