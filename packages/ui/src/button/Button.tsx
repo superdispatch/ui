@@ -92,7 +92,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     textSizeSmall: {},
     textSizeLarge: {},
 
-    outlined: {},
+    outlined: { backgroundColor: Color.White },
     outlinedError: outlinedVariant(
       Color.Red300,
       Color.Red300,
@@ -166,7 +166,7 @@ export interface ButtonProps extends Omit<MuiButtonProps, 'color' | 'variant' | 
   target?: string;
   isActive?: boolean;
   isLoading?: boolean;
-  classes?: ClassNameMap<ButtonClassKey>;
+  classes?: Partial<ClassNameMap<ButtonClassKey>>;
   color: 'primary' | 'error' | 'success';
   variant: 'text' | 'outlined' | 'contained';
 }
