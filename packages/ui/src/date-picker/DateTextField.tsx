@@ -1,34 +1,56 @@
 import { IconButton, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
-import { IconButtonProps } from '@material-ui/core/IconButton';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import { mdiCalendarMonth } from '@mdi/js';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, MutableRefObject, useRef } from 'react';
 
 export interface DateTextFieldProps extends Omit<OutlinedTextFieldProps, 'value' | 'variant'> {
   value: string;
-  IconProps?: IconButtonProps;
+  onOpen?: (element: HTMLElement) => void;
 }
 
 export const DateTextField = forwardRef<HTMLDivElement, DateTextFieldProps>(
-  ({ IconProps = {}, ...props }, ref) => (
-    <TextField
-      {...props}
-      ref={ref}
-      inputProps={{ ...props.inputProps, readOnly: true }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton size="small" {...IconProps}>
-              <SvgIcon color="action">
-                <path d={mdiCalendarMonth} />
-              </SvgIcon>
-            </IconButton>
-          </InputAdornment>
-        ),
-        ...props.InputProps,
-      }}
-    />
-  ),
+  ({ onOpen, onFocus, ...props }, ref) => {
+    const fieldRef = useRef<HTMLDivElement | null>(null);
+
+    function handleOpen() {
+      if (fieldRef.current) {
+        onOpen?.(fieldRef.current);
+      }
+    }
+
+    return (
+      <TextField
+        {...props}
+        ref={node => {
+          fieldRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            (ref as MutableRefObject<HTMLDivElement | null>).current = node;
+          }
+        }}
+        onFocus={event => {
+          onFocus?.(event);
+          if (!event.isDefaultPrevented()) {
+            handleOpen();
+          }
+        }}
+        inputProps={{ ...props.inputProps, readOnly: true }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton size="medium" onClick={handleOpen}>
+                <SvgIcon>
+                  <path d={mdiCalendarMonth} />
+                </SvgIcon>
+              </IconButton>
+            </InputAdornment>
+          ),
+          ...props.InputProps,
+        }}
+      />
+    );
+  },
 );
 
 if (process.env.NODE_ENV !== 'production') {
