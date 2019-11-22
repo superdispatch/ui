@@ -57,3 +57,13 @@ export function formatDateRange(range?: [Date?, Date?]): string {
 
   return !fromText ? '' : `${fromText} - ${toText || '…'}`;
 }
+
+export function isFirstDayOfMonth(date: Date): boolean {
+  return date.getDate() === 1;
+}
+
+export function isLastDayOfMonth(date: Date): boolean {
+  return (
+    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
+  );
+}

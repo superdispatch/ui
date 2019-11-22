@@ -1,95 +1,204 @@
-import { Divider, Grid, Hidden, IconButton, Typography } from '@material-ui/core';
+import { Divider, Grid, Hidden, Theme } from '@material-ui/core';
 import { GridDirection } from '@material-ui/core/Grid';
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/styles';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
+import { Color, ColorVariant } from '@superdispatch/ui';
 import React, { ReactNode } from 'react';
-import DayPicker, {
-  CaptionElementProps,
-  ClassNames,
-  DayModifiers,
-  DayPickerProps,
-  Modifier,
-  NavbarElementProps,
-  WeekdayElementProps,
-} from 'react-day-picker';
+import DayPicker, { ClassNames, DayModifiers, DayPickerProps, Modifier } from 'react-day-picker';
 
-import { normalizeDateRange } from '../date-picker/DateUtils';
-import { CalendarDayHighlightColor, useCalendarStyles } from './CalendarStyles';
+import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
+import { CalendarCaption } from './CalendarCaption';
+import { CalendarNavbar } from './CalendarNavbar';
+import { CalendarWeekDay } from './CalendarWeekDay';
+import { isFirstDayOfMonth, isLastDayOfMonth, normalizeDateRange } from './DateUtils';
 
-//
-// Date Utils
-//
+export type CalendarDayHighlightColor = Exclude<ColorVariant, 'grey' | 'silver'>;
+export type CalendarClassNames =
+  | keyof ClassNames
+  | CalendarDayHighlightColor
+  | 'firstDayOfMonth'
+  | 'lastDayOfMonth';
 
-function isFirstDayOfMonth(date: Date): boolean {
-  return date.getDate() === 1;
-}
+const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
+  theme => ({
+    container: {
+      display: 'inline-block',
 
-function isLastDayOfMonth(date: Date): boolean {
-  return (
-    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
-  );
-}
+      fontSize: fontSizeVariant('body1', true),
+      lineHeight: fontHeightVariant('body1', true),
 
-//
-// Internal Components
-//
+      [theme.breakpoints.up('sm')]: {
+        fontSize: fontSizeVariant('body1'),
+        lineHeight: fontHeightVariant('body1'),
+      },
+    },
 
-function CalendarNavbar({
-  labels,
-  classNames,
-  onNextClick,
-  onPreviousClick,
-  showNextButton,
-  showPreviousButton,
-}: NavbarElementProps) {
-  return (
-    <>
-      <IconButton
-        size="small"
-        color="primary"
-        disabled={!showPreviousButton}
-        onClick={() => onPreviousClick()}
-        aria-label={labels.previousMonth}
-        className={classNames.navButtonPrev}
-      >
-        <ChevronLeft color="action" />
-      </IconButton>
+    wrapper: {
+      userSelect: 'none',
+      position: 'relative',
+      flexDirection: 'row',
+      paddingBottom: theme.spacing(2),
+      '&:focus': { outline: 'none' },
+    },
 
-      <IconButton
-        size="small"
-        color="primary"
-        disabled={!showNextButton}
-        onClick={() => onNextClick()}
-        aria-label={labels.nextMonth}
-        className={classNames.navButtonNext}
-      >
-        <ChevronRight color="action" />
-      </IconButton>
-    </>
-  );
-}
+    interactionDisabled: {},
 
-function CalendarCaption({ date, localeUtils, classNames, onClick }: CaptionElementProps) {
-  return (
-    <Typography variant="h4" onClick={onClick} className={classNames.caption}>
-      {localeUtils.formatMonthTitle(date)}
-    </Typography>
-  );
-}
+    navBar: {},
+    navButtonPrev: {
+      position: 'absolute',
+      top: theme.spacing(1.5),
+      left: theme.spacing(1.5),
+    },
+    navButtonNext: {
+      position: 'absolute',
+      top: theme.spacing(1.5),
+      right: theme.spacing(1.5),
+    },
+    navButtonInteractionDisabled: {},
 
-function CalendarWeekDay({ weekday, className }: WeekdayElementProps) {
-  const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    months: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' },
+    month: { userSelect: 'none', margin: theme.spacing(2, 2, 0, 2) },
 
-  return (
-    <Typography variant="h5" className={className}>
-      {weekdaysShort[weekday]}
-    </Typography>
-  );
-}
+    caption: {
+      textAlign: 'center',
+      display: 'table-caption',
+      marginBottom: theme.spacing(1),
+      padding: theme.spacing(0, 1),
+    },
 
-//
-// Day event and it's handlers
-//
+    weekdays: { display: 'table-header-group' },
+    weekdaysRow: { display: 'flex', margin: theme.spacing(1, 0) },
+    weekday: {
+      margin: '1px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      color: Color.Grey300,
+      width: theme.spacing(5),
+      height: theme.spacing(5),
+    },
+
+    weekNumber: {},
+
+    body: { display: 'flex', flexDirection: 'column' },
+    week: { display: 'flex' },
+
+    // Day modifiers.
+    today: {},
+    outside: {},
+    selected: {},
+    disabled: {},
+    firstDayOfMonth: {},
+    lastDayOfMonth: {},
+
+    blue: {},
+    green: {},
+    purple: {},
+    red: {},
+    teal: {},
+    yellow: {},
+
+    day: {
+      zIndex: 1,
+      margin: '1px',
+      width: theme.spacing(5),
+      height: theme.spacing(5),
+      borderRadius: theme.spacing(0.5),
+
+      position: 'relative',
+
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      transition: theme.transitions.create(['color', 'background-color']),
+
+      '&:before': {
+        content: '""',
+        top: 0,
+        left: -1,
+        right: -1,
+        bottom: 0,
+        zIndex: -1,
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        transition: theme.transitions.create('background-color'),
+      },
+
+      '&:first-child, &$firstDayOfMonth': {
+        '&:before': { borderRadius: theme.spacing(0.5, 0, 0, 0.5) },
+      },
+
+      '&:last-child, &$lastDayOfMonth': {
+        '&:before': { borderRadius: theme.spacing(0, 0.5, 0.5, 0) },
+      },
+
+      '&:after': {
+        content: '""',
+        borderRadius: theme.spacing(0.5),
+
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: -1,
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        transition: theme.transitions.create('background-color'),
+      },
+
+      '&:hover, &:focus': { outline: 'none' },
+
+      '&$disabled': {
+        color: Color.Grey100,
+        '&$selected:not($outside):after': { backgroundColor: Color.Silver300 },
+      },
+
+      '&:not($outside):not($disabled)': {
+        cursor: 'pointer',
+        color: Color.Grey500,
+
+        '&:not($selected):not(:active)': {
+          '&$today': { color: Color.Blue300 },
+          '&:hover, &:focus': { backgroundColor: Color.Silver100 },
+
+          '&$blue': {
+            color: Color.Blue500,
+            '&': { backgroundColor: Color.Blue50 },
+          },
+          '&$green': {
+            color: Color.Green500,
+            '&': { backgroundColor: Color.Green50 },
+          },
+          '&$purple': {
+            color: Color.Purple500,
+            '&': { backgroundColor: Color.Purple50 },
+          },
+          '&$red': { color: Color.Red500, '&': { backgroundColor: Color.Red50 } },
+          '&$teal': {
+            color: Color.Teal500,
+            '&': { backgroundColor: Color.Teal50 },
+          },
+          '&$yellow': {
+            color: Color.Yellow500,
+            '&': { backgroundColor: Color.Yellow50 },
+          },
+        },
+
+        '&:active, &$selected': {
+          color: Color.White,
+          '&:after': { backgroundColor: Color.Blue300 },
+        },
+      },
+    },
+
+    footer: { padding: theme.spacing(2) },
+
+    todayButton: {},
+  }),
+  { name: 'SuperDispatchCalendar' },
+);
 
 export interface CalendarDayModifiers {
   disabled: boolean;
@@ -108,36 +217,21 @@ type CalendarDayEventHandlerName =
   | 'onDayTouchEnd'
   | 'onDayTouchStart';
 
-type CalendarDayEventProps = Partial<Record<CalendarDayEventHandlerName, CalendarDayEventHandler>>;
-
-type DayPickerDayEventHandlers = Partial<
-  Record<CalendarDayEventHandlerName, (day: Date, modifiers: DayModifiers) => void>
->;
-
-function toDayPickerDayEventHandlers(
+function toDayPickerEventHandler(
   styles: ClassNameMap<keyof ClassNames>,
-  handlers: CalendarDayEventProps,
-): DayPickerDayEventHandlers {
-  return Object.keys(handlers).reduce<DayPickerDayEventHandlers>((acc, x) => {
-    const key = x as CalendarDayEventHandlerName;
-    const handler = handlers[key];
-
-    if (handler) {
-      acc[key] = (date, modifiers) => {
-        handler(date, {
-          disabled: !!modifiers[styles.disabled],
-          selected: !!modifiers[styles.selected],
-        });
-      };
-    }
-
-    return acc;
-  }, {});
+  handler: undefined | CalendarDayEventHandler,
+): undefined | ((day: Date, modifiers: DayModifiers) => void) {
+  return (
+    handler &&
+    ((date, modifiers) =>
+      handler(date, {
+        disabled: !!modifiers[styles.disabled],
+        selected: !!modifiers[styles.selected],
+      }))
+  );
 }
 
-//
-// Main Component
-//
+type CalendarDayEventProps = Partial<Record<CalendarDayEventHandlerName, CalendarDayEventHandler>>;
 
 export interface CalendarProps
   extends CalendarDayEventProps,
@@ -173,39 +267,9 @@ export function Calendar({
   selectedDays,
   highlightedDays,
 
-  onDayClick,
-  onDayKeyDown,
-  onDayMouseEnter,
-  onDayMouseLeave,
-  onDayMouseDown,
-  onDayMouseUp,
-  onDayTouchEnd,
-  onDayTouchStart,
-
   ...props
 }: CalendarProps) {
-  const {
-    blue,
-    green,
-    purple,
-    red,
-    teal,
-    yellow,
-    firstDayOfMonth,
-    lastDayOfMonth,
-    ...styles
-  } = useCalendarStyles({ classes });
-  const handlers = toDayPickerDayEventHandlers(styles, {
-    onDayClick,
-    onDayKeyDown,
-    onDayMouseEnter,
-    onDayMouseLeave,
-    onDayMouseDown,
-    onDayMouseUp,
-    onDayTouchEnd,
-    onDayTouchStart,
-  });
-
+  const styles = useStyles({ classes });
   const [selectedFrom, selectedTo] = normalizeDateRange(selectedDays);
 
   return (
@@ -233,7 +297,6 @@ export function Calendar({
       <Grid item={true} xs={12} sm="auto">
         <DayPicker
           {...props}
-          {...handlers}
           classNames={styles}
           navbarElement={CalendarNavbar}
           captionElement={CalendarCaption}
@@ -244,15 +307,23 @@ export function Calendar({
           }
           modifiers={{
             ...modifiers,
-            [firstDayOfMonth]: isFirstDayOfMonth,
-            [lastDayOfMonth]: isLastDayOfMonth,
-            [blue]: highlightedDays?.blue,
-            [green]: highlightedDays?.green,
-            [purple]: highlightedDays?.purple,
-            [red]: highlightedDays?.red,
-            [teal]: highlightedDays?.teal,
-            [yellow]: highlightedDays?.yellow,
+            [styles.firstDayOfMonth]: isFirstDayOfMonth,
+            [styles.lastDayOfMonth]: isLastDayOfMonth,
+            [styles.blue]: highlightedDays?.blue,
+            [styles.green]: highlightedDays?.green,
+            [styles.purple]: highlightedDays?.purple,
+            [styles.red]: highlightedDays?.red,
+            [styles.teal]: highlightedDays?.teal,
+            [styles.yellow]: highlightedDays?.yellow,
           }}
+          onDayClick={toDayPickerEventHandler(styles, props.onDayClick)}
+          onDayKeyDown={toDayPickerEventHandler(styles, props.onDayKeyDown)}
+          onDayMouseEnter={toDayPickerEventHandler(styles, props.onDayMouseEnter)}
+          onDayMouseLeave={toDayPickerEventHandler(styles, props.onDayMouseLeave)}
+          onDayMouseDown={toDayPickerEventHandler(styles, props.onDayMouseDown)}
+          onDayMouseUp={toDayPickerEventHandler(styles, props.onDayMouseUp)}
+          onDayTouchEnd={toDayPickerEventHandler(styles, props.onDayTouchEnd)}
+          onDayTouchStart={toDayPickerEventHandler(styles, props.onDayTouchStart)}
         />
 
         {!!footer && <div className={styles.footer}>{footer}</div>}

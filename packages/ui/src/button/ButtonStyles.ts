@@ -1,5 +1,7 @@
 import { Theme } from '@material-ui/core';
 
+import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
+
 export function applyButtonStyles(theme: Theme) {
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
@@ -13,17 +15,18 @@ export function applyButtonStyles(theme: Theme) {
       color: undefined,
       textTransform: undefined,
       minWidth: theme.spacing(6),
+
       transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
         duration: theme.transitions.duration.short,
       }),
 
-      fontSize: 14,
-      lineHeight: '20px',
+      fontSize: fontSizeVariant('button'),
+      lineHeight: fontHeightVariant('button'),
       padding: theme.spacing(0.75, 2),
       [theme.breakpoints.only('xs')]: {
-        fontSize: 16,
-        lineHeight: '24px',
         padding: theme.spacing(1.25, 3),
+        fontSize: fontSizeVariant('button', true),
+        lineHeight: fontHeightVariant('button', true),
       },
 
       '&:hover': {
@@ -37,28 +40,23 @@ export function applyButtonStyles(theme: Theme) {
 
     label: {
       '& > .MuiSvgIcon-root': {
-        fontSize: 20,
-        '$sizeLarge &': { fontSize: 24 },
-        [theme.breakpoints.only('xs')]: { fontSize: 24 },
+        fontSize: fontHeightVariant('button'),
+        '$sizeLarge &': { fontSize: fontHeightVariant('h4') },
+        [theme.breakpoints.only('xs')]: { fontSize: fontHeightVariant('h4') },
       },
     },
 
     sizeSmall: {
       padding: theme.spacing(0.25, 2),
-
-      [theme.breakpoints.only('xs')]: {
-        padding: theme.spacing(0.5, 3),
-      },
+      [theme.breakpoints.only('xs')]: { padding: theme.spacing(0.5, 3) },
     },
 
     sizeLarge: {
-      fontSize: 16,
-      lineHeight: '24px',
-      padding: theme.spacing(1.25, 5),
+      fontSize: fontSizeVariant('h4'),
+      lineHeight: fontHeightVariant('h4'),
 
-      [theme.breakpoints.only('xs')]: {
-        padding: theme.spacing(2, 8),
-      },
+      padding: theme.spacing(1.25, 5),
+      [theme.breakpoints.only('xs')]: { padding: theme.spacing(2, 8) },
     },
 
     text: { padding: undefined },

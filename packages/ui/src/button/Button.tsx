@@ -67,6 +67,7 @@ function outlinedVariant(
 function containedVariant(stale: Color, outline: Color, active: Color): CSSProperties {
   return {
     backgroundColor: stale,
+    '&$disabled': { backgroundColor: outline },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
       '&:hover, &:active, &$isActive': { backgroundColor: active },
@@ -78,9 +79,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
   theme => ({
     root: {},
 
-    label: {
-      '$isLoading &': { visibility: 'hidden' },
-    },
+    label: { '$isLoading &': { visibility: 'hidden' } },
 
     sizeSmall: {},
     sizeLarge: {},
@@ -93,7 +92,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     textSizeSmall: {},
     textSizeLarge: {},
 
-    outlined: {},
+    outlined: { backgroundColor: Color.White },
     outlinedError: outlinedVariant(
       Color.Red300,
       Color.Red300,
@@ -127,10 +126,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     outlinedSizeSmall: {},
     outlinedSizeLarge: {},
 
-    contained: {
-      color: Color.White,
-      '&$disabled:not($isLoading)': { color: Color.Silver500, backgroundColor: Color.Silver200 },
-    },
+    contained: { color: Color.White },
     containedError: containedVariant(Color.Red300, Color.Red100, Color.Red500),
     containedSuccess: containedVariant(Color.Green300, Color.Green100, Color.Green500),
     containedPrimary: containedVariant(Color.Blue300, Color.Blue100, Color.Blue500),
@@ -170,7 +166,7 @@ export interface ButtonProps extends Omit<MuiButtonProps, 'color' | 'variant' | 
   target?: string;
   isActive?: boolean;
   isLoading?: boolean;
-  classes?: ClassNameMap<ButtonClassKey>;
+  classes?: Partial<ClassNameMap<ButtonClassKey>>;
   color: 'primary' | 'error' | 'success';
   variant: 'text' | 'outlined' | 'contained';
 }

@@ -5,6 +5,8 @@ import { Color, TagClassKey } from '@superdispatch/ui';
 import clsx from 'clsx';
 import React, { forwardRef, ReactNode } from 'react';
 
+import { fontHeightVariant } from '../theme/TypographyStyles';
+
 export type CardButtonClassKey =
   | 'root'
   | 'label'
@@ -26,7 +28,6 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
       justifyContent: 'center',
 
       border: '1px dashed',
-      boxShadow: '0 0 0 0 transparent',
       borderRadius: theme.spacing(0.5),
 
       padding: theme.spacing(1.5),
@@ -61,7 +62,7 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
 
     label: { display: 'flex', alignItems: 'center' },
 
-    icon: { display: 'flex', '& .MuiSvgIcon-root': { fontSize: '20px' } },
+    icon: { display: 'flex', '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1') } },
     startIcon: { marginRight: theme.spacing(1), marginLeft: theme.spacing(-0.5) },
     endIcon: { marginLeft: theme.spacing(1), marginRight: theme.spacing(-0.5) },
 
