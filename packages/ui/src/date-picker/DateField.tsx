@@ -53,11 +53,7 @@ export function DateField({
 
   return (
     <>
-      <DateTextField
-        {...textFieldProps}
-        value={textValue}
-        onFocus={event => onOpen(event.currentTarget)}
-      />
+      <DateTextField {...textFieldProps} value={textValue} onOpen={onOpen} />
 
       <Popover
         open={!!anchorEl}
