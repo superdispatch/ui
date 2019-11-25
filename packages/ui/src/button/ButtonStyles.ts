@@ -1,118 +1,33 @@
 import { Theme } from '@material-ui/core';
-import { CSSProperties } from '@material-ui/styles';
 
-import { Color } from '../theme/Color';
-
-export enum ButtonClassNames {
-  root = 'Button-root',
-  isActive = 'Button-isActive',
-  isLoading = 'Button-isLoading',
-  colorError = 'Button-colorError',
-  colorSuccess = 'Button-colorSuccess',
-  progress = 'Button-progress',
-}
-
-export function textVariant(
-  textColor: Color,
-  boxShadowColor: Color,
-  backgroundColor: Color,
-): CSSProperties {
-  return {
-    [`& .${ButtonClassNames.progress}`]: { color: textColor },
-
-    '&$disabled': {
-      [`&:not(.${ButtonClassNames.isLoading})`]: {
-        color: boxShadowColor,
-      },
-    },
-
-    '&:not($disabled)': {
-      color: textColor,
-
-      [`&.${ButtonClassNames.isActive}, &:hover, &:active, &:focus`]: {
-        backgroundColor,
-      },
-
-      '&:focus': {
-        boxShadow: `0 0 0 2px ${boxShadowColor}`,
-      },
-    },
-  };
-}
-
-function outlinedVariant(
-  activeColor: Color,
-  activeShadowColor: Color,
-  activeBackgroundColor: Color,
-  staleColor: Color = activeColor,
-  staleBorderColor: Color = activeColor,
-): CSSProperties {
-  return {
-    '&:hover': {
-      border: undefined,
-      backgroundColor: undefined,
-      '@media (hover: none)': { backgroundColor: undefined },
-    },
-
-    [`&.${ButtonClassNames.isLoading}`]: { borderColor: staleBorderColor },
-
-    [`& .${ButtonClassNames.progress}`]: { color: activeColor },
-
-    '&:not($disabled)': {
-      color: staleColor,
-      borderColor: staleBorderColor,
-
-      [`&.${ButtonClassNames.isActive}, &:hover, &:active, &:focus`]: { color: activeColor },
-      [`&.${ButtonClassNames.isActive}, &:hover, &:active`]: {
-        borderColor: activeColor,
-        backgroundColor: activeBackgroundColor,
-      },
-
-      '&:focus': { boxShadow: `0 0 0 2px ${activeShadowColor}` },
-    },
-  };
-}
-
-function containedVariant(
-  backgroundColor: Color,
-  boxShadowColor: Color,
-  hoverBackgroundColor: Color,
-): CSSProperties {
-  return {
-    '&:hover': {
-      backgroundColor: undefined,
-      '@media (hover: none)': { backgroundColor: undefined },
-    },
-
-    [`&.${ButtonClassNames.isLoading}`]: { backgroundColor },
-
-    '&:not($disabled)': {
-      backgroundColor,
-      color: Color.White,
-      '&:focus': { boxShadow: `0 0 0 3px ${boxShadowColor}` },
-      [`&.${ButtonClassNames.isActive}, &:hover`]: { backgroundColor: hoverBackgroundColor },
-    },
-  };
-}
+import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
 
 export function applyButtonStyles(theme: Theme) {
-  const progressSize = theme.spacing(2);
-  const largeProgressSize = theme.spacing(3);
-
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
 
-  theme.props.MuiButton = { disableFocusRipple: true };
+  theme.props.MuiButton = {
+    disableFocusRipple: true,
+  };
 
   theme.overrides.MuiButton = {
     root: {
-      fontSize: 14,
-      lineHeight: '20px',
+      color: undefined,
       textTransform: undefined,
       minWidth: theme.spacing(6),
+
       transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
         duration: theme.transitions.duration.short,
       }),
+
+      fontSize: fontSizeVariant('button'),
+      lineHeight: fontHeightVariant('button'),
+      padding: theme.spacing(0.75, 2),
+      [theme.breakpoints.only('xs')]: {
+        padding: theme.spacing(1.25, 3),
+        fontSize: fontSizeVariant('button', true),
+        lineHeight: fontHeightVariant('button', true),
+      },
 
       '&:hover': {
         backgroundColor: undefined,
@@ -121,83 +36,50 @@ export function applyButtonStyles(theme: Theme) {
       },
 
       '&$disabled': { color: undefined },
+    },
 
-      '& $label > .MuiSvgIcon-root': { fontSize: 20 },
-
-      [`& .${ButtonClassNames.progress}`]: {
-        top: '50%',
-        left: '50%',
-        position: 'absolute',
-
-        marginTop: -(progressSize / 2),
-        marginLeft: -(progressSize / 2),
-        width: `${progressSize}px !important`,
-        height: `${progressSize}px !important`,
+    label: {
+      '& > .MuiSvgIcon-root': {
+        fontSize: fontHeightVariant('button'),
+        '$sizeLarge &': { fontSize: fontHeightVariant('h4') },
+        [theme.breakpoints.only('xs')]: { fontSize: fontHeightVariant('h4') },
       },
     },
 
     sizeSmall: {
-      fontSize: 14,
-      lineHeight: '20px',
-
-      '& $label > .MuiSvgIcon-root': { fontSize: 20 },
-
-      '&$outlined': { padding: '1px 15px' },
-      '&$text, &$contained': { padding: '2px 16px' },
+      padding: theme.spacing(0.25, 2),
+      [theme.breakpoints.only('xs')]: { padding: theme.spacing(0.5, 3) },
     },
 
     sizeLarge: {
-      fontSize: 16,
-      lineHeight: '24px',
+      fontSize: fontSizeVariant('h4'),
+      lineHeight: fontHeightVariant('h4'),
 
-      '&$outlined': { padding: '9px 39px' },
-      '&$text, &$contained': { padding: '10px 40px' },
-
-      '& $label > .MuiSvgIcon-root': { fontSize: 24 },
-
-      [`& .${ButtonClassNames.progress}`]: {
-        marginTop: -(largeProgressSize / 2),
-        marginLeft: -(largeProgressSize / 2),
-        width: `${largeProgressSize}px !important`,
-        height: `${largeProgressSize}px !important`,
-      },
+      padding: theme.spacing(1.25, 5),
+      [theme.breakpoints.only('xs')]: { padding: theme.spacing(2, 8) },
     },
+
+    text: { padding: undefined },
+    textSizeSmall: { padding: undefined, fontSize: undefined },
+    textSizeLarge: { padding: undefined, fontSize: undefined },
 
     outlined: {
-      padding: '5px 15px',
-      backgroundColor: Color.White,
-      border: '1px solid transparent',
-
-      '&$disabled': {
-        color: Color.Silver500,
-        borderColor: Color.Silver400,
-      },
-
-      [`&.${ButtonClassNames.colorError}`]: outlinedVariant(
-        Color.Red300,
-        Color.Red100,
-        Color.Red50,
-      ),
-
-      [`&.${ButtonClassNames.colorSuccess}`]: outlinedVariant(
-        Color.Green300,
-        Color.Green100,
-        Color.Green50,
-      ),
+      border: undefined,
+      padding: undefined,
+      '&$disabled': { border: undefined },
     },
 
-    outlinedPrimary: outlinedVariant(
-      Color.Blue300,
-      Color.Blue100,
-      Color.Blue50,
-      Color.Grey500,
-      Color.Silver500,
-    ),
+    outlinedPrimary: {
+      border: undefined,
+      '&:hover': { border: undefined, backgroundColor: undefined },
+    },
+    outlinedSizeSmall: { padding: undefined, fontSize: undefined },
+    outlinedSizeLarge: { padding: undefined, fontSize: undefined },
 
     contained: {
-      color: Color.White,
-      padding: '6px 16px',
-      boxShadow: '0 0 0 0 transparent',
+      color: undefined,
+      boxShadow: undefined,
+      backgroundColor: undefined,
 
       '&:hover': {
         boxShadow: undefined,
@@ -205,49 +87,12 @@ export function applyButtonStyles(theme: Theme) {
         '&$disabled': { backgroundColor: undefined },
         '@media (hover: none)': { boxShadow: undefined, backgroundColor: undefined },
       },
-      '&$focusVisible': { boxShadow: undefined },
       '&:active': { boxShadow: undefined },
-      '&$disabled': {
-        boxShadow: undefined,
-        color: Color.Silver500,
-        backgroundColor: Color.Silver200,
-      },
-
-      [`&.${ButtonClassNames.colorError}`]: containedVariant(
-        Color.Red300,
-        Color.Red100,
-        Color.Red500,
-      ),
-
-      [`&.${ButtonClassNames.colorSuccess}`]: containedVariant(
-        Color.Green300,
-        Color.Green100,
-        Color.Green500,
-      ),
-
-      [`& .${ButtonClassNames.progress}`]: { color: Color.White },
+      '&$focusVisible': { boxShadow: undefined },
+      '&$disabled': { color: undefined, boxShadow: undefined, backgroundColor: undefined },
     },
 
-    containedPrimary: containedVariant(Color.Blue300, Color.Blue100, Color.Blue500),
-
-    text: {
-      padding: '6px 16px',
-      boxShadow: '0 0 0 0 transparent',
-
-      [`&.${ButtonClassNames.colorError}`]: textVariant(Color.Red300, Color.Red100, Color.Red50),
-
-      [`&.${ButtonClassNames.colorSuccess}`]: textVariant(
-        Color.Green300,
-        Color.Green100,
-        Color.Green50,
-      ),
-    },
-
-    textPrimary: textVariant(Color.Blue300, Color.Blue100, Color.Blue50),
-
-    disabled: {
-      boxShadow: 'none',
-      [`&.${ButtonClassNames.isLoading}`]: { color: 'transparent' },
-    },
+    containedSizeSmall: { padding: undefined, fontSize: undefined },
+    containedSizeLarge: { padding: undefined, fontSize: undefined },
   };
 }

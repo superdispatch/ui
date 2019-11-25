@@ -1,5 +1,6 @@
 import ButtonDemo from './ui/Button.demo';
 import CalendarDemo from './ui/Calendar.demo';
+import CardButtonDemo from './ui/CardButton.demo';
 import DateFieldDemo from './ui/DateField.demo';
 import DatePickerDemo from './ui/DatePicker.demo';
 import DateRangeFieldDemo from './ui/DateRangeField.demo';
@@ -10,6 +11,7 @@ import TextFieldDemo from './ui/TextField.demo';
 export default {
   Button: ButtonDemo,
   Calendar: CalendarDemo,
+  'Card Button': CardButtonDemo,
   IconButton: IconButtonDemo,
   'Date Field': DateFieldDemo,
   'Date Range Field': DateRangeFieldDemo,

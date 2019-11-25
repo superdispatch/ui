@@ -4,13 +4,10 @@ import { startCase } from 'lodash';
 import React from 'react';
 
 const colors: Array<TypographyProps['color']> = [
-  'initial',
-  'error',
-  'inherit',
-  'primary',
-  'secondary',
   'textPrimary',
   'textSecondary',
+  'primary',
+  'error',
 ];
 
 const variants: Array<TypographyProps['variant']> = [

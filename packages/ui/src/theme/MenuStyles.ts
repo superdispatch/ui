@@ -1,5 +1,7 @@
 import { Theme } from '@material-ui/core';
 
+import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
+
 export function applyMenuStyles(theme: Theme) {
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
@@ -11,16 +13,18 @@ export function applyMenuStyles(theme: Theme) {
     transformOrigin: { vertical: 'top', horizontal: 'left' },
   };
 
-  theme.props.MuiMenuItem = {
-    dense: true,
-  };
-
   theme.overrides.MuiMenuItem = {
     root: {
-      fontSize: '14px',
-      lineHeight: '20px',
-      paddingTop: '8px',
-      paddingBottom: '8px',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+
+      fontSize: fontSizeVariant('body1', true),
+      lineHeight: fontHeightVariant('body1', true),
+
+      [theme.breakpoints.up('sm')]: {
+        fontSize: fontSizeVariant('body1'),
+        lineHeight: fontHeightVariant('body1'),
+      },
     },
   };
 }

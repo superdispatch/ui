@@ -20,11 +20,7 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
 
   return (
     <ThemeProvider>
-      <PhonesContextProvider
-        load={() => import(/* webpackChunkName: "libphonenumber" */ 'google-libphonenumber')}
-      >
-        {children}
-
+      <PhonesContextProvider>
         {codeSandboxParameters && (
           <Box position="fixed" top="8px" right="8px">
             <form
@@ -40,6 +36,8 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
             </form>
           </Box>
         )}
+
+        <Box marginTop={5}>{children}</Box>
       </PhonesContextProvider>
     </ThemeProvider>
   );

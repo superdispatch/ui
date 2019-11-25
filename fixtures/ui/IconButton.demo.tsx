@@ -15,13 +15,13 @@ import React, { useState } from 'react';
 
 type State = 'stale' | 'disabled';
 const states: State[] = ['stale', 'disabled'];
-const colors: Array<IconButtonProps['color']> = ['primary', 'secondary', 'inherit'];
+const colors: Array<IconButtonProps['color']> = ['default', 'primary', 'inherit'];
 
 const sizes: Array<IconButtonProps['size']> = ['small', 'medium'];
 
 export default function IconButtonDemo() {
   const [state, setState] = useState<State>('stale');
-  const [color, setColor] = useState<IconButtonProps['color']>('primary');
+  const [color, setColor] = useState<IconButtonProps['color']>('default');
 
   return (
     <>
