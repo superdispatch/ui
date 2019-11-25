@@ -1,5 +1,5 @@
-import CardDemo from './demos/Card.demo';
-import PaperDemo from './demos/Paper.demo';
+import CardDemo from './ui/Card.demo';
+import PaperDemo from './ui/Paper.demo';
 
 export default {
   Card: CardDemo,
