@@ -1,7 +1,7 @@
-import SvgIconDemo from './demos/SvgIcon.demo';
-import TagDemo from './demos/Tag.demo';
-import TooltipDemo from './demos/Tooltip.demo';
-import TypographyDemo from './demos/Typography.demo';
+import SvgIconDemo from './ui/SvgIcon.demo';
+import TagDemo from './ui/Tag.demo';
+import TooltipDemo from './ui/Tooltip.demo';
+import TypographyDemo from './ui/Typography.demo';
 
 export default {
   Tag: TagDemo,
