@@ -64,6 +64,7 @@ workflows:
       - main:
           name: publish
           publish: true
+          context: npm-pkg
           filters:
             tags:
               only: /^v.*/
