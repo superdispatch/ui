@@ -1,3 +1,7 @@
+# editors
+.idea
+.vscode
+
 # tests
 coverage
 
