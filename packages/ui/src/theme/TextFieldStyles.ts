@@ -65,20 +65,20 @@ export function applyTextFieldStyles(theme: Theme) {
   theme.overrides.MuiOutlinedInput = {
     root: {
       '& .MuiInputAdornment-root': {
-        '& .MuiSvgIcon-root': {
+        '& > .MuiSvgIcon-root': {
           fontSize: fontHeightVariant('body1', true),
           [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('body1') },
         },
 
         '&.MuiInputAdornment-positionStart': {
-          '& .MuiIconButton-root': {
+          '& > .MuiIconButton-root': {
             padding: theme.spacing(1),
             marginLeft: theme.spacing(-0.5),
           },
         },
 
         '&.MuiInputAdornment-positionEnd': {
-          '& .MuiIconButton-root': {
+          '& > .MuiIconButton-root': {
             padding: theme.spacing(1),
             marginRight: theme.spacing(-0.5),
           },

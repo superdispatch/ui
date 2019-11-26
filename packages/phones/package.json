@@ -11,6 +11,8 @@
     "build": "pika build"
   },
   "dependencies": {
+    "clsx": "^1.0.4",
+    "libphonenumber-js": "^1.7.27",
     "utility-hooks": "^0.5.1"
   },
   "devDependencies": {
