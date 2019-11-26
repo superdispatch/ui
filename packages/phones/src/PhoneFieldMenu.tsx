@@ -1,292 +1,56 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { Divider, Menu, MenuItem } from '@material-ui/core';
 import { MenuProps } from '@material-ui/core/Menu';
 import { CountryCode } from 'libphonenumber-js';
 import { getCountries } from 'libphonenumber-js/max';
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 
+import { countryNames } from './CountryNames';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
-export interface PhoneFieldMenuProps extends Omit<MenuProps, 'open' | 'children'> {
+export interface PhoneFieldMenuProps
+  extends Omit<MenuProps, 'open' | 'children' | 'onClose' | 'onSelect'> {
   selectedCountry: CountryCode;
+  onClose: () => void;
+  onSelect: (country: CountryCode) => void;
 }
 
-const flags = [
-  'AD',
-  'AE',
-  'AF',
-  'AG',
-  'AI',
-  'AL',
-  'AM',
-  'AO',
-  'AR',
-  'AS',
-  'AT',
-  'AU',
-  'AW',
-  'AX',
-  'AZ',
-  'BA',
-  'BB',
-  'BD',
-  'BE',
-  'BF',
-  'BG',
-  'BH',
-  'BI',
-  'BJ',
-  'BL',
-  'BM',
-  'BN',
-  'BO',
-  'BR',
-  'BS',
-  'BT',
-  'BV',
-  'BW',
-  'BY',
-  'BZ',
-  'CA',
-  'CC',
-  'CD',
-  'CF',
-  'CG',
-  'CH',
-  'CI',
-  'CK',
-  'CL',
-  'CM',
-  'CN',
-  'CO',
-  'CR',
-  'CU',
-  'CV',
-  'CW',
-  'CX',
-  'CY',
-  'CZ',
-  'DE',
-  'DJ',
-  'DK',
-  'DM',
-  'DO',
-  'DZ',
-  'EC',
-  'EE',
-  'EG',
-  'ER',
-  'ES',
-  'ET',
-  'EU',
-  'FI',
-  'FJ',
-  'FK',
-  'FM',
-  'FO',
-  'FR',
-  'GA',
-  'GB',
-  'GB-ENG',
-  'GB-NIR',
-  'GB-SCT',
-  'GB-WLS',
-  'GB-ZET',
-  'GD',
-  'GE',
-  'GF',
-  'GG',
-  'GH',
-  'GI',
-  'GL',
-  'GM',
-  'GN',
-  'GP',
-  'GQ',
-  'GR',
-  'GS',
-  'GT',
-  'GU',
-  'GW',
-  'GY',
-  'HK',
-  'HM',
-  'HN',
-  'HR',
-  'HT',
-  'HU',
-  'ID',
-  'IE',
-  'IL',
-  'IM',
-  'IN',
-  'IO',
-  'IQ',
-  'IR',
-  'IS',
-  'IT',
-  'JE',
-  'JM',
-  'JO',
-  'JP',
-  'KE',
-  'KG',
-  'KH',
-  'KI',
-  'KM',
-  'KN',
-  'KP',
-  'KR',
-  'KW',
-  'KY',
-  'KZ',
-  'LA',
-  'LB',
-  'LC',
-  'LGBT',
-  'LI',
-  'LK',
-  'LR',
-  'LS',
-  'LT',
-  'LU',
-  'LV',
-  'LY',
-  'MA',
-  'MC',
-  'MD',
-  'ME',
-  'MF',
-  'MG',
-  'MH',
-  'MK',
-  'ML',
-  'MM',
-  'MN',
-  'MO',
-  'MP',
-  'MQ',
-  'MR',
-  'MS',
-  'MT',
-  'MU',
-  'MV',
-  'MW',
-  'MX',
-  'MY',
-  'MZ',
-  'NA',
-  'NC',
-  'NE',
-  'NF',
-  'NG',
-  'NI',
-  'NL',
-  'NO',
-  'NP',
-  'NR',
-  'NU',
-  'NZ',
-  'OM',
-  'PA',
-  'PE',
-  'PF',
-  'PG',
-  'PH',
-  'PK',
-  'PL',
-  'PM',
-  'PN',
-  'PR',
-  'PS',
-  'PT',
-  'PW',
-  'PY',
-  'QA',
-  'RE',
-  'RO',
-  'RS',
-  'RU',
-  'RW',
-  'SA',
-  'SB',
-  'SC',
-  'SD',
-  'SE',
-  'SG',
-  'SH',
-  'SI',
-  'SJ',
-  'SK',
-  'SL',
-  'SM',
-  'SN',
-  'SO',
-  'SR',
-  'SS',
-  'ST',
-  'SV',
-  'SX',
-  'SY',
-  'SZ',
-  'TC',
-  'TD',
-  'TF',
-  'TG',
-  'TH',
-  'TJ',
-  'TK',
-  'TL',
-  'TM',
-  'TN',
-  'TO',
-  'TR',
-  'TT',
-  'TV',
-  'TW',
-  'TZ',
-  'UA',
-  'UG',
-  'UM',
-  'US',
-  'US-CA',
-  'UY',
-  'UZ',
-  'VA',
-  'VC',
-  'VE',
-  'VG',
-  'VI',
-  'VN',
-  'VU',
-  'WF',
-  'WS',
-  'XK',
-  'YE',
-  'YT',
-  'ZA',
-  'ZM',
-  'ZW',
-];
+const countries = (() => {
+  const main: CountryCode[] = ['US', 'CA', 'AU', 'NZ'];
+  const result: CountryCode[] = getCountries().filter(
+    country => country !== '001' && !main.includes(country),
+  );
+  return [...main, null, ...result];
+})();
 
 export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
-  ({ anchorEl, selectedCountry, ...props }, ref) => {
-    const countries = useMemo(() => {
-      const allCountries = getCountries();
-
-      return flags.filter(country => !allCountries.includes(country));
-    }, []);
-
-    return (
-      <Menu {...props} ref={ref} anchorEl={anchorEl} open={!!anchorEl}>
-        {countries.map(country => (
-          <MenuItem key={country} selected={country === selectedCountry}>
+  ({ anchorEl, selectedCountry, onClose, onSelect, ...props }, ref) => (
+    <Menu
+      {...props}
+      ref={ref}
+      anchorEl={anchorEl}
+      onClose={onClose}
+      open={!!anchorEl}
+      PaperProps={{ style: { maxHeight: 30 * 8 } }}
+    >
+      {countries.map(country =>
+        country == null ? (
+          <Divider key="divider" />
+        ) : (
+          <MenuItem
+            key={country}
+            selected={country === selectedCountry}
+            onClick={() => {
+              onSelect(country);
+              onClose();
+            }}
+          >
             <PhoneFieldFlag code={country} />
-            {country}
+            {countryNames[country]}
           </MenuItem>
-        ))}
-      </Menu>
-    );
-  },
+        ),
+      )}
+    </Menu>
+  ),
 );
 
 if (process.env.NODE_ENV !== 'production') {

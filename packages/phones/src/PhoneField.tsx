@@ -1,9 +1,8 @@
-
-
 import { ButtonBase, InputAdornment, makeStyles, TextField, Theme } from '@material-ui/core';
 import { OutlinedInputClassKey } from '@material-ui/core/OutlinedInput';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
+import { CountryCode } from 'libphonenumber-js';
 import React, { useRef, useState } from 'react';
 
 import { PhoneFieldFlag } from './PhoneFieldFlag';
@@ -53,18 +52,22 @@ export interface PhoneFieldProps {
 }
 
 export function PhoneField() {
-  const anchorRef = useRef<null | HTMLDivElement>(null);
+  const shouldFocusInputRef = useRef(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const {
     selectButton: selectButtonClassName,
     selectButtonIcon: selectButtonIconClassName,
   } = useStyles();
   const inputStyles = useInputStyles();
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>('US');
 
   return (
     <>
       <TextField
         ref={anchorRef}
+        inputRef={inputRef}
         InputProps={{
           classes: inputStyles,
           startAdornment: (
@@ -72,8 +75,14 @@ export function PhoneField() {
               <ButtonBase
                 className={selectButtonClassName}
                 onClick={() => setIsOpen(prev => !prev)}
+                onFocus={() => {
+                  if (shouldFocusInputRef.current) {
+                    inputRef.current?.focus();
+                    shouldFocusInputRef.current = false;
+                  }
+                }}
               >
-                <PhoneFieldFlag code="US" />
+                <PhoneFieldFlag code={selectedCountry} />
 
                 {isOpen ? (
                   <ArrowDropUp className={selectButtonIconClassName} />
@@ -87,7 +96,11 @@ export function PhoneField() {
       />
 
       <PhoneFieldMenu
-        selected="US"
+        onSelect={nextSelectedCountry => {
+          shouldFocusInputRef.current = true;
+          setSelectedCountry(nextSelectedCountry);
+        }}
+        selectedCountry={selectedCountry}
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
       />
