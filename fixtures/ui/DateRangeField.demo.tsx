@@ -20,7 +20,12 @@ export function isSameDateRange(
   a: undefined | [Date?, Date?],
   b: undefined | [Date?, Date?],
 ): boolean {
-  return !!a && !!b && moment(a[0]).isSame(b[0], 'date') && moment(a[1]).isSame(b[1], 'date');
+  return (
+    !!a &&
+    !!b &&
+    moment(a[0]).isSame(b[0], 'date') &&
+    moment(a[1]).isSame(b[1], 'date')
+  );
 }
 
 export default function DateRangeFieldDemo() {
@@ -72,10 +77,11 @@ export default function DateRangeFieldDemo() {
             renderFooter={() =>
               hasFooter && (
                 <Typography color="textSecondary">
-                  Selected date range allows preferred carriers to instantly book loads inside the
-                  Super Loadboard.
+                  Selected date range allows preferred carriers to instantly
+                  book loads inside the Super Loadboard.
                   <br />
-                  Dates out of selected range will still be available to request.
+                  Dates out of selected range will still be available to
+                  request.
                 </Typography>
               )
             }

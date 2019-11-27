@@ -7,7 +7,11 @@ export function applyTabsStyles(theme: Theme) {
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
 
-  theme.props.MuiTabs = { variant: 'scrollable', textColor: 'primary', indicatorColor: 'primary' };
+  theme.props.MuiTabs = {
+    variant: 'scrollable',
+    textColor: 'primary',
+    indicatorColor: 'primary',
+  };
   theme.overrides.MuiTabs = { root: { minHeight: '40px' } };
 
   theme.overrides.MuiTab = {

@@ -51,7 +51,10 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
         color: Color.Blue300,
         borderColor: Color.Silver500,
         '&:focus': { backgroundColor: Color.Blue50 },
-        '&:hover, &:active': { borderColor: Color.Blue300, backgroundColor: Color.Blue50 },
+        '&:hover, &:active': {
+          borderColor: Color.Blue300,
+          backgroundColor: Color.Blue50,
+        },
       },
     },
 
@@ -62,8 +65,14 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
 
     label: { display: 'flex', alignItems: 'center' },
 
-    icon: { display: 'flex', '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1') } },
-    startIcon: { marginRight: theme.spacing(1), marginLeft: theme.spacing(-0.5) },
+    icon: {
+      display: 'flex',
+      '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1') },
+    },
+    startIcon: {
+      marginRight: theme.spacing(1),
+      marginLeft: theme.spacing(-0.5),
+    },
     endIcon: { marginLeft: theme.spacing(1), marginRight: theme.spacing(-0.5) },
 
     hint: { color: Color.Silver500, marginTop: theme.spacing(0.5) },
@@ -86,7 +95,17 @@ export interface CardButtonProps extends ButtonBaseProps {
 
 export const CardButton = forwardRef<HTMLButtonElement, CardButtonProps>(
   (
-    { hint, size, error, classes, className, children, endIcon, startIcon, ...buttonProps },
+    {
+      hint,
+      size,
+      error,
+      classes,
+      className,
+      children,
+      endIcon,
+      startIcon,
+      ...buttonProps
+    },
     ref,
   ) => {
     const styles = useStyles({ classes });
@@ -105,7 +124,9 @@ export const CardButton = forwardRef<HTMLButtonElement, CardButtonProps>(
       >
         <Typography color="inherit" variant="h4" className={styles.label}>
           {!error && !!startIcon && (
-            <span className={clsx(styles.icon, styles.startIcon)}>{startIcon}</span>
+            <span className={clsx(styles.icon, styles.startIcon)}>
+              {startIcon}
+            </span>
           )}
           {error || children}
           {!error && !!endIcon && (

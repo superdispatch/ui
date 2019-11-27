@@ -31,10 +31,13 @@ export function DateRangePicker({
   const { onClose, ...stateProps } = useDatePickerPopoverState();
   const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles();
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-  const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>('start');
+  const [pickingDateType, setPickingDateType] = useState<'start' | 'end'>(
+    'start',
+  );
 
   const [fromDate, actualToDate] = normalizeDateRange(value);
-  const toDate = hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
+  const toDate =
+    hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
 
   const quickSelectionSelectedItem = useMemo(
     () => quickSelectionItems?.find(item => isSameDateRange(item.value, value)),

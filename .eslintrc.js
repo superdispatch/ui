@@ -5,7 +5,10 @@ module.exports = {
     { files: '*.js', extends: 'plugin:@superdispatch/node' },
     {
       files: ['*.ts', '*.tsx'],
-      extends: ['plugin:@superdispatch/react', 'plugin:@superdispatch/typescript'],
+      extends: [
+        'plugin:@superdispatch/react',
+        'plugin:@superdispatch/typescript',
+      ],
       settings: { react: { version: 'detect' } },
       rules: {
         'react-hooks/exhaustive-deps': [

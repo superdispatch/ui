@@ -16,9 +16,12 @@ export function applyButtonStyles(theme: Theme) {
       textTransform: undefined,
       minWidth: theme.spacing(6),
 
-      transition: theme.transitions.create(['color', 'border', 'box-shadow', 'background-color'], {
-        duration: theme.transitions.duration.short,
-      }),
+      transition: theme.transitions.create(
+        ['color', 'border', 'box-shadow', 'background-color'],
+        {
+          duration: theme.transitions.duration.short,
+        },
+      ),
 
       fontSize: fontSizeVariant('button'),
       lineHeight: fontHeightVariant('button'),
@@ -85,11 +88,18 @@ export function applyButtonStyles(theme: Theme) {
         boxShadow: undefined,
         backgroundColor: undefined,
         '&$disabled': { backgroundColor: undefined },
-        '@media (hover: none)': { boxShadow: undefined, backgroundColor: undefined },
+        '@media (hover: none)': {
+          boxShadow: undefined,
+          backgroundColor: undefined,
+        },
       },
       '&:active': { boxShadow: undefined },
       '&$focusVisible': { boxShadow: undefined },
-      '&$disabled': { color: undefined, boxShadow: undefined, backgroundColor: undefined },
+      '&$disabled': {
+        color: undefined,
+        boxShadow: undefined,
+        backgroundColor: undefined,
+      },
     },
 
     containedSizeSmall: { padding: undefined, fontSize: undefined },

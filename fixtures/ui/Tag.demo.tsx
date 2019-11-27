@@ -39,7 +39,12 @@ export default function TagDemo() {
                 onChange={(_, value) => setColor(value as TagProps['color'])}
               >
                 {colors.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>

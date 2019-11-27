@@ -28,7 +28,11 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
               target="_blank"
               action="https://codesandbox.io/api/v1/sandboxes/define"
             >
-              <input type="hidden" name="parameters" value={codeSandboxParameters} />
+              <input
+                type="hidden"
+                name="parameters"
+                value={codeSandboxParameters}
+              />
 
               <Fab color="primary" size="small" type="submit">
                 <Edit fontSize="small" />

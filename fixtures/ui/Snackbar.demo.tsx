@@ -114,7 +114,12 @@ export default function SnackbarDemo() {
                 onChange={(_, value) => setVariant(value as SnackbarVariant)}
               >
                 {variants.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -130,7 +135,9 @@ export default function SnackbarDemo() {
                     addSnackbar(makeMessage(isLong), {
                       variant,
                       hasCloseButton,
-                      autoHideDuration: !hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION,
+                      autoHideDuration: !hasAutoHideDuration
+                        ? undefined
+                        : AUTO_HIDE_DURATION,
                     })
                   }
                 >
@@ -155,7 +162,12 @@ export default function SnackbarDemo() {
         {!hasAutoHideDuration ? (
           message
         ) : (
-          <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
+          <Box
+            width="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <Box display="flex" flexGrow={1}>
               {message}
             </Box>

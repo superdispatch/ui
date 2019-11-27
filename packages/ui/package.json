@@ -11,7 +11,7 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.1",
+    "@babel/runtime": "^7.7.4",
     "clsx": "^1.0.0",
     "react-day-picker": "^7.3.2",
     "react-spring": "9.0.0-beta.34",

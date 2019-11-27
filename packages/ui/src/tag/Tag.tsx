@@ -67,7 +67,8 @@ const useStyles = makeStyles<Theme, {}, TagClassKey>(
   { name: 'SuperDispatchTag' },
 );
 
-export interface TagProps extends Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
+export interface TagProps
+  extends Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
   classes?: ClassNameMap<TagClassKey>;
 
   color: Exclude<ColorVariant, 'silver'>;
@@ -76,7 +77,16 @@ export interface TagProps extends Omit<TypographyProps, 'classes' | 'color' | 'v
 
 export const Tag = forwardRef<HTMLSpanElement, TagProps>(
   (
-    { color, variant, children, classes, className, noWrap = true, component = 'div', ...props },
+    {
+      color,
+      variant,
+      children,
+      classes,
+      className,
+      noWrap = true,
+      component = 'div',
+      ...props
+    },
     ref,
   ) => {
     const styles = useStyles({ classes });

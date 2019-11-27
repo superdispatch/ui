@@ -32,8 +32,12 @@ export function formatDate(
   }
 }
 
-export function normalizeDateRange(range: undefined | [Date?, Date?] = []): [Date?, Date?] {
-  return range.filter(isValidDate).sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?];
+export function normalizeDateRange(
+  range: undefined | [Date?, Date?] = [],
+): [Date?, Date?] {
+  return range
+    .filter(isValidDate)
+    .sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?];
 }
 
 export function isSameDateRange(
@@ -64,6 +68,7 @@ export function isFirstDayOfMonth(date: Date): boolean {
 
 export function isLastDayOfMonth(date: Date): boolean {
   return (
-    date.getMonth() < new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
+    date.getMonth() <
+    new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getMonth()
   );
 }

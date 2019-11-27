@@ -47,7 +47,9 @@ export default function LinkDemo() {
                         color={color}
                         variant={variant}
                         href="http://ui.superdispatch.org"
-                        onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+                        onClick={(
+                          event: React.MouseEvent<HTMLAnchorElement>,
+                        ) => {
                           const { href } = event.target as HTMLAnchorElement;
 
                           event.preventDefault();
