@@ -11,8 +11,10 @@ export type TooltipClassKey = MuiTooltipClassKey | 'arrow';
 
 const useStyles = makeStyles<Theme, {}, TooltipClassKey>(
   theme => {
-    const arrowSelector = (operator: '=' | '^=', placement: TooltipProps['placement']): string =>
-      `$popper[x-placement${operator}${placement}] &`;
+    const arrowSelector = (
+      operator: '=' | '^=',
+      placement: TooltipProps['placement'],
+    ): string => `$popper[x-placement${operator}${placement}] &`;
 
     const arrowTransform = (x: number, y: number): string =>
       `translate3d(${x}px, ${y}px, 0) rotate3d(0, 0, 1, 45deg)`;
@@ -43,8 +45,12 @@ const useStyles = makeStyles<Theme, {}, TooltipClassKey>(
           transform: arrowTransform(0, -3),
         },
 
-        [arrowSelector('=', 'bottom-end')]: { transform: arrowTransform(3, -3) },
-        [arrowSelector('=', 'bottom-start')]: { transform: arrowTransform(-3, -3) },
+        [arrowSelector('=', 'bottom-end')]: {
+          transform: arrowTransform(3, -3),
+        },
+        [arrowSelector('=', 'bottom-start')]: {
+          transform: arrowTransform(-3, -3),
+        },
 
         [arrowSelector('^=', 'top')]: {
           bottom: 0,
@@ -78,7 +84,9 @@ export interface TooltipProps extends Omit<MuiTooltipProps, 'classes'> {
 export const Tooltip = forwardRef(
   ({ title, classes, PopperProps, ...props }: TooltipProps, ref) => {
     const { arrow, ...styles } = useStyles({ classes });
-    const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(null);
+    const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(
+      null,
+    );
 
     return (
       <MuiTooltip

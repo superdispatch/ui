@@ -39,10 +39,15 @@ const dateRangePickerQuickSelectionItems = Array.from(
   }),
 );
 
-const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({ value, ...props }) => {
+const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({
+  value,
+  ...props
+}) => {
   const [startDate, endDate] = value ? value : [];
   const formattedValue =
-    startDate || endDate ? `${formatValue(startDate)} - ${formatValue(endDate)}` : '';
+    startDate || endDate
+      ? `${formatValue(startDate)} - ${formatValue(endDate)}`
+      : '';
   return <input value={formattedValue} {...props} />;
 };
 
@@ -90,13 +95,15 @@ export default function DateRangePickerDemo() {
         numberOfMonths={2}
         fromMonth={!disabled ? undefined : today}
         disabledDays={!disabled ? undefined : { before: today }}
-        quickSelectionItems={!hasQuickSelection ? undefined : dateRangePickerQuickSelectionItems}
+        quickSelectionItems={
+          !hasQuickSelection ? undefined : dateRangePickerQuickSelectionItems
+        }
         InputComponent={DateRangeInputComponent}
         footer={
           hasFooter && (
             <Typography color="textSecondary">
-              Selected date range allows preferred carriers to instantly book loads inside the Super
-              Loadboard.
+              Selected date range allows preferred carriers to instantly book
+              loads inside the Super Loadboard.
               <br />
               Dates out of selected range will still be available to request.
             </Typography>

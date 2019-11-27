@@ -49,7 +49,9 @@ export default function DateFieldDemo() {
         value={date}
         onChange={setDate}
         renderFooter={() =>
-          hasFooter && <Typography color="textSecondary">Footer helper text</Typography>
+          hasFooter && (
+            <Typography color="textSecondary">Footer helper text</Typography>
+          )
         }
         CalendarProps={{
           fromMonth: !disabled ? undefined : today,

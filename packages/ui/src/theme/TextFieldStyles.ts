@@ -67,7 +67,9 @@ export function applyTextFieldStyles(theme: Theme) {
       '& .MuiInputAdornment-root': {
         '& .MuiSvgIcon-root': {
           fontSize: fontHeightVariant('body1', true),
-          [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('body1') },
+          [theme.breakpoints.up('sm')]: {
+            fontSize: fontHeightVariant('body1'),
+          },
         },
 
         '&.MuiInputAdornment-positionStart': {

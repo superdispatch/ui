@@ -90,7 +90,12 @@ export default function CalendarDemo() {
                 onChange={(_, value) => setColor(value as Color)}
               >
                 {colors.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -103,7 +108,13 @@ export default function CalendarDemo() {
           <Calendar
             fromMonth={!disabled ? undefined : today}
             disabledDays={!disabled ? undefined : { before: today }}
-            footer={hasFooter && <Typography color="textSecondary">Footer helper text</Typography>}
+            footer={
+              hasFooter && (
+                <Typography color="textSecondary">
+                  Footer helper text
+                </Typography>
+              )
+            }
             highlightedDays={{ [color]: highlightedDays.map(x => x.toDate()) }}
             quickSelection={
               hasQuickSelection && (

@@ -19,10 +19,16 @@ const states: State[] = ['stale', 'disabled', 'active', 'loading'];
 const colors: Array<ButtonProps['color']> = ['primary', 'success', 'error'];
 
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
-const variants: Array<ButtonProps['variant']> = ['text', 'outlined', 'contained'];
+const variants: Array<ButtonProps['variant']> = [
+  'text',
+  'outlined',
+  'contained',
+];
 
 export default function ButtonDemo() {
-  const [buttonStateMap, setButtonStateMap] = useState<Map<string, State>>(new Map());
+  const [buttonStateMap, setButtonStateMap] = useState<Map<string, State>>(
+    new Map(),
+  );
   const [globalState, setGlobalState] = useState<State>('stale');
   const [color, setColor] = useState<ButtonProps['color']>('primary');
   const [hasEndIcon, setHasEndIcon] = useState(false);
@@ -72,7 +78,12 @@ export default function ButtonDemo() {
                 onChange={(_, value) => setGlobalState(value as State)}
               >
                 {states.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -88,7 +99,12 @@ export default function ButtonDemo() {
                 onChange={(_, value) => setColor(value as ButtonProps['color'])}
               >
                 {colors.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -102,7 +118,8 @@ export default function ButtonDemo() {
             <Fragment key={variant}>
               {sizes.map(size => {
                 const buttonKey = `${variant}-${size}`;
-                const buttonState = buttonStateMap.get(buttonKey) || globalState;
+                const buttonState =
+                  buttonStateMap.get(buttonKey) || globalState;
                 const props: ButtonProps = {
                   size,
                   color,
@@ -116,7 +133,10 @@ export default function ButtonDemo() {
                     }
 
                     setButtonStateMap(prev =>
-                      new Map(prev).set(buttonKey, event.altKey ? 'disabled' : 'loading'),
+                      new Map(prev).set(
+                        buttonKey,
+                        event.altKey ? 'disabled' : 'loading',
+                      ),
                     );
                   },
                 };

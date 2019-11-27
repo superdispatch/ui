@@ -21,7 +21,9 @@ export interface DatePickerPopoverState {
 }
 
 export function useDatePickerPopoverState(): DatePickerPopoverState {
-  const [anchorEl, setAnchorEl] = useState<DatePickerPopoverState['anchorEl']>(null);
+  const [anchorEl, setAnchorEl] = useState<DatePickerPopoverState['anchorEl']>(
+    null,
+  );
 
   return {
     anchorEl,
@@ -40,14 +42,17 @@ export interface CommonDatePickerProps<TValue>
   value?: TValue;
   quickSelectionItems?: Array<DatePickerBaseQuickSelectionItem<TValue>>;
   quickSelectionSelectedItem?: DatePickerBaseQuickSelectionItem<TValue>;
-  InputComponent: DatePickerBaseInputComponent<DatePickerBaseInputComponentProps<TValue>>;
+  InputComponent: DatePickerBaseInputComponent<
+    DatePickerBaseInputComponentProps<TValue>
+  >;
   onChange: (value: TValue) => void;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
   disabled?: boolean;
 }
 
-export type DatePickerBaseProps<TValue> = DatePickerPopoverState & CommonDatePickerProps<TValue>;
+export type DatePickerBaseProps<TValue> = DatePickerPopoverState &
+  CommonDatePickerProps<TValue>;
 
 export function DatePickerBase<TValue extends DatePickerBaseValue>({
   // Input
@@ -86,7 +91,9 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
       >
         <Calendar
           {...calendarProps}
-          direction={anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'}
+          direction={
+            anchorOrigin.horizontal === 'right' ? 'row-reverse' : 'row'
+          }
           quickSelection={
             !!quickSelectionItems && (
               <CalendarQuickSelection>

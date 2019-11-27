@@ -54,7 +54,12 @@ export default function TooltipDemo() {
     >
       <Grid container={true} alignItems="flex-end" spacing={2}>
         <Grid item={true} xs="auto">
-          <Tooltip key={key} title={title} placement={placement} open={isOpen || undefined}>
+          <Tooltip
+            key={key}
+            title={title}
+            placement={placement}
+            open={isOpen || undefined}
+          >
             <Button>Show Tooltip</Button>
           </Tooltip>
         </Grid>
@@ -64,7 +69,9 @@ export default function TooltipDemo() {
             select={true}
             label="Placement"
             value={placement}
-            onChange={event => setPlacement(event.target.value as PopperPlacementType)}
+            onChange={event =>
+              setPlacement(event.target.value as PopperPlacementType)
+            }
           >
             {placements.map(option => (
               <MenuItem key={option} value={option}>
@@ -72,7 +79,11 @@ export default function TooltipDemo() {
               </MenuItem>
             ))}
           </TextField>{' '}
-          <TextField label="Text" value={text} onChange={event => setText(event.target.value)} />{' '}
+          <TextField
+            label="Text"
+            value={text}
+            onChange={event => setText(event.target.value)}
+          />{' '}
           <FormControl component="fieldset">
             <FormLabel component="legend">Visibility</FormLabel>
             <FormGroup row={true}>
@@ -94,7 +105,12 @@ export default function TooltipDemo() {
         </Grid>
 
         <Grid item={true} xs="auto">
-          <Tooltip key={key} title={title} placement={placement} open={isOpen || undefined}>
+          <Tooltip
+            key={key}
+            title={title}
+            placement={placement}
+            open={isOpen || undefined}
+          >
             <Button>Show Tooltip</Button>
           </Tooltip>
         </Grid>

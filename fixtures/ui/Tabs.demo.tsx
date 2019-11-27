@@ -17,7 +17,11 @@ export default function TabsDemo() {
         <Typography>With Scroll Buttons</Typography>
       </Box>
 
-      <Tabs scrollButtons="on" value={value} onChange={(_, nextValue) => setValue(nextValue)}>
+      <Tabs
+        scrollButtons="on"
+        value={value}
+        onChange={(_, nextValue) => setValue(nextValue)}
+      >
         {options.map(x => (
           <Tab key={x} label={x} />
         ))}

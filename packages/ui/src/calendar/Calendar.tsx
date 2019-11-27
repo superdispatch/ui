@@ -4,15 +4,27 @@ import { makeStyles } from '@material-ui/styles';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import { Color, ColorVariant } from '@superdispatch/ui';
 import React, { ReactNode } from 'react';
-import DayPicker, { ClassNames, DayModifiers, DayPickerProps, Modifier } from 'react-day-picker';
+import DayPicker, {
+  ClassNames,
+  DayModifiers,
+  DayPickerProps,
+  Modifier,
+} from 'react-day-picker';
 
 import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
-import { isFirstDayOfMonth, isLastDayOfMonth, normalizeDateRange } from './DateUtils';
+import {
+  isFirstDayOfMonth,
+  isLastDayOfMonth,
+  normalizeDateRange,
+} from './DateUtils';
 
-export type CalendarDayHighlightColor = Exclude<ColorVariant, 'grey' | 'silver'>;
+export type CalendarDayHighlightColor = Exclude<
+  ColorVariant,
+  'grey' | 'silver'
+>;
 export type CalendarClassNames =
   | keyof ClassNames
   | CalendarDayHighlightColor
@@ -175,7 +187,10 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
             color: Color.Purple500,
             '&': { backgroundColor: Color.Purple50 },
           },
-          '&$red': { color: Color.Red500, '&': { backgroundColor: Color.Red50 } },
+          '&$red': {
+            color: Color.Red500,
+            '&': { backgroundColor: Color.Red50 },
+          },
           '&$teal': {
             color: Color.Teal500,
             '&': { backgroundColor: Color.Teal50 },
@@ -205,7 +220,10 @@ export interface CalendarDayModifiers {
   selected: boolean;
 }
 
-export type CalendarDayEventHandler = (date: Date, modifiers: CalendarDayModifiers) => void;
+export type CalendarDayEventHandler = (
+  date: Date,
+  modifiers: CalendarDayModifiers,
+) => void;
 
 type CalendarDayEventHandlerName =
   | 'onDayClick'
@@ -231,7 +249,9 @@ function toDayPickerEventHandler(
   );
 }
 
-type CalendarDayEventProps = Partial<Record<CalendarDayEventHandlerName, CalendarDayEventHandler>>;
+type CalendarDayEventProps = Partial<
+  Record<CalendarDayEventHandlerName, CalendarDayEventHandler>
+>;
 
 export interface CalendarProps
   extends CalendarDayEventProps,
@@ -255,7 +275,9 @@ export interface CalendarProps
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
-  highlightedDays?: Partial<Record<CalendarDayHighlightColor, Modifier | Modifier[]>>;
+  highlightedDays?: Partial<
+    Record<CalendarDayHighlightColor, Modifier | Modifier[]>
+  >;
 }
 
 export function Calendar({
@@ -303,7 +325,9 @@ export function Calendar({
           weekdayElement={CalendarWeekDay}
           initialMonth={selectedFrom}
           selectedDays={
-            selectedFrom && selectedTo ? { from: selectedFrom, to: selectedTo } : selectedFrom
+            selectedFrom && selectedTo
+              ? { from: selectedFrom, to: selectedTo }
+              : selectedFrom
           }
           modifiers={{
             ...modifiers,
@@ -318,12 +342,21 @@ export function Calendar({
           }}
           onDayClick={toDayPickerEventHandler(styles, props.onDayClick)}
           onDayKeyDown={toDayPickerEventHandler(styles, props.onDayKeyDown)}
-          onDayMouseEnter={toDayPickerEventHandler(styles, props.onDayMouseEnter)}
-          onDayMouseLeave={toDayPickerEventHandler(styles, props.onDayMouseLeave)}
+          onDayMouseEnter={toDayPickerEventHandler(
+            styles,
+            props.onDayMouseEnter,
+          )}
+          onDayMouseLeave={toDayPickerEventHandler(
+            styles,
+            props.onDayMouseLeave,
+          )}
           onDayMouseDown={toDayPickerEventHandler(styles, props.onDayMouseDown)}
           onDayMouseUp={toDayPickerEventHandler(styles, props.onDayMouseUp)}
           onDayTouchEnd={toDayPickerEventHandler(styles, props.onDayTouchEnd)}
-          onDayTouchStart={toDayPickerEventHandler(styles, props.onDayTouchStart)}
+          onDayTouchStart={toDayPickerEventHandler(
+            styles,
+            props.onDayTouchStart,
+          )}
         />
 
         {!!footer && <div className={styles.footer}>{footer}</div>}

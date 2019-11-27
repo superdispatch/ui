@@ -6,8 +6,20 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
-import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { animated, AnimatedProps, useSpring, useTransition } from 'react-spring';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import {
+  animated,
+  AnimatedProps,
+  useSpring,
+  useTransition,
+} from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 
@@ -41,7 +53,10 @@ export interface SnackbarStack {
   clearStack: () => void;
   addBelowElement: (node: HTMLElement) => void;
   removeBelowElement: (node: HTMLElement) => void;
-  addSnackbar: (message: ReactNode, options: SnackbarStackOptions) => () => void;
+  addSnackbar: (
+    message: ReactNode,
+    options: SnackbarStackOptions,
+  ) => () => void;
 }
 
 const Context = createContext<undefined | SnackbarStack>(undefined);
@@ -50,7 +65,9 @@ export function useSnackbarStack(): SnackbarStack {
   const ctx = useContext(Context);
 
   if (!ctx) {
-    throw new Error('`useSnackbarStack` is used outside of `SnackbarStackProvider`.');
+    throw new Error(
+      '`useSnackbarStack` is used outside of `SnackbarStackProvider`.',
+    );
   }
 
   return ctx;
@@ -97,12 +114,18 @@ export interface SnackbarStackProviderProps {
   children: ReactNode;
 }
 
-export function SnackbarStackProvider({ classes, children }: SnackbarStackProviderProps) {
+export function SnackbarStackProvider({
+  classes,
+  children,
+}: SnackbarStackProviderProps) {
   const styles = useStyles({ classes });
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.only('xs'),
+  );
   const [belowElements, setBelowElements] = useState<HTMLElement[]>([]);
   const maxBelowElementHeight = useMemo(
-    () => belowElements.reduce((acc, node) => Math.max(acc, node.offsetHeight), 0),
+    () =>
+      belowElements.reduce((acc, node) => Math.max(acc, node.offsetHeight), 0),
     [belowElements],
   );
 
@@ -110,10 +133,10 @@ export function SnackbarStackProvider({ classes, children }: SnackbarStackProvid
     new Map<StackItemOptions['key'], StackItemOptions>(),
   );
 
-  const stack = useMemo(() => Array.from(snackbarMap.values()).slice(isMobile ? -1 : -3), [
-    snackbarMap,
-    isMobile,
-  ]);
+  const stack = useMemo(
+    () => Array.from(snackbarMap.values()).slice(isMobile ? -1 : -3),
+    [snackbarMap, isMobile],
+  );
 
   const transitions = useTransition(stack, item => `${item.id}-${isMobile}`, {
     config: { tension: 340 },
@@ -135,7 +158,10 @@ export function SnackbarStackProvider({ classes, children }: SnackbarStackProvid
   const containerStyle = useSpring({
     config: { tension: 340 },
     to: {
-      marginBottom: maxBelowElementHeight === 0 ? 0 : maxBelowElementHeight + SNACKBAR_OFFSET,
+      marginBottom:
+        maxBelowElementHeight === 0
+          ? 0
+          : maxBelowElementHeight + SNACKBAR_OFFSET,
     },
   });
 
@@ -143,9 +169,13 @@ export function SnackbarStackProvider({ classes, children }: SnackbarStackProvid
     (): SnackbarStack => ({
       clearStack: () => setSnackbarMap(x => (x.size === 0 ? x : new Map())),
       addBelowElement: node =>
-        setBelowElements(prev => (prev.includes(node) ? prev : [...prev, node])),
+        setBelowElements(prev =>
+          prev.includes(node) ? prev : [...prev, node],
+        ),
       removeBelowElement: node =>
-        setBelowElements(prev => (!prev.includes(node) ? prev : prev.filter(x => x !== node))),
+        setBelowElements(prev =>
+          !prev.includes(node) ? prev : prev.filter(x => x !== node),
+        ),
       addSnackbar: (
         message,
         {
@@ -207,7 +237,12 @@ export function SnackbarStackProvider({ classes, children }: SnackbarStackProvid
           <MaterialSnackbar open={true}>
             <animated.div style={containerStyle} className={styles.root}>
               {transitions.map(({ key, item, props: style }) => (
-                <StackItem key={key} item={item} style={style} className={styles.item} />
+                <StackItem
+                  key={key}
+                  item={item}
+                  style={style}
+                  className={styles.item}
+                />
               ))}
             </animated.div>
           </MaterialSnackbar>

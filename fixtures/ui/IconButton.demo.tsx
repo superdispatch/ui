@@ -15,7 +15,11 @@ import React, { useState } from 'react';
 
 type State = 'stale' | 'disabled';
 const states: State[] = ['stale', 'disabled'];
-const colors: Array<IconButtonProps['color']> = ['default', 'primary', 'inherit'];
+const colors: Array<IconButtonProps['color']> = [
+  'default',
+  'primary',
+  'inherit',
+];
 
 const sizes: Array<IconButtonProps['size']> = ['small', 'medium'];
 
@@ -37,7 +41,12 @@ export default function IconButtonDemo() {
                 onChange={(_, value) => setState(value as State)}
               >
                 {states.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -50,10 +59,17 @@ export default function IconButtonDemo() {
                 row={true}
                 name="color"
                 value={color}
-                onChange={(_, value) => setColor(value as IconButtonProps['color'])}
+                onChange={(_, value) =>
+                  setColor(value as IconButtonProps['color'])
+                }
               >
                 {colors.map(x => (
-                  <FormControlLabel key={x} value={x} control={<Radio />} label={startCase(x)} />
+                  <FormControlLabel
+                    key={x}
+                    value={x}
+                    control={<Radio />}
+                    label={startCase(x)}
+                  />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -65,7 +81,11 @@ export default function IconButtonDemo() {
         <Grid container={true} spacing={1}>
           {sizes.map(size => (
             <Grid item={true} key={size} sm={2} xs={12}>
-              <IconButton size={size} color={color} disabled={state === 'disabled'}>
+              <IconButton
+                size={size}
+                color={color}
+                disabled={state === 'disabled'}
+              >
                 <Check />
               </IconButton>
             </Grid>
