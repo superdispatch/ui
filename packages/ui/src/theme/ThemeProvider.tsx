@@ -1,5 +1,13 @@
-import { createGenerateClassName, createMuiTheme, CssBaseline, Theme } from '@material-ui/core';
-import { StylesProvider, ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import {
+  createGenerateClassName,
+  createMuiTheme,
+  CssBaseline,
+  Theme,
+} from '@material-ui/core';
+import {
+  StylesProvider,
+  ThemeProvider as MaterialThemeProvider,
+} from '@material-ui/styles';
 import { Rule, StyleSheet } from 'jss';
 import React, { ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
@@ -17,7 +25,10 @@ import { applyPaperStyles } from './PaperStyles';
 import { applySvgIconStyles } from './SvgIconStyles';
 import { applyTabsStyles } from './TabsStyles';
 import { applyTextFieldStyles } from './TextFieldStyles';
-import { applyTypographyStyles, createTypographyOptions } from './TypographyStyles';
+import {
+  applyTypographyStyles,
+  createTypographyOptions,
+} from './TypographyStyles';
 
 function createTheme() {
   const theme = createMuiTheme({

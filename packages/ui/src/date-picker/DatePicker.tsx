@@ -9,9 +9,16 @@ import {
 
 export type DatePickerValue = Date | undefined;
 export type DatePickerProps = CommonDatePickerProps<DatePickerValue>;
-export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<DatePickerValue>;
+export type DatePickerInputComponentProps = DatePickerBaseInputComponentProps<
+  DatePickerValue
+>;
 
-export function DatePicker({ value, onChange, onDayClick, ...props }: DatePickerProps) {
+export function DatePicker({
+  value,
+  onChange,
+  onDayClick,
+  ...props
+}: DatePickerProps) {
   const { onClose, ...stateProps } = useDatePickerPopoverState();
 
   return (

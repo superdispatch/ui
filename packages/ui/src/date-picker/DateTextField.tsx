@@ -1,9 +1,15 @@
-import { IconButton, InputAdornment, SvgIcon, TextField } from '@material-ui/core';
+import {
+  IconButton,
+  InputAdornment,
+  SvgIcon,
+  TextField,
+} from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import { mdiCalendarMonth } from '@mdi/js';
 import React, { forwardRef, MutableRefObject, useRef } from 'react';
 
-export interface DateTextFieldProps extends Omit<OutlinedTextFieldProps, 'value' | 'variant'> {
+export interface DateTextFieldProps
+  extends Omit<OutlinedTextFieldProps, 'value' | 'variant'> {
   value: string;
   onOpen?: (element: HTMLElement) => void;
 }

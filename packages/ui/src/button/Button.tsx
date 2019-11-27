@@ -1,4 +1,9 @@
-import { Button as MaterialButton, CircularProgress, makeStyles, Theme } from '@material-ui/core';
+import {
+  Button as MaterialButton,
+  CircularProgress,
+  makeStyles,
+  Theme,
+} from '@material-ui/core';
 import {
   ButtonClassKey as MuiButtonClassKey,
   ButtonProps as MuiButtonProps,
@@ -9,7 +14,10 @@ import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
 type ButtonClassKey =
-  | Exclude<MuiButtonClassKey, 'textSecondary' | 'outlinedSecondary' | 'containedSecondary'>
+  | Exclude<
+      MuiButtonClassKey,
+      'textSecondary' | 'outlinedSecondary' | 'containedSecondary'
+    >
   | 'progress'
   | 'isActive'
   | 'isLoading'
@@ -20,14 +28,21 @@ type ButtonClassKey =
   | 'containedError'
   | 'containedSuccess';
 
-function textVariant(text: Color, outline: Color, background: Color): CSSProperties {
+function textVariant(
+  text: Color,
+  outline: Color,
+  background: Color,
+): CSSProperties {
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
     '&$disabled:not($isLoading)': { color: outline },
     '&:not($disabled)': {
       '&:hover, &:active, &$isActive': { backgroundColor: background },
-      '&:focus': { backgroundColor: background, boxShadow: `0 0 0 2px ${outline}` },
+      '&:focus': {
+        backgroundColor: background,
+        boxShadow: `0 0 0 2px ${outline}`,
+      },
     },
   };
 }
@@ -57,14 +72,20 @@ function outlinedVariant(
         backgroundColor: activeBackground,
         boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 0 ${activeOutline}`,
       },
-      '&:focus': { boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 2px ${activeOutline}` },
+      '&:focus': {
+        boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 2px ${activeOutline}`,
+      },
     },
 
     '& $progress': { color: progress },
   };
 }
 
-function containedVariant(stale: Color, outline: Color, active: Color): CSSProperties {
+function containedVariant(
+  stale: Color,
+  outline: Color,
+  active: Color,
+): CSSProperties {
   return {
     backgroundColor: stale,
     '&$disabled': { backgroundColor: outline },
@@ -128,8 +149,16 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
 
     contained: { color: Color.White },
     containedError: containedVariant(Color.Red300, Color.Red100, Color.Red500),
-    containedSuccess: containedVariant(Color.Green300, Color.Green100, Color.Green500),
-    containedPrimary: containedVariant(Color.Blue300, Color.Blue100, Color.Blue500),
+    containedSuccess: containedVariant(
+      Color.Green300,
+      Color.Green100,
+      Color.Green500,
+    ),
+    containedPrimary: containedVariant(
+      Color.Blue300,
+      Color.Blue100,
+      Color.Blue500,
+    ),
     containedSizeSmall: {},
     containedSizeLarge: {},
 
@@ -161,7 +190,8 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
   { name: 'SuperDispatchButton' },
 );
 
-export interface ButtonProps extends Omit<MuiButtonProps, 'color' | 'variant' | 'classes'> {
+export interface ButtonProps
+  extends Omit<MuiButtonProps, 'color' | 'variant' | 'classes'> {
   rel?: string;
   target?: string;
   isActive?: boolean;
@@ -173,7 +203,18 @@ export interface ButtonProps extends Omit<MuiButtonProps, 'color' | 'variant' | 
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { size, color, variant, children, disabled, isActive, isLoading, className, classes, ...props },
+    {
+      size,
+      color,
+      variant,
+      children,
+      disabled,
+      isActive,
+      isLoading,
+      className,
+      classes,
+      ...props
+    },
     ref,
   ) => {
     const {
@@ -222,7 +263,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           <>
             {children}
-            <CircularProgress size="1em" color="inherit" className={progressClassName} />
+            <CircularProgress
+              size="1em"
+              color="inherit"
+              className={progressClassName}
+            />
           </>
         )}
       </MaterialButton>

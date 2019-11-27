@@ -14,14 +14,20 @@ interface DateRangeFieldAPI {
 }
 
 export interface DateRangeFieldProps
-  extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
+  extends Omit<
+    OutlinedTextFieldProps,
+    'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
+  > {
   value: undefined | [Date?, Date?];
   onBlur?: () => void;
   onFocus?: () => void;
   onChange: (value: undefined | [Date?, Date?]) => void;
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
-  CalendarProps?: Omit<CalendarProps, 'footer' | 'selectedDays' | 'quickSelection'>;
+  CalendarProps?: Omit<
+    CalendarProps,
+    'footer' | 'selectedDays' | 'quickSelection'
+  >;
 }
 
 export function DateRangeField({
@@ -87,7 +93,11 @@ export function DateRangeField({
           {...calendarProps}
           classes={styles}
           selectedDays={[fromDate, toDate]}
-          modifiers={{ ...modifiers, [rangeStart]: fromDate, [rangeEnd]: toDate }}
+          modifiers={{
+            ...modifiers,
+            [rangeStart]: fromDate,
+            [rangeEnd]: toDate,
+          }}
           footer={renderFooter?.(api)}
           quickSelection={renderQuickSelection?.(api)}
           onDayMouseEnter={(date, dateModifiers) => {

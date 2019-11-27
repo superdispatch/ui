@@ -13,14 +13,20 @@ interface DateFieldAPI {
 }
 
 export interface DateFieldProps
-  extends Omit<OutlinedTextFieldProps, 'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
+  extends Omit<
+    OutlinedTextFieldProps,
+    'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
+  > {
   value: undefined | Date;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange: (value: undefined | Date) => void;
   renderFooter?: (api: DateFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
-  CalendarProps?: Omit<CalendarProps, 'footer' | 'selectedDays' | 'quickSelection'>;
+  CalendarProps?: Omit<
+    CalendarProps,
+    'footer' | 'selectedDays' | 'quickSelection'
+  >;
 }
 
 export function DateField({

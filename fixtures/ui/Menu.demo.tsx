@@ -9,11 +9,20 @@ function Demo({ label }: { label: string }) {
 
   return (
     <>
-      <Button color="primary" ref={buttonRef} variant="contained" onClick={() => setOpen(true)}>
+      <Button
+        color="primary"
+        ref={buttonRef}
+        variant="contained"
+        onClick={() => setOpen(true)}
+      >
         {label}
       </Button>
 
-      <Menu open={open} onClose={() => setOpen(false)} anchorEl={buttonRef.current}>
+      <Menu
+        open={open}
+        onClose={() => setOpen(false)}
+        anchorEl={buttonRef.current}
+      >
         {options.map(option => (
           <MenuItem
             key={option}
@@ -34,7 +43,12 @@ function Demo({ label }: { label: string }) {
 
 export default function MenuDemo() {
   return (
-    <Box component="section" padding={2} display="flex" justifyContent="space-between">
+    <Box
+      component="section"
+      padding={2}
+      display="flex"
+      justifyContent="space-between"
+    >
       <div>
         <Demo label="Left" />
       </div>

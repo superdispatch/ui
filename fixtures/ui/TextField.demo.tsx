@@ -111,7 +111,11 @@ export default function TextFieldDemo() {
               label={hasLabel && 'Email'}
               multiline={isMultiline}
               helperText={
-                !hasHelperText ? undefined : hasError ? 'Invalid Email' : 'Enter your email'
+                !hasHelperText
+                  ? undefined
+                  : hasError
+                  ? 'Invalid Email'
+                  : 'Enter your email'
               }
               InputProps={{
                 startAdornment: hasStartIcon && (

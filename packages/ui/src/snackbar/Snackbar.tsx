@@ -1,4 +1,9 @@
-import { Portal, Snackbar as MaterialSnackbar, Theme, useMediaQuery } from '@material-ui/core';
+import {
+  Portal,
+  Snackbar as MaterialSnackbar,
+  Theme,
+  useMediaQuery,
+} from '@material-ui/core';
 import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
 import React, { forwardRef, ReactNode } from 'react';
 import { useEventCallback } from 'utility-hooks';
@@ -8,7 +13,8 @@ import { useSnackbarStack } from './SnackbarStack';
 
 type SnackbarCloseReason = 'timeout' | 'explicit';
 
-export interface SnackbarProps extends Omit<MaterialSnackbarProps, 'onClose' | 'message'> {
+export interface SnackbarProps
+  extends Omit<MaterialSnackbarProps, 'onClose' | 'message'> {
   children?: ReactNode;
   variant?: SnackbarVariant;
   hasCloseButton?: boolean;
@@ -31,7 +37,9 @@ export const Snackbar = forwardRef(
     }: SnackbarProps,
     ref,
   ) => {
-    const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.only('xs'));
+    const isMobile = useMediaQuery((theme: Theme) =>
+      theme.breakpoints.only('xs'),
+    );
     const { addBelowElement, removeBelowElement } = useSnackbarStack();
 
     const handleClose = (reason: string | SnackbarCloseReason) => {
@@ -40,14 +48,16 @@ export const Snackbar = forwardRef(
       }
     };
 
-    const handleSnackbarClose = useEventCallback((_: React.SyntheticEvent, reason: string) =>
-      handleClose(reason),
+    const handleSnackbarClose = useEventCallback(
+      (_: React.SyntheticEvent, reason: string) => handleClose(reason),
     );
 
-    const handleEnter = useEventCallback((node: HTMLElement, isAppearing: boolean) => {
-      onEnter?.(node, isAppearing);
-      addBelowElement(node);
-    });
+    const handleEnter = useEventCallback(
+      (node: HTMLElement, isAppearing: boolean) => {
+        onEnter?.(node, isAppearing);
+        addBelowElement(node);
+      },
+    );
 
     const handleExit = useEventCallback((node: HTMLElement) => {
       onExit?.(node);
@@ -69,7 +79,9 @@ export const Snackbar = forwardRef(
             {...ContentProps}
             action={action}
             variant={variant}
-            onClose={!hasCloseButton ? undefined : () => handleClose('explicit')}
+            onClose={
+              !hasCloseButton ? undefined : () => handleClose('explicit')
+            }
           >
             {children}
           </SnackbarContent>

@@ -1,5 +1,8 @@
 import { Theme } from '@material-ui/core';
-import { ThemeStyle, TypographyOptions } from '@material-ui/core/styles/createTypography';
+import {
+  ThemeStyle,
+  TypographyOptions,
+} from '@material-ui/core/styles/createTypography';
 import { CSSProperties } from '@material-ui/styles';
 
 export function fontWeightVariant(variant?: ThemeStyle): number {
@@ -55,7 +58,9 @@ export function fontHeightVariant(variant: ThemeStyle, isMobile = false) {
 
 export function fontFamilyVariant(variant?: ThemeStyle) {
   const mainFont =
-    variant !== 'h1' && variant !== 'h2' && variant !== 'h3' ? 'SF Pro Text' : 'SF Pro Display';
+    variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
+      ? 'SF Pro Text'
+      : 'SF Pro Display';
 
   return `${mainFont}, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif`;
 }

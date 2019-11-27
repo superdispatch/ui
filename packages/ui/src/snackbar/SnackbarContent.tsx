@@ -46,7 +46,8 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
 
 export type SnackbarVariant = 'default' | 'error' | 'success';
 
-export interface SnackbarContentProps extends Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
+export interface SnackbarContentProps
+  extends Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
   children?: ReactNode;
   onClose?: () => void;
   variant?: SnackbarVariant;
@@ -54,9 +55,27 @@ export interface SnackbarContentProps extends Omit<MuiSnackbarContentProps, 'cla
 }
 
 export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
-  ({ action, children, onClose, className, classes, variant = 'default', ...props }, ref) => {
-    const { icon, variantError, variantSuccess, ...styles } = useStyles({ classes });
-    const Icon = variant === 'error' ? Warning : variant === 'success' ? CheckCircle : undefined;
+  (
+    {
+      action,
+      children,
+      onClose,
+      className,
+      classes,
+      variant = 'default',
+      ...props
+    },
+    ref,
+  ) => {
+    const { icon, variantError, variantSuccess, ...styles } = useStyles({
+      classes,
+    });
+    const Icon =
+      variant === 'error'
+        ? Warning
+        : variant === 'success'
+        ? CheckCircle
+        : undefined;
 
     return (
       <MuiSnackbarContent
