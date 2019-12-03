@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "packages",
     "paths": {
-      "@superdispatch/*": ["*/src"]
+      "@superdispatch/ui": ["ui/src"]
     }
   }
 }

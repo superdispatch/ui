@@ -1,9 +1,8 @@
 import { Box, Fab } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
+import { ThemeProvider } from '@superdispatch/ui';
 import { get } from 'lodash';
 import React, { ReactNode } from 'react';
-
-import { ThemeProvider } from '../packages/ui/src/theme/ThemeProvider';
 
 export interface CosmosDecoratorProps {
   children: ReactNode;
