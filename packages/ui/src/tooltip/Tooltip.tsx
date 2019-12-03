@@ -5,7 +5,7 @@ import {
   TooltipProps as MuiTooltipProps,
 } from '@material-ui/core/Tooltip';
 import { Color } from '@superdispatch/ui';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ForwardRefExoticComponent } from 'react';
 
 export type TooltipClassKey = MuiTooltipClassKey | 'arrow';
 
@@ -81,35 +81,34 @@ export interface TooltipProps extends Omit<MuiTooltipProps, 'classes'> {
   classes?: Partial<ClassNameMap<MuiTooltipClassKey>>;
 }
 
-export const Tooltip = forwardRef(
-  ({ title, classes, PopperProps, ...props }: TooltipProps, ref) => {
-    const { arrow, ...styles } = useStyles({ classes });
-    const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(
-      null,
-    );
+export const Tooltip: ForwardRefExoticComponent<TooltipProps> = forwardRef<
+  unknown,
+  TooltipProps
+>(({ title, classes, PopperProps, ...props }, ref) => {
+  const { arrow, ...styles } = useStyles({ classes });
+  const [arrowRef, setArrowRef] = React.useState<HTMLSpanElement | null>(null);
 
-    return (
-      <MuiTooltip
-        {...props}
-        ref={ref}
-        classes={styles}
-        PopperProps={{
-          ...PopperProps,
-          modifiers: {
-            ...PopperProps?.modifiers,
-            arrow: { element: arrowRef, enabled: arrowRef != null },
-          },
-        }}
-        title={
-          <>
-            {title}
-            <span ref={setArrowRef} className={arrow} />
-          </>
-        }
-      />
-    );
-  },
-);
+  return (
+    <MuiTooltip
+      {...props}
+      ref={ref}
+      classes={styles}
+      PopperProps={{
+        ...PopperProps,
+        modifiers: {
+          ...PopperProps?.modifiers,
+          arrow: { element: arrowRef, enabled: arrowRef != null },
+        },
+      }}
+      title={
+        <>
+          {title}
+          <span ref={setArrowRef} className={arrow} />
+        </>
+      }
+    />
+  );
+});
 
 if (process.env.NODE_ENV !== 'production') {
   Tooltip.displayName = 'Tooltip';
