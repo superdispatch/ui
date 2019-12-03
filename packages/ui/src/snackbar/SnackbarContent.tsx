@@ -13,7 +13,12 @@ import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { CheckCircle, Close, Warning } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
 import clsx from 'clsx';
-import React, { forwardRef, ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import { fontHeightVariant } from '../theme/TypographyStyles';
 
@@ -71,14 +76,18 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
 export type SnackbarVariant = 'default' | 'error' | 'success';
 
 export interface SnackbarContentProps
-  extends Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
+  extends RefAttributes<unknown>,
+    Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
   children?: ReactNode;
   onClose?: () => void;
   variant?: SnackbarVariant;
   classes?: Partial<ClassNameMap<SnackbarContentClassKey>>;
 }
 
-export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
+export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = forwardRef<
+  unknown,
+  SnackbarContentProps
+>(
   (
     {
       action,
