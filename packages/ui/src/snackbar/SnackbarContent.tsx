@@ -1,4 +1,5 @@
 import {
+  fade,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -19,12 +20,28 @@ import { fontHeightVariant } from '../theme/TypographyStyles';
 type SnackbarContentClassKey =
   | MuiSnackbarContentClassKey
   | 'icon'
+  | 'closeButton'
   | 'variantError'
   | 'variantSuccess';
 
 const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   theme => ({
-    root: { color: Color.Grey500, backgroundColor: Color.White },
+    root: {
+      '&:not($variantError):not($variantSuccess)': {
+        color: Color.Grey500,
+        backgroundColor: Color.White,
+      },
+
+      '&$variantError': {
+        color: Color.White,
+        backgroundColor: Color.Red300,
+      },
+
+      '&$variantSuccess': {
+        color: Color.White,
+        backgroundColor: Color.Green300,
+      },
+    },
 
     action: {},
     message: {},
@@ -38,8 +55,15 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
       [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('caption') },
     },
 
-    variantError: { color: Color.White, backgroundColor: Color.Red300 },
-    variantSuccess: { color: Color.White, backgroundColor: Color.Green300 },
+    closeButton: {
+      '$variantError &, $variantSuccess &': {
+        color: Color.White,
+        '&:hover, &:focus': { backgroundColor: fade(Color.White, 0.2) },
+      },
+    },
+
+    variantError: {},
+    variantSuccess: {},
   }),
   { name: 'SuperDispatchSnackbarContent' },
 );
@@ -67,7 +91,13 @@ export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
     },
     ref,
   ) => {
-    const { icon, variantError, variantSuccess, ...styles } = useStyles({
+    const {
+      icon,
+      closeButton,
+      variantError,
+      variantSuccess,
+      ...styles
+    } = useStyles({
       classes,
     });
     const Icon =
@@ -98,7 +128,7 @@ export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
             <>
               {action}
               {onClose && (
-                <IconButton color="inherit" onClick={onClose}>
+                <IconButton onClick={onClose} className={closeButton}>
                   <Close />
                 </IconButton>
               )}

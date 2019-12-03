@@ -103,7 +103,6 @@ export function applyTextFieldStyles(theme: Theme) {
     },
 
     multiline: { padding: theme.spacing(0.75, 1) },
-    inputSelect: { paddingRight: theme.spacing(4) },
     adornedStart: { paddingLeft: theme.spacing(1) },
     adornedEnd: { paddingRight: theme.spacing(1) },
   };
@@ -113,9 +112,14 @@ export function applyTextFieldStyles(theme: Theme) {
       fontSize: iconSizeVariant('default'),
       '$disabled &': { color: Color.Grey100 },
     },
+
+    iconOutlined: { right: theme.spacing(0.5) },
+
     selectMenu: {
       lineHeight: fontHeightVariant('body1', true),
       [theme.breakpoints.up('sm')]: { lineHeight: fontHeightVariant('body1') },
+
+      '&&': { paddingRight: theme.spacing(3.5) },
     },
   };
 

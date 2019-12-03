@@ -4,7 +4,7 @@ module.exports = {
   overrides: [
     { files: '*.js', extends: 'plugin:@superdispatch/node' },
     {
-      files: ['*.ts', '*.tsx'],
+      files: '*.{ts,tsx}',
       extends: [
         'plugin:@superdispatch/react',
         'plugin:@superdispatch/typescript',
