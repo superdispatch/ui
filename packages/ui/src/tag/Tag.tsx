@@ -2,7 +2,11 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { TypographyProps } from '@material-ui/core/Typography';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import cx from 'clsx';
-import React, { forwardRef } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
+} from 'react';
 
 import { Color, ColorVariant } from '../theme/Color';
 
@@ -68,14 +72,18 @@ const useStyles = makeStyles<Theme, {}, TagClassKey>(
 );
 
 export interface TagProps
-  extends Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
+  extends RefAttributes<unknown>,
+    Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
   classes?: ClassNameMap<TagClassKey>;
 
   color: Exclude<ColorVariant, 'silver'>;
   variant: 'subtle' | 'bold';
 }
 
-export const Tag = forwardRef<HTMLSpanElement, TagProps>(
+export const Tag: ForwardRefExoticComponent<TagProps> = forwardRef<
+  unknown,
+  TagProps
+>(
   (
     {
       color,

@@ -3,7 +3,12 @@ import { ButtonBaseProps } from '@material-ui/core/ButtonBase';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import { Color, TagClassKey } from '@superdispatch/ui';
 import clsx from 'clsx';
-import React, { forwardRef, ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import { fontHeightVariant } from '../theme/TypographyStyles';
 
@@ -80,7 +85,9 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
   { name: 'SuperDispatchCardButton' },
 );
 
-export interface CardButtonProps extends ButtonBaseProps {
+export interface CardButtonProps
+  extends RefAttributes<HTMLButtonElement>,
+    ButtonBaseProps {
   error?: ReactNode;
   children?: ReactNode;
   hint?: ReactNode;
@@ -93,7 +100,10 @@ export interface CardButtonProps extends ButtonBaseProps {
   classes?: ClassNameMap<TagClassKey>;
 }
 
-export const CardButton = forwardRef<HTMLButtonElement, CardButtonProps>(
+export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef<
+  HTMLButtonElement,
+  CardButtonProps
+>(
   (
     {
       hint,

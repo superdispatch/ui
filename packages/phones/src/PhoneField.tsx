@@ -1,4 +1,10 @@
-import { ButtonBase, InputAdornment, makeStyles, TextField, Theme } from '@material-ui/core';
+import {
+  ButtonBase,
+  InputAdornment,
+  makeStyles,
+  TextField,
+  Theme,
+} from '@material-ui/core';
 import { OutlinedInputClassKey } from '@material-ui/core/OutlinedInput';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
@@ -38,7 +44,6 @@ const useInputStyles = makeStyles<Theme, {}, OutlinedInputClassKey>(
     notchedOutline: {},
     input: {},
     inputMarginDense: {},
-    inputSelect: {},
     inputMultiline: {},
     inputAdornedStart: {},
     inputAdornedEnd: {},

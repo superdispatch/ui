@@ -1,4 +1,5 @@
 import {
+  fade,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -12,19 +13,40 @@ import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { CheckCircle, Close, Warning } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
 import clsx from 'clsx';
-import React, { forwardRef, ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import { fontHeightVariant } from '../theme/TypographyStyles';
 
 type SnackbarContentClassKey =
   | MuiSnackbarContentClassKey
   | 'icon'
+  | 'closeButton'
   | 'variantError'
   | 'variantSuccess';
 
 const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   theme => ({
-    root: { color: Color.Grey500, backgroundColor: Color.White },
+    root: {
+      '&:not($variantError):not($variantSuccess)': {
+        color: Color.Grey500,
+        backgroundColor: Color.White,
+      },
+
+      '&$variantError': {
+        color: Color.White,
+        backgroundColor: Color.Red300,
+      },
+
+      '&$variantSuccess': {
+        color: Color.White,
+        backgroundColor: Color.Green300,
+      },
+    },
 
     action: {},
     message: {},
@@ -38,8 +60,15 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
       [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('caption') },
     },
 
-    variantError: { color: Color.White, backgroundColor: Color.Red300 },
-    variantSuccess: { color: Color.White, backgroundColor: Color.Green300 },
+    closeButton: {
+      '$variantError &, $variantSuccess &': {
+        color: Color.White,
+        '&:hover, &:focus': { backgroundColor: fade(Color.White, 0.2) },
+      },
+    },
+
+    variantError: {},
+    variantSuccess: {},
   }),
   { name: 'SuperDispatchSnackbarContent' },
 );
@@ -47,14 +76,18 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
 export type SnackbarVariant = 'default' | 'error' | 'success';
 
 export interface SnackbarContentProps
-  extends Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
+  extends RefAttributes<unknown>,
+    Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
   children?: ReactNode;
   onClose?: () => void;
   variant?: SnackbarVariant;
   classes?: Partial<ClassNameMap<SnackbarContentClassKey>>;
 }
 
-export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
+export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = forwardRef<
+  unknown,
+  SnackbarContentProps
+>(
   (
     {
       action,
@@ -67,7 +100,13 @@ export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
     },
     ref,
   ) => {
-    const { icon, variantError, variantSuccess, ...styles } = useStyles({
+    const {
+      icon,
+      closeButton,
+      variantError,
+      variantSuccess,
+      ...styles
+    } = useStyles({
       classes,
     });
     const Icon =
@@ -98,7 +137,7 @@ export const SnackbarContent = forwardRef<unknown, SnackbarContentProps>(
             <>
               {action}
               {onClose && (
-                <IconButton color="inherit" onClick={onClose}>
+                <IconButton onClick={onClose} className={closeButton}>
                   <Close />
                 </IconButton>
               )}

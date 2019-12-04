@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui",
-  "version": "0.0.53",
+  "version": "0.0.54",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.4",
+    "@mdi/js": "^4.6.95",
+    "@react-spring/web": "^9.0.0-beta.34",
     "clsx": "^1.0.0",
     "react-day-picker": "^7.3.2",
-    "react-spring": "9.0.0-beta.34",
-    "utility-hooks": "^0.5.1"
+    "utility-hooks": "^0.5.3"
   },
   "devDependencies": {
     "typescript": "^3.7.2"
@@ -23,7 +24,6 @@
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.3.0",
-    "@mdi/js": "^4.5.0",
     "react": "^16.8.0"
   },
   "publishConfig": {

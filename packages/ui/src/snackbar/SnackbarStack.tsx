@@ -6,6 +6,12 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import {
+  animated,
+  AnimatedProps,
+  useSpring,
+  useTransition,
+} from '@react-spring/web';
 import React, {
   createContext,
   ReactNode,
@@ -14,12 +20,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import {
-  animated,
-  AnimatedProps,
-  useSpring,
-  useTransition,
-} from 'react-spring';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 
