@@ -1,4 +1,5 @@
 {
+  "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
     "baseUrl": "packages",

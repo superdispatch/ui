@@ -57,7 +57,6 @@ export interface PhoneFieldProps {
 }
 
 export function PhoneField() {
-  const shouldFocusInputRef = useRef(false);
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -79,12 +78,11 @@ export function PhoneField() {
             <InputAdornment position="start">
               <ButtonBase
                 className={selectButtonClassName}
-                onClick={() => setIsOpen(prev => !prev)}
-                onFocus={() => {
-                  if (shouldFocusInputRef.current) {
-                    inputRef.current?.focus();
-                    shouldFocusInputRef.current = false;
-                  }
+                onClick={() => {
+                  // `FocusTrap` restores focus on `Menu` close. We're changing
+                  // focus to `input`, so it will be focused instead of `button`.
+                  inputRef.current?.focus();
+                  setIsOpen(true);
                 }}
               >
                 <PhoneFieldFlag code={selectedCountry} />
@@ -101,13 +99,12 @@ export function PhoneField() {
       />
 
       <PhoneFieldMenu
-        onSelect={nextSelectedCountry => {
-          shouldFocusInputRef.current = true;
-          setSelectedCountry(nextSelectedCountry);
-        }}
-        selectedCountry={selectedCountry}
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
+        selectedCountry={selectedCountry}
+        onSelect={nextSelectedCountry =>
+          setSelectedCountry(nextSelectedCountry)
+        }
       />
     </>
   );
