@@ -16,7 +16,9 @@ interface PhonesContextProviderProps {
   children: ReactNode;
 }
 
-export function PhonesContextProvider({ children }: PhonesContextProviderProps) {
+export function PhonesContextProvider({
+  children,
+}: PhonesContextProviderProps) {
   // const { value } = usePromise(load, []);
   // const state = useMemo<PhonesContext>(
   //   () => (!value ? initialValue : { lib: value, util: value.PhoneNumberUtil.getInstance() }),
