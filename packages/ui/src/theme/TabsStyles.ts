@@ -12,7 +12,8 @@ export function applyTabsStyles(theme: Theme) {
     textColor: 'primary',
     indicatorColor: 'primary',
   };
-  theme.overrides.MuiTabs = { root: { minHeight: '40px' } };
+
+  theme.overrides.MuiTabs = { root: { minHeight: theme.spacing(5) } };
 
   theme.overrides.MuiTab = {
     root: {
@@ -28,6 +29,8 @@ export function applyTabsStyles(theme: Theme) {
       lineHeight: fontHeightVariant('body1', true),
 
       [theme.breakpoints.up('sm')]: {
+        minWidth: undefined,
+        padding: theme.spacing(0.75, 3),
         fontSize: fontSizeVariant('body1'),
         lineHeight: fontHeightVariant('body1'),
       },

@@ -15,7 +15,6 @@ import { useConstant } from 'utility-hooks';
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
-import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import { applyCardStyles } from './CardStyles';
 import { Color } from './Color';
 import { applyIconButtonStyles } from './IconButtonStyles';
@@ -25,6 +24,7 @@ import { applyPaperStyles } from './PaperStyles';
 import { applySvgIconStyles } from './SvgIconStyles';
 import { applyTabsStyles } from './TabsStyles';
 import { applyTextFieldStyles } from './TextFieldStyles';
+import { applyTooltipStyles } from './TooltipStyles';
 import {
   applyTypographyStyles,
   createTypographyOptions,
