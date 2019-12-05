@@ -14,4 +14,3 @@ export * from './snackbar/SnackbarStack';
 export * from './tag/Tag';
 export * from './theme/ThemeProvider';
 export * from './theme/Color';
-export * from './tooltip/Tooltip';
