@@ -17,7 +17,7 @@
     "prebump": "yarn install && yarn tsc && yarn lint && yarn build:docs",
     "bump": "lerna version",
     "lint": "js-tools lint",
-    "nuke": "git clean -xdfe \".idea\"",
+    "nuke": "git clean -xdf -e \".idea\" -e \".vscode\"",
     "start": "cosmos",
     "tdd": "jest --watch",
     "test": "jest --coverage"
