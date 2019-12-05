@@ -11,9 +11,9 @@ import { Color } from '@superdispatch/ui';
 import { CountryCode } from 'libphonenumber-js';
 import React, { useRef, useState } from 'react';
 
+import { PhoneData } from '../PhoneHelpers';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
-import { PhoneData } from './PhoneHelpers';
 
 const useStyles = makeStyles<Theme, {}>(
   theme => ({

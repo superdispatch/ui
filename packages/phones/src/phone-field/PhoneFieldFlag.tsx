@@ -4,11 +4,14 @@ import { CountryCode } from 'libphonenumber-js';
 import React, { forwardRef, ImgHTMLAttributes, Ref, useState } from 'react';
 
 const useStyles = makeStyles<Theme>(
-  theme => ({ root: { minHeight: theme.spacing(2), minWidth: theme.spacing(2.75) } }),
+  theme => ({
+    root: { minHeight: theme.spacing(2), minWidth: theme.spacing(2.75) },
+  }),
   { name: 'SuperDispatchPhoneFieldFlag' },
 );
 
-export interface PhoneFieldFlagProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
+export interface PhoneFieldFlagProps
+  extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   code: CountryCode;
 }
 
