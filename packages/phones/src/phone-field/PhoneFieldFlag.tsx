@@ -1,6 +1,6 @@
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import clsx from 'clsx';
-import React, { forwardRef, ImgHTMLAttributes, Ref, useState } from 'react';
+import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
 import { PhoneCountryCode } from '../PhoneMetadata';
 
@@ -19,9 +19,8 @@ export interface PhoneFieldFlagProps
 export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
   ({ code, alt = code, className, ...props }, ref) => {
     const styles = useStyles();
-    const [failedCode, setFailedCode] = useState<PhoneCountryCode>();
 
-    if (failedCode === code) {
+    if (code === 'AC' || code === 'BQ' || code === 'EH' || code === 'TA') {
       return (
         <Typography
           ref={ref}
@@ -42,7 +41,6 @@ export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
         alt={alt}
         ref={ref as Ref<HTMLImageElement>}
         className={clsx(styles.root, className)}
-        onError={() => setFailedCode(code)}
         src={`https://cdn.jsdelivr.net/gh/madebybowtie/FlagKit@2.2/Assets/SVG/${code}.svg`}
       />
     );

@@ -71,21 +71,24 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
   const [selectedCountry, setSelectedCountry] = useState<PhoneCountryCode>(
     'US',
   );
+
+  const [regionalNumber, setRegionalNumber] = useState<string>('');
+
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const placeholder = useMemo(() => {
+    let nextPlaceholder = '';
+
     if (selectedCountry) {
       try {
-        return !selectedCountry
-          ? ''
-          : PhoneNumber.getExample(selectedCountry).getNumber('international');
-      } catch (e) {
-        return '';
-      }
+        nextPlaceholder = PhoneNumber.getExample(selectedCountry).getNumber(
+          'international',
+        );
+      } catch (e) {}
     }
 
-    return '';
+    return nextPlaceholder;
   }, [selectedCountry]);
 
   return (
@@ -93,6 +96,10 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
       <TextField
         {...props}
         variant="outlined"
+        value={regionalNumber}
+        onChange={event => {
+          setRegionalNumber(event.target.value);
+        }}
         placeholder={placeholder}
         ref={mergeRefs(ref, anchorRef)}
         inputRef={mergeRefs(inputRefProp, inputRef)}

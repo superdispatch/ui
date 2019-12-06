@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "clsx": "^1.0.4",
+    "rifm": "^0.10.1",
     "utility-hooks": "^0.5.1"
   },
   "devDependencies": {
