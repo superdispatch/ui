@@ -1,4 +1,4 @@
-export type PhoneCountryCode =
+export type RegionCode =
   | 'US'
   | 'CA'
   | 'AU'
@@ -245,7 +245,7 @@ export type PhoneCountryCode =
   | 'ZM'
   | 'ZW';
 
-export const phoneFieldCountries = new Map<PhoneCountryCode, string>([
+export const phoneFieldCountries = new Map<RegionCode, string>([
   ['US', 'United States'],
   ['CA', 'Canada'],
   ['AU', 'Australia'],

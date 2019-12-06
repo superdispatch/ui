@@ -1,11 +1,13 @@
 import { Box } from '@material-ui/core';
-import { PhoneField } from '@superdispatch/phones';
-import React from 'react';
+import { PhoneField, PhoneFieldValue } from '@superdispatch/phones';
+import React, { useState } from 'react';
 
 export default function PhoneFieldDemo() {
+  const [value, setValue] = useState<PhoneFieldValue>({ region: 'US' });
+
   return (
     <Box padding={2}>
-      <PhoneField value="" />
+      <PhoneField value={value} onChange={setValue} />
     </Box>
   );
 }

@@ -5,6 +5,7 @@ import {
   OutlinedTextFieldProps,
   TextField,
   Theme,
+  Typography,
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
@@ -20,8 +21,7 @@ import React, {
   useState,
 } from 'react';
 
-import { PhoneData } from '../PhoneHelpers';
-import { PhoneCountryCode } from '../PhoneMetadata';
+import { RegionCode } from '../PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 
@@ -52,14 +52,19 @@ const useStyles = makeStyles<Theme>(
   { name: 'SuperDispatchPhoneField' },
 );
 
+export interface PhoneFieldValue {
+  region: RegionCode;
+  regionalNumber?: string;
+}
+
 export interface PhoneFieldProps
   extends RefAttributes<HTMLDivElement>,
     Omit<
       OutlinedTextFieldProps,
       'value' | 'variant' | 'onChange' | 'InputProps'
     > {
-  value: string;
-  onChange?: (raw: string, data: PhoneData) => void;
+  value: PhoneFieldValue;
+  onChange?: (value: PhoneFieldValue) => void;
 }
 
 export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef<
@@ -68,38 +73,39 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
 >(({ value, onChange, inputRef: inputRefProp, ...props }, ref) => {
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<PhoneCountryCode>(
-    'US',
-  );
 
-  const [regionalNumber, setRegionalNumber] = useState<string>('');
+  const inputValue = useMemo(() => {
+    const ayt = PhoneNumber.getAsYouType(value.region);
+    ayt.reset(value.regionalNumber);
+
+    return ayt.getPhoneNumber().getNumber('national') || ayt.number();
+  }, [value.region, value.regionalNumber]);
 
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const placeholder = useMemo(() => {
-    let nextPlaceholder = '';
+  const [countryCode, placeholder] = useMemo(() => {
+    try {
+      const phoneNumber = PhoneNumber.getExample(value.region);
 
-    if (selectedCountry) {
-      try {
-        nextPlaceholder = PhoneNumber.getExample(selectedCountry).getNumber(
-          'international',
-        );
-      } catch (e) {}
-    }
+      return [phoneNumber.getCountryCode(), phoneNumber.getNumber('national')];
+    } catch (e) {}
 
-    return nextPlaceholder;
-  }, [selectedCountry]);
+    return [0, undefined];
+  }, [value.region]);
 
   return (
     <>
       <TextField
         {...props}
         variant="outlined"
-        value={regionalNumber}
-        onChange={event => {
-          setRegionalNumber(event.target.value);
-        }}
+        value={inputValue}
+        onChange={event =>
+          onChange?.({
+            region: value.region,
+            regionalNumber: event.target.value,
+          })
+        }
         placeholder={placeholder}
         ref={mergeRefs(ref, anchorRef)}
         inputRef={mergeRefs(inputRefProp, inputRef)}
@@ -118,13 +124,15 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
                   setIsOpen(true);
                 }}
               >
-                <PhoneFieldFlag code={selectedCountry} />
+                <PhoneFieldFlag code={value.region} />
 
                 {isOpen ? (
                   <ArrowDropUp htmlColor={Color.Grey200} />
                 ) : (
                   <ArrowDropDown htmlColor={Color.Grey200} />
                 )}
+
+                <Typography color="textPrimary">+{countryCode}</Typography>
               </ButtonBase>
             </InputAdornment>
           ),
@@ -134,8 +142,10 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
       <PhoneFieldMenu
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
-        selectedCountry={selectedCountry}
-        onSelect={next => setSelectedCountry(next)}
+        selectedCountry={value.region}
+        onSelect={next =>
+          onChange?.({ region: next, regionalNumber: value.regionalNumber })
+        }
       />
     </>
   );

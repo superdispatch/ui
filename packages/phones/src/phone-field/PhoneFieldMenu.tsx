@@ -8,7 +8,7 @@ import {
 import { MenuProps } from '@material-ui/core/Menu';
 import React, { forwardRef } from 'react';
 
-import { PhoneCountryCode, phoneFieldCountries } from '../PhoneMetadata';
+import { phoneFieldCountries, RegionCode } from '../PhoneMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 const useStyles = makeStyles<Theme, {}, MenuClassKey>(
@@ -22,8 +22,8 @@ const useStyles = makeStyles<Theme, {}, MenuClassKey>(
 export interface PhoneFieldMenuProps
   extends Omit<MenuProps, 'open' | 'children' | 'onClose' | 'onSelect'> {
   onClose: () => void;
-  selectedCountry: PhoneCountryCode;
-  onSelect: (country: PhoneCountryCode) => void;
+  selectedCountry: RegionCode;
+  onSelect: (country: RegionCode) => void;
 }
 
 export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
