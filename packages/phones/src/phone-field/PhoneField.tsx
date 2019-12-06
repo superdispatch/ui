@@ -2,82 +2,89 @@ import {
   ButtonBase,
   InputAdornment,
   makeStyles,
+  OutlinedTextFieldProps,
   TextField,
   Theme,
 } from '@material-ui/core';
-import { OutlinedInputClassKey } from '@material-ui/core/OutlinedInput';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
 import { CountryCode } from 'libphonenumber-js';
-import React, { useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  MutableRefObject,
+  Ref,
+  RefAttributes,
+  useRef,
+  useState,
+} from 'react';
 
 import { PhoneData } from '../PhoneHelpers';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 
-const useStyles = makeStyles<Theme, {}>(
+function mergeRefs<T>(
+  ...refs: Array<undefined | Ref<T>>
+): (instance: T | null) => void {
+  return instance => {
+    refs.forEach(ref => {
+      if (typeof ref === 'function') {
+        ref(instance);
+      } else if (ref) {
+        (ref as MutableRefObject<T | null>).current = instance;
+      }
+    });
+  };
+}
+
+const useStyles = makeStyles<Theme>(
   theme => ({
+    inputAdornedStart: { marginLeft: theme.spacing(-1), marginRight: 0 },
     selectButton: {
       color: Color.Blue300,
       padding: theme.spacing(0.5, 0.5, 0.5, 1),
+      borderRadius: theme.spacing(0.5, 0, 0, 0.5),
       '&:hover, &:focus': { backgroundColor: Color.Blue50 },
-    },
-
-    selectButtonIcon: {
-      color: Color.Grey200,
     },
   }),
   { name: 'SuperDispatchPhoneField' },
 );
 
-const useInputStyles = makeStyles<Theme, {}, OutlinedInputClassKey>(
-  {
-    root: {},
-    colorSecondary: {},
-    focused: {},
-    disabled: {},
-    adornedStart: { paddingLeft: 0 },
-    adornedEnd: {},
-    error: {},
-    marginDense: {},
-    multiline: {},
-    notchedOutline: {},
-    input: {},
-    inputMarginDense: {},
-    inputMultiline: {},
-    inputAdornedStart: {},
-    inputAdornedEnd: {},
-  },
-  { name: 'SuperDispatchPhoneFieldInput' },
-);
-
-export interface PhoneFieldProps {
+export interface PhoneFieldProps
+  extends RefAttributes<HTMLDivElement>,
+    Omit<
+      OutlinedTextFieldProps,
+      'value' | 'variant' | 'onChange' | 'InputProps'
+    > {
   value: string;
-  onChange: (raw: string, data: PhoneData) => void;
+  onChange?: (raw: string, data: PhoneData) => void;
 }
 
-export function PhoneField() {
-  const anchorRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const {
-    selectButton: selectButtonClassName,
-    selectButtonIcon: selectButtonIconClassName,
-  } = useStyles();
-  const inputStyles = useInputStyles();
+export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef<
+  HTMLDivElement,
+  PhoneFieldProps
+>(({ value, onChange, inputRef: inputRefProp, ...props }, ref) => {
+  const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>('US');
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
       <TextField
-        ref={anchorRef}
-        inputRef={inputRef}
+        {...props}
+        variant="outlined"
+        ref={mergeRefs(ref, anchorRef)}
+        inputRef={mergeRefs(inputRefProp, inputRef)}
         InputProps={{
-          classes: inputStyles,
           startAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment
+              position="start"
+              className={styles.inputAdornedStart}
+            >
               <ButtonBase
-                className={selectButtonClassName}
+                className={styles.selectButton}
                 onClick={() => {
                   // `FocusTrap` restores focus on `Menu` close. We're changing
                   // focus to `input`, so it will be focused instead of `button`.
@@ -88,9 +95,9 @@ export function PhoneField() {
                 <PhoneFieldFlag code={selectedCountry} />
 
                 {isOpen ? (
-                  <ArrowDropUp className={selectButtonIconClassName} />
+                  <ArrowDropUp htmlColor={Color.Grey200} />
                 ) : (
-                  <ArrowDropDown className={selectButtonIconClassName} />
+                  <ArrowDropDown htmlColor={Color.Grey200} />
                 )}
               </ButtonBase>
             </InputAdornment>
@@ -102,10 +109,12 @@ export function PhoneField() {
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
         selectedCountry={selectedCountry}
-        onSelect={nextSelectedCountry =>
-          setSelectedCountry(nextSelectedCountry)
-        }
+        onSelect={next => setSelectedCountry(next)}
       />
     </>
   );
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  PhoneField.displayName = 'PhoneField';
 }

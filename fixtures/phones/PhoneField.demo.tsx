@@ -5,7 +5,7 @@ import React from 'react';
 export default function PhoneFieldDemo() {
   return (
     <Box padding={2}>
-      <PhoneField />
+      <PhoneField value="" />
     </Box>
   );
 }
