@@ -91,14 +91,18 @@ export function applyTextFieldStyles(theme: Theme) {
     },
 
     input: {
-      height: fontHeightVariant('body1', true),
-      fontSize: fontSizeVariant('body1', true),
       padding: theme.spacing(1.25, 2),
 
+      height: fontHeightVariant('body1', true),
+      fontSize: fontSizeVariant('body1', true),
+      lineHeight: fontHeightVariant('body1', true),
+
       [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(0.75, 1),
+
         height: fontHeightVariant('body1'),
         fontSize: fontSizeVariant('body1'),
-        padding: theme.spacing(0.75, 1),
+        lineHeight: fontHeightVariant('body1'),
       },
     },
 

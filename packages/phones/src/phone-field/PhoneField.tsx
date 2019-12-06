@@ -8,12 +8,14 @@ import {
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
+import PhoneNumber from 'awesome-phonenumber';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
   MutableRefObject,
   Ref,
   RefAttributes,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -72,11 +74,26 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const placeholder = useMemo(() => {
+    if (selectedCountry) {
+      try {
+        return !selectedCountry
+          ? ''
+          : PhoneNumber.getExample(selectedCountry).getNumber('international');
+      } catch (e) {
+        return '';
+      }
+    }
+
+    return '';
+  }, [selectedCountry]);
+
   return (
     <>
       <TextField
         {...props}
         variant="outlined"
+        placeholder={placeholder}
         ref={mergeRefs(ref, anchorRef)}
         inputRef={mergeRefs(inputRefProp, inputRef)}
         InputProps={{
