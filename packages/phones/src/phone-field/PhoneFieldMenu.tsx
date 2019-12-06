@@ -42,10 +42,9 @@ export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
         onClose={onClose}
         anchorEl={anchorEl}
       >
-        {Array.from(phoneFieldCountries, ([country, label]) => [
+        {Array.from(phoneFieldCountries.keys(), country => [
           <PhoneFieldMenuItem
             key={country}
-            label={label}
             country={country}
             selected={country === selectedCountry}
             onClick={() => {
