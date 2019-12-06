@@ -19,8 +19,8 @@ type ButtonClassKey =
       'textSecondary' | 'outlinedSecondary' | 'containedSecondary'
     >
   | 'progress'
-  | 'isActive'
-  | 'isLoading'
+  | 'active'
+  | 'loading'
   | 'textError'
   | 'textSuccess'
   | 'outlinedError'
@@ -36,9 +36,9 @@ function textVariant(
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
-    '&$disabled:not($isLoading)': { color: outline },
+    '&$disabled:not($loading)': { color: outline },
     '&:not($disabled)': {
-      '&:hover, &:active, &$isActive': { backgroundColor: background },
+      '&:hover, &:active, &$active': { backgroundColor: background },
       '&:focus': {
         backgroundColor: background,
         boxShadow: `0 0 0 2px ${outline}`,
@@ -61,13 +61,13 @@ function outlinedVariant(
     color: staleText,
     boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
 
-    '&$disabled:not($isLoading)': {
+    '&$disabled:not($loading)': {
       color: disabledText,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
 
     '&:not($disabled)': {
-      '&:hover, &:active, &$isActive': {
+      '&:hover, &:active, &$active': {
         color: activeText,
         backgroundColor: activeBackground,
         boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 0 ${activeOutline}`,
@@ -91,7 +91,7 @@ function containedVariant(
     '&$disabled': { backgroundColor: outline },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
-      '&:hover, &:active, &$isActive': { backgroundColor: active },
+      '&:hover, &:active, &$active': { backgroundColor: active },
     },
   };
 }
@@ -100,7 +100,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
   theme => ({
     root: {},
 
-    label: { '$isLoading &': { visibility: 'hidden' } },
+    label: { '$loading &': { visibility: 'hidden' } },
 
     sizeSmall: {},
     sizeLarge: {},
@@ -164,8 +164,8 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
 
     focusVisible: {},
     disabled: {},
-    isActive: {},
-    isLoading: {},
+    active: {},
+    loading: {},
     colorInherit: {},
 
     progress: {
@@ -218,15 +218,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const {
+      active,
+      loading,
+      progress,
+
       textError,
       textSuccess,
       outlinedError,
       outlinedSuccess,
       containedError,
       containedSuccess,
-      isActive: isActiveClassName,
-      isLoading: isLoadingClassName,
-      progress: progressClassName,
+
       ...buttonClasses
     } = useStyles({ classes });
 
@@ -247,14 +249,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         color={color === 'primary' ? color : undefined}
         className={clsx(
-          isActive && isActiveClassName,
-          isLoading && isLoadingClassName,
-          isText && isError && textError,
-          isText && isSuccess && textSuccess,
-          isOutlined && isError && outlinedError,
-          isOutlined && isSuccess && outlinedSuccess,
-          isContained && isError && containedError,
-          isContained && isSuccess && containedSuccess,
+          {
+            [active]: isActive,
+            [loading]: isLoading,
+
+            [textError]: isText && isError,
+            [textSuccess]: isText && isSuccess,
+
+            [outlinedError]: isOutlined && isError,
+            [outlinedSuccess]: isOutlined && isSuccess,
+
+            [containedError]: isContained && isError,
+            [containedSuccess]: isContained && isSuccess,
+          },
+
           className,
         )}
       >
@@ -263,11 +271,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           <>
             {children}
-            <CircularProgress
-              size="1em"
-              color="inherit"
-              className={progressClassName}
-            />
+            <CircularProgress size="1em" color="inherit" className={progress} />
           </>
         )}
       </MaterialButton>
