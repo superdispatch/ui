@@ -125,9 +125,11 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
         ref={ref}
         className={clsx(
           styles.root,
-          size === 'small' && styles.sizeSmall,
-          size === 'large' && styles.sizeLarge,
-          !!error && styles.error,
+          {
+            [styles.error]: error,
+            [styles.sizeSmall]: size === 'small',
+            [styles.sizeLarge]: size === 'large',
+          },
           className,
         )}
         {...buttonProps}
