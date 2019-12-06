@@ -6,7 +6,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
-import { CountryCode } from 'libphonenumber-js';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -14,6 +13,7 @@ import React, {
   RefAttributes,
 } from 'react';
 
+import { PhoneCountryCode } from '../PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
@@ -30,7 +30,7 @@ export interface PhoneFieldMenuItemProps
   extends RefAttributes<HTMLLIElement>,
     Omit<MenuItemProps, 'classes' | 'children'> {
   label: ReactNode;
-  country: CountryCode;
+  country: PhoneCountryCode;
   classes?: Partial<ClassNameMap<PhoneFieldMenuItemClassKey>>;
 }
 

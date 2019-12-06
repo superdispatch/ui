@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "clsx": "^1.0.4",
-    "libphonenumber-js": "^1.7.27",
     "utility-hooks": "^0.5.1"
   },
   "devDependencies": {
@@ -21,6 +20,7 @@
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.3.0",
+    "awesome-phonenumber": "^2.23.0",
     "react": "^16.8.0"
   },
   "publishConfig": {

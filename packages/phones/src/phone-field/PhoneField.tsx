@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
-import { CountryCode } from 'libphonenumber-js';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -20,6 +19,7 @@ import React, {
 } from 'react';
 
 import { PhoneData } from '../PhoneHelpers';
+import { PhoneCountryCode } from '../PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 
@@ -66,7 +66,9 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
 >(({ value, onChange, inputRef: inputRefProp, ...props }, ref) => {
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<CountryCode>('US');
+  const [selectedCountry, setSelectedCountry] = useState<PhoneCountryCode>(
+    'US',
+  );
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
