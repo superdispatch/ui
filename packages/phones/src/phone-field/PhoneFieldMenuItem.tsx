@@ -7,7 +7,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
-import PhoneNumber from 'awesome-phonenumber';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -15,6 +14,7 @@ import React, {
   useMemo,
 } from 'react';
 
+import { getCountryCodeForRegionCode } from '../PhoneHelpers';
 import { phoneFieldCountries, RegionCode } from '../PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
@@ -31,27 +31,23 @@ const useStyles = makeStyles<Theme, {}, PhoneFieldMenuItemClassKey>(theme => ({
 export interface PhoneFieldMenuItemProps
   extends RefAttributes<HTMLLIElement>,
     Omit<MenuItemProps, 'classes' | 'children'> {
-  country: RegionCode;
+  regionCode: RegionCode;
   classes?: Partial<ClassNameMap<PhoneFieldMenuItemClassKey>>;
 }
 
 export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemProps> = forwardRef<
   HTMLLIElement,
   PhoneFieldMenuItemProps
->(({ country, classes, ...props }, ref) => {
+>(({ regionCode, classes, ...props }, ref) => {
   const { flag: flagClassName, ...styles } = useStyles({ classes });
-  const countryCode = useMemo(() => {
-    try {
-      return `+${PhoneNumber.getCountryCodeForRegionCode(country)}`;
-    } catch (e) {
-      return null;
-    }
-  }, [country]);
+  const countryCode = useMemo(() => getCountryCodeForRegionCode(regionCode), [
+    regionCode,
+  ]);
 
   return (
     <MenuItem {...props} ref={ref} button={true} classes={styles}>
-      <PhoneFieldFlag code={country} className={flagClassName} />
-      {phoneFieldCountries.get(country)}
+      <PhoneFieldFlag code={regionCode} className={flagClassName} />
+      {phoneFieldCountries.get(regionCode)}
       &nbsp;
       <Typography color="textSecondary">{countryCode}</Typography>
     </MenuItem>
