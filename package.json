@@ -14,7 +14,7 @@
   "scripts": {
     "build": "yarn lerna run build --stream",
     "build:docs": "cosmos-export",
-    "prebump": "yarn install && yarn tsc && yarn lint && yarn build:docs",
+    "prebump": "yarn --force && yarn tsc && yarn lint && yarn build:docs",
     "bump": "lerna version",
     "lint": "js-tools lint",
     "nuke": "git clean -xdf -e \".idea\" -e \".vscode\"",
