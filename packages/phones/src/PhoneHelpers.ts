@@ -21,10 +21,30 @@ export function getExamplePhone(region: RegionCode): PhoneNumber {
   }
 }
 
+export function getExampleNationalPhoneNumber(region: RegionCode): string {
+  let phoneNumber: PhoneNumber;
+
+  try {
+    phoneNumber = PhoneNumber.getExample(region);
+  } catch (e) {
+    phoneNumber = PhoneNumber.getExample('US');
+  }
+
+  return phoneNumber.getNumber('national');
+}
+
 export function getCountryCodeForRegionCode(region: RegionCode): number {
   try {
     return PhoneNumber.getCountryCodeForRegionCode(region);
   } catch (e) {
     return 1;
+  }
+}
+
+export function getRegionCodeForCountryCode(countryCode: number): RegionCode {
+  try {
+    return PhoneNumber.getRegionCodeForCountryCode(countryCode) as RegionCode;
+  } catch (e) {
+    return 'US';
   }
 }

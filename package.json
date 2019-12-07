@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn lerna run build --stream",
+    "build": "yarn lerna run build",
     "build:docs": "cosmos-export",
     "prebump": "yarn --force && yarn tsc && yarn lint && yarn build:docs",
     "bump": "lerna version",

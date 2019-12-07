@@ -9,9 +9,10 @@ import {
   ButtonProps as MuiButtonProps,
 } from '@material-ui/core/Button';
 import { ClassNameMap, CSSProperties } from '@material-ui/styles/withStyles';
-import { Color } from '@superdispatch/ui';
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
+
+import { Color } from '../theme/Color';
 
 type ButtonClassKey =
   | Exclude<

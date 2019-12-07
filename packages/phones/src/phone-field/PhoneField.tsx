@@ -20,7 +20,11 @@ import React, {
   useState,
 } from 'react';
 
-import { formatNationalPhoneNumber, getExamplePhone } from '../PhoneHelpers';
+import {
+  formatNationalPhoneNumber,
+  getCountryCodeForRegionCode,
+  getExampleNationalPhoneNumber,
+} from '../PhoneHelpers';
 import { RegionCode } from '../PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
@@ -74,26 +78,25 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
-  const inputValue = useMemo(
+  const countryCode = getCountryCodeForRegionCode(value.region);
+  const inputText = useMemo(
     () => formatNationalPhoneNumber(value.region, value.nationalNumber ?? ''),
     [value.region, value.nationalNumber],
+  );
+  const placeholder = useMemo(
+    () => getExampleNationalPhoneNumber(value.region),
+    [value.region],
   );
 
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const [countryCode, placeholder] = useMemo(() => {
-    const phoneNumber = getExamplePhone(value.region);
-
-    return [phoneNumber.getCountryCode(), phoneNumber.getNumber('national')];
-  }, [value.region]);
 
   return (
     <>
       <TextField
         {...props}
         variant="outlined"
-        value={inputValue}
+        value={inputText}
         onChange={event =>
           onChange?.({
             region: value.region,

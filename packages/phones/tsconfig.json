@@ -1,3 +1,9 @@
 {
-  "extends": "../../tsconfig.build.json"
+  "extends": "../../tsconfig.build.json",
+  "references": [{ "path": "../ui" }],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg/dist-types"
+  }
 }
