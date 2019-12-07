@@ -32,17 +32,20 @@ export function formatDate(
   }
 }
 
+// TODO: Change to `[Date?, Date?]` after resolve of https://github.com/Swatinem/rollup-plugin-dts/issues/69
+export type DateRange = [undefined | Date, undefined | Date];
+
 export function normalizeDateRange(
-  range: undefined | [Date?, Date?] = [],
-): [Date?, Date?] {
+  range: undefined | DateRange = [undefined, undefined],
+): DateRange {
   return range
     .filter(isValidDate)
-    .sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?];
+    .sort((a, b) => a.valueOf() - b.valueOf()) as DateRange;
 }
 
 export function isSameDateRange(
-  a: undefined | [Date?, Date?],
-  b: undefined | [Date?, Date?],
+  a: undefined | DateRange,
+  b: undefined | DateRange,
 ): boolean {
   const [fromA, toA] = normalizeDateRange(a);
   const [fromB, toB] = normalizeDateRange(b);
@@ -50,7 +53,7 @@ export function isSameDateRange(
   return isSameDate(fromA, fromB) && isSameDate(toA, toB);
 }
 
-export function formatDateRange(range?: [Date?, Date?]): string {
+export function formatDateRange(range?: DateRange): string {
   const [from, to] = normalizeDateRange(range);
   const fromText = formatDate(
     from,

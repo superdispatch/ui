@@ -46,6 +46,9 @@
       ],
       [
         "@pika/plugin-build-types"
+      ],
+      [
+        "@pika/plugin-bundle-types"
       ]
     ]
   }

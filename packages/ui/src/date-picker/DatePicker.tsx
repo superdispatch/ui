@@ -26,7 +26,7 @@ export function DatePicker({
       {...stateProps}
       onClose={onClose}
       value={value}
-      selectedDays={[value]}
+      selectedDays={[value, undefined]}
       onChange={onChange}
       onDayClick={(day, modifiers) => {
         onDayClick?.(day, modifiers);

@@ -16,6 +16,7 @@ import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
 import {
+  DateRange,
   isFirstDayOfMonth,
   isLastDayOfMonth,
   normalizeDateRange,
@@ -267,7 +268,7 @@ export interface CalendarProps
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: [Date?, Date?];
+  selectedDays?: DateRange;
 
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;

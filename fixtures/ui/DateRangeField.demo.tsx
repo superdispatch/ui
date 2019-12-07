@@ -29,7 +29,7 @@ export function isSameDateRange(
 }
 
 export default function DateRangeFieldDemo() {
-  const [range, setRange] = useState<[Date?, Date?]>();
+  const [range, setRange] = useState<[undefined | Date, undefined | Date]>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
