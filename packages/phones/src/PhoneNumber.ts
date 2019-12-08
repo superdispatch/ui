@@ -8,24 +8,23 @@ function extractDigits(value: null | string | undefined): string {
   return !value ? '' : value.replace(NON_DIGITS_REGEXP, '');
 }
 
-function toAPN(
-  phoneNumber: null | string | undefined,
-  countryCode?: string,
-): undefined | APN {
-  const digits = extractDigits(phoneNumber);
+export class PhoneNumber {
+  private static toAPN(phoneNumber?: PhoneNumber): undefined | APN {
+    if (phoneNumber) {
+      const digits = extractDigits(phoneNumber.nationalNumber);
 
-  try {
-    return new APN(digits, countryCode);
-  } catch (e) {
+      try {
+        return new APN(digits, phoneNumber.region);
+      } catch (e) {}
+    }
+
     return undefined;
   }
-}
 
-export class PhoneNumber {
   static fromInternational(
     phone: null | string | undefined,
   ): undefined | PhoneNumber {
-    const phoneNumber = toAPN(phone);
+    const phoneNumber = PhoneNumber.toAPN({ nationalNumber: phone || '' });
 
     if (phoneNumber) {
       return new PhoneNumber(
@@ -68,13 +67,11 @@ export class PhoneNumber {
     }
   }
 
-  static isValid(phoneNumber: PhoneNumber): boolean {
-    if (phoneNumber.nationalNumber) {
-      const apn = toAPN(phoneNumber.nationalNumber, phoneNumber.region);
+  static isValid(phoneNumber?: PhoneNumber): boolean {
+    const apn = PhoneNumber.toAPN(phoneNumber);
 
-      if (apn) {
-        return apn.isValid();
-      }
+    if (apn) {
+      return apn.isValid();
     }
 
     return false;
@@ -102,22 +99,16 @@ export class PhoneNumber {
     return digits;
   }
 
-  static toInternational({
-    region,
-    nationalNumber,
-  }: PhoneNumber): undefined | string {
-    return toAPN(nationalNumber, region)?.getNumber('international');
+  static toInternational(phoneNumber?: PhoneNumber): undefined | string {
+    return PhoneNumber.toAPN(phoneNumber)?.getNumber('international');
   }
 
-  static toE164({ region, nationalNumber }: PhoneNumber): undefined | string {
-    return toAPN(nationalNumber, region)?.getNumber('e164');
+  static toE164(phoneNumber?: PhoneNumber): undefined | string {
+    return PhoneNumber.toAPN(phoneNumber)?.getNumber('e164');
   }
 
-  static toRFC3966({
-    region,
-    nationalNumber,
-  }: PhoneNumber): undefined | string {
-    return toAPN(nationalNumber, region)?.getNumber('rfc3966');
+  static toRFC3966(phoneNumber?: PhoneNumber): undefined | string {
+    return PhoneNumber.toAPN(phoneNumber)?.getNumber('rfc3966');
   }
 
   constructor(region?: RegionCode, nationalNumber?: string) {
