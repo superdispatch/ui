@@ -20,12 +20,7 @@ import React, {
   useState,
 } from 'react';
 
-import {
-  formatNationalPhoneNumber,
-  getCountryCodeForRegionCode,
-  getExampleNationalPhoneNumber,
-} from '../PhoneHelpers';
-import { RegionCode } from '../PhoneMetadata';
+import { PhoneNumber } from '../PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 
@@ -56,19 +51,14 @@ const useStyles = makeStyles<Theme>(
   { name: 'SuperDispatchPhoneField' },
 );
 
-export interface PhoneFieldValue {
-  region: RegionCode;
-  nationalNumber?: string;
-}
-
 export interface PhoneFieldProps
   extends RefAttributes<HTMLDivElement>,
     Omit<
       OutlinedTextFieldProps,
       'value' | 'variant' | 'onChange' | 'InputProps'
     > {
-  value: PhoneFieldValue;
-  onChange?: (value: PhoneFieldValue) => void;
+  value: PhoneNumber;
+  onChange?: (value: PhoneNumber) => void;
 }
 
 export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef<
@@ -78,14 +68,16 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
-  const countryCode = getCountryCodeForRegionCode(value.region);
+  const currentRegion = value.region || 'US';
+
+  const countryCode = PhoneNumber.getCountryCodeForRegionCode(currentRegion);
   const inputText = useMemo(
-    () => formatNationalPhoneNumber(value.region, value.nationalNumber ?? ''),
-    [value.region, value.nationalNumber],
+    () => PhoneNumber.formatNational(currentRegion, value.nationalNumber ?? ''),
+    [currentRegion, value.nationalNumber],
   );
   const placeholder = useMemo(
-    () => getExampleNationalPhoneNumber(value.region),
-    [value.region],
+    () => PhoneNumber.getExample(currentRegion).nationalNumber,
+    [currentRegion],
   );
 
   const anchorRef = useRef<HTMLDivElement>(null);
@@ -99,7 +91,7 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
         value={inputText}
         onChange={event =>
           onChange?.({
-            region: value.region,
+            region: currentRegion,
             nationalNumber: event.target.value,
           })
         }
@@ -121,7 +113,7 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
                   setIsOpen(true);
                 }}
               >
-                <PhoneFieldFlag code={value.region} />
+                <PhoneFieldFlag code={currentRegion} />
 
                 {isOpen ? (
                   <ArrowDropUp htmlColor={Color.Grey200} />
@@ -139,7 +131,7 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
       <PhoneFieldMenu
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
-        selectedCountry={value.region}
+        selectedCountry={currentRegion}
         onSelect={next =>
           onChange?.({ region: next, nationalNumber: value.nationalNumber })
         }

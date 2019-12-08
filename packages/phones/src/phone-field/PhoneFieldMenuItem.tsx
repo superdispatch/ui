@@ -14,8 +14,8 @@ import React, {
   useMemo,
 } from 'react';
 
-import { getCountryCodeForRegionCode } from '../PhoneHelpers';
 import { phoneFieldCountries, RegionCode } from '../PhoneMetadata';
+import { PhoneNumber } from '../PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
@@ -40,9 +40,10 @@ export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemPro
   PhoneFieldMenuItemProps
 >(({ regionCode, classes, ...props }, ref) => {
   const { flag: flagClassName, ...styles } = useStyles({ classes });
-  const countryCode = useMemo(() => getCountryCodeForRegionCode(regionCode), [
-    regionCode,
-  ]);
+  const countryCode = useMemo(
+    () => PhoneNumber.getCountryCodeForRegionCode(regionCode),
+    [regionCode],
+  );
 
   return (
     <MenuItem {...props} ref={ref} button={true} classes={styles}>

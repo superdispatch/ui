@@ -6,6 +6,7 @@
     "url": "https://github.com/superdispatch/ui.git"
   },
   "license": "MIT",
+  "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
     "build": "pika build"
