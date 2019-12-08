@@ -1,51 +1,49 @@
-import AwesomePhoneNumber from 'awesome-phonenumber';
+import APN from 'awesome-phonenumber';
 
 import { RegionCode } from './PhoneMetadata';
 
 const NON_DIGITS_REGEXP = /\D+/g;
 
-function extractDigits(value: string): string {
-  return value.replace(NON_DIGITS_REGEXP, '');
+function extractDigits(value: null | string | undefined): string {
+  return !value ? '' : value.replace(NON_DIGITS_REGEXP, '');
+}
+
+function toAPN(
+  phoneNumber: null | string | undefined,
+  countryCode?: string,
+): undefined | APN {
+  const digits = extractDigits(phoneNumber);
+
+  try {
+    return new APN(digits, countryCode);
+  } catch (e) {
+    return undefined;
+  }
 }
 
 export class PhoneNumber {
   static fromInternational(
     phone: null | string | undefined,
   ): undefined | PhoneNumber {
-    const digits = phone && extractDigits(phone);
+    const phoneNumber = toAPN(phone);
 
-    if (!digits) {
-      return undefined;
-    }
-    try {
-      const phoneNumber = new AwesomePhoneNumber(digits);
-
+    if (phoneNumber) {
       return new PhoneNumber(
         phoneNumber.getRegionCode() as RegionCode,
         phoneNumber.getNumber('national'),
       );
-    } catch (e) {
-      return undefined;
     }
-  }
 
-  static formatNational(region: RegionCode, phoneNumber: string): string {
-    const asYouType = AwesomePhoneNumber.getAsYouType(region);
-
-    asYouType.reset(phoneNumber);
-
-    return (
-      asYouType.getPhoneNumber().getNumber('national') || asYouType.number()
-    );
+    return undefined;
   }
 
   static getExample(region: RegionCode): PhoneNumber {
-    let phoneNumber: AwesomePhoneNumber;
+    let phoneNumber: APN;
 
     try {
-      phoneNumber = AwesomePhoneNumber.getExample(region);
+      phoneNumber = APN.getExample(region);
     } catch (e) {
-      phoneNumber = AwesomePhoneNumber.getExample('US');
+      phoneNumber = APN.getExample('US');
     }
 
     return new PhoneNumber(
@@ -54,22 +52,72 @@ export class PhoneNumber {
     );
   }
 
-  static getCountryCodeForRegionCode(region: RegionCode): number {
+  static getCountryCode(regionCode: RegionCode): number {
     try {
-      return AwesomePhoneNumber.getCountryCodeForRegionCode(region);
+      return APN.getCountryCodeForRegionCode(regionCode);
     } catch (e) {
       return 1;
     }
   }
 
-  static getRegionCodeForCountryCode(countryCode: number): RegionCode {
+  static getRegionCode(countryCode: number): RegionCode {
     try {
-      return AwesomePhoneNumber.getRegionCodeForCountryCode(
-        countryCode,
-      ) as RegionCode;
+      return APN.getRegionCodeForCountryCode(countryCode) as RegionCode;
     } catch (e) {
       return 'US';
     }
+  }
+
+  static isValid(phoneNumber: PhoneNumber): boolean {
+    if (phoneNumber.nationalNumber) {
+      const apn = toAPN(phoneNumber.nationalNumber, phoneNumber.region);
+
+      if (apn) {
+        return apn.isValid();
+      }
+    }
+
+    return false;
+  }
+
+  static toNational({ region, nationalNumber }: PhoneNumber): string {
+    const digits = nationalNumber && extractDigits(nationalNumber);
+
+    if (!digits) {
+      return '';
+    }
+
+    if (region) {
+      try {
+        const asYouType = APN.getAsYouType(region);
+
+        asYouType.reset(digits);
+
+        return (
+          asYouType.getPhoneNumber().getNumber('national') || asYouType.number()
+        );
+      } catch (e) {}
+    }
+
+    return digits;
+  }
+
+  static toInternational({
+    region,
+    nationalNumber,
+  }: PhoneNumber): undefined | string {
+    return toAPN(nationalNumber, region)?.getNumber('international');
+  }
+
+  static toE164({ region, nationalNumber }: PhoneNumber): undefined | string {
+    return toAPN(nationalNumber, region)?.getNumber('e164');
+  }
+
+  static toRFC3966({
+    region,
+    nationalNumber,
+  }: PhoneNumber): undefined | string {
+    return toAPN(nationalNumber, region)?.getNumber('rfc3966');
   }
 
   constructor(region?: RegionCode, nationalNumber?: string) {

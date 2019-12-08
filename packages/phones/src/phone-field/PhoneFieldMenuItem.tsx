@@ -40,10 +40,9 @@ export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemPro
   PhoneFieldMenuItemProps
 >(({ regionCode, classes, ...props }, ref) => {
   const { flag: flagClassName, ...styles } = useStyles({ classes });
-  const countryCode = useMemo(
-    () => PhoneNumber.getCountryCodeForRegionCode(regionCode),
-    [regionCode],
-  );
+  const countryCode = useMemo(() => PhoneNumber.getCountryCode(regionCode), [
+    regionCode,
+  ]);
 
   return (
     <MenuItem {...props} ref={ref} button={true} classes={styles}>

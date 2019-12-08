@@ -70,9 +70,13 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
 
   const currentRegion = value.region || 'US';
 
-  const countryCode = PhoneNumber.getCountryCodeForRegionCode(currentRegion);
+  const countryCode = PhoneNumber.getCountryCode(currentRegion);
   const inputText = useMemo(
-    () => PhoneNumber.formatNational(currentRegion, value.nationalNumber ?? ''),
+    () =>
+      PhoneNumber.toNational({
+        region: currentRegion,
+        nationalNumber: value.nationalNumber,
+      }),
     [currentRegion, value.nationalNumber],
   );
   const placeholder = useMemo(
