@@ -13,9 +13,9 @@
   },
   "scripts": {
     "build": "yarn lerna run build",
-    "build:docs": "cosmos-export",
-    "prebump": "yarn --force && yarn tsc && yarn lint && yarn build:docs",
+    "prebump": "yarn --force && yarn tsc && yarn lint && yarn docs",
     "bump": "lerna version",
+    "docs": "cosmos-export",
     "lint": "js-tools lint",
     "nuke": "git clean -xdf -e \".idea\" -e \".vscode\"",
     "start": "cosmos",

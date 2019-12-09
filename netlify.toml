@@ -1,4 +1,4 @@
 [build]
   publish = "docs"
-  command = "yarn build:docs"
+  command = "yarn docs"
   environment = { NODE_VERSION = "12.13.1" }
