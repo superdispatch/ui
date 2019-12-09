@@ -14,8 +14,8 @@ import React, {
   useMemo,
 } from 'react';
 
-import { phoneFieldCountries, RegionCode } from '../PhoneMetadata';
-import { PhoneNumber } from '../PhoneNumber';
+import { PhoneNumber } from './data/PhoneNumber';
+import { phoneFieldCountries, RegionCode } from './internal/PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';

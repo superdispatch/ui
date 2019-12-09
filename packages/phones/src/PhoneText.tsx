@@ -1,6 +1,6 @@
 import React, { ReactElement, useMemo } from 'react';
 
-import { PhoneNumber } from './PhoneNumber';
+import { PhoneNumber } from './data/PhoneNumber';
 
 export function usePhoneNumber(phone: string): undefined | PhoneNumber {
   return useMemo(() => PhoneNumber.fromInternational(phone), [phone]);

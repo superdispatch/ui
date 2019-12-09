@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
-import { Color } from '@superdispatch/ui';
+import { Color } from '@superdispatch/ui/pkg/dist-types';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -20,7 +20,7 @@ import React, {
   useState,
 } from 'react';
 
-import { PhoneNumber } from '../PhoneNumber';
+import { PhoneNumber } from './data/PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 

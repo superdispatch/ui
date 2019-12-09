@@ -2,7 +2,7 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
-import { RegionCode } from '../PhoneMetadata';
+import { RegionCode } from './internal/PhoneMetadata';
 
 const useStyles = makeStyles<Theme>(
   theme => ({

@@ -1,6 +1,6 @@
 import APN from 'awesome-phonenumber';
 
-import { RegionCode } from './PhoneMetadata';
+import { RegionCode } from '../internal/PhoneMetadata';
 
 const NON_DIGITS_REGEXP = /\D+/g;
 

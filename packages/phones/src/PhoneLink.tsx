@@ -1,7 +1,7 @@
 import { Link, LinkProps } from '@material-ui/core';
 import React, { forwardRef, ReactNode, RefAttributes, useMemo } from 'react';
 
-import { PhoneNumber } from './PhoneNumber';
+import { PhoneNumber } from './data/PhoneNumber';
 import { usePhoneNumber } from './PhoneText';
 
 export interface PhoneLinkProps

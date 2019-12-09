@@ -8,7 +8,7 @@ import {
 import { MenuProps } from '@material-ui/core/Menu';
 import React, { forwardRef } from 'react';
 
-import { phoneFieldCountries, RegionCode } from '../PhoneMetadata';
+import { phoneFieldCountries, RegionCode } from './internal/PhoneMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 const useStyles = makeStyles<Theme, {}, MenuClassKey>(
