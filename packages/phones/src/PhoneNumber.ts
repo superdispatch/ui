@@ -4,60 +4,82 @@ import { RegionCode } from './PhoneMetadata';
 
 const NON_DIGITS_REGEXP = /\D+/g;
 
-function tryCreateAPN(
-  phoneNumber: string,
-  region?: RegionCode,
-): undefined | APN {
+function getAYT(regionCode: null | undefined | RegionCode) {
   try {
-    return new APN(phoneNumber, region);
+    return APN.getAsYouType(regionCode || 'US');
   } catch (e) {
-    return undefined;
+    return APN.getAsYouType('US');
   }
 }
 
-function extractPhone(value: null | string | undefined): string {
+function extractDigits(value: null | string | undefined): string {
   return value?.replace(NON_DIGITS_REGEXP, '') ?? '';
 }
 
+export type PhoneNumberLike = string | PhoneNumber;
+
 export class PhoneNumber {
-  private static toAPN(phoneNumber?: PhoneNumber): undefined | APN {
-    if (!phoneNumber) {
+  static stringify(phoneNumber?: PhoneNumberLike): undefined | string {
+    return !phoneNumber || typeof phoneNumber === 'string'
+      ? phoneNumber
+      : !phoneNumber.region
+      ? phoneNumber.nationalNumber
+      : `+${PhoneNumber.getCountryCode(phoneNumber.region)} ${
+          phoneNumber.nationalNumber
+        }`;
+  }
+
+  private static toAPN(
+    value: null | undefined | PhoneNumberLike,
+  ): undefined | APN {
+    if (!value) {
       return undefined;
     }
 
-    const digits = extractPhone(phoneNumber.nationalNumber);
+    // If we get plain string, we use APN constructor directly.
+    if (typeof value === 'string') {
+      const digits = extractDigits(value);
 
-    return tryCreateAPN(phoneNumber.region ? digits : `+${digits}`);
+      if (!digits) {
+        return undefined;
+      }
+
+      // Prepend `+` because we expect international number.
+      return new APN(`+${digits}`);
+    }
+
+    const ayt = getAYT(value.region);
+
+    ayt.reset(value.nationalNumber);
+
+    return ayt.getPhoneNumber();
+  }
+
+  private static fromAPN(apn?: APN): undefined | PhoneNumber {
+    return !apn
+      ? undefined
+      : new PhoneNumber(
+          apn.getRegionCode() as RegionCode,
+          apn.getNumber('national'),
+        );
   }
 
   static fromInternational(
     phone: null | string | undefined,
   ): undefined | PhoneNumber {
-    const phoneNumber = PhoneNumber.toAPN({ nationalNumber: phone || '' });
-
-    if (phoneNumber) {
-      return new PhoneNumber(
-        phoneNumber.getRegionCode() as RegionCode,
-        phoneNumber.getNumber('national'),
-      );
-    }
-
-    return undefined;
+    return PhoneNumber.fromAPN(PhoneNumber.toAPN(phone));
   }
 
   static getExample(region: RegionCode): PhoneNumber {
-    let phoneNumber: APN;
+    let apn: APN;
 
     try {
-      phoneNumber = APN.getExample(region);
+      apn = APN.getExample(region);
     } catch (e) {
-      phoneNumber = APN.getExample('US');
+      apn = APN.getExample('US');
     }
 
-    return new PhoneNumber(
-      phoneNumber.getRegionCode() as RegionCode,
-      phoneNumber.getNumber('national'),
-    );
+    return PhoneNumber.fromAPN(apn) as PhoneNumber;
   }
 
   static getCountryCode(regionCode: RegionCode): number {
@@ -87,7 +109,7 @@ export class PhoneNumber {
   }
 
   static toNational({ region, nationalNumber }: PhoneNumber): string {
-    const digits = nationalNumber && extractPhone(nationalNumber);
+    const digits = extractDigits(nationalNumber);
 
     if (!digits) {
       return '';
@@ -108,23 +130,25 @@ export class PhoneNumber {
     return digits;
   }
 
-  static toInternational(phoneNumber?: PhoneNumber): undefined | string {
+  static toInternational(phoneNumber?: PhoneNumberLike): undefined | string {
     return PhoneNumber.toAPN(phoneNumber)?.getNumber('international');
   }
 
-  static toE164(phoneNumber?: PhoneNumber): undefined | string {
+  static toE164(phoneNumber?: PhoneNumberLike): undefined | string {
     return PhoneNumber.toAPN(phoneNumber)?.getNumber('e164');
   }
 
-  static toRFC3966(phoneNumber?: PhoneNumber): undefined | string {
-    return PhoneNumber.toAPN(phoneNumber)?.getNumber('rfc3966');
+  static toRFC3966(phoneNumber?: PhoneNumberLike): undefined | string {
+    const apn = PhoneNumber.toAPN(phoneNumber);
+
+    return apn?.getNumber('rfc3966');
   }
 
-  constructor(region?: RegionCode, nationalNumber?: string) {
+  constructor(region: RegionCode, nationalNumber?: string) {
     this.region = region;
     this.nationalNumber = nationalNumber;
   }
 
-  region?: RegionCode;
+  region: RegionCode;
   nationalNumber?: string;
 }

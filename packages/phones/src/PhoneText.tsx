@@ -6,15 +6,15 @@ export function usePhoneNumber(phone: string): undefined | PhoneNumber {
   return useMemo(() => PhoneNumber.fromInternational(phone), [phone]);
 }
 
-export interface PhoneNumberTextProps {
+export interface PhoneTextProps {
   phone: string;
   fallback: null | ReactElement;
 }
 
-export function PhoneNumberText({
+export function PhoneText({
   phone,
   fallback,
-}: PhoneNumberTextProps): null | ReactElement {
+}: PhoneTextProps): null | ReactElement {
   const phoneNumber = usePhoneNumber(phone);
   const children = useMemo(() => PhoneNumber.toInternational(phoneNumber), [
     phoneNumber,
