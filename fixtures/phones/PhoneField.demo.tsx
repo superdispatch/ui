@@ -1,10 +1,11 @@
 import { Box, Grid, TextField } from '@material-ui/core';
 import { PhoneField, PhoneNumber } from '@superdispatch/phones';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 export default function PhoneFieldDemo() {
   const [raw, setRaw] = useState('+1');
   const [phone, setPhone] = useState(() => PhoneNumber.fromInternational(raw));
+  const isValid = useMemo(() => PhoneNumber.isValid(phone), [phone]);
 
   useEffect(() => {
     setPhone(PhoneNumber.fromInternational(raw));
@@ -21,7 +22,13 @@ export default function PhoneFieldDemo() {
           />
         </Grid>
         <Grid item={true}>
-          <PhoneField label="Formatted" value={phone} onChange={setPhone} />
+          <PhoneField
+            label="Formatted"
+            value={phone}
+            onChange={setPhone}
+            error={!isValid}
+            helperText={!isValid && 'Invalid phone number'}
+          />
         </Grid>
       </Grid>
     </Box>

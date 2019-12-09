@@ -98,14 +98,8 @@ export class PhoneNumber {
     }
   }
 
-  static isValid(phoneNumber?: PhoneNumber): boolean {
-    const apn = PhoneNumber.toAPN(phoneNumber);
-
-    if (apn) {
-      return apn.isValid();
-    }
-
-    return false;
+  static isValid(phoneNumber?: PhoneNumberLike): boolean {
+    return !!PhoneNumber.toAPN(phoneNumber)?.isValid();
   }
 
   static toNational({ region, nationalNumber }: PhoneNumber): string {
