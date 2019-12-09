@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
-import { Color } from '@superdispatch/ui/pkg/dist-types';
+import { Color } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
