@@ -19,16 +19,6 @@ function extractDigits(value: null | string | undefined): string {
 export type PhoneNumberLike = string | PhoneNumber;
 
 export class PhoneNumber {
-  static stringify(phoneNumber?: PhoneNumberLike): undefined | string {
-    return !phoneNumber || typeof phoneNumber === 'string'
-      ? phoneNumber
-      : !phoneNumber.region
-      ? phoneNumber.nationalNumber
-      : `+${PhoneNumber.getCountryCode(phoneNumber.region)} ${
-          phoneNumber.nationalNumber
-        }`;
-  }
-
   private static toAPN(
     value: null | undefined | PhoneNumberLike,
   ): undefined | APN {
