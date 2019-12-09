@@ -57,7 +57,7 @@ export interface PhoneFieldProps
       OutlinedTextFieldProps,
       'value' | 'variant' | 'onChange' | 'InputProps'
     > {
-  value: PhoneNumber;
+  value: undefined | PhoneNumber;
   onChange?: (value: PhoneNumber) => void;
 }
 
@@ -68,16 +68,17 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
-  const currentRegion = value.region || 'US';
+  const currentRegion = value?.region || 'US';
+  const currentNumber = value?.nationalNumber;
 
   const countryCode = PhoneNumber.getCountryCode(currentRegion);
   const inputText = useMemo(
     () =>
       PhoneNumber.toNational({
+        nationalNumber: currentNumber,
         region: currentRegion,
-        nationalNumber: value.nationalNumber,
       }),
-    [currentRegion, value.nationalNumber],
+    [currentRegion, currentNumber],
   );
   const placeholder = useMemo(
     () => PhoneNumber.getExample(currentRegion).nationalNumber,
@@ -137,7 +138,7 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
         anchorEl={!isOpen ? undefined : anchorRef.current}
         selectedCountry={currentRegion}
         onSelect={next =>
-          onChange?.({ region: next, nationalNumber: value.nationalNumber })
+          onChange?.({ region: next, nationalNumber: currentNumber })
         }
       />
     </>

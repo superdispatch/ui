@@ -4,21 +4,30 @@ import { RegionCode } from './PhoneMetadata';
 
 const NON_DIGITS_REGEXP = /\D+/g;
 
-function extractDigits(value: null | string | undefined): string {
-  return !value ? '' : value.replace(NON_DIGITS_REGEXP, '');
+function tryCreateAPN(
+  phoneNumber: string,
+  region?: RegionCode,
+): undefined | APN {
+  try {
+    return new APN(phoneNumber, region);
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function extractPhone(value: null | string | undefined): string {
+  return value?.replace(NON_DIGITS_REGEXP, '') ?? '';
 }
 
 export class PhoneNumber {
   private static toAPN(phoneNumber?: PhoneNumber): undefined | APN {
-    if (phoneNumber) {
-      const digits = extractDigits(phoneNumber.nationalNumber);
-
-      try {
-        return new APN(digits, phoneNumber.region);
-      } catch (e) {}
+    if (!phoneNumber) {
+      return undefined;
     }
 
-    return undefined;
+    const digits = extractPhone(phoneNumber.nationalNumber);
+
+    return tryCreateAPN(phoneNumber.region ? digits : `+${digits}`);
   }
 
   static fromInternational(
@@ -78,7 +87,7 @@ export class PhoneNumber {
   }
 
   static toNational({ region, nationalNumber }: PhoneNumber): string {
-    const digits = nationalNumber && extractDigits(nationalNumber);
+    const digits = nationalNumber && extractPhone(nationalNumber);
 
     if (!digits) {
       return '';
