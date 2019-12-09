@@ -71,7 +71,7 @@ export function DateField({
       >
         <Calendar
           {...calendarProps}
-          selectedDays={[value, undefined]}
+          selectedDays={[value]}
           footer={renderFooter?.(api)}
           quickSelection={renderQuickSelection?.(api)}
           onDayClick={(day, modifiers) => {

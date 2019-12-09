@@ -115,7 +115,7 @@ export function DateRangeField({
               if (fromDate && !actualToDate) {
                 handleChange([fromDate, date]);
               } else {
-                handleChange([date, undefined]);
+                handleChange([date]);
               }
             }
           }}

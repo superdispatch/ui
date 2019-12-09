@@ -73,7 +73,7 @@ export function DateRangePicker({
 
         if (!dateModifiers.disabled) {
           if (pickingDateType === 'start') {
-            onChange([date, undefined]);
+            onChange([date]);
             setPickingDateType('end');
           }
 

@@ -32,11 +32,10 @@ export function formatDate(
   }
 }
 
-// TODO: Change to `[Date?, Date?]` after resolve of https://github.com/Swatinem/rollup-plugin-dts/issues/69
-export type DateRange = [undefined | Date, undefined | Date];
+export type DateRange = [Date?, Date?];
 
 export function normalizeDateRange(
-  range: undefined | DateRange = [undefined, undefined],
+  range: undefined | DateRange = [],
 ): DateRange {
   return range
     .filter(isValidDate)
