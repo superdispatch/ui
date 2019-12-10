@@ -26,6 +26,20 @@ export type PhonePossibility =
   | 'unknown';
 
 export class PhoneNumber {
+  private static toAYT(value?: PhoneNumber) {
+    if (value) {
+      try {
+        const ayt = getAYT(value.region);
+
+        ayt.reset(value.nationalNumber);
+
+        return ayt;
+      } catch (e) {}
+    }
+
+    return undefined;
+  }
+
   private static toAPN(
     value: null | undefined | PhoneNumberLike,
   ): undefined | APN {
@@ -45,11 +59,7 @@ export class PhoneNumber {
       return new APN(`+${digits}`);
     }
 
-    const ayt = getAYT(value.region);
-
-    ayt.reset(value.nationalNumber);
-
-    return ayt.getPhoneNumber();
+    return PhoneNumber.toAYT(value)?.getPhoneNumber();
   }
 
   private static fromAPN(apn?: APN): undefined | PhoneNumber {
@@ -103,26 +113,16 @@ export class PhoneNumber {
     return PhoneNumber.toAPN(phoneNumber)?.toJSON().possibility ?? 'unknown';
   }
 
-  static toNational({ region, nationalNumber }: PhoneNumber): string {
-    const digits = extractDigits(nationalNumber);
-
-    if (!digits) {
-      return '';
+  static toNational(phoneNumber?: PhoneNumberLike): undefined | string {
+    if (typeof phoneNumber === 'string') {
+      return PhoneNumber.toAPN(phoneNumber)?.getNumber('national');
     }
 
-    if (region) {
-      try {
-        const asYouType = APN.getAsYouType(region);
+    const ayt = PhoneNumber.toAYT(phoneNumber);
 
-        asYouType.reset(digits);
-
-        return (
-          asYouType.getPhoneNumber().getNumber('national') || asYouType.number()
-        );
-      } catch (e) {}
-    }
-
-    return digits;
+    return !ayt
+      ? undefined
+      : ayt.getPhoneNumber().getNumber('national') || ayt.number();
   }
 
   static toInternational(phoneNumber?: PhoneNumberLike): undefined | string {
