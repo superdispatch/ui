@@ -69,12 +69,19 @@ export function createTypographyOptions(): TypographyOptions {
   return { fontFamily: fontFamilyVariant() };
 }
 
-function textVariant(theme: Theme, variant: ThemeStyle): CSSProperties {
+export function typographyVariant(
+  theme: Theme,
+  variant: ThemeStyle,
+): CSSProperties {
   return {
     fontFamily: fontFamilyVariant(variant),
     fontWeight: fontWeightVariant(variant),
     fontSize: fontSizeVariant(variant, true),
     lineHeight: fontHeightVariant(variant, true),
+
+    letterSpacing: variant === 'h6' ? '0.1em' : undefined,
+    textTransform: variant === 'h6' ? 'uppercase' : undefined,
+
     [theme.breakpoints.up('sm')]: {
       fontSize: fontSizeVariant(variant),
       lineHeight: fontHeightVariant(variant),
@@ -89,16 +96,16 @@ export function applyTypographyStyles(theme: Theme) {
   theme.props.MuiTypography = { variant: 'body2' };
 
   theme.overrides.MuiTypography = {
-    h1: textVariant(theme, 'h1'),
-    h2: textVariant(theme, 'h2'),
-    h3: textVariant(theme, 'h3'),
-    h4: textVariant(theme, 'h4'),
-    h5: textVariant(theme, 'h5'),
-    h6: textVariant(theme, 'h6'),
+    h1: typographyVariant(theme, 'h1'),
+    h2: typographyVariant(theme, 'h2'),
+    h3: typographyVariant(theme, 'h3'),
+    h4: typographyVariant(theme, 'h4'),
+    h5: typographyVariant(theme, 'h5'),
+    h6: typographyVariant(theme, 'h6'),
 
-    body2: textVariant(theme, 'body2'),
-    body1: textVariant(theme, 'body1'),
+    body2: typographyVariant(theme, 'body2'),
+    body1: typographyVariant(theme, 'body1'),
 
-    caption: textVariant(theme, 'caption'),
+    caption: typographyVariant(theme, 'caption'),
   };
 }
