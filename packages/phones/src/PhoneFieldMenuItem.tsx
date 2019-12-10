@@ -14,8 +14,8 @@ import React, {
   useMemo,
 } from 'react';
 
-import { PhoneNumber } from './data/PhoneNumber';
-import { phoneFieldCountries, RegionCode } from './internal/PhoneMetadata';
+import { PhoneNumber, PhoneRegionCode } from './data/PhoneNumber';
+import { phoneFieldCountries } from './internal/PhoneMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
@@ -31,7 +31,7 @@ const useStyles = makeStyles<Theme, {}, PhoneFieldMenuItemClassKey>(theme => ({
 export interface PhoneFieldMenuItemProps
   extends RefAttributes<HTMLLIElement>,
     Omit<MenuItemProps, 'classes' | 'children'> {
-  regionCode: RegionCode;
+  regionCode: PhoneRegionCode;
   classes?: Partial<ClassNameMap<PhoneFieldMenuItemClassKey>>;
 }
 

@@ -2,7 +2,7 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
-import { RegionCode } from './internal/PhoneMetadata';
+import { PhoneRegionCode } from './data/PhoneNumber';
 
 const useStyles = makeStyles<Theme>(
   theme => ({
@@ -13,7 +13,7 @@ const useStyles = makeStyles<Theme>(
 
 export interface PhoneFieldFlagProps
   extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
-  code: RegionCode;
+  code: PhoneRegionCode;
 }
 
 export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
