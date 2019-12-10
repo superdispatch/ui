@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement, ReactNode, useMemo } from 'react';
 
 import { PhoneNumber } from './data/PhoneNumber';
 
@@ -8,12 +8,12 @@ export function usePhoneNumber(phone: string): undefined | PhoneNumber {
 
 export interface PhoneTextProps {
   phone: string;
-  fallback: null | ReactElement;
+  fallback?: ReactNode;
 }
 
 export function PhoneText({
   phone,
-  fallback,
+  fallback = null,
 }: PhoneTextProps): null | ReactElement {
   const phoneNumber = usePhoneNumber(phone);
   const children = useMemo(() => PhoneNumber.toInternational(phoneNumber), [
