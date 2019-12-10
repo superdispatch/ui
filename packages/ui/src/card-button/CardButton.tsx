@@ -1,7 +1,6 @@
 import { ButtonBase, makeStyles, Theme, Typography } from '@material-ui/core';
 import { ButtonBaseProps } from '@material-ui/core/ButtonBase';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
-import { Color, TagClassKey } from '@superdispatch/ui';
 import clsx from 'clsx';
 import React, {
   forwardRef,
@@ -10,6 +9,7 @@ import React, {
   RefAttributes,
 } from 'react';
 
+import { Color } from '../theme/Color';
 import { fontHeightVariant } from '../theme/TypographyStyles';
 
 export type CardButtonClassKey =
@@ -97,7 +97,7 @@ export interface CardButtonProps
   size?: 'small' | 'medium' | 'large';
 
   className?: string;
-  classes?: ClassNameMap<TagClassKey>;
+  classes?: ClassNameMap<CardButtonClassKey>;
 }
 
 export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef<

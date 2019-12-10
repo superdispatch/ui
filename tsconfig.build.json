@@ -1,5 +1,4 @@
 {
-  "exclude": ["**/pkg/**/*", "**/*.demo.*"],
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false

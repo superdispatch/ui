@@ -1,9 +1,4 @@
 {
-  "extends": "@superdispatch/tsconfig",
-  "compilerOptions": {
-    "baseUrl": "packages",
-    "paths": {
-      "@superdispatch/ui": ["ui/src"]
-    }
-  }
+  "exclude": ["**/pkg/**/*"],
+  "extends": "@superdispatch/tsconfig"
 }

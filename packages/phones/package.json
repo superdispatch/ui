@@ -1,6 +1,6 @@
 {
-  "name": "@superdispatch/ui",
-  "version": "0.0.56",
+  "name": "@superdispatch/phones",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -12,19 +12,17 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.4",
-    "@mdi/js": "^4.6.95",
-    "@react-spring/web": "^9.0.0-beta.34",
-    "clsx": "^1.0.0",
-    "react-day-picker": "^7.3.2",
-    "utility-hooks": "^0.5.3"
+    "@superdispatch/ui": "^0.0.56",
+    "clsx": "^1.0.4",
+    "utility-hooks": "^0.5.1"
   },
   "devDependencies": {
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.3.0",
+    "awesome-phonenumber": "^2.23.0",
     "react": "^16.8.0"
   },
   "publishConfig": {
