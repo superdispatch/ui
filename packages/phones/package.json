@@ -21,7 +21,7 @@
   },
   "peerDependencies": {
     "@material-ui/core": "^4.7.2",
-    "@material-ui/icons": "^4.7.2",
+    "@material-ui/icons": "^4.5.1",
     "awesome-phonenumber": "^2.23.0",
     "react": "^16.8.0"
   },
