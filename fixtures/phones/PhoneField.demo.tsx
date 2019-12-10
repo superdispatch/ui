@@ -7,9 +7,7 @@ export default function PhoneFieldDemo() {
   const [phone, setPhone] = useState(() => PhoneNumber.fromInternational(raw));
   const isValid = useMemo(() => PhoneNumber.isValid(phone), [phone]);
 
-  useEffect(() => {
-    setPhone(PhoneNumber.fromInternational(raw));
-  }, [raw]);
+  useEffect(() => setPhone(PhoneNumber.fromInternational(raw)), [raw]);
 
   return (
     <Box padding={2}>
