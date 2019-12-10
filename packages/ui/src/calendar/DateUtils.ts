@@ -32,17 +32,19 @@ export function formatDate(
   }
 }
 
+export type DateRange = [Date?, Date?];
+
 export function normalizeDateRange(
-  range: undefined | [Date?, Date?] = [],
-): [Date?, Date?] {
+  range: undefined | DateRange = [],
+): DateRange {
   return range
     .filter(isValidDate)
-    .sort((a, b) => a.valueOf() - b.valueOf()) as [Date?, Date?];
+    .sort((a, b) => a.valueOf() - b.valueOf()) as DateRange;
 }
 
 export function isSameDateRange(
-  a: undefined | [Date?, Date?],
-  b: undefined | [Date?, Date?],
+  a: undefined | DateRange,
+  b: undefined | DateRange,
 ): boolean {
   const [fromA, toA] = normalizeDateRange(a);
   const [fromB, toB] = normalizeDateRange(b);
@@ -50,7 +52,7 @@ export function isSameDateRange(
   return isSameDate(fromA, fromB) && isSameDate(toA, toB);
 }
 
-export function formatDateRange(range?: [Date?, Date?]): string {
+export function formatDateRange(range?: DateRange): string {
   const [from, to] = normalizeDateRange(range);
   const fromText = formatDate(
     from,

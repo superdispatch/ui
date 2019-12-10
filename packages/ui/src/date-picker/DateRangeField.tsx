@@ -3,14 +3,18 @@ import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import React, { ReactNode, useMemo, useState } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
-import { formatDateRange, normalizeDateRange } from '../calendar/DateUtils';
+import {
+  DateRange,
+  formatDateRange,
+  normalizeDateRange,
+} from '../calendar/DateUtils';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
 
 interface DateRangeFieldAPI {
   close: () => void;
-  change: (value: undefined | [Date?, Date?]) => void;
+  change: (value: undefined | DateRange) => void;
 }
 
 export interface DateRangeFieldProps
@@ -18,10 +22,10 @@ export interface DateRangeFieldProps
     OutlinedTextFieldProps,
     'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
   > {
-  value: undefined | [Date?, Date?];
+  value: undefined | DateRange;
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange: (value: undefined | [Date?, Date?]) => void;
+  onChange: (value: undefined | DateRange) => void;
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
   CalendarProps?: Omit<
@@ -61,7 +65,7 @@ export function DateRangeField({
     onBlur?.();
   };
 
-  const handleChange = (nextValue: undefined | [Date?, Date?]) => {
+  const handleChange = (nextValue: undefined | DateRange) => {
     const nextRange = normalizeDateRange(nextValue);
 
     onChange(nextRange);

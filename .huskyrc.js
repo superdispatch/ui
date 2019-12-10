@@ -2,6 +2,6 @@
 
 module.exports = {
   hooks: {
-    'pre-commit': 'tsc && lint-staged',
+    'pre-commit': 'yarn --force && tsc && lint-staged',
   },
 };

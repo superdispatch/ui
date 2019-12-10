@@ -1,5 +1,4 @@
-import { Box, Grid, Link } from '@material-ui/core';
-import { LinkProps } from '@material-ui/core/Link';
+import { Box, Grid, Link, LinkProps } from '@material-ui/core';
 import { startCase } from 'lodash';
 import React, { Fragment } from 'react';
 

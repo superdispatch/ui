@@ -2,7 +2,6 @@ import { Divider, Grid, Hidden, Theme } from '@material-ui/core';
 import { GridDirection } from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
-import { Color, ColorVariant } from '@superdispatch/ui';
 import React, { ReactNode } from 'react';
 import DayPicker, {
   ClassNames,
@@ -11,11 +10,13 @@ import DayPicker, {
   Modifier,
 } from 'react-day-picker';
 
+import { Color, ColorVariant } from '../theme/Color';
 import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
 import {
+  DateRange,
   isFirstDayOfMonth,
   isLastDayOfMonth,
   normalizeDateRange,
@@ -267,7 +268,7 @@ export interface CalendarProps
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: [Date?, Date?];
+  selectedDays?: DateRange;
 
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;

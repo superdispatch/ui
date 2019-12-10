@@ -10,6 +10,14 @@ module.exports = {
         'plugin:@superdispatch/typescript',
       ],
       settings: { react: { version: 'detect' } },
+      rules: {
+        'react-hooks/exhaustive-deps': [
+          'error',
+          {
+            additionalHooks: '^(useMemoWith|usePromise)$',
+          },
+        ],
+      },
     },
 
     {

@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core/SnackbarContent';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { CheckCircle, Close, Warning } from '@material-ui/icons';
-import { Color } from '@superdispatch/ui';
 import clsx from 'clsx';
 import React, {
   forwardRef,
@@ -20,6 +19,7 @@ import React, {
   RefAttributes,
 } from 'react';
 
+import { Color } from '../theme/Color';
 import { fontHeightVariant } from '../theme/TypographyStyles';
 
 type SnackbarContentClassKey =

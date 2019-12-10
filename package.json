@@ -12,10 +12,10 @@
     ]
   },
   "scripts": {
-    "build": "yarn lerna run build --stream",
-    "build:docs": "cosmos-export",
-    "prebump": "yarn --force && yarn tsc && yarn lint && yarn build:docs",
+    "build": "yarn lerna run build",
+    "prebump": "yarn --force && yarn tsc && yarn lint && yarn docs",
     "bump": "lerna version",
+    "docs": "cosmos-export",
     "lint": "js-tools lint",
     "nuke": "git clean -xdf -e \".idea\" -e \".vscode\"",
     "start": "cosmos",
@@ -46,6 +46,8 @@
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.2",
+    "@types/react-window": "^1.8.1",
+    "awesome-phonenumber": "^2.23.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-optimize-clsx": "^2.5.0",
     "codesandbox-import-utils": "^2.1.11",
