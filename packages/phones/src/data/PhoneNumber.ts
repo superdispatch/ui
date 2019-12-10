@@ -1,10 +1,253 @@
 import APN from 'awesome-phonenumber';
 
-import { RegionCode } from '../internal/PhoneMetadata';
+export type PhoneRegionCode =
+  | 'US'
+  | 'CA'
+  | 'AU'
+  | 'NZ'
+  | 'AC'
+  | 'AD'
+  | 'AE'
+  | 'AF'
+  | 'AG'
+  | 'AI'
+  | 'AL'
+  | 'AM'
+  | 'AO'
+  | 'AR'
+  | 'AS'
+  | 'AT'
+  | 'AW'
+  | 'AX'
+  | 'AZ'
+  | 'BA'
+  | 'BB'
+  | 'BD'
+  | 'BE'
+  | 'BF'
+  | 'BG'
+  | 'BH'
+  | 'BI'
+  | 'BJ'
+  | 'BL'
+  | 'BM'
+  | 'BN'
+  | 'BO'
+  | 'BQ'
+  | 'BR'
+  | 'BS'
+  | 'BT'
+  | 'BW'
+  | 'BY'
+  | 'BZ'
+  | 'CC'
+  | 'CD'
+  | 'CF'
+  | 'CG'
+  | 'CH'
+  | 'CI'
+  | 'CK'
+  | 'CL'
+  | 'CM'
+  | 'CN'
+  | 'CO'
+  | 'CR'
+  | 'CU'
+  | 'CV'
+  | 'CW'
+  | 'CX'
+  | 'CY'
+  | 'CZ'
+  | 'DE'
+  | 'DJ'
+  | 'DK'
+  | 'DM'
+  | 'DO'
+  | 'DZ'
+  | 'EC'
+  | 'EE'
+  | 'EG'
+  | 'EH'
+  | 'ER'
+  | 'ES'
+  | 'ET'
+  | 'FI'
+  | 'FJ'
+  | 'FK'
+  | 'FM'
+  | 'FO'
+  | 'FR'
+  | 'GA'
+  | 'GB'
+  | 'GD'
+  | 'GE'
+  | 'GF'
+  | 'GG'
+  | 'GH'
+  | 'GI'
+  | 'GL'
+  | 'GM'
+  | 'GN'
+  | 'GP'
+  | 'GQ'
+  | 'GR'
+  | 'GT'
+  | 'GU'
+  | 'GW'
+  | 'GY'
+  | 'HK'
+  | 'HN'
+  | 'HR'
+  | 'HT'
+  | 'HU'
+  | 'ID'
+  | 'IE'
+  | 'IL'
+  | 'IM'
+  | 'IN'
+  | 'IO'
+  | 'IQ'
+  | 'IR'
+  | 'IS'
+  | 'IT'
+  | 'JE'
+  | 'JM'
+  | 'JO'
+  | 'JP'
+  | 'KE'
+  | 'KG'
+  | 'KH'
+  | 'KI'
+  | 'KM'
+  | 'KN'
+  | 'KP'
+  | 'KR'
+  | 'KW'
+  | 'KY'
+  | 'KZ'
+  | 'LA'
+  | 'LB'
+  | 'LC'
+  | 'LI'
+  | 'LK'
+  | 'LR'
+  | 'LS'
+  | 'LT'
+  | 'LU'
+  | 'LV'
+  | 'LY'
+  | 'MA'
+  | 'MC'
+  | 'MD'
+  | 'ME'
+  | 'MF'
+  | 'MG'
+  | 'MH'
+  | 'MK'
+  | 'ML'
+  | 'MM'
+  | 'MN'
+  | 'MO'
+  | 'MP'
+  | 'MQ'
+  | 'MR'
+  | 'MS'
+  | 'MT'
+  | 'MU'
+  | 'MV'
+  | 'MW'
+  | 'MX'
+  | 'MY'
+  | 'MZ'
+  | 'NA'
+  | 'NC'
+  | 'NE'
+  | 'NF'
+  | 'NG'
+  | 'NI'
+  | 'NL'
+  | 'NO'
+  | 'NP'
+  | 'NR'
+  | 'NU'
+  | 'OM'
+  | 'PA'
+  | 'PE'
+  | 'PF'
+  | 'PG'
+  | 'PH'
+  | 'PK'
+  | 'PL'
+  | 'PM'
+  | 'PR'
+  | 'PS'
+  | 'PT'
+  | 'PW'
+  | 'PY'
+  | 'QA'
+  | 'RE'
+  | 'RO'
+  | 'RS'
+  | 'RU'
+  | 'RW'
+  | 'SA'
+  | 'SB'
+  | 'SC'
+  | 'SD'
+  | 'SE'
+  | 'SG'
+  | 'SH'
+  | 'SI'
+  | 'SJ'
+  | 'SK'
+  | 'SL'
+  | 'SM'
+  | 'SN'
+  | 'SO'
+  | 'SR'
+  | 'SS'
+  | 'ST'
+  | 'SV'
+  | 'SX'
+  | 'SY'
+  | 'SZ'
+  | 'TA'
+  | 'TC'
+  | 'TD'
+  | 'TG'
+  | 'TH'
+  | 'TJ'
+  | 'TK'
+  | 'TL'
+  | 'TM'
+  | 'TN'
+  | 'TO'
+  | 'TR'
+  | 'TT'
+  | 'TV'
+  | 'TW'
+  | 'TZ'
+  | 'UA'
+  | 'UG'
+  | 'UY'
+  | 'UZ'
+  | 'VA'
+  | 'VC'
+  | 'VE'
+  | 'VG'
+  | 'VI'
+  | 'VN'
+  | 'VU'
+  | 'WF'
+  | 'WS'
+  | 'XK'
+  | 'YE'
+  | 'YT'
+  | 'ZA'
+  | 'ZM'
+  | 'ZW';
 
-const NON_DIGITS_REGEXP = /\D+/g;
-
-function getAYT(regionCode: null | undefined | RegionCode) {
+function getAYT(regionCode: null | undefined | PhoneRegionCode) {
   try {
     return APN.getAsYouType(regionCode || 'US');
   } catch (e) {
@@ -13,7 +256,7 @@ function getAYT(regionCode: null | undefined | RegionCode) {
 }
 
 function extractDigits(value: null | string | undefined): string {
-  return value?.replace(NON_DIGITS_REGEXP, '') ?? '';
+  return value?.replace(/\D+/g, '') ?? '';
 }
 
 export type PhoneNumberLike = string | PhoneNumber;
@@ -66,7 +309,7 @@ export class PhoneNumber {
     return !apn
       ? undefined
       : new PhoneNumber(
-          apn.getRegionCode() as RegionCode,
+          apn.getRegionCode() as PhoneRegionCode,
           apn.getNumber('national'),
         );
   }
@@ -77,7 +320,7 @@ export class PhoneNumber {
     return PhoneNumber.fromAPN(PhoneNumber.toAPN(phone));
   }
 
-  static getExample(region: RegionCode): PhoneNumber {
+  static getExample(region: PhoneRegionCode): PhoneNumber {
     let apn: APN;
 
     try {
@@ -89,7 +332,7 @@ export class PhoneNumber {
     return PhoneNumber.fromAPN(apn) as PhoneNumber;
   }
 
-  static getCountryCode(regionCode: RegionCode): number {
+  static getCountryCode(regionCode: PhoneRegionCode): number {
     try {
       return APN.getCountryCodeForRegionCode(regionCode);
     } catch (e) {
@@ -97,9 +340,9 @@ export class PhoneNumber {
     }
   }
 
-  static getRegionCode(countryCode: number): RegionCode {
+  static getRegionCode(countryCode: number): PhoneRegionCode {
     try {
-      return APN.getRegionCodeForCountryCode(countryCode) as RegionCode;
+      return APN.getRegionCodeForCountryCode(countryCode) as PhoneRegionCode;
     } catch (e) {
       return 'US';
     }
@@ -139,11 +382,11 @@ export class PhoneNumber {
     return apn?.getNumber('rfc3966');
   }
 
-  constructor(region: RegionCode, nationalNumber?: string) {
+  constructor(region: PhoneRegionCode, nationalNumber?: string) {
     this.region = region;
     this.nationalNumber = nationalNumber;
   }
 
-  region: RegionCode;
+  region: PhoneRegionCode;
   nationalNumber?: string;
 }
