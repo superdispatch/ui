@@ -8,11 +8,11 @@ export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
     Omit<LinkProps, 'ref' | 'href' | 'children'> {
   phone: string;
-  fallback: ReactNode;
+  fallback?: ReactNode;
 }
 
 export const PhoneLink = forwardRef<HTMLAnchorElement, PhoneLinkProps>(
-  ({ phone, fallback, ...props }, ref) => {
+  ({ phone, fallback = null, ...props }, ref) => {
     const phoneNumber = usePhoneNumber(phone);
     const linkProps = useMemo<Pick<LinkProps, 'href' | 'children'>>(
       () => ({
