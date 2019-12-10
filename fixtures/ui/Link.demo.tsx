@@ -2,14 +2,7 @@ import { Box, Grid, Link, LinkProps } from '@material-ui/core';
 import { startCase } from 'lodash';
 import React, { Fragment } from 'react';
 
-const colors: Array<LinkProps['color']> = [
-  'inherit',
-  'primary',
-  'secondary',
-  'error',
-  'textPrimary',
-  'textSecondary',
-];
+const colors: Array<LinkProps['color']> = ['primary'];
 const variants: Array<LinkProps['variant']> = [
   'h1',
   'h2',
@@ -35,7 +28,7 @@ export default function LinkDemo() {
               {variants.map(variant => {
                 const text = (
                   <>
-                    <code>{variant}</code> {startCase(color || 'default')}
+                    <code>{variant}</code> - {startCase(color || 'default')}
                   </>
                 );
 
