@@ -18,6 +18,13 @@ function extractDigits(value: null | string | undefined): string {
 
 export type PhoneNumberLike = string | PhoneNumber;
 
+export type PhonePossibility =
+  | 'is-possible'
+  | 'invalid-country-code'
+  | 'too-long'
+  | 'too-short'
+  | 'unknown';
+
 export class PhoneNumber {
   private static toAPN(
     value: null | undefined | PhoneNumberLike,
@@ -90,6 +97,10 @@ export class PhoneNumber {
 
   static isValid(phoneNumber?: PhoneNumberLike): boolean {
     return !!PhoneNumber.toAPN(phoneNumber)?.isValid();
+  }
+
+  static validate(phoneNumber?: PhoneNumberLike): PhonePossibility {
+    return PhoneNumber.toAPN(phoneNumber)?.toJSON().possibility ?? 'unknown';
   }
 
   static toNational({ region, nationalNumber }: PhoneNumber): string {

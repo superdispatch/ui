@@ -1,11 +1,31 @@
-import { Box, Grid, TextField } from '@material-ui/core';
-import { PhoneField, PhoneNumber } from '@superdispatch/phones';
+import {
+  Box,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from '@material-ui/core';
+import {
+  PhoneField,
+  PhoneNumber,
+  PhonePossibility,
+} from '@superdispatch/phones';
+import { startCase } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 export default function PhoneFieldDemo() {
   const [raw, setRaw] = useState('+1');
   const [phone, setPhone] = useState(() => PhoneNumber.fromInternational(raw));
-  const isValid = useMemo(() => PhoneNumber.isValid(phone), [phone]);
+  const [showValidationMessage, setShowValidationMessage] = useState(true);
+  const possibility = useMemo<PhonePossibility>(
+    () =>
+      !showValidationMessage ? 'is-possible' : PhoneNumber.validate(phone),
+    [phone, showValidationMessage],
+  );
+  const errorMessage =
+    possibility === 'is-possible'
+      ? undefined
+      : `Invalid phone number (${startCase(possibility)})`;
 
   useEffect(() => setPhone(PhoneNumber.fromInternational(raw)), [raw]);
 
@@ -19,13 +39,23 @@ export default function PhoneFieldDemo() {
             onChange={event => setRaw(event.target.value)}
           />
         </Grid>
+
         <Grid item={true}>
+          <FormControlLabel
+            checked={showValidationMessage}
+            label="Show Validation Message"
+            control={<Switch />}
+            onChange={(_, checked) => setShowValidationMessage(checked)}
+          />
+        </Grid>
+
+        <Grid item={true} xs={true}>
           <PhoneField
             label="Formatted"
             value={phone}
             onChange={setPhone}
-            error={!isValid}
-            helperText={!isValid && 'Invalid phone number'}
+            error={!!errorMessage}
+            helperText={errorMessage}
           />
         </Grid>
       </Grid>
