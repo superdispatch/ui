@@ -1,6 +1,9 @@
 import {
   Box,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  FormLabel,
   Grid,
   Switch,
   TextField,
@@ -41,12 +44,17 @@ export default function PhoneFieldDemo() {
         </Grid>
 
         <Grid item={true}>
-          <FormControlLabel
-            checked={showValidationMessage}
-            label="Show Validation Message"
-            control={<Switch />}
-            onChange={(_, checked) => setShowValidationMessage(checked)}
-          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Visibility</FormLabel>
+            <FormGroup row={true}>
+              <FormControlLabel
+                checked={showValidationMessage}
+                label="Show Validation Message"
+                control={<Switch />}
+                onChange={(_, checked) => setShowValidationMessage(checked)}
+              />
+            </FormGroup>
+          </FormControl>
         </Grid>
 
         <Grid item={true} xs={true}>
