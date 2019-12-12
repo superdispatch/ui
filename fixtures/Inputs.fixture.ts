@@ -6,6 +6,7 @@ import DatePickerDemo from './ui/DatePicker.demo';
 import DateRangeFieldDemo from './ui/DateRangeField.demo';
 import DateRangePickerDemo from './ui/DateRangePicker.demo';
 import IconButtonDemo from './ui/IconButton.demo';
+import SwitchDemo from './ui/Switch.demo';
 import TextFieldDemo from './ui/TextField.demo';
 
 export default {
@@ -17,5 +18,6 @@ export default {
   'Date Range Field': DateRangeFieldDemo,
   'Date Picker': DatePickerDemo,
   'Date Range Picker': DateRangePickerDemo,
+  Switch: SwitchDemo,
   'Text Field': TextFieldDemo,
 };

@@ -22,6 +22,7 @@ import { applyLinkStyles } from './LinkStyles';
 import { applyMenuStyles } from './MenuStyles';
 import { applyPaperStyles } from './PaperStyles';
 import { applySvgIconStyles } from './SvgIconStyles';
+import { applySwitchStyles } from './SwitchStyles';
 import { applyTabsStyles } from './TabsStyles';
 import { applyTextFieldStyles } from './TextFieldStyles';
 import { applyTooltipStyles } from './TooltipStyles';
@@ -80,6 +81,7 @@ function createTheme() {
   applyPaperStyles(theme);
   applySnackbarStyles(theme);
   applySvgIconStyles(theme);
+  applySwitchStyles(theme);
   applyTabsStyles(theme);
   applyTextFieldStyles(theme);
   applyTooltipStyles(theme);
