@@ -2641,10 +2641,10 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-awesome-phonenumber@^2.23.0:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/awesome-phonenumber/-/awesome-phonenumber-2.23.0.tgz#6ba311fb862ac517714d9792bf3f9a23471291cd"
-  integrity sha512-TKlRqcYDeHTvd8p8RWOMYjIOyvW0qOzvvgchv3fa4Wkux/sVTab6TV5vbY43OkQxQ/B2WdNx2rAnJqj0moseOw==
+awesome-phonenumber@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/awesome-phonenumber/-/awesome-phonenumber-2.24.0.tgz#4f9f236cb86c53b8a76ea1ae090680da4bbb3770"
+  integrity sha512-0zrNsYYFywSTLR3RcwgpokESiDH9bEuiEzlEqg9LFbno7F6x86ES8EZA9roLb2jfNdqjK5rCvmxw5/mjdoKkQQ==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -10353,10 +10353,10 @@ utila@^0.4.0, utila@~0.4:
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=
 
-utility-hooks@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/utility-hooks/-/utility-hooks-0.5.4.tgz#60358212881448ce8ed4406b94c7420d2a568e26"
-  integrity sha512-Y1zyom6GMMWVLhXTT9pvbtZTq0YzTAFi/ZpHLt2BS1Egvq5oHRCfOFpvB9KNk3HLbFHUxcLfbQ9WxHo6oWXXLw==
+utility-hooks@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/utility-hooks/-/utility-hooks-0.5.5.tgz#b75e5d2c62e69be4cbb2f6a516283e41e14926bb"
+  integrity sha512-e0hgTbnSSfEreJLo+sOfGUXiCAwggQsD0GJmIys4QORWIL3Y5KP2a0r7g6R7eeTeVGWXVql9GqoZQUiUJ1L/lw==
 
 utils-merge@1.0.1:
   version "1.0.1"
