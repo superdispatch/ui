@@ -12,7 +12,6 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@superdispatch/ui": "^0.0.60",
     "clsx": "^1.0.4",
     "utility-hooks": "^0.5.5"
   },
@@ -22,6 +21,7 @@
   "peerDependencies": {
     "@material-ui/core": "^4.7.2",
     "@material-ui/icons": "^4.5.1",
+    "@superdispatch/ui": "^0.0.60",
     "awesome-phonenumber": "^2.23.0",
     "react": "^16.8.0"
   },
