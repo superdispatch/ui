@@ -6,30 +6,36 @@ export function applyLinkStyles(theme: Theme) {
   theme.props = theme.props || {};
   theme.overrides = theme.overrides || {};
 
-  theme.props.MuiLink = { underline: 'always' };
+  theme.props.MuiLink = { underline: 'none' };
 
   theme.overrides.MuiLink = {
     root: {
+      display: 'inline-block',
+      borderTop: 'none',
+      borderLeft: 'none',
+      borderRight: 'none',
+      borderBottom: '0.1em solid',
+
+      transition: theme.transitions.create(['color', 'border-color'], {
+        duration: theme.transitions.duration.short,
+      }),
+
       '&.MuiTypography-colorPrimary': {
         color: Color.Grey500,
-        textDecorationColor: Color.Silver500,
-        transition: theme.transitions.create(
-          ['color', 'text-decoration-color'],
-          { duration: theme.transitions.duration.short },
-        ),
+        borderColor: Color.Silver500,
 
         '&:focus': {
           outline: 'none',
-          textDecorationColor: Color.Blue300,
+          borderColor: Color.Blue300,
         },
 
         '&:hover, &:active': {
           color: Color.Blue300,
-          textDecorationColor: 'currentColor',
+          borderColor: 'currentColor',
         },
       },
     },
 
-    button: { textAlign: 'initial' },
+    button: { textAlign: 'initial', border: undefined },
   };
 }

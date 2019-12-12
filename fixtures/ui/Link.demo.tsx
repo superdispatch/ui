@@ -10,12 +10,9 @@ const variants: Array<LinkProps['variant']> = [
   'h4',
   'h5',
   'h6',
-  'subtitle1',
-  'subtitle2',
   'body1',
   'body2',
   'caption',
-  'overline',
 ];
 
 export default function LinkDemo() {
