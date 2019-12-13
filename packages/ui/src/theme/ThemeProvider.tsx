@@ -17,6 +17,7 @@ import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { applyCardStyles } from './CardStyles';
 import { Color } from './Color';
+import { applyFormControlStyles } from './FormControlStyles';
 import { applyIconButtonStyles } from './IconButtonStyles';
 import { applyLinkStyles } from './LinkStyles';
 import { applyMenuStyles } from './MenuStyles';
@@ -73,6 +74,7 @@ function createTheme() {
     },
   });
 
+  applyFormControlStyles(theme);
   applyButtonStyles(theme);
   applyCardStyles(theme);
   applyIconButtonStyles(theme);
