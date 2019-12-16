@@ -23,7 +23,7 @@ export default function DateFieldDemo() {
   return (
     <Box p={2}>
       <Grid container={true} spacing={1}>
-        <Grid item={true} sm={true} xs={12}>
+        <Grid item={true}>
           <FormControl component="fieldset">
             <FormLabel component="legend">State</FormLabel>
             <FormGroup row={true}>
@@ -43,21 +43,25 @@ export default function DateFieldDemo() {
             </FormGroup>
           </FormControl>
         </Grid>
-      </Grid>
 
-      <DateField
-        value={date}
-        onChange={setDate}
-        renderFooter={() =>
-          hasFooter && (
-            <Typography color="textSecondary">Footer helper text</Typography>
-          )
-        }
-        CalendarProps={{
-          fromMonth: !disabled ? undefined : today,
-          disabledDays: !disabled ? undefined : { before: today },
-        }}
-      />
+        <Grid item={true} xs={12}>
+          <DateField
+            value={date}
+            onChange={setDate}
+            renderFooter={() =>
+              hasFooter && (
+                <Typography color="textSecondary">
+                  Footer helper text
+                </Typography>
+              )
+            }
+            CalendarProps={{
+              fromMonth: !disabled ? undefined : today,
+              disabledDays: !disabled ? undefined : { before: today },
+            }}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 }

@@ -66,12 +66,9 @@ export default function DateRangeFieldDemo() {
             </FormGroup>
           </FormControl>
         </Grid>
-      </Grid>
 
-      <Grid container={true}>
-        <Grid item={true} sm={4} xs={12}>
+        <Grid item={true} xs={12}>
           <DateRangeField
-            fullWidth={true}
             value={range}
             onChange={setRange}
             renderFooter={() =>
