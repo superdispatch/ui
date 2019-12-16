@@ -5,6 +5,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
+import { Clear } from '@material-ui/icons';
 import { mdiCalendarMonth } from '@mdi/js';
 import React, {
   forwardRef,
@@ -19,6 +20,7 @@ export interface DateTextFieldProps
   extends RefAttributes<HTMLDivElement>,
     Omit<OutlinedTextFieldProps, 'value' | 'variant'> {
   value: string;
+  onClear?: () => void;
   onOpen?: (element: HTMLElement) => void;
 }
 
@@ -26,7 +28,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
   HTMLDivElement,
   DateTextFieldProps
 >((props, ref) => {
-  const { onOpen, onFocus, ...fieldProps } = props;
+  const { onOpen, onFocus, onClear, ...fieldProps } = props;
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   function handleOpen() {
@@ -49,11 +51,17 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton size="medium" onClick={handleOpen}>
-              <SvgIcon>
-                <path d={mdiCalendarMonth} />
-              </SvgIcon>
-            </IconButton>
+            {onClear != null ? (
+              <IconButton onClick={onClear}>
+                <Clear />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleOpen}>
+                <SvgIcon>
+                  <path d={mdiCalendarMonth} />
+                </SvgIcon>
+              </IconButton>
+            )}
           </InputAdornment>
         ),
         ...fieldProps.InputProps,
