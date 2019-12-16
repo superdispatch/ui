@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/phones",
-  "version": "0.0.61",
+  "version": "0.0.62",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -12,7 +12,7 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@superdispatch/ui": "^0.0.61",
+    "@superdispatch/ui": "^0.0.62",
     "clsx": "^1.0.4",
     "utility-hooks": "^0.5.5"
   },
