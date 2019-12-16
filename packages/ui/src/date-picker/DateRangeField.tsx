@@ -4,7 +4,7 @@ import React, { ReactNode, useMemo, useState } from 'react';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import {
-  DateRangeUtils,
+  DateRange,
   formatDateRange,
   normalizeDateRange,
 } from '../calendar/DateRangeUtils';
@@ -14,7 +14,7 @@ import { DateTextField } from './DateTextField';
 
 interface DateRangeFieldAPI {
   close: () => void;
-  change: (value: undefined | DateRangeUtils) => void;
+  change: (value: undefined | DateRange) => void;
 }
 
 export interface DateRangeFieldProps
@@ -24,10 +24,10 @@ export interface DateRangeFieldProps
   > {
   hasClearButton?: boolean;
 
-  value: undefined | DateRangeUtils;
+  value: undefined | DateRange;
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange: (value: undefined | DateRangeUtils) => void;
+  onChange: (value: undefined | DateRange) => void;
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
   CalendarProps?: Omit<
@@ -68,7 +68,7 @@ export function DateRangeField({
     onBlur?.();
   };
 
-  const handleChange = (nextValue: undefined | DateRangeUtils) => {
+  const handleChange = (nextValue: undefined | DateRange) => {
     const nextRange = normalizeDateRange(nextValue);
 
     onChange(nextRange);

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import {
-  DateRangeUtils,
+  DateRange,
   isSameDateRange,
   normalizeDateRange,
 } from '../calendar/DateRangeUtils';
@@ -14,7 +14,7 @@ import {
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 
-export type DateRangePickerValue = undefined | DateRangeUtils;
+export type DateRangePickerValue = undefined | DateRange;
 export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
 export type DateRangePickerInputComponentProps = DatePickerBaseInputComponentProps<
   DateRangePickerValue

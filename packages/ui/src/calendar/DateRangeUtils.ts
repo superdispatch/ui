@@ -1,18 +1,18 @@
 import { formatDate, isSameDate, isValidDate } from './DateUtils';
 
-export type DateRangeUtils = [Date?, Date?];
+export type DateRange = [Date?, Date?];
 
 export function normalizeDateRange(
-  range: undefined | DateRangeUtils = [],
-): DateRangeUtils {
+  range: undefined | DateRange = [],
+): DateRange {
   return range
     .filter(isValidDate)
-    .sort((a, b) => a.valueOf() - b.valueOf()) as DateRangeUtils;
+    .sort((a, b) => a.valueOf() - b.valueOf()) as DateRange;
 }
 
 export function isSameDateRange(
-  a: undefined | DateRangeUtils,
-  b: undefined | DateRangeUtils,
+  a: undefined | DateRange,
+  b: undefined | DateRange,
 ): boolean {
   const [fromA, toA] = normalizeDateRange(a);
   const [fromB, toB] = normalizeDateRange(b);
@@ -20,7 +20,7 @@ export function isSameDateRange(
   return isSameDate(fromA, fromB) && isSameDate(toA, toB);
 }
 
-export function formatDateRange(range?: DateRangeUtils): string {
+export function formatDateRange(range?: DateRange): string {
   const [from, to] = normalizeDateRange(range);
   const fromText = formatDate(
     from,

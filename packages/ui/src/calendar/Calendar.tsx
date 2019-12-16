@@ -15,7 +15,7 @@ import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
-import { DateRangeUtils, normalizeDateRange } from './DateRangeUtils';
+import { DateRange, normalizeDateRange } from './DateRangeUtils';
 import { isFirstDayOfMonth, isLastDayOfMonth } from './DateUtils';
 
 export type CalendarDayHighlightColor = Exclude<
@@ -264,7 +264,7 @@ export interface CalendarProps
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: DateRangeUtils;
+  selectedDays?: DateRange;
 
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
