@@ -163,6 +163,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     containedSizeSmall: {},
     containedSizeLarge: {},
 
+    disableElevation: {},
     focusVisible: {},
     disabled: {},
     active: {},
