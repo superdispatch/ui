@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  InputAdornment,
   Switch,
   Typography,
 } from '@material-ui/core';
@@ -32,6 +33,7 @@ export default function DateRangeFieldDemo() {
   const [range, setRange] = useState<[Date?, Date?]>();
   const [disabled, setDisabled] = useState(false);
   const [hasClear, setHasClear] = useState(false);
+  const [hasAdornment, setHasAdornment] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
 
@@ -56,6 +58,13 @@ export default function DateRangeFieldDemo() {
                 control={<Switch />}
                 checked={hasClear}
                 onChange={(_, checked) => setHasClear(checked)}
+              />
+
+              <FormControlLabel
+                label="Has Adornment"
+                control={<Switch />}
+                checked={hasAdornment}
+                onChange={(_, checked) => setHasAdornment(checked)}
               />
 
               <FormControlLabel
@@ -115,6 +124,11 @@ export default function DateRangeFieldDemo() {
                 </CalendarQuickSelection>
               )
             }
+            InputProps={{
+              startAdornment: hasAdornment && (
+                <InputAdornment position="start">Date:</InputAdornment>
+              ),
+            }}
             CalendarProps={{
               fromMonth: !disabled ? undefined : today,
               disabledDays: !disabled ? undefined : { before: today },

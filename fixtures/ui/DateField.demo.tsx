@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  InputAdornment,
   Switch,
   Typography,
 } from '@material-ui/core';
@@ -16,6 +17,7 @@ export default function DateFieldDemo() {
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasClear, setHasClear] = useState(false);
+  const [hasAdornment, setHasAdornment] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const today = moment()
     .startOf('day')
@@ -43,6 +45,13 @@ export default function DateFieldDemo() {
               />
 
               <FormControlLabel
+                label="Has Adornment"
+                control={<Switch />}
+                checked={hasAdornment}
+                onChange={(_, checked) => setHasAdornment(checked)}
+              />
+
+              <FormControlLabel
                 label="With Footer"
                 control={<Switch />}
                 checked={hasFooter}
@@ -64,6 +73,11 @@ export default function DateFieldDemo() {
                 </Typography>
               )
             }
+            InputProps={{
+              startAdornment: hasAdornment && (
+                <InputAdornment position="start">Date:</InputAdornment>
+              ),
+            }}
             CalendarProps={{
               fromMonth: !disabled ? undefined : today,
               disabledDays: !disabled ? undefined : { before: today },
