@@ -9,10 +9,11 @@ import { mdiCalendarMonth } from '@mdi/js';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  MutableRefObject,
   RefAttributes,
   useRef,
 } from 'react';
+
+import { mergeRefs } from '../utils/mergeRefs';
 
 export interface DateTextFieldProps
   extends RefAttributes<HTMLDivElement>,
@@ -24,33 +25,27 @@ export interface DateTextFieldProps
 export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forwardRef<
   HTMLDivElement,
   DateTextFieldProps
->(({ onOpen, onFocus, ...props }, ref) => {
-  const fieldRef = useRef<HTMLDivElement | null>(null);
+>((props, ref) => {
+  const { onOpen, onFocus, ...fieldProps } = props;
+  const anchorRef = useRef<HTMLDivElement | null>(null);
 
   function handleOpen() {
-    if (fieldRef.current) {
-      onOpen?.(fieldRef.current);
+    if (anchorRef.current) {
+      onOpen?.(anchorRef.current);
     }
   }
 
   return (
     <TextField
-      {...props}
-      ref={node => {
-        fieldRef.current = node;
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
-          (ref as MutableRefObject<HTMLDivElement | null>).current = node;
-        }
-      }}
+      {...fieldProps}
+      ref={mergeRefs(ref, anchorRef)}
       onFocus={event => {
         onFocus?.(event);
         if (!event.isDefaultPrevented()) {
           handleOpen();
         }
       }}
-      inputProps={{ ...props.inputProps, readOnly: true }}
+      inputProps={{ ...fieldProps.inputProps, readOnly: true }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -61,7 +56,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
             </IconButton>
           </InputAdornment>
         ),
-        ...props.InputProps,
+        ...fieldProps.InputProps,
       }}
     />
   );
