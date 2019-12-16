@@ -9,7 +9,7 @@
     "publish": {
       "message": "%s",
       "ignoreChanges": [
-        "**/*.story.*"
+        "**/pkg/**"
       ]
     }
   }
