@@ -22,6 +22,8 @@ export interface DateRangeFieldProps
     OutlinedTextFieldProps,
     'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
   > {
+  hasClearButton?: boolean;
+
   value: undefined | DateRangeUtils;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -41,6 +43,7 @@ export function DateRangeField({
   onChange,
   renderFooter,
   renderQuickSelection,
+  hasClearButton = false,
   CalendarProps: {
     modifiers,
     onDayClick,
@@ -82,7 +85,14 @@ export function DateRangeField({
 
   return (
     <>
-      <DateTextField {...textFieldProps} value={textValue} onOpen={onOpen} />
+      <DateTextField
+        {...textFieldProps}
+        value={textValue}
+        onOpen={onOpen}
+        onClear={
+          !textValue || !hasClearButton ? undefined : () => onChange(undefined)
+        }
+      />
 
       <Popover
         open={!!anchorEl}

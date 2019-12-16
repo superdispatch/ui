@@ -15,6 +15,7 @@ import React, { useState } from 'react';
 export default function DateFieldDemo() {
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
+  const [hasClear, setHasClear] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const today = moment()
     .startOf('day')
@@ -35,6 +36,13 @@ export default function DateFieldDemo() {
               />
 
               <FormControlLabel
+                label="Clearable"
+                control={<Switch />}
+                checked={hasClear}
+                onChange={(_, checked) => setHasClear(checked)}
+              />
+
+              <FormControlLabel
                 label="With Footer"
                 control={<Switch />}
                 checked={hasFooter}
@@ -48,6 +56,7 @@ export default function DateFieldDemo() {
           <DateField
             value={date}
             onChange={setDate}
+            hasClearButton={hasClear}
             renderFooter={() =>
               hasFooter && (
                 <Typography color="textSecondary">
