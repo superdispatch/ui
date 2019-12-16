@@ -1,6 +1,8 @@
 import { MutableRefObject, Ref } from 'react';
 
-export function mergeRefs<T>(...refs: Array<Ref<T>>): (node: T) => void {
+export function mergeRefs<T>(
+  ...refs: Array<null | undefined | Ref<T>>
+): (node: T) => void {
   return node => {
     refs.forEach(ref => {
       if (ref) {
