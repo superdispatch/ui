@@ -1,5 +1,5 @@
 export function isValidDate(value: unknown): value is Date {
-  return value instanceof Date && !isNaN(value.valueOf());
+  return value != null && value instanceof Date && !isNaN(value.valueOf());
 }
 
 export function isSameDate(a?: Date, b?: Date): boolean {
