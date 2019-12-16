@@ -79,7 +79,5 @@ export function applyTooltipStyles(theme: Theme) {
         backgroundColor: 'currentColor',
       },
     },
-    // TODO: Remove `any` after release of https://github.com/mui-org/material-ui/pull/18645
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any;
+  };
 }
