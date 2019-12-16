@@ -8,12 +8,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
-import { Color } from '@superdispatch/ui';
+import { Color, mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  MutableRefObject,
-  Ref,
   RefAttributes,
   useMemo,
   useRef,
@@ -23,20 +21,6 @@ import React, {
 import { PhoneNumber } from './data/PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
-
-function mergeRefs<T>(
-  ...refs: Array<undefined | Ref<T>>
-): (instance: T | null) => void {
-  return instance => {
-    refs.forEach(ref => {
-      if (typeof ref === 'function') {
-        ref(instance);
-      } else if (ref) {
-        (ref as MutableRefObject<T | null>).current = instance;
-      }
-    });
-  };
-}
 
 const useStyles = makeStyles<Theme>(
   theme => ({
