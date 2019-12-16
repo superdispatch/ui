@@ -31,6 +31,7 @@ export function isSameDateRange(
 export default function DateRangeFieldDemo() {
   const [range, setRange] = useState<[Date?, Date?]>();
   const [disabled, setDisabled] = useState(false);
+  const [hasClear, setHasClear] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
 
@@ -48,6 +49,13 @@ export default function DateRangeFieldDemo() {
                 control={<Switch />}
                 checked={disabled}
                 onChange={(_, checked) => setDisabled(checked)}
+              />
+
+              <FormControlLabel
+                label="Clearable"
+                control={<Switch />}
+                checked={hasClear}
+                onChange={(_, checked) => setHasClear(checked)}
               />
 
               <FormControlLabel
@@ -71,6 +79,7 @@ export default function DateRangeFieldDemo() {
           <DateRangeField
             value={range}
             onChange={setRange}
+            hasClearButton={hasClear}
             renderFooter={() =>
               hasFooter && (
                 <Typography color="textSecondary">
