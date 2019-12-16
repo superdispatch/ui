@@ -28,7 +28,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
   HTMLDivElement,
   DateTextFieldProps
 >((props, ref) => {
-  const { onOpen, onFocus, onClear, ...fieldProps } = props;
+  const { onOpen, onClear, onClick, ...other } = props;
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   function handleOpen() {
@@ -39,24 +39,37 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
 
   return (
     <TextField
-      {...fieldProps}
+      {...other}
       ref={mergeRefs(ref, anchorRef)}
-      onFocus={event => {
-        onFocus?.(event);
-        if (!event.isDefaultPrevented()) {
+      onClick={event => {
+        onClick?.(event);
+
+        if (!event.defaultPrevented) {
           handleOpen();
         }
       }}
-      inputProps={{ ...fieldProps.inputProps, readOnly: true }}
+      onKeyDown={event => {
+        if (event.key === ' ' || event.key === 'Enter') {
+          handleOpen();
+        }
+      }}
+      inputProps={{ ...other.inputProps, readOnly: true }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             {onClear != null ? (
-              <IconButton onClick={onClear}>
+              <IconButton
+                onClick={event => {
+                  // Do not bubble up clicks.
+                  event.stopPropagation();
+
+                  onClear();
+                }}
+              >
                 <Clear />
               </IconButton>
             ) : (
-              <IconButton onClick={handleOpen}>
+              <IconButton>
                 <SvgIcon>
                   <path d={mdiCalendarMonth} />
                 </SvgIcon>
@@ -64,7 +77,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
             )}
           </InputAdornment>
         ),
-        ...fieldProps.InputProps,
+        ...other.InputProps,
       }}
     />
   );
