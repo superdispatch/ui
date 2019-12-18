@@ -106,9 +106,7 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
       variantError,
       variantSuccess,
       ...styles
-    } = useStyles({
-      classes,
-    });
+    } = useStyles({ classes });
     const Icon =
       variant === 'error'
         ? Warning
@@ -137,7 +135,11 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
             <>
               {action}
               {onClose && (
-                <IconButton onClick={onClose} className={closeButton}>
+                <IconButton
+                  aria-label="close"
+                  onClick={onClose}
+                  className={closeButton}
+                >
                   <Close />
                 </IconButton>
               )}
