@@ -305,15 +305,15 @@ export class PhoneNumber {
       // Try parse as international.
       const international = new APN(`+${digits}`);
 
-      if (this.isValidAPN(international)) {
+      if (PhoneNumber.isValidAPN(international)) {
         return international;
       }
 
       // Fallback to US number
-      return this.toAPN({ region: 'US', nationalNumber: digits });
+      return PhoneNumber.toAPN({ region: 'US', nationalNumber: digits });
     }
 
-    return this.toAYT(value)?.getPhoneNumber();
+    return PhoneNumber.toAYT(value)?.getPhoneNumber();
   }
 
   private static fromAPN(apn?: APN): undefined | PhoneNumber {
@@ -328,7 +328,7 @@ export class PhoneNumber {
   static fromInternational(
     phone: null | string | undefined,
   ): undefined | PhoneNumber {
-    return this.fromAPN(this.toAPN(phone));
+    return PhoneNumber.fromAPN(PhoneNumber.toAPN(phone));
   }
 
   static getExample(region: PhoneRegionCode): PhoneNumber {
@@ -340,7 +340,7 @@ export class PhoneNumber {
       apn = APN.getExample('US');
     }
 
-    return this.fromAPN(apn) as PhoneNumber;
+    return PhoneNumber.fromAPN(apn) as PhoneNumber;
   }
 
   static getCountryCode(regionCode: PhoneRegionCode): number {
@@ -360,19 +360,19 @@ export class PhoneNumber {
   }
 
   static isValid(phoneNumber?: PhoneNumberLike): boolean {
-    return !!this.toAPN(phoneNumber)?.isValid();
+    return !!PhoneNumber.toAPN(phoneNumber)?.isValid();
   }
 
   static validate(phoneNumber?: PhoneNumberLike): PhonePossibility {
-    return this.toAPN(phoneNumber)?.toJSON().possibility ?? 'unknown';
+    return PhoneNumber.toAPN(phoneNumber)?.toJSON().possibility ?? 'unknown';
   }
 
   static toNational(phoneNumber?: PhoneNumberLike): undefined | string {
     if (typeof phoneNumber === 'string') {
-      return this.toAPN(phoneNumber)?.getNumber('national');
+      return PhoneNumber.toAPN(phoneNumber)?.getNumber('national');
     }
 
-    const ayt = this.toAYT(phoneNumber);
+    const ayt = PhoneNumber.toAYT(phoneNumber);
 
     return !ayt
       ? undefined
@@ -380,15 +380,15 @@ export class PhoneNumber {
   }
 
   static toInternational(phoneNumber?: PhoneNumberLike): undefined | string {
-    return this.toAPN(phoneNumber)?.getNumber('international');
+    return PhoneNumber.toAPN(phoneNumber)?.getNumber('international');
   }
 
   static toE164(phoneNumber?: PhoneNumberLike): undefined | string {
-    return this.toAPN(phoneNumber)?.getNumber('e164');
+    return PhoneNumber.toAPN(phoneNumber)?.getNumber('e164');
   }
 
   static toRFC3966(phoneNumber?: PhoneNumberLike): undefined | string {
-    const apn = this.toAPN(phoneNumber);
+    const apn = PhoneNumber.toAPN(phoneNumber);
 
     return apn?.getNumber('rfc3966');
   }
