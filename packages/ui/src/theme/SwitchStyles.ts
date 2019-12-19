@@ -54,14 +54,18 @@ export function applySwitchStyles(theme: Theme) {
 
     switchBase: {
       left: theme.spacing(0.5),
-      padding: theme.spacing(1.25),
+      padding: theme.spacing(1.25, 1),
 
       [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(1),
       },
 
       '&$checked': {
-        transform: `translateX(${theme.spacing(2)}px)`,
+        transform: `translateX(${theme.spacing(2.5)}px)`,
+
+        [theme.breakpoints.up('sm')]: {
+          transform: `translateX(${theme.spacing(2)}px)`,
+        },
       },
 
       '&$checked + $track': {
