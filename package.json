@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "yarn lerna run build",
-    "prebump": "yarn --force && yarn lint && yarn docs && yarn test",
+    "prebump": "yarn && yarn lint && yarn docs && yarn test",
     "bump": "lerna version",
     "docs": "cosmos-export",
     "lint": "js-tools lint",
@@ -23,12 +23,12 @@
     "test": "jest --coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
+    "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
-    "@babel/preset-typescript": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.7",
     "@material-ui/core": "^4.8.0",
     "@material-ui/icons": "^4.5.1",
     "@mdi/js": "^4.7.95",
@@ -43,7 +43,7 @@
     "@superdispatch/js-tools": "^0.1.30",
     "@superdispatch/prettier-config": "^0.1.26",
     "@superdispatch/tsconfig": "^0.1.1",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^24.0.24",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.2",
@@ -55,7 +55,7 @@
     "codecov": "^3.6.1",
     "codesandbox-import-utils": "^2.1.11",
     "eslint": "^6.7.2",
-    "execa": "^3.4.0",
+    "execa": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
@@ -72,7 +72,7 @@
     "snapshot-diff": "^0.6.1",
     "typescript": "^3.7.3",
     "utility-hooks": "^0.5.6",
-    "webpack": "^4.41.3"
+    "webpack": "^4.41.4"
   },
   "engines": {
     "node": ">=12.0.0"
