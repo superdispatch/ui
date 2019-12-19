@@ -43,12 +43,15 @@ export default function TooltipDemo() {
   return (
     <Box padding={2}>
       <Grid container={true} alignItems="flex-end" spacing={2}>
-        <Grid item={true} sm={true} xs={12}>
+        <Grid item={true}>
           <TextField
             label="Text"
             value={text}
             onChange={event => setText(event.target.value)}
-          />{' '}
+          />
+        </Grid>
+
+        <Grid item={true}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Visibility</FormLabel>
             <FormGroup row={true}>
