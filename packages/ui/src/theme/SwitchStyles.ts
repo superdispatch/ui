@@ -14,31 +14,51 @@ export function applySwitchStyles(theme: Theme) {
 
   theme.overrides.MuiSwitch = {
     root: {
-      width: theme.spacing(7),
-      height: theme.spacing(4),
-      padding: theme.spacing(0.5, 1),
+      width: theme.spacing(8.5),
+      height: theme.spacing(5.5),
+      padding: theme.spacing(0.75, 1),
+
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(7),
+        height: theme.spacing(4),
+        padding: theme.spacing(0.5, 1),
+      },
     },
 
     track: {
       opacity: undefined,
-      borderRadius: theme.spacing(1.625),
       boxShadow: '0 0 0 0 transparent',
 
       transition: theme.transitions.create(['box-shadow', 'background-color'], {
         duration: theme.transitions.duration.shortest,
       }),
+
+      borderRadius: theme.spacing(2),
+
+      [theme.breakpoints.up('sm')]: {
+        borderRadius: theme.spacing(1.625),
+      },
     },
 
     thumb: {
       color: Color.White,
       boxShadow: undefined,
-      width: theme.spacing(2),
-      height: theme.spacing(2),
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(2),
+        height: theme.spacing(2),
+      },
     },
 
     switchBase: {
       left: theme.spacing(0.5),
-      padding: theme.spacing(1),
+      padding: theme.spacing(1.25),
+
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(1),
+      },
 
       '&$checked': {
         transform: `translateX(${theme.spacing(2)}px)`,
@@ -72,6 +92,10 @@ export function applySwitchStyles(theme: Theme) {
 
       '&$disabled + $track': {
         backgroundColor: Color.Silver300,
+      },
+
+      '&$checked$disabled + $track': {
+        backgroundColor: Color.Blue100,
       },
 
       '&:hover + $track': {
