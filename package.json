@@ -55,9 +55,11 @@
     "codecov": "^3.6.1",
     "codesandbox-import-utils": "^2.1.11",
     "eslint": "^6.7.2",
+    "execa": "^3.4.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
+    "ky": "^0.16.1",
     "lerna": "^3.19.0",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.15",
@@ -69,9 +71,10 @@
     "react-dom": "^16.12.0",
     "snapshot-diff": "^0.6.1",
     "typescript": "^3.7.3",
+    "utility-hooks": "^0.5.6",
     "webpack": "^4.41.3"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   }
 }

@@ -15,9 +15,7 @@ module.exports = ({ isDocs = false } = {}) => api => {
       ],
     ].filter(Boolean),
     plugins: [
-      isDocs &&
-        !isTest &&
-        require.resolve('../tools/babel-plugin-condesandbox-url'),
+      isDocs && !isTest && require.resolve('../tools/babel-plugin-csb'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
       ['@babel/plugin-transform-runtime', { useESModules: false }],
       ['@babel/plugin-proposal-optional-chaining', { loose: true }],
