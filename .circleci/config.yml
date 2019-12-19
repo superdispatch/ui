@@ -39,6 +39,11 @@ jobs:
             yarn tsc
             yarn lint --quiet
       - run:
+          name: Test
+          command: |
+            yarn test
+            yarn codecov
+      - run:
           name: Build
           command: yarn build
       - when:

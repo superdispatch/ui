@@ -283,6 +283,10 @@ export class PhoneNumber {
     return undefined;
   }
 
+  private static isValidAPN(apn?: APN): apn is APN {
+    return !!apn?.getRegionCode();
+  }
+
   private static toAPN(
     value: null | undefined | PhoneNumberLike,
   ): undefined | APN {
@@ -298,20 +302,27 @@ export class PhoneNumber {
         return undefined;
       }
 
-      // Prepend `+` because we expect international number.
-      return new APN(`+${digits}`);
+      // Try parse as international.
+      const international = new APN(`+${digits}`);
+
+      if (PhoneNumber.isValidAPN(international)) {
+        return international;
+      }
+
+      // Fallback to US number
+      return PhoneNumber.toAPN({ region: 'US', nationalNumber: digits });
     }
 
     return PhoneNumber.toAYT(value)?.getPhoneNumber();
   }
 
   private static fromAPN(apn?: APN): undefined | PhoneNumber {
-    return !apn
+    const regionCode = apn?.getRegionCode() as PhoneRegionCode;
+    const nationalNumber = apn?.getNumber('national');
+
+    return !regionCode || !nationalNumber
       ? undefined
-      : new PhoneNumber(
-          apn.getRegionCode() as PhoneRegionCode,
-          apn.getNumber('national'),
-        );
+      : new PhoneNumber(regionCode, nationalNumber);
   }
 
   static fromInternational(

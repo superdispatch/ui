@@ -5,9 +5,9 @@ import React, { ComponentType, InputHTMLAttributes, useState } from 'react';
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { CalendarQuickSelection } from '../calendar/CalendarQuickSelection';
 import { CalendarQuickSelectionItem } from '../calendar/CalendarQuickSelectionItem';
-import { DateRangeUtils } from '../calendar/DateRangeUtils';
+import { DateRange } from '../calendar/DateRangeUtils';
 
-export type DatePickerBaseValue = undefined | Date | DateRangeUtils;
+export type DatePickerBaseValue = undefined | Date | DateRange;
 export type DatePickerBaseInputComponent<TProps> = ComponentType<TProps>;
 
 export interface DatePickerBaseInputComponentProps<TValue>
