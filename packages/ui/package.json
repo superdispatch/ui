@@ -12,7 +12,7 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.4",
+    "@babel/runtime": "^7.7.7",
     "@mdi/js": "^4.7.95",
     "@react-spring/web": "^9.0.0-beta.34",
     "clsx": "^1.0.0",
