@@ -17,11 +17,13 @@ import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { applyCardStyles } from './CardStyles';
 import { Color } from './Color';
+import { applyFormControlStyles } from './FormControlStyles';
 import { applyIconButtonStyles } from './IconButtonStyles';
 import { applyLinkStyles } from './LinkStyles';
 import { applyMenuStyles } from './MenuStyles';
 import { applyPaperStyles } from './PaperStyles';
 import { applySvgIconStyles } from './SvgIconStyles';
+import { applySwitchStyles } from './SwitchStyles';
 import { applyTabsStyles } from './TabsStyles';
 import { applyTextFieldStyles } from './TextFieldStyles';
 import { applyTooltipStyles } from './TooltipStyles';
@@ -72,6 +74,7 @@ function createTheme() {
     },
   });
 
+  applyFormControlStyles(theme);
   applyButtonStyles(theme);
   applyCardStyles(theme);
   applyIconButtonStyles(theme);
@@ -80,6 +83,7 @@ function createTheme() {
   applyPaperStyles(theme);
   applySnackbarStyles(theme);
   applySvgIconStyles(theme);
+  applySwitchStyles(theme);
   applyTabsStyles(theme);
   applyTextFieldStyles(theme);
   applyTooltipStyles(theme);
