@@ -1,6 +1,78 @@
 import { Theme } from '@material-ui/core';
+import { CSSProperties } from '@material-ui/styles/withStyles';
 
+import { Color } from '../theme/Color';
 import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
+
+function textVariant(
+  text: Color,
+  outline: Color,
+  background: Color,
+): CSSProperties {
+  return {
+    color: text,
+    boxShadow: `0 0 0 0 ${outline}`,
+    '&$disabled[aria-busy="false"]': { color: outline },
+    '&:not($disabled)': {
+      '&:hover, &:active, &[aria-expanded="true"]': {
+        backgroundColor: background,
+      },
+      '&:focus': {
+        backgroundColor: background,
+        boxShadow: `0 0 0 2px ${outline}`,
+      },
+    },
+  };
+}
+
+function outlinedVariant(
+  staleText: Color,
+  staleBorder: Color,
+  disabledText: Color,
+  disabledBorder: Color,
+  activeText: Color,
+  activeOutline: Color,
+  activeBackground: Color,
+  progress: Color,
+): CSSProperties {
+  return {
+    color: staleText,
+    boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
+
+    '&$disabled[aria-busy="false"]': {
+      color: disabledText,
+      boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
+    },
+
+    '&:not($disabled)': {
+      '&:hover, &:active, &[aria-expanded="true"]': {
+        color: activeText,
+        backgroundColor: activeBackground,
+        boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 0 ${activeOutline}`,
+      },
+      '&:focus': {
+        boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 2px ${activeOutline}`,
+      },
+    },
+
+    '&[aria-busy="true"] $label > [role="progressbar"]': { color: progress },
+  };
+}
+
+function containedVariant(
+  stale: Color,
+  outline: Color,
+  active: Color,
+): CSSProperties {
+  return {
+    backgroundColor: stale,
+    '&$disabled': { backgroundColor: outline },
+    '&:not($disabled)': {
+      '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
+      '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
+    },
+  };
+}
 
 export function applyButtonStyles(theme: Theme) {
   theme.props = theme.props || {};
@@ -39,10 +111,30 @@ export function applyButtonStyles(theme: Theme) {
       },
 
       '&$disabled': { color: undefined },
+
+      '&[aria-busy="true"]': {
+        '& $label': {
+          visibility: 'hidden',
+
+          '& > [role="progressbar"]': {
+            position: 'absolute',
+            visibility: 'visible',
+            fontSize: theme.spacing(2),
+            top: `calc(50% - ${theme.spacing(1)}px)`,
+            left: `calc(50% - ${theme.spacing(1)}px)`,
+
+            '$sizeLarge &': {
+              fontSize: theme.spacing(3),
+              top: `calc(50% - ${theme.spacing(1.5)}px)`,
+              left: `calc(50% - ${theme.spacing(1.5)}px)`,
+            },
+          },
+        },
+      },
     },
 
     label: {
-      '& > .MuiSvgIcon-root': {
+      '& > svg': {
         fontSize: fontHeightVariant('button'),
         '$sizeLarge &': { fontSize: fontHeightVariant('h4') },
         [theme.breakpoints.only('xs')]: { fontSize: fontHeightVariant('h4') },
@@ -62,14 +154,63 @@ export function applyButtonStyles(theme: Theme) {
       [theme.breakpoints.only('xs')]: { padding: theme.spacing(2, 8) },
     },
 
-    text: { padding: undefined },
+    text: {
+      padding: undefined,
+      '&[data-color="error"]': textVariant(
+        Color.Red300,
+        Color.Red100,
+        Color.Red50,
+      ),
+      '&[data-color="success"]': textVariant(
+        Color.Green300,
+        Color.Green100,
+        Color.Green50,
+      ),
+      '&[data-color="primary"]': textVariant(
+        Color.Blue300,
+        Color.Blue100,
+        Color.Blue50,
+      ),
+    },
     textSizeSmall: { padding: undefined, fontSize: undefined },
     textSizeLarge: { padding: undefined, fontSize: undefined },
 
     outlined: {
       border: undefined,
       padding: undefined,
+      backgroundColor: Color.White,
       '&$disabled': { border: undefined },
+
+      '&[data-color="error"]': outlinedVariant(
+        Color.Red300,
+        Color.Red300,
+        Color.Red100,
+        Color.Red100,
+        Color.Red300,
+        Color.Red100,
+        Color.Red50,
+        Color.Red300,
+      ),
+      '&[data-color="success"]': outlinedVariant(
+        Color.Green300,
+        Color.Green300,
+        Color.Green100,
+        Color.Green100,
+        Color.Green300,
+        Color.Green100,
+        Color.Green50,
+        Color.Green300,
+      ),
+      '&[data-color="primary"]': outlinedVariant(
+        Color.Grey500,
+        Color.Silver500,
+        Color.Silver500,
+        Color.Silver400,
+        Color.Blue300,
+        Color.Blue100,
+        Color.Blue50,
+        Color.Grey200,
+      ),
     },
 
     outlinedPrimary: {
@@ -80,7 +221,7 @@ export function applyButtonStyles(theme: Theme) {
     outlinedSizeLarge: { padding: undefined, fontSize: undefined },
 
     contained: {
-      color: undefined,
+      color: Color.White,
       boxShadow: undefined,
       backgroundColor: undefined,
 
@@ -100,6 +241,22 @@ export function applyButtonStyles(theme: Theme) {
         boxShadow: undefined,
         backgroundColor: undefined,
       },
+
+      '&[data-color="error"]': containedVariant(
+        Color.Red300,
+        Color.Red100,
+        Color.Red500,
+      ),
+      '&[data-color="success"]': containedVariant(
+        Color.Green300,
+        Color.Green100,
+        Color.Green500,
+      ),
+      '&[data-color="primary"]': containedVariant(
+        Color.Blue300,
+        Color.Blue100,
+        Color.Blue500,
+      ),
     },
 
     containedSizeSmall: { padding: undefined, fontSize: undefined },
