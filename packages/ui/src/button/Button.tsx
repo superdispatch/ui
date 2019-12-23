@@ -19,9 +19,6 @@ type ButtonClassKey =
       MuiButtonClassKey,
       'textSecondary' | 'outlinedSecondary' | 'containedSecondary'
     >
-  | 'progress'
-  | 'active'
-  | 'loading'
   | 'textError'
   | 'textSuccess'
   | 'outlinedError'
@@ -37,9 +34,11 @@ function textVariant(
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
-    '&$disabled:not($loading)': { color: outline },
+    '&$disabled[aria-busy="false"]': { color: outline },
     '&:not($disabled)': {
-      '&:hover, &:active, &$active': { backgroundColor: background },
+      '&:hover, &:active, &[aria-expanded="true"]': {
+        backgroundColor: background,
+      },
       '&:focus': {
         backgroundColor: background,
         boxShadow: `0 0 0 2px ${outline}`,
@@ -62,13 +61,13 @@ function outlinedVariant(
     color: staleText,
     boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
 
-    '&$disabled:not($loading)': {
+    '&$disabled[aria-busy="false"]': {
       color: disabledText,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
 
     '&:not($disabled)': {
-      '&:hover, &:active, &$active': {
+      '&:hover, &:active, &[aria-expanded="true"]': {
         color: activeText,
         backgroundColor: activeBackground,
         boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 0 ${activeOutline}`,
@@ -78,7 +77,7 @@ function outlinedVariant(
       },
     },
 
-    '& $progress': { color: progress },
+    '&[aria-busy="true"] $label > [role="progressbar"]': { color: progress },
   };
 }
 
@@ -92,16 +91,36 @@ function containedVariant(
     '&$disabled': { backgroundColor: outline },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
-      '&:hover, &:active, &$active': { backgroundColor: active },
+      '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
     },
   };
 }
 
 const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
   theme => ({
-    root: {},
+    root: {
+      '&[aria-busy="true"]': {
+        '& $label': {
+          visibility: 'hidden',
 
-    label: { '$loading &': { visibility: 'hidden' } },
+          '& > [role="progressbar"]': {
+            position: 'absolute',
+            visibility: 'visible',
+            fontSize: theme.spacing(2),
+            top: `calc(50% - ${theme.spacing(1)}px)`,
+            left: `calc(50% - ${theme.spacing(1)}px)`,
+
+            '$sizeLarge &': {
+              fontSize: theme.spacing(3),
+              top: `calc(50% - ${theme.spacing(1.5)}px)`,
+              left: `calc(50% - ${theme.spacing(1.5)}px)`,
+            },
+          },
+        },
+      },
+    },
+
+    label: {},
 
     sizeSmall: {},
     sizeLarge: {},
@@ -166,23 +185,7 @@ const useStyles = makeStyles<Theme, {}, ButtonClassKey>(
     disableElevation: {},
     focusVisible: {},
     disabled: {},
-    active: {},
-    loading: {},
     colorInherit: {},
-
-    progress: {
-      position: 'absolute',
-      visibility: 'visible',
-      fontSize: theme.spacing(2),
-      top: `calc(50% - ${theme.spacing(1)}px)`,
-      left: `calc(50% - ${theme.spacing(1)}px)`,
-
-      '$sizeLarge &': {
-        fontSize: theme.spacing(3),
-        top: `calc(50% - ${theme.spacing(1.5)}px)`,
-        left: `calc(50% - ${theme.spacing(1.5)}px)`,
-      },
-    },
     startIcon: {},
     endIcon: {},
     iconSizeSmall: {},
@@ -220,10 +223,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const {
-      active,
-      loading,
-      progress,
-
       textError,
       textSuccess,
       outlinedError,
@@ -250,11 +249,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         classes={buttonClasses}
         disabled={disabled || isLoading}
         color={color === 'primary' ? color : undefined}
+        aria-busy={isLoading ? 'true' : 'false'}
+        aria-expanded={isActive ? 'true' : 'false'}
         className={clsx(
           {
-            [active]: isActive,
-            [loading]: isLoading,
-
             [textError]: isText && isError,
             [textSuccess]: isText && isSuccess,
 
@@ -273,7 +271,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           <>
             {children}
-            <CircularProgress size="1em" color="inherit" className={progress} />
+            <CircularProgress size="1em" color="inherit" />
           </>
         )}
       </MaterialButton>
