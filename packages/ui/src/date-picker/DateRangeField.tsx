@@ -1,7 +1,8 @@
 import { Popover } from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
-import React, { ReactNode, useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 
+import { mergeRefs } from '..';
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import {
   DateRange,
@@ -44,6 +45,7 @@ export function DateRangeField({
   renderFooter,
   renderQuickSelection,
   hasClearButton = false,
+  inputRef: inputRefProp,
   CalendarProps: {
     modifiers,
     onDayClick,
@@ -53,7 +55,8 @@ export function DateRangeField({
   } = {},
   ...textFieldProps
 }: DateRangeFieldProps) {
-  const { anchorEl, onOpen, onClose } = useDatePickerPopoverState();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
   const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
     classes: calendarClasses,
   });
@@ -87,6 +90,7 @@ export function DateRangeField({
     <>
       <DateTextField
         {...textFieldProps}
+        inputRef={mergeRefs(inputRef, inputRefProp)}
         value={textValue}
         onOpen={onOpen}
         onClear={
@@ -98,7 +102,6 @@ export function DateRangeField({
         open={!!anchorEl}
         anchorEl={anchorEl}
         onClose={handleClose}
-        disableRestoreFocus={true}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >

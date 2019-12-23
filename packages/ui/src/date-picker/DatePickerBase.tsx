@@ -1,6 +1,12 @@
 import { Popover } from '@material-ui/core';
 import { PopoverOrigin } from '@material-ui/core/Popover';
-import React, { ComponentType, InputHTMLAttributes, useState } from 'react';
+import React, {
+  ComponentType,
+  InputHTMLAttributes,
+  RefObject,
+  useState,
+} from 'react';
+import { useEventCallback } from 'utility-hooks';
 
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { CalendarQuickSelection } from '../calendar/CalendarQuickSelection';
@@ -21,16 +27,23 @@ export interface DatePickerPopoverState {
   onClose: () => void;
 }
 
-export function useDatePickerPopoverState(): DatePickerPopoverState {
+export function useDatePickerPopoverState(
+  inputRef?: RefObject<null | HTMLInputElement>,
+): DatePickerPopoverState {
   const [anchorEl, setAnchorEl] = useState<DatePickerPopoverState['anchorEl']>(
     null,
   );
 
-  return {
-    anchorEl,
-    onOpen: setAnchorEl,
-    onClose: () => setAnchorEl(null),
-  };
+  const onOpen = useEventCallback((next: HTMLElement) => {
+    inputRef?.current?.focus();
+    setAnchorEl(next);
+  });
+
+  const onClose = useEventCallback(() => {
+    setAnchorEl(null);
+  });
+
+  return { onOpen, onClose, anchorEl };
 }
 
 export interface DatePickerBaseQuickSelectionItem<TValue> {
