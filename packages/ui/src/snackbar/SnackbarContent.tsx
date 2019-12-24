@@ -20,7 +20,7 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant } from '../theme/TypographyStyles';
+import { fontHeightVariant } from '../theme/styles/TypographyStyles';
 
 type SnackbarContentClassKey =
   | MuiSnackbarContentClassKey

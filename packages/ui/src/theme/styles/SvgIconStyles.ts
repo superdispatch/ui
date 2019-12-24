@@ -1,7 +1,7 @@
 import { Theme } from '@material-ui/core';
 import { IconProps } from '@material-ui/core/Icon';
 
-import { Color } from './Color';
+import { Color } from '../Color';
 
 export function iconSizeVariant(
   size?: IconProps['fontSize'],
