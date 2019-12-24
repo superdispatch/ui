@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-import { Color } from './Color';
+import { Color } from '../Color';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
 export function applyTabsStyles(theme: Theme) {

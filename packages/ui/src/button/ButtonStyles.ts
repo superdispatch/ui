@@ -2,7 +2,10 @@ import { Theme } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant, fontSizeVariant } from '../theme/TypographyStyles';
+import {
+  fontHeightVariant,
+  fontSizeVariant,
+} from '../theme/styles/TypographyStyles';
 
 function textVariant(
   text: Color,

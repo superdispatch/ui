@@ -15,22 +15,23 @@ import { useConstant } from 'utility-hooks';
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
-import { applyCardStyles } from './CardStyles';
 import { Color } from './Color';
-import { applyFormControlStyles } from './FormControlStyles';
-import { applyIconButtonStyles } from './IconButtonStyles';
-import { applyLinkStyles } from './LinkStyles';
-import { applyMenuStyles } from './MenuStyles';
-import { applyPaperStyles } from './PaperStyles';
-import { applySvgIconStyles } from './SvgIconStyles';
-import { applySwitchStyles } from './SwitchStyles';
-import { applyTabsStyles } from './TabsStyles';
-import { applyTextFieldStyles } from './TextFieldStyles';
-import { applyTooltipStyles } from './TooltipStyles';
+import { applyAppBarStyles } from './styles/AppBarStyles';
+import { applyCardStyles } from './styles/CardStyles';
+import { applyFormControlStyles } from './styles/FormControlStyles';
+import { applyIconButtonStyles } from './styles/IconButtonStyles';
+import { applyLinkStyles } from './styles/LinkStyles';
+import { applyMenuStyles } from './styles/MenuStyles';
+import { applyPaperStyles } from './styles/PaperStyles';
+import { applySvgIconStyles } from './styles/SvgIconStyles';
+import { applySwitchStyles } from './styles/SwitchStyles';
+import { applyTabsStyles } from './styles/TabsStyles';
+import { applyTextFieldStyles } from './styles/TextFieldStyles';
+import { applyTooltipStyles } from './styles/TooltipStyles';
 import {
   applyTypographyStyles,
   createTypographyOptions,
-} from './TypographyStyles';
+} from './styles/TypographyStyles';
 
 function createTheme() {
   const theme = createMuiTheme({
@@ -74,6 +75,7 @@ function createTheme() {
     },
   });
 
+  applyAppBarStyles(theme);
   applyFormControlStyles(theme);
   applyButtonStyles(theme);
   applyCardStyles(theme);

@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-import { Color } from './Color';
+import { Color } from '../Color';
 
 export function applySwitchStyles(theme: Theme) {
   theme.props = theme.props || {};

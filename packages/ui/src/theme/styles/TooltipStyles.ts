@@ -1,7 +1,7 @@
 import { Theme } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
-import { Color } from './Color';
+import { Color } from '../Color';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
 function popperArrowVariant(
