@@ -6,7 +6,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { ArrowBack, Menu } from '@material-ui/icons';
+import { ArrowBack, Close } from '@material-ui/icons';
 import React from 'react';
 
 export default function AppBarDemo() {
@@ -26,8 +26,8 @@ export default function AppBarDemo() {
             </Grid>
 
             <Grid item={true}>
-              <IconButton edge="end" aria-label="open menu">
-                <Menu />
+              <IconButton edge="end" aria-label="close">
+                <Close />
               </IconButton>
             </Grid>
           </Grid>

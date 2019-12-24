@@ -27,6 +27,7 @@ import { applySvgIconStyles } from './styles/SvgIconStyles';
 import { applySwitchStyles } from './styles/SwitchStyles';
 import { applyTabsStyles } from './styles/TabsStyles';
 import { applyTextFieldStyles } from './styles/TextFieldStyles';
+import { applyToolbarStyles } from './styles/ToolbarStyles';
 import { applyTooltipStyles } from './styles/TooltipStyles';
 import {
   applyTypographyStyles,
@@ -88,6 +89,7 @@ function createTheme() {
   applySwitchStyles(theme);
   applyTabsStyles(theme);
   applyTextFieldStyles(theme);
+  applyToolbarStyles(theme);
   applyTooltipStyles(theme);
   applyTypographyStyles(theme);
 
