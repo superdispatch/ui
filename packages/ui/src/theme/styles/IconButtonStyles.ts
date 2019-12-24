@@ -27,5 +27,13 @@ export function applyIconButtonStyles(theme: Theme) {
       '&:hover ': { color: Color.Blue300 },
       '&:focus': { backgroundColor: Color.Blue50 },
     },
+
+    edgeEnd: {
+      marginRight: theme.spacing(-1),
+    },
+
+    edgeStart: {
+      marginLeft: theme.spacing(-1),
+    },
   };
 }
