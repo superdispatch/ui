@@ -18,6 +18,7 @@ import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { Color } from './Color';
 import { applyAppBarStyles } from './styles/AppBarStyles';
 import { applyCardStyles } from './styles/CardStyles';
+import { applyDialogStyles } from './styles/DialogStyles';
 import { applyFormControlStyles } from './styles/FormControlStyles';
 import { applyIconButtonStyles } from './styles/IconButtonStyles';
 import { applyLinkStyles } from './styles/LinkStyles';
@@ -77,14 +78,13 @@ function createTheme() {
   });
 
   applyAppBarStyles(theme);
-  applyFormControlStyles(theme);
-  applyButtonStyles(theme);
   applyCardStyles(theme);
+  applyFormControlStyles(theme);
+  applyDialogStyles(theme);
   applyIconButtonStyles(theme);
   applyLinkStyles(theme);
   applyMenuStyles(theme);
   applyPaperStyles(theme);
-  applySnackbarStyles(theme);
   applySvgIconStyles(theme);
   applySwitchStyles(theme);
   applyTabsStyles(theme);
@@ -92,6 +92,9 @@ function createTheme() {
   applyToolbarStyles(theme);
   applyTooltipStyles(theme);
   applyTypographyStyles(theme);
+
+  applyButtonStyles(theme);
+  applySnackbarStyles(theme);
 
   return theme;
 }
