@@ -77,7 +77,7 @@ export type SnackbarVariant = 'default' | 'error' | 'success';
 
 export interface SnackbarContentProps
   extends RefAttributes<unknown>,
-    Omit<MuiSnackbarContentProps, 'classes' | 'message'> {
+    Omit<MuiSnackbarContentProps, 'classes' | 'message' | 'variant'> {
   children?: ReactNode;
   onClose?: () => void;
   variant?: SnackbarVariant;

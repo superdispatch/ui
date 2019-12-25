@@ -3,6 +3,7 @@ import { TypographyProps } from '@material-ui/core/Typography';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import cx from 'clsx';
 import React, {
+  ElementType,
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
@@ -73,8 +74,9 @@ const useStyles = makeStyles<Theme, {}, TagClassKey>(
 
 export interface TagProps
   extends RefAttributes<unknown>,
-    Omit<TypographyProps, 'classes' | 'color' | 'variant'> {
+    Omit<TypographyProps, 'ref' | 'classes' | 'color' | 'variant'> {
   classes?: ClassNameMap<TagClassKey>;
+  component?: ElementType;
 
   color: Exclude<ColorVariant, 'silver'>;
   variant: 'subtle' | 'bold';
