@@ -3,10 +3,7 @@ import { Theme } from '@material-ui/core';
 import { Color } from '../Color';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyTabsStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyTabsStyles(theme: Required<Theme>) {
   theme.props.MuiTabs = {
     variant: 'scrollable',
     textColor: 'primary',

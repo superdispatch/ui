@@ -2,10 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { Color } from '../Color';
 
-export function applyLinkStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyLinkStyles(theme: Required<Theme>) {
   theme.props.MuiLink = { underline: 'none' };
 
   theme.overrides.MuiLink = {
