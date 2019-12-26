@@ -4,15 +4,31 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   FormLabel,
   Grid,
   Radio,
   Switch,
   TextField,
 } from '@material-ui/core';
-import React from 'react';
+import { startCase } from 'lodash';
+import React, { useState } from 'react';
+
+const options = ['one', 'two', 'three'];
 
 export default function SwitchDemo() {
+  const [selected, setSelected] = useState(new Set<string>());
+  const errorMessage =
+    selected.size === 0
+      ? undefined
+      : !selected.has('two')
+      ? 'It’s not two'
+      : selected.size > 1
+      ? 'It’s not only two'
+      : undefined;
+
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
@@ -72,13 +88,35 @@ export default function SwitchDemo() {
         </Grid>
 
         <Grid item={true} xs={12}>
-          <FormControl>
+          <FormControl error={!!errorMessage}>
             <FormLabel>Vertical</FormLabel>
             <FormGroup>
-              <FormControlLabel label="One" control={<Switch />} />
-              <FormControlLabel label="Two" control={<Switch />} />
-              <FormControlLabel label="Three" control={<Switch />} />
+              {options.map(option => (
+                <FormControlLabel
+                  key={option}
+                  label={startCase(option)}
+                  checked={selected.has(option)}
+                  onChange={(_, checked) =>
+                    setSelected(prev => {
+                      const next = new Set<string>(prev);
+                      if (checked) {
+                        next.add(option);
+                      } else {
+                        next.delete(option);
+                      }
+                      return next;
+                    })
+                  }
+                  control={<Switch />}
+                />
+              ))}
             </FormGroup>
+
+            {!errorMessage ? (
+              <FormHelperText>Select two</FormHelperText>
+            ) : (
+              <FormHelperText>{errorMessage}</FormHelperText>
+            )}
           </FormControl>
         </Grid>
 
@@ -86,9 +124,24 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Inline Form</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Radio" control={<Radio />} />
-              <FormControlLabel label="Checkbox" control={<Checkbox />} />
-              <FormControlLabel label="Switch" control={<Switch />} />
+              <FormControlLabel
+                label="Radio"
+                control={<Radio />}
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+              />
+              <FormControlLabel
+                label="Checkbox"
+                control={<Checkbox />}
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+              />
+              <FormControlLabel
+                label="Switch"
+                control={<Switch />}
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+              />
 
               <TextField placeholder="Text Field" />
             </FormGroup>
