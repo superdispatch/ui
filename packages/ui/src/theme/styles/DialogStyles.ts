@@ -1,6 +1,6 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyDialogStyles(theme: Required<Theme>) {
+export function applyDialogStyles(theme: SuperDispatchTheme) {
   theme.props.MuiDialogTitle = {
     disableTypography: true,
   };

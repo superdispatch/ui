@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applySwitchStyles(theme: Required<Theme>) {
+export function applySwitchStyles(theme: SuperDispatchTheme) {
   theme.props.MuiSwitch = {
     color: 'primary',
     disableRipple: true,

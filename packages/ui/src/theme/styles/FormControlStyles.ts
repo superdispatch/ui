@@ -1,5 +1,5 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyFormControlStyles(theme: Required<Theme>) {
+export function applyFormControlStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiFormControlLabel = {};
 }

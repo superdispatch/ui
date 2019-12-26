@@ -1,7 +1,7 @@
-import { Theme } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
 function popperArrowVariant(
@@ -33,7 +33,7 @@ function popperArrowVariant(
   };
 }
 
-export function applyTooltipStyles(theme: Required<Theme>) {
+export function applyTooltipStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTooltip = { arrow: true };
 
   theme.overrides.MuiTooltip = {

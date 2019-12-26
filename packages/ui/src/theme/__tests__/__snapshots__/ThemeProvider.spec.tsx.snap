@@ -342,6 +342,21 @@ Object {
       },
     },
   },
+  "MuiCheckbox": Object {
+    "colorPrimary": Object {
+      "&$checked$disabled": Object {
+        "color": Color.Silver500,
+      },
+      "&:hover:not($checked)": Object {
+        "color": Color.Grey100,
+      },
+    },
+    "root": Object {
+      "color": Color.Grey100,
+      "marginBottom": -5,
+      "marginTop": -5,
+    },
+  },
   "MuiDialogActions": Object {
     "root": Object {
       "padding": 24,
@@ -357,14 +372,7 @@ Object {
       "padding": "0px 24px",
     },
   },
-  "MuiFormControlLabel": Object {
-    "labelPlacementStart": Object {
-      "marginRight": -8,
-    },
-    "root": Object {
-      "marginLeft": -8,
-    },
-  },
+  "MuiFormControlLabel": Object {},
   "MuiFormHelperText": Object {
     "contained": Object {
       "margin": "4px 0px 0px 0px",
@@ -575,6 +583,21 @@ Object {
       "border": "1px solid #E1E5EA",
     },
   },
+  "MuiRadio": Object {
+    "colorPrimary": Object {
+      "&$checked$disabled": Object {
+        "color": Color.Silver500,
+      },
+      "&:hover:not($checked)": Object {
+        "color": Color.Grey100,
+      },
+    },
+    "root": Object {
+      "color": Color.Grey100,
+      "marginBottom": -5,
+      "marginTop": -5,
+    },
+  },
   "MuiSelect": Object {
     "icon": Object {
       "$disabled &": Object {
@@ -668,12 +691,12 @@ Object {
     "root": Object {
       "@media (min-width:600px)": Object {
         "height": 32,
-        "padding": "4px 8px",
-        "width": 56,
+        "padding": "4px 12px",
+        "width": 64,
       },
       "height": 44,
-      "padding": "6px 8px",
-      "width": 68,
+      "padding": "6px 12px",
+      "width": 76,
     },
     "switchBase": Object {
       "&$checked": Object {
@@ -691,7 +714,7 @@ Object {
       "@media (min-width:600px)": Object {
         "padding": 8,
       },
-      "left": 4,
+      "left": 8,
       "padding": "10px 8px",
     },
     "thumb": Object {
@@ -1053,6 +1076,48 @@ Object {
   "MuiCard": Object {
     "elevation": 0,
   },
+  "MuiCheckbox": Object {
+    "checkedIcon": <ForwardRef(WithStyles)>
+      <rect
+        fill="currentColor"
+        height="18"
+        rx="2"
+        width="18"
+        x="3"
+        y="3"
+      />
+      <path
+        d="M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z"
+        fill=Color.White
+      />
+    </ForwardRef(WithStyles)>,
+    "color": "primary",
+    "icon": <ForwardRef(WithStyles)>
+      <rect
+        fill="transparent"
+        height="17"
+        rx="1.5"
+        stroke="currentColor"
+        width="17"
+        x="3.5"
+        y="3.5"
+      />
+    </ForwardRef(WithStyles)>,
+    "indeterminateIcon": <ForwardRef(WithStyles)>
+      <rect
+        fill="currentIcon"
+        height="18"
+        rx="2"
+        width="18"
+        x="3"
+        y="3"
+      />
+      <path
+        d="M7 11h10v2H7v-2z"
+        fill=Color.White
+      />
+    </ForwardRef(WithStyles)>,
+  },
   "MuiDialogTitle": Object {
     "disableTypography": true,
   },
@@ -1079,6 +1144,9 @@ Object {
   },
   "MuiPaper": Object {
     "elevation": 0,
+  },
+  "MuiRadio": Object {
+    "color": "primary",
   },
   "MuiSwitch": Object {
     "color": "primary",

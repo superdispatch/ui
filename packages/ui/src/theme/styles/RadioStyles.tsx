@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyRadioStyles(theme: Required<Theme>) {
+export function applyRadioStyles(theme: SuperDispatchTheme) {
   theme.props.MuiRadio = {
     color: 'primary',
   };

@@ -1,9 +1,10 @@
-import { Theme } from '@material-ui/core';
 import {
   ThemeStyle,
   TypographyOptions,
 } from '@material-ui/core/styles/createTypography';
 import { CSSProperties } from '@material-ui/styles';
+
+import { SuperDispatchTheme } from '../ThemeProvider';
 
 export function fontWeightVariant(variant?: ThemeStyle): number {
   switch (variant) {
@@ -70,7 +71,7 @@ export function createTypographyOptions(): TypographyOptions {
 }
 
 export function typographyVariant(
-  theme: Required<Theme>,
+  theme: SuperDispatchTheme,
   variant: ThemeStyle,
 ): CSSProperties {
   return {
@@ -89,7 +90,7 @@ export function typographyVariant(
   };
 }
 
-export function applyTypographyStyles(theme: Required<Theme>) {
+export function applyTypographyStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTypography = { variant: 'body2' };
 
   theme.overrides.MuiTypography = {

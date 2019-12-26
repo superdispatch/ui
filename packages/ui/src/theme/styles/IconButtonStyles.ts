@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyIconButtonStyles(theme: Required<Theme>) {
+export function applyIconButtonStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiIconButton = {
     root: {
       color: Color.Grey100,

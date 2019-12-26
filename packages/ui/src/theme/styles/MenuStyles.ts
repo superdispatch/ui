@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
+import { SuperDispatchTheme } from '../ThemeProvider';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyMenuStyles(theme: Required<Theme>) {
+export function applyMenuStyles(theme: SuperDispatchTheme) {
   theme.props.MuiMenu = {
     keepMounted: true,
     getContentAnchorEl: null,

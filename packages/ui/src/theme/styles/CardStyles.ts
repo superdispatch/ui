@@ -1,6 +1,6 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyCardStyles(theme: Required<Theme>) {
+export function applyCardStyles(theme: SuperDispatchTheme) {
   theme.props.MuiCard = {
     elevation: 0,
   };

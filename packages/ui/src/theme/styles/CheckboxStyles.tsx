@@ -1,9 +1,10 @@
-import { SvgIcon, Theme } from '@material-ui/core';
+import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyCheckboxStyles(theme: Required<Theme>) {
+export function applyCheckboxStyles(theme: SuperDispatchTheme) {
   theme.props.MuiCheckbox = {
     color: 'primary',
     icon: (
@@ -36,22 +37,20 @@ export function applyCheckboxStyles(theme: Required<Theme>) {
     ),
   };
 
-  theme.overrides = {
-    MuiCheckbox: {
-      root: {
-        color: Color.Grey100,
-        marginTop: theme.spacing(-0.625),
-        marginBottom: theme.spacing(-0.625),
+  theme.overrides.MuiCheckbox = {
+    root: {
+      color: Color.Grey100,
+      marginTop: theme.spacing(-0.625),
+      marginBottom: theme.spacing(-0.625),
+    },
+
+    colorPrimary: {
+      '&$checked$disabled': {
+        color: Color.Silver500,
       },
 
-      colorPrimary: {
-        '&$checked$disabled': {
-          color: Color.Silver500,
-        },
-
-        '&:hover:not($checked)': {
-          color: Color.Grey100,
-        },
+      '&:hover:not($checked)': {
+        color: Color.Grey100,
       },
     },
   };

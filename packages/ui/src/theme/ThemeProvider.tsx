@@ -37,6 +37,8 @@ import {
   createTypographyOptions,
 } from './styles/TypographyStyles';
 
+export type SuperDispatchTheme = Readonly<Required<Theme>>;
+
 function createTheme() {
   const theme = createMuiTheme({
     palette: {
@@ -116,7 +118,7 @@ function generateClassName(rule: Rule, sheet?: StyleSheet) {
 
 interface ThemeProviderProps {
   children: ReactNode;
-  modifier?: (theme: Theme) => Theme;
+  modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
 
 export function ThemeProvider({ modifier, children }: ThemeProviderProps) {

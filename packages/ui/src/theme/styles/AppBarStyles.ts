@@ -1,6 +1,6 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyAppBarStyles(theme: Required<Theme>) {
+export function applyAppBarStyles(theme: SuperDispatchTheme) {
   theme.props.MuiAppBar = {
     elevation: 0,
     color: 'inherit',

@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyPaperStyles(theme: Required<Theme>) {
+export function applyPaperStyles(theme: SuperDispatchTheme) {
   theme.props.MuiPaper = {
     elevation: 0,
   };
