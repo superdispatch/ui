@@ -1,54 +1,23 @@
 import { useTheme } from '@material-ui/core';
 import { renderHook } from '@testing-library/react-hooks';
-import { set } from 'lodash';
 import React from 'react';
 
 import { Color } from '../Color';
 import { ThemeProvider } from '../ThemeProvider';
 
-const marked = new WeakSet();
+const colors = new Map<string, string>(
+  Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
+);
 
 expect.addSnapshotSerializer({
   test(value) {
-    return !!value && typeof value === 'object' && !marked.has(value);
+    return !!value && typeof value === 'string';
   },
 
-  print(value, serialize) {
-    const colors = new Map<string, string>(
-      Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
-    );
+  print(value) {
+    const colorName = colors.get(value);
 
-    const convert = (obj: object, key: number | string, item: unknown) => {
-      if (typeof item === 'string') {
-        const colorName = colors.get(item);
-
-        if (colorName) {
-          set(obj, key, colorName);
-        }
-      }
-    };
-
-    const traverse = (input: unknown): void => {
-      if (typeof input === 'object' && input != null) {
-        marked.add(input);
-
-        if (Array.isArray(input)) {
-          input.forEach((item, idx) => {
-            convert(input, idx, item);
-            traverse(item);
-          });
-        } else {
-          Object.entries(input).forEach(([key, item]) => {
-            convert(input, key, item);
-            traverse(item);
-          });
-        }
-      }
-    };
-
-    traverse(value);
-
-    return serialize(value);
+    return colorName ?? JSON.stringify(value);
   },
 });
 

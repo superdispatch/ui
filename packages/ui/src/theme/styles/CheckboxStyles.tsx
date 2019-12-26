@@ -3,10 +3,7 @@ import React from 'react';
 
 import { Color } from '../Color';
 
-export function applyCheckboxStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyCheckboxStyles(theme: Required<Theme>) {
   theme.props.MuiCheckbox = {
     color: 'primary',
     icon: (

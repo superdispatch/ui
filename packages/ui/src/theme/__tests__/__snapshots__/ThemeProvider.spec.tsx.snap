@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: breakpoints 1`] = `
+exports[`accessible by \`useTheme\`: breakpoints 1`] = `
 Object {
   "between": [Function],
   "down": [Function],
@@ -24,9 +24,9 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: direction 1`] = `"ltr"`;
+exports[`accessible by \`useTheme\`: direction 1`] = `"ltr"`;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: mixins 1`] = `
+exports[`accessible by \`useTheme\`: mixins 1`] = `
 Object {
   "gutters": [Function],
   "toolbar": Object {
@@ -41,7 +41,7 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: overrides 1`] = `
+exports[`accessible by \`useTheme\`: overrides 1`] = `
 Object {
   "MuiButton": Object {
     "contained": Object {
@@ -69,49 +69,49 @@ Object {
       },
       "&[data-color=\\"error\\"]": Object {
         "&$disabled": Object {
-          "backgroundColor": "Color.Red100",
+          "backgroundColor": Color.Red100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "0 0 0 3px #FDC2BA",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Red500",
+            "backgroundColor": Color.Red500,
           },
         },
-        "backgroundColor": "Color.Red300",
+        "backgroundColor": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
         "&$disabled": Object {
-          "backgroundColor": "Color.Blue100",
+          "backgroundColor": Color.Blue100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "0 0 0 3px #A8D1FF",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Blue500",
+            "backgroundColor": Color.Blue500,
           },
         },
-        "backgroundColor": "Color.Blue300",
+        "backgroundColor": Color.Blue300,
       },
       "&[data-color=\\"success\\"]": Object {
         "&$disabled": Object {
-          "backgroundColor": "Color.Green100",
+          "backgroundColor": Color.Green100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "0 0 0 3px #90EAAE",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Green500",
+            "backgroundColor": Color.Green500,
           },
         },
-        "backgroundColor": "Color.Green300",
+        "backgroundColor": Color.Green300,
       },
       "backgroundColor": undefined,
       "boxShadow": undefined,
-      "color": "Color.White",
+      "color": Color.White,
     },
     "containedSizeLarge": Object {
       "fontSize": undefined,
@@ -139,67 +139,67 @@ Object {
       "&[data-color=\\"error\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
           "boxShadow": "inset 0 0 0 1px #FDC2BA, 0 0 0 0 #FDC2BA",
-          "color": "Color.Red100",
+          "color": Color.Red100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 2px #FDC2BA",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Red50",
+            "backgroundColor": Color.Red50,
             "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 0 #FDC2BA",
-            "color": "Color.Red300",
+            "color": Color.Red300,
           },
         },
         "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
-          "color": "Color.Red300",
+          "color": Color.Red300,
         },
         "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 0 #FDC2BA",
-        "color": "Color.Red300",
+        "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
           "boxShadow": "inset 0 0 0 1px #E1E5EA, 0 0 0 0 #A8D1FF",
-          "color": "Color.Silver500",
+          "color": Color.Silver500,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "inset 0 0 0 1px #0075FF, 0 0 0 2px #A8D1FF",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Blue50",
+            "backgroundColor": Color.Blue50,
             "boxShadow": "inset 0 0 0 1px #0075FF, 0 0 0 0 #A8D1FF",
-            "color": "Color.Blue300",
+            "color": Color.Blue300,
           },
         },
         "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
-          "color": "Color.Grey200",
+          "color": Color.Grey200,
         },
         "boxShadow": "inset 0 0 0 1px #C4CDD5, 0 0 0 0 #A8D1FF",
-        "color": "Color.Grey500",
+        "color": Color.Grey500,
       },
       "&[data-color=\\"success\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
           "boxShadow": "inset 0 0 0 1px #90EAAE, 0 0 0 0 #90EAAE",
-          "color": "Color.Green100",
+          "color": Color.Green100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
             "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 2px #90EAAE",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Green50",
+            "backgroundColor": Color.Green50,
             "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 0 #90EAAE",
-            "color": "Color.Green300",
+            "color": Color.Green300,
           },
         },
         "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
-          "color": "Color.Green300",
+          "color": Color.Green300,
         },
         "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 0 #90EAAE",
-        "color": "Color.Green300",
+        "color": Color.Green300,
       },
-      "backgroundColor": "Color.White",
+      "backgroundColor": Color.White,
       "border": undefined,
       "padding": undefined,
     },
@@ -278,51 +278,51 @@ Object {
     "text": Object {
       "&[data-color=\\"error\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
-          "color": "Color.Red100",
+          "color": Color.Red100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "backgroundColor": "Color.Red50",
+            "backgroundColor": Color.Red50,
             "boxShadow": "0 0 0 2px #FDC2BA",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Red50",
+            "backgroundColor": Color.Red50,
           },
         },
         "boxShadow": "0 0 0 0 #FDC2BA",
-        "color": "Color.Red300",
+        "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
-          "color": "Color.Blue100",
+          "color": Color.Blue100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "backgroundColor": "Color.Blue50",
+            "backgroundColor": Color.Blue50,
             "boxShadow": "0 0 0 2px #A8D1FF",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Blue50",
+            "backgroundColor": Color.Blue50,
           },
         },
         "boxShadow": "0 0 0 0 #A8D1FF",
-        "color": "Color.Blue300",
+        "color": Color.Blue300,
       },
       "&[data-color=\\"success\\"]": Object {
         "&$disabled[aria-busy=\\"false\\"]": Object {
-          "color": "Color.Green100",
+          "color": Color.Green100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "backgroundColor": "Color.Green50",
+            "backgroundColor": Color.Green50,
             "boxShadow": "0 0 0 2px #90EAAE",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
-            "backgroundColor": "Color.Green50",
+            "backgroundColor": Color.Green50,
           },
         },
         "boxShadow": "0 0 0 0 #90EAAE",
-        "color": "Color.Green300",
+        "color": Color.Green300,
       },
       "padding": undefined,
     },
@@ -335,11 +335,19 @@ Object {
       "padding": undefined,
     },
   },
-  "MuiCardContent": Object {
-    "root": Object {
-      "&:last-child": Object {
-        "paddingBottom": undefined,
+  "MuiCheckbox": Object {
+    "colorPrimary": Object {
+      "&$checked$disabled": Object {
+        "color": Color.Silver500,
       },
+      "&:hover:not($checked)": Object {
+        "color": Color.Grey100,
+      },
+    },
+    "root": Object {
+      "color": Color.Grey100,
+      "marginBottom": -5,
+      "marginTop": -5,
     },
   },
   "MuiDialogActions": Object {
@@ -357,14 +365,7 @@ Object {
       "padding": "0px 24px",
     },
   },
-  "MuiFormControlLabel": Object {
-    "labelPlacementStart": Object {
-      "marginRight": -8,
-    },
-    "root": Object {
-      "marginLeft": -8,
-    },
-  },
+  "MuiFormControlLabel": Object {},
   "MuiFormHelperText": Object {
     "contained": Object {
       "margin": "4px 0px 0px 0px",
@@ -400,13 +401,13 @@ Object {
   "MuiIconButton": Object {
     "colorPrimary": Object {
       "&:active": Object {
-        "color": "Color.Blue500",
+        "color": Color.Blue500,
       },
       "&:focus": Object {
-        "backgroundColor": "Color.Blue50",
+        "backgroundColor": Color.Blue50,
       },
       "&:hover ": Object {
-        "color": "Color.Blue300",
+        "color": Color.Blue300,
       },
     },
     "edgeEnd": Object {
@@ -417,22 +418,22 @@ Object {
     },
     "root": Object {
       "&$disabled": Object {
-        "color": "Color.Silver500",
+        "color": Color.Silver500,
       },
       "&:active": Object {
-        "color": "Color.Grey500",
+        "color": Color.Grey500,
       },
       "&:focus": Object {
-        "backgroundColor": "Color.Silver400",
+        "backgroundColor": Color.Silver400,
       },
       "&:hover": Object {
-        "backgroundColor": "Color.Transparent",
+        "backgroundColor": Color.Transparent,
       },
       "&:hover ": Object {
-        "color": "Color.Grey300",
+        "color": Color.Grey300,
       },
-      "backgroundColor": "Color.Transparent",
-      "color": "Color.Grey100",
+      "backgroundColor": Color.Transparent,
+      "color": Color.Grey100,
       "transition": "color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
     },
   },
@@ -442,7 +443,7 @@ Object {
     },
     "root": Object {
       "&$disabled": Object {
-        "backgroundColor": "Color.Silver100",
+        "backgroundColor": Color.Silver100,
       },
     },
   },
@@ -465,7 +466,7 @@ Object {
         "fontSize": "14px",
         "lineHeight": "20px",
       },
-      "color": "Color.Grey400",
+      "color": Color.Grey400,
       "fontSize": "16px",
       "lineHeight": "24px",
       "marginBottom": 4,
@@ -482,15 +483,15 @@ Object {
     "root": Object {
       "&.MuiTypography-colorPrimary": Object {
         "&:focus": Object {
-          "borderColor": "Color.Blue300",
+          "borderColor": Color.Blue300,
           "outline": "none",
         },
         "&:hover, &:active": Object {
           "borderColor": "currentColor",
-          "color": "Color.Blue300",
+          "color": Color.Blue300,
         },
-        "borderColor": "Color.Silver500",
-        "color": "Color.Grey500",
+        "borderColor": Color.Silver500,
+        "color": Color.Grey500,
       },
       "borderBottom": "0.1em solid",
       "borderLeft": "none",
@@ -498,16 +499,6 @@ Object {
       "borderTop": "none",
       "display": "inline-block",
       "transition": "color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-    },
-  },
-  "MuiListItem": Object {
-    "root": Object {
-      "& .MuiTouchRipple-root": Object {
-        "color": "Color.Blue100",
-      },
-      "&$selected, &$selected:hover": Object {
-        "backgroundColor": "Color.Blue50",
-      },
     },
   },
   "MuiMenuItem": Object {
@@ -566,7 +557,7 @@ Object {
         },
       },
       "&:hover $notchedOutline": Object {
-        "borderColor": "Color.Grey100",
+        "borderColor": Color.Grey100,
       },
     },
   },
@@ -575,10 +566,25 @@ Object {
       "border": "1px solid #E1E5EA",
     },
   },
+  "MuiRadio": Object {
+    "colorPrimary": Object {
+      "&$checked$disabled": Object {
+        "color": Color.Silver500,
+      },
+      "&:hover:not($checked)": Object {
+        "color": Color.Grey100,
+      },
+    },
+    "root": Object {
+      "color": Color.Grey100,
+      "marginBottom": -5,
+      "marginTop": -5,
+    },
+  },
   "MuiSelect": Object {
     "icon": Object {
       "$disabled &": Object {
-        "color": "Color.Grey100",
+        "color": Color.Grey100,
       },
       "fontSize": "24px",
     },
@@ -620,7 +626,7 @@ Object {
   },
   "MuiSvgIcon": Object {
     "colorAction": Object {
-      "color": "Color.Grey100",
+      "color": Color.Grey100,
     },
     "fontSizeLarge": Object {
       "fontSize": "32px",
@@ -641,39 +647,39 @@ Object {
   "MuiSwitch": Object {
     "colorPrimary": Object {
       "& + $track": Object {
-        "backgroundColor": "Color.Silver500",
+        "backgroundColor": Color.Silver500,
       },
       "&$checked": Object {
         "&:hover": Object {
           "& + $track": Object {
-            "backgroundColor": "Color.Blue400",
+            "backgroundColor": Color.Blue400,
           },
           "backgroundColor": undefined,
         },
         "color": undefined,
       },
       "&$checked$disabled + $track": Object {
-        "backgroundColor": "Color.Blue100",
+        "backgroundColor": Color.Blue100,
       },
       "&$disabled + $track": Object {
-        "backgroundColor": "Color.Silver300",
+        "backgroundColor": Color.Silver300,
       },
       "&.Mui-focusVisible + $track": Object {
         "boxShadow": "0 0 0 3px #A8D1FF",
       },
       "&:hover + $track": Object {
-        "backgroundColor": "Color.Grey100",
+        "backgroundColor": Color.Grey100,
       },
     },
     "root": Object {
       "@media (min-width:600px)": Object {
         "height": 32,
-        "padding": "4px 8px",
-        "width": 56,
+        "padding": "4px 12px",
+        "width": 64,
       },
       "height": 44,
-      "padding": "6px 8px",
-      "width": 68,
+      "padding": "6px 12px",
+      "width": 76,
     },
     "switchBase": Object {
       "&$checked": Object {
@@ -691,7 +697,7 @@ Object {
       "@media (min-width:600px)": Object {
         "padding": 8,
       },
-      "left": 4,
+      "left": 8,
       "padding": "10px 8px",
     },
     "thumb": Object {
@@ -700,7 +706,7 @@ Object {
         "width": 16,
       },
       "boxShadow": undefined,
-      "color": "Color.White",
+      "color": Color.White,
       "height": 24,
       "width": 24,
     },
@@ -731,9 +737,9 @@ Object {
     },
     "textColorPrimary": Object {
       "&:hover, &:focus": Object {
-        "color": "Color.Blue300",
+        "color": Color.Blue300,
       },
-      "color": "Color.Grey500",
+      "color": Color.Grey500,
     },
   },
   "MuiTabs": Object {
@@ -760,7 +766,7 @@ Object {
         "height": "1em",
         "width": "1em",
       },
-      "color": "Color.Grey400",
+      "color": Color.Grey400,
       "fontSize": 8,
       "transform": "rotate3d(0, 0, 1, 45deg)",
     },
@@ -835,7 +841,7 @@ Object {
       },
     },
     "tooltip": Object {
-      "backgroundColor": "Color.Grey400",
+      "backgroundColor": Color.Grey400,
       "fontSize": "14px",
       "lineHeight": "20px",
       "padding": "8px 12px",
@@ -955,32 +961,32 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: palette 1`] = `
+exports[`accessible by \`useTheme\`: palette 1`] = `
 Object {
   "action": Object {
     "active": "rgba(0, 0, 0, 0.54)",
-    "disabled": "Color.Silver400",
+    "disabled": Color.Silver400,
     "disabledBackground": "rgba(0, 0, 0, 0.12)",
-    "hover": "Color.Silver100",
+    "hover": Color.Silver100,
     "hoverOpacity": 0.08,
-    "selected": "Color.Silver300",
+    "selected": Color.Silver300,
   },
   "augmentColor": [Function],
   "background": Object {
     "default": "#fafafa",
-    "paper": "Color.White",
+    "paper": Color.White,
   },
   "common": Object {
     "black": "#000",
-    "white": "Color.White",
+    "white": Color.White,
   },
   "contrastThreshold": 3,
   "divider": "rgba(0, 0, 0, 0.12)",
   "error": Object {
-    "contrastText": "Color.White",
+    "contrastText": Color.White,
     "dark": "rgb(166, 33, 16)",
     "light": "rgb(241, 89, 69)",
-    "main": "Color.Red300",
+    "main": Color.Red300,
   },
   "getContrastText": [Function],
   "grey": Object {
@@ -1000,19 +1006,19 @@ Object {
     "A700": "#616161",
   },
   "info": Object {
-    "contrastText": "Color.White",
+    "contrastText": Color.White,
     "dark": "#1976d2",
     "light": "#64b5f6",
     "main": "#2196f3",
   },
   "primary": Object {
-    "contrastText": "Color.White",
+    "contrastText": Color.White,
     "dark": "rgb(0, 81, 178)",
     "light": "rgb(51, 144, 255)",
-    "main": "Color.Blue300",
+    "main": Color.Blue300,
   },
   "secondary": Object {
-    "contrastText": "Color.White",
+    "contrastText": Color.White,
     "dark": "#c51162",
     "light": "#ff4081",
     "main": "#f50057",
@@ -1024,10 +1030,10 @@ Object {
     "main": "#4caf50",
   },
   "text": Object {
-    "disabled": "Color.Grey100",
-    "hint": "Color.Grey100",
-    "primary": "Color.Grey500",
-    "secondary": "Color.Grey200",
+    "disabled": Color.Grey100,
+    "hint": Color.Grey100,
+    "primary": Color.Grey500,
+    "secondary": Color.Grey200,
   },
   "tonalOffset": 0.2,
   "type": "light",
@@ -1040,7 +1046,7 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: props 1`] = `
+exports[`accessible by \`useTheme\`: props 1`] = `
 Object {
   "MuiAppBar": Object {
     "color": "inherit",
@@ -1052,6 +1058,48 @@ Object {
   },
   "MuiCard": Object {
     "elevation": 0,
+  },
+  "MuiCheckbox": Object {
+    "checkedIcon": <ForwardRef(WithStyles)>
+      <rect
+        fill="currentColor"
+        height="18"
+        rx="2"
+        width="18"
+        x="3"
+        y="3"
+      />
+      <path
+        d="M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z"
+        fill=Color.White
+      />
+    </ForwardRef(WithStyles)>,
+    "color": "primary",
+    "icon": <ForwardRef(WithStyles)>
+      <rect
+        fill="transparent"
+        height="17"
+        rx="1.5"
+        stroke="currentColor"
+        width="17"
+        x="3.5"
+        y="3.5"
+      />
+    </ForwardRef(WithStyles)>,
+    "indeterminateIcon": <ForwardRef(WithStyles)>
+      <rect
+        fill="currentIcon"
+        height="18"
+        rx="2"
+        width="18"
+        x="3"
+        y="3"
+      />
+      <path
+        d="M7 11h10v2H7v-2z"
+        fill=Color.White
+      />
+    </ForwardRef(WithStyles)>,
   },
   "MuiDialogTitle": Object {
     "disableTypography": true,
@@ -1080,6 +1128,9 @@ Object {
   "MuiPaper": Object {
     "elevation": 0,
   },
+  "MuiRadio": Object {
+    "color": "primary",
+  },
   "MuiSwitch": Object {
     "color": "primary",
     "disableFocusRipple": true,
@@ -1104,7 +1155,7 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: shadows 1`] = `
+exports[`accessible by \`useTheme\`: shadows 1`] = `
 Array [
   "none",
   "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
@@ -1134,15 +1185,15 @@ Array [
 ]
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: shape 1`] = `
+exports[`accessible by \`useTheme\`: shape 1`] = `
 Object {
   "borderRadius": 4,
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: spacing 1`] = `[Function]`;
+exports[`accessible by \`useTheme\`: spacing 1`] = `[Function]`;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: transitions 1`] = `
+exports[`accessible by \`useTheme\`: transitions 1`] = `
 Object {
   "create": [Function],
   "duration": Object {
@@ -1164,7 +1215,7 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: typography 1`] = `
+exports[`accessible by \`useTheme\`: typography 1`] = `
 Object {
   "body1": Object {
     "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
@@ -1258,7 +1309,7 @@ Object {
 }
 `;
 
-exports[`@material-ui/core theme accessible by \`useTheme\`: zIndex 1`] = `
+exports[`accessible by \`useTheme\`: zIndex 1`] = `
 Object {
   "appBar": 1100,
   "drawer": 1200,

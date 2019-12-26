@@ -2,10 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { Color } from '../Color';
 
-export function applyRadioStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyRadioStyles(theme: Required<Theme>) {
   theme.props.MuiRadio = {
     color: 'primary',
   };
