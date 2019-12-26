@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
-export default function SwitchDemo() {
+export default function CheckboxDemo() {
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
@@ -20,12 +20,12 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Label Position</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Right Label" control={<Switch />} />
+              <FormControlLabel label="Right Label" control={<Checkbox />} />
 
               <FormControlLabel
                 label="Left Label"
                 labelPlacement="start"
-                control={<Switch />}
+                control={<Checkbox />}
               />
             </FormGroup>
           </FormControl>
@@ -38,13 +38,19 @@ export default function SwitchDemo() {
               <FormControlLabel
                 checked={true}
                 label="On"
-                control={<Switch />}
+                control={<Checkbox />}
               />
 
               <FormControlLabel
                 checked={false}
                 label="Off"
-                control={<Switch />}
+                control={<Checkbox />}
+              />
+
+              <FormControlLabel
+                checked={true}
+                label="Indeterminate"
+                control={<Checkbox indeterminate={true} />}
               />
             </FormGroup>
           </FormControl>
@@ -58,14 +64,21 @@ export default function SwitchDemo() {
                 label="On"
                 checked={true}
                 disabled={true}
-                control={<Switch />}
+                control={<Checkbox />}
               />
 
               <FormControlLabel
                 label="Off"
                 checked={false}
                 disabled={true}
-                control={<Switch />}
+                control={<Checkbox />}
+              />
+
+              <FormControlLabel
+                checked={true}
+                disabled={true}
+                label="Indeterminate"
+                control={<Checkbox indeterminate={true} />}
               />
             </FormGroup>
           </FormControl>
@@ -75,9 +88,9 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Vertical</FormLabel>
             <FormGroup>
-              <FormControlLabel label="One" control={<Switch />} />
-              <FormControlLabel label="Two" control={<Switch />} />
-              <FormControlLabel label="Three" control={<Switch />} />
+              <FormControlLabel label="One" control={<Checkbox />} />
+              <FormControlLabel label="Two" control={<Checkbox />} />
+              <FormControlLabel label="Three" control={<Checkbox />} />
             </FormGroup>
           </FormControl>
         </Grid>

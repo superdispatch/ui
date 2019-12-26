@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
-export default function SwitchDemo() {
+export default function RadioDemo() {
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
@@ -20,12 +20,12 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Label Position</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Right Label" control={<Switch />} />
+              <FormControlLabel label="Right Label" control={<Radio />} />
 
               <FormControlLabel
                 label="Left Label"
                 labelPlacement="start"
-                control={<Switch />}
+                control={<Radio />}
               />
             </FormGroup>
           </FormControl>
@@ -35,16 +35,12 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Readonly</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel
-                checked={true}
-                label="On"
-                control={<Switch />}
-              />
+              <FormControlLabel checked={true} label="On" control={<Radio />} />
 
               <FormControlLabel
                 checked={false}
                 label="Off"
-                control={<Switch />}
+                control={<Radio />}
               />
             </FormGroup>
           </FormControl>
@@ -58,14 +54,14 @@ export default function SwitchDemo() {
                 label="On"
                 checked={true}
                 disabled={true}
-                control={<Switch />}
+                control={<Radio />}
               />
 
               <FormControlLabel
                 label="Off"
                 checked={false}
                 disabled={true}
-                control={<Switch />}
+                control={<Radio />}
               />
             </FormGroup>
           </FormControl>
@@ -75,9 +71,9 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Vertical</FormLabel>
             <FormGroup>
-              <FormControlLabel label="One" control={<Switch />} />
-              <FormControlLabel label="Two" control={<Switch />} />
-              <FormControlLabel label="Three" control={<Switch />} />
+              <FormControlLabel label="One" control={<Radio />} />
+              <FormControlLabel label="Two" control={<Radio />} />
+              <FormControlLabel label="Three" control={<Radio />} />
             </FormGroup>
           </FormControl>
         </Grid>
@@ -86,9 +82,9 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Inline Form</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Radio" control={<Radio />} />
               <FormControlLabel label="Checkbox" control={<Checkbox />} />
               <FormControlLabel label="Switch" control={<Switch />} />
+              <FormControlLabel label="Radio" control={<Radio />} />
 
               <TextField placeholder="Text Field" />
             </FormGroup>
