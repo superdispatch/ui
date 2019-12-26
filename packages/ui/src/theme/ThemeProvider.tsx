@@ -61,24 +61,22 @@ function createTheme() {
     },
 
     typography: createTypographyOptions(),
-  }) as Required<Theme>;
 
-  theme.props = {};
-  theme.overrides = {};
+    props: {},
+    overrides: {
+      MuiListItem: {
+        root: {
+          '&$selected, &$selected:hover': {
+            backgroundColor: Color.Blue50,
+          },
 
-  theme.overrides = {
-    MuiListItem: {
-      root: {
-        '&$selected, &$selected:hover': {
-          backgroundColor: Color.Blue50,
-        },
-
-        '& .MuiTouchRipple-root': {
-          color: Color.Blue100,
+          '& .MuiTouchRipple-root': {
+            color: Color.Blue100,
+          },
         },
       },
     },
-  };
+  }) as Required<Theme>;
 
   applyAppBarStyles(theme);
   applyCardStyles(theme);
