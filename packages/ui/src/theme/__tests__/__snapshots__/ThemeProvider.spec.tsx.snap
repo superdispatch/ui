@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`accessible by \`useTheme\`: breakpoints 1`] = `
+exports[`exposes overridden theme: breakpoints 1`] = `
 Object {
   "between": [Function],
   "down": [Function],
@@ -24,9 +24,9 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: direction 1`] = `"ltr"`;
+exports[`exposes overridden theme: direction 1`] = `"ltr"`;
 
-exports[`accessible by \`useTheme\`: mixins 1`] = `
+exports[`exposes overridden theme: mixins 1`] = `
 Object {
   "gutters": [Function],
   "toolbar": Object {
@@ -41,7 +41,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: overrides 1`] = `
+exports[`exposes overridden theme: overrides 1`] = `
 Object {
   "MuiButton": Object {
     "contained": Object {
@@ -335,19 +335,11 @@ Object {
       "padding": undefined,
     },
   },
-  "MuiCheckbox": Object {
-    "colorPrimary": Object {
-      "&$checked$disabled": Object {
-        "color": Color.Silver500,
-      },
-      "&:hover:not($checked)": Object {
-        "color": Color.Grey100,
-      },
-    },
+  "MuiCardContent": Object {
     "root": Object {
-      "color": Color.Grey100,
-      "marginBottom": -5,
-      "marginTop": -5,
+      "&:last-child": Object {
+        "paddingBottom": undefined,
+      },
     },
   },
   "MuiDialogActions": Object {
@@ -365,7 +357,14 @@ Object {
       "padding": "0px 24px",
     },
   },
-  "MuiFormControlLabel": Object {},
+  "MuiFormControlLabel": Object {
+    "labelPlacementStart": Object {
+      "marginRight": -8,
+    },
+    "root": Object {
+      "marginLeft": -8,
+    },
+  },
   "MuiFormHelperText": Object {
     "contained": Object {
       "margin": "4px 0px 0px 0px",
@@ -501,6 +500,16 @@ Object {
       "transition": "color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
     },
   },
+  "MuiListItem": Object {
+    "root": Object {
+      "& .MuiTouchRipple-root": Object {
+        "color": Color.Blue100,
+      },
+      "&$selected, &$selected:hover": Object {
+        "backgroundColor": Color.Blue50,
+      },
+    },
+  },
   "MuiMenuItem": Object {
     "root": Object {
       "@media (min-width:600px)": Object {
@@ -564,21 +573,6 @@ Object {
   "MuiPaper": Object {
     "elevation0": Object {
       "border": "1px solid #E1E5EA",
-    },
-  },
-  "MuiRadio": Object {
-    "colorPrimary": Object {
-      "&$checked$disabled": Object {
-        "color": Color.Silver500,
-      },
-      "&:hover:not($checked)": Object {
-        "color": Color.Grey100,
-      },
-    },
-    "root": Object {
-      "color": Color.Grey100,
-      "marginBottom": -5,
-      "marginTop": -5,
     },
   },
   "MuiSelect": Object {
@@ -674,12 +668,12 @@ Object {
     "root": Object {
       "@media (min-width:600px)": Object {
         "height": 32,
-        "padding": "4px 12px",
-        "width": 64,
+        "padding": "4px 8px",
+        "width": 56,
       },
       "height": 44,
-      "padding": "6px 12px",
-      "width": 76,
+      "padding": "6px 8px",
+      "width": 68,
     },
     "switchBase": Object {
       "&$checked": Object {
@@ -697,7 +691,7 @@ Object {
       "@media (min-width:600px)": Object {
         "padding": 8,
       },
-      "left": 8,
+      "left": 4,
       "padding": "10px 8px",
     },
     "thumb": Object {
@@ -961,7 +955,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: palette 1`] = `
+exports[`exposes overridden theme: palette 1`] = `
 Object {
   "action": Object {
     "active": "rgba(0, 0, 0, 0.54)",
@@ -1046,7 +1040,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: props 1`] = `
+exports[`exposes overridden theme: props 1`] = `
 Object {
   "MuiAppBar": Object {
     "color": "inherit",
@@ -1058,48 +1052,6 @@ Object {
   },
   "MuiCard": Object {
     "elevation": 0,
-  },
-  "MuiCheckbox": Object {
-    "checkedIcon": <ForwardRef(WithStyles)>
-      <rect
-        fill="currentColor"
-        height="18"
-        rx="2"
-        width="18"
-        x="3"
-        y="3"
-      />
-      <path
-        d="M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z"
-        fill=Color.White
-      />
-    </ForwardRef(WithStyles)>,
-    "color": "primary",
-    "icon": <ForwardRef(WithStyles)>
-      <rect
-        fill="transparent"
-        height="17"
-        rx="1.5"
-        stroke="currentColor"
-        width="17"
-        x="3.5"
-        y="3.5"
-      />
-    </ForwardRef(WithStyles)>,
-    "indeterminateIcon": <ForwardRef(WithStyles)>
-      <rect
-        fill="currentIcon"
-        height="18"
-        rx="2"
-        width="18"
-        x="3"
-        y="3"
-      />
-      <path
-        d="M7 11h10v2H7v-2z"
-        fill=Color.White
-      />
-    </ForwardRef(WithStyles)>,
   },
   "MuiDialogTitle": Object {
     "disableTypography": true,
@@ -1128,9 +1080,6 @@ Object {
   "MuiPaper": Object {
     "elevation": 0,
   },
-  "MuiRadio": Object {
-    "color": "primary",
-  },
   "MuiSwitch": Object {
     "color": "primary",
     "disableFocusRipple": true,
@@ -1155,7 +1104,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: shadows 1`] = `
+exports[`exposes overridden theme: shadows 1`] = `
 Array [
   "none",
   "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
@@ -1185,15 +1134,15 @@ Array [
 ]
 `;
 
-exports[`accessible by \`useTheme\`: shape 1`] = `
+exports[`exposes overridden theme: shape 1`] = `
 Object {
   "borderRadius": 4,
 }
 `;
 
-exports[`accessible by \`useTheme\`: spacing 1`] = `[Function]`;
+exports[`exposes overridden theme: spacing 1`] = `[Function]`;
 
-exports[`accessible by \`useTheme\`: transitions 1`] = `
+exports[`exposes overridden theme: transitions 1`] = `
 Object {
   "create": [Function],
   "duration": Object {
@@ -1215,7 +1164,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: typography 1`] = `
+exports[`exposes overridden theme: typography 1`] = `
 Object {
   "body1": Object {
     "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
@@ -1309,7 +1258,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: zIndex 1`] = `
+exports[`exposes overridden theme: zIndex 1`] = `
 Object {
   "appBar": 1100,
   "drawer": 1200,

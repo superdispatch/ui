@@ -10,18 +10,11 @@ const colors = new Map<string, string>(
 );
 
 expect.addSnapshotSerializer({
-  test(value) {
-    return !!value && typeof value === 'string';
-  },
-
-  print(value) {
-    const colorName = colors.get(value);
-
-    return colorName ?? JSON.stringify(value);
-  },
+  test: value => !!value && typeof value === 'string' && colors.has(value),
+  print: value => colors.get(value) as string,
 });
 
-it('accessible by `useTheme`', () => {
+it('exposes overridden theme', () => {
   const { result } = renderHook(() => useTheme(), {
     wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
   });
@@ -31,7 +24,7 @@ it('accessible by `useTheme`', () => {
   });
 });
 
-it('allows to modify theme', () => {
+it('allows to modify overridden theme', () => {
   const modifier = jest.fn(theme => theme);
 
   const { result } = renderHook(() => useTheme(), {
