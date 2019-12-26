@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`accessible by \`useTheme\`: breakpoints 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: breakpoints 1`] = `
 Object {
   "between": [Function],
   "down": [Function],
@@ -24,9 +24,9 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: direction 1`] = `"ltr"`;
+exports[`@material-ui/core theme accessible by \`useTheme\`: direction 1`] = `"ltr"`;
 
-exports[`accessible by \`useTheme\`: mixins 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: mixins 1`] = `
 Object {
   "gutters": [Function],
   "toolbar": Object {
@@ -41,7 +41,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: overrides 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: overrides 1`] = `
 Object {
   "MuiButton": Object {
     "contained": Object {
@@ -955,7 +955,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: palette 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: palette 1`] = `
 Object {
   "action": Object {
     "active": "rgba(0, 0, 0, 0.54)",
@@ -1040,7 +1040,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: props 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: props 1`] = `
 Object {
   "MuiAppBar": Object {
     "color": "inherit",
@@ -1104,7 +1104,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: shadows 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: shadows 1`] = `
 Array [
   "none",
   "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
@@ -1134,15 +1134,15 @@ Array [
 ]
 `;
 
-exports[`accessible by \`useTheme\`: shape 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: shape 1`] = `
 Object {
   "borderRadius": 4,
 }
 `;
 
-exports[`accessible by \`useTheme\`: spacing 1`] = `[Function]`;
+exports[`@material-ui/core theme accessible by \`useTheme\`: spacing 1`] = `[Function]`;
 
-exports[`accessible by \`useTheme\`: transitions 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: transitions 1`] = `
 Object {
   "create": [Function],
   "duration": Object {
@@ -1164,7 +1164,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: typography 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: typography 1`] = `
 Object {
   "body1": Object {
     "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
@@ -1258,7 +1258,7 @@ Object {
 }
 `;
 
-exports[`accessible by \`useTheme\`: zIndex 1`] = `
+exports[`@material-ui/core theme accessible by \`useTheme\`: zIndex 1`] = `
 Object {
   "appBar": 1100,
   "drawer": 1200,
