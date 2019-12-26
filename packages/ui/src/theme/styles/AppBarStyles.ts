@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export function applyAppBarStyles(theme: Theme) {
-  theme.props = theme.props || {};
-
+export function applyAppBarStyles(theme: Required<Theme>) {
   theme.props.MuiAppBar = {
     elevation: 0,
     color: 'inherit',

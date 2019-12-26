@@ -17,9 +17,7 @@ export function iconSizeVariant(
   }
 }
 
-export function applySvgIconStyles(theme: Theme) {
-  theme.overrides = theme.overrides || {};
-
+export function applySvgIconStyles(theme: Required<Theme>) {
   theme.overrides.MuiSvgIcon = {
     root: {
       fontSize: iconSizeVariant('default'),

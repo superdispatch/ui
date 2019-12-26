@@ -13,8 +13,7 @@ export enum Color {
   // ???
   //
 
-  White = '#FFFFFF',
-  Orange = '#F05432',
+  White = '#fff',
   Transparent = 'rgba(0, 0, 0, 0)',
 
   //

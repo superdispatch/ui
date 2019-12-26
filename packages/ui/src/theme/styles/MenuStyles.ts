@@ -2,10 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyMenuStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyMenuStyles(theme: Required<Theme>) {
   theme.props.MuiMenu = {
     keepMounted: true,
     getContentAnchorEl: null,

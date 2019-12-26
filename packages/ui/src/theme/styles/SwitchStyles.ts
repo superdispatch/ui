@@ -2,10 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { Color } from '../Color';
 
-export function applySwitchStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applySwitchStyles(theme: Required<Theme>) {
   theme.props.MuiSwitch = {
     color: 'primary',
     disableRipple: true,

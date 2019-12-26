@@ -63,21 +63,24 @@ function createTheme() {
     },
 
     typography: createTypographyOptions(),
+  }) as Required<Theme>;
 
-    overrides: {
-      MuiListItem: {
-        root: {
-          '&$selected, &$selected:hover': {
-            backgroundColor: Color.Blue50,
-          },
+  theme.props = {};
+  theme.overrides = {};
 
-          '& .MuiTouchRipple-root': {
-            color: Color.Blue100,
-          },
+  theme.overrides = {
+    MuiListItem: {
+      root: {
+        '&$selected, &$selected:hover': {
+          backgroundColor: Color.Blue50,
+        },
+
+        '& .MuiTouchRipple-root': {
+          color: Color.Blue100,
         },
       },
     },
-  });
+  };
 
   applyAppBarStyles(theme);
   applyCardStyles(theme);
@@ -105,7 +108,7 @@ function createTheme() {
 
 const generateMaterialClassName = createGenerateClassName();
 
-function generateClassName(rule: Rule, sheet?: StyleSheet<string>) {
+function generateClassName(rule: Rule, sheet?: StyleSheet) {
   const sheetMeta = sheet?.options.meta;
 
   return rule.type === 'style' && sheetMeta?.startsWith('SuperDispatch')

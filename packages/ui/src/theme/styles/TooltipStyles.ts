@@ -33,10 +33,7 @@ function popperArrowVariant(
   };
 }
 
-export function applyTooltipStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyTooltipStyles(theme: Required<Theme>) {
   theme.props.MuiTooltip = { arrow: true };
 
   theme.overrides.MuiTooltip = {

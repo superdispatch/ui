@@ -1,9 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export function applyCardStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyCardStyles(theme: Required<Theme>) {
   theme.props.MuiCard = {
     elevation: 0,
   };

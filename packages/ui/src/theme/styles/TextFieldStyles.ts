@@ -4,10 +4,7 @@ import { Color } from '../Color';
 import { iconSizeVariant } from './SvgIconStyles';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyTextFieldStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyTextFieldStyles(theme: Required<Theme>) {
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };
 
   theme.overrides.MuiInputBase = {
