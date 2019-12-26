@@ -2,9 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { Color } from '../Color';
 
-export function applyIconButtonStyles(theme: Theme) {
-  theme.overrides = theme.overrides || {};
-
+export function applyIconButtonStyles(theme: Required<Theme>) {
   theme.overrides.MuiIconButton = {
     root: {
       color: Color.Grey100,

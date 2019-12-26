@@ -1,9 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export function applyDialogStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyDialogStyles(theme: Required<Theme>) {
   theme.props.MuiDialogTitle = {
     disableTypography: true,
   };

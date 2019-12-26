@@ -70,7 +70,7 @@ export function createTypographyOptions(): TypographyOptions {
 }
 
 export function typographyVariant(
-  theme: Theme,
+  theme: Required<Theme>,
   variant: ThemeStyle,
 ): CSSProperties {
   return {
@@ -89,10 +89,7 @@ export function typographyVariant(
   };
 }
 
-export function applyTypographyStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyTypographyStyles(theme: Required<Theme>) {
   theme.props.MuiTypography = { variant: 'body2' };
 
   theme.overrides.MuiTypography = {

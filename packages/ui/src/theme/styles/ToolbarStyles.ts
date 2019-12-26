@@ -1,8 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export function applyToolbarStyles(theme: Theme) {
-  theme.overrides = theme.overrides || {};
-
+export function applyToolbarStyles(theme: Required<Theme>) {
   theme.overrides.MuiToolbar = {
     regular: {
       minHeight: theme.spacing(8),

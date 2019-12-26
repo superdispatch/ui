@@ -2,10 +2,7 @@ import { Theme } from '@material-ui/core';
 
 import { Color } from '../Color';
 
-export function applyPaperStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyPaperStyles(theme: Required<Theme>) {
   theme.props.MuiPaper = {
     elevation: 0,
   };

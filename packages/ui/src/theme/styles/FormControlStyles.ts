@@ -1,9 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export function applyFormControlStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyFormControlStyles(theme: Required<Theme>) {
   theme.overrides.MuiFormControlLabel = {
     root: {
       marginLeft: theme.spacing(-1),
