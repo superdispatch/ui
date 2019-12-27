@@ -5,6 +5,8 @@ import {
 } from '@material-ui/core/styles/createTypography';
 import { CSSProperties } from '@material-ui/styles';
 
+import { SuperDispatchTheme } from '../ThemeProvider';
+
 export function fontWeightVariant(variant?: ThemeStyle): number {
   switch (variant) {
     case 'h1':
@@ -89,7 +91,7 @@ export function typographyVariant(
   };
 }
 
-export function applyTypographyStyles(theme: Required<Theme>) {
+export function applyTypographyStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTypography = { variant: 'body2' };
 
   theme.overrides.MuiTypography = {

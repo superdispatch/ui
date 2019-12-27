@@ -1,7 +1,7 @@
-import { Theme } from '@material-ui/core';
 import { IconProps } from '@material-ui/core/Icon';
 
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
 export function iconSizeVariant(
   size?: IconProps['fontSize'],
@@ -17,7 +17,7 @@ export function iconSizeVariant(
   }
 }
 
-export function applySvgIconStyles(theme: Required<Theme>) {
+export function applySvgIconStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiSvgIcon = {
     root: {
       fontSize: iconSizeVariant('default'),

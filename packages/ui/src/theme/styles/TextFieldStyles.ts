@@ -1,10 +1,9 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 import { iconSizeVariant } from './SvgIconStyles';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyTextFieldStyles(theme: Required<Theme>) {
+export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };
 
   theme.overrides.MuiInputBase = {

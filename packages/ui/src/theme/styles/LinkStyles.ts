@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyLinkStyles(theme: Required<Theme>) {
+export function applyLinkStyles(theme: SuperDispatchTheme) {
   theme.props.MuiLink = { underline: 'none' };
 
   theme.overrides.MuiLink = {

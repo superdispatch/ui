@@ -1,8 +1,6 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applySnackbarStyles(theme: Theme) {
-  theme.overrides = theme.overrides || {};
-
+export function applySnackbarStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiSnackbar = {
     anchorOriginBottomCenter: { left: 0, right: 0, bottom: 0 },
   };
