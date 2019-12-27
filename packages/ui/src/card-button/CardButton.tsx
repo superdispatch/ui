@@ -155,7 +155,3 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  CardButton.displayName = 'CardButton';
-}

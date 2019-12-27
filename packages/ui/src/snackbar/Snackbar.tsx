@@ -99,6 +99,3 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef<
     );
   },
 );
-if (process.env.NODE_ENV !== 'production') {
-  Snackbar.displayName = 'Snackbar';
-}

@@ -11,6 +11,7 @@ module.exports = {
       ],
       settings: { react: { version: 'detect' } },
       rules: {
+        'react/display-name': 'off',
         'react-hooks/exhaustive-deps': [
           'error',
           {
@@ -24,7 +25,6 @@ module.exports = {
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
-        'react/display-name': 'off',
         'import/no-extraneous-dependencies': 'off',
       },
     },

@@ -60,7 +60,3 @@ export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  PhoneFieldMenu.displayName = 'PhoneFieldMenu';
-}

@@ -30,7 +30,3 @@ export const PhoneLink = forwardRef<HTMLAnchorElement, PhoneLinkProps>(
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  PhoneLink.displayName = 'PhoneLink';
-}
