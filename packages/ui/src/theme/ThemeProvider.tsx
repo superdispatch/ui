@@ -80,7 +80,7 @@ function createTheme() {
         },
       },
     },
-  }) as Required<Theme>;
+  }) as SuperDispatchTheme;
 
   applyAppBarStyles(theme);
   applyCardStyles(theme);
