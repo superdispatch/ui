@@ -82,7 +82,3 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
     />
   );
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  DateTextField.displayName = 'DateTextField';
-}

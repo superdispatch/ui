@@ -15,6 +15,7 @@ module.exports = ({ isDocs = false } = {}) => api => {
       ],
     ].filter(Boolean),
     plugins: [
+      require.resolve('../tools/babel-plugin-inject-display-name'),
       isDocs && !isTest && require.resolve('../tools/babel-plugin-csb'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
       ['@babel/plugin-transform-runtime', { useESModules: false }],

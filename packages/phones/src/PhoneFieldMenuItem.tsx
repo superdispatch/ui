@@ -53,7 +53,3 @@ export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemPro
     </MenuItem>
   );
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  PhoneFieldMenuItem.displayName = 'PhoneFieldMenuItem';
-}

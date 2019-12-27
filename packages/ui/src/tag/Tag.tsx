@@ -127,7 +127,3 @@ export const Tag: ForwardRefExoticComponent<TagProps> = forwardRef<
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  Tag.displayName = 'Tag';
-}
