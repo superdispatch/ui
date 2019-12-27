@@ -34,7 +34,3 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     </MaterialButton>
   ),
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  Button.displayName = 'Button';
-}

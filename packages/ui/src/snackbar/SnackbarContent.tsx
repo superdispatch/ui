@@ -150,7 +150,3 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  SnackbarContent.displayName = 'SnackbarContent';
-}

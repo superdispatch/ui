@@ -130,7 +130,3 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
     </>
   );
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  PhoneField.displayName = 'PhoneField';
-}

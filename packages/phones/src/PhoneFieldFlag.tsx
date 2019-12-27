@@ -46,7 +46,3 @@ export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
     );
   },
 );
-
-if (process.env.NODE_ENV !== 'production') {
-  PhoneFieldFlag.displayName = 'PhoneFieldFlag';
-}
