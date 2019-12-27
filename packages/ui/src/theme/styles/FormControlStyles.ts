@@ -1,13 +1,8 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyFormControlStyles(theme: Required<Theme>) {
+export function applyFormControlStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiFormControlLabel = {
-    root: {
-      marginLeft: theme.spacing(-1),
-    },
-
-    labelPlacementStart: {
-      marginRight: theme.spacing(-1),
-    },
+    root: { marginLeft: theme.spacing(-1) },
+    labelPlacementStart: { marginRight: theme.spacing(-1) },
   };
 }

@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applySwitchStyles(theme: Required<Theme>) {
+export function applySwitchStyles(theme: SuperDispatchTheme) {
   theme.props.MuiSwitch = {
     color: 'primary',
     disableRipple: true,
@@ -81,27 +80,17 @@ export function applySwitchStyles(theme: Required<Theme>) {
         '&:hover': {
           backgroundColor: undefined,
 
-          '& + $track': {
-            backgroundColor: Color.Blue400,
-          },
+          '& + $track': { backgroundColor: Color.Blue400 },
         },
       },
 
-      '& + $track': {
-        backgroundColor: Color.Silver500,
-      },
+      '& + $track': { backgroundColor: Color.Silver500 },
 
-      '&$disabled + $track': {
-        backgroundColor: Color.Silver300,
-      },
+      '&$disabled + $track': { backgroundColor: Color.Silver300 },
 
-      '&$checked$disabled + $track': {
-        backgroundColor: Color.Blue100,
-      },
+      '&$checked$disabled + $track': { backgroundColor: Color.Blue100 },
 
-      '&:hover + $track': {
-        backgroundColor: Color.Grey100,
-      },
+      '&:hover + $track': { backgroundColor: Color.Grey100 },
 
       '&.Mui-focusVisible + $track': {
         boxShadow: `0 0 0 3px ${Color.Blue100}`,

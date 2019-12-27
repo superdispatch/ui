@@ -1,9 +1,8 @@
-import { Theme } from '@material-ui/core';
-
 import { Color } from '../Color';
+import { SuperDispatchTheme } from '../ThemeProvider';
 import { fontHeightVariant, fontSizeVariant } from './TypographyStyles';
 
-export function applyTabsStyles(theme: Required<Theme>) {
+export function applyTabsStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTabs = {
     variant: 'scrollable',
     textColor: 'primary',

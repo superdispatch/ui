@@ -1,4 +1,3 @@
-import { Theme } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
@@ -6,6 +5,7 @@ import {
   fontHeightVariant,
   fontSizeVariant,
 } from '../theme/styles/TypographyStyles';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 function textVariant(
   text: Color,
@@ -77,10 +77,7 @@ function containedVariant(
   };
 }
 
-export function applyButtonStyles(theme: Theme) {
-  theme.props = theme.props || {};
-  theme.overrides = theme.overrides || {};
-
+export function applyButtonStyles(theme: SuperDispatchTheme) {
   theme.props.MuiButton = {
     disableFocusRipple: true,
   };

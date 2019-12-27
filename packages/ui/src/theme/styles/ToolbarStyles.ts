@@ -1,10 +1,8 @@
-import { Theme } from '@material-ui/core';
+import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function applyToolbarStyles(theme: Required<Theme>) {
+export function applyToolbarStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiToolbar = {
-    regular: {
-      minHeight: theme.spacing(8),
-    },
+    regular: { minHeight: theme.spacing(8) },
 
     gutters: {
       [theme.breakpoints.up('sm')]: {
