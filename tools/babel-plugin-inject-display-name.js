@@ -2,20 +2,26 @@
 
 module.exports = ({ types }) => ({
   visitor: {
-    VariableDeclarator: path => {
-      let { id, init } = path.node;
+    CallExpression(path) {
+      let { node, parentPath } = path;
 
-      if (
-        !init ||
-        init.type !== 'CallExpression' ||
-        init.callee.name !== 'forwardRef'
-      ) {
+      if (node.callee.name !== 'forwardRef') {
         return;
       }
 
-      let { name } = id;
+      // Handles `const Foo = forwardRef((c++, (props, ref) => (…)))`.
+      // See: https://github.com/kentcdodds/import-all.macro/issues/7#issuecomment-387502208
+      while (parentPath.type === 'SequenceExpression') {
+        parentPath = parentPath.parentPath;
+      }
 
-      path.parentPath.insertAfter(
+      if (parentPath.type !== 'VariableDeclarator') {
+        return;
+      }
+
+      let { name } = parentPath.node.id;
+
+      parentPath.parentPath.insertAfter(
         types.ifStatement(
           types.binaryExpression(
             '!==',
