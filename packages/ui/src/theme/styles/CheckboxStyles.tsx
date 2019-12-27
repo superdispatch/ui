@@ -14,7 +14,7 @@ export function applyCheckboxStyles(theme: SuperDispatchTheme) {
           height="17"
           x="3.5"
           y="3.5"
-          fill="transparent"
+          fill="#fff"
           stroke="currentColor"
           rx="1.5"
         />
