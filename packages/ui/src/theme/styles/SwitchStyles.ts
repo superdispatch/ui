@@ -10,14 +10,14 @@ export function applySwitchStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiSwitch = {
     root: {
-      width: theme.spacing(8.5),
+      width: theme.spacing(9.5),
       height: theme.spacing(5.5),
-      padding: theme.spacing(0.75, 1),
+      padding: theme.spacing(0.75, 1.5),
 
       [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(7),
+        width: theme.spacing(8),
         height: theme.spacing(4),
-        padding: theme.spacing(0.5, 1),
+        padding: theme.spacing(0.5, 1.5),
       },
     },
 
@@ -49,7 +49,7 @@ export function applySwitchStyles(theme: SuperDispatchTheme) {
     },
 
     switchBase: {
-      left: theme.spacing(0.5),
+      left: theme.spacing(1),
       padding: theme.spacing(1.25, 1),
 
       [theme.breakpoints.up('sm')]: {
