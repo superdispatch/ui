@@ -6,7 +6,6 @@ export function applyLinkStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiLink = {
     root: {
-      display: 'inline-block',
       borderTop: 'none',
       borderLeft: 'none',
       borderRight: 'none',
@@ -32,6 +31,18 @@ export function applyLinkStyles(theme: SuperDispatchTheme) {
       },
     },
 
-    button: { textAlign: 'initial', border: undefined },
+    button: {
+      border: undefined,
+      position: 'static',
+
+      fontSize: 'inherit',
+      textAlign: 'inherit',
+      lineHeight: 'inherit',
+      fontFamily: 'inherit',
+      alignItems: 'inherit',
+      fontWeight: 'inherit',
+      userSelect: 'inherit',
+      verticalAlign: 'inherit',
+    },
   };
 }
