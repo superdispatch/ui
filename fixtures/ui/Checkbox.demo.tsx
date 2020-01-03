@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 
 const options = ['one', 'two', 'three'];
 
-export default function SwitchDemo() {
+export default function CheckboxDemo() {
   const [selected, setSelected] = useState(new Set<string>());
   const errorMessage =
     selected.size === 0
@@ -36,12 +36,12 @@ export default function SwitchDemo() {
           <FormControl>
             <FormLabel>Label Position</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Right Label" control={<Switch />} />
+              <FormControlLabel label="Right Label" control={<Checkbox />} />
 
               <FormControlLabel
                 label="Left Label"
                 labelPlacement="start"
-                control={<Switch />}
+                control={<Checkbox />}
               />
             </FormGroup>
           </FormControl>
@@ -54,13 +54,19 @@ export default function SwitchDemo() {
               <FormControlLabel
                 checked={true}
                 label="On"
-                control={<Switch />}
+                control={<Checkbox />}
               />
 
               <FormControlLabel
                 checked={false}
                 label="Off"
-                control={<Switch />}
+                control={<Checkbox />}
+              />
+
+              <FormControlLabel
+                checked={true}
+                label="Indeterminate"
+                control={<Checkbox indeterminate={true} />}
               />
             </FormGroup>
           </FormControl>
@@ -74,14 +80,21 @@ export default function SwitchDemo() {
                 label="On"
                 checked={true}
                 disabled={true}
-                control={<Switch />}
+                control={<Checkbox />}
               />
 
               <FormControlLabel
                 label="Off"
                 checked={false}
                 disabled={true}
-                control={<Switch />}
+                control={<Checkbox />}
+              />
+
+              <FormControlLabel
+                checked={true}
+                disabled={true}
+                label="Indeterminate"
+                control={<Checkbox indeterminate={true} />}
               />
             </FormGroup>
           </FormControl>
@@ -107,7 +120,7 @@ export default function SwitchDemo() {
                       return next;
                     })
                   }
-                  control={<Switch />}
+                  control={<Checkbox />}
                 />
               ))}
             </FormGroup>

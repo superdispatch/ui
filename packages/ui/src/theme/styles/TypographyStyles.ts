@@ -1,4 +1,3 @@
-import { Theme } from '@material-ui/core';
 import {
   ThemeStyle,
   TypographyOptions,
@@ -72,7 +71,7 @@ export function createTypographyOptions(): TypographyOptions {
 }
 
 export function typographyVariant(
-  theme: Required<Theme>,
+  theme: SuperDispatchTheme,
   variant: ThemeStyle,
 ): CSSProperties {
   return {
