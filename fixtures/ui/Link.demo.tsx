@@ -8,8 +8,7 @@ export default function LinkDemo() {
         <Grid item={true} xs={12}>
           <Typography>
             This is <Link href="#">link</Link> in text with another{' '}
-            <Link component="button">button link</Link> contained inside of
-            text.
+            <Link component="button">button link</Link>.
           </Typography>
         </Grid>
 
