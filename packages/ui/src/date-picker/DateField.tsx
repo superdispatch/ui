@@ -2,9 +2,9 @@ import { Popover } from '@material-ui/core';
 import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import React, { ReactNode, useMemo, useRef } from 'react';
 
-import { mergeRefs } from '..';
 import { Calendar, CalendarProps } from '../calendar/Calendar';
 import { formatDate } from '../calendar/DateUtils';
+import { mergeRefs } from '../utils/mergeRefs';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
 
