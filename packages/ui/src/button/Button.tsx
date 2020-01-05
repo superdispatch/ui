@@ -25,11 +25,11 @@ export const Button: ForwardRefExoticComponent<ButtonProps> = forwardRef<
     {...props}
     ref={ref}
     size={size}
-    disabled={disabled || isLoading}
     data-color={color}
+    aria-busy={isLoading}
+    aria-expanded={isActive}
+    disabled={disabled || isLoading}
     color={color === 'primary' ? color : undefined}
-    aria-busy={isLoading ? 'true' : 'false'}
-    aria-expanded={isActive ? 'true' : 'false'}
   >
     {!isLoading ? (
       children
