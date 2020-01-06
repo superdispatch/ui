@@ -14,7 +14,7 @@
   "dependencies": {
     "@superdispatch/ui": "^0.0.77",
     "clsx": "^1.0.4",
-    "utility-hooks": "^0.5.6"
+    "utility-hooks": "^0.5.8"
   },
   "devDependencies": {
     "typescript": "^3.7.4"
