@@ -27,7 +27,7 @@ export function formatDate(
       year: 'numeric',
       ...options,
     }).format(date);
-  } catch (e) {
+  } catch {
     return date.toLocaleDateString();
   }
 }
