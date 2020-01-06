@@ -250,7 +250,7 @@ export type PhoneRegionCode =
 function getAYT(regionCode: null | undefined | PhoneRegionCode) {
   try {
     return APN.getAsYouType(regionCode || 'US');
-  } catch (e) {
+  } catch {
     return APN.getAsYouType('US');
   }
 }
@@ -277,7 +277,7 @@ export class PhoneNumber {
         ayt.reset(value.nationalNumber);
 
         return ayt;
-      } catch (e) {}
+      } catch {}
     }
 
     return undefined;
@@ -336,7 +336,7 @@ export class PhoneNumber {
 
     try {
       apn = APN.getExample(region);
-    } catch (e) {
+    } catch {
       apn = APN.getExample('US');
     }
 
@@ -346,7 +346,7 @@ export class PhoneNumber {
   static getCountryCode(regionCode: PhoneRegionCode): number {
     try {
       return APN.getCountryCodeForRegionCode(regionCode);
-    } catch (e) {
+    } catch {
       return 1;
     }
   }
@@ -354,7 +354,7 @@ export class PhoneNumber {
   static getRegionCode(countryCode: number): PhoneRegionCode {
     try {
       return APN.getRegionCodeForCountryCode(countryCode) as PhoneRegionCode;
-    } catch (e) {
+    } catch {
       return 'US';
     }
   }
