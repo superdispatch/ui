@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   CircularProgress,
   FormControl,
   FormControlLabel,
@@ -11,10 +10,17 @@ import {
   RadioGroup,
   Switch,
 } from '@material-ui/core';
-import { Snackbar, SnackbarVariant, useSnackbarStack } from '@superdispatch/ui';
+import {
+  Button,
+  Snackbar,
+  SnackbarStackOptions,
+  SnackbarVariant,
+  useSnackbarStack,
+} from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import { loremIpsum } from 'lorem-ipsum';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useWhenValueChanges } from 'utility-hooks';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
 
@@ -24,20 +30,54 @@ function makeMessage(isLong: boolean) {
   return loremIpsum({ units: 'sentences', count: isLong ? 3 : 1 });
 }
 
+interface State {
+  isOpen: boolean;
+  isLong: boolean;
+  hasUndo: boolean;
+  hasClose: boolean;
+  hasAutoHide: boolean;
+  variant: SnackbarVariant;
+  message: ReactNode;
+}
+
 export default function SnackbarDemo() {
   const { addSnackbar, clearStack } = useSnackbarStack();
-  const [isOpen, setIsOpen] = useState(true);
-  const [isLong, setIsLong] = useState(false);
-  const [hasCloseButton, setHasCloseButton] = useState(true);
-  const [hasAutoHideDuration, setHasAutoHideDuration] = useState(false);
   const [hideProgress, setHideProgress] = useState(0);
-  const [variant, setVariant] = useState<SnackbarVariant>('default');
 
-  const key = `${variant}-${isLong}-${hasCloseButton}-${hasAutoHideDuration}`;
-  const message = useMemo(() => makeMessage(isLong), [isLong]);
+  const [
+    { isOpen, isLong, hasUndo, hasClose, hasAutoHide, variant, message },
+    setState,
+  ] = useState<State>(() => ({
+    isOpen: true,
+    isLong: false,
+    hasUndo: false,
+    hasClose: true,
+    hasAutoHide: false,
+    variant: 'default',
+    message: makeMessage(false),
+  }));
+
+  const updateState = useCallback(
+    (partial: Partial<State>) => setState(prev => ({ ...prev, ...partial })),
+    [],
+  );
+
+  const key = [
+    isOpen,
+    isLong,
+    hasUndo,
+    hasClose,
+    hasAutoHide,
+    variant,
+    message,
+  ].join('-');
+
+  useWhenValueChanges(isLong, () =>
+    updateState({ message: makeMessage(isLong) }),
+  );
 
   useEffect(() => {
-    if (!isOpen || !hasAutoHideDuration) {
+    if (!isOpen || !hasClose) {
       return;
     }
 
@@ -62,7 +102,7 @@ export default function SnackbarDemo() {
         cancelAnimationFrame(id);
       }
     };
-  }, [key, isOpen, hasAutoHideDuration]);
+  }, [hasClose, isOpen, key]);
 
   return (
     <>
@@ -77,28 +117,37 @@ export default function SnackbarDemo() {
                   label="Open"
                   control={<Switch />}
                   checked={isOpen}
-                  onChange={(_, checked) => setIsOpen(checked)}
+                  onChange={(_, checked) => updateState({ isOpen: checked })}
                 />
 
                 <FormControlLabel
                   label="Long"
                   control={<Switch />}
                   checked={isLong}
-                  onChange={(_, checked) => setIsLong(checked)}
+                  onChange={(_, checked) => updateState({ isLong: checked })}
                 />
 
                 <FormControlLabel
-                  label="Has Close Button"
+                  label="Auto Hide"
                   control={<Switch />}
-                  checked={hasCloseButton}
-                  onChange={(_, checked) => setHasCloseButton(checked)}
+                  checked={hasAutoHide}
+                  onChange={(_, checked) =>
+                    updateState({ hasAutoHide: checked })
+                  }
                 />
 
                 <FormControlLabel
-                  label="Has Auto Hide"
+                  label="Undoable"
                   control={<Switch />}
-                  checked={hasAutoHideDuration}
-                  onChange={(_, checked) => setHasAutoHideDuration(checked)}
+                  checked={hasUndo}
+                  onChange={(_, checked) => updateState({ hasUndo: checked })}
+                />
+
+                <FormControlLabel
+                  label="Closable"
+                  control={<Switch />}
+                  checked={hasClose}
+                  onChange={(_, checked) => updateState({ hasClose: checked })}
                 />
               </FormGroup>
             </FormControl>
@@ -111,7 +160,9 @@ export default function SnackbarDemo() {
                 row={true}
                 name="variant"
                 value={variant}
-                onChange={(_, value) => setVariant(value as SnackbarVariant)}
+                onChange={(_, value) =>
+                  updateState({ variant: value as SnackbarVariant })
+                }
               >
                 {variants.map(x => (
                   <FormControlLabel
@@ -126,27 +177,58 @@ export default function SnackbarDemo() {
           </Grid>
 
           <Grid item={true} sm="auto" xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Stack</FormLabel>
-
-              <FormGroup row={true}>
+            <Grid container={true} spacing={1}>
+              <Grid item={true}>
                 <Button
-                  onClick={() =>
-                    addSnackbar(makeMessage(isLong), {
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => {
+                    const snackMessage = makeMessage(isLong);
+
+                    const options: SnackbarStackOptions = {
                       variant,
-                      hasCloseButton,
-                      autoHideDuration: !hasAutoHideDuration
+                      hasCloseButton: hasClose,
+                      key: Math.random(),
+                      autoHideDuration: !hasAutoHide
                         ? undefined
                         : AUTO_HIDE_DURATION,
-                    })
-                  }
+                    };
+
+                    addSnackbar(snackMessage, {
+                      ...options,
+                      action: hasUndo && (
+                        <Button
+                          variant="text"
+                          color="primary"
+                          onClick={() => {
+                            addSnackbar(
+                              <span>
+                                <strong>Undid:</strong> <em>{snackMessage}</em>
+                              </span>,
+                              options,
+                            );
+                          }}
+                        >
+                          Undo
+                        </Button>
+                      ),
+                    });
+                  }}
                 >
                   Add To Stack
                 </Button>
+              </Grid>
 
-                <Button onClick={() => clearStack()}>Clear Stack</Button>
-              </FormGroup>
-            </FormControl>
+              <Grid item={true}>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => clearStack()}
+                >
+                  Clear Stack
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
@@ -155,11 +237,31 @@ export default function SnackbarDemo() {
         key={key}
         open={isOpen}
         variant={variant}
-        hasCloseButton={hasCloseButton}
-        onClose={() => setIsOpen(false)}
-        autoHideDuration={!hasAutoHideDuration ? undefined : AUTO_HIDE_DURATION}
+        hasCloseButton={hasClose}
+        onClose={() => updateState({ isOpen: false })}
+        autoHideDuration={!hasAutoHide ? undefined : AUTO_HIDE_DURATION}
+        action={
+          hasUndo && (
+            <Button
+              variant="text"
+              color="primary"
+              onClick={() =>
+                updateState({
+                  hasUndo: false,
+                  message: (
+                    <span>
+                      <strong>Undid:</strong> <em>{message}</em>
+                    </span>
+                  ),
+                })
+              }
+            >
+              Undo
+            </Button>
+          )
+        }
       >
-        {!hasAutoHideDuration ? (
+        {!hasAutoHide ? (
           message
         ) : (
           <Box
@@ -171,6 +273,7 @@ export default function SnackbarDemo() {
             <Box display="flex" flexGrow={1}>
               {message}
             </Box>
+
             <Box display="flex" marginLeft={2} flexShrink={0}>
               <CircularProgress
                 color="inherit"
