@@ -40,6 +40,7 @@ export interface SnackbarStackOptions {
   variant?: SnackbarVariant;
   hasCloseButton?: boolean;
   autoHideDuration?: number;
+  action?: ReactNode;
   onClose?: (reason: 'explicit' | 'timeout') => void;
 }
 
@@ -80,7 +81,14 @@ interface StackItemProps {
 }
 
 function StackItem({ item, style, className }: StackItemProps) {
-  const { variant, message, onClose, hasCloseButton, autoHideDuration } = item;
+  const {
+    action,
+    message,
+    variant,
+    onClose,
+    hasCloseButton,
+    autoHideDuration,
+  } = item;
 
   useEffect(() => {
     if (!autoHideDuration) {
@@ -100,6 +108,7 @@ function StackItem({ item, style, className }: StackItemProps) {
             item.node = node as HTMLDivElement;
           }
         }}
+        action={action}
         variant={variant}
         onClose={!hasCloseButton ? undefined : () => onClose('explicit')}
       >
@@ -180,6 +189,7 @@ export function SnackbarStackProvider({
         message,
         {
           onClose,
+          action = null,
           variant = 'default',
           key = Math.random(),
           hasCloseButton = true,
@@ -202,6 +212,7 @@ export function SnackbarStackProvider({
         const item: StackItemOptions = {
           id: Math.random(),
           key,
+          action,
           message,
           variant,
           hasCloseButton,
