@@ -62,15 +62,7 @@ export default function SnackbarDemo() {
     [],
   );
 
-  const key = [
-    isOpen,
-    isLong,
-    hasUndo,
-    hasClose,
-    hasAutoHide,
-    variant,
-    message,
-  ].join('-');
+  const key = [hasUndo, hasClose, variant, message, hasAutoHide].join('-');
 
   useWhenValueChanges(isLong, () =>
     updateState({ message: makeMessage(isLong) }),
