@@ -15,7 +15,7 @@ function textVariant(
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
-    '&$disabled[aria-busy="false"]': { color: outline },
+    '&$disabled:not([aria-busy="true"])': { color: outline },
     '&:not($disabled)': {
       '&:hover, &:active, &[aria-expanded="true"]': {
         backgroundColor: background,
@@ -42,7 +42,7 @@ function outlinedVariant(
     color: staleText,
     boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
 
-    '&$disabled[aria-busy="false"]': {
+    '&$disabled:not([aria-busy="true"])': {
       color: disabledText,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
