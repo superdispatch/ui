@@ -137,7 +137,7 @@ Object {
         "border": undefined,
       },
       "&[data-color=\\"error\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "boxShadow": "inset 0 0 0 1px #FDC2BA, 0 0 0 0 #FDC2BA",
           "color": Color.Red100,
         },
@@ -158,7 +158,7 @@ Object {
         "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "boxShadow": "inset 0 0 0 1px #E1E5EA, 0 0 0 0 #A8D1FF",
           "color": Color.Silver500,
         },
@@ -179,7 +179,7 @@ Object {
         "color": Color.Grey500,
       },
       "&[data-color=\\"success\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "boxShadow": "inset 0 0 0 1px #90EAAE, 0 0 0 0 #90EAAE",
           "color": Color.Green100,
         },
@@ -277,7 +277,7 @@ Object {
     },
     "text": Object {
       "&[data-color=\\"error\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "color": Color.Red100,
         },
         "&:not($disabled)": Object {
@@ -293,7 +293,7 @@ Object {
         "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "color": Color.Blue100,
         },
         "&:not($disabled)": Object {
@@ -309,7 +309,7 @@ Object {
         "color": Color.Blue300,
       },
       "&[data-color=\\"success\\"]": Object {
-        "&$disabled[aria-busy=\\"false\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
           "color": Color.Green100,
         },
         "&:not($disabled)": Object {
@@ -1063,9 +1063,9 @@ Object {
   "type": "light",
   "warning": Object {
     "contrastText": "rgba(0, 0, 0, 0.87)",
-    "dark": "#ffa000",
-    "light": "#ffd54f",
-    "main": "#ffc107",
+    "dark": "#f57c00",
+    "light": "#ffb74d",
+    "main": "#ff9800",
   },
 }
 `;
