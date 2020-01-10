@@ -57,7 +57,7 @@
     "eslint": "^6.8.0",
     "execa": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^4.0.1",
+    "husky": "^4.0.6",
     "jest": "^24.9.0",
     "ky": "^0.16.1",
     "lerna": "^3.20.2",
@@ -72,7 +72,7 @@
     "react-test-renderer": "^16.12.0",
     "snapshot-diff": "^0.6.1",
     "typescript": "^3.7.4",
-    "utility-hooks": "^0.5.8",
+    "utility-hooks": "^0.6.0",
     "webpack": "^4.41.5"
   },
   "engines": {
