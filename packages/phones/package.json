@@ -16,9 +16,6 @@
     "clsx": "^1.0.4",
     "utility-hooks": "^0.6.0"
   },
-  "devDependencies": {
-    "typescript": "^3.7.4"
-  },
   "peerDependencies": {
     "@material-ui/core": "^4.7.2",
     "@material-ui/icons": "^4.5.1",
