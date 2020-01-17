@@ -39,16 +39,17 @@ export interface PhoneFieldProps
   extends RefAttributes<HTMLDivElement>,
     Omit<
       OutlinedTextFieldProps,
-      'value' | 'variant' | 'onChange' | 'InputProps'
+      'value' | 'variant' | 'onChange' | 'onBlur' | 'InputProps'
     > {
   value: undefined | PhoneNumber;
+  onBlur?: (value: PhoneNumber) => void;
   onChange?: (value: PhoneNumber) => void;
 }
 
 export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef<
   HTMLDivElement,
   PhoneFieldProps
->(({ value, onChange, inputRef: inputRefProp, ...props }, ref) => {
+>(({ value, onBlur, onChange, inputRef: inputRefProp, ...props }, ref) => {
   const styles = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,15 +81,21 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
         {...props}
         variant="outlined"
         value={inputText}
+        placeholder={placeholder}
+        ref={mergeRefs(ref, anchorRef)}
+        inputRef={mergeRefs(inputRefProp, inputRef)}
+        onBlur={event =>
+          onBlur?.({
+            region: currentRegion,
+            nationalNumber: event.target.value,
+          })
+        }
         onChange={event =>
           onChange?.({
             region: currentRegion,
             nationalNumber: event.target.value,
           })
         }
-        placeholder={placeholder}
-        ref={mergeRefs(ref, anchorRef)}
-        inputRef={mergeRefs(inputRefProp, inputRef)}
         InputProps={{
           startAdornment: (
             <InputAdornment
