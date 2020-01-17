@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "yarn lerna run build",
-    "prebump": "yarn && yarn lint && yarn docs && yarn test",
+    "prebump": "yarn && yarn lint && yarn docs && yarn test && yarn build",
     "bump": "lerna version",
     "docs": "cosmos-export",
     "lint": "js-tools lint",
