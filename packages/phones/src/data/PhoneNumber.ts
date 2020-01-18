@@ -247,6 +247,9 @@ export type PhoneRegionCode =
   | 'ZM'
   | 'ZW';
 
+const DEFAULT_COUNTRY_CODE = 1;
+const DEFAULT_REGION_CODE: PhoneRegionCode = 'US';
+
 function getAYT(regionCode: null | undefined | PhoneRegionCode) {
   try {
     return APN.getAsYouType(regionCode || 'US');
@@ -310,7 +313,10 @@ export class PhoneNumber {
       }
 
       // Fallback to US number
-      return PhoneNumber.toAPN({ region: 'US', nationalNumber: digits });
+      return PhoneNumber.toAPN({
+        region: DEFAULT_REGION_CODE,
+        nationalNumber: digits,
+      });
     }
 
     return PhoneNumber.toAYT(value)?.getPhoneNumber();
@@ -325,6 +331,28 @@ export class PhoneNumber {
       : new PhoneNumber(regionCode, nationalNumber);
   }
 
+  static getCountryCode(regionCode: PhoneRegionCode): number {
+    let countryCode = DEFAULT_COUNTRY_CODE;
+
+    try {
+      countryCode = APN.getCountryCodeForRegionCode(regionCode);
+    } catch {}
+
+    return countryCode !== 0 ? countryCode : DEFAULT_COUNTRY_CODE;
+  }
+
+  static getRegionCode(countryCode: number): PhoneRegionCode {
+    let regionCode: string = DEFAULT_REGION_CODE;
+
+    try {
+      regionCode = APN.getRegionCodeForCountryCode(countryCode);
+    } catch {}
+
+    return regionCode !== 'ZZ'
+      ? (regionCode as PhoneRegionCode)
+      : DEFAULT_REGION_CODE;
+  }
+
   static fromInternational(
     phone: null | string | undefined,
   ): undefined | PhoneNumber {
@@ -337,26 +365,10 @@ export class PhoneNumber {
     try {
       apn = APN.getExample(region);
     } catch {
-      apn = APN.getExample('US');
+      apn = APN.getExample(DEFAULT_REGION_CODE);
     }
 
     return PhoneNumber.fromAPN(apn) as PhoneNumber;
-  }
-
-  static getCountryCode(regionCode: PhoneRegionCode): number {
-    try {
-      return APN.getCountryCodeForRegionCode(regionCode);
-    } catch {
-      return 1;
-    }
-  }
-
-  static getRegionCode(countryCode: number): PhoneRegionCode {
-    try {
-      return APN.getRegionCodeForCountryCode(countryCode) as PhoneRegionCode;
-    } catch {
-      return 'US';
-    }
   }
 
   static isValid(phoneNumber?: PhoneNumberLike): boolean {
@@ -364,7 +376,22 @@ export class PhoneNumber {
   }
 
   static validate(phoneNumber?: PhoneNumberLike): PhonePossibility {
-    return PhoneNumber.toAPN(phoneNumber)?.toJSON().possibility ?? 'unknown';
+    if (PhoneNumber.isValid(phoneNumber)) {
+      return 'is-possible';
+    }
+
+    const possibility: PhonePossibility = PhoneNumber.toAPN(
+      phoneNumber,
+    )?.toJSON().possibility;
+
+    switch (possibility) {
+      case undefined:
+        return 'unknown';
+      case 'is-possible':
+        return 'too-short'; // Avoid possible short phones.
+      default:
+        return possibility;
+    }
   }
 
   static toNational(phoneNumber?: PhoneNumberLike): undefined | string {
