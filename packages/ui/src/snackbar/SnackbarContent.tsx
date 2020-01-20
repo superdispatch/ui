@@ -1,5 +1,4 @@
 import {
-  fade,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -32,20 +31,8 @@ type SnackbarContentClassKey =
 const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   theme => ({
     root: {
-      '&:not($variantError):not($variantSuccess)': {
-        color: Color.White,
-        backgroundColor: Color.Grey400,
-      },
-
-      '&$variantError': {
-        color: Color.White,
-        backgroundColor: Color.Grey500,
-      },
-
-      '&$variantSuccess': {
-        color: Color.White,
-        backgroundColor: Color.Grey500,
-      },
+      color: Color.White,
+      backgroundColor: Color.Grey500,
     },
 
     action: {},
@@ -61,9 +48,9 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     closeButton: {
-      color: Color.White,
+      color: Color.Grey100,
       '&:hover, &:focus': {
-        backgroundColor: fade(Color.White, 0.2),
+        backgroundColor: Color.Grey400,
         color: Color.White,
       },
     },
