@@ -33,18 +33,18 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   theme => ({
     root: {
       '&:not($variantError):not($variantSuccess)': {
-        color: Color.Grey500,
-        backgroundColor: Color.White,
+        color: Color.White,
+        backgroundColor: Color.Grey400,
       },
 
       '&$variantError': {
         color: Color.White,
-        backgroundColor: Color.Red300,
+        backgroundColor: Color.Grey500,
       },
 
       '&$variantSuccess': {
         color: Color.White,
-        backgroundColor: Color.Green300,
+        backgroundColor: Color.Grey500,
       },
     },
 
@@ -61,9 +61,10 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     closeButton: {
-      '$variantError &, $variantSuccess &': {
+      color: Color.White,
+      '&:hover, &:focus': {
+        backgroundColor: fade(Color.White, 0.2),
         color: Color.White,
-        '&:hover, &:focus': { backgroundColor: fade(Color.White, 0.2) },
       },
     },
 
