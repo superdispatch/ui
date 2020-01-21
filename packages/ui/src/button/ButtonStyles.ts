@@ -12,12 +12,13 @@ function textVariant(
   text: Color,
   outline: Color | string,
   background: Color | string,
+  progress: Color | string,
 ): CSSProperties {
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
+    '&[aria-busy="true"]': { color: progress },
     '&$disabled:not([aria-busy="true"])': { color: outline },
-    '&$disabled[data-color="white"]': { color: outline },
     '&:not($disabled)': {
       '&:hover, &:active, &[aria-expanded="true"]': {
         backgroundColor: background,
@@ -36,19 +37,23 @@ function outlinedVariant(
   disabledText: Color | string,
   disabledBorder: Color | string,
   activeText: Color | string,
+  activeBorder: Color | string,
   activeOutline: Color | string,
   activeBackground: Color | string,
   progress: Color | string,
+  backgroundColor: Color | string,
 ): CSSProperties {
   return {
+    backgroundColor,
     color: staleText,
     boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
 
-    '&$disabled:not([aria-busy="true"])': {
-      color: disabledText,
+    '&[aria-busy="true"]': {
+      color: progress,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
-    '&$disabled[data-color="white"]': {
+
+    '&$disabled:not([aria-busy="true"])': {
       color: disabledText,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
@@ -57,48 +62,32 @@ function outlinedVariant(
       '&:hover, &:active, &[aria-expanded="true"]': {
         color: activeText,
         backgroundColor: activeBackground,
-        boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 0 ${activeOutline}`,
+        boxShadow: `inset 0 0 0 1px ${activeBorder}, 0 0 0 0 ${activeOutline}`,
       },
       '&:focus': {
-        boxShadow: `inset 0 0 0 1px ${activeText}, 0 0 0 2px ${activeOutline}`,
+        boxShadow: `inset 0 0 0 1px ${activeBorder}, 0 0 0 2px ${activeOutline}`,
       },
     },
-
-    '&[data-color="white"]': {
-      backgroundColor: 'transparent',
-      '&:not($disabled)': {
-        '&:hover, &:active, &[aria-expanded="true"]': {
-          boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
-        },
-        '&:focus': {
-          boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 2px ${activeOutline}`,
-        },
-      },
-    },
-
-    '&[aria-busy="true"] $label > [role="progressbar"]': { color: progress },
   };
 }
 
 function containedVariant(
-  stale: Color | string,
+  text: Color | string,
+  backgroundColor: Color | string,
   outline: Color | string,
   active: Color | string,
-  disabledText?: Color | string,
-  disabledBackground?: Color | string,
+  disabledText: Color | string,
+  disabledBackground: Color | string,
 ): CSSProperties {
   return {
-    backgroundColor: stale,
+    color: text,
+    backgroundColor,
     '&$disabled': {
-      backgroundColor: disabledBackground || outline,
+      backgroundColor: disabledBackground,
       color: disabledText,
     },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
-      '&[data-color="white"]:focus': {
-        boxShadow: `0 0 0 3px ${active}`,
-        backgroundColor: stale,
-      },
       '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
     },
   };
@@ -187,21 +176,25 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Red300,
         Color.Red100,
         Color.Red50,
+        Color.Red200,
       ),
       '&[data-color="success"]': textVariant(
         Color.Green300,
         Color.Green100,
         Color.Green50,
+        Color.Green200,
       ),
       '&[data-color="primary"]': textVariant(
         Color.Blue300,
         Color.Blue100,
         Color.Blue50,
+        Color.Blue200,
       ),
       '&[data-color="white"]': textVariant(
         Color.White,
         fade(Color.White, 0.5),
         fade(Color.White, 0.1),
+        fade(Color.White, 0.5),
       ),
     },
     textSizeSmall: { padding: undefined, fontSize: undefined },
@@ -210,7 +203,6 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
     outlined: {
       border: undefined,
       padding: undefined,
-      backgroundColor: Color.White,
       '&$disabled': { border: undefined },
 
       '&[data-color="error"]': outlinedVariant(
@@ -219,9 +211,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Red100,
         Color.Red100,
         Color.Red300,
+        Color.Red300,
         Color.Red100,
         Color.Red50,
         Color.Red300,
+        Color.White,
       ),
       '&[data-color="success"]': outlinedVariant(
         Color.Green300,
@@ -229,9 +223,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Green100,
         Color.Green100,
         Color.Green300,
+        Color.Green300,
         Color.Green100,
         Color.Green50,
         Color.Green300,
+        Color.White,
       ),
       '&[data-color="primary"]': outlinedVariant(
         Color.Grey500,
@@ -239,9 +235,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Silver500,
         Color.Silver400,
         Color.Blue300,
+        Color.Blue300,
         Color.Blue100,
         Color.Blue50,
         Color.Grey200,
+        Color.White,
       ),
       '&[data-color="white"]': outlinedVariant(
         Color.White,
@@ -249,9 +247,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         fade(Color.White, 0.5),
         fade(Color.White, 0.35),
         Color.White,
+        fade(Color.White, 0.6),
         fade(Color.White, 0.4),
         fade(Color.White, 0.1),
         fade(Color.White, 0.5),
+        Color.Transparent,
       ),
     },
 
@@ -263,7 +263,6 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
     outlinedSizeLarge: { padding: undefined, fontSize: undefined },
 
     contained: {
-      color: Color.White,
       boxShadow: undefined,
       backgroundColor: undefined,
 
@@ -285,23 +284,33 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
       },
 
       '&[data-color="error"]': containedVariant(
+        Color.White,
         Color.Red300,
         Color.Red100,
         Color.Red500,
+        Color.White,
+        Color.Red100,
       ),
       '&[data-color="success"]': containedVariant(
+        Color.White,
         Color.Green300,
         Color.Green100,
         Color.Green500,
+        Color.White,
+        Color.Green100,
       ),
       '&[data-color="primary"]': containedVariant(
+        Color.White,
         Color.Blue300,
         Color.Blue100,
         Color.Blue500,
+        Color.White,
+        Color.Blue100,
       ),
       '&[data-color="white"]': containedVariant(
+        Color.White,
         fade(Color.White, 0.2),
-        fade(Color.White, 0.2),
+        fade(Color.White, 0.4),
         fade(Color.White, 0.4),
         fade(Color.White, 0.5),
         fade(Color.White, 0.08),
