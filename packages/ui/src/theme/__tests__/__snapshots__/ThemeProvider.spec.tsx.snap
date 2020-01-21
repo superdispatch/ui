@@ -1230,7 +1230,31 @@ Object {
     "elevation": 0,
   },
   "MuiRadio": Object {
+    "checkedIcon": <ForwardRef(WithStyles)>
+      <circle
+        cx="12"
+        cy="12"
+        fill="currentColor"
+        r="8.5"
+        stroke="currentColor"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        fill=Color.White
+        r="4"
+      />
+    </ForwardRef(WithStyles)>,
     "color": "primary",
+    "icon": <ForwardRef(WithStyles)>
+      <circle
+        cx="12"
+        cy="12"
+        fill=Color.White
+        r="8.5"
+        stroke="currentColor"
+      />
+    </ForwardRef(WithStyles)>,
   },
   "MuiSwitch": Object {
     "color": "primary",

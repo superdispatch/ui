@@ -7,12 +7,16 @@ import {
   FormLabel,
   Grid,
   Radio,
+  RadioGroup,
   Switch,
   TextField,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function RadioDemo() {
+  const [selected, setSelected] = useState<string>();
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
@@ -70,11 +74,16 @@ export default function RadioDemo() {
         <Grid item={true} xs={12}>
           <FormControl>
             <FormLabel>Vertical</FormLabel>
-            <FormGroup>
-              <FormControlLabel label="One" control={<Radio />} />
-              <FormControlLabel label="Two" control={<Radio />} />
-              <FormControlLabel label="Three" control={<Radio />} />
-            </FormGroup>
+
+            <RadioGroup
+              name="vertical"
+              value={selected}
+              onChange={({ target }) => setSelected(target.value)}
+            >
+              <FormControlLabel label="One" value="1" control={<Radio />} />
+              <FormControlLabel label="Two" value="2" control={<Radio />} />
+              <FormControlLabel label="Three" value="3" control={<Radio />} />
+            </RadioGroup>
           </FormControl>
         </Grid>
 
@@ -82,9 +91,24 @@ export default function RadioDemo() {
           <FormControl>
             <FormLabel>Inline Form</FormLabel>
             <FormGroup row={true}>
-              <FormControlLabel label="Checkbox" control={<Checkbox />} />
-              <FormControlLabel label="Switch" control={<Switch />} />
-              <FormControlLabel label="Radio" control={<Radio />} />
+              <FormControlLabel
+                label="Checkbox"
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+                control={<Checkbox />}
+              />
+              <FormControlLabel
+                label="Switch"
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+                control={<Switch />}
+              />
+              <FormControlLabel
+                label="Radio"
+                checked={isChecked}
+                onChange={(_, checked) => setIsChecked(checked)}
+                control={<Radio />}
+              />
 
               <TextField placeholder="Text Field" />
             </FormGroup>

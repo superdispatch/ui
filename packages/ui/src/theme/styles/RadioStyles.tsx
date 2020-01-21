@@ -1,9 +1,35 @@
+import { SvgIcon } from '@material-ui/core';
+import React from 'react';
+
 import { Color } from '../Color';
 import { SuperDispatchTheme } from '../ThemeProvider';
 
 export function applyRadioStyles(theme: SuperDispatchTheme) {
   theme.props.MuiRadio = {
     color: 'primary',
+    icon: (
+      <SvgIcon>
+        <circle
+          cx="12"
+          cy="12"
+          r="8.5"
+          fill={Color.White}
+          stroke="currentColor"
+        />
+      </SvgIcon>
+    ),
+    checkedIcon: (
+      <SvgIcon>
+        <circle
+          cx="12"
+          cy="12"
+          r="8.5"
+          fill="currentColor"
+          stroke="currentColor"
+        ></circle>
+        <circle cx="12" cy="12" r="4" fill={Color.White}></circle>
+      </SvgIcon>
+    ),
   };
 
   theme.overrides.MuiRadio = {
