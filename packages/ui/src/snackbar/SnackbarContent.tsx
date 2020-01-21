@@ -48,7 +48,12 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     closeButton: {
-      color: Color.Grey100,
+      color: Color.White,
+      '& .MuiSvgIcon-root': {
+        [theme.breakpoints.up('sm')]: {
+          fontSize: fontHeightVariant('caption'),
+        },
+      },
       '&:hover, &:focus': {
         backgroundColor: Color.Grey400,
         color: Color.White,
@@ -60,7 +65,6 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   }),
   { name: 'SuperDispatchSnackbarContent' },
 );
-
 export type SnackbarVariant = 'default' | 'error' | 'success';
 
 export interface SnackbarContentProps
