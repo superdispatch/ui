@@ -1,3 +1,4 @@
+import { fade } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
@@ -9,13 +10,14 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 function textVariant(
   text: Color,
-  outline: Color,
-  background: Color,
+  outline: Color | string,
+  background: Color | string,
 ): CSSProperties {
   return {
     color: text,
     boxShadow: `0 0 0 0 ${outline}`,
     '&$disabled:not([aria-busy="true"])': { color: outline },
+    '&$disabled[data-color="white"]': { color: outline },
     '&:not($disabled)': {
       '&:hover, &:active, &[aria-expanded="true"]': {
         backgroundColor: background,
@@ -29,20 +31,24 @@ function textVariant(
 }
 
 function outlinedVariant(
-  staleText: Color,
-  staleBorder: Color,
-  disabledText: Color,
-  disabledBorder: Color,
-  activeText: Color,
-  activeOutline: Color,
-  activeBackground: Color,
-  progress: Color,
+  staleText: Color | string,
+  staleBorder: Color | string,
+  disabledText: Color | string,
+  disabledBorder: Color | string,
+  activeText: Color | string,
+  activeOutline: Color | string,
+  activeBackground: Color | string,
+  progress: Color | string,
 ): CSSProperties {
   return {
     color: staleText,
     boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
 
     '&$disabled:not([aria-busy="true"])': {
+      color: disabledText,
+      boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
+    },
+    '&$disabled[data-color="white"]': {
       color: disabledText,
       boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
     },
@@ -58,20 +64,41 @@ function outlinedVariant(
       },
     },
 
+    '&[data-color="white"]': {
+      backgroundColor: 'transparent',
+      '&:not($disabled)': {
+        '&:hover, &:active, &[aria-expanded="true"]': {
+          boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
+        },
+        '&:focus': {
+          boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 2px ${activeOutline}`,
+        },
+      },
+    },
+
     '&[aria-busy="true"] $label > [role="progressbar"]': { color: progress },
   };
 }
 
 function containedVariant(
-  stale: Color,
-  outline: Color,
-  active: Color,
+  stale: Color | string,
+  outline: Color | string,
+  active: Color | string,
+  disabledText?: Color | string,
+  disabledBackground?: Color | string,
 ): CSSProperties {
   return {
     backgroundColor: stale,
-    '&$disabled': { backgroundColor: outline },
+    '&$disabled': {
+      backgroundColor: disabledBackground || outline,
+      color: disabledText,
+    },
     '&:not($disabled)': {
       '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
+      '&[data-color="white"]:focus': {
+        boxShadow: `0 0 0 3px ${active}`,
+        backgroundColor: stale,
+      },
       '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
     },
   };
@@ -171,6 +198,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Blue100,
         Color.Blue50,
       ),
+      '&[data-color="white"]': textVariant(
+        Color.White,
+        fade(Color.White, 0.5),
+        fade(Color.White, 0.1),
+      ),
     },
     textSizeSmall: { padding: undefined, fontSize: undefined },
     textSizeLarge: { padding: undefined, fontSize: undefined },
@@ -210,6 +242,16 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Blue100,
         Color.Blue50,
         Color.Grey200,
+      ),
+      '&[data-color="white"]': outlinedVariant(
+        Color.White,
+        fade(Color.White, 0.6),
+        fade(Color.White, 0.5),
+        fade(Color.White, 0.35),
+        Color.White,
+        fade(Color.White, 0.4),
+        fade(Color.White, 0.1),
+        fade(Color.White, 0.5),
       ),
     },
 
@@ -256,6 +298,13 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         Color.Blue300,
         Color.Blue100,
         Color.Blue500,
+      ),
+      '&[data-color="white"]': containedVariant(
+        fade(Color.White, 0.2),
+        fade(Color.White, 0.2),
+        fade(Color.White, 0.4),
+        fade(Color.White, 0.5),
+        fade(Color.White, 0.08),
       ),
     },
 

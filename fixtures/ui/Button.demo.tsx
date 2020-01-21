@@ -10,13 +10,18 @@ import {
   Switch,
 } from '@material-ui/core';
 import { MoreHoriz, Save, Send } from '@material-ui/icons';
-import { Button, ButtonProps } from '@superdispatch/ui';
+import { Button, ButtonProps, Color } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { Fragment, MouseEvent, useEffect, useState } from 'react';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
 const states: State[] = ['stale', 'disabled', 'active', 'loading'];
-const colors: Array<ButtonProps['color']> = ['primary', 'success', 'error'];
+const colors: Array<ButtonProps['color']> = [
+  'primary',
+  'success',
+  'error',
+  'white',
+];
 
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
 const variants: Array<ButtonProps['variant']> = [
@@ -31,6 +36,7 @@ export default function ButtonDemo() {
   );
   const [globalState, setGlobalState] = useState<State>('stale');
   const [color, setColor] = useState<ButtonProps['color']>('primary');
+  const [bgColor, setBgColor] = useState();
   const [hasEndIcon, setHasEndIcon] = useState(false);
   const [hasStartIcon, setHasStartIcon] = useState(false);
 
@@ -42,6 +48,14 @@ export default function ButtonDemo() {
     const timeout = setTimeout(() => setButtonStateMap(new Map()), 1000);
     return () => clearTimeout(timeout);
   }, [buttonStateMap]);
+
+  useEffect(() => {
+    if (color === 'white') {
+      setBgColor(Color.Grey500);
+    } else {
+      setBgColor('inherit');
+    }
+  }, [color]);
 
   return (
     <>
@@ -112,7 +126,7 @@ export default function ButtonDemo() {
         </Grid>
       </Box>
 
-      <Box padding={2}>
+      <Box padding={2} bgcolor={bgColor}>
         <Grid container={true} spacing={1}>
           {variants.map(variant => (
             <Fragment key={variant}>
