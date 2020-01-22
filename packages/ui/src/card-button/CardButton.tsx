@@ -72,7 +72,7 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
 
     icon: {
       display: 'flex',
-      '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1') },
+      '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1', 'desktop') },
     },
     startIcon: {
       marginRight: theme.spacing(1),

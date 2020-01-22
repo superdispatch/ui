@@ -110,13 +110,13 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
         },
       ),
 
-      fontSize: fontSizeVariant('button'),
-      lineHeight: fontHeightVariant('button'),
+      fontSize: fontSizeVariant('button', 'desktop'),
+      lineHeight: fontHeightVariant('button', 'desktop'),
       padding: theme.spacing(0.75, 2),
       [theme.breakpoints.only('xs')]: {
         padding: theme.spacing(1.25, 3),
-        fontSize: fontSizeVariant('button', true),
-        lineHeight: fontHeightVariant('button', true),
+        fontSize: fontSizeVariant('button', 'mobile'),
+        lineHeight: fontHeightVariant('button', 'mobile'),
       },
 
       '&:hover': {
@@ -150,9 +150,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
 
     label: {
       '& > svg': {
-        fontSize: fontHeightVariant('button'),
-        '$sizeLarge &': { fontSize: fontHeightVariant('h4') },
-        [theme.breakpoints.only('xs')]: { fontSize: fontHeightVariant('h4') },
+        fontSize: fontHeightVariant('button', 'desktop'),
+        '$sizeLarge &': { fontSize: fontHeightVariant('h4', 'desktop') },
+        [theme.breakpoints.only('xs')]: {
+          fontSize: fontHeightVariant('h4', 'desktop'),
+        },
       },
     },
 
@@ -162,8 +164,8 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
     },
 
     sizeLarge: {
-      fontSize: fontSizeVariant('h4'),
-      lineHeight: fontHeightVariant('h4'),
+      fontSize: fontSizeVariant('h4', 'desktop'),
+      lineHeight: fontHeightVariant('h4', 'desktop'),
 
       padding: theme.spacing(1.25, 5),
       [theme.breakpoints.only('xs')]: { padding: theme.spacing(2, 8) },

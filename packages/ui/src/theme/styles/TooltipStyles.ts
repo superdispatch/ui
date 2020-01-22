@@ -41,8 +41,8 @@ export function applyTooltipStyles(theme: SuperDispatchTheme) {
       position: 'relative',
       backgroundColor: Color.Grey400,
       padding: theme.spacing(1, 1.5),
-      fontSize: fontSizeVariant('body1'),
-      lineHeight: fontHeightVariant('body1'),
+      fontSize: fontSizeVariant('body1', 'desktop'),
+      lineHeight: fontHeightVariant('body1', 'desktop'),
     },
 
     popperArrow: {
