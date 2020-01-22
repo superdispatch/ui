@@ -1,5 +1,4 @@
 import {
-  fade,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -50,15 +49,9 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     closeButton: {
-      '& .MuiSvgIcon-root': {
-        fontSize: theme.spacing(3),
-        [theme.breakpoints.up('sm')]: {
-          fontSize: theme.spacing(2.25),
-        },
-      },
       '&:hover, &:focus': {
         backgroundColor: Color.Grey400,
-        color: fade(Color.White, 0.4),
+        color: Color.White40,
       },
     },
 
@@ -134,7 +127,7 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
                   onClick={onClose}
                   className={closeButton}
                 >
-                  <Close />
+                  <Close fontSize="small" />
                 </IconButton>
               )}
             </>
