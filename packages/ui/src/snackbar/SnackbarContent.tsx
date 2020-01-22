@@ -114,11 +114,10 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
         {...props}
         ref={ref}
         classes={styles}
-        className={clsx(
-          variant === 'error' && variantError,
-          variant === 'success' && variantSuccess,
-          className,
-        )}
+        className={clsx(className, {
+          [variantError]: variant === 'error',
+          [variantSuccess]: variant === 'success',
+        })}
         message={
           <>
             {Icon && <Icon className={icon} />}
