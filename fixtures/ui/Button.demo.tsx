@@ -36,7 +36,6 @@ export default function ButtonDemo() {
   );
   const [globalState, setGlobalState] = useState<State>('stale');
   const [color, setColor] = useState<ButtonProps['color']>('primary');
-  const [bgColor, setBgColor] = useState();
   const [hasEndIcon, setHasEndIcon] = useState(false);
   const [hasStartIcon, setHasStartIcon] = useState(false);
 
@@ -48,14 +47,6 @@ export default function ButtonDemo() {
     const timeout = setTimeout(() => setButtonStateMap(new Map()), 1000);
     return () => clearTimeout(timeout);
   }, [buttonStateMap]);
-
-  useEffect(() => {
-    if (color === 'white') {
-      setBgColor(Color.Grey500);
-    } else {
-      setBgColor('inherit');
-    }
-  }, [color]);
 
   return (
     <>
@@ -126,7 +117,7 @@ export default function ButtonDemo() {
         </Grid>
       </Box>
 
-      <Box padding={2} bgcolor={bgColor}>
+      <Box padding={2} bgcolor={color === 'white' ? Color.Grey500 : undefined}>
         <Grid container={true} spacing={1}>
           {variants.map(variant => (
             <Fragment key={variant}>

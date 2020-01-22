@@ -1,4 +1,3 @@
-import { fade } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
@@ -192,9 +191,9 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
       ),
       '&[data-color="white"]': textVariant(
         Color.White,
-        fade(Color.White, 0.5),
-        fade(Color.White, 0.1),
-        fade(Color.White, 0.5),
+        Color.White50,
+        Color.White10,
+        Color.White50,
       ),
     },
     textSizeSmall: { padding: undefined, fontSize: undefined },
@@ -243,14 +242,14 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
       ),
       '&[data-color="white"]': outlinedVariant(
         Color.White,
-        fade(Color.White, 0.6),
-        fade(Color.White, 0.5),
-        fade(Color.White, 0.35),
+        Color.White50,
+        Color.White50,
+        Color.White40,
         Color.White,
-        fade(Color.White, 0.6),
-        fade(Color.White, 0.4),
-        fade(Color.White, 0.1),
-        fade(Color.White, 0.5),
+        Color.White50,
+        Color.White40,
+        Color.White10,
+        Color.White50,
         Color.Transparent,
       ),
     },
@@ -309,11 +308,11 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
       ),
       '&[data-color="white"]': containedVariant(
         Color.White,
-        fade(Color.White, 0.2),
-        fade(Color.White, 0.4),
-        fade(Color.White, 0.4),
-        fade(Color.White, 0.5),
-        fade(Color.White, 0.08),
+        Color.White20,
+        Color.White40,
+        Color.White40,
+        Color.White50,
+        Color.White08,
       ),
     },
 
