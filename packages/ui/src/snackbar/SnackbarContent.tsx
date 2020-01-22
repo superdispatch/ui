@@ -128,7 +128,8 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
         action={
           !action && !onClose ? null : (
             <Grid container={true} spacing={1} alignItems="center">
-              <Grid item={true}>{action}</Grid>
+              {!!action && <Grid item={true}>{action}</Grid>}
+
               {onClose && (
                 <Grid item={true}>
                   <IconButton
