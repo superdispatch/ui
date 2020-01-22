@@ -982,13 +982,13 @@ Object {
     },
     "h1": Object {
       "@media (min-width:600px)": Object {
-        "fontSize": "40px",
-        "lineHeight": "32px",
+        "fontSize": "32px",
+        "lineHeight": "40px",
       },
       "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
-      "fontSize": "44px",
+      "fontSize": "34px",
       "fontWeight": 700,
-      "lineHeight": "34px",
+      "lineHeight": "44px",
     },
     "h2": Object {
       "@media (min-width:600px)": Object {
