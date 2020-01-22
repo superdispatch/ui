@@ -8,10 +8,26 @@ import { ThemeProvider } from '../ThemeProvider';
 const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
 );
+const colorRegExp = new RegExp(
+  [...colors.keys()]
+    .map(x => x.replace('(', '\\(').replace(')', '\\)'))
+    .join('|'),
+  'g',
+);
 
 expect.addSnapshotSerializer({
-  test: value => !!value && typeof value === 'string' && colors.has(value),
-  print: value => colors.get(value) as string,
+  test: value =>
+    !!value && typeof value === 'string' && colorRegExp.test(value),
+  print: (value: string) => {
+    if (colors.has(value)) {
+      return colors.get(value) as string;
+    }
+
+    return `"${value.replace(
+      colorRegExp,
+      color => colors.get(color) as string,
+    )}"`;
+  },
 });
 
 it('exposes overridden theme', () => {
