@@ -32,7 +32,7 @@ export function fontSizeVariant(
 
   switch (variant) {
     case 'h1':
-      return `${isMobile ? 44 : 40}px`;
+      return `${isMobile ? 34 : 32}px`;
     case 'h2':
       return `${isMobile ? 26 : 24}px`;
     case 'h3':
@@ -55,7 +55,7 @@ export function fontHeightVariant(
 
   switch (variant) {
     case 'h1':
-      return `${isMobile ? 34 : 32}px`;
+      return `${isMobile ? 44 : 40}px`;
     case 'h2':
     case 'h3':
       return `${isMobile ? 32 : 28}px`;
