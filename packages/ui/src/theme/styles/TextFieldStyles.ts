@@ -18,11 +18,11 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       color: Color.Grey400,
       marginBottom: theme.spacing(0.5),
 
-      fontSize: fontSizeVariant('body1', true),
-      lineHeight: fontHeightVariant('body1', true),
+      fontSize: fontSizeVariant('body1', 'mobile'),
+      lineHeight: fontHeightVariant('body1', 'mobile'),
       [theme.breakpoints.up('sm')]: {
-        fontSize: fontSizeVariant('body1'),
-        lineHeight: fontHeightVariant('body1'),
+        fontSize: fontSizeVariant('body1', 'desktop'),
+        lineHeight: fontHeightVariant('body1', 'desktop'),
       },
     },
     formControl: {
@@ -45,11 +45,11 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       '&$focused': { color: undefined },
       '&$disabled': { color: undefined },
 
-      fontSize: fontSizeVariant('body1', true),
-      lineHeight: fontHeightVariant('body1', true),
+      fontSize: fontSizeVariant('body1', 'mobile'),
+      lineHeight: fontHeightVariant('body1', 'mobile'),
       [theme.breakpoints.up('sm')]: {
-        fontSize: fontSizeVariant('body1'),
-        lineHeight: fontHeightVariant('body1'),
+        fontSize: fontSizeVariant('body1', 'desktop'),
+        lineHeight: fontHeightVariant('body1', 'desktop'),
       },
     },
   };
@@ -62,9 +62,9 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     root: {
       '& .MuiInputAdornment-root': {
         '& > .MuiSvgIcon-root': {
-          fontSize: fontHeightVariant('body1', true),
+          fontSize: fontHeightVariant('body1', 'mobile'),
           [theme.breakpoints.up('sm')]: {
-            fontSize: fontHeightVariant('body1'),
+            fontSize: fontHeightVariant('body1', 'desktop'),
           },
         },
 
@@ -89,16 +89,16 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     input: {
       padding: theme.spacing(1.25, 2),
 
-      height: fontHeightVariant('body1', true),
-      fontSize: fontSizeVariant('body1', true),
-      lineHeight: fontHeightVariant('body1', true),
+      height: fontHeightVariant('body1', 'mobile'),
+      fontSize: fontSizeVariant('body1', 'mobile'),
+      lineHeight: fontHeightVariant('body1', 'mobile'),
 
       [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(0.75, 1),
 
-        height: fontHeightVariant('body1'),
-        fontSize: fontSizeVariant('body1'),
-        lineHeight: fontHeightVariant('body1'),
+        height: fontHeightVariant('body1', 'desktop'),
+        fontSize: fontSizeVariant('body1', 'desktop'),
+        lineHeight: fontHeightVariant('body1', 'desktop'),
       },
     },
 
@@ -116,8 +116,10 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     iconOutlined: { right: theme.spacing(0.5) },
 
     selectMenu: {
-      lineHeight: fontHeightVariant('body1', true),
-      [theme.breakpoints.up('sm')]: { lineHeight: fontHeightVariant('body1') },
+      lineHeight: fontHeightVariant('body1', 'mobile'),
+      [theme.breakpoints.up('sm')]: {
+        lineHeight: fontHeightVariant('body1', 'desktop'),
+      },
 
       '&&': { paddingRight: theme.spacing(3.5) },
     },
@@ -125,11 +127,12 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiFormHelperText = {
     root: {
-      fontSize: fontSizeVariant('body1', true),
-      lineHeight: fontHeightVariant('body1', true),
+      fontSize: fontSizeVariant('body1', 'mobile'),
+      lineHeight: fontHeightVariant('body1', 'mobile'),
+
       [theme.breakpoints.up('sm')]: {
-        fontSize: fontSizeVariant('body1'),
-        lineHeight: fontHeightVariant('body1'),
+        fontSize: fontSizeVariant('body1', 'desktop'),
+        lineHeight: fontHeightVariant('body1', 'desktop'),
       },
     },
 

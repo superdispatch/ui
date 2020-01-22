@@ -6,7 +6,9 @@ import { CSSProperties } from '@material-ui/styles';
 
 import { SuperDispatchTheme } from '../ThemeProvider';
 
-export function fontWeightVariant(variant?: ThemeStyle): number {
+export type ThemePlatform = 'desktop' | 'mobile';
+
+export function fontWeightVariant(variant: ThemeStyle): number {
   switch (variant) {
     case 'h1':
     case 'h6':
@@ -22,7 +24,12 @@ export function fontWeightVariant(variant?: ThemeStyle): number {
       return 400;
   }
 }
-export function fontSizeVariant(variant: ThemeStyle, isMobile = false): string {
+export function fontSizeVariant(
+  variant: ThemeStyle,
+  platform: ThemePlatform,
+): string {
+  const isMobile = platform === 'mobile';
+
   switch (variant) {
     case 'h1':
       return `${isMobile ? 44 : 40}px`;
@@ -40,7 +47,12 @@ export function fontSizeVariant(variant: ThemeStyle, isMobile = false): string {
   }
 }
 
-export function fontHeightVariant(variant: ThemeStyle, isMobile = false) {
+export function fontHeightVariant(
+  variant: ThemeStyle,
+  platform: ThemePlatform,
+) {
+  const isMobile = platform === 'mobile';
+
   switch (variant) {
     case 'h1':
       return `${isMobile ? 34 : 32}px`;
@@ -57,7 +69,7 @@ export function fontHeightVariant(variant: ThemeStyle, isMobile = false) {
   }
 }
 
-export function fontFamilyVariant(variant?: ThemeStyle) {
+export function fontFamilyVariant(variant: ThemeStyle) {
   const mainFont =
     variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
       ? 'SF Pro Text'
@@ -67,26 +79,34 @@ export function fontFamilyVariant(variant?: ThemeStyle) {
 }
 
 export function createTypographyOptions(): TypographyOptions {
-  return { fontFamily: fontFamilyVariant() };
+  return { fontFamily: fontFamilyVariant('body2') };
 }
 
 export function typographyVariant(
-  theme: SuperDispatchTheme,
   variant: ThemeStyle,
+  platform: ThemePlatform,
 ): CSSProperties {
   return {
-    fontFamily: fontFamilyVariant(variant),
-    fontWeight: fontWeightVariant(variant),
-    fontSize: fontSizeVariant(variant, true),
-    lineHeight: fontHeightVariant(variant, true),
+    fontSize: fontSizeVariant(variant, platform),
+    lineHeight: fontHeightVariant(variant, platform),
 
-    letterSpacing: variant === 'h6' ? '0.1em' : undefined,
-    textTransform: variant === 'h6' ? 'uppercase' : undefined,
+    ...(platform === 'mobile' && {
+      fontFamily: fontFamilyVariant(variant),
+      fontWeight: fontWeightVariant(variant),
 
-    [theme.breakpoints.up('sm')]: {
-      fontSize: fontSizeVariant(variant),
-      lineHeight: fontHeightVariant(variant),
-    },
+      letterSpacing: variant === 'h6' ? '0.1em' : undefined,
+      textTransform: variant === 'h6' ? 'uppercase' : undefined,
+    }),
+  };
+}
+
+function buildTypographyVariant(
+  theme: SuperDispatchTheme,
+  variant: ThemeStyle,
+) {
+  return {
+    ...typographyVariant(variant, 'mobile'),
+    [theme.breakpoints.up('sm')]: typographyVariant(variant, 'desktop'),
   };
 }
 
@@ -94,16 +114,16 @@ export function applyTypographyStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTypography = { variant: 'body2' };
 
   theme.overrides.MuiTypography = {
-    h1: typographyVariant(theme, 'h1'),
-    h2: typographyVariant(theme, 'h2'),
-    h3: typographyVariant(theme, 'h3'),
-    h4: typographyVariant(theme, 'h4'),
-    h5: typographyVariant(theme, 'h5'),
-    h6: typographyVariant(theme, 'h6'),
+    h1: buildTypographyVariant(theme, 'h1'),
+    h2: buildTypographyVariant(theme, 'h2'),
+    h3: buildTypographyVariant(theme, 'h3'),
+    h4: buildTypographyVariant(theme, 'h4'),
+    h5: buildTypographyVariant(theme, 'h5'),
+    h6: buildTypographyVariant(theme, 'h6'),
 
-    body2: typographyVariant(theme, 'body2'),
-    body1: typographyVariant(theme, 'body1'),
+    body2: buildTypographyVariant(theme, 'body2'),
+    body1: buildTypographyVariant(theme, 'body1'),
 
-    caption: typographyVariant(theme, 'caption'),
+    caption: buildTypographyVariant(theme, 'caption'),
   };
 }

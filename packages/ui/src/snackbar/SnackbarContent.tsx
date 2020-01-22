@@ -56,8 +56,10 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
       position: 'relative',
       top: theme.spacing(0.25),
       marginRight: theme.spacing(1),
-      fontSize: fontHeightVariant('caption', true),
-      [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('caption') },
+      fontSize: fontHeightVariant('caption', 'mobile'),
+      [theme.breakpoints.up('sm')]: {
+        fontSize: fontHeightVariant('caption', 'desktop'),
+      },
     },
 
     closeButton: {
