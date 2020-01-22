@@ -1,5 +1,5 @@
 import {
-  fade,
+  Grid,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -20,7 +20,6 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant } from '../theme/styles/TypographyStyles';
 
 type SnackbarContentClassKey =
   | MuiSnackbarContentClassKey
@@ -32,40 +31,35 @@ type SnackbarContentClassKey =
 const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   theme => ({
     root: {
-      '&:not($variantError):not($variantSuccess)': {
-        color: Color.Grey500,
-        backgroundColor: Color.White,
-      },
-
+      color: Color.White,
+      backgroundColor: Color.Grey500,
       '&$variantError': {
         color: Color.White,
-        backgroundColor: Color.Red300,
-      },
-
-      '&$variantSuccess': {
-        color: Color.White,
-        backgroundColor: Color.Green300,
+        backgroundColor: Color.Red500,
       },
     },
 
-    action: {},
-    message: {},
+    action: {
+      paddingLeft: theme.spacing(1),
+    },
+
+    message: {
+      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: theme.spacing(2),
+      },
+    },
 
     icon: {
-      left: 0,
-      position: 'relative',
-      top: theme.spacing(0.25),
       marginRight: theme.spacing(1),
-      fontSize: fontHeightVariant('caption', 'mobile'),
-      [theme.breakpoints.up('sm')]: {
-        fontSize: fontHeightVariant('caption', 'desktop'),
-      },
+      fontSize: theme.spacing(3),
     },
 
     closeButton: {
-      '$variantError &, $variantSuccess &': {
-        color: Color.White,
-        '&:hover, &:focus': { backgroundColor: fade(Color.White, 0.2) },
+      color: Color.White40,
+      '&:hover, &:focus': {
+        backgroundColor: Color.White08,
+        color: Color.White40,
       },
     },
 
@@ -74,7 +68,6 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
   }),
   { name: 'SuperDispatchSnackbarContent' },
 );
-
 export type SnackbarVariant = 'default' | 'error' | 'success';
 
 export interface SnackbarContentProps
@@ -134,18 +127,20 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
         }
         action={
           !action && !onClose ? null : (
-            <>
-              {action}
+            <Grid container={true} spacing={1} alignItems="center">
+              <Grid item={true}>{action}</Grid>
               {onClose && (
-                <IconButton
-                  aria-label="close"
-                  onClick={onClose}
-                  className={closeButton}
-                >
-                  <Close />
-                </IconButton>
+                <Grid item={true}>
+                  <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    className={closeButton}
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                </Grid>
               )}
-            </>
+            </Grid>
           )
         }
       />

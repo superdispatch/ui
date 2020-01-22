@@ -190,8 +190,9 @@ export default function SnackbarDemo() {
                       ...options,
                       action: hasUndo && (
                         <Button
-                          variant="text"
-                          color="primary"
+                          size="small"
+                          variant="contained"
+                          color="white"
                           onClick={() => {
                             addSnackbar(
                               <span>
@@ -235,8 +236,9 @@ export default function SnackbarDemo() {
         action={
           hasUndo && (
             <Button
-              variant="text"
-              color="primary"
+              size="small"
+              variant="contained"
+              color="white"
               onClick={() =>
                 updateState({
                   hasUndo: false,
