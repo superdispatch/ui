@@ -1,4 +1,5 @@
 import {
+  Grid,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -39,10 +40,7 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     action: {
-      paddingLeft: 0,
-      '&>*': {
-        marginLeft: theme.spacing(1),
-      },
+      paddingLeft: theme.spacing(1),
     },
 
     message: {
@@ -129,18 +127,20 @@ export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = 
         }
         action={
           !action && !onClose ? null : (
-            <>
-              {action}
+            <Grid container={true} spacing={1} alignItems="center">
+              <Grid item={true}>{action}</Grid>
               {onClose && (
-                <IconButton
-                  aria-label="close"
-                  onClick={onClose}
-                  className={closeButton}
-                >
-                  <Close fontSize="small" />
-                </IconButton>
+                <Grid item={true}>
+                  <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    className={closeButton}
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                </Grid>
               )}
-            </>
+            </Grid>
           )
         }
       />
