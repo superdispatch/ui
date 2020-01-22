@@ -9,9 +9,9 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 function textVariant(
   text: Color,
-  outline: Color | string,
-  background: Color | string,
-  progress: Color | string,
+  outline: Color,
+  background: Color,
+  progress: Color,
 ): CSSProperties {
   return {
     color: text,
@@ -31,16 +31,16 @@ function textVariant(
 }
 
 function outlinedVariant(
-  staleText: Color | string,
-  staleBorder: Color | string,
-  disabledText: Color | string,
-  disabledBorder: Color | string,
-  activeText: Color | string,
-  activeBorder: Color | string,
-  activeOutline: Color | string,
-  activeBackground: Color | string,
-  progress: Color | string,
-  backgroundColor: Color | string,
+  staleText: Color,
+  staleBorder: Color,
+  disabledText: Color,
+  disabledBorder: Color,
+  activeText: Color,
+  activeBorder: Color,
+  activeOutline: Color,
+  activeBackground: Color,
+  progress: Color,
+  backgroundColor: Color,
 ): CSSProperties {
   return {
     backgroundColor,
@@ -71,12 +71,12 @@ function outlinedVariant(
 }
 
 function containedVariant(
-  text: Color | string,
-  backgroundColor: Color | string,
-  outline: Color | string,
-  active: Color | string,
-  disabledText: Color | string,
-  disabledBackground: Color | string,
+  text: Color,
+  backgroundColor: Color,
+  outline: Color,
+  active: Color,
+  disabledText: Color,
+  disabledBackground: Color,
 ): CSSProperties {
   return {
     color: text,
