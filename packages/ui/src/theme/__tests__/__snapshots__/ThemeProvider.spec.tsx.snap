@@ -70,48 +70,69 @@ Object {
       "&[data-color=\\"error\\"]": Object {
         "&$disabled": Object {
           "backgroundColor": Color.Red100,
+          "color": Color.White,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "0 0 0 3px #FDC2BA",
+            "boxShadow": "0 0 0 3px Color.Red100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Red500,
           },
         },
         "backgroundColor": Color.Red300,
+        "color": Color.White,
       },
       "&[data-color=\\"primary\\"]": Object {
         "&$disabled": Object {
           "backgroundColor": Color.Blue100,
+          "color": Color.White,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "0 0 0 3px #A8D1FF",
+            "boxShadow": "0 0 0 3px Color.Blue100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Blue500,
           },
         },
         "backgroundColor": Color.Blue300,
+        "color": Color.White,
       },
       "&[data-color=\\"success\\"]": Object {
         "&$disabled": Object {
           "backgroundColor": Color.Green100,
+          "color": Color.White,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "0 0 0 3px #90EAAE",
+            "boxShadow": "0 0 0 3px Color.Green100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Green500,
           },
         },
         "backgroundColor": Color.Green300,
+        "color": Color.White,
+      },
+      "&[data-color=\\"white\\"]": Object {
+        "&$disabled": Object {
+          "backgroundColor": Color.White08,
+          "color": Color.White50,
+        },
+        "&:not($disabled)": Object {
+          "&:focus": Object {
+            "boxShadow": "0 0 0 3px Color.White40",
+          },
+          "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
+            "backgroundColor": Color.White40,
+          },
+        },
+        "backgroundColor": Color.White20,
+        "color": Color.White,
       },
       "backgroundColor": undefined,
       "boxShadow": undefined,
-      "color": Color.White,
     },
     "containedSizeLarge": Object {
       "fontSize": undefined,
@@ -138,68 +159,96 @@ Object {
       },
       "&[data-color=\\"error\\"]": Object {
         "&$disabled:not([aria-busy=\\"true\\"])": Object {
-          "boxShadow": "inset 0 0 0 1px #FDC2BA, 0 0 0 0 #FDC2BA",
+          "boxShadow": "inset 0 0 0 1px Color.Red100, 0 0 0 0 Color.Red100",
           "color": Color.Red100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 2px #FDC2BA",
+            "boxShadow": "inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Red100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Red50,
-            "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 0 #FDC2BA",
+            "boxShadow": "inset 0 0 0 1px Color.Red300, 0 0 0 0 Color.Red100",
             "color": Color.Red300,
           },
         },
-        "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
+        "&[aria-busy=\\"true\\"]": Object {
+          "boxShadow": "inset 0 0 0 1px Color.Red100, 0 0 0 0 Color.Red100",
           "color": Color.Red300,
         },
-        "boxShadow": "inset 0 0 0 1px #EE3017, 0 0 0 0 #FDC2BA",
+        "backgroundColor": Color.White,
+        "boxShadow": "inset 0 0 0 1px Color.Red300, 0 0 0 0 Color.Red100",
         "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
         "&$disabled:not([aria-busy=\\"true\\"])": Object {
-          "boxShadow": "inset 0 0 0 1px #E1E5EA, 0 0 0 0 #A8D1FF",
+          "boxShadow": "inset 0 0 0 1px Color.Silver400, 0 0 0 0 Color.Blue100",
           "color": Color.Silver500,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "inset 0 0 0 1px #0075FF, 0 0 0 2px #A8D1FF",
+            "boxShadow": "inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Blue100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Blue50,
-            "boxShadow": "inset 0 0 0 1px #0075FF, 0 0 0 0 #A8D1FF",
+            "boxShadow": "inset 0 0 0 1px Color.Blue300, 0 0 0 0 Color.Blue100",
             "color": Color.Blue300,
           },
         },
-        "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
+        "&[aria-busy=\\"true\\"]": Object {
+          "boxShadow": "inset 0 0 0 1px Color.Silver400, 0 0 0 0 Color.Blue100",
           "color": Color.Grey200,
         },
-        "boxShadow": "inset 0 0 0 1px #C4CDD5, 0 0 0 0 #A8D1FF",
+        "backgroundColor": Color.White,
+        "boxShadow": "inset 0 0 0 1px Color.Silver500, 0 0 0 0 Color.Blue100",
         "color": Color.Grey500,
       },
       "&[data-color=\\"success\\"]": Object {
         "&$disabled:not([aria-busy=\\"true\\"])": Object {
-          "boxShadow": "inset 0 0 0 1px #90EAAE, 0 0 0 0 #90EAAE",
+          "boxShadow": "inset 0 0 0 1px Color.Green100, 0 0 0 0 Color.Green100",
           "color": Color.Green100,
         },
         "&:not($disabled)": Object {
           "&:focus": Object {
-            "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 2px #90EAAE",
+            "boxShadow": "inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Green100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Green50,
-            "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 0 #90EAAE",
+            "boxShadow": "inset 0 0 0 1px Color.Green300, 0 0 0 0 Color.Green100",
             "color": Color.Green300,
           },
         },
-        "&[aria-busy=\\"true\\"] $label > [role=\\"progressbar\\"]": Object {
+        "&[aria-busy=\\"true\\"]": Object {
+          "boxShadow": "inset 0 0 0 1px Color.Green100, 0 0 0 0 Color.Green100",
           "color": Color.Green300,
         },
-        "boxShadow": "inset 0 0 0 1px #1FA84D, 0 0 0 0 #90EAAE",
+        "backgroundColor": Color.White,
+        "boxShadow": "inset 0 0 0 1px Color.Green300, 0 0 0 0 Color.Green100",
         "color": Color.Green300,
       },
-      "backgroundColor": Color.White,
+      "&[data-color=\\"white\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
+          "boxShadow": "inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40",
+          "color": Color.White50,
+        },
+        "&:not($disabled)": Object {
+          "&:focus": Object {
+            "boxShadow": "inset 0 0 0 1px Color.White50, 0 0 0 2px Color.White40",
+          },
+          "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
+            "backgroundColor": Color.White10,
+            "boxShadow": "inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40",
+            "color": Color.White,
+          },
+        },
+        "&[aria-busy=\\"true\\"]": Object {
+          "boxShadow": "inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40",
+          "color": Color.White50,
+        },
+        "backgroundColor": Color.Transparent,
+        "boxShadow": "inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40",
+        "color": Color.White,
+      },
       "border": undefined,
       "padding": undefined,
     },
@@ -283,13 +332,16 @@ Object {
         "&:not($disabled)": Object {
           "&:focus": Object {
             "backgroundColor": Color.Red50,
-            "boxShadow": "0 0 0 2px #FDC2BA",
+            "boxShadow": "0 0 0 2px Color.Red100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Red50,
           },
         },
-        "boxShadow": "0 0 0 0 #FDC2BA",
+        "&[aria-busy=\\"true\\"]": Object {
+          "color": Color.Red200,
+        },
+        "boxShadow": "0 0 0 0 Color.Red100",
         "color": Color.Red300,
       },
       "&[data-color=\\"primary\\"]": Object {
@@ -299,13 +351,16 @@ Object {
         "&:not($disabled)": Object {
           "&:focus": Object {
             "backgroundColor": Color.Blue50,
-            "boxShadow": "0 0 0 2px #A8D1FF",
+            "boxShadow": "0 0 0 2px Color.Blue100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Blue50,
           },
         },
-        "boxShadow": "0 0 0 0 #A8D1FF",
+        "&[aria-busy=\\"true\\"]": Object {
+          "color": Color.Blue200,
+        },
+        "boxShadow": "0 0 0 0 Color.Blue100",
         "color": Color.Blue300,
       },
       "&[data-color=\\"success\\"]": Object {
@@ -315,14 +370,36 @@ Object {
         "&:not($disabled)": Object {
           "&:focus": Object {
             "backgroundColor": Color.Green50,
-            "boxShadow": "0 0 0 2px #90EAAE",
+            "boxShadow": "0 0 0 2px Color.Green100",
           },
           "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
             "backgroundColor": Color.Green50,
           },
         },
-        "boxShadow": "0 0 0 0 #90EAAE",
+        "&[aria-busy=\\"true\\"]": Object {
+          "color": Color.Green200,
+        },
+        "boxShadow": "0 0 0 0 Color.Green100",
         "color": Color.Green300,
+      },
+      "&[data-color=\\"white\\"]": Object {
+        "&$disabled:not([aria-busy=\\"true\\"])": Object {
+          "color": Color.White50,
+        },
+        "&:not($disabled)": Object {
+          "&:focus": Object {
+            "backgroundColor": Color.White10,
+            "boxShadow": "0 0 0 2px Color.White50",
+          },
+          "&:hover, &:active, &[aria-expanded=\\"true\\"]": Object {
+            "backgroundColor": Color.White10,
+          },
+        },
+        "&[aria-busy=\\"true\\"]": Object {
+          "color": Color.White50,
+        },
+        "boxShadow": "0 0 0 0 Color.White50",
+        "color": Color.White,
       },
       "padding": undefined,
     },
@@ -587,7 +664,7 @@ Object {
   },
   "MuiPaper": Object {
     "elevation0": Object {
-      "border": "1px solid #E1E5EA",
+      "border": "1px solid Color.Silver400",
     },
   },
   "MuiRadio": Object {
@@ -689,7 +766,7 @@ Object {
         "backgroundColor": Color.Silver300,
       },
       "&.Mui-focusVisible + $track": Object {
-        "boxShadow": "0 0 0 3px #A8D1FF",
+        "boxShadow": "0 0 0 3px Color.Blue100",
       },
       "&:hover + $track": Object {
         "backgroundColor": Color.Grey100,

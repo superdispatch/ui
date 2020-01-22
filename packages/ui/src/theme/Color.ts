@@ -14,6 +14,11 @@ export enum Color {
   //
 
   White = '#fff',
+  White50 = 'rgba(255, 255, 255, 0.5)',
+  White40 = 'rgba(255, 255, 255, 0.4)',
+  White20 = 'rgba(255, 255, 255, 0.2)',
+  White10 = 'rgba(255, 255, 255, 0.1)',
+  White08 = 'rgba(255, 255, 255, 0.08)',
   Transparent = 'rgba(0, 0, 0, 0)',
 
   //
