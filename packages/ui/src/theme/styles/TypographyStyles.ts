@@ -94,8 +94,10 @@ export function typographyVariant(
       fontFamily: fontFamilyVariant(variant),
       fontWeight: fontWeightVariant(variant),
 
-      letterSpacing: variant === 'h6' ? '0.1em' : undefined,
-      textTransform: variant === 'h6' ? 'uppercase' : undefined,
+      ...(variant === 'h6' && {
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+      }),
     }),
   };
 }
