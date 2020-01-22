@@ -21,14 +21,14 @@ export function applyTabsStyles(theme: SuperDispatchTheme) {
         duration: theme.transitions.duration.short,
       }),
 
-      fontSize: fontSizeVariant('body1', true),
-      lineHeight: fontHeightVariant('body1', true),
+      fontSize: fontSizeVariant('body1', 'mobile'),
+      lineHeight: fontHeightVariant('body1', 'mobile'),
 
       [theme.breakpoints.up('sm')]: {
         minWidth: undefined,
         padding: theme.spacing(0.75, 3),
-        fontSize: fontSizeVariant('body1'),
-        lineHeight: fontHeightVariant('body1'),
+        fontSize: fontSizeVariant('body1', 'desktop'),
+        lineHeight: fontHeightVariant('body1', 'desktop'),
       },
     },
 

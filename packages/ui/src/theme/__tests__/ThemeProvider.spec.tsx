@@ -23,10 +23,9 @@ expect.addSnapshotSerializer({
       return colors.get(value) as string;
     }
 
-    return `"${value.replace(
-      colorRegExp,
-      color => colors.get(color) as string,
-    )}"`;
+    return JSON.stringify(
+      value.replace(colorRegExp, color => colors.get(color) as string),
+    );
   },
 });
 
