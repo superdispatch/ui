@@ -13,7 +13,7 @@ export interface ButtonProps
   target?: string;
   isActive?: boolean;
   isLoading?: boolean;
-  color: 'primary' | 'error' | 'success';
+  color: 'primary' | 'error' | 'success' | 'white';
   variant: 'text' | 'outlined' | 'contained';
 }
 
