@@ -32,9 +32,18 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     root: {
       color: Color.White,
       backgroundColor: Color.Grey500,
+      '&$variantError': {
+        color: Color.White,
+        backgroundColor: Color.Red500,
+      },
     },
 
-    action: {},
+    action: {
+      paddingLeft: 0,
+      '&>*': {
+        marginLeft: theme.spacing(1),
+      },
+    },
 
     message: {
       alignItems: 'center',
@@ -49,8 +58,9 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     closeButton: {
+      color: Color.White40,
       '&:hover, &:focus': {
-        backgroundColor: Color.Grey400,
+        backgroundColor: Color.White08,
         color: Color.White40,
       },
     },

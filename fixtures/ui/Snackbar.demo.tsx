@@ -190,6 +190,7 @@ export default function SnackbarDemo() {
                       ...options,
                       action: hasUndo && (
                         <Button
+                          size="small"
                           variant="contained"
                           color="white"
                           onClick={() => {
@@ -235,6 +236,7 @@ export default function SnackbarDemo() {
         action={
           hasUndo && (
             <Button
+              size="small"
               variant="contained"
               color="white"
               onClick={() =>
