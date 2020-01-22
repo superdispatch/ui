@@ -1,4 +1,5 @@
 import {
+  fade,
   IconButton,
   makeStyles,
   SnackbarContent as MuiSnackbarContent,
@@ -19,7 +20,6 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant } from '../theme/styles/TypographyStyles';
 
 type SnackbarContentClassKey =
   | MuiSnackbarContentClassKey
@@ -36,27 +36,29 @@ const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
     },
 
     action: {},
-    message: {},
+
+    message: {
+      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        fontSize: theme.spacing(2),
+      },
+    },
 
     icon: {
-      left: 0,
-      position: 'relative',
-      top: theme.spacing(0.25),
       marginRight: theme.spacing(1),
-      fontSize: fontHeightVariant('caption', true),
-      [theme.breakpoints.up('sm')]: { fontSize: fontHeightVariant('caption') },
+      fontSize: theme.spacing(3),
     },
 
     closeButton: {
-      color: Color.White,
       '& .MuiSvgIcon-root': {
+        fontSize: theme.spacing(3),
         [theme.breakpoints.up('sm')]: {
-          fontSize: fontHeightVariant('caption'),
+          fontSize: theme.spacing(2.25),
         },
       },
       '&:hover, &:focus': {
         backgroundColor: Color.Grey400,
-        color: Color.White,
+        color: fade(Color.White, 0.4),
       },
     },
 
