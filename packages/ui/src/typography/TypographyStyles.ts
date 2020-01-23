@@ -8,6 +8,18 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export type ThemePlatform = 'desktop' | 'mobile';
 
+const typographyVariants: ThemeStyle[] = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'body2',
+  'body1',
+  'caption',
+];
+
 export function fontWeightVariant(variant: ThemeStyle): number {
   switch (variant) {
     case 'h1':
@@ -99,53 +111,28 @@ function typographyVariant(
 }
 
 export function createTypographyOptions(): TypographyOptions {
-  return {
-    fontFamily: fontFamilyVariant('body2'),
+  return typographyVariants.reduce(
+    (acc: TypographyOptions, variant) => {
+      acc[variant] = typographyVariant(variant, 'desktop');
 
-    h1: typographyVariant('h1', 'desktop'),
-    h2: typographyVariant('h2', 'desktop'),
-    h3: typographyVariant('h3', 'desktop'),
-    h4: typographyVariant('h4', 'desktop'),
-    h5: typographyVariant('h5', 'desktop'),
-    h6: typographyVariant('h6', 'desktop'),
-
-    body2: typographyVariant('body2', 'desktop'),
-    body1: typographyVariant('body1', 'desktop'),
-
-    caption: typographyVariant('caption', 'desktop'),
-  };
+      return acc;
+    },
+    { fontFamily: fontFamilyVariant('body2') },
+  );
 }
 
-function responsiveTypographyVariant(
-  theme: SuperDispatchTheme,
-  variant: ThemeStyle,
-) {
-  return {
-    [theme.breakpoints.only('xs')]: typographyVariant(variant, 'mobile'),
-  };
+function responsiveTypography(theme: SuperDispatchTheme) {
+  typographyVariants.forEach((variant: ThemeStyle) => {
+    Object.defineProperty(
+      theme.typography[variant],
+      theme.breakpoints.only('xs'),
+      { enumerable: true, value: typographyVariant(variant, 'mobile') },
+    );
+  });
 }
 
 export function applyTypographyStyles(theme: SuperDispatchTheme) {
+  responsiveTypography(theme);
+
   theme.props.MuiTypography = { variant: 'body2' };
-
-  Object.assign(theme.typography.h1, responsiveTypographyVariant(theme, 'h1'));
-  Object.assign(theme.typography.h2, responsiveTypographyVariant(theme, 'h2'));
-  Object.assign(theme.typography.h3, responsiveTypographyVariant(theme, 'h3'));
-  Object.assign(theme.typography.h4, responsiveTypographyVariant(theme, 'h4'));
-  Object.assign(theme.typography.h5, responsiveTypographyVariant(theme, 'h5'));
-  Object.assign(theme.typography.h6, responsiveTypographyVariant(theme, 'h6'));
-
-  Object.assign(
-    theme.typography.body2,
-    responsiveTypographyVariant(theme, 'body2'),
-  );
-  Object.assign(
-    theme.typography.body1,
-    responsiveTypographyVariant(theme, 'body1'),
-  );
-
-  Object.assign(
-    theme.typography.caption,
-    responsiveTypographyVariant(theme, 'caption'),
-  );
 }
