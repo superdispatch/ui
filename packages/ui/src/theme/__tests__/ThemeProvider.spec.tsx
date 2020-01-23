@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
 import { Color } from '../Color';
-import { ThemeProvider } from '../ThemeProvider';
+import { SuperDispatchTheme, ThemeProvider } from '../ThemeProvider';
 
 const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
@@ -18,23 +18,22 @@ const colorRegExp = new RegExp(
 expect.addSnapshotSerializer({
   test: value =>
     !!value && typeof value === 'string' && colorRegExp.test(value),
-  print: (value: string) => {
-    if (colors.has(value)) {
-      return colors.get(value) as string;
-    }
-
-    return JSON.stringify(
+  print: (value: string) =>
+    JSON.stringify(
       value.replace(colorRegExp, color => colors.get(color) as string),
-    );
-  },
+    ),
 });
 
 it('exposes overridden theme', () => {
-  const { result } = renderHook(() => useTheme(), {
+  const {
+    result: {
+      current: { overrides, ...theme },
+    },
+  } = renderHook(() => useTheme<SuperDispatchTheme>(), {
     wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
   });
 
-  Object.entries(result.current).forEach(([key, value]) => {
+  Object.entries(theme).forEach(([key, value]) => {
     expect(value).toMatchSnapshot(key);
   });
 });
