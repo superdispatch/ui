@@ -134,7 +134,7 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
         bottom: 0,
         zIndex: -1,
         position: 'absolute',
-        backgroundColor: 'transparent',
+        backgroundColor: Color.Transparent,
         transition: theme.transitions.create('background-color'),
       },
 
@@ -156,7 +156,7 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
         bottom: 0,
         zIndex: -1,
         position: 'absolute',
-        backgroundColor: 'transparent',
+        backgroundColor: Color.Transparent,
         transition: theme.transitions.create('background-color'),
       },
 

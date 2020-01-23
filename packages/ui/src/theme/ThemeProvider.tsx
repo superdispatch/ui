@@ -8,15 +8,15 @@ import {
   StylesProvider,
   ThemeProvider as MaterialThemeProvider,
 } from '@material-ui/styles';
-import { Rule, SheetsRegistry, StyleSheet } from 'jss';
+import { Rule, StyleSheet } from 'jss';
 import React, { ReactElement, ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
+import { applyAppBarStyles } from '../app-bar/AppBarStyles';
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { Color } from './Color';
-import { applyAppBarStyles } from '../app-bar/AppBarStyles';
 import { applyCardStyles } from './styles/CardStyles';
 import { applyCheckboxStyles } from './styles/CheckboxStyles';
 import { applyDialogStyles } from './styles/DialogStyles';
@@ -118,14 +118,12 @@ function generateClassName(rule: Rule, sheet?: StyleSheet) {
 
 interface ThemeProviderProps {
   children: ReactNode;
-  sheetsRegistry?: SheetsRegistry;
   modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
 
 export function ThemeProvider({
   modifier,
   children,
-  sheetsRegistry,
 }: ThemeProviderProps): ReactElement {
   const theme = useConstant(() => {
     const nextTheme = createTheme();
@@ -134,11 +132,7 @@ export function ThemeProvider({
   });
 
   return (
-    <StylesProvider
-      injectFirst={true}
-      sheetsRegistry={sheetsRegistry}
-      generateClassName={generateClassName}
-    >
+    <StylesProvider injectFirst={true} generateClassName={generateClassName}>
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 

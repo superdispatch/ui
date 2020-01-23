@@ -12,7 +12,7 @@ it('checks component css', () => {
   );
 
   expect(css).toMatchInlineSnapshot(`
-    ".MuiButton-root {
+    .MuiButton-root {
       padding: 6px 16px;
       font-size: 14px;
       min-width: 48px;
@@ -544,6 +544,5 @@ it('checks component css', () => {
     .MuiButton-iconSizeLarge > *:first-child {
       font-size: 22px;
     }
-    "
   `);
 });

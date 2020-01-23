@@ -23,7 +23,7 @@ export function applySwitchStyles(theme: SuperDispatchTheme) {
 
     track: {
       opacity: undefined,
-      boxShadow: '0 0 0 0 transparent',
+      boxShadow: `0 0 0 0 ${Color.Transparent}`,
 
       transition: theme.transitions.create(['box-shadow', 'background-color'], {
         duration: theme.transitions.duration.shortest,

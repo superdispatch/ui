@@ -6,7 +6,7 @@ it('checks component css', () => {
   const css = renderCSS(<AppBar />, ['MuiAppBar']);
 
   expect(css).toMatchInlineSnapshot(`
-    ".MuiAppBar-root {
+    .MuiAppBar-root {
       width: 100%;
       display: flex;
       z-index: 1100;
@@ -65,6 +65,5 @@ it('checks component css', () => {
       color: Color.White;
       background-color: #f50057;
     }
-    "
   `);
 });

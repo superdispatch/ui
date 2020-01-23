@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react';
 const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
 );
+
 const colorRegExp = new RegExp(
   [...colors.keys()]
     .map(x => x.replace('(', '\\(').replace(')', '\\)'))
@@ -33,8 +34,13 @@ function formatAST(sheet: Stylesheet) {
       .stringify(sheet)
       .replace(colorRegExp, color => colors.get(color) as string),
     { parser: 'css', singleQuote: true },
-  );
+  ).trim();
 }
+
+expect.addSnapshotSerializer({
+  test: value => typeof value === 'string',
+  print: value => value,
+});
 
 export function renderCSS(ui: ReactElement, names: string[]): string {
   render(<ThemeProvider>{ui}</ThemeProvider>);
