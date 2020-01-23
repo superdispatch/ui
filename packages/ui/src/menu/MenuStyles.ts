@@ -1,5 +1,8 @@
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { fontHeightVariant, fontSizeVariant } from '../typography/TypographyStyles';
+import {
+  fontHeightVariant,
+  fontSizeVariant,
+} from '../typography/TypographyStyles';
 
 export function applyMenuStyles(theme: SuperDispatchTheme) {
   theme.props.MuiMenu = {

@@ -1,6 +1,9 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { fontHeightVariant, fontSizeVariant } from '../typography/TypographyStyles';
+import {
+  fontHeightVariant,
+  fontSizeVariant,
+} from '../typography/TypographyStyles';
 
 export function applyTabsStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTabs = {
