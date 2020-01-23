@@ -8,8 +8,8 @@ import {
   StylesProvider,
   ThemeProvider as MaterialThemeProvider,
 } from '@material-ui/styles';
-import { Rule, StyleSheet } from 'jss';
-import React, { ReactNode } from 'react';
+import { Rule, SheetsRegistry, StyleSheet } from 'jss';
+import React, { ReactElement, ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
 import { applyButtonStyles } from '../button/ButtonStyles';
@@ -118,10 +118,15 @@ function generateClassName(rule: Rule, sheet?: StyleSheet) {
 
 interface ThemeProviderProps {
   children: ReactNode;
+  sheetsRegistry?: SheetsRegistry;
   modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
 
-export function ThemeProvider({ modifier, children }: ThemeProviderProps) {
+export function ThemeProvider({
+  modifier,
+  children,
+  sheetsRegistry,
+}: ThemeProviderProps): ReactElement {
   const theme = useConstant(() => {
     const nextTheme = createTheme();
 
@@ -129,7 +134,11 @@ export function ThemeProvider({ modifier, children }: ThemeProviderProps) {
   });
 
   return (
-    <StylesProvider injectFirst={true} generateClassName={generateClassName}>
+    <StylesProvider
+      injectFirst={true}
+      sheetsRegistry={sheetsRegistry}
+      generateClassName={generateClassName}
+    >
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 
