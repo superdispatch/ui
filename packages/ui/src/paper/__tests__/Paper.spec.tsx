@@ -7,7 +7,7 @@ it('checks default props', () => {
 
   expect(props.MuiPaper).toMatchInlineSnapshot(`
     Object {
-      elevation: 0,
+      "elevation": 0,
     }
   `);
 });

@@ -7,29 +7,29 @@ it('checks default props', () => {
 
   expect(props.MuiRadio).toMatchInlineSnapshot(`
     Object {
-      checkedIcon: <WithStyles(ForwardRef(SvgIcon))>
+      "checkedIcon": <WithStyles(ForwardRef(SvgIcon))>
         <circle
-          cx=12
-          cy=12
-          fill=currentColor
-          r=8.5
-          stroke=currentColor
+          cx="12"
+          cy="12"
+          fill="currentColor"
+          r="8.5"
+          stroke="currentColor"
         />
         <circle
-          cx=12
-          cy=12
-          fill=#fff
-          r=4
+          cx="12"
+          cy="12"
+          fill="#fff"
+          r="4"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
-      color: primary,
-      icon: <WithStyles(ForwardRef(SvgIcon))>
+      "color": "primary",
+      "icon": <WithStyles(ForwardRef(SvgIcon))>
         <circle
-          cx=12
-          cy=12
-          fill=#fff
-          r=8.5
-          stroke=currentColor
+          cx="12"
+          cy="12"
+          fill="#fff"
+          r="8.5"
+          stroke="currentColor"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
     }

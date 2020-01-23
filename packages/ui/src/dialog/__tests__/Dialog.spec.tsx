@@ -12,10 +12,10 @@ it('checks default props', () => {
 
   expect(props.MuiDialog).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiDialogTitle).toMatchInlineSnapshot(`
-    Object {
-      disableTypography: true,
-    }
-  `);
+Object {
+  "disableTypography": true,
+}
+`);
   expect(props.MuiDialogContent).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiDialogActions).toMatchInlineSnapshot(`undefined`);
 });

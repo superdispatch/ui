@@ -7,9 +7,9 @@ it('checks default props', () => {
 
   expect(props.MuiTabs).toMatchInlineSnapshot(`
     Object {
-      indicatorColor: primary,
-      textColor: primary,
-      variant: scrollable,
+      "indicatorColor": "primary",
+      "textColor": "primary",
+      "variant": "scrollable",
     }
   `);
   expect(props.MuiTab).toMatchInlineSnapshot(`undefined`);

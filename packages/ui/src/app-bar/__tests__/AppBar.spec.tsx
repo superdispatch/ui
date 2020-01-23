@@ -7,9 +7,9 @@ it('checks default props', () => {
 
   expect(props.MuiAppBar).toMatchInlineSnapshot(`
     Object {
-      color: inherit,
-      elevation: 0,
-      position: static,
+      "color": "inherit",
+      "elevation": 0,
+      "position": "static",
     }
   `);
 });

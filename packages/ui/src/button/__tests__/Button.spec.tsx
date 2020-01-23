@@ -8,7 +8,7 @@ it('checks default props', () => {
 
   expect(props.MuiButton).toMatchInlineSnapshot(`
     Object {
-      disableFocusRipple: true,
+      "disableFocusRipple": true,
     }
   `);
 });
