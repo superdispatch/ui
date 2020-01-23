@@ -98,6 +98,8 @@ function typographyVariant(
     fontSize: fontSizeVariant(variant, platform),
     lineHeight: fontHeightVariant(variant, platform),
 
+    // We have to make Typography desktop first in order to keep it consistent
+    // with material-ui.
     ...(platform === 'desktop' && {
       fontFamily: fontFamilyVariant(variant),
       fontWeight: fontWeightVariant(variant),
@@ -126,6 +128,9 @@ function responsiveTypography(theme: SuperDispatchTheme) {
   typographyVariants.forEach((variant: ThemeStyle) => {
     Object.defineProperty(
       theme.typography[variant],
+
+      // We're not using `up('sm')` here so this selector would not be
+      // overridden later.
       theme.breakpoints.only('xs'),
       { enumerable: true, value: typographyVariant(variant, 'mobile') },
     );
