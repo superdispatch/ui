@@ -114,7 +114,7 @@ function generateClassName(rule: Rule, sheet?: StyleSheet) {
     : generateMaterialClassName(rule, sheet);
 }
 
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
   children: ReactNode;
   modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
