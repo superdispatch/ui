@@ -26,8 +26,9 @@ export function applyRadioStyles(theme: SuperDispatchTheme) {
           r="8.5"
           fill="currentColor"
           stroke="currentColor"
-        ></circle>
-        <circle cx="12" cy="12" r="4" fill={Color.White}></circle>
+        />
+
+        <circle cx="12" cy="12" r="4" fill={Color.White} />
       </SvgIcon>
     ),
   };

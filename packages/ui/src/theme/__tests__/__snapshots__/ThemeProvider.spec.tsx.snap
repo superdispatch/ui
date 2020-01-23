@@ -449,7 +449,6 @@ Object {
       "padding": "0px 24px",
     },
   },
-  "MuiFormControlLabel": Object {},
   "MuiFormHelperText": Object {
     "contained": Object {
       "margin": "4px 0px 0px 0px",

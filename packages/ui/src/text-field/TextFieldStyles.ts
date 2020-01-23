@@ -1,7 +1,10 @@
+import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
-import { fontHeightVariant, fontSizeVariant } from '../typography/TypographyStyles';
+import {
+  fontHeightVariant,
+  fontSizeVariant,
+} from '../typography/TypographyStyles';
 
 export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };

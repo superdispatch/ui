@@ -15,25 +15,49 @@ const colorRegExp = new RegExp(
   'g',
 );
 
-function parseStyleSheet(names: string[]): Stylesheet {
+function getAllSheets(): Map<string, Element> {
+  return new Map<string, Element>(
+    Array.from(document.querySelectorAll('[data-jss]')).map(node => [
+      node.getAttribute('data-meta') as string,
+      node,
+    ]),
+  );
+}
+
+function getSheets(names: string[]): Element[] {
+  const sheets = getAllSheets();
+
+  if (sheets.size === 0) {
+    throw new Error('There are no mounted JSS components.');
+  }
+
   if (names.length === 0) {
     throw new Error(
-      `No "names" provided. Provide one of: ${Array.from(
-        document.querySelectorAll('[data-jss]'),
-      )
-        .map(node => JSON.stringify(node.getAttribute('data-meta')))
-        .join(', ')}.`,
+      `No "names" provided. Pick any of: ${Array.from(sheets.keys()).join(
+        ', ',
+      )}.`,
     );
   }
 
+  return names.map(name => {
+    const sheet = sheets.get(name);
+
+    if (!sheet) {
+      throw new Error(
+        `Sheet for component "${name}" not found. You can select one of: ${Array.from(
+          sheets.keys(),
+        ).join(', ')}.`,
+      );
+    }
+
+    return sheet;
+  });
+}
+
+function parseStyleSheet(names: string[]): Stylesheet {
   return css.parse(
-    names
-      .map(
-        name =>
-          document.querySelector(`[data-jss][data-meta="${name}"]`)
-            ?.textContent,
-      )
-      .filter(Boolean)
+    getSheets(names)
+      .map(node => node.textContent)
       .join('\n'),
   );
 }
