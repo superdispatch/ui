@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.build.json",
-  "references": [{ "path": "../__testutils__"}],
+  "references": [{ "path": "../__testutils__" }],
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
