@@ -9,7 +9,6 @@ it('checks component css', () => {
       'SuperDispatchPhoneField',
       'SuperDispatchPhoneFieldFlag',
       'SuperDispatchPhoneFieldMenu',
-      // 'SuperDispatchPhoneFieldMenuItem',
     ]),
   ).toMatchInlineSnapshot(`
     .SuperDispatchPhoneField-inputAdornedStart {
