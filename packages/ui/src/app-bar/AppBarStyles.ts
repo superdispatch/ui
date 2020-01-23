@@ -1,4 +1,4 @@
-import { SuperDispatchTheme } from '../ThemeProvider';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function applyAppBarStyles(theme: SuperDispatchTheme) {
   theme.props.MuiAppBar = {

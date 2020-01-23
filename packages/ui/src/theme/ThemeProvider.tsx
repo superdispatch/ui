@@ -16,7 +16,7 @@ import { applyButtonStyles } from '../button/ButtonStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
 import { Color } from './Color';
-import { applyAppBarStyles } from './styles/AppBarStyles';
+import { applyAppBarStyles } from '../app-bar/AppBarStyles';
 import { applyCardStyles } from './styles/CardStyles';
 import { applyCheckboxStyles } from './styles/CheckboxStyles';
 import { applyDialogStyles } from './styles/DialogStyles';
