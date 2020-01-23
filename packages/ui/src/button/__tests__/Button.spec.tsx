@@ -8,125 +8,11 @@ it('checks component css', () => {
     <Button variant="text" color="primary">
       Text
     </Button>,
+    ['MuiButton'],
   );
 
   expect(css).toMatchInlineSnapshot(`
-    ".MuiTouchRipple-root {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
-      overflow: hidden;
-      position: absolute;
-      border-radius: inherit;
-      pointer-events: none;
-    }
-
-    .MuiTouchRipple-ripple {
-      opacity: 0;
-      position: absolute;
-    }
-
-    .MuiTouchRipple-rippleVisible {
-      opacity: 0.3;
-      animation: MuiTouchRipple-keyframes-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
-      transform: scale(1);
-    }
-
-    .MuiTouchRipple-ripplePulsate {
-      animation-duration: 200ms;
-    }
-
-    .MuiTouchRipple-child {
-      width: 100%;
-      height: 100%;
-      display: block;
-      opacity: 1;
-      border-radius: 50%;
-      background-color: currentColor;
-    }
-
-    .MuiTouchRipple-childLeaving {
-      opacity: 0;
-      animation: MuiTouchRipple-keyframes-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .MuiTouchRipple-childPulsate {
-      top: 0;
-      left: 0;
-      position: absolute;
-      animation: MuiTouchRipple-keyframes-pulsate 2500ms
-        cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
-    }
-
-    @keyframes MuiTouchRipple-keyframes-enter {
-      0% {
-        opacity: 0.1;
-        transform: scale(0);
-      }
-
-      100% {
-        opacity: 0.3;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes MuiTouchRipple-keyframes-exit {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes MuiTouchRipple-keyframes-pulsate {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(0.92);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    .MuiButtonBase-root {
-      color: inherit;
-      border: 0;
-      cursor: pointer;
-      margin: 0;
-      display: inline-flex;
-      outline: 0;
-      padding: 0;
-      position: relative;
-      align-items: center;
-      user-select: none;
-      border-radius: 0;
-      vertical-align: middle;
-      -moz-appearance: none;
-      justify-content: center;
-      text-decoration: none;
-      background-color: transparent;
-      -webkit-appearance: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .MuiButtonBase-root::-moz-focus-inner {
-      border-style: none;
-    }
-
-    .MuiButtonBase-root.Mui-disabled {
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .MuiButton-root {
+    ".MuiButton-root {
       padding: 6px 16px;
       font-size: 14px;
       min-width: 48px;
@@ -340,35 +226,30 @@ it('checks component css', () => {
 
     .MuiButton-outlined[data-color='white'] {
       color: Color.White;
-      box-shadow: inset 0 0 0 1px Color.White50,
-        0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40;
       background-color: Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='white'][aria-busy='true'] {
       color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40,
-        0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40;
     }
 
     .MuiButton-outlined[data-color='white'].Mui-disabled:not([aria-busy='true']) {
       color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40,
-        0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40;
     }
 
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled):hover,
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled):active,
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled)[aria-expanded='true'] {
       color: Color.White;
-      box-shadow: inset 0 0 0 1px Color.White50,
-        0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40;
       background-color: Color.White10;
     }
 
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled):focus {
-      box-shadow: inset 0 0 0 1px Color.White50,
-        0 0 0 2px Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.White40;
     }
 
     .MuiButton-outlined[data-color='primary'][aria-busy='true'] {

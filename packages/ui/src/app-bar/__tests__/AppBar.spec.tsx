@@ -1,9 +1,9 @@
-import { AppBar, Paper } from '@material-ui/core';
+import { AppBar } from '@material-ui/core';
 import { renderCSS } from '@superdispatch/testutils';
 import React from 'react';
 
 it('checks component css', () => {
-  const css = renderCSS(<AppBar />, <Paper />);
+  const css = renderCSS(<AppBar />, ['MuiAppBar']);
 
   expect(css).toMatchInlineSnapshot(`
     ".MuiAppBar-root {
