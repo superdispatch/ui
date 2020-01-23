@@ -1,8 +1,8 @@
 import {
   ThemeStyle,
   TypographyOptions,
+  TypographyStyleOptions,
 } from '@material-ui/core/styles/createTypography';
-import { CSSProperties } from '@material-ui/styles';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -78,14 +78,10 @@ export function fontFamilyVariant(variant: ThemeStyle) {
   return `${mainFont}, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif`;
 }
 
-export function createTypographyOptions(): TypographyOptions {
-  return { fontFamily: fontFamilyVariant('body2') };
-}
-
 export function typographyVariant(
   variant: ThemeStyle,
   platform: ThemePlatform,
-): CSSProperties {
+): TypographyStyleOptions {
   return {
     fontSize: fontSizeVariant(variant, platform),
     lineHeight: fontHeightVariant(variant, platform),
@@ -102,12 +98,29 @@ export function typographyVariant(
   };
 }
 
-function buildTypographyVariant(
+export function createTypographyOptions(): TypographyOptions {
+  return {
+    fontFamily: fontFamilyVariant('body2'),
+
+    h1: typographyVariant('h1', 'mobile'),
+    h2: typographyVariant('h2', 'mobile'),
+    h3: typographyVariant('h3', 'mobile'),
+    h4: typographyVariant('h4', 'mobile'),
+    h5: typographyVariant('h5', 'mobile'),
+    h6: typographyVariant('h6', 'mobile'),
+
+    body2: typographyVariant('body2', 'mobile'),
+    body1: typographyVariant('body1', 'mobile'),
+
+    caption: typographyVariant('caption', 'mobile'),
+  };
+}
+
+function responsiveTypographyVariant(
   theme: SuperDispatchTheme,
   variant: ThemeStyle,
 ) {
   return {
-    ...typographyVariant(variant, 'mobile'),
     [theme.breakpoints.up('sm')]: typographyVariant(variant, 'desktop'),
   };
 }
@@ -115,17 +128,24 @@ function buildTypographyVariant(
 export function applyTypographyStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTypography = { variant: 'body2' };
 
-  theme.overrides.MuiTypography = {
-    h1: buildTypographyVariant(theme, 'h1'),
-    h2: buildTypographyVariant(theme, 'h2'),
-    h3: buildTypographyVariant(theme, 'h3'),
-    h4: buildTypographyVariant(theme, 'h4'),
-    h5: buildTypographyVariant(theme, 'h5'),
-    h6: buildTypographyVariant(theme, 'h6'),
+  Object.assign(theme.typography.h1, responsiveTypographyVariant(theme, 'h1'));
+  Object.assign(theme.typography.h2, responsiveTypographyVariant(theme, 'h2'));
+  Object.assign(theme.typography.h3, responsiveTypographyVariant(theme, 'h3'));
+  Object.assign(theme.typography.h4, responsiveTypographyVariant(theme, 'h4'));
+  Object.assign(theme.typography.h5, responsiveTypographyVariant(theme, 'h5'));
+  Object.assign(theme.typography.h6, responsiveTypographyVariant(theme, 'h6'));
 
-    body2: buildTypographyVariant(theme, 'body2'),
-    body1: buildTypographyVariant(theme, 'body1'),
+  Object.assign(
+    theme.typography.body2,
+    responsiveTypographyVariant(theme, 'body2'),
+  );
+  Object.assign(
+    theme.typography.body1,
+    responsiveTypographyVariant(theme, 'body1'),
+  );
 
-    caption: buildTypographyVariant(theme, 'caption'),
-  };
+  Object.assign(
+    theme.typography.caption,
+    responsiveTypographyVariant(theme, 'caption'),
+  );
 }
