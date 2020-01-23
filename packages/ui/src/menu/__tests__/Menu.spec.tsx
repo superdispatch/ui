@@ -50,13 +50,13 @@ it('checks component css', () => {
 .MuiMenuItem-root {
   width: auto;
   overflow: hidden;
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
   min-height: 48px;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  font-weight: 600;
-  line-height: 24px;
+  font-weight: 400;
+  line-height: 20px;
   padding-top: 8px;
   white-space: nowrap;
   padding-bottom: 8px;
@@ -71,9 +71,7 @@ it('checks component css', () => {
 
 @media (min-width: 600px) {
   .MuiMenuItem-root {
-    font-size: 14px;
     min-height: auto;
-    line-height: 20px;
   }
 }
 
