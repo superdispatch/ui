@@ -267,24 +267,17 @@ label[data-shrink='false']
 .MuiFormLabel-root {
   color: Color.Grey200;
   padding: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  font-weight: 600;
-  line-height: 24px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 @media (min-width: 0px) and (max-width: 599.95px) {
   .MuiFormLabel-root {
     font-size: 16px;
     line-height: 24px;
-  }
-}
-
-@media (min-width: 600px) {
-  .MuiFormLabel-root {
-    font-size: 14px;
-    line-height: 20px;
   }
 }
 
