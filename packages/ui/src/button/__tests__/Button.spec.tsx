@@ -193,7 +193,7 @@ it('checks component css', () => {
 }
 
 .MuiButton-textPrimary:hover {
-  background-color: rgba(0, 117, 255, 0.08);
+  background-color: rgba(0, 117, 255, 0.04);
 }
 
 @media (hover: none) {
@@ -207,7 +207,7 @@ it('checks component css', () => {
 }
 
 .MuiButton-textSecondary:hover {
-  background-color: rgba(245, 0, 87, 0.08);
+  background-color: rgba(245, 0, 87, 0.04);
 }
 
 @media (hover: none) {
@@ -345,7 +345,7 @@ it('checks component css', () => {
 
 .MuiButton-outlinedSecondary:hover {
   border: 1px solid #f50057;
-  background-color: rgba(245, 0, 87, 0.08);
+  background-color: rgba(245, 0, 87, 0.04);
 }
 
 .MuiButton-outlinedSecondary.Mui-disabled {
