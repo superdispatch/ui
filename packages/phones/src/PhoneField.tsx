@@ -41,7 +41,7 @@ export interface PhoneFieldProps
       OutlinedTextFieldProps,
       'value' | 'variant' | 'onChange' | 'onBlur' | 'InputProps'
     > {
-  value: undefined | PhoneNumber;
+  value?: PhoneNumber;
   onBlur?: (value: PhoneNumber) => void;
   onChange?: (value: PhoneNumber) => void;
 }

@@ -20,13 +20,16 @@ import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
 
-const useStyles = makeStyles<Theme, {}, PhoneFieldMenuItemClassKey>(theme => ({
-  dense: {},
-  gutters: {},
-  root: {},
-  selected: {},
-  flag: { marginRight: theme.spacing(1) },
-}));
+const useStyles = makeStyles<Theme, {}, PhoneFieldMenuItemClassKey>(
+  theme => ({
+    dense: {},
+    gutters: {},
+    root: {},
+    selected: {},
+    flag: { marginRight: theme.spacing(1) },
+  }),
+  { name: 'SuperDispatchPhoneFieldMenuItem' },
+);
 
 export interface PhoneFieldMenuItemProps
   extends RefAttributes<HTMLLIElement>,

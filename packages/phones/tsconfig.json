@@ -1,6 +1,7 @@
 {
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
   "extends": "../../tsconfig.build.json",
-  "references": [{ "path": "../ui" }],
+  "references": [{ "path": "../ui" }, { "path": "../__testutils__" }],
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",

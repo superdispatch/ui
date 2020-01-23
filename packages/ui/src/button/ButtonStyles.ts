@@ -1,11 +1,11 @@
 import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import {
   fontHeightVariant,
   fontSizeVariant,
-} from '../theme/styles/TypographyStyles';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+} from '../typography/TypographyStyles';
 
 function textVariant(
   text: Color,

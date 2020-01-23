@@ -26,6 +26,7 @@ module.exports = {
       rules: {
         quotes: 'off',
         'import/no-extraneous-dependencies': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
     {
