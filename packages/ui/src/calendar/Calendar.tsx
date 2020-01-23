@@ -14,7 +14,7 @@ import { Color, ColorVariant } from '../theme/Color';
 import {
   fontHeightVariant,
   fontSizeVariant,
-} from '../theme/styles/TypographyStyles';
+} from '../typography/TypographyStyles';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';

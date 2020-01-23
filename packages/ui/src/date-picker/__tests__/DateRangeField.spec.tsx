@@ -4,9 +4,8 @@ import React from 'react';
 import { DateRangeField } from '../..';
 
 it('checks component css', () => {
-  const css = renderCSS(<DateRangeField />, ['SuperDispatchDateRangePicker']);
-
-  expect(css).toMatchInlineSnapshot(`
+  expect(renderCSS(<DateRangeField />, ['SuperDispatchDateRangePicker']))
+    .toMatchInlineSnapshot(`
     .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside).SuperDispatchDateRangePicker-rangeStart:before {
       left: 4px;
     }

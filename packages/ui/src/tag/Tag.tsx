@@ -9,7 +9,7 @@ import React, {
   RefAttributes,
 } from 'react';
 
-import { Color, ColorVariant } from '../theme/Color';
+import { Color } from '../theme/Color';
 
 export type TagClassKey =
   | 'root'
@@ -78,7 +78,7 @@ export interface TagProps
   classes?: ClassNameMap<TagClassKey>;
   component?: ElementType;
 
-  color: Exclude<ColorVariant, 'silver'>;
+  color: 'grey' | 'blue' | 'green' | 'purple' | 'red' | 'teal' | 'yellow';
   variant: 'subtle' | 'bold';
 }
 

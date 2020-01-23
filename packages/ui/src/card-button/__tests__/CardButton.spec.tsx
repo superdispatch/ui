@@ -4,9 +4,8 @@ import React from 'react';
 import { CardButton } from '../..';
 
 it('checks component css', () => {
-  const css = renderCSS(<CardButton />, ['SuperDispatchCardButton']);
-
-  expect(css).toMatchInlineSnapshot(`
+  expect(renderCSS(<CardButton />, ['SuperDispatchCardButton']))
+    .toMatchInlineSnapshot(`
     .SuperDispatchCardButton-root {
       width: 100%;
       border: 1px dashed;

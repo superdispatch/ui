@@ -4,9 +4,8 @@ import React from 'react';
 import { Calendar } from '../..';
 
 it('checks component css', () => {
-  const css = renderCSS(<Calendar />, ['SuperDispatchCalendar']);
-
-  expect(css).toMatchInlineSnapshot(`
+  expect(renderCSS(<Calendar />, ['SuperDispatchCalendar']))
+    .toMatchInlineSnapshot(`
     .SuperDispatchCalendar-container {
       display: inline-block;
       font-size: 16px;

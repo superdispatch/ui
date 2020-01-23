@@ -4,14 +4,14 @@ import React from 'react';
 import { Button } from '../..';
 
 it('checks component css', () => {
-  const css = renderCSS(
-    <Button variant="text" color="primary">
-      Text
-    </Button>,
-    ['MuiButton'],
-  );
-
-  expect(css).toMatchInlineSnapshot(`
+  expect(
+    renderCSS(
+      <Button variant="text" color="primary">
+        Text
+      </Button>,
+      ['MuiButton'],
+    ),
+  ).toMatchInlineSnapshot(`
     .MuiButton-root {
       padding: 6px 16px;
       font-size: 14px;

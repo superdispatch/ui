@@ -3,9 +3,7 @@ import { renderCSS } from '@superdispatch/testutils';
 import React from 'react';
 
 it('checks component css', () => {
-  const css = renderCSS(<AppBar />, ['MuiAppBar']);
-
-  expect(css).toMatchInlineSnapshot(`
+  expect(renderCSS(<AppBar />, ['MuiAppBar'])).toMatchInlineSnapshot(`
     .MuiAppBar-root {
       width: 100%;
       display: flex;

@@ -14,28 +14,27 @@ import { useConstant } from 'utility-hooks';
 
 import { applyAppBarStyles } from '../app-bar/AppBarStyles';
 import { applyButtonStyles } from '../button/ButtonStyles';
+import { applyCardStyles } from '../card/CardStyles';
+import { applyCheckboxStyles } from '../checkbox/CheckboxStyles';
+import { applyDialogStyles } from '../dialog/DialogStyles';
+import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
+import { applyLinkStyles } from '../link/LinkStyles';
+import { applyMenuStyles } from '../menu/MenuStyles';
+import { applyPaperStyles } from '../paper/PaperStyles';
+import { applyRadioStyles } from '../radio/RadioStyles';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
-import { Color } from './Color';
-import { applyCardStyles } from './styles/CardStyles';
-import { applyCheckboxStyles } from './styles/CheckboxStyles';
-import { applyDialogStyles } from './styles/DialogStyles';
-import { applyFormControlStyles } from './styles/FormControlStyles';
-import { applyIconButtonStyles } from './styles/IconButtonStyles';
-import { applyLinkStyles } from './styles/LinkStyles';
-import { applyMenuStyles } from './styles/MenuStyles';
-import { applyPaperStyles } from './styles/PaperStyles';
-import { applyRadioStyles } from './styles/RadioStyles';
-import { applySvgIconStyles } from './styles/SvgIconStyles';
-import { applySwitchStyles } from './styles/SwitchStyles';
-import { applyTabsStyles } from './styles/TabsStyles';
-import { applyTextFieldStyles } from './styles/TextFieldStyles';
-import { applyToolbarStyles } from './styles/ToolbarStyles';
-import { applyTooltipStyles } from './styles/TooltipStyles';
+import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
+import { applySwitchStyles } from '../switch/SwitchStyles';
+import { applyTabsStyles } from '../tabs/TabsStyles';
+import { applyTextFieldStyles } from '../text-field/TextFieldStyles';
+import { applyToolbarStyles } from '../toolbar/ToolbarStyles';
+import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import {
   applyTypographyStyles,
   createTypographyOptions,
-} from './styles/TypographyStyles';
+} from '../typography/TypographyStyles';
+import { Color } from './Color';
 
 export type SuperDispatchTheme = Readonly<Required<Theme>>;
 
@@ -85,7 +84,6 @@ function createTheme() {
   applyAppBarStyles(theme);
   applyCardStyles(theme);
   applyCheckboxStyles(theme);
-  applyFormControlStyles(theme);
   applyDialogStyles(theme);
   applyIconButtonStyles(theme);
   applyLinkStyles(theme);

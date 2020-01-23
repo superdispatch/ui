@@ -4,7 +4,7 @@ import { Color } from '../theme/Color';
 import {
   fontHeightVariant,
   fontSizeVariant,
-} from '../theme/styles/TypographyStyles';
+} from '../typography/TypographyStyles';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 function textVariant(

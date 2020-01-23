@@ -16,6 +16,16 @@ const colorRegExp = new RegExp(
 );
 
 function parseStyleSheet(names: string[]): Stylesheet {
+  if (names.length === 0) {
+    throw new Error(
+      `No "names" provided. Provide one of: ${Array.from(
+        document.querySelectorAll('[data-jss]'),
+      )
+        .map(node => JSON.stringify(node.getAttribute('data-meta')))
+        .join(', ')}.`,
+    );
+  }
+
   return css.parse(
     names
       .map(
