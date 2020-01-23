@@ -1,5 +1,5 @@
 {
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "name": "@superdispatch/testutils",
   "main": "index.ts",
