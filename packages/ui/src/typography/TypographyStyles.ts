@@ -1,14 +1,14 @@
 import {
-  ThemeStyle,
   TypographyOptions,
   TypographyStyleOptions,
+  Variant,
 } from '@material-ui/core/styles/createTypography';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export type ThemePlatform = 'desktop' | 'mobile';
 
-const typographyVariants: ThemeStyle[] = [
+const typographyVariants: Variant[] = [
   'h1',
   'h2',
   'h3',
@@ -20,7 +20,7 @@ const typographyVariants: ThemeStyle[] = [
   'caption',
 ];
 
-export function fontWeightVariant(variant: ThemeStyle): number {
+export function fontWeightVariant(variant: Variant): number {
   switch (variant) {
     case 'h1':
     case 'h6':
@@ -37,7 +37,7 @@ export function fontWeightVariant(variant: ThemeStyle): number {
   }
 }
 export function fontSizeVariant(
-  variant: ThemeStyle,
+  variant: Variant,
   platform: ThemePlatform,
 ): string {
   const isMobile = platform === 'mobile';
@@ -59,10 +59,7 @@ export function fontSizeVariant(
   }
 }
 
-export function fontHeightVariant(
-  variant: ThemeStyle,
-  platform: ThemePlatform,
-) {
+export function fontHeightVariant(variant: Variant, platform: ThemePlatform) {
   const isMobile = platform === 'mobile';
 
   switch (variant) {
@@ -81,7 +78,7 @@ export function fontHeightVariant(
   }
 }
 
-function fontFamilyVariant(variant: ThemeStyle) {
+function fontFamilyVariant(variant: Variant) {
   const mainFont =
     variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
       ? 'SF Pro Text'
@@ -91,7 +88,7 @@ function fontFamilyVariant(variant: ThemeStyle) {
 }
 
 function typographyVariant(
-  variant: ThemeStyle,
+  variant: Variant,
   platform: ThemePlatform,
 ): TypographyStyleOptions {
   return {
@@ -115,7 +112,7 @@ export function createTypographyOptions(): TypographyOptions {
     fontFamily: fontFamilyVariant('body2'),
   };
 
-  typographyVariants.forEach((variant: ThemeStyle) => {
+  typographyVariants.forEach((variant: Variant) => {
     options[variant] = typographyVariant(variant, 'desktop');
   });
 
@@ -123,7 +120,7 @@ export function createTypographyOptions(): TypographyOptions {
 }
 
 function responsiveTypography(theme: SuperDispatchTheme) {
-  typographyVariants.forEach((variant: ThemeStyle) => {
+  typographyVariants.forEach((variant: Variant) => {
     Object.defineProperty(
       theme.typography[variant],
 
