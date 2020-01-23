@@ -6,9 +6,7 @@ module.exports = ({ isDocs = false } = {}) => api => {
   api.cache(() => JSON.stringify({ isTest, isDocs }));
 
   return {
-    presets: [
-      ['@superdispatch/babel-preset', { loose: true, targets: 'esmodules' }],
-    ],
+    presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
     plugins: [
       require.resolve('../tools/babel-plugin-inject-display-name'),
       isDocs && !isTest && require.resolve('../tools/babel-plugin-csb'),
