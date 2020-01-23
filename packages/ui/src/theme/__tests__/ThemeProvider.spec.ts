@@ -22,7 +22,7 @@ expect.addSnapshotSerializer({
 });
 
 it('exposes overridden theme', () => {
-  const { overrides, ...theme } = renderTheme();
+  const { overrides, typography, ...theme } = renderTheme();
 
   Object.entries(theme).forEach(([key, value]) => {
     expect(value).toMatchSnapshot(key);
