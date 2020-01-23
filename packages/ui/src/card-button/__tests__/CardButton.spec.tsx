@@ -79,7 +79,6 @@ it('checks component css', () => {
     }
 
     .SuperDispatchCardButton-hint {
-      color: Color.Silver500;
       margin-top: 4px;
     }
   `);

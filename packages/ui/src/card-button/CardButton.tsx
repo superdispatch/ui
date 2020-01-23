@@ -80,7 +80,7 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
     },
     endIcon: { marginLeft: theme.spacing(1), marginRight: theme.spacing(-0.5) },
 
-    hint: { color: Color.Silver500, marginTop: theme.spacing(0.5) },
+    hint: { marginTop: theme.spacing(0.5) },
   }),
   { name: 'SuperDispatchCardButton' },
 );
@@ -122,6 +122,7 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
 
     return (
       <ButtonBase
+        {...buttonProps}
         ref={ref}
         className={clsx(
           styles.root,
@@ -132,24 +133,35 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
           },
           className,
         )}
-        {...buttonProps}
       >
-        <Typography color="inherit" variant="h4" className={styles.label}>
-          {!error && !!startIcon && (
-            <span className={clsx(styles.icon, styles.startIcon)}>
-              {startIcon}
-            </span>
-          )}
-          {error || children}
-          {!error && !!endIcon && (
-            <span className={clsx(styles.icon, styles.endIcon)}>{endIcon}</span>
-          )}
-        </Typography>
-
-        {!error && !!hint && (
-          <Typography color="inherit" variant="h5" className={styles.hint}>
-            {hint}
+        {error ? (
+          <Typography variant="h4" color="inherit" className={styles.label}>
+            {error}
           </Typography>
+        ) : (
+          <>
+            <Typography variant="h4" color="inherit" className={styles.label}>
+              {!!startIcon && (
+                <span className={clsx(styles.icon, styles.startIcon)}>
+                  {startIcon}
+                </span>
+              )}
+
+              {children}
+
+              {!!endIcon && (
+                <span className={clsx(styles.icon, styles.endIcon)}>
+                  {endIcon}
+                </span>
+              )}
+            </Typography>
+
+            {!!hint && (
+              <Typography color="textSecondary" className={styles.hint}>
+                {hint}
+              </Typography>
+            )}
+          </>
         )}
       </ButtonBase>
     );
