@@ -53,54 +53,54 @@ it('checks default props', () => {
 
 it('checks component css', () => {
   expect(renderCSS(<Checkbox />, ['MuiCheckbox'])).toMatchInlineSnapshot(`
-    .MuiCheckbox-root {
-      color: Color.Grey100;
-      margin-top: -5px;
-      margin-bottom: -5px;
-    }
+.MuiCheckbox-root {
+  color: Color.Grey100;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
 
-    .MuiCheckbox-colorPrimary.Mui-checked {
-      color: Color.Blue300;
-    }
+.MuiCheckbox-colorPrimary.Mui-checked {
+  color: Color.Blue300;
+}
 
-    .MuiCheckbox-colorPrimary.Mui-disabled {
-      color: Color.Silver400;
-    }
+.MuiCheckbox-colorPrimary.Mui-disabled {
+  color: Color.Silver400;
+}
 
-    .MuiCheckbox-colorPrimary.Mui-checked.Mui-disabled {
-      color: Color.Silver500;
-    }
+.MuiCheckbox-colorPrimary.Mui-checked.Mui-disabled {
+  color: Color.Silver500;
+}
 
-    .MuiCheckbox-colorPrimary:hover:not(.Mui-checked) {
-      color: Color.Grey100;
-    }
+.MuiCheckbox-colorPrimary:hover:not(.Mui-checked) {
+  color: Color.Grey100;
+}
 
-    .MuiCheckbox-colorPrimary.Mui-checked:hover {
-      background-color: rgba(0, 117, 255, 0.08);
-    }
+.MuiCheckbox-colorPrimary.Mui-checked:hover {
+  background-color: rgba(0, 117, 255, 0.04);
+}
 
-    @media (hover: none) {
-      .MuiCheckbox-colorPrimary.Mui-checked:hover {
-        background-color: transparent;
-      }
-    }
+@media (hover: none) {
+  .MuiCheckbox-colorPrimary.Mui-checked:hover {
+    background-color: transparent;
+  }
+}
 
-    .MuiCheckbox-colorSecondary.Mui-checked {
-      color: #f50057;
-    }
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: #f50057;
+}
 
-    .MuiCheckbox-colorSecondary.Mui-disabled {
-      color: Color.Silver400;
-    }
+.MuiCheckbox-colorSecondary.Mui-disabled {
+  color: Color.Silver400;
+}
 
-    .MuiCheckbox-colorSecondary.Mui-checked:hover {
-      background-color: rgba(245, 0, 87, 0.08);
-    }
+.MuiCheckbox-colorSecondary.Mui-checked:hover {
+  background-color: rgba(245, 0, 87, 0.04);
+}
 
-    @media (hover: none) {
-      .MuiCheckbox-colorSecondary.Mui-checked:hover {
-        background-color: transparent;
-      }
-    }
-  `);
+@media (hover: none) {
+  .MuiCheckbox-colorSecondary.Mui-checked:hover {
+    background-color: transparent;
+  }
+}
+`);
 });
