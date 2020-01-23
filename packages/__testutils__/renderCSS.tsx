@@ -33,9 +33,10 @@ function getSheets(names: string[]): Element[] {
 
   if (names.length === 0) {
     throw new Error(
-      `No "names" provided. Pick any of: ${Array.from(sheets.keys()).join(
-        ', ',
-      )}.`,
+      `No "names" provided. Pick any of: ${Array.from(
+        sheets.keys(),
+        key => `  ${key}`,
+      ).join('\n')}`,
     );
   }
 
@@ -46,7 +47,8 @@ function getSheets(names: string[]): Element[] {
       throw new Error(
         `Sheet for component "${name}" not found. You can select one of: ${Array.from(
           sheets.keys(),
-        ).join(', ')}.`,
+          key => `  ${key}`,
+        ).join('\n')}`,
       );
     }
 
