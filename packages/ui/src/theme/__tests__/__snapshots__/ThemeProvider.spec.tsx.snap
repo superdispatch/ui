@@ -1145,7 +1145,7 @@ Object {
     "elevation": 0,
   },
   "MuiCheckbox": Object {
-    "checkedIcon": <ForwardRef(WithStyles)>
+    "checkedIcon": <WithStyles(ForwardRef(SvgIcon))>
       <rect
         fill="currentColor"
         height="18"
@@ -1158,9 +1158,9 @@ Object {
         d="M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z"
         fill=Color.White
       />
-    </ForwardRef(WithStyles)>,
+    </WithStyles(ForwardRef(SvgIcon))>,
     "color": "primary",
-    "icon": <ForwardRef(WithStyles)>
+    "icon": <WithStyles(ForwardRef(SvgIcon))>
       <rect
         fill=Color.White
         height="17"
@@ -1170,8 +1170,8 @@ Object {
         x="3.5"
         y="3.5"
       />
-    </ForwardRef(WithStyles)>,
-    "indeterminateIcon": <ForwardRef(WithStyles)>
+    </WithStyles(ForwardRef(SvgIcon))>,
+    "indeterminateIcon": <WithStyles(ForwardRef(SvgIcon))>
       <rect
         fill="currentIcon"
         height="18"
@@ -1184,7 +1184,7 @@ Object {
         d="M7 11h10v2H7v-2z"
         fill=Color.White
       />
-    </ForwardRef(WithStyles)>,
+    </WithStyles(ForwardRef(SvgIcon))>,
   },
   "MuiDialogTitle": Object {
     "disableTypography": true,
@@ -1214,7 +1214,7 @@ Object {
     "elevation": 0,
   },
   "MuiRadio": Object {
-    "checkedIcon": <ForwardRef(WithStyles)>
+    "checkedIcon": <WithStyles(ForwardRef(SvgIcon))>
       <circle
         cx="12"
         cy="12"
@@ -1228,9 +1228,9 @@ Object {
         fill=Color.White
         r="4"
       />
-    </ForwardRef(WithStyles)>,
+    </WithStyles(ForwardRef(SvgIcon))>,
     "color": "primary",
-    "icon": <ForwardRef(WithStyles)>
+    "icon": <WithStyles(ForwardRef(SvgIcon))>
       <circle
         cx="12"
         cy="12"
@@ -1238,7 +1238,7 @@ Object {
         r="8.5"
         stroke="currentColor"
       />
-    </ForwardRef(WithStyles)>,
+    </WithStyles(ForwardRef(SvgIcon))>,
   },
   "MuiSwitch": Object {
     "color": "primary",
