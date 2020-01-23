@@ -958,9 +958,7 @@ Object {
       "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "16px",
       "fontWeight": 600,
-      "letterSpacing": undefined,
       "lineHeight": "24px",
-      "textTransform": undefined,
     },
     "body2": Object {
       "@media (min-width:600px)": Object {
@@ -970,9 +968,7 @@ Object {
       "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "16px",
       "fontWeight": 400,
-      "letterSpacing": undefined,
       "lineHeight": "24px",
-      "textTransform": undefined,
     },
     "caption": Object {
       "@media (min-width:600px)": Object {
@@ -982,21 +978,17 @@ Object {
       "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "13px",
       "fontWeight": 400,
-      "letterSpacing": undefined,
       "lineHeight": "18px",
-      "textTransform": undefined,
     },
     "h1": Object {
       "@media (min-width:600px)": Object {
-        "fontSize": "40px",
-        "lineHeight": "32px",
+        "fontSize": "32px",
+        "lineHeight": "40px",
       },
       "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
-      "fontSize": "44px",
+      "fontSize": "34px",
       "fontWeight": 700,
-      "letterSpacing": undefined,
-      "lineHeight": "34px",
-      "textTransform": undefined,
+      "lineHeight": "44px",
     },
     "h2": Object {
       "@media (min-width:600px)": Object {
@@ -1006,9 +998,7 @@ Object {
       "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "26px",
       "fontWeight": 500,
-      "letterSpacing": undefined,
       "lineHeight": "32px",
-      "textTransform": undefined,
     },
     "h3": Object {
       "@media (min-width:600px)": Object {
@@ -1018,9 +1008,7 @@ Object {
       "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "22px",
       "fontWeight": 500,
-      "letterSpacing": undefined,
       "lineHeight": "32px",
-      "textTransform": undefined,
     },
     "h4": Object {
       "@media (min-width:600px)": Object {
@@ -1030,9 +1018,7 @@ Object {
       "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "18px",
       "fontWeight": 500,
-      "letterSpacing": undefined,
       "lineHeight": "28px",
-      "textTransform": undefined,
     },
     "h5": Object {
       "@media (min-width:600px)": Object {
@@ -1042,9 +1028,7 @@ Object {
       "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
       "fontSize": "16px",
       "fontWeight": 600,
-      "letterSpacing": undefined,
       "lineHeight": "24px",
-      "textTransform": undefined,
     },
     "h6": Object {
       "@media (min-width:600px)": Object {
