@@ -1,4 +1,5 @@
 {
+  "exclude": ["**/__tests__/**"],
   "extends": "../../tsconfig.build.json",
   "references": [{ "path": "../ui" }, { "path": "../__testutils__" }],
   "compilerOptions": {
