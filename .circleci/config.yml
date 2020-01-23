@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Test
           command: |
-            yarn test
+            yarn test --runInBand
             yarn codecov
       - run:
           name: Build
