@@ -1,6 +1,18 @@
 import { AppBar } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiAppBar).toMatchInlineSnapshot(`
+    Object {
+      color: inherit,
+      elevation: 0,
+      position: static,
+    }
+  `);
+});
 
 it('checks component css', () => {
   expect(renderCSS(<AppBar />, ['MuiAppBar'])).toMatchInlineSnapshot(`

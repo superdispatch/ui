@@ -1,15 +1,34 @@
-import { Dialog, DialogActions, DialogContent } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@material-ui/core';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiDialog).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiDialogTitle).toMatchInlineSnapshot(`
+    Object {
+      disableTypography: true,
+    }
+  `);
+  expect(props.MuiDialogContent).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiDialogActions).toMatchInlineSnapshot(`undefined`);
+});
 
 it('checks component css', () => {
   expect(
     renderCSS(
       <Dialog open={true}>
+        <DialogTitle>Text</DialogTitle>
         <DialogContent />
         <DialogActions />
       </Dialog>,
-      ['MuiDialog', 'MuiDialogContent', 'MuiDialogActions'],
+      ['MuiDialog', 'MuiDialogTitle', 'MuiDialogContent', 'MuiDialogActions'],
     ),
   ).toMatchInlineSnapshot(`
     @media print {
@@ -144,6 +163,12 @@ it('checks component css', () => {
     .MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
       margin: 0;
       max-width: 100%;
+    }
+
+    .MuiDialogTitle-root {
+      flex: 0 0 auto;
+      margin: 0;
+      padding: 16px 24px;
     }
 
     .MuiDialogContent-root {

@@ -1,7 +1,17 @@
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
 
 import { Button } from '../..';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiButton).toMatchInlineSnapshot(`
+    Object {
+      disableFocusRipple: true,
+    }
+  `);
+});
 
 it('checks component css', () => {
   expect(

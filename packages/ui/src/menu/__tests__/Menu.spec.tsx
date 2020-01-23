@@ -1,6 +1,26 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiMenu).toMatchInlineSnapshot(`
+    Object {
+      anchorOrigin: Object {
+        horizontal: left,
+        vertical: bottom,
+      },
+      getContentAnchorEl: null,
+      keepMounted: true,
+      transformOrigin: Object {
+        horizontal: left,
+        vertical: top,
+      },
+    }
+  `);
+  expect(props.MuiMenuItem).toMatchInlineSnapshot(`undefined`);
+});
 
 it('checks component css', () => {
   expect(

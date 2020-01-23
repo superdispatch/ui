@@ -1,5 +1,5 @@
 {
-  "exclude": ["**/__tests__/**"],
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
   "extends": "../../tsconfig.build.json",
   "references": [{ "path": "../__testutils__" }],
   "compilerOptions": {

@@ -1,6 +1,19 @@
 import { Tab, Tabs } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiTabs).toMatchInlineSnapshot(`
+    Object {
+      indicatorColor: primary,
+      textColor: primary,
+      variant: scrollable,
+    }
+  `);
+  expect(props.MuiTab).toMatchInlineSnapshot(`undefined`);
+});
 
 it('checks component css', () => {
   expect(

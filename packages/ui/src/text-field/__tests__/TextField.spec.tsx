@@ -1,6 +1,32 @@
 import { MenuItem, TextField } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiInputBase).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiInputLabel).toMatchInlineSnapshot(`
+    Object {
+      shrink: true,
+    }
+  `);
+  expect(props.MuiFormLabel).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiOutlinedInput).toMatchInlineSnapshot(`
+    Object {
+      notched: false,
+    }
+  `);
+  expect(props.MuiSelect).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiFormHelperText).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiTextField).toMatchInlineSnapshot(`
+    Object {
+      rows: 4,
+      rowsMax: 4,
+      variant: outlined,
+    }
+  `);
+});
 
 it('checks component css', () => {
   expect(

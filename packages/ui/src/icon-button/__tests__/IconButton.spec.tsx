@@ -1,6 +1,12 @@
 import { IconButton } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiIconButton).toMatchInlineSnapshot(`undefined`);
+});
 
 it('checks component css', () => {
   expect(renderCSS(<IconButton />, ['MuiIconButton'])).toMatchInlineSnapshot(`

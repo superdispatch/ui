@@ -1,6 +1,16 @@
 import { Typography } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiTypography).toMatchInlineSnapshot(`
+    Object {
+      variant: body2,
+    }
+  `);
+});
 
 it('checks component css', () => {
   expect(renderCSS(<Typography />, ['MuiTypography'])).toMatchInlineSnapshot(`

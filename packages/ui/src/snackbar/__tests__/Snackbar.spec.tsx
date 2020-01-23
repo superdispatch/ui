@@ -1,7 +1,14 @@
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
 
 import { Snackbar } from '../../index';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiSnackbar).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiSnackbarContent).toMatchInlineSnapshot(`undefined`);
+});
 
 it('checks component css', () => {
   expect(

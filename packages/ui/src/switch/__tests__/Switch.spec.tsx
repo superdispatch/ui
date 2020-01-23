@@ -1,6 +1,18 @@
 import { Switch } from '@material-ui/core';
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
+
+it('checks default props', () => {
+  const { props } = renderTheme();
+
+  expect(props.MuiSwitch).toMatchInlineSnapshot(`
+    Object {
+      color: primary,
+      disableFocusRipple: true,
+      disableRipple: true,
+    }
+  `);
+});
 
 it('checks component css', () => {
   expect(renderCSS(<Switch />, ['MuiSwitch'])).toMatchInlineSnapshot(`
