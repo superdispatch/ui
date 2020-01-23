@@ -19,6 +19,7 @@ import { applyCheckboxStyles } from '../checkbox/CheckboxStyles';
 import { applyDialogStyles } from '../dialog/DialogStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
+import { applyListStyles } from '../list/ListStyles';
 import { applyMenuStyles } from '../menu/MenuStyles';
 import { applyPaperStyles } from '../paper/PaperStyles';
 import { applyRadioStyles } from '../radio/RadioStyles';
@@ -66,19 +67,7 @@ function createTheme() {
     typography: createTypographyOptions(),
 
     props: {},
-    overrides: {
-      MuiListItem: {
-        root: {
-          '&$selected, &$selected:hover': {
-            backgroundColor: Color.Blue50,
-          },
-
-          '& .MuiTouchRipple-root': {
-            color: Color.Blue100,
-          },
-        },
-      },
-    },
+    overrides: {},
   }) as SuperDispatchTheme;
 
   applyAppBarStyles(theme);
@@ -86,6 +75,7 @@ function createTheme() {
   applyCheckboxStyles(theme);
   applyDialogStyles(theme);
   applyIconButtonStyles(theme);
+  applyListStyles(theme);
   applyLinkStyles(theme);
   applyMenuStyles(theme);
   applyPaperStyles(theme);
