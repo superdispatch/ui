@@ -1,12 +1,24 @@
 import {
   ThemeStyle,
   TypographyOptions,
+  TypographyStyleOptions,
 } from '@material-ui/core/styles/createTypography';
-import { CSSProperties } from '@material-ui/styles';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export type ThemePlatform = 'desktop' | 'mobile';
+
+const typographyVariants: ThemeStyle[] = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'body2',
+  'body1',
+  'caption',
+];
 
 export function fontWeightVariant(variant: ThemeStyle): number {
   switch (variant) {
@@ -69,7 +81,7 @@ export function fontHeightVariant(
   }
 }
 
-export function fontFamilyVariant(variant: ThemeStyle) {
+function fontFamilyVariant(variant: ThemeStyle) {
   const mainFont =
     variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
       ? 'SF Pro Text'
@@ -78,19 +90,17 @@ export function fontFamilyVariant(variant: ThemeStyle) {
   return `${mainFont}, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif`;
 }
 
-export function createTypographyOptions(): TypographyOptions {
-  return { fontFamily: fontFamilyVariant('body2') };
-}
-
-export function typographyVariant(
+function typographyVariant(
   variant: ThemeStyle,
   platform: ThemePlatform,
-): CSSProperties {
+): TypographyStyleOptions {
   return {
     fontSize: fontSizeVariant(variant, platform),
     lineHeight: fontHeightVariant(variant, platform),
 
-    ...(platform === 'mobile' && {
+    // We have to make Typography desktop first in order to keep it consistent
+    // with material-ui.
+    ...(platform === 'desktop' && {
       fontFamily: fontFamilyVariant(variant),
       fontWeight: fontWeightVariant(variant),
 
@@ -102,30 +112,33 @@ export function typographyVariant(
   };
 }
 
-function buildTypographyVariant(
-  theme: SuperDispatchTheme,
-  variant: ThemeStyle,
-) {
-  return {
-    ...typographyVariant(variant, 'mobile'),
-    [theme.breakpoints.up('sm')]: typographyVariant(variant, 'desktop'),
+export function createTypographyOptions(): TypographyOptions {
+  const options: TypographyOptions = {
+    fontFamily: fontFamilyVariant('body2'),
   };
+
+  typographyVariants.forEach((variant: ThemeStyle) => {
+    options[variant] = typographyVariant(variant, 'desktop');
+  });
+
+  return options;
+}
+
+function responsiveTypography(theme: SuperDispatchTheme) {
+  typographyVariants.forEach((variant: ThemeStyle) => {
+    Object.defineProperty(
+      theme.typography[variant],
+
+      // We're not using `up('sm')` here so this selector would not be
+      // overridden later.
+      theme.breakpoints.only('xs'),
+      { enumerable: true, value: typographyVariant(variant, 'mobile') },
+    );
+  });
 }
 
 export function applyTypographyStyles(theme: SuperDispatchTheme) {
+  responsiveTypography(theme);
+
   theme.props.MuiTypography = { variant: 'body2' };
-
-  theme.overrides.MuiTypography = {
-    h1: buildTypographyVariant(theme, 'h1'),
-    h2: buildTypographyVariant(theme, 'h2'),
-    h3: buildTypographyVariant(theme, 'h3'),
-    h4: buildTypographyVariant(theme, 'h4'),
-    h5: buildTypographyVariant(theme, 'h5'),
-    h6: buildTypographyVariant(theme, 'h6'),
-
-    body2: buildTypographyVariant(theme, 'body2'),
-    body1: buildTypographyVariant(theme, 'body1'),
-
-    caption: buildTypographyVariant(theme, 'caption'),
-  };
 }

@@ -44,16 +44,11 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiFormLabel = {
     root: {
+      ...theme.typography.body2,
+
       '&$error': { color: undefined },
       '&$focused': { color: undefined },
       '&$disabled': { color: undefined },
-
-      fontSize: fontSizeVariant('body1', 'mobile'),
-      lineHeight: fontHeightVariant('body1', 'mobile'),
-      [theme.breakpoints.up('sm')]: {
-        fontSize: fontSizeVariant('body1', 'desktop'),
-        lineHeight: fontHeightVariant('body1', 'desktop'),
-      },
     },
   };
 
