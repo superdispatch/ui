@@ -111,14 +111,15 @@ function typographyVariant(
 }
 
 export function createTypographyOptions(): TypographyOptions {
-  return typographyVariants.reduce(
-    (acc: TypographyOptions, variant) => {
-      acc[variant] = typographyVariant(variant, 'desktop');
+  const options: TypographyOptions = {
+    fontFamily: fontFamilyVariant('body2'),
+  };
 
-      return acc;
-    },
-    { fontFamily: fontFamilyVariant('body2') },
-  );
+  typographyVariants.forEach((variant: ThemeStyle) => {
+    options[variant] = typographyVariant(variant, 'desktop');
+  });
+
+  return options;
 }
 
 function responsiveTypography(theme: SuperDispatchTheme) {
