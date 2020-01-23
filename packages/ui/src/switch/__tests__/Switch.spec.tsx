@@ -7,9 +7,9 @@ it('checks default props', () => {
 
   expect(props.MuiSwitch).toMatchInlineSnapshot(`
     Object {
-      color: primary,
-      disableFocusRipple: true,
-      disableRipple: true,
+      "color": "primary",
+      "disableFocusRipple": true,
+      "disableRipple": true,
     }
   `);
 });

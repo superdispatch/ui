@@ -15,6 +15,8 @@ const colorRegExp = new RegExp(
   'g',
 );
 
+const renderedCSS = new Set<string>();
+
 function getAllSheets(): Map<string, Element> {
   return new Map<string, Element>(
     Array.from(document.querySelectorAll('[data-jss]')).map(node => [
@@ -64,7 +66,7 @@ function parseStyleSheet(names: string[]): Stylesheet {
   );
 }
 
-function formatAST(sheet: Stylesheet) {
+function formatAST(sheet: Stylesheet): string {
   return format(
     css
       .stringify(sheet)
@@ -74,7 +76,7 @@ function formatAST(sheet: Stylesheet) {
 }
 
 expect.addSnapshotSerializer({
-  test: value => typeof value === 'string',
+  test: value => typeof value === 'string' && renderedCSS.has(value),
   print: value => value,
 });
 
@@ -82,6 +84,9 @@ export function renderCSS(ui: ReactElement, names: string[]): string {
   render(<ThemeProvider>{ui}</ThemeProvider>);
 
   const targetSheet = parseStyleSheet(names);
+  const formatted = formatAST(targetSheet);
 
-  return formatAST(targetSheet);
+  renderedCSS.add(formatted);
+
+  return formatted;
 }

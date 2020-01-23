@@ -8,24 +8,24 @@ it('checks default props', () => {
   expect(props.MuiInputBase).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiInputLabel).toMatchInlineSnapshot(`
     Object {
-      shrink: true,
+      "shrink": true,
     }
   `);
   expect(props.MuiFormLabel).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiOutlinedInput).toMatchInlineSnapshot(`
-    Object {
-      notched: false,
-    }
-  `);
+Object {
+  "notched": false,
+}
+`);
   expect(props.MuiSelect).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiFormHelperText).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiTextField).toMatchInlineSnapshot(`
-    Object {
-      rows: 4,
-      rowsMax: 4,
-      variant: outlined,
-    }
-  `);
+Object {
+  "rows": 4,
+  "rowsMax": 4,
+  "variant": "outlined",
+}
+`);
 });
 
 it('checks component css', () => {

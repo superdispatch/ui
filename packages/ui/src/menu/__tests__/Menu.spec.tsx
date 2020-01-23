@@ -7,15 +7,15 @@ it('checks default props', () => {
 
   expect(props.MuiMenu).toMatchInlineSnapshot(`
     Object {
-      anchorOrigin: Object {
-        horizontal: left,
-        vertical: bottom,
+      "anchorOrigin": Object {
+        "horizontal": "left",
+        "vertical": "bottom",
       },
-      getContentAnchorEl: null,
-      keepMounted: true,
-      transformOrigin: Object {
-        horizontal: left,
-        vertical: top,
+      "getContentAnchorEl": null,
+      "keepMounted": true,
+      "transformOrigin": Object {
+        "horizontal": "left",
+        "vertical": "top",
       },
     }
   `);

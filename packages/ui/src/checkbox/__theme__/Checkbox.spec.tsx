@@ -7,44 +7,44 @@ it('checks default props', () => {
 
   expect(props.MuiCheckbox).toMatchInlineSnapshot(`
     Object {
-      checkedIcon: <WithStyles(ForwardRef(SvgIcon))>
+      "checkedIcon": <WithStyles(ForwardRef(SvgIcon))>
         <rect
-          fill=currentColor
-          height=18
-          rx=2
-          width=18
-          x=3
-          y=3
+          fill="currentColor"
+          height="18"
+          rx="2"
+          width="18"
+          x="3"
+          y="3"
         />
         <path
-          d=M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z
-          fill=#fff
+          d="M15.73 8l-.63.63c-1.43 1.43-2.94 3.05-4.37 4.5l-1.9-1.57-.7-.57L7 12.38l.7.57 2.53 2.09.63.52.58-.58c1.6-1.62 3.35-3.5 4.93-5.08l.63-.63L15.73 8z"
+          fill="#fff"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
-      color: primary,
-      icon: <WithStyles(ForwardRef(SvgIcon))>
+      "color": "primary",
+      "icon": <WithStyles(ForwardRef(SvgIcon))>
         <rect
-          fill=#fff
-          height=17
-          rx=1.5
-          stroke=currentColor
-          width=17
-          x=3.5
-          y=3.5
+          fill="#fff"
+          height="17"
+          rx="1.5"
+          stroke="currentColor"
+          width="17"
+          x="3.5"
+          y="3.5"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
-      indeterminateIcon: <WithStyles(ForwardRef(SvgIcon))>
+      "indeterminateIcon": <WithStyles(ForwardRef(SvgIcon))>
         <rect
-          fill=currentIcon
-          height=18
-          rx=2
-          width=18
-          x=3
-          y=3
+          fill="currentIcon"
+          height="18"
+          rx="2"
+          width="18"
+          x="3"
+          y="3"
         />
         <path
-          d=M7 11h10v2H7v-2z
-          fill=#fff
+          d="M7 11h10v2H7v-2z"
+          fill="#fff"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
     }

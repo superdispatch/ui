@@ -7,7 +7,7 @@ it('checks default props', () => {
 
   expect(props.MuiTooltip).toMatchInlineSnapshot(`
     Object {
-      arrow: true,
+      "arrow": true,
     }
   `);
 });

@@ -7,132 +7,132 @@ it('checks default typography', () => {
 
   expect(typography).toMatchInlineSnapshot(`
     Object {
-      body1: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 16px,
-          lineHeight: 24px,
+      "body1": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "16px",
+          "lineHeight": "24px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 14px,
-        fontWeight: 600,
-        lineHeight: 20px,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "14px",
+        "fontWeight": 600,
+        "lineHeight": "20px",
       },
-      body2: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 16px,
-          lineHeight: 24px,
+      "body2": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "16px",
+          "lineHeight": "24px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 14px,
-        fontWeight: 400,
-        lineHeight: 20px,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "14px",
+        "fontWeight": 400,
+        "lineHeight": "20px",
       },
-      button: Object {
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 0.875rem,
-        fontWeight: 500,
-        lineHeight: 1.75,
-        textTransform: uppercase,
+      "button": Object {
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": 500,
+        "lineHeight": 1.75,
+        "textTransform": "uppercase",
       },
-      caption: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 13px,
-          lineHeight: 18px,
+      "caption": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "13px",
+          "lineHeight": "18px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 12px,
-        fontWeight: 400,
-        lineHeight: 16px,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "12px",
+        "fontWeight": 400,
+        "lineHeight": "16px",
       },
-      fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-      fontSize: 14,
-      fontWeightBold: 700,
-      fontWeightLight: 300,
-      fontWeightMedium: 500,
-      fontWeightRegular: 400,
-      h1: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 34px,
-          lineHeight: 44px,
+      "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+      "fontSize": 14,
+      "fontWeightBold": 700,
+      "fontWeightLight": 300,
+      "fontWeightMedium": 500,
+      "fontWeightRegular": 400,
+      "h1": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "34px",
+          "lineHeight": "44px",
         },
-        fontFamily: SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 32px,
-        fontWeight: 700,
-        lineHeight: 40px,
+        "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "32px",
+        "fontWeight": 700,
+        "lineHeight": "40px",
       },
-      h2: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 26px,
-          lineHeight: 32px,
+      "h2": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "26px",
+          "lineHeight": "32px",
         },
-        fontFamily: SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 24px,
-        fontWeight: 500,
-        lineHeight: 28px,
+        "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "24px",
+        "fontWeight": 500,
+        "lineHeight": "28px",
       },
-      h3: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 22px,
-          lineHeight: 32px,
+      "h3": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "22px",
+          "lineHeight": "32px",
         },
-        fontFamily: SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 20px,
-        fontWeight: 500,
-        lineHeight: 28px,
+        "fontFamily": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "20px",
+        "fontWeight": 500,
+        "lineHeight": "28px",
       },
-      h4: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 18px,
-          lineHeight: 28px,
+      "h4": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "18px",
+          "lineHeight": "28px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 16px,
-        fontWeight: 500,
-        lineHeight: 24px,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "16px",
+        "fontWeight": 500,
+        "lineHeight": "24px",
       },
-      h5: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 16px,
-          lineHeight: 24px,
+      "h5": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "16px",
+          "lineHeight": "24px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 14px,
-        fontWeight: 600,
-        lineHeight: 20px,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "14px",
+        "fontWeight": 600,
+        "lineHeight": "20px",
       },
-      h6: Object {
-        @media (min-width:0px) and (max-width:599.95px): Object {
-          fontSize: 13px,
-          lineHeight: 18px,
+      "h6": Object {
+        "@media (min-width:0px) and (max-width:599.95px)": Object {
+          "fontSize": "13px",
+          "lineHeight": "18px",
         },
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 12px,
-        fontWeight: 700,
-        letterSpacing: 0.1em,
-        lineHeight: 16px,
-        textTransform: uppercase,
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "12px",
+        "fontWeight": 700,
+        "letterSpacing": "0.1em",
+        "lineHeight": "16px",
+        "textTransform": "uppercase",
       },
-      htmlFontSize: 16,
-      overline: Object {
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 0.75rem,
-        fontWeight: 400,
-        lineHeight: 2.66,
-        textTransform: uppercase,
+      "htmlFontSize": 16,
+      "overline": Object {
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "0.75rem",
+        "fontWeight": 400,
+        "lineHeight": 2.66,
+        "textTransform": "uppercase",
       },
-      pxToRem: [Function],
-      round: [Function],
-      subtitle1: Object {
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 1rem,
-        fontWeight: 400,
-        lineHeight: 1.75,
+      "pxToRem": [Function],
+      "round": [Function],
+      "subtitle1": Object {
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "1rem",
+        "fontWeight": 400,
+        "lineHeight": 1.75,
       },
-      subtitle2: Object {
-        fontFamily: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif,
-        fontSize: 0.875rem,
-        fontWeight: 500,
-        lineHeight: 1.57,
+      "subtitle2": Object {
+        "fontFamily": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": 500,
+        "lineHeight": 1.57,
       },
     }
   `);
@@ -143,7 +143,7 @@ it('checks default props', () => {
 
   expect(props.MuiTypography).toMatchInlineSnapshot(`
     Object {
-      variant: body2,
+      "variant": "body2",
     }
   `);
 });

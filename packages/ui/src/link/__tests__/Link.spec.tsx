@@ -7,7 +7,7 @@ it('checks default props', () => {
 
   expect(props.MuiLink).toMatchInlineSnapshot(`
     Object {
-      underline: none,
+      "underline": "none",
     }
   `);
 });

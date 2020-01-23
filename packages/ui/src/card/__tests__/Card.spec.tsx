@@ -7,7 +7,7 @@ it('checks default props', () => {
 
   expect(props.MuiCard).toMatchInlineSnapshot(`
     Object {
-      elevation: 0,
+      "elevation": 0,
     }
   `);
   expect(props.MuiCardHeader).toMatchInlineSnapshot(`undefined`);
