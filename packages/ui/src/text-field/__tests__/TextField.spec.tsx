@@ -38,13 +38,14 @@ it('checks component css', () => {
         </TextField>
       </>,
       [
+        'MuiTextField',
+        // TODO: Check these components separately.
         'MuiInputBase',
         'MuiInputLabel',
         'MuiFormLabel',
         'MuiOutlinedInput',
         'MuiSelect',
         'MuiFormHelperText',
-        'MuiTextField',
       ],
     ),
   ).toMatchInlineSnapshot(`

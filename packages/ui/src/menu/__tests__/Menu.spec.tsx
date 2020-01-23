@@ -28,7 +28,14 @@ it('checks component css', () => {
       <Menu open={true} anchorEl={document.body}>
         <MenuItem />
       </Menu>,
-      ['MuiMenu', 'MuiMenuItem'],
+      [
+        'MuiMenu',
+        'MuiMenuItem',
+        // TODO: check these components separately
+        'MuiList',
+        'MuiListItem',
+        'MuiPopover',
+      ],
     ),
   ).toMatchInlineSnapshot(`
 .MuiMenu-paper {
@@ -77,6 +84,105 @@ it('checks component css', () => {
     font-size: 14px;
     line-height: 20px;
   }
+}
+
+.MuiList-root {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+}
+
+.MuiList-padding {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.MuiList-subheader {
+  padding-top: 0;
+}
+
+.MuiListItem-root {
+  width: 100%;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  text-align: left;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.MuiListItem-root.Mui-focusVisible {
+  background-color: Color.Silver300;
+}
+
+.MuiListItem-root.Mui-selected,
+.MuiListItem-root.Mui-selected:hover {
+  background-color: Color.Blue50;
+}
+
+.MuiListItem-root.Mui-disabled {
+  opacity: 0.5;
+}
+
+.MuiListItem-root .MuiTouchRipple-root {
+  color: Color.Blue100;
+}
+
+.MuiListItem-container {
+  position: relative;
+}
+
+.MuiListItem-dense {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.MuiListItem-alignItemsFlexStart {
+  align-items: flex-start;
+}
+
+.MuiListItem-divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-clip: padding-box;
+}
+
+.MuiListItem-gutters {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.MuiListItem-button {
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.MuiListItem-button:hover {
+  text-decoration: none;
+  background-color: Color.Silver100;
+}
+
+@media (hover: none) {
+  .MuiListItem-button:hover {
+    background-color: transparent;
+  }
+}
+
+.MuiListItem-secondaryAction {
+  padding-right: 48px;
+}
+
+.MuiPopover-paper {
+  outline: 0;
+  position: absolute;
+  max-width: calc(100% - 32px);
+  min-width: 16px;
+  max-height: calc(100% - 32px);
+  min-height: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 `);
 });
