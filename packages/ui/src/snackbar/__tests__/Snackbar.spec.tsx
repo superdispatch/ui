@@ -116,15 +116,22 @@ it('checks component css', () => {
   padding: 6px 16px;
   flex-grow: 1;
   flex-wrap: wrap;
-  font-size: 0.875rem;
+  font-size: 14px;
   min-height: 60px;
   align-items: center;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
   font-weight: 400;
-  line-height: 1.43;
+  line-height: 20px;
   border-radius: 0;
   background-color: rgb(49, 49, 49);
+}
+
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiSnackbarContent-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 @media (min-width: 600px) {

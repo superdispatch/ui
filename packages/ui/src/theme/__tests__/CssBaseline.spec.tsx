@@ -23,12 +23,19 @@ it('checks component css', () => {
     body {
       color: Color.Grey500;
       margin: 0;
-      font-size: 0.875rem;
+      font-size: 14px;
       font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
         'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
       font-weight: 400;
-      line-height: 1.43;
+      line-height: 20px;
       background-color: #fafafa;
+    }
+
+    @media (min-width: 0px) and (max-width: 599.95px) {
+      body {
+        font-size: 16px;
+        line-height: 24px;
+      }
     }
 
     @media print {
