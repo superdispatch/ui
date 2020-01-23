@@ -16,7 +16,7 @@ export const useDateRangePickerStyles = makeStyles<Theme>(
         '&$rangeStart:before': { left: theme.spacing(0.5) },
         '&$rangeEnd:before': { right: theme.spacing(0.5) },
         '&:not($rangeStart):not($rangeEnd)': {
-          '&:after': { backgroundColor: 'transparent' },
+          '&:after': { backgroundColor: Color.Transparent },
           '&$disabled': { '&:before': { backgroundColor: Color.Silver100 } },
           '&:not($disabled)': {
             color: Color.Blue500,

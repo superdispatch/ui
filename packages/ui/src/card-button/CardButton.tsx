@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant } from '../theme/styles/TypographyStyles';
+import { fontHeightVariant } from '../typography/TypographyStyles';
 
 export type CardButtonClassKey =
   | 'root'

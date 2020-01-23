@@ -25,10 +25,10 @@ export interface DateRangeFieldProps
   > {
   hasClearButton?: boolean;
 
-  value: undefined | DateRange;
+  value?: DateRange;
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange: (value: undefined | DateRange) => void;
+  onChange?: (value: undefined | DateRange) => void;
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
   CalendarProps?: Omit<
@@ -74,7 +74,7 @@ export function DateRangeField({
   const handleChange = (nextValue: undefined | DateRange) => {
     const nextRange = normalizeDateRange(nextValue);
 
-    onChange(nextRange);
+    onChange?.(nextRange);
 
     if (nextRange.length === 2) {
       handleClose();
@@ -94,7 +94,9 @@ export function DateRangeField({
         value={textValue}
         onOpen={onOpen}
         onClear={
-          !textValue || !hasClearButton ? undefined : () => onChange(undefined)
+          !textValue || !hasClearButton
+            ? undefined
+            : () => onChange?.(undefined)
         }
       />
 
