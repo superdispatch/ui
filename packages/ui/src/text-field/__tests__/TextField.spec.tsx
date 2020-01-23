@@ -38,14 +38,13 @@ it('checks component css', () => {
         </TextField>
       </>,
       [
-        'MuiTextField',
-        // TODO: Check these components separately.
         'MuiInputBase',
         'MuiInputLabel',
         'MuiFormLabel',
         'MuiOutlinedInput',
         'MuiSelect',
         'MuiFormHelperText',
+        'MuiTextField',
       ],
     ),
   ).toMatchInlineSnapshot(`
@@ -271,15 +270,8 @@ label[data-shrink='false']
   font-size: 16px;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 24px;
-}
-
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiFormLabel-root {
-    font-size: 16px;
-    line-height: 24px;
-  }
 }
 
 @media (min-width: 600px) {
@@ -512,13 +504,6 @@ label[data-shrink='false']
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
   font-weight: 400;
   line-height: 24px;
-}
-
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiFormHelperText-root {
-    font-size: 13px;
-    line-height: 18px;
-  }
 }
 
 .MuiFormHelperText-root.Mui-disabled {
