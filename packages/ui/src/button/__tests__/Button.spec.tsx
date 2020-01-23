@@ -23,7 +23,7 @@ it('checks component css', () => {
     ),
   ).toMatchInlineSnapshot(`
 .MuiButton-root {
-  padding: 6px 16px;
+  padding: 10px 24px;
   font-size: 14px;
   min-width: 48px;
   box-sizing: border-box;
@@ -33,20 +33,25 @@ it('checks component css', () => {
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 20px;
   border-radius: 4px;
+}
+
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiButton-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 .MuiButton-root:hover {
   text-decoration: none;
 }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
+@media (min-width: 600px) {
   .MuiButton-root {
-    padding: 10px 24px;
-    font-size: 16px;
-    line-height: 24px;
+    padding: 6px 16px;
   }
 }
 
@@ -498,24 +503,34 @@ it('checks component css', () => {
 }
 
 .MuiButton-sizeSmall {
-  padding: 2px 16px;
+  padding: 4px 24px;
 }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
+@media (min-width: 600px) {
   .MuiButton-sizeSmall {
-    padding: 4px 24px;
+    padding: 2px 16px;
   }
 }
 
 .MuiButton-sizeLarge {
-  padding: 10px 40px;
+  padding: 16px 64px;
   font-size: 16px;
+  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
+    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-weight: 500;
   line-height: 24px;
 }
 
 @media (min-width: 0px) and (max-width: 599.95px) {
   .MuiButton-sizeLarge {
-    padding: 16px 64px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+@media (min-width: 600px) {
+  .MuiButton-sizeLarge {
+    padding: 8px 32px;
   }
 }
 
