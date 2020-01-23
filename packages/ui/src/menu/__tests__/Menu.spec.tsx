@@ -62,6 +62,13 @@ it('checks component css', () => {
   padding-bottom: 8px;
 }
 
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiMenuItem-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 @media (min-width: 600px) {
   .MuiMenuItem-root {
     font-size: 14px;
@@ -71,18 +78,18 @@ it('checks component css', () => {
 }
 
 .MuiMenuItem-dense {
-  font-size: 16px;
+  font-size: 14px;
   min-height: auto;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 0px) and (max-width: 599.95px) {
   .MuiMenuItem-dense {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 

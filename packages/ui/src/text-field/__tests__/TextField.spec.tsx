@@ -275,6 +275,13 @@ label[data-shrink='false']
   line-height: 24px;
 }
 
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiFormLabel-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 @media (min-width: 600px) {
   .MuiFormLabel-root {
     font-size: 14px;
@@ -507,10 +514,10 @@ label[data-shrink='false']
   line-height: 24px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 0px) and (max-width: 599.95px) {
   .MuiFormHelperText-root {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 13px;
+    line-height: 18px;
   }
 }
 
@@ -520,6 +527,13 @@ label[data-shrink='false']
 
 .MuiFormHelperText-root.Mui-error {
   color: Color.Red300;
+}
+
+@media (min-width: 600px) {
+  .MuiFormHelperText-root {
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .MuiFormHelperText-marginDense {

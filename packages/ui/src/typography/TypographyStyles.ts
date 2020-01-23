@@ -69,7 +69,7 @@ export function fontHeightVariant(
   }
 }
 
-export function fontFamilyVariant(variant: ThemeStyle) {
+function fontFamilyVariant(variant: ThemeStyle) {
   const mainFont =
     variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
       ? 'SF Pro Text'
@@ -78,7 +78,7 @@ export function fontFamilyVariant(variant: ThemeStyle) {
   return `${mainFont}, -apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif`;
 }
 
-export function typographyVariant(
+function typographyVariant(
   variant: ThemeStyle,
   platform: ThemePlatform,
 ): TypographyStyleOptions {
@@ -86,7 +86,7 @@ export function typographyVariant(
     fontSize: fontSizeVariant(variant, platform),
     lineHeight: fontHeightVariant(variant, platform),
 
-    ...(platform === 'mobile' && {
+    ...(platform === 'desktop' && {
       fontFamily: fontFamilyVariant(variant),
       fontWeight: fontWeightVariant(variant),
 
@@ -102,17 +102,17 @@ export function createTypographyOptions(): TypographyOptions {
   return {
     fontFamily: fontFamilyVariant('body2'),
 
-    h1: typographyVariant('h1', 'mobile'),
-    h2: typographyVariant('h2', 'mobile'),
-    h3: typographyVariant('h3', 'mobile'),
-    h4: typographyVariant('h4', 'mobile'),
-    h5: typographyVariant('h5', 'mobile'),
-    h6: typographyVariant('h6', 'mobile'),
+    h1: typographyVariant('h1', 'desktop'),
+    h2: typographyVariant('h2', 'desktop'),
+    h3: typographyVariant('h3', 'desktop'),
+    h4: typographyVariant('h4', 'desktop'),
+    h5: typographyVariant('h5', 'desktop'),
+    h6: typographyVariant('h6', 'desktop'),
 
-    body2: typographyVariant('body2', 'mobile'),
-    body1: typographyVariant('body1', 'mobile'),
+    body2: typographyVariant('body2', 'desktop'),
+    body1: typographyVariant('body1', 'desktop'),
 
-    caption: typographyVariant('caption', 'mobile'),
+    caption: typographyVariant('caption', 'desktop'),
   };
 }
 
@@ -121,7 +121,7 @@ function responsiveTypographyVariant(
   variant: ThemeStyle,
 ) {
   return {
-    [theme.breakpoints.up('sm')]: typographyVariant(variant, 'desktop'),
+    [theme.breakpoints.only('xs')]: typographyVariant(variant, 'mobile'),
   };
 }
 
