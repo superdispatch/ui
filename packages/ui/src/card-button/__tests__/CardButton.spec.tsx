@@ -65,7 +65,13 @@ it('checks component css', () => {
     }
 
     .SuperDispatchCardButton-icon .MuiSvgIcon-root {
-      font-size: 20px;
+      font-size: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .SuperDispatchCardButton-icon .MuiSvgIcon-root {
+        font-size: 20px;
+      }
     }
 
     .SuperDispatchCardButton-startIcon {
