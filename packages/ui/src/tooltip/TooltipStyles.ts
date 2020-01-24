@@ -2,10 +2,6 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import {
-  fontHeightVariant,
-  fontSizeVariant,
-} from '../typography/TypographyStyles';
 
 function popperArrowVariant(
   arrowOverriders: CSSProperties,
@@ -41,11 +37,9 @@ export function applyTooltipStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiTooltip = {
     tooltip: {
-      position: 'relative',
-      backgroundColor: Color.Grey400,
+      ...theme.typography.body2,
       padding: theme.spacing(1, 1.5),
-      fontSize: fontSizeVariant('body1', 'desktop'),
-      lineHeight: fontHeightVariant('body1', 'desktop'),
+      backgroundColor: Color.Grey400,
     },
 
     popperArrow: {

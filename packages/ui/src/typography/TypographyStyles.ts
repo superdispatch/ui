@@ -41,7 +41,7 @@ export function getTypographyProp(
   return css?.[prop] as string;
 }
 
-export function fontWeightVariant(variant: Variant): number {
+function fontWeightVariant(variant: Variant): number {
   switch (variant) {
     case 'h1':
     case 'h6':
