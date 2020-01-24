@@ -86,8 +86,7 @@ it('checks component css', () => {
   text-align: center;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   flex-shrink: 0;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
   white-space: normal;

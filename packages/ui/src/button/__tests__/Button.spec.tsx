@@ -31,8 +31,7 @@ it('checks component css', () => {
     border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 600;
   line-height: 20px;
   border-radius: 4px;
@@ -521,8 +520,7 @@ it('checks component css', () => {
 .MuiButton-sizeLarge {
   padding: 14px 64px;
   font-size: 16px;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 600;
   line-height: 24px;
 }

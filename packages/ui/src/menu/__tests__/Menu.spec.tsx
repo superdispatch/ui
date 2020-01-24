@@ -51,8 +51,7 @@ it('checks component css', () => {
   font-size: 14px;
   box-sizing: border-box;
   min-height: 48px;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
   padding-top: 8px;
@@ -76,8 +75,7 @@ it('checks component css', () => {
 .MuiMenuItem-dense {
   font-size: 14px;
   min-height: auto;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
 }

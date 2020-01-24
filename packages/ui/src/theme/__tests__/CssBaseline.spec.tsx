@@ -24,8 +24,7 @@ it('checks component css', () => {
       color: Color.Grey500;
       margin: 0;
       font-size: 14px;
-      font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-        'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+      font-family: SF Pro Text;
       font-weight: 400;
       line-height: 20px;
       background-color: #fafafa;
