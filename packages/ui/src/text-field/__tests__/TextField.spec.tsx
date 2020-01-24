@@ -210,19 +210,9 @@ label[data-shrink='false']
 }
 
 .MuiInputLabel-root {
-  color: Color.Grey400;
   display: block;
-  font-size: 16px;
-  line-height: 24px;
   margin-bottom: 4px;
   transform-origin: top left;
-}
-
-@media (min-width: 600px) {
-  .MuiInputLabel-root {
-    font-size: 14px;
-    line-height: 20px;
-  }
 }
 
 .MuiInputLabel-marginDense {
@@ -265,7 +255,7 @@ label[data-shrink='false']
 }
 
 .MuiFormLabel-root {
-  color: Color.Grey200;
+  color: Color.Grey400;
   padding: 0;
   font-size: 14px;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
@@ -337,7 +327,7 @@ label[data-shrink='false']
 
 @media (min-width: 600px) {
   .MuiOutlinedInput-root .MuiInputAdornment-root > .MuiSvgIcon-root {
-    font-size: 20px;
+    font-size: 24px;
   }
 }
 
@@ -369,20 +359,28 @@ label[data-shrink='false']
 .MuiOutlinedInput-input {
   height: 24px;
   padding: 10px 16px;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
+  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
+    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .MuiOutlinedInput-input:-webkit-autofill {
   border-radius: inherit;
 }
 
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiOutlinedInput-input {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 @media (min-width: 600px) {
   .MuiOutlinedInput-input {
     height: 20px;
     padding: 6px 8px;
-    font-size: 14px;
-    line-height: 20px;
   }
 }
 
@@ -453,15 +451,8 @@ label[data-shrink='false']
 .MuiSelect-selectMenu {
   height: auto;
   overflow: hidden;
-  line-height: 24px;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-@media (min-width: 600px) {
-  .MuiSelect-selectMenu {
-    line-height: 20px;
-  }
 }
 
 .MuiSelect-selectMenu.MuiSelect-selectMenu {
@@ -496,20 +487,20 @@ label[data-shrink='false']
 .MuiFormHelperText-root {
   color: Color.Grey200;
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 8px;
   min-height: 1em;
   text-align: left;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
 }
 
 @media (min-width: 0px) and (max-width: 599.95px) {
   .MuiFormHelperText-root {
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
@@ -519,13 +510,6 @@ label[data-shrink='false']
 
 .MuiFormHelperText-root.Mui-error {
   color: Color.Red300;
-}
-
-@media (min-width: 600px) {
-  .MuiFormHelperText-root {
-    font-size: 14px;
-    line-height: 20px;
-  }
 }
 
 .MuiFormHelperText-marginDense {

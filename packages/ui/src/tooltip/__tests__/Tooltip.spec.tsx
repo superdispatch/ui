@@ -101,6 +101,13 @@ it('checks component css', () => {
   background-color: Color.Grey400;
 }
 
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiTooltip-tooltip {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 .MuiTooltip-tooltipArrow {
   margin: 0;
   position: relative;
