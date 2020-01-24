@@ -3,6 +3,7 @@ import {
   TypographyStyleOptions,
   Variant,
 } from '@material-ui/core/styles/createTypography';
+import { CSSProperties } from '@material-ui/styles';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -20,6 +21,25 @@ const typographyVariants: Variant[] = [
   'button',
   'caption',
 ];
+
+function xsOnly(theme: SuperDispatchTheme): string {
+  return theme.breakpoints.only('xs');
+}
+
+export function getTypographyProp(
+  theme: SuperDispatchTheme,
+  platform: ThemePlatform,
+  variant: Variant,
+  prop: 'fontSize' | 'lineHeight',
+): string | undefined {
+  let css = theme.typography[variant];
+
+  if (platform === 'mobile') {
+    css = css[xsOnly(theme)] as CSSProperties;
+  }
+
+  return css?.[prop] as string;
+}
 
 export function fontWeightVariant(variant: Variant): number {
   switch (variant) {
@@ -123,13 +143,9 @@ export function createTypographyOptions(): TypographyOptions {
 
 function responsiveTypography(theme: SuperDispatchTheme) {
   typographyVariants.forEach((variant: Variant) => {
-    Object.defineProperty(
-      theme.typography[variant],
-
-      // We're not using `up('sm')` here so this selector would not be
-      // overridden later.
-      theme.breakpoints.only('xs'),
-      { enumerable: true, value: typographyVariant(variant, 'mobile') },
+    theme.typography[variant][xsOnly(theme)] = typographyVariant(
+      variant,
+      'mobile',
     );
   });
 }
