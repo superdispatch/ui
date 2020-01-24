@@ -70,6 +70,14 @@ function formatAST(sheet: Stylesheet): string {
   return format(
     css
       .stringify(sheet)
+      .replace(
+        /font-family: ([\S\s][^;]+);/gm,
+        (_, fonts) =>
+          `font-family: ${fonts
+            .split(',')
+            .shift()
+            .trim()};`,
+      )
       .replace(colorRegExp, color => colors.get(color) as string),
     { parser: 'css', singleQuote: true },
   ).trim();

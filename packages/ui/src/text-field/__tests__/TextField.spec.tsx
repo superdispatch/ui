@@ -56,8 +56,7 @@ it('checks component css', () => {
   font-size: 1rem;
   box-sizing: border-box;
   align-items: center;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   line-height: 1.1875em;
 }
 
@@ -258,8 +257,7 @@ label[data-shrink='false']
   color: Color.Grey400;
   padding: 0;
   font-size: 14px;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
 }
@@ -360,8 +358,7 @@ label[data-shrink='false']
   height: 24px;
   padding: 10px 16px;
   font-size: 14px;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
 }
@@ -491,8 +488,7 @@ label[data-shrink='false']
   margin-top: 8px;
   min-height: 1em;
   text-align: left;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
 }

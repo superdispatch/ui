@@ -93,8 +93,7 @@ it('checks component css', () => {
   font-size: 14px;
   max-width: 300px;
   word-wrap: break-word;
-  font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
+  font-family: SF Pro Text;
   font-weight: 400;
   line-height: 20px;
   border-radius: 4px;
