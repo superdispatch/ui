@@ -2,7 +2,7 @@ import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { fontHeightVariant } from '../typography/TypographyStyles';
+import { getTypographyProp } from '../typography/TypographyStyles';
 
 function textVariant(
   text: Color,
@@ -141,16 +141,17 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
 
     label: {
       '& > .MuiSvgIcon-root': {
-        fontSize: fontHeightVariant('button', 'mobile'),
+        fontSize: getTypographyProp(theme, 'mobile', 'button', 'lineHeight'),
 
         [theme.breakpoints.up('sm')]: {
-          fontSize: fontHeightVariant('button', 'desktop'),
+          fontSize: getTypographyProp(theme, 'desktop', 'button', 'lineHeight'),
         },
 
         '$sizeLarge &': {
-          fontSize: fontHeightVariant('h4', 'mobile'),
+          fontSize: getTypographyProp(theme, 'mobile', 'h4', 'lineHeight'),
+
           [theme.breakpoints.up('sm')]: {
-            fontSize: fontHeightVariant('h4', 'desktop'),
+            fontSize: getTypographyProp(theme, 'desktop', 'h4', 'lineHeight'),
           },
         },
       },
