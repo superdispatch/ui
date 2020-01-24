@@ -55,8 +55,8 @@ it('checks component css', () => {
 
 @media (min-width: 0px) and (max-width: 599.95px) {
   .MuiTypography-caption {
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 20px;
   }
 }
 
@@ -155,8 +155,8 @@ it('checks component css', () => {
 
 @media (min-width: 0px) and (max-width: 599.95px) {
   .MuiTypography-h6 {
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 20px;
   }
 }
 
