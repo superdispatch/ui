@@ -1,3 +1,4 @@
+import { Theme } from '@material-ui/core';
 import {
   TypographyOptions,
   TypographyStyleOptions,
@@ -22,12 +23,12 @@ const typographyVariants: Variant[] = [
   'caption',
 ];
 
-function xsOnly(theme: SuperDispatchTheme): string {
+function xsOnly(theme: Theme): string {
   return theme.breakpoints.only('xs');
 }
 
 export function getTypographyProp(
-  theme: SuperDispatchTheme,
+  theme: Theme,
   platform: ThemePlatform,
   variant: Variant,
   prop: 'fontSize' | 'lineHeight',
@@ -58,10 +59,8 @@ function fontWeightVariant(variant: Variant): number {
       return 400;
   }
 }
-export function fontSizeVariant(
-  variant: Variant,
-  platform: ThemePlatform,
-): string {
+
+function fontSizeVariant(variant: Variant, platform: ThemePlatform): string {
   const isMobile = platform === 'mobile';
 
   switch (variant) {
@@ -81,7 +80,7 @@ export function fontSizeVariant(
   }
 }
 
-export function fontHeightVariant(variant: Variant, platform: ThemePlatform) {
+function fontHeightVariant(variant: Variant, platform: ThemePlatform) {
   const isMobile = platform === 'mobile';
 
   switch (variant) {

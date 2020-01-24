@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { fontHeightVariant } from '../typography/TypographyStyles';
+import { getTypographyProp } from '../typography/TypographyStyles';
 
 export type CardButtonClassKey =
   | 'root'
@@ -72,7 +72,13 @@ const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
 
     icon: {
       display: 'flex',
-      '& .MuiSvgIcon-root': { fontSize: fontHeightVariant('body1', 'desktop') },
+      '& .MuiSvgIcon-root': {
+        fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+
+        [theme.breakpoints.up('sm')]: {
+          fontSize: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
+        },
+      },
     },
     startIcon: {
       marginRight: theme.spacing(1),
