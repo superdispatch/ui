@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useMemo } from 'react';
+import { ReactElement, ReactNode, useMemo } from 'react';
 
 import { PhoneNumber } from './data/PhoneNumber';
 
@@ -20,6 +20,5 @@ export function PhoneText({
     phoneNumber,
   ]);
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{children || fallback}</>;
+  return (children || fallback) as ReactElement;
 }
