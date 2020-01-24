@@ -78,7 +78,7 @@ it('checks component css', () => {
   padding: 6px 12px;
   overflow: hidden;
   position: relative;
-  font-size: 16px;
+  font-size: 14px;
   max-width: 264px;
   min-width: 72px;
   box-sizing: border-box;
@@ -88,15 +88,21 @@ it('checks component css', () => {
   flex-shrink: 0;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  line-height: 24px;
+  font-weight: 400;
+  line-height: 20px;
   white-space: normal;
+}
+
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiTab-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 @media (min-width: 600px) {
   .MuiTab-root {
     padding: 6px 24px;
-    font-size: 14px;
-    line-height: 20px;
   }
 }
 

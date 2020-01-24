@@ -17,6 +17,7 @@ const typographyVariants: Variant[] = [
   'h6',
   'body2',
   'body1',
+  'button',
   'caption',
 ];
 
@@ -31,6 +32,7 @@ export function fontWeightVariant(variant: Variant): number {
       return 500;
     case 'h5':
     case 'body1':
+    case 'button':
       return 600;
     default:
       return 400;

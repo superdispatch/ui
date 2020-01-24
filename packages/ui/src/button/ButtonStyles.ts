@@ -2,10 +2,7 @@ import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import {
-  fontHeightVariant,
-  fontSizeVariant,
-} from '../typography/TypographyStyles';
+import { fontHeightVariant } from '../typography/TypographyStyles';
 
 function textVariant(
   text: Color,
@@ -100,23 +97,17 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiButton = {
     root: {
       color: undefined,
-      textTransform: undefined,
       minWidth: theme.spacing(6),
 
       transition: theme.transitions.create(
         ['color', 'border', 'box-shadow', 'background-color'],
-        {
-          duration: theme.transitions.duration.short,
-        },
+        { duration: theme.transitions.duration.short },
       ),
 
-      fontSize: fontSizeVariant('button', 'desktop'),
-      lineHeight: fontHeightVariant('button', 'desktop'),
-      padding: theme.spacing(0.75, 2),
-      [theme.breakpoints.only('xs')]: {
-        padding: theme.spacing(1.25, 3),
-        fontSize: fontSizeVariant('button', 'mobile'),
-        lineHeight: fontHeightVariant('button', 'mobile'),
+      padding: theme.spacing(1.25, 3),
+
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(0.75, 2),
       },
 
       '&:hover': {
@@ -159,16 +150,15 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
     },
 
     sizeSmall: {
-      padding: theme.spacing(0.25, 2),
-      [theme.breakpoints.only('xs')]: { padding: theme.spacing(0.5, 3) },
+      padding: theme.spacing(0.5, 3),
+      [theme.breakpoints.up('sm')]: { padding: theme.spacing(0.25, 2) },
     },
 
     sizeLarge: {
-      fontSize: fontSizeVariant('h4', 'desktop'),
-      lineHeight: fontHeightVariant('h4', 'desktop'),
+      ...theme.typography.h4,
 
-      padding: theme.spacing(1.25, 5),
-      [theme.breakpoints.only('xs')]: { padding: theme.spacing(2, 8) },
+      padding: theme.spacing(2, 8),
+      [theme.breakpoints.up('sm')]: { padding: theme.spacing(1, 4) },
     },
 
     text: {
