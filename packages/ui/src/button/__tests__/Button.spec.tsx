@@ -83,16 +83,22 @@ it('checks component css', () => {
   justify-content: inherit;
 }
 
-.MuiButton-label > svg {
-  font-size: 20px;
-}
-
-.MuiButton-sizeLarge .MuiButton-label > svg {
+.MuiButton-label > .MuiSvgIcon-root {
   font-size: 24px;
 }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiButton-label > svg {
+@media (min-width: 600px) {
+  .MuiButton-label > .MuiSvgIcon-root {
+    font-size: 20px;
+  }
+}
+
+.MuiButton-sizeLarge .MuiButton-label > .MuiSvgIcon-root {
+  font-size: 28px;
+}
+
+@media (min-width: 600px) {
+  .MuiButton-sizeLarge .MuiButton-label > .MuiSvgIcon-root {
     font-size: 24px;
   }
 }
@@ -513,11 +519,11 @@ it('checks component css', () => {
 }
 
 .MuiButton-sizeLarge {
-  padding: 16px 64px;
+  padding: 14px 64px;
   font-size: 16px;
   font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, 'San Francisco',
     'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 24px;
 }
 

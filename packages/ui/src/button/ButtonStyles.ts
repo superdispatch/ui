@@ -140,11 +140,18 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
     },
 
     label: {
-      '& > svg': {
-        fontSize: fontHeightVariant('button', 'desktop'),
-        '$sizeLarge &': { fontSize: fontHeightVariant('h4', 'desktop') },
-        [theme.breakpoints.only('xs')]: {
-          fontSize: fontHeightVariant('h4', 'desktop'),
+      '& > .MuiSvgIcon-root': {
+        fontSize: fontHeightVariant('button', 'mobile'),
+
+        [theme.breakpoints.up('sm')]: {
+          fontSize: fontHeightVariant('button', 'desktop'),
+        },
+
+        '$sizeLarge &': {
+          fontSize: fontHeightVariant('h4', 'mobile'),
+          [theme.breakpoints.up('sm')]: {
+            fontSize: fontHeightVariant('h4', 'desktop'),
+          },
         },
       },
     },
@@ -156,8 +163,9 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
 
     sizeLarge: {
       ...theme.typography.h4,
+      fontWeight: theme.typography.body1.fontWeight,
 
-      padding: theme.spacing(2, 8),
+      padding: theme.spacing(1.75, 8),
       [theme.breakpoints.up('sm')]: { padding: theme.spacing(1, 4) },
     },
 
