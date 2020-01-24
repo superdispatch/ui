@@ -8,15 +8,6 @@ it('checks component css', () => {
     .toMatchInlineSnapshot(`
     .SuperDispatchCalendar-container {
       display: inline-block;
-      font-size: 16px;
-      line-height: 24px;
-    }
-
-    @media (min-width: 600px) {
-      .SuperDispatchCalendar-container {
-        font-size: 14px;
-        line-height: 20px;
-      }
     }
 
     .SuperDispatchCalendar-wrapper {

@@ -11,10 +11,6 @@ import DayPicker, {
 } from 'react-day-picker';
 
 import { Color, ColorVariant } from '../theme/Color';
-import {
-  fontHeightVariant,
-  fontSizeVariant,
-} from '../typography/TypographyStyles';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
@@ -33,17 +29,7 @@ export type CalendarClassNames =
 
 const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
   theme => ({
-    container: {
-      display: 'inline-block',
-
-      fontSize: fontSizeVariant('body1', 'mobile'),
-      lineHeight: fontHeightVariant('body1', 'mobile'),
-
-      [theme.breakpoints.up('sm')]: {
-        fontSize: fontSizeVariant('body1', 'desktop'),
-        lineHeight: fontHeightVariant('body1', 'desktop'),
-      },
-    },
+    container: { display: 'inline-block' },
 
     wrapper: {
       userSelect: 'none',
