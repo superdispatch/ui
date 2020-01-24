@@ -70,7 +70,11 @@ function createTheme() {
     overrides: {},
   }) as SuperDispatchTheme;
 
+  // Implement Typography changes first.
+  applyTypographyStyles(theme);
+
   applyAppBarStyles(theme);
+  applyButtonStyles(theme);
   applyCardStyles(theme);
   applyCheckboxStyles(theme);
   applyDialogStyles(theme);
@@ -80,16 +84,13 @@ function createTheme() {
   applyMenuStyles(theme);
   applyPaperStyles(theme);
   applyRadioStyles(theme);
+  applySnackbarStyles(theme);
   applySvgIconStyles(theme);
   applySwitchStyles(theme);
   applyTabsStyles(theme);
   applyTextFieldStyles(theme);
   applyToolbarStyles(theme);
   applyTooltipStyles(theme);
-  applyTypographyStyles(theme);
-
-  applyButtonStyles(theme);
-  applySnackbarStyles(theme);
 
   return theme;
 }
