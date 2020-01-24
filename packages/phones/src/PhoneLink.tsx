@@ -2,6 +2,7 @@ import { Link, LinkProps } from '@material-ui/core';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
+  ReactElement,
   ReactNode,
   RefAttributes,
   useMemo,
@@ -31,8 +32,7 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   );
 
   return !linkProps.children ? (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>{fallback}</>
+    (fallback as ReactElement)
   ) : (
     <Link {...props} {...linkProps} ref={ref} />
   );
