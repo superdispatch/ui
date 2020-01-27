@@ -31,7 +31,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/fixtures/**.*'],
+      files: ['**/packages/__fixtures__/**.*'],
       rules: { 'import/no-anonymous-default-export': 'off' },
     },
   ],
