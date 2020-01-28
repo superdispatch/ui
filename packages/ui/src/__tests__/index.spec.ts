@@ -85,9 +85,17 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
-      "DateField": [Function],
+      "DateField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DateField",
+        "render": [Function],
+      },
       "DatePicker": [Function],
-      "DateRangeField": [Function],
+      "DateRangeField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DateRangeField",
+        "render": [Function],
+      },
       "DateRangePicker": [Function],
       "DateTextField": Object {
         "$$typeof": Symbol(react.forward_ref),
