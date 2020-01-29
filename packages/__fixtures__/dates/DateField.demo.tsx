@@ -9,7 +9,7 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
-import { DateField, DatePickerValue } from '@superdispatch/ui';
+import { DateField, DatePickerValue } from '@superdispatch/dates';
 import moment from 'moment';
 import React, { useState } from 'react';
 

@@ -1,5 +1,5 @@
-import { Popover } from '@material-ui/core';
-import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
+import { OutlinedTextFieldProps, Popover } from '@material-ui/core';
+import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -9,11 +9,10 @@ import React, {
   useRef,
 } from 'react';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
-import { formatDate } from '../calendar/DateUtils';
-import { mergeRefs } from '../utils/mergeRefs';
+import { Calendar, CalendarProps } from './Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
+import { formatDate } from './DateUtils';
 
 interface DateFieldAPI {
   close: () => void;

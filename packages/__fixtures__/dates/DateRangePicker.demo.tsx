@@ -13,7 +13,7 @@ import {
   DateRangePickerProps,
   DateRangePickerQuickSelectionItem,
   DateRangePickerValue,
-} from '@superdispatch/ui';
+} from '@superdispatch/dates';
 import moment from 'moment';
 import React, { useState } from 'react';
 

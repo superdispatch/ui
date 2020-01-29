@@ -13,7 +13,7 @@ import {
   CalendarQuickSelection,
   CalendarQuickSelectionItem,
   DateRangeField,
-} from '@superdispatch/ui';
+} from '@superdispatch/dates';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 

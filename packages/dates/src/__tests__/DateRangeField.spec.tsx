@@ -1,7 +1,7 @@
 import { renderCSS } from '@superdispatch/testutils';
 import React from 'react';
 
-import { DateRangeField } from '../..';
+import { DateRangeField } from '../DateRangeField';
 
 it('checks component css', () => {
   expect(renderCSS(<DateRangeField />, ['SuperDispatchDateRangePicker']))

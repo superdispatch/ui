@@ -1,5 +1,5 @@
-import { Popover } from '@material-ui/core';
-import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
+import { OutlinedTextFieldProps, Popover } from '@material-ui/core';
+import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -10,15 +10,14 @@ import React, {
   useState,
 } from 'react';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
+import { Calendar, CalendarProps } from './Calendar';
+import { useDatePickerPopoverState } from './DatePickerBase';
+import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import {
   DateRange,
   formatDateRange,
   normalizeDateRange,
-} from '../calendar/DateRangeUtils';
-import { mergeRefs } from '../utils/mergeRefs';
-import { useDatePickerPopoverState } from './DatePickerBase';
-import { useDateRangePickerStyles } from './DateRangePickerStyles';
+} from './DateRangeUtils';
 import { DateTextField } from './DateTextField';
 
 interface DateRangeFieldAPI {

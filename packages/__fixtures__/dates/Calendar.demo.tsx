@@ -16,7 +16,7 @@ import {
   CalendarProps,
   CalendarQuickSelection,
   CalendarQuickSelectionItem,
-} from '@superdispatch/ui';
+} from '@superdispatch/dates';
 import { startCase } from 'lodash';
 import moment from 'moment';
 import React, { useMemo, useState } from 'react';

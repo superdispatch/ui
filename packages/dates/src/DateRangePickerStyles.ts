@@ -1,7 +1,6 @@
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
-import { Color } from '../theme/Color';
+import { Color } from '@superdispatch/ui';
 
 export const useDateRangePickerStyles = makeStyles<Theme>(
   theme => ({

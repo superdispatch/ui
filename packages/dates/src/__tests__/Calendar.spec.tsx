@@ -1,7 +1,7 @@
 import { renderCSS } from '@superdispatch/testutils';
 import React from 'react';
 
-import { Calendar } from '../..';
+import { Calendar } from '../Calendar';
 
 it('checks component css', () => {
   expect(renderCSS(<Calendar />, ['SuperDispatchCalendar']))

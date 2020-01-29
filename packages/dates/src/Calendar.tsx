@@ -1,7 +1,7 @@
-import { Divider, Grid, Hidden, Theme } from '@material-ui/core';
-import { GridDirection } from '@material-ui/core/Grid';
+import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
+import { Color, ColorVariant } from '@superdispatch/ui';
 import React, { ReactNode } from 'react';
 import DayPicker, {
   ClassNames,
@@ -10,7 +10,6 @@ import DayPicker, {
   Modifier,
 } from 'react-day-picker';
 
-import { Color, ColorVariant } from '../theme/Color';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
