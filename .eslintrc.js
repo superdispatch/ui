@@ -22,11 +22,13 @@ module.exports = {
       },
     },
     {
-      files: '**/{__tests__,__testutils__}/*.{ts,tsx}',
+      files: ['setupTestGlobals.ts', '**/{__tests__,__testutils__}/*.{ts,tsx}'],
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
         'import/no-extraneous-dependencies': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        'import/no-anonymous-default-export': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },

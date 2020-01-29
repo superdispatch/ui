@@ -14,7 +14,7 @@ import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
 import { DateRange, normalizeDateRange } from './DateRangeUtils';
-import { isFirstDayOfMonth, isLastDayOfMonth } from './DateUtils';
+import { DateLike, isSameDate, toDateEnd, toDateStart } from './DateUtils';
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
@@ -263,6 +263,14 @@ export interface CalendarProps
   highlightedDays?: Partial<
     Record<CalendarDayHighlightColor, Modifier | Modifier[]>
   >;
+}
+
+function isFirstDayOfMonth(date: DateLike): boolean {
+  return isSameDate(date, toDateStart(date, 'month'), 'day');
+}
+
+function isLastDayOfMonth(date: DateLike): boolean {
+  return isSameDate(date, toDateEnd(date, 'month'), 'day');
 }
 
 export function Calendar({

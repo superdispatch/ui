@@ -4,8 +4,6 @@ it('exposes public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "Calendar": [Function],
-      "CalendarCaption": [Function],
-      "CalendarNavbar": [Function],
       "CalendarQuickSelection": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "CalendarQuickSelection",
@@ -16,7 +14,6 @@ it('exposes public api', () => {
         "displayName": "CalendarQuickSelectionItem",
         "render": [Function],
       },
-      "CalendarWeekDay": [Function],
       "DateField": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DateField",
@@ -35,6 +32,7 @@ it('exposes public api', () => {
         "displayName": "DateTextField",
         "render": [Function],
       },
+      "DateUtils": [Function],
       "formatDate": [Function],
       "formatDateRange": [Function],
       "isFirstDayOfMonth": [Function],

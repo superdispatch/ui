@@ -12,7 +12,9 @@
     "build": "pika build"
   },
   "dependencies": {
+    "@date-io/core": "^2.0.0",
     "@superdispatch/ui": "^0.0.83",
+    "dayjs": "^1.8.19",
     "react-day-picker": "^7.3.2"
   },
   "publishConfig": {
