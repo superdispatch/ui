@@ -2,7 +2,7 @@ import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 import { Color, ColorVariant } from '@superdispatch/ui';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,
@@ -13,14 +13,8 @@ import DayPicker, {
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
-import {
-  DateLike,
-  DateRangeLike,
-  isSameDate,
-  setEndOfDate,
-  setStartOfDate,
-  toDateRange,
-} from './DateUtils';
+import { useDateUtils } from './DateContext';
+import { DateRangeLike, isSameDate, toDateRange } from './DateUtils';
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
@@ -271,14 +265,6 @@ export interface CalendarProps
   >;
 }
 
-function isFirstDayOfMonth(date: DateLike): boolean {
-  return isSameDate(date, setStartOfDate(date, 'month'), 'day');
-}
-
-function isLastDayOfMonth(date: DateLike): boolean {
-  return isSameDate(date, setEndOfDate(date, 'month'), 'day');
-}
-
 export function Calendar({
   footer,
   classes,
@@ -290,8 +276,21 @@ export function Calendar({
 
   ...props
 }: CalendarProps) {
+  const utils = useDateUtils();
   const styles = useStyles({ classes });
   const [selectedFrom, selectedTo] = toDateRange(selectedDays);
+
+  const isFirstDayOfMonth = useCallback(
+    (date: Date): boolean =>
+      isSameDate(date, utils.startOf(date, 'month'), 'day'),
+    [utils],
+  );
+
+  const isLastDayOfMonth = useCallback(
+    (date: Date): boolean =>
+      isSameDate(date, utils.endOf(date, 'month'), 'day'),
+    [utils],
+  );
 
   return (
     <Grid container={true} direction={direction}>

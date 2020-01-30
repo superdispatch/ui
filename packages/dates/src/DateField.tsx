@@ -10,9 +10,9 @@ import React, {
 } from 'react';
 
 import { Calendar, CalendarProps } from './Calendar';
+import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
-import { formatDate } from './DateUtils';
 
 interface DateFieldAPI {
   close: () => void;
@@ -58,9 +58,13 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     },
     ref,
   ) => {
+    const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const textValue = useMemo(() => (!value ? '' : formatDate(value)), [value]);
+    const textValue = useMemo(() => (!value ? '' : utils.formatDate(value)), [
+      utils,
+      value,
+    ]);
 
     const handleClose = () => {
       onClose();

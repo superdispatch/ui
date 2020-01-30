@@ -11,10 +11,11 @@ import React, {
 } from 'react';
 
 import { Calendar, CalendarProps } from './Calendar';
+import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
-import { DateRange, formatDateRange, toDateRange } from './DateUtils';
+import { DateRange, toDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
   close: () => void;
@@ -66,12 +67,16 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     },
     ref,
   ) => {
+    const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
       classes: calendarClasses,
     });
-    const textValue = useMemo(() => formatDateRange(value), [value]);
+    const textValue = useMemo(
+      () => (!value ? '' : utils.formatDateRange(value)),
+      [utils, value],
+    );
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
     const [fromDate, actualToDate] = toDateRange(value);
     const toDate = actualToDate || hoveredDate;
