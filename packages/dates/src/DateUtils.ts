@@ -1,18 +1,7 @@
-import dayjs from 'dayjs';
-import dayjsCustomParseFormatPlugin from 'dayjs/plugin/customParseFormat';
-import dayjsIsBetweenPlugin from 'dayjs/plugin/isBetween';
-import dayjsPluginRelativeTime from 'dayjs/plugin/relativeTime';
-import dayjsUtcPlugin from 'dayjs/plugin/utc';
-
-// This plugin is needed by formatRelativeTimeToNow and formatRelativeTime.
-dayjs.extend(dayjsPluginRelativeTime);
-
-dayjs.extend(dayjsIsBetweenPlugin);
-dayjs.extend(dayjsCustomParseFormatPlugin);
-dayjs.extend(dayjsUtcPlugin);
+import { DateTime } from 'luxon';
 
 export type DateLike = number | Date;
-export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
+export type NullableDateLike = null | undefined | DateLike;
 export type DateUnit =
   | 'year'
   | 'month'
@@ -22,11 +11,27 @@ export type DateUnit =
   | 'second'
   | 'millisecond';
 
-const formats: Record<DateFormat, string> = {
-  DateISO: 'YYYY-MM-DD',
-  JodaISO: 'YYYY-MM-DDTHH:mm:ss.SSSZZ',
-  DateTimeISO: 'YYYY-MM-DDTHH:mm:ss.SSS[Z]',
-};
+export type DateRange = [Date?, Date?];
+export type DateRangeLike = [DateLike?, DateLike?];
+export type NullableDateRangeLike = null | undefined | DateRangeLike;
+
+function toDateTime(
+  value: string | DateLike,
+  { timeZoneOffset }: { timeZoneOffset?: number } = {},
+): DateTime {
+  let dateTime =
+    typeof value === 'string'
+      ? DateTime.fromISO(value, { zone: 'UTC' })
+      : typeof value === 'number'
+      ? DateTime.fromMillis(value)
+      : DateTime.fromJSDate(value);
+
+  return dateTime.toUTC(timeZoneOffset);
+}
+
+//
+// Validations
+//
 
 export function isDate(value: unknown): value is Date {
   return value != null && value instanceof Date;
@@ -39,73 +44,91 @@ export function isDateLike(value: unknown): value is DateLike {
 }
 
 export function isValidDate(value: unknown): value is Date {
-  return isDateLike(value) && dayjs(value).isValid();
+  return isDate(value) && Number.isFinite(value.getTime());
 }
 
-export function toDate(value: DateLike): Date {
-  return !isDateLike(value)
-    ? new Date(NaN)
-    : dayjs(value, { utc: true }).toDate();
+//
+// Transformations
+//
+
+export function toDate(value: NullableDateLike): Date {
+  return !isDateLike(value) ? new Date(NaN) : new Date(value);
 }
 
-export function isSameDate(
-  value: null | undefined | DateLike,
-  compare: null | undefined | DateLike,
-  unit?: DateUnit,
-): boolean {
-  return value == null && compare == null
-    ? true
-    : value == null || compare == null
-    ? false
-    : dayjs(value).isSame(compare, unit);
+//
+// Manipulations
+//
+
+export function setStartOfDate(
+  value: DateLike,
+  unit: DateUnit,
+  timeZoneOffset?: number,
+): Date {
+  return toDateTime(value, { timeZoneOffset })
+    .startOf(unit)
+    .toJSDate();
 }
 
-export function tryParseDate(
-  value: unknown,
-  format: DateFormat,
-): undefined | Date {
-  if (!(format in formats)) {
-    return undefined;
+export function setEndOfDate(
+  value: DateLike,
+  unit: DateUnit,
+  timeZoneOffset?: number,
+): Date {
+  return toDateTime(value, { timeZoneOffset })
+    .endOf(unit)
+    .toJSDate();
+}
+
+//
+// Formatting
+//
+
+export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
+
+const formats: Record<DateFormat, string> = {
+  DateISO: 'yyyy-MM-dd',
+  JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
+  DateTimeISO: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+};
+
+export function parseDate(value: unknown, format: DateFormat): Date {
+  if (isDateLike(value)) {
+    return toDate(value);
   }
 
-  const date = isDateLike(value)
-    ? toDate(value)
-    : typeof value === 'string'
-    ? dayjs(value, { utc: true, format: formats[format] }).toDate()
-    : undefined;
+  if (typeof value === 'string') {
+    if (format === 'DateISO' || format === 'DateTimeISO') {
+      return DateTime.fromISO(value, { zone: 'UTC' }).toJSDate();
+    }
 
-  return isValidDate(date) ? date : undefined;
+    if (format === 'JodaISO') {
+      return DateTime.fromFormat(value, formats.JodaISO).toJSDate();
+    }
+  }
+
+  return new Date(NaN);
 }
 
 export function stringifyDate(value: DateLike, format: DateFormat): string {
-  return dayjs(value, { utc: true }).format(formats[format]);
-}
+  const dateTime = toDateTime(value);
 
-export function toDateStart(value: DateLike, unit: DateUnit): Date {
-  return dayjs(value)
-    .startOf(unit)
-    .toDate();
-}
+  if (!dateTime.isValid) {
+    return 'Invalid Date';
+  }
 
-export function toDateEnd(value: DateLike, unit: DateUnit): Date {
-  return dayjs(value)
-    .endOf(unit)
-    .toDate();
-}
+  if (format === 'DateTimeISO') {
+    return dateTime.toISO();
+  }
 
-export interface DateUtilsOptions {
-  timeZoneOffset?: number;
+  return dateTime.toFormat(formats[format]);
 }
-
-export interface FormatDateOptions
-  extends DateUtilsOptions,
-    Omit<Intl.DateTimeFormatOptions, 'timeZone' | 'timeZoneName'> {}
 
 export function formatDate(
   value: DateLike,
-  { timeZoneOffset = 0, ...options }: FormatDateOptions = {},
+  { timeZoneOffset, ...options }: FormatDateOptions = {},
 ): string {
-  return toDate(value).toLocaleString('en-US', {
+  return toDateTime(value, { timeZoneOffset }).toLocaleString({
+    locale: 'en-US',
     day: '2-digit',
     month: 'short',
     year: 'numeric',
@@ -115,18 +138,87 @@ export function formatDate(
 
 export function formatDateTime(
   value: DateLike,
-  options: FormatDateOptions,
+  options?: FormatDateOptions,
 ): string {
   return formatDate(value, { hour: 'numeric', minute: 'numeric', ...options });
 }
 
 export function formatRelativeTime(value: DateLike, compare: DateLike): string {
-  return dayjs(value).from(compare);
+  return toDateTime(value).toRelative({
+    locale: 'en-US',
+    base: toDateTime(compare),
+  }) as string;
 }
 
-export function formatRelativeTimeToNow(value: DateLike): string {
-  return dayjs(value).fromNow();
+export function isSameDate(
+  value: NullableDateLike,
+  compare: NullableDateLike,
+  unit: DateUnit = 'millisecond',
+): boolean {
+  if (value == null && compare == null) {
+    return true;
+  }
+
+  if (value == null || compare == null) {
+    return false;
+  }
+
+  return toDateTime(value)
+    .startOf(unit)
+    .equals(toDateTime(compare).startOf(unit));
 }
+
+//
+// Date Ranges
+//
+
+export function toDateRange(range: NullableDateRangeLike): DateRange {
+  if (range == null || !Array.isArray(range)) {
+    return [];
+  }
+
+  const [start, end] = range
+    .filter(isDateLike)
+    .map(toDate)
+    .sort((a, b) => a.getTime() - b.getTime());
+
+  return [start, end];
+}
+
+export function isSameDateRange(
+  value: NullableDateRangeLike,
+  compare: NullableDateRangeLike,
+  unit?: DateUnit,
+) {
+  const range1 = toDateRange(value);
+  const range2 = toDateRange(compare);
+
+  return !range1.some((date, idx) => isSameDate(date, range2[idx], unit));
+}
+
+export function formatDateRange(range?: DateRange): string {
+  const [from, to] = toDateRange(range);
+
+  if (!from) {
+    return '';
+  }
+
+  const fromText = !isSameDate(from, to, 'year')
+    ? formatDate(from)
+    : formatDate(from, { year: undefined });
+
+  const toText = !to ? '…' : formatDate(to);
+
+  return `${fromText} - ${toText}`;
+}
+
+export interface DateUtilsOptions {
+  timeZoneOffset?: number;
+}
+
+export interface FormatDateOptions
+  extends DateUtilsOptions,
+    Omit<Intl.DateTimeFormatOptions, 'timeZone' | 'timeZoneName'> {}
 
 export class DateUtils {
   protected options: DateUtilsOptions;

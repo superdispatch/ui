@@ -13,8 +13,14 @@ import DayPicker, {
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
-import { DateRange, normalizeDateRange } from './DateRangeUtils';
-import { DateLike, isSameDate, toDateEnd, toDateStart } from './DateUtils';
+import {
+  DateLike,
+  DateRangeLike,
+  isSameDate,
+  setEndOfDate,
+  setStartOfDate,
+  toDateRange,
+} from './DateUtils';
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
@@ -252,7 +258,7 @@ export interface CalendarProps
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: DateRange;
+  selectedDays?: DateRangeLike;
 
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
@@ -266,11 +272,11 @@ export interface CalendarProps
 }
 
 function isFirstDayOfMonth(date: DateLike): boolean {
-  return isSameDate(date, toDateStart(date, 'month'), 'day');
+  return isSameDate(date, setStartOfDate(date, 'month'), 'day');
 }
 
 function isLastDayOfMonth(date: DateLike): boolean {
-  return isSameDate(date, toDateEnd(date, 'month'), 'day');
+  return isSameDate(date, setEndOfDate(date, 'month'), 'day');
 }
 
 export function Calendar({
@@ -285,7 +291,7 @@ export function Calendar({
   ...props
 }: CalendarProps) {
   const styles = useStyles({ classes });
-  const [selectedFrom, selectedTo] = normalizeDateRange(selectedDays);
+  const [selectedFrom, selectedTo] = toDateRange(selectedDays);
 
   return (
     <Grid container={true} direction={direction}>

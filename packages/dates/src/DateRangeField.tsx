@@ -13,12 +13,8 @@ import React, {
 import { Calendar, CalendarProps } from './Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
-import {
-  DateRange,
-  formatDateRange,
-  normalizeDateRange,
-} from './DateRangeUtils';
 import { DateTextField } from './DateTextField';
+import { DateRange, formatDateRange, toDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
   close: () => void;
@@ -77,7 +73,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     });
     const textValue = useMemo(() => formatDateRange(value), [value]);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-    const [fromDate, actualToDate] = normalizeDateRange(value);
+    const [fromDate, actualToDate] = toDateRange(value);
     const toDate = actualToDate || hoveredDate;
 
     const handleClose = () => {
@@ -87,7 +83,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     };
 
     const handleChange = (nextValue: undefined | DateRange) => {
-      const nextRange = normalizeDateRange(nextValue);
+      const nextRange = toDateRange(nextValue);
 
       onChange?.(nextRange);
 

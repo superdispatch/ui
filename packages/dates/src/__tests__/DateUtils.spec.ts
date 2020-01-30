@@ -1,136 +1,256 @@
+import { DateTime } from 'luxon';
+
 import {
   DateFormat,
+  DateUnit,
+  formatDate,
+  formatDateTime,
+  formatRelativeTime,
   isDate,
   isDateLike,
   isSameDate,
   isValidDate,
+  parseDate,
+  setEndOfDate,
+  setStartOfDate,
+  stringifyDate,
   toDate,
-  tryParseDate,
 } from '../DateUtils';
 
-test('isDate', () => {
-  expect(isDate('foo')).toBe(false);
-  expect(isDate(NaN)).toBe(false);
-  expect(isDate(Infinity)).toBe(false);
-  expect(isDate(Date.now())).toBe(false);
-  expect(isDate(new Date())).toBe(true);
-  expect(isDate(new Date(NaN))).toBe(true);
-});
+const invalidDate = () => new Date(NaN);
+const mockTimestamp = (timezoneOffset = 0) =>
+  Date.UTC(2019, 4, 24, 1, 2 - timezoneOffset, 3, 45);
 
-test('isDateLike', () => {
-  expect(isDateLike('foo')).toBe(false);
-  expect(isDateLike(NaN)).toBe(false);
-  expect(isDateLike(Infinity)).toBe(false);
-  expect(isDateLike(Date.now())).toBe(true);
-  expect(isDateLike(new Date())).toBe(true);
-  expect(isDateLike(new Date(NaN))).toBe(true);
-});
+const mockDate = (timezoneOffset?: number) =>
+  new Date(mockTimestamp(timezoneOffset));
 
-test('isValidDate', () => {
-  expect(isValidDate('foo')).toBe(false);
-  expect(isValidDate(NaN)).toBe(false);
-  expect(isValidDate(Infinity)).toBe(false);
-  expect(isValidDate(Date.now())).toBe(true);
-  expect(isValidDate(new Date())).toBe(true);
-  expect(isValidDate(new Date(NaN))).toBe(false);
-});
+const formatExamples = new Map<DateFormat, string>()
+  .set('DateISO', '2019-05-24')
+  .set('JodaISO', '2019-05-24T01:02:03.045+0000')
+  .set('DateTimeISO', '2019-05-24T01:02:03.045Z');
 
-test('toDate', () => {
-  const timestamp = Date.UTC(2019, 4, 23, 20, 15, 10);
-  const date = new Date(timestamp);
+const allFormats: DateFormat[] = Array.from(formatExamples.keys());
+const allUnits: DateUnit[] = [
+  'year',
+  'month',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond',
+];
 
-  expect(toDate(timestamp)).toBeInstanceOf(Date);
-  expect(toDate(timestamp)).toEqual(date);
-  expect(toDate(timestamp)).not.toBe(date);
-
-  expect(toDate(date)).toBeInstanceOf(Date);
-  expect(toDate(date)).toEqual(date);
-  expect(toDate(date)).not.toBe(date);
-
-  expect(toDate(null as any).getTime()).toBeNaN();
-  expect(toDate('foo' as any).getTime()).toBeNaN();
-  expect(toDate(undefined as any).getTime()).toBeNaN();
-});
-
-test('isSameDate', () => {
-  const timestamp = Date.UTC(2019, 4, 23, 20, 15, 10);
-  const date = new Date(timestamp);
-
-  expect(isSameDate(null, null)).toBe(true);
-  expect(isSameDate(null, undefined)).toBe(true);
-  expect(isSameDate(undefined, null)).toBe(true);
-  expect(isSameDate(undefined, undefined)).toBe(true);
-
-  expect(isSameDate(null, date)).toBe(false);
-  expect(isSameDate(null, timestamp)).toBe(false);
-  expect(isSameDate(date, null)).toBe(false);
-  expect(isSameDate(timestamp, null)).toBe(false);
-
-  expect(isSameDate(undefined, date)).toBe(false);
-  expect(isSameDate(undefined, timestamp)).toBe(false);
-  expect(isSameDate(date, undefined)).toBe(false);
-  expect(isSameDate(timestamp, undefined)).toBe(false);
-
-  expect(isSameDate(date, Date.now())).toBe(false);
-  expect(isSameDate(timestamp, Date.now())).toBe(false);
-  expect(isSameDate(Date.now(), date)).toBe(false);
-  expect(isSameDate(Date.now(), timestamp)).toBe(false);
-
-  expect(isSameDate(date, new Date())).toBe(false);
-  expect(isSameDate(timestamp, new Date())).toBe(false);
-  expect(isSameDate(new Date(), date)).toBe(false);
-  expect(isSameDate(new Date(), timestamp)).toBe(false);
-
-  expect(isSameDate(date, timestamp)).toBe(true);
-  expect(isSameDate(timestamp, date)).toBe(true);
-});
-
-describe('tryParseDate', () => {
-  const allFormats: DateFormat[] = ['DateISO', 'JodaISO', 'DateTimeISO'];
-
-  test.each(allFormats)('parse invalid value with %p', format => {
-    expect(tryParseDate('', format)).toBeUndefined();
-    expect(tryParseDate('foo', format)).toBeUndefined();
-    expect(tryParseDate(NaN, format)).toBeUndefined();
-    expect(tryParseDate(null, format)).toBeUndefined();
-    expect(tryParseDate(Infinity, format)).toBeUndefined();
-    expect(tryParseDate(undefined, format)).toBeUndefined();
-    expect(tryParseDate(new Date(NaN), format)).toBeUndefined();
+describe('validations', () => {
+  test.each`
+    input                        | date     | dateLike | validDate
+    ${null}                      | ${false} | ${false} | ${false}
+    ${undefined}                 | ${false} | ${false} | ${false}
+    ${''}                        | ${false} | ${false} | ${false}
+    ${NaN}                       | ${false} | ${false} | ${false}
+    ${Infinity}                  | ${false} | ${false} | ${false}
+    ${0}                         | ${false} | ${true}  | ${false}
+    ${0.1}                       | ${false} | ${false} | ${false}
+    ${Date.UTC(2020, 0)}         | ${false} | ${true}  | ${false}
+    ${new Date(0)}               | ${true}  | ${true}  | ${true}
+    ${invalidDate()}             | ${true}  | ${true}  | ${false}
+    ${new Date(0).toISOString()} | ${false} | ${false} | ${false}
+  `('validates "$input"', ({ input, date, dateLike, validDate }) => {
+    expect(isDate(input)).toBe(date);
+    expect(isDateLike(input)).toBe(dateLike);
+    expect(isValidDate(input)).toBe(validDate);
   });
 
-  test.each(allFormats)('parse date like value with %p', format => {
-    const timestamp = Date.UTC(2019, 4, 23, 20, 15, 10);
-    const date = new Date(timestamp);
+  test.each`
+    value              | compare            | result
+    ${null}            | ${undefined}       | ${true}
+    ${null}            | ${mockDate()}      | ${false}
+    ${null}            | ${mockTimestamp()} | ${false}
+    ${undefined}       | ${mockDate()}      | ${false}
+    ${undefined}       | ${mockTimestamp()} | ${false}
+    ${mockDate()}      | ${mockTimestamp()} | ${true}
+    ${mockDate()}      | ${new Date()}      | ${false}
+    ${mockTimestamp()} | ${new Date()}      | ${false}
+    ${mockDate()}      | ${Date.now()}      | ${false}
+    ${mockTimestamp()} | ${Date.now()}      | ${false}
+  `('isSameDate($value, $compare) => $result', ({ value, compare, result }) => {
+    [undefined, ...allUnits].forEach(unit => {
+      expect(isSameDate(value, compare, unit)).toBe(result);
+      expect(isSameDate(compare, value, unit)).toBe(result);
 
-    expect(tryParseDate(date, format)).toEqual(date);
-    expect(tryParseDate(date, format)).not.toBe(date);
-    expect(tryParseDate(timestamp, format)).toEqual(date);
-    expect(tryParseDate(timestamp, format)).not.toBe(date);
+      expect(isSameDate(value, value, unit)).toBe(true);
+      expect(isSameDate(compare, compare, unit)).toBe(true);
+    });
   });
+});
 
-  test('parse string value with "DateISO"', () => {
-    expect(tryParseDate('2019-05-24', 'DateISO')).toEqual(
-      new Date(Date.UTC(2019, 4, 24)),
+describe('transformations', () => {
+  test.each`
+    input              | result
+    ${null}            | ${invalidDate()}
+    ${undefined}       | ${invalidDate()}
+    ${'foo'}           | ${invalidDate()}
+    ${NaN}             | ${invalidDate()}
+    ${Infinity}        | ${invalidDate()}
+    ${mockDate()}      | ${mockDate()}
+    ${mockTimestamp()} | ${mockDate()}
+  `('toDate($input) => $result', ({ input, result }) => {
+    expect(toDate(input)).toBeInstanceOf(Date);
+    expect(toDate(input).getTime()).toBe(result.getTime());
+  });
+});
+
+describe('manipulations', () => {
+  it.each(allUnits)('setStartOfDate(value, %p)', unit => {
+    expect(setStartOfDate(mockDate(), unit)).toEqual(
+      setStartOfDate(mockTimestamp(), unit),
     );
-  });
 
-  test('parse string value with "DateTimeISO"', () => {
-    expect(tryParseDate('2019-05-24T01:02:03.045Z', 'DateTimeISO')).toEqual(
-      new Date(Date.UTC(2019, 4, 24, 1, 2, 3, 45)),
+    expect(setStartOfDate(mockDate(), unit)).toEqual(
+      DateTime.fromJSDate(mockDate())
+        .toUTC()
+        .startOf(unit)
+        .toJSDate(),
+    );
+
+    expect(setStartOfDate(mockDate(), unit, 300)).toEqual(
+      DateTime.fromJSDate(mockDate(), { zone: 'UTC+5' })
+        .startOf(unit)
+        .toJSDate(),
+    );
+
+    expect(setStartOfDate(mockDate(), unit, -300)).toEqual(
+      DateTime.fromJSDate(mockDate(), { zone: 'UTC-5' })
+        .startOf(unit)
+        .toJSDate(),
     );
   });
 
-  test('parse string value with "JodaISO"', () => {
-    expect(tryParseDate('2019-05-24T01:02:03.045+0000', 'JodaISO')).toEqual(
-      new Date(Date.UTC(2019, 4, 24, 1, 2, 3, 45)),
+  it.each(allUnits)('setEndOfDate(value, %p)', unit => {
+    expect(setEndOfDate(mockDate(), unit)).toEqual(
+      setEndOfDate(mockTimestamp(), unit),
     );
 
-    expect(tryParseDate('2019-05-24T01:02:03.045-0500', 'JodaISO')).toEqual(
-      new Date(Date.UTC(2019, 4, 24, 1 + 5, 2, 3, 45)),
+    expect(setEndOfDate(mockDate(), unit)).toEqual(
+      DateTime.fromJSDate(mockDate())
+        .toUTC()
+        .endOf(unit)
+        .toJSDate(),
     );
 
-    expect(tryParseDate('2019-05-24T01:02:03.045+0500', 'JodaISO')).toEqual(
-      new Date(Date.UTC(2019, 4, 24, 1 - 5, 2, 3, 45)),
+    expect(setEndOfDate(mockDate(), unit, 300)).toEqual(
+      DateTime.fromJSDate(mockDate(), { zone: 'UTC+5' })
+        .endOf(unit)
+        .toJSDate(),
     );
+
+    expect(setEndOfDate(mockDate(), unit, -300)).toEqual(
+      DateTime.fromJSDate(mockDate(), { zone: 'UTC-5' })
+        .endOf(unit)
+        .toJSDate(),
+    );
+  });
+});
+
+describe('formatting', () => {
+  describe('parseDate', () => {
+    test.each([
+      [null, invalidDate(), invalidDate(), invalidDate()],
+      [undefined, invalidDate(), invalidDate(), invalidDate()],
+      ['', invalidDate(), invalidDate(), invalidDate()],
+      [NaN, invalidDate(), invalidDate(), invalidDate()],
+      [Infinity, invalidDate(), invalidDate(), invalidDate()],
+      [0, new Date(0), new Date(0), new Date(0)],
+      [0.1, invalidDate(), invalidDate(), invalidDate()],
+      [invalidDate(), invalidDate(), invalidDate(), invalidDate()],
+      [mockDate(), mockDate(), mockDate(), mockDate()],
+      [mockTimestamp(), mockDate(), mockDate(), mockDate()],
+      [
+        '2019-05-24',
+        new Date(Date.UTC(2019, 4, 24)),
+        new Date(Date.UTC(2019, 4, 24)),
+        invalidDate(),
+      ],
+      ['2019-05-24T01:02:03.045Z', mockDate(), mockDate(), invalidDate()],
+      ['2019-05-24T01:02:03.045+0000', mockDate(), mockDate(), mockDate()],
+      [
+        '2019-05-24T01:02:03.045+0500',
+        mockDate(+300),
+        mockDate(+300),
+        mockDate(+300),
+      ],
+      [
+        '2019-05-24T01:02:03.045-0500',
+        mockDate(-300),
+        mockDate(-300),
+        mockDate(-300),
+      ],
+    ])('parse %p', (input, dateISO, dateTimeISO, jodaISO) => {
+      expect(parseDate(input, 'DateISO').getTime()).toBe(dateISO.getTime());
+      expect(parseDate(input, 'JodaISO').getTime()).toBe(jodaISO.getTime());
+      expect(parseDate(input, 'DateTimeISO').getTime()).toBe(
+        dateTimeISO.getTime(),
+      );
+    });
+  });
+
+  describe('stringifyDate', () => {
+    test.each(allFormats)('stringify invalid value with %p', format => {
+      expect(stringifyDate(NaN, format)).toBe('Invalid Date');
+      expect(stringifyDate(Infinity, format)).toBe('Invalid Date');
+      expect(stringifyDate(invalidDate(), format)).toBe('Invalid Date');
+    });
+
+    test.each(Array.from(formatExamples))(
+      'stringifyDate(value, %p)',
+      (format, example) => {
+        expect(stringifyDate(mockDate(), format)).toEqual(example);
+      },
+    );
+  });
+
+  test.each`
+    input              | tz      | date              | dateTime
+    ${mockDate()}      | ${0}    | ${'May 24, 2019'} | ${'May 24, 2019, 1:02 AM'}
+    ${mockTimestamp()} | ${0}    | ${'May 24, 2019'} | ${'May 24, 2019, 1:02 AM'}
+    ${mockDate()}      | ${-300} | ${'May 23, 2019'} | ${'May 23, 2019, 8:02 PM'}
+    ${mockTimestamp()} | ${-300} | ${'May 23, 2019'} | ${'May 23, 2019, 8:02 PM'}
+    ${mockDate()}      | ${300}  | ${'May 24, 2019'} | ${'May 24, 2019, 6:02 AM'}
+    ${mockTimestamp()} | ${300}  | ${'May 24, 2019'} | ${'May 24, 2019, 6:02 AM'}
+  `('formats $input with $tz', ({ input, tz, date, dateTime }) => {
+    expect(formatDate(input, { timeZoneOffset: tz })).toBe(date);
+    expect(formatDateTime(input, { timeZoneOffset: tz })).toBe(dateTime);
+  });
+
+  test.each`
+    input              | tz      | date              | dateTime
+    ${mockDate()}      | ${0}    | ${'May 24, 2019'} | ${'May 24, 2019, 1:02 AM'}
+    ${mockTimestamp()} | ${0}    | ${'May 24, 2019'} | ${'May 24, 2019, 1:02 AM'}
+    ${mockDate()}      | ${-300} | ${'May 23, 2019'} | ${'May 23, 2019, 8:02 PM'}
+    ${mockTimestamp()} | ${-300} | ${'May 23, 2019'} | ${'May 23, 2019, 8:02 PM'}
+    ${mockDate()}      | ${300}  | ${'May 24, 2019'} | ${'May 24, 2019, 6:02 AM'}
+    ${mockTimestamp()} | ${300}  | ${'May 24, 2019'} | ${'May 24, 2019, 6:02 AM'}
+  `('formats $input with $tz', ({ input, tz, date, dateTime }) => {
+    expect(formatDate(input, { timeZoneOffset: tz })).toBe(date);
+    expect(formatDateTime(input, { timeZoneOffset: tz })).toBe(dateTime);
+  });
+
+  test.each`
+    offset                     | result
+    ${-3}                      | ${'in 3 seconds'}
+    ${+3}                      | ${'3 seconds ago'}
+    ${-3 * 60}                 | ${'in 3 minutes'}
+    ${+3 * 60}                 | ${'3 minutes ago'}
+    ${-3 * 60 * 60}            | ${'in 3 hours'}
+    ${+3 * 60 * 60}            | ${'3 hours ago'}
+    ${-3 * 60 * 60 * 24}       | ${'in 3 days'}
+    ${+3 * 60 * 60 * 24}       | ${'3 days ago'}
+    ${-3 * 60 * 60 * 24 * 31}  | ${'in 3 months'}
+    ${+3 * 60 * 60 * 24 * 31}  | ${'3 months ago'}
+    ${-3 * 60 * 60 * 24 * 366} | ${'in 3 years'}
+    ${+3 * 60 * 60 * 24 * 366} | ${'3 years ago'}
+  `('formats with $offset', ({ offset, result }) => {
+    expect(
+      formatRelativeTime(mockTimestamp(), mockTimestamp() + offset * 1000),
+    ).toBe(result);
   });
 });

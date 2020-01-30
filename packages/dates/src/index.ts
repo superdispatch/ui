@@ -7,6 +7,5 @@ export * from './DatePickerBase';
 export * from './DateRangeField';
 export * from './DateRangePicker';
 export * from './DateRangePickerStyles';
-export * from './DateRangeUtils';
 export * from './DateTextField';
 export * from './DateUtils';

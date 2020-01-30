@@ -21,11 +21,11 @@ export function useDateUtils(): DateUtils {
 
 export function DateContextProvider({
   children,
-  tzOffset,
+  timeZoneOffset,
 }: PropsWithChildren<DateUtilsOptions>) {
   const ctx = useMemo<DateContext>(
-    () => ({ utils: new DateUtils({ tzOffset }) }),
-    [tzOffset],
+    () => ({ utils: new DateUtils({ timeZoneOffset }) }),
+    [timeZoneOffset],
   );
 
   return <Context.Provider value={ctx}>{children}</Context.Provider>;

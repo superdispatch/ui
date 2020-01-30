@@ -8,11 +8,7 @@ import {
   useDatePickerPopoverState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
-import {
-  DateRange,
-  isSameDateRange,
-  normalizeDateRange,
-} from './DateRangeUtils';
+import { DateRange, isSameDateRange, toDateRange } from './DateUtils';
 
 export type DateRangePickerValue = undefined | DateRange;
 export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
@@ -39,7 +35,7 @@ export function DateRangePicker({
     'start',
   );
 
-  const [fromDate, actualToDate] = normalizeDateRange(value);
+  const [fromDate, actualToDate] = toDateRange(value);
   const toDate =
     hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
 
@@ -78,7 +74,7 @@ export function DateRangePicker({
           }
 
           if (pickingDateType === 'end') {
-            onChange(normalizeDateRange([fromDate, date]));
+            onChange(toDateRange([fromDate, date]));
             handleClose();
           }
         }

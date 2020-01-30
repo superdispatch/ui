@@ -10,7 +10,7 @@ import { useEventCallback } from 'utility-hooks';
 import { Calendar, CalendarProps } from './Calendar';
 import { CalendarQuickSelection } from './CalendarQuickSelection';
 import { CalendarQuickSelectionItem } from './CalendarQuickSelectionItem';
-import { DateRange } from './DateRangeUtils';
+import { DateRange } from './DateUtils';
 
 export type DatePickerBaseValue = undefined | Date | DateRange;
 export type DatePickerBaseInputComponent<TProps> = ComponentType<TProps>;
