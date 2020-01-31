@@ -10,3 +10,4 @@ export * from './DateRangePicker';
 export * from './DateRangePickerStyles';
 export * from './DateTextField';
 export * from './DateUtils';
+export * from './TimeField';

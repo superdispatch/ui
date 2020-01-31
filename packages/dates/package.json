@@ -17,6 +17,9 @@
     "luxon": "^1.22.0",
     "react-day-picker": "^7.3.2"
   },
+  "peerDependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.40"
+  },
   "publishConfig": {
     "access": "public",
     "directory": "pkg"

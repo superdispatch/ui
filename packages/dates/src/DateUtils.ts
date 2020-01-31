@@ -239,6 +239,17 @@ export class DateUtils {
     });
   }
 
+  formatTime(value: DateLike, options?: FormatDateOptions): string {
+    return this.formatDate(value, {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: undefined,
+      month: undefined,
+      year: undefined,
+      ...options,
+    });
+  }
+
   formatDateTime(value: DateLike, options?: FormatDateOptions): string {
     return this.formatDate(value, {
       hour: 'numeric',
