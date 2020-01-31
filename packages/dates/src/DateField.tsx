@@ -13,6 +13,7 @@ import { Calendar, CalendarProps } from './Calendar';
 import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
+import { DateLike } from './DateUtils';
 
 interface DateFieldAPI {
   close: () => void;
@@ -27,7 +28,7 @@ export interface DateFieldProps
     > {
   hasClearButton?: boolean;
 
-  value?: Date;
+  value?: DateLike;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | Date) => void;
@@ -76,10 +77,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       handleClose();
     };
 
-    const api: DateFieldAPI = {
-      close: handleClose,
-      change: handleChange,
-    };
+    const api: DateFieldAPI = { close: handleClose, change: handleChange };
 
     return (
       <>

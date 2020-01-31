@@ -1,3 +1,3 @@
 export default () => {
-  process.env.TZ = 'America/Chicago';
+  process.env.TZ = 'US/Arizona';
 };

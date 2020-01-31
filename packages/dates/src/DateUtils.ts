@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateObjectUnits, DateTime } from 'luxon';
 
 export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
 export type DateUnit =
@@ -9,12 +9,24 @@ export type DateUnit =
   | 'minute'
   | 'second'
   | 'millisecond';
+export type DateUnitValues = Partial<Record<DateUnit, number>>;
 
+export type NullableDate = null | undefined | Date;
 export type DateLike = number | Date;
 export type NullableDateLike = null | undefined | DateLike;
 export type DateRange = [Date?, Date?];
 export type DateRangeLike = [DateLike?, DateLike?];
 export type NullableDateRangeLike = null | undefined | DateRangeLike;
+
+export interface DateUtilsOptions {
+  locale?: string;
+  timeZoneOffset?: number;
+}
+
+const defaultDateUtilsOptions: Required<DateUtilsOptions> = {
+  locale: 'en-US',
+  timeZoneOffset: 0,
+} as const;
 
 const formats: Record<DateFormat, string> = {
   DateISO: '_',
@@ -24,7 +36,7 @@ const formats: Record<DateFormat, string> = {
 
 function toDateTime(
   value: DateLike,
-  { timeZoneOffset }: DateUtilsOptions = {},
+  { timeZoneOffset }: Required<DateUtilsOptions> = defaultDateUtilsOptions,
 ): DateTime {
   const dateTime =
     typeof value === 'number'
@@ -131,24 +143,40 @@ export function stringifyDate(value: DateLike, format: DateFormat): string {
   return dateTime.toFormat(formats[format]);
 }
 
-export interface DateUtilsOptions {
-  locale?: string;
-  timeZoneOffset?: number;
-}
-
 export interface FormatDateOptions
   extends DateUtilsOptions,
     Omit<Intl.DateTimeFormatOptions, 'timeZone' | 'timeZoneName'> {}
 
 export class DateUtils {
-  protected options: DateUtilsOptions;
+  protected options: Required<DateUtilsOptions>;
 
-  constructor(options: DateUtilsOptions = {}) {
-    this.options = options;
+  constructor({
+    locale = defaultDateUtilsOptions.locale,
+    timeZoneOffset = defaultDateUtilsOptions.timeZoneOffset,
+  }: DateUtilsOptions = {}) {
+    this.options = { locale, timeZoneOffset };
   }
 
-  protected toDateTime(value: DateLike) {
+  get locale() {
+    return this.options.locale;
+  }
+
+  get timeZoneOffset() {
+    return this.options.timeZoneOffset;
+  }
+
+  get localTimeZoneOffset() {
+    return DateTime.local().offset;
+  }
+
+  protected toDateTime(value: DateLike): DateTime {
     return toDateTime(value, this.options);
+  }
+
+  update(value: DateLike, values: DateObjectUnits): Date {
+    return this.toDateTime(value)
+      .set(values)
+      .toJSDate();
   }
 
   startOf(value: DateLike, unit: DateUnit): Date {
@@ -161,6 +189,41 @@ export class DateUtils {
     return this.toDateTime(value)
       .endOf(unit)
       .toJSDate();
+  }
+
+  plus(value: DateLike, values: DateUnitValues): Date {
+    return this.toDateTime(value)
+      .plus(values)
+      .toJSDate();
+  }
+
+  minus(value: DateLike, values: DateUnitValues): Date {
+    return this.toDateTime(value)
+      .minus(values)
+      .toJSDate();
+  }
+
+  toDateWithoutOffset(value: DateLike): Date {
+    return this.toDateTime(value)
+      .toUTC(this.localTimeZoneOffset, { keepLocalTime: true })
+      .toJSDate();
+  }
+
+  fromDateWithoutOffset(value: DateLike): Date {
+    return this.toDateTime(value)
+      .toUTC(-this.localTimeZoneOffset, { keepLocalTime: true })
+      .toJSDate();
+  }
+
+  mergeTime(dateValue: DateLike, timeValue: DateLike): Date {
+    const time = this.toDateTime(timeValue);
+
+    return this.update(dateValue, {
+      hour: time.hour,
+      minute: time.minute,
+      second: time.second,
+      millisecond: time.millisecond,
+    });
   }
 
   formatDate(

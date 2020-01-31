@@ -15,7 +15,7 @@ import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
-import { DateRange, toDateRange } from './DateUtils';
+import { DateRange, isValidDate, toDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
   close: () => void;
@@ -92,15 +92,12 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
 
       onChange?.(nextRange);
 
-      if (nextRange.length === 2) {
+      if (isValidDate(nextRange[1])) {
         handleClose();
       }
     };
 
-    const api: DateRangeFieldAPI = {
-      close: handleClose,
-      change: handleChange,
-    };
+    const api: DateRangeFieldAPI = { close: handleClose, change: handleChange };
 
     return (
       <>

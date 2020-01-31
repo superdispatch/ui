@@ -1,6 +1,7 @@
 export * from './Calendar';
 export * from './CalendarQuickSelection';
 export * from './CalendarQuickSelectionItem';
+export * from './DateContext';
 export * from './DateField';
 export * from './DatePicker';
 export * from './DatePickerBase';

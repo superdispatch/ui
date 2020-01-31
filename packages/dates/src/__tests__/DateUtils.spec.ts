@@ -18,6 +18,26 @@ const mockTimestamp = (timezoneOffset = 0) =>
 const mockDate = (timezoneOffset?: number) =>
   new Date(mockTimestamp(timezoneOffset));
 
+const utcDate = (
+  year: number,
+  month: number,
+  date = 0,
+  hours = 0,
+  minutes = 0,
+  seconds = 0,
+  ms = 0,
+) => new Date(Date.UTC(year, month, date, hours, minutes, seconds, ms));
+
+const localDate = (
+  year: number,
+  month: number,
+  date = 0,
+  hours = 0,
+  minutes = 0,
+  seconds = 0,
+  ms = 0,
+) => new Date(year, month, date, hours, minutes, seconds, ms);
+
 const formatExamples = new Map<DateFormat, string>()
   .set('DateISO', '2019-05-24')
   .set('JodaISO', '2019-05-24T01:02:03.045+0000')
@@ -197,6 +217,23 @@ describe('stringifyDate', () => {
   );
 });
 
+test('DateUtils#constructor', () => {
+  const defaultUtils = new DateUtils();
+
+  expect(defaultUtils.locale).toMatchInlineSnapshot(`"en-US"`);
+  expect(defaultUtils.timeZoneOffset).toMatchInlineSnapshot(`0`);
+
+  const utilsA = new DateUtils({ timeZoneOffset: 300 });
+
+  expect(utilsA.locale).toMatchInlineSnapshot(`"en-US"`);
+  expect(utilsA.timeZoneOffset).toMatchInlineSnapshot(`300`);
+
+  const utilsB = new DateUtils({ timeZoneOffset: -300 });
+
+  expect(utilsB.locale).toMatchInlineSnapshot(`"en-US"`);
+  expect(utilsB.timeZoneOffset).toMatchInlineSnapshot(`-300`);
+});
+
 test.each([
   [
     'year',
@@ -284,6 +321,34 @@ test.each([
     expect(utils0.endOf(mockDate(), unit)).toEqual(new Date(zero));
     expect(utilsPlus300.endOf(mockDate(), unit)).toEqual(new Date(plus300));
     expect(utilsMinus300.endOf(mockDate(), unit)).toEqual(new Date(minus300));
+  },
+);
+
+test.each`
+  tz      | input                            | result
+  ${0}    | ${utcDate(2020, 4, 24)}          | ${localDate(2020, 4, 24)}
+  ${+300} | ${utcDate(2020, 4, 24, 0, -300)} | ${localDate(2020, 4, 24)}
+  ${-300} | ${utcDate(2020, 4, 24, 0, +300)} | ${localDate(2020, 4, 24)}
+`(
+  'DateUtils({ timeZoneOffset: $tz })#toDateWithoutOffset($input) => $result',
+  ({ tz, input, result }) => {
+    const utils = new DateUtils({ timeZoneOffset: tz });
+
+    expect(utils.toDateWithoutOffset(input)).toEqual(result);
+  },
+);
+
+test.each`
+  tz      | input                     | result
+  ${0}    | ${localDate(2020, 4, 24)} | ${utcDate(2020, 4, 24)}
+  ${+300} | ${localDate(2020, 4, 24)} | ${utcDate(2020, 4, 24, 0, +300)}
+  ${-300} | ${localDate(2020, 4, 24)} | ${utcDate(2020, 4, 24, 0, -300)}
+`(
+  'DateUtils({ timeZoneOffset: $tz })#fromDateWithoutOffset($input) => $result',
+  ({ tz, input, result }) => {
+    const utils = new DateUtils({ timeZoneOffset: tz });
+
+    expect(utils.fromDateWithoutOffset(input)).toEqual(result);
   },
 );
 
