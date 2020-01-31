@@ -109,14 +109,7 @@ export function TimeField() {
         }
       }}
       onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}
-      renderInput={params => (
-        <TextField
-          {...params}
-          label="Combo box"
-          variant="outlined"
-          fullWidth={true}
-        />
-      )}
+      renderInput={params => <TextField {...params} fullWidth={true} />}
     />
   );
 }

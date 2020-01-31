@@ -26,6 +26,7 @@
   "devDependencies": {
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.40",
     "@mdi/js": "^4.8.95",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.8.1",
