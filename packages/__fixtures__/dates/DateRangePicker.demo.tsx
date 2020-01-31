@@ -13,49 +13,28 @@ import {
   DateRangePickerProps,
   DateRangePickerQuickSelectionItem,
   DateRangePickerValue,
+  toDateRange,
+  useDateUtils,
 } from '@superdispatch/dates';
-import moment from 'moment';
-import React, { useState } from 'react';
-
-function formatValue(date?: Date) {
-  return date ? moment(date).format('MMM DD, YYYY') : '';
-}
-
-const today = moment()
-  .startOf('day')
-  .hours(12)
-  .toDate();
-
-const dateRangePickerQuickSelectionItems = Array.from(
-  { length: 8 },
-  (_, idx): DateRangePickerQuickSelectionItem => ({
-    label: `${idx + 2} days`,
-    value: [
-      today,
-      moment(today)
-        .add(idx + 1, 'days')
-        .toDate(),
-    ],
-  }),
-);
+import React, { useMemo, useState } from 'react';
 
 const DateRangeInputComponent: DateRangePickerProps['InputComponent'] = ({
   value,
   ...props
 }) => {
-  const [startDate, endDate] = value ? value : [];
-  const formattedValue =
-    startDate || endDate
-      ? `${formatValue(startDate)} - ${formatValue(endDate)}`
-      : '';
-  return <input value={formattedValue} {...props} />;
+  const utils = useDateUtils();
+  const range = toDateRange(value);
+  return <input value={utils.formatDateRange(range)} {...props} />;
 };
 
 export default function DateRangePickerDemo() {
+  const utils = useDateUtils();
   const [range, setRange] = useState<DateRangePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
+
+  const today = useMemo(() => utils.startOf(Date.now(), 'day'), [utils]);
 
   return (
     <Box p={2}>
@@ -96,7 +75,15 @@ export default function DateRangePickerDemo() {
         fromMonth={!disabled ? undefined : today}
         disabledDays={!disabled ? undefined : { before: today }}
         quickSelectionItems={
-          !hasQuickSelection ? undefined : dateRangePickerQuickSelectionItems
+          !hasQuickSelection
+            ? undefined
+            : Array.from(
+                { length: 8 },
+                (_, idx): DateRangePickerQuickSelectionItem => ({
+                  label: `${idx + 2} days`,
+                  value: [today, utils.plus(today, { day: idx + 1 })],
+                }),
+              )
         }
         InputComponent={DateRangeInputComponent}
         footer={

@@ -16,9 +16,9 @@ import {
   CalendarProps,
   CalendarQuickSelection,
   CalendarQuickSelectionItem,
+  useDateUtils,
 } from '@superdispatch/dates';
 import { startCase } from 'lodash';
-import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 
 type Color = keyof NonNullable<CalendarProps['highlightedDays']>;
@@ -26,26 +26,19 @@ type Color = keyof NonNullable<CalendarProps['highlightedDays']>;
 const colors: Color[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
 
 export default function CalendarDemo() {
+  const utils = useDateUtils();
   const [color, setColor] = useState<Color>('blue');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
-  const today = useMemo(
-    () =>
-      moment()
-        .startOf('day')
-        .toDate(),
-    [],
-  );
+  const today = useMemo(() => utils.startOf(Date.now(), 'day'), [utils]);
 
   const highlightedDays = useMemo(
     () =>
       Array.from({ length: 7 }, (_, idx) =>
-        moment()
-          .startOf('month')
-          .add(idx, 'day'),
+        utils.update(today, { day: idx + 1 }),
       ),
-    [],
+    [today, utils],
   );
 
   return (
@@ -115,13 +108,13 @@ export default function CalendarDemo() {
                 </Typography>
               )
             }
-            highlightedDays={{ [color]: highlightedDays.map(x => x.toDate()) }}
+            highlightedDays={{ [color]: highlightedDays }}
             quickSelection={
               hasQuickSelection && (
                 <CalendarQuickSelection>
                   {highlightedDays.map((day, idx) => (
                     <CalendarQuickSelectionItem key={idx}>
-                      {day.format('MM/DD/YYYY')}
+                      {utils.formatDate(day)}
                     </CalendarQuickSelectionItem>
                   ))}
                 </CalendarQuickSelection>

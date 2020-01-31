@@ -12,29 +12,24 @@ import {
   DatePicker,
   DatePickerProps,
   DatePickerValue,
+  useDateUtils,
 } from '@superdispatch/dates';
-import moment from 'moment';
 import React, { useState } from 'react';
-
-function formatValue(date?: Date) {
-  return date ? moment(date).format('MMM DD, YYYY') : '';
-}
 
 const DateInputComponent: DatePickerProps['InputComponent'] = ({
   value,
   ...props
 }) => {
-  const formattedValue = formatValue(value);
-  return <input value={formattedValue} {...props} />;
+  const utils = useDateUtils();
+  return <input value={!value ? '' : utils.formatDate(value)} {...props} />;
 };
 
 export default function DatePickerDemo() {
+  const utils = useDateUtils();
   const [date, setDate] = useState<DatePickerValue>();
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
-  const today = moment()
-    .startOf('day')
-    .toDate();
+  const today = utils.startOf(Date.now(), 'day');
 
   return (
     <Box p={2}>

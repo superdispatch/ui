@@ -24,7 +24,6 @@ import {
   isSameDateRange,
   stringifyDate,
 } from '@superdispatch/dates';
-import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 
 const utcDateUtils = new DateUtils({ timeZoneOffset: 0 });
@@ -157,10 +156,8 @@ export default function DateRangeFieldDemo() {
                 <CalendarQuickSelection>
                   {Array.from({ length: 5 }, (_, idx) => {
                     const targetRange: [Date, Date] = [
-                      moment(today).toDate(),
-                      moment(today)
-                        .add(idx + 1, 'days')
-                        .toDate(),
+                      today,
+                      dateUtils.plus(today, { day: idx + 1 }),
                     ];
 
                     return (
