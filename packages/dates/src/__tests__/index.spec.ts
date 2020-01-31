@@ -14,6 +14,7 @@ it('exposes public api', () => {
         "displayName": "CalendarQuickSelectionItem",
         "render": [Function],
       },
+      "DateContextProvider": [Function],
       "DateField": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DateField",
@@ -44,6 +45,7 @@ it('exposes public api', () => {
       "toDateRange": [Function],
       "useDatePickerPopoverState": [Function],
       "useDateRangePickerStyles": [Function],
+      "useDateUtils": [Function],
     }
   `);
 });
