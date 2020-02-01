@@ -239,7 +239,6 @@ type ReactDayPickerDayEventHandler = (
 
 function wrapHandlers(
   utils: DateUtils,
-  initialTime: NullableDate,
   styles: ClassNameMap<keyof ClassNames>,
   onDayClick: undefined | CalendarDayEventHandler,
   onDayKeyDown: undefined | CalendarDayEventHandler,
@@ -250,30 +249,31 @@ function wrapHandlers(
   onDayTouchEnd: undefined | CalendarDayEventHandler,
   onDayTouchStart: undefined | CalendarDayEventHandler,
 ): Partial<Record<CalendarDayEventHandlerName, ReactDayPickerDayEventHandler>> {
-  const time = isValidDate(initialTime)
-    ? utils.fromDateWithoutOffset(initialTime)
-    : undefined;
-
   const wrap = (
     fn: undefined | CalendarDayEventHandler,
   ): undefined | ReactDayPickerDayEventHandler =>
     fn &&
     ((date, modifiers) => {
-      let nextDate = date;
+      const { hour, minute, second, millisecond } = utils.toObject(
+        utils.startOf(Date.now(), 'day'),
+      );
 
-      if (isValidDate(nextDate)) {
-        nextDate = utils.fromDateWithoutOffset(nextDate);
-        if (time) {
-          nextDate = utils.mergeTime(nextDate, time);
-        } else {
-          nextDate = utils.startOf(nextDate, 'day');
-        }
-      }
+      fn(
+        utils.fromObject({
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate(),
 
-      fn(nextDate, {
-        disabled: !!modifiers[styles.disabled],
-        selected: !!modifiers[styles.selected],
-      });
+          hour,
+          minute,
+          second,
+          millisecond,
+        }),
+        {
+          disabled: !!modifiers[styles.disabled],
+          selected: !!modifiers[styles.selected],
+        },
+      );
     });
 
   return {
@@ -286,6 +286,24 @@ function wrapHandlers(
     onDayTouchEnd: wrap(onDayTouchEnd),
     onDayTouchStart: wrap(onDayTouchStart),
   };
+}
+
+function objectToDate(utils: DateUtils, date: NullableDate): undefined | Date {
+  if (!isValidDate(date)) {
+    return undefined;
+  }
+
+  const object = utils.toObject(date);
+
+  return new Date(
+    object.year,
+    object.month - 1,
+    object.day,
+    object.hour,
+    object.minute,
+    object.second,
+    object.millisecond,
+  );
 }
 
 export interface CalendarProps
@@ -338,13 +356,11 @@ export function Calendar({
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const [selectedFrom, selectedTo] = useMemo(
-    () =>
-      toDateRange(selectedDays).map(date =>
-        !isValidDate(date) ? date : utils.toDateWithoutOffset(date),
-      ),
-    [selectedDays, utils],
-  );
+  const [start, finish] = useMemo(() => {
+    const [nextStart, nextFinish] = toDateRange(selectedDays);
+
+    return [objectToDate(utils, nextStart), objectToDate(utils, nextFinish)];
+  }, [selectedDays, utils]);
 
   const isFirstDayOfMonth = useCallback(
     (date: Date): boolean =>
@@ -385,7 +401,6 @@ export function Calendar({
           {...props}
           {...wrapHandlers(
             utils,
-            selectedFrom,
             styles,
             onDayClick,
             onDayKeyDown,
@@ -400,12 +415,8 @@ export function Calendar({
           navbarElement={CalendarNavbar}
           captionElement={CalendarCaption}
           weekdayElement={CalendarWeekDay}
-          initialMonth={selectedFrom}
-          selectedDays={
-            !selectedFrom || !selectedTo
-              ? selectedFrom
-              : { from: selectedFrom, to: selectedTo }
-          }
+          initialMonth={start}
+          selectedDays={!start || !finish ? start : { from: start, to: finish }}
           modifiers={{
             ...modifiers,
             [styles.firstDayOfMonth]: isFirstDayOfMonth,

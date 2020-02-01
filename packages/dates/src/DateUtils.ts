@@ -1,4 +1,4 @@
-import { DateObjectUnits, DateTime } from 'luxon';
+import { DateTime, FixedOffsetZone } from 'luxon';
 
 export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
 export type DateUnit =
@@ -9,7 +9,7 @@ export type DateUnit =
   | 'minute'
   | 'second'
   | 'millisecond';
-export type DateUnitValues = Partial<Record<DateUnit, number>>;
+export type DateObject = Record<DateUnit, number>;
 
 export type NullableDate = null | undefined | Date;
 export type DateLike = number | Date;
@@ -165,15 +165,34 @@ export class DateUtils {
     return this.options.timeZoneOffset;
   }
 
-  get localTimeZoneOffset() {
-    return DateTime.local().offset;
-  }
-
   protected toDateTime(value: DateLike): DateTime {
     return toDateTime(value, this.options);
   }
 
-  update(value: DateLike, values: DateObjectUnits): Date {
+  toObject(value: DateLike): DateObject {
+    const {
+      year = NaN,
+      month = NaN,
+      day = NaN,
+      hour = NaN,
+      minute = NaN,
+      second = NaN,
+      millisecond = NaN,
+    } = this.toDateTime(value).toObject({
+      includeConfig: false,
+    });
+
+    return { year, month, day, hour, minute, second, millisecond };
+  }
+
+  fromObject(object: DateObject): Date {
+    return DateTime.fromObject({
+      ...object,
+      zone: FixedOffsetZone.instance(this.timeZoneOffset),
+    }).toJSDate();
+  }
+
+  update(value: DateLike, values: Partial<DateObject>): Date {
     return this.toDateTime(value)
       .set(values)
       .toJSDate();
@@ -191,27 +210,15 @@ export class DateUtils {
       .toJSDate();
   }
 
-  plus(value: DateLike, values: DateUnitValues): Date {
+  plus(value: DateLike, values: Partial<DateObject>): Date {
     return this.toDateTime(value)
       .plus(values)
       .toJSDate();
   }
 
-  minus(value: DateLike, values: DateUnitValues): Date {
+  minus(value: DateLike, values: Partial<DateObject>): Date {
     return this.toDateTime(value)
       .minus(values)
-      .toJSDate();
-  }
-
-  toDateWithoutOffset(value: DateLike): Date {
-    return this.toDateTime(value)
-      .toUTC(this.localTimeZoneOffset, { keepLocalTime: true })
-      .toJSDate();
-  }
-
-  fromDateWithoutOffset(value: DateLike): Date {
-    return this.toDateTime(value)
-      .toUTC(-this.localTimeZoneOffset, { keepLocalTime: true })
       .toJSDate();
   }
 

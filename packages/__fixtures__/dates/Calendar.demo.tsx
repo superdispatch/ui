@@ -21,13 +21,21 @@ import {
 import { startCase } from 'lodash';
 import React, { useMemo, useState } from 'react';
 
-type Color = keyof NonNullable<CalendarProps['highlightedDays']>;
+type Color = 'off' | keyof NonNullable<CalendarProps['highlightedDays']>;
 
-const colors: Color[] = ['blue', 'green', 'purple', 'red', 'teal', 'yellow'];
+const colors: Color[] = [
+  'off',
+  'blue',
+  'green',
+  'purple',
+  'red',
+  'teal',
+  'yellow',
+];
 
 export default function CalendarDemo() {
   const utils = useDateUtils();
-  const [color, setColor] = useState<Color>('blue');
+  const [color, setColor] = useState<Color>('off');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
@@ -36,15 +44,15 @@ export default function CalendarDemo() {
   const highlightedDays = useMemo(
     () =>
       Array.from({ length: 7 }, (_, idx) =>
-        utils.update(today, { day: idx + 1 }),
+        utils.plus(today, { day: idx * 2 }),
       ),
     [today, utils],
   );
 
   return (
-    <Box p={2}>
-      <Grid container={true} spacing={1}>
-        <Grid item={true} sm={true} xs={12}>
+    <Box padding={2}>
+      <Grid container={true} spacing={2}>
+        <Grid item={true} xs={12}>
           <FormControl component="fieldset">
             <FormLabel component="legend">State</FormLabel>
             <FormGroup row={true}>
@@ -72,57 +80,60 @@ export default function CalendarDemo() {
           </FormControl>
         </Grid>
 
-        <Grid item={true} sm={true} xs={12}>
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Highlight Color</FormLabel>
-              <RadioGroup
-                row={true}
-                name="color"
-                value={color}
-                onChange={(_, value) => setColor(value as Color)}
-              >
-                {colors.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
+        <Grid item={true} xs={12}>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Highlight Color</FormLabel>
+            <RadioGroup
+              row={true}
+              name="color"
+              value={color}
+              onChange={(_, value) => setColor(value as Color)}
+            >
+              {colors.map(x => (
+                <FormControlLabel
+                  key={x}
+                  value={x}
+                  control={<Radio />}
+                  label={startCase(x)}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+
+        <Grid item={true} xs={12}>
+          <Box display="flex">
+            <Paper elevation={8}>
+              <Calendar
+                fromMonth={!disabled ? undefined : today}
+                toMonth={!disabled ? undefined : today}
+                disabledDays={!disabled ? undefined : highlightedDays}
+                footer={
+                  hasFooter && (
+                    <Typography color="textSecondary">
+                      Footer helper text
+                    </Typography>
+                  )
+                }
+                highlightedDays={
+                  color === 'off' ? {} : { [color]: highlightedDays }
+                }
+                quickSelection={
+                  hasQuickSelection && (
+                    <CalendarQuickSelection>
+                      {highlightedDays.map((day, idx) => (
+                        <CalendarQuickSelectionItem key={idx}>
+                          {utils.formatDate(day)}
+                        </CalendarQuickSelectionItem>
+                      ))}
+                    </CalendarQuickSelection>
+                  )
+                }
+              />
+            </Paper>
+          </Box>
         </Grid>
       </Grid>
-
-      <Box display="flex">
-        <Paper elevation={8}>
-          <Calendar
-            fromMonth={!disabled ? undefined : today}
-            disabledDays={!disabled ? undefined : { before: today }}
-            footer={
-              hasFooter && (
-                <Typography color="textSecondary">
-                  Footer helper text
-                </Typography>
-              )
-            }
-            highlightedDays={{ [color]: highlightedDays }}
-            quickSelection={
-              hasQuickSelection && (
-                <CalendarQuickSelection>
-                  {highlightedDays.map((day, idx) => (
-                    <CalendarQuickSelectionItem key={idx}>
-                      {utils.formatDate(day)}
-                    </CalendarQuickSelectionItem>
-                  ))}
-                </CalendarQuickSelection>
-              )
-            }
-          />
-        </Paper>
-      </Box>
     </Box>
   );
 }

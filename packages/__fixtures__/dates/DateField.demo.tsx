@@ -21,7 +21,7 @@ import {
   DateUtils,
   stringifyDate,
 } from '@superdispatch/dates';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const utcDateUtils = new DateUtils({ timeZoneOffset: 0 });
 
@@ -57,10 +57,6 @@ export default function DateFieldDemo() {
   ]);
 
   const today = dateUtils.startOf(Date.now(), 'day');
-
-  useEffect(() => {
-    setDate(prev => prev && dateUtils.startOf(prev, 'day'));
-  }, [dateUtils]);
 
   return (
     <Box p={2}>
