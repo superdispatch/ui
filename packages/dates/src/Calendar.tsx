@@ -15,7 +15,6 @@ import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
 import { useDateUtils } from './DateContext';
 import {
-  DateLike,
   DateRangeLike,
   DateUtils,
   isSameDate,
@@ -240,6 +239,7 @@ type ReactDayPickerDayEventHandler = (
 function wrapHandlers(
   utils: DateUtils,
   styles: ClassNameMap<keyof ClassNames>,
+  initialTime: NullableDate,
   onDayClick: undefined | CalendarDayEventHandler,
   onDayKeyDown: undefined | CalendarDayEventHandler,
   onDayMouseEnter: undefined | CalendarDayEventHandler,
@@ -255,7 +255,7 @@ function wrapHandlers(
     fn &&
     ((date, modifiers) => {
       const { hour, minute, second, millisecond } = utils.toObject(
-        utils.startOf(Date.now(), 'day'),
+        initialTime || utils.startOf(Date.now(), 'day'),
       );
 
       fn(
@@ -288,7 +288,7 @@ function wrapHandlers(
   };
 }
 
-function objectToDate(utils: DateUtils, date: NullableDate): undefined | Date {
+function toLocalDate(utils: DateUtils, date: NullableDate): undefined | Date {
   if (!isValidDate(date)) {
     return undefined;
   }
@@ -320,7 +320,6 @@ export interface CalendarProps
       | 'weekdayElement'
       | CalendarDayEventHandlerName
     > {
-  initialTime?: DateLike;
   selectedDays?: DateRangeLike;
 
   direction?: GridDirection;
@@ -356,11 +355,14 @@ export function Calendar({
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const [start, finish] = useMemo(() => {
-    const [nextStart, nextFinish] = toDateRange(selectedDays);
-
-    return [objectToDate(utils, nextStart), objectToDate(utils, nextFinish)];
-  }, [selectedDays, utils]);
+  const [initialStart, initialFinish] = useMemo(
+    () => toDateRange(selectedDays),
+    [selectedDays],
+  );
+  const [start, finish] = useMemo(
+    () => [toLocalDate(utils, initialStart), toLocalDate(utils, initialFinish)],
+    [initialFinish, initialStart, utils],
+  );
 
   const isFirstDayOfMonth = useCallback(
     (date: Date): boolean =>
@@ -402,6 +404,7 @@ export function Calendar({
           {...wrapHandlers(
             utils,
             styles,
+            initialStart,
             onDayClick,
             onDayKeyDown,
             onDayMouseEnter,
