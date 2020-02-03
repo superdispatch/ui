@@ -2,7 +2,7 @@ import { BaseTextFieldProps, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { FilterOptionsState } from '@material-ui/lab/useAutocomplete/useAutocomplete';
 import { DateTime, FixedOffsetZone } from 'luxon';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { usePureMemo } from 'utility-hooks';
 
 import { useDateUtils } from './DateContext';
@@ -11,6 +11,7 @@ import {
   DateUtils,
   isSameDate,
   isValidDate,
+  NullableDateLike,
   toDate,
 } from './DateUtils';
 
@@ -105,18 +106,33 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
   ]);
 
   const [inputValue, setInputValue] = React.useState('');
+
+  const handleDateValue = (nextValue: NullableDateLike) => {
+    if (nextValue == null) {
+      onChange?.(undefined);
+    } else {
+      onChange?.(toDate(nextValue));
+    }
+  };
+
   const handleStringValue = (nextInputValue: string) => {
     const nextFilter = normalizeInputValue(nextInputValue);
 
     for (const timeFormat of timeFormats) {
       const dateTime = DateTime.fromFormat(nextFilter, timeFormat, {
+        locale: utils.locale,
         zone: FixedOffsetZone.instance(utils.timeZoneOffset),
       });
 
       if (dateTime.isValid) {
-        const nextDate = dateTime.toJSDate();
+        const nextDate = utils.update(initialDate, {
+          hour: dateTime.hour,
+          minute: dateTime.minute,
+          second: dateTime.second,
+          millisecond: dateTime.millisecond,
+        });
 
-        if (!selectedOption || !isSameDate(nextDate, selectedOption.value)) {
+        if (!isSameDate(nextDate, selectedDate)) {
           onChange?.(nextDate);
         }
 
@@ -130,6 +146,14 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
       setInputValue('');
     }
   };
+
+  useEffect(() => {
+    if (isValidDate(selectedDate)) {
+      setInputValue(utils.formatTime(selectedDate));
+    } else {
+      setInputValue('');
+    }
+  }, [selectedDate, utils]);
 
   return (
     <Autocomplete
@@ -150,7 +174,7 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
         if (typeof nextValue === 'string') {
           handleStringValue(nextValue);
         } else {
-          onChange?.(!nextValue ? undefined : toDate(nextValue.value));
+          handleDateValue(nextValue?.value);
         }
       }}
       onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}

@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  InputAdornment,
   MenuItem,
   Switch,
   Table,
@@ -16,7 +17,9 @@ import {
 } from '@material-ui/core';
 import {
   DateContextProvider,
+  DateField,
   DateRange,
+  DateRangeField,
   DateUtils,
   stringifyDate,
   TimeField,
@@ -51,12 +54,14 @@ export default function PickersDemo() {
   const [hasError, setHasError] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
   const [hasHelperText, setHasHelperText] = useState(false);
-  const [hasStartIcon, setHasStartIcon] = useState(false);
-  const [hasEndIcon, setHasEndIcon] = useState(false);
+  const [hasClear, setHasClear] = useState(false);
+  const [hasAdornment, setHasAdornment] = useState(false);
 
   const utils = useMemo(() => new DateUtils({ timeZoneOffset }), [
     timeZoneOffset,
   ]);
+
+  const today = useMemo(() => utils.startOf(Date.now(), 'day'), [utils]);
 
   return (
     <Box padding={2}>
@@ -96,38 +101,38 @@ export default function PickersDemo() {
               />
 
               <FormControlLabel
-                label="Has Label"
+                label="Label"
                 control={<Switch />}
                 checked={hasLabel}
                 onChange={(_, checked) => setHasLabel(checked)}
               />
 
               <FormControlLabel
-                label="Has Error"
+                label="Error"
                 control={<Switch />}
                 checked={hasError}
                 onChange={(_, checked) => setHasError(checked)}
               />
 
               <FormControlLabel
-                label="Has Helper Text"
+                label="Helper Text"
                 control={<Switch />}
                 checked={hasHelperText}
                 onChange={(_, checked) => setHasHelperText(checked)}
               />
 
               <FormControlLabel
-                label="Has Start Icon"
+                label="Clearable"
                 control={<Switch />}
-                checked={hasStartIcon}
-                onChange={(_, checked) => setHasStartIcon(checked)}
+                checked={hasClear}
+                onChange={(_, checked) => setHasClear(checked)}
               />
 
               <FormControlLabel
-                label="Has End Icon"
+                label="Has Adornment"
                 control={<Switch />}
-                checked={hasEndIcon}
-                onChange={(_, checked) => setHasEndIcon(checked)}
+                checked={hasAdornment}
+                onChange={(_, checked) => setHasAdornment(checked)}
               />
             </FormGroup>
           </FormControl>
@@ -137,12 +142,58 @@ export default function PickersDemo() {
           <Grid item={true} xs={12}>
             <Typography variant="h3">Date Field</Typography>
           </Grid>
-          <Grid item={true} xs={12}></Grid>
+          <Grid item={true} xs={12}>
+            <DateField
+              value={range[0]}
+              onChange={value => setRange(toDateRange([value, range[1]]))}
+              hasClearButton={hasClear}
+              fullWidth={isFullWidth}
+              InputProps={{
+                startAdornment: hasAdornment && (
+                  <InputAdornment position="start">Date:</InputAdornment>
+                ),
+              }}
+              CalendarProps={{
+                fromMonth: !disabled ? undefined : today,
+                disabledDays: !disabled ? undefined : { before: today },
+              }}
+              helperText={
+                !hasHelperText
+                  ? undefined
+                  : hasError
+                  ? 'Invalid Date'
+                  : 'Pick Date'
+              }
+            />
+          </Grid>
 
           <Grid item={true} xs={12}>
             <Typography variant="h3">Date Range Field</Typography>
           </Grid>
-          <Grid item={true} xs={12}></Grid>
+          <Grid item={true} xs={12}>
+            <DateRangeField
+              value={range}
+              onChange={value => setRange(toDateRange(value))}
+              hasClearButton={hasClear}
+              fullWidth={isFullWidth}
+              InputProps={{
+                startAdornment: hasAdornment && (
+                  <InputAdornment position="start">Date:</InputAdornment>
+                ),
+              }}
+              CalendarProps={{
+                fromMonth: !disabled ? undefined : today,
+                disabledDays: !disabled ? undefined : { before: today },
+              }}
+              helperText={
+                !hasHelperText
+                  ? undefined
+                  : hasError
+                  ? 'Invalid Rate Range'
+                  : 'Pick Date Range'
+              }
+            />
+          </Grid>
 
           <Grid item={true} xs={12}>
             <Typography variant="h3">Time Field</Typography>
@@ -161,8 +212,8 @@ export default function PickersDemo() {
                 !hasHelperText
                   ? undefined
                   : hasError
-                  ? 'Invalid Email'
-                  : 'Enter your email'
+                  ? 'Invalid Time'
+                  : 'Enter Time'
               }
             />
           </Grid>
