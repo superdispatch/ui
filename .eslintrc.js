@@ -16,7 +16,7 @@ module.exports = {
         'react-hooks/exhaustive-deps': [
           'error',
           {
-            additionalHooks: '^(useMemoWith|usePromise)$',
+            additionalHooks: '^(useMemoWith|usePureMemo|usePromise)$',
           },
         ],
       },

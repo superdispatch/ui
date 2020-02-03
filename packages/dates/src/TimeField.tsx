@@ -1,9 +1,18 @@
-import { TextField } from '@material-ui/core';
+import { BaseTextFieldProps, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { DateTime } from 'luxon';
-import React from 'react';
+import { FilterOptionsState } from '@material-ui/lab/useAutocomplete/useAutocomplete';
+import { DateTime, FixedOffsetZone } from 'luxon';
+import React, { useMemo } from 'react';
+import { usePureMemo } from 'utility-hooks';
 
-import { isSameDate } from './DateUtils';
+import { useDateUtils } from './DateContext';
+import {
+  DateLike,
+  DateUtils,
+  isSameDate,
+  isValidDate,
+  toDate,
+} from './DateUtils';
 
 const timeFormats = ['h:mm a', 'h:mma', 'H:mm', 'h:mm', 'hmm', 'Hmm', 'h', 'H'];
 
@@ -13,12 +22,12 @@ interface TimeFieldOption {
   pattern: RegExp;
 }
 
-function toTimeFieldOption(value: Date): TimeFieldOption {
-  const dateTime = DateTime.fromJSDate(value);
+function toTimeFieldOption(utils: DateUtils, value: Date): TimeFieldOption {
+  const dateTime = DateTime.fromJSDate(value).toUTC(utils.timeZoneOffset);
 
   return {
     value: value.getTime(),
-    label: dateTime.toFormat('t'),
+    label: utils.formatTime(value),
     pattern: new RegExp(
       `^(${timeFormats.map(format => dateTime.toFormat(format)).join('|')})`,
       'i',
@@ -26,10 +35,14 @@ function toTimeFieldOption(value: Date): TimeFieldOption {
   };
 }
 
-const options = Array.from<undefined, TimeFieldOption>(
-  { length: 96 },
-  (_, idx) => toTimeFieldOption(new Date(2020, 4, 24, 0, idx * 15)),
-);
+function getOptions(utils: DateUtils, initialDate: Date): TimeFieldOption[] {
+  return Array.from<undefined, TimeFieldOption>({ length: 96 }, (_, idx) =>
+    toTimeFieldOption(
+      utils,
+      utils.update(initialDate, { hour: 0, minute: idx * 15 }),
+    ),
+  );
+}
 
 function normalizeInputValue(inputValue: string): string {
   return inputValue.replace(/[\s]/g, '').toLowerCase();
@@ -37,7 +50,10 @@ function normalizeInputValue(inputValue: string): string {
 
 const optionsFilterCache = new Map<string, TimeFieldOption[]>();
 
-function filterOptions(inputValue: string): TimeFieldOption[] {
+function filterOptions(
+  options: TimeFieldOption[],
+  { inputValue }: FilterOptionsState,
+): TimeFieldOption[] {
   const filter = normalizeInputValue(inputValue);
 
   if (!filter) {
@@ -57,29 +73,59 @@ function filterOptions(inputValue: string): TimeFieldOption[] {
   return filtered;
 }
 
-export function TimeField() {
-  const [inputValue, setInputValue] = React.useState('');
-  const [value, setValue] = React.useState<null | TimeFieldOption>(null);
+export interface TimeFieldProps
+  extends Omit<BaseTextFieldProps, 'type' | 'variant'> {
+  value?: DateLike;
+  onChange?: (value: undefined | Date) => void;
+}
 
+export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
+  const utils = useDateUtils();
+  const selectedDate = usePureMemo(
+    () => {
+      const nextSelectedDate = toDate(value);
+
+      return !isValidDate(nextSelectedDate) ? undefined : nextSelectedDate;
+    },
+    [value],
+    isSameDate,
+  );
+  const initialDate = useMemo(
+    () => utils.startOf(selectedDate || Date.now(), 'day'),
+    [selectedDate, utils],
+  );
+  const selectedOption = useMemo(
+    () => (!selectedDate ? undefined : toTimeFieldOption(utils, selectedDate)),
+    [selectedDate, utils],
+  );
+
+  const options = useMemo(() => getOptions(utils, initialDate), [
+    initialDate,
+    utils,
+  ]);
+
+  const [inputValue, setInputValue] = React.useState('');
   const handleStringValue = (nextInputValue: string) => {
     const nextFilter = normalizeInputValue(nextInputValue);
 
     for (const timeFormat of timeFormats) {
-      const dateTime = DateTime.fromFormat(nextFilter, timeFormat);
+      const dateTime = DateTime.fromFormat(nextFilter, timeFormat, {
+        zone: FixedOffsetZone.instance(utils.timeZoneOffset),
+      });
 
       if (dateTime.isValid) {
-        const nextValue = dateTime.toJSDate();
+        const nextDate = dateTime.toJSDate();
 
-        return setValue(prev =>
-          isSameDate(prev?.value, nextValue)
-            ? prev
-            : toTimeFieldOption(nextValue),
-        );
+        if (!selectedOption || !isSameDate(nextDate, selectedOption.value)) {
+          onChange?.(nextDate);
+        }
+
+        return;
       }
     }
 
-    if (value) {
-      setInputValue(value.label);
+    if (selectedOption) {
+      setInputValue(selectedOption.label);
     } else {
       setInputValue('');
     }
@@ -87,14 +133,13 @@ export function TimeField() {
 
   return (
     <Autocomplete
-      size="small"
       freeSolo={true}
       autoComplete={true}
-      disableClearable={true}
-      value={value}
+      value={selectedOption}
       inputValue={inputValue}
       options={options}
-      filterOptions={(_, state) => filterOptions(state.inputValue)}
+      includeInputInList={true}
+      filterOptions={filterOptions}
       getOptionLabel={(option: string | TimeFieldOption) =>
         typeof option === 'string' ? option : option.label
       }
@@ -105,11 +150,13 @@ export function TimeField() {
         if (typeof nextValue === 'string') {
           handleStringValue(nextValue);
         } else {
-          setValue(nextValue);
+          onChange?.(!nextValue ? undefined : toDate(nextValue.value));
         }
       }}
       onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}
-      renderInput={params => <TextField {...params} fullWidth={true} />}
+      renderInput={params => (
+        <TextField variant="outlined" {...props} {...params} />
+      )}
     />
   );
 }

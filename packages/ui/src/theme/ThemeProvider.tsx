@@ -92,6 +92,24 @@ function createTheme() {
   applyToolbarStyles(theme);
   applyTooltipStyles(theme);
 
+  // TODO: Move to `AutocompleteStyles` after official release.
+  Object.assign(theme.overrides, {
+    MuiAutocomplete: {
+      paper: { ...theme.typography.body2 },
+      endAdornment: { top: 'calc(50% - 12px)' },
+      inputRoot: {
+        '&[class*="MuiOutlinedInput-root"]': {
+          padding: undefined,
+
+          '& $input': {
+            padding: undefined,
+            minWidth: theme.spacing(12),
+          },
+        },
+      },
+    },
+  });
+
   return theme;
 }
 
