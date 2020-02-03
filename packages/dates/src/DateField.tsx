@@ -62,10 +62,10 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const textValue = useMemo(() => (!value ? '' : utils.formatDate(value)), [
-      utils,
-      value,
-    ]);
+    const textValue = useMemo(
+      () => (!value ? '' : utils.format(value, 'date')),
+      [utils, value],
+    );
 
     const handleClose = () => {
       onClose();

@@ -73,7 +73,13 @@ export function toDateRange(range: NullableDateRangeLike): DateRange {
     .filter(isDateLike)
     .slice(0, 2)
     .map(toDate)
-    .sort((a, b) => a.getTime() - b.getTime());
+    .sort((a, b) =>
+      Number.isNaN(a.getTime())
+        ? -1
+        : Number.isNaN(b.getTime())
+        ? 1
+        : a.getTime() - b.getTime(),
+    );
 
   return [start, end];
 }
@@ -91,9 +97,10 @@ export function isSameDate(
     return false;
   }
 
-  return toDateTime(value)
-    .startOf(unit)
-    .equals(toDateTime(compare).startOf(unit));
+  const startOfValue = toDateTime(value).startOf(unit);
+  const startOfCompare = toDateTime(compare).startOf(unit);
+
+  return startOfValue.equals(startOfCompare);
 }
 
 export function isSameDateRange(
@@ -104,7 +111,7 @@ export function isSameDateRange(
   const range1 = toDateRange(value);
   const range2 = toDateRange(compare);
 
-  return !range1.some((date, idx) => isSameDate(date, range2[idx], unit));
+  return !range1.some((date, idx) => !isSameDate(date, range2[idx], unit));
 }
 
 export function parseDate(value: unknown, format: DateFormat): Date {
@@ -143,9 +150,10 @@ export function stringifyDate(value: DateLike, format: DateFormat): string {
   return dateTime.toFormat(formats[format]);
 }
 
-export interface FormatDateOptions
-  extends DateUtilsOptions,
-    Omit<Intl.DateTimeFormatOptions, 'timeZone' | 'timeZoneName'> {}
+export type FormatDateOptions = Omit<
+  Intl.DateTimeFormatOptions,
+  'timeZone' | 'timeZoneName'
+>;
 
 export class DateUtils {
   protected options: Required<DateUtilsOptions>;
@@ -233,39 +241,36 @@ export class DateUtils {
     });
   }
 
-  formatDate(
-    value: DateLike,
-    options?: Omit<Intl.DateTimeFormatOptions, 'timeZone' | 'timeZoneName'>,
-  ): string {
+  toLocaleString(value: DateLike, options?: FormatDateOptions) {
     return this.toDateTime(value).toLocaleString({
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
       ...options,
       locale: this.options.locale,
     });
   }
 
-  formatTime(value: DateLike, options?: FormatDateOptions): string {
-    return this.formatDate(value, {
-      hour: 'numeric',
-      minute: 'numeric',
-      day: undefined,
-      month: undefined,
-      year: undefined,
-      ...options,
-    });
+  format(
+    value: DateLike,
+    variant: 'date' | 'shortDate' | 'time' | 'dateTime',
+  ): string {
+    return this.toLocaleString(
+      value,
+      variant === 'date'
+        ? { day: '2-digit', month: 'short', year: 'numeric' }
+        : variant === 'shortDate'
+        ? { day: '2-digit', month: 'short' }
+        : variant === 'time'
+        ? { hour: 'numeric', minute: 'numeric' }
+        : {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          },
+    );
   }
 
-  formatDateTime(value: DateLike, options?: FormatDateOptions): string {
-    return this.formatDate(value, {
-      hour: 'numeric',
-      minute: 'numeric',
-      ...options,
-    });
-  }
-
-  formatDateRange(range: DateRangeLike): string {
+  formatRange(range: DateRangeLike): string {
     const [from, to] = toDateRange(range);
 
     if (!from) {
@@ -276,21 +281,23 @@ export class DateUtils {
       return 'Invalid Date Range';
     }
 
-    const fromText = !isSameDate(from, to, 'year')
-      ? this.formatDate(from)
-      : this.formatDate(from, { year: undefined });
+    const fromText = this.format(
+      from,
+      !isSameDate(from, to, 'year') ? 'date' : 'shortDate',
+    );
 
-    const toText = !to ? '…' : this.formatDate(to);
+    const toText = !to ? '…' : this.format(to, 'date');
 
     return `${fromText} - ${toText}`;
   }
 
   formatRelativeTime(value: DateLike, compare: DateLike): string {
-    return (
-      this.toDateTime(value).toRelative({
-        locale: this.options.locale,
-        base: this.toDateTime(compare),
-      }) || 'Invalid Date'
-    );
+    const valueDateTime = this.toDateTime(value);
+    const compareDateTime = this.toDateTime(compare);
+
+    return valueDateTime.toRelative({
+      locale: this.locale,
+      base: compareDateTime,
+    }) as string;
   }
 }

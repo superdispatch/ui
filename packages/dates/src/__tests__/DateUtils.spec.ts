@@ -5,6 +5,7 @@ import {
   isDate,
   isDateLike,
   isSameDate,
+  isSameDateRange,
   isValidDate,
   parseDate,
   stringifyDate,
@@ -75,8 +76,8 @@ test.each([
   [
     Date.UTC(2019, 4, 24),
     INVALID_DATE,
-    new Date(Date.UTC(2019, 4, 24)),
     INVALID_DATE,
+    new Date(Date.UTC(2019, 4, 24)),
   ],
   [
     INVALID_DATE,
@@ -113,11 +114,6 @@ test.each([
 
   expect(range[0]?.getTime()).toBe(resultStart?.getTime());
   expect(range[1]?.getTime()).toBe(resultEnd?.getTime());
-
-  // console.log()
-
-  // expect(toDateRange([start, end])).toEqual([resultStart, resultEnd]);
-  // expect(toDateRange([end, start])).toEqual([resultStart, resultEnd]);
 });
 
 test.each`
@@ -141,6 +137,22 @@ test.each`
     expect(isSameDate(compare, compare, unit)).toBe(true);
   });
 });
+
+test.each`
+  value                        | compare                         | result
+  ${[null, undefined]}         | ${[undefined, null]}            | ${true}
+  ${[mockDate(), undefined]}   | ${[undefined, new Date()]}      | ${false}
+  ${[mockDate(), undefined]}   | ${[undefined, mockTimestamp()]} | ${true}
+  ${[INVALID_DATE, undefined]} | ${[undefined, INVALID_DATE]}    | ${false}
+`(
+  'isSameDateRange($value, $compare) => $result',
+  ({ value, compare, result }) => {
+    [undefined, ...allUnits].forEach(unit => {
+      expect(isSameDateRange(value, compare, unit)).toBe(result);
+      expect(isSameDateRange(compare, value, unit)).toBe(result);
+    });
+  },
+);
 
 describe('parseDate', () => {
   test.each([
@@ -305,40 +317,28 @@ test.each([
 );
 
 test.each`
-  tz      | result
-  ${0}    | ${'May 24, 2019'}
-  ${+300} | ${'May 24, 2019'}
-  ${-300} | ${'May 23, 2019'}
-`('DateUtils#formatDate', ({ tz, result }) => {
-  const utils = new DateUtils({ timeZoneOffset: tz });
+  tz      | date              | shortDate   | time         | dateTime
+  ${0}    | ${'May 24, 2019'} | ${'May 24'} | ${'1:02 AM'} | ${'May 24, 2019, 1:02 AM'}
+  ${+300} | ${'May 24, 2019'} | ${'May 24'} | ${'6:02 AM'} | ${'May 24, 2019, 6:02 AM'}
+  ${-300} | ${'May 23, 2019'} | ${'May 23'} | ${'8:02 PM'} | ${'May 23, 2019, 8:02 PM'}
+`(
+  'DateUtils({ timeZoneOffset: $tz })#format()',
+  ({ tz, date, shortDate, time, dateTime }) => {
+    const utils = new DateUtils({ timeZoneOffset: tz });
 
-  expect(utils.formatDate(mockDate())).toBe(result);
-  expect(utils.formatDate(mockTimestamp())).toBe(result);
-});
+    expect(utils.format(mockDate(), 'date')).toBe(date);
+    expect(utils.format(mockTimestamp(), 'date')).toBe(date);
 
-test.each`
-  tz      | result
-  ${0}    | ${'May 24, 2019, 1:02 AM'}
-  ${+300} | ${'May 24, 2019, 6:02 AM'}
-  ${-300} | ${'May 23, 2019, 8:02 PM'}
-`('DateUtils#formatDateTime', ({ tz, result }) => {
-  const utils = new DateUtils({ timeZoneOffset: tz });
+    expect(utils.format(mockDate(), 'shortDate')).toBe(shortDate);
+    expect(utils.format(mockTimestamp(), 'shortDate')).toBe(shortDate);
 
-  expect(utils.formatDateTime(mockDate())).toBe(result);
-  expect(utils.formatDateTime(mockTimestamp())).toBe(result);
-});
+    expect(utils.format(mockDate(), 'time')).toBe(time);
+    expect(utils.format(mockTimestamp(), 'time')).toBe(time);
 
-test.each`
-  tz      | result
-  ${0}    | ${'May 24, 2019, 1:02 AM'}
-  ${+300} | ${'May 24, 2019, 6:02 AM'}
-  ${-300} | ${'May 23, 2019, 8:02 PM'}
-`('DateUtils#formatDateRange', ({ tz, result }) => {
-  const utils = new DateUtils({ timeZoneOffset: tz });
-
-  expect(utils.formatDateTime(mockDate())).toBe(result);
-  expect(utils.formatDateTime(mockTimestamp())).toBe(result);
-});
+    expect(utils.format(mockDate(), 'dateTime')).toBe(dateTime);
+    expect(utils.format(mockTimestamp(), 'dateTime')).toBe(dateTime);
+  },
+);
 
 test.each([
   [undefined, undefined, ''],
@@ -351,28 +351,39 @@ test.each([
 ])('DateUtils#formatDateRange', (start, end, result) => {
   const utils = new DateUtils();
 
-  expect(utils.formatDateRange([start, end])).toBe(result);
-  expect(utils.formatDateRange([end, start])).toBe(result);
+  expect(utils.formatRange([start, end])).toBe(result);
+  expect(utils.formatRange([end, start])).toBe(result);
 });
 
 test.each`
-  offset                     | result
-  ${-3}                      | ${'in 3 seconds'}
-  ${+3}                      | ${'3 seconds ago'}
-  ${-3 * 60}                 | ${'in 3 minutes'}
-  ${+3 * 60}                 | ${'3 minutes ago'}
-  ${-3 * 60 * 60}            | ${'in 3 hours'}
-  ${+3 * 60 * 60}            | ${'3 hours ago'}
-  ${-3 * 60 * 60 * 24}       | ${'in 3 days'}
-  ${+3 * 60 * 60 * 24}       | ${'3 days ago'}
-  ${-3 * 60 * 60 * 24 * 31}  | ${'in 3 months'}
-  ${+3 * 60 * 60 * 24 * 31}  | ${'3 months ago'}
-  ${-3 * 60 * 60 * 24 * 366} | ${'in 3 years'}
-  ${+3 * 60 * 60 * 24 * 366} | ${'3 years ago'}
-`('DateUtils#formatRelativeTime', ({ offset, result }) => {
-  const utils = new DateUtils();
+  offsets                | result
+  ${[NaN]}               | ${'in 0 seconds'}
+  ${[-3]}                | ${'in 3 years'}
+  ${[+3]}                | ${'3 years ago'}
+  ${[0, -3]}             | ${'in 3 months'}
+  ${[0, +3]}             | ${'3 months ago'}
+  ${[0, 0, -3]}          | ${'in 3 days'}
+  ${[0, 0, +3]}          | ${'3 days ago'}
+  ${[0, 0, 0, -3]}       | ${'in 3 hours'}
+  ${[0, 0, 0, +3]}       | ${'3 hours ago'}
+  ${[0, 0, 0, 0, -3]}    | ${'in 3 minutes'}
+  ${[0, 0, 0, 0, +3]}    | ${'3 minutes ago'}
+  ${[0, 0, 0, 0, 0, -3]} | ${'in 3 seconds'}
+  ${[0, 0, 0, 0, 0, +3]} | ${'3 seconds ago'}
+`(
+  'DateUtils#formatRelativeTime($offsets) => $result',
+  ({ offsets, result }) => {
+    const utils = new DateUtils();
+    const args = [2019, 4, 24, 0, 0, 0] as const;
+    const value = new Date(...args);
+    const compare = new Date(
+      ...(args.map((arg, idx) => {
+        const offset = offsets[idx];
 
-  expect(
-    utils.formatRelativeTime(mockTimestamp(), mockTimestamp() + offset * 1000),
-  ).toBe(result);
-});
+        return arg + (offset == null ? 0 : offset);
+      }) as [number]),
+    );
+
+    expect(utils.formatRelativeTime(value, compare)).toBe(result);
+  },
+);

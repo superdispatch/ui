@@ -236,11 +236,11 @@ export default function PickersDemo() {
               <TableRow>
                 <TableCell variant="head">UTC</TableCell>
                 <TableCell>
-                  {range[0] && utcDateUtils.formatDateTime(range[0])}
+                  {range[0] && utcDateUtils.format(range[0], 'dateTime')}
                 </TableCell>
 
                 <TableCell>
-                  {range[1] && utcDateUtils.formatDateTime(range[1])}
+                  {range[1] && utcDateUtils.format(range[1], 'dateTime')}
                 </TableCell>
               </TableRow>
 
@@ -250,11 +250,11 @@ export default function PickersDemo() {
                     {formatUTC(timeZoneOffset)}
                   </TableCell>
                   <TableCell>
-                    {range[0] && utils.formatDateTime(range[0])}
+                    {range[0] && utils.format(range[0], 'dateTime')}
                   </TableCell>
 
                   <TableCell>
-                    {range[1] && utils.formatDateTime(range[1])}
+                    {range[1] && utils.format(range[1], 'dateTime')}
                   </TableCell>
                 </TableRow>
               )}

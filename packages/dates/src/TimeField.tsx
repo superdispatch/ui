@@ -28,7 +28,7 @@ function toTimeFieldOption(utils: DateUtils, value: Date): TimeFieldOption {
 
   return {
     value: value.getTime(),
-    label: utils.formatTime(value),
+    label: utils.format(value, 'time'),
     pattern: new RegExp(
       `^(${timeFormats.map(format => dateTime.toFormat(format)).join('|')})`,
       'i',
@@ -149,7 +149,7 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
 
   useEffect(() => {
     if (isValidDate(selectedDate)) {
-      setInputValue(utils.formatTime(selectedDate));
+      setInputValue(utils.format(selectedDate, 'time'));
     } else {
       setInputValue('');
     }

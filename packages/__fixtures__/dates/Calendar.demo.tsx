@@ -123,7 +123,7 @@ export default function CalendarDemo() {
                     <CalendarQuickSelection>
                       {highlightedDays.map((day, idx) => (
                         <CalendarQuickSelectionItem key={idx}>
-                          {utils.formatDate(day)}
+                          {utils.format(day, 'date')}
                         </CalendarQuickSelectionItem>
                       ))}
                     </CalendarQuickSelection>

@@ -73,10 +73,10 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
       classes: calendarClasses,
     });
-    const textValue = useMemo(
-      () => (!value ? '' : utils.formatDateRange(value)),
-      [utils, value],
-    );
+    const textValue = useMemo(() => (!value ? '' : utils.formatRange(value)), [
+      utils,
+      value,
+    ]);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
     const [fromDate, actualToDate] = toDateRange(value);
     const toDate = actualToDate || hoveredDate;
