@@ -34,6 +34,7 @@ it('exposes public api', () => {
         "render": [Function],
       },
       "DateUtils": [Function],
+      "TimeField": [Function],
       "isDate": [Function],
       "isDateLike": [Function],
       "isSameDate": [Function],
