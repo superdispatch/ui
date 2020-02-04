@@ -40,6 +40,8 @@ it('checks component css', () => {
       [
         'MuiInputBase',
         'MuiInputLabel',
+        'PrivateNotchedOutline',
+        'MuiFormControl',
         'MuiFormLabel',
         'MuiOutlinedInput',
         'MuiSelect',
@@ -48,6 +50,12 @@ it('checks component css', () => {
       ],
     ),
   ).toMatchInlineSnapshot(`
+@keyframes mui-auto-fill {
+}
+
+@keyframes mui-auto-fill-cancel {
+}
+
 .MuiInputBase-root {
   color: Color.Grey500;
   cursor: text;
@@ -90,7 +98,7 @@ it('checks component css', () => {
   min-width: 0;
   background: none;
   box-sizing: content-box;
-  animation-name: MuiInputBase-keyframes-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -135,7 +143,7 @@ it('checks component css', () => {
 }
 
 .MuiInputBase-input:-webkit-autofill {
-  animation-name: MuiInputBase-keyframes-auto-fill;
+  animation-name: mui-auto-fill;
   animation-duration: 5000s;
 }
 
@@ -185,12 +193,6 @@ label[data-shrink='false']
   + .MuiInputBase-formControl
   .MuiInputBase-input:focus::-ms-input-placeholder {
   opacity: 0.42;
-}
-
-@keyframes MuiInputBase-keyframes-auto-fill {
-}
-
-@keyframes MuiInputBase-keyframes-auto-fill-cancel {
 }
 
 .MuiInputBase-inputMarginDense {
@@ -251,6 +253,75 @@ label[data-shrink='false']
 
 .MuiInputLabel-outlined.MuiInputLabel-marginDense {
   transform: translate(14px, 12px) scale(1);
+}
+
+.PrivateNotchedOutline-root-59 {
+  top: -5px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
+  padding-left: 8px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.PrivateNotchedOutline-legend-60 {
+  padding: 0;
+  text-align: left;
+  transition: width 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  line-height: 11px;
+}
+
+.PrivateNotchedOutline-legendLabelled-61 {
+  width: auto;
+  height: 11px;
+  display: block;
+  padding: 0;
+  font-size: 0.75em;
+  max-width: 0.01px;
+  text-align: left;
+  transition: max-width 50ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  visibility: hidden;
+}
+
+.PrivateNotchedOutline-legendLabelled-61 span {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.PrivateNotchedOutline-legendNotched-62 {
+  max-width: 1000px;
+  transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;
+}
+
+.MuiFormControl-root {
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  position: relative;
+  min-width: 0;
+  flex-direction: column;
+  vertical-align: top;
+}
+
+.MuiFormControl-marginNormal {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.MuiFormControl-marginDense {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.MuiFormControl-fullWidth {
+  width: 100%;
 }
 
 .MuiFormLabel-root {
@@ -485,8 +556,7 @@ label[data-shrink='false']
   color: Color.Grey200;
   margin: 0;
   font-size: 14px;
-  margin-top: 8px;
-  min-height: 1em;
+  margin-top: 3px;
   text-align: left;
   font-family: SF Pro Text;
   font-weight: 400;
@@ -514,6 +584,8 @@ label[data-shrink='false']
 
 .MuiFormHelperText-contained {
   margin: 4px 0px 0px 0px;
+  margin-left: 14px;
+  margin-right: 14px;
 }
 `);
 });
