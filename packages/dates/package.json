@@ -12,7 +12,6 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@date-io/core": "^2.0.0",
     "@superdispatch/ui": "^0.0.83",
     "luxon": "^1.22.0",
     "react-day-picker": "^7.3.2"
