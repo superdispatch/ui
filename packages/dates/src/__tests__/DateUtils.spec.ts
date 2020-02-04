@@ -601,6 +601,78 @@ test.each([
   },
 );
 
+test.each([
+  [
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 1,
+      minute: 2,
+      second: 3,
+      millisecond: 45,
+    }),
+    mockDateObject({
+      year: 1,
+      month: 2,
+      day: 3,
+      hour: 4,
+      minute: 5,
+      second: 6,
+      millisecond: 7,
+    }),
+    mockDate({
+      year: 2020,
+      month: 7,
+      day: 27,
+      hour: 5,
+      minute: 7,
+      second: 9,
+      millisecond: 52,
+    }),
+  ],
+])('DateUtils#plus(%p, %p) => %p', (date, values, result) => {
+  const utils = new DateUtils();
+
+  expect(utils.plus(date, values)).toBeSameDate(result);
+});
+
+test.each([
+  [
+    mockDate({
+      year: 2020,
+      month: 7,
+      day: 27,
+      hour: 5,
+      minute: 7,
+      second: 9,
+      millisecond: 52,
+    }),
+    mockDateObject({
+      year: 1,
+      month: 2,
+      day: 3,
+      hour: 4,
+      minute: 5,
+      second: 6,
+      millisecond: 7,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 1,
+      minute: 2,
+      second: 3,
+      millisecond: 45,
+    }),
+  ],
+])('DateUtils#minus(%p, %p) => %p', (date, values, result) => {
+  const utils = new DateUtils();
+
+  expect(utils.minus(date, values)).toBeSameDate(result);
+});
+
 test.each`
   tz      | date              | shortDate   | time         | dateTime
   ${0}    | ${'May 24, 2019'} | ${'May 24'} | ${'1:02 AM'} | ${'May 24, 2019, 1:02 AM'}
