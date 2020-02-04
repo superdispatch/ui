@@ -6,5 +6,5 @@
 #### Installation
 
 ```bash
-yarn add @superdispatch/phones @superdispatch/ui awesome-phonenumber @material-ui/core @material-ui/icons
+yarn add @superdispatch/phones awesome-phonenumber @material-ui/core @material-ui/icons
 ```

@@ -1,5 +1,4 @@
-import { Popover } from '@material-ui/core';
-import { PopoverOrigin } from '@material-ui/core/Popover';
+import { Popover, PopoverOrigin } from '@material-ui/core';
 import React, {
   ComponentType,
   InputHTMLAttributes,
@@ -8,10 +7,10 @@ import React, {
 } from 'react';
 import { useEventCallback } from 'utility-hooks';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
-import { CalendarQuickSelection } from '../calendar/CalendarQuickSelection';
-import { CalendarQuickSelectionItem } from '../calendar/CalendarQuickSelectionItem';
-import { DateRange } from '../calendar/DateRangeUtils';
+import { Calendar, CalendarProps } from './Calendar';
+import { CalendarQuickSelection } from './CalendarQuickSelection';
+import { CalendarQuickSelectionItem } from './CalendarQuickSelectionItem';
+import { DateRange } from './DateUtils';
 
 export type DatePickerBaseValue = undefined | Date | DateRange;
 export type DatePickerBaseInputComponent<TProps> = ComponentType<TProps>;

@@ -29,7 +29,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: ['/pkg/', '/fixtures/', '/node_modules/'],
+  coveragePathIgnorePatterns: ['/__testutils__/', '/node_modules/'],
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: ['json', 'text', 'lcov', 'clover'],
@@ -47,7 +47,7 @@ module.exports = {
   // forceCoverageMatch: [],
 
   // A path to a module which exports an async function that is triggered once before all test suites
-  // globalSetup: null,
+  globalSetup: './setupTestGlobals.ts',
 
   // A path to a module which exports an async function that is triggered once after all test suites
   // globalTeardown: null,
@@ -103,7 +103,11 @@ module.exports = {
   // rootDir: null,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ['<rootDir>/packages/phones/', '<rootDir>/packages/ui/'],
+  roots: [
+    '<rootDir>/packages/dates/',
+    '<rootDir>/packages/phones/',
+    '<rootDir>/packages/ui/',
+  ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",

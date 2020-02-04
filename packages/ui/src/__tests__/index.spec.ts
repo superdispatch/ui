@@ -8,17 +8,6 @@ it('exposes public api', () => {
         "displayName": "Button",
         "render": [Function],
       },
-      "Calendar": [Function],
-      "CalendarQuickSelection": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "CalendarQuickSelection",
-        "render": [Function],
-      },
-      "CalendarQuickSelectionItem": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "CalendarQuickSelectionItem",
-        "render": [Function],
-      },
       "CardButton": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "CardButton",
@@ -85,23 +74,6 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
-      "DateField": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "DateField",
-        "render": [Function],
-      },
-      "DatePicker": [Function],
-      "DateRangeField": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "DateRangeField",
-        "render": [Function],
-      },
-      "DateRangePicker": [Function],
-      "DateTextField": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "DateTextField",
-        "render": [Function],
-      },
       "Snackbar": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Snackbar",
@@ -119,10 +91,7 @@ it('exposes public api', () => {
         "render": [Function],
       },
       "ThemeProvider": [Function],
-      "formatDateRange": [Function],
-      "isSameDateRange": [Function],
       "mergeRefs": [Function],
-      "normalizeDateRange": [Function],
       "useSnackbarStack": [Function],
     }
   `);
