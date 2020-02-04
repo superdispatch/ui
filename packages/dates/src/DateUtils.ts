@@ -259,6 +259,13 @@ export class DateUtils {
     );
   }
 
+  diff(value: DateLike, compare: DateLike, unit: DateUnit): number {
+    const valueDateTime = this.toDateTime(value);
+    const compareDateTime = this.toDateTime(compare);
+
+    return valueDateTime.diff(compareDateTime, unit).as(unit);
+  }
+
   toLocaleString(value: DateLike, options?: DateFormatOptions) {
     return this.toDateTime(value).toLocaleString({
       ...options,

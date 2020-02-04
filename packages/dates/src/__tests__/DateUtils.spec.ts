@@ -679,6 +679,54 @@ test.each`
 );
 
 test.each`
+  unit             | value                       | compare                     | result
+  ${'year'}        | ${mockDate({ year: 2019 })} | ${mockDate({ year: 2020 })} | ${-1}
+  ${'month'}       | ${mockDate({ year: 2019 })} | ${mockDate({ year: 2020 })} | ${-12}
+  ${'month'}       | ${mockDate({ month: 5 })}   | ${mockDate({ month: 12 })}  | ${-7}
+  ${'day'}         | ${mockDate({ month: 5 })}   | ${mockDate({ month: 12 })}  | ${-214}
+  ${'day'}         | ${mockDate({ day: 24 })}    | ${mockDate({ day: 30 })}    | ${-6}
+  ${'hours'}       | ${mockDate({ day: 24 })}    | ${mockDate({ day: 30 })}    | ${-144}
+  ${'hour'}        | ${mockDate({ hour: 15 })}   | ${mockDate({ hour: 40 })}   | ${-25}
+  ${'minute'}      | ${mockDate({ hour: 15 })}   | ${mockDate({ hour: 40 })}   | ${-1500}
+  ${'minute'}      | ${mockDate({ minute: 15 })} | ${mockDate({ minute: 40 })} | ${-25}
+  ${'second'}      | ${mockDate({ minute: 15 })} | ${mockDate({ minute: 40 })} | ${-1500}
+  ${'second'}      | ${mockDate({ second: 15 })} | ${mockDate({ second: 40 })} | ${-25}
+  ${'millisecond'} | ${mockDate({ second: 15 })} | ${mockDate({ second: 40 })} | ${-25000}
+`(
+  'DateUtils#diff($value, $compare, $unit)',
+  ({ value, compare, unit, result }) => {
+    const utils = new DateUtils();
+
+    expect(utils.diff(value, compare, unit)).toBe(result);
+  },
+);
+
+test.each([
+  [mockDate({ year: 2019 }), mockDate({ year: 2020 }), 'year', -1],
+  [mockDate({ year: 2019 }), mockDate({ year: 2020 }), 'month', -12],
+  [mockDate({ month: 5 }), mockDate({ month: 12 }), 'month', -7],
+  [mockDate({ month: 5 }), mockDate({ month: 12 }), 'day', -214],
+  [mockDate({ day: 24 }), mockDate({ day: 30 }), 'day', -6],
+  [mockDate({ day: 24 }), mockDate({ day: 30 }), 'hours', -144],
+  [mockDate({ hour: 15 }), mockDate({ hour: 40 }), 'hour', -25],
+  [mockDate({ hour: 15 }), mockDate({ hour: 40 }), 'minute', -1500],
+  [mockDate({ minute: 15 }), mockDate({ minute: 40 }), 'minute', -25],
+  [mockDate({ minute: 15 }), mockDate({ minute: 40 }), 'second', -1500],
+  [mockDate({ second: 15 }), mockDate({ second: 40 }), 'second', -25],
+  [mockDate({ second: 15 }), mockDate({ second: 40 }), 'millisecond', -25000],
+  [
+    mockDate({ millisecond: 15 }),
+    mockDate({ millisecond: 40 }),
+    'millisecond',
+    -25,
+  ],
+])('DateUtils#diff(%p, %p, %p)', (value, compare, unit: any, result) => {
+  const utils = new DateUtils();
+
+  expect(utils.diff(value, compare, unit)).toBe(result);
+});
+
+test.each`
   tz      | date              | shortDate   | time         | dateTime
   ${0}    | ${'May 24, 2019'} | ${'May 24'} | ${'1:02 AM'} | ${'May 24, 2019, 1:02 AM'}
   ${+300} | ${'May 24, 2019'} | ${'May 24'} | ${'6:02 AM'} | ${'May 24, 2019, 6:02 AM'}
