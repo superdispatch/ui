@@ -256,17 +256,6 @@ export class DateUtils {
       .toJSDate();
   }
 
-  mergeTime(dateValue: DateLike, timeValue: DateLike): Date {
-    const time = this.toDateTime(timeValue);
-
-    return this.update(dateValue, {
-      hour: time.hour,
-      minute: time.minute,
-      second: time.second,
-      millisecond: time.millisecond,
-    });
-  }
-
   toLocaleString(value: DateLike, options?: FormatDateOptions) {
     return this.toDateTime(value).toLocaleString({
       ...options,
