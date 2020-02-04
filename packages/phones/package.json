@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@superdispatch/ui": "^0.0.83",
-    "clsx": "^1.0.4",
+    "clsx": "^1.1.0",
     "utility-hooks": "^0.6.0"
   },
   "peerDependencies": {
