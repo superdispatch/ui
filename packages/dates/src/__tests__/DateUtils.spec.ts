@@ -1,5 +1,6 @@
 import {
   DateFormat,
+  DateObject,
   DateUnit,
   DateUtils,
   isDate,
@@ -13,11 +14,49 @@ import {
   toDateRange,
 } from '../DateUtils';
 
-const INVALID_DATE = new Date(NaN);
-const mockTimestamp = (timezoneOffset = 0) =>
-  Date.UTC(2019, 4, 24, 1, 2 - timezoneOffset, 3, 45);
-const mockDate = (timezoneOffset?: number) =>
-  new Date(mockTimestamp(timezoneOffset));
+const invalidDate = () => new Date(NaN);
+const invalidDateObject = (): DateObject => ({
+  year: NaN,
+  month: NaN,
+  day: NaN,
+  hour: NaN,
+  minute: NaN,
+  second: NaN,
+  millisecond: NaN,
+});
+const mockDateObject = ({
+  year = 2019,
+  month = 5,
+  day = 24,
+  hour = 1,
+  minute = 2,
+  second = 3,
+  millisecond = 45,
+}: Partial<DateObject> = {}): DateObject => ({
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  second,
+  millisecond,
+});
+function mockTimestamp(values?: Partial<DateObject>): number {
+  const {
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
+    millisecond,
+  } = mockDateObject(values);
+
+  return Date.UTC(year, month - 1, day, hour, minute, second, millisecond);
+}
+function mockDate(values?: Partial<DateObject>): Date {
+  return new Date(mockTimestamp(values));
+}
 
 const formatExamples = new Map<DateFormat, string>()
   .set('DateISO', '2019-05-24')
@@ -46,7 +85,7 @@ test.each`
   ${0.1}                       | ${false} | ${false} | ${false}
   ${Date.UTC(2020, 0)}         | ${false} | ${true}  | ${false}
   ${new Date(0)}               | ${true}  | ${true}  | ${true}
-  ${INVALID_DATE}              | ${true}  | ${true}  | ${false}
+  ${invalidDate()}             | ${true}  | ${true}  | ${false}
   ${new Date(0).toISOString()} | ${false} | ${false} | ${false}
 `('validates "$input"', ({ input, date, dateLike, validDate }) => {
   expect(isDate(input)).toBe(date);
@@ -56,65 +95,41 @@ test.each`
 
 test.each`
   input              | result
-  ${null}            | ${INVALID_DATE}
-  ${undefined}       | ${INVALID_DATE}
-  ${'foo'}           | ${INVALID_DATE}
-  ${NaN}             | ${INVALID_DATE}
-  ${Infinity}        | ${INVALID_DATE}
+  ${null}            | ${invalidDate()}
+  ${undefined}       | ${invalidDate()}
+  ${'foo'}           | ${invalidDate()}
+  ${NaN}             | ${invalidDate()}
+  ${Infinity}        | ${invalidDate()}
   ${mockDate()}      | ${mockDate()}
   ${mockTimestamp()} | ${mockDate()}
 `('toDate($input) => $result', ({ input, result }) => {
-  expect(toDate(input)).toBeInstanceOf(Date);
-  expect(toDate(input).getTime()).toBe(result.getTime());
+  expect(toDate(input)).toBeSameDate(result);
 });
 
 test.each([
   [undefined, undefined, undefined, undefined],
-  [INVALID_DATE, undefined, INVALID_DATE, undefined],
-  [undefined, INVALID_DATE, INVALID_DATE, undefined],
-  [INVALID_DATE, INVALID_DATE, INVALID_DATE, INVALID_DATE],
+  [invalidDate(), undefined, invalidDate(), undefined],
+  [undefined, invalidDate(), invalidDate(), undefined],
+  [invalidDate(), invalidDate(), invalidDate(), invalidDate()],
+  [mockTimestamp(), invalidDate(), invalidDate(), mockDate()],
+  [invalidDate(), mockTimestamp(), invalidDate(), mockDate()],
+  [mockTimestamp(), undefined, mockDate(), undefined],
+  [undefined, mockTimestamp(), mockDate(), undefined],
   [
-    Date.UTC(2019, 4, 24),
-    INVALID_DATE,
-    INVALID_DATE,
-    new Date(Date.UTC(2019, 4, 24)),
+    mockTimestamp({ year: 2019 }),
+    mockTimestamp({ year: 2020 }),
+    mockDate({ year: 2019 }),
+    mockDate({ year: 2020 }),
   ],
-  [
-    INVALID_DATE,
-    Date.UTC(2019, 4, 24),
-    INVALID_DATE,
-    new Date(Date.UTC(2019, 4, 24)),
-  ],
-  [
-    Date.UTC(2019, 4, 24),
-    undefined,
-    new Date(Date.UTC(2019, 4, 24)),
-    undefined,
-  ],
-  [
-    undefined,
-    Date.UTC(2019, 4, 24),
-    new Date(Date.UTC(2019, 4, 24)),
-    undefined,
-  ],
-  [
-    Date.UTC(2019, 4, 24),
-    Date.UTC(2020, 4, 24),
-    new Date(Date.UTC(2019, 4, 24)),
-    new Date(Date.UTC(2020, 4, 24)),
-  ],
-  [
-    Date.UTC(2020, 4, 24),
-    Date.UTC(2019, 4, 24),
-    new Date(Date.UTC(2019, 4, 24)),
-    new Date(Date.UTC(2020, 4, 24)),
-  ],
-])('toDateRange(%p, %p)', (start, end, resultStart, resultEnd) => {
-  const range = toDateRange([start, end]);
+])(
+  'toDateRange(%p, %p)',
+  (rawStart, rawFinish, expectedStart, expectedFinish) => {
+    const [start, finish] = toDateRange([rawStart, rawFinish]);
 
-  expect(range[0]?.getTime()).toBe(resultStart?.getTime());
-  expect(range[1]?.getTime()).toBe(resultEnd?.getTime());
-});
+    expect(start).toBeSameDate(expectedStart);
+    expect(finish).toBeSameDate(expectedFinish);
+  },
+);
 
 test.each`
   value              | compare            | result
@@ -139,11 +154,11 @@ test.each`
 });
 
 test.each`
-  value                        | compare                         | result
-  ${[null, undefined]}         | ${[undefined, null]}            | ${true}
-  ${[mockDate(), undefined]}   | ${[undefined, new Date()]}      | ${false}
-  ${[mockDate(), undefined]}   | ${[undefined, mockTimestamp()]} | ${true}
-  ${[INVALID_DATE, undefined]} | ${[undefined, INVALID_DATE]}    | ${false}
+  value                         | compare                         | result
+  ${[null, undefined]}          | ${[undefined, null]}            | ${true}
+  ${[mockDate(), undefined]}    | ${[undefined, new Date()]}      | ${false}
+  ${[mockDate(), undefined]}    | ${[undefined, mockTimestamp()]} | ${true}
+  ${[invalidDate(), undefined]} | ${[undefined, invalidDate()]}   | ${false}
 `(
   'isSameDateRange($value, $compare) => $result',
   ({ value, compare, result }) => {
@@ -156,41 +171,30 @@ test.each`
 
 describe('parseDate', () => {
   test.each([
-    [null, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [undefined, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    ['', INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [NaN, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [Infinity, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [0, new Date(0), new Date(0), new Date(0)],
-    [0.1, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [INVALID_DATE, INVALID_DATE, INVALID_DATE, INVALID_DATE],
-    [mockDate(), mockDate(), mockDate(), mockDate()],
-    [mockTimestamp(), mockDate(), mockDate(), mockDate()],
+    [null, invalidDate()],
+    [undefined, invalidDate()],
+    ['', invalidDate()],
+    [NaN, invalidDate()],
+    [Infinity, invalidDate()],
+    [0.1, invalidDate()],
+    [invalidDate(), invalidDate()],
+    [mockDate(), mockDate()],
+    [mockTimestamp(), mockDate()],
     [
       '2019-05-24',
-      new Date(Date.UTC(2019, 4, 24)),
-      new Date(Date.UTC(2019, 4, 24)),
-      INVALID_DATE,
+      mockDate({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
+      mockDate({ hour: 0, minute: 0, second: 0, millisecond: 0 }),
+      invalidDate(),
     ],
-    ['2019-05-24T01:02:03.045Z', mockDate(), mockDate(), INVALID_DATE],
-    ['2019-05-24T01:02:03.045+0000', mockDate(), mockDate(), mockDate()],
-    [
-      '2019-05-24T01:02:03.045+0500',
-      mockDate(+300),
-      mockDate(+300),
-      mockDate(+300),
-    ],
-    [
-      '2019-05-24T01:02:03.045-0500',
-      mockDate(-300),
-      mockDate(-300),
-      mockDate(-300),
-    ],
-  ])('parse %p', (input, date, dateTime, joda) => {
-    expect(parseDate(input, 'toString' as any).getTime()).toBeNaN();
-    expect(parseDate(input, 'DateISO').getTime()).toBe(date.getTime());
-    expect(parseDate(input, 'DateTimeISO').getTime()).toBe(dateTime.getTime());
-    expect(parseDate(input, 'JodaISO').getTime()).toBe(joda.getTime());
+    ['2019-05-24T01:02:03.045Z', mockDate(), mockDate(), invalidDate()],
+    ['2019-05-24T01:02:03.045+0000', mockDate()],
+    ['2019-05-24T01:02:03.045+0500', mockDate({ day: 23, hour: 20 })],
+    ['2019-05-24T01:02:03.045-0500', mockDate({ hour: 6 })],
+  ])('parse %p', (input, date, dateTime = date, joda = date) => {
+    expect(parseDate(input, 'toString' as any)).toBeSameDate(invalidDate());
+    expect(parseDate(input, 'DateISO')).toBeSameDate(date);
+    expect(parseDate(input, 'DateTimeISO')).toBeSameDate(dateTime);
+    expect(parseDate(input, 'JodaISO')).toBeSameDate(joda);
   });
 });
 
@@ -198,7 +202,7 @@ describe('stringifyDate', () => {
   test.each(allFormats)('stringify invalid value with %p', format => {
     expect(stringifyDate(NaN, format)).toBe('Invalid Date');
     expect(stringifyDate(Infinity, format)).toBe('Invalid Date');
-    expect(stringifyDate(INVALID_DATE, format)).toBe('Invalid Date');
+    expect(stringifyDate(invalidDate(), format)).toBe('Invalid Date');
   });
 
   test.each(Array.from(formatExamples))(
@@ -228,91 +232,372 @@ test('DateUtils#constructor', () => {
 
 test.each([
   [
+    invalidDate(),
+    invalidDateObject(),
+    invalidDateObject(),
+    invalidDateObject(),
+  ],
+  [
+    mockDate({ day: 24, hour: 1 }),
+    mockDateObject({ day: 24, hour: 1 }),
+    mockDateObject({ day: 24, hour: 6 }),
+    mockDateObject({ day: 23, hour: 20 }),
+  ],
+  [
+    mockTimestamp({ day: 24, hour: 1 }),
+    mockDateObject({ day: 24, hour: 1 }),
+    mockDateObject({ day: 24, hour: 6 }),
+    mockDateObject({ day: 23, hour: 20 }),
+  ],
+])('DateUtils#toObject(%p)', (date, utc, plus300, minus300) => {
+  const utils = new DateUtils();
+  const utils0 = new DateUtils({ timeZoneOffset: 0 });
+  const utilsPlus300 = new DateUtils({ timeZoneOffset: +300 });
+  const utilsMinus300 = new DateUtils({ timeZoneOffset: -300 });
+
+  expect(utils.toObject(date)).toEqual(utc);
+  expect(utils0.toObject(date)).toEqual(utc);
+
+  expect(utilsPlus300.toObject(date)).toEqual(plus300);
+  expect(utilsMinus300.toObject(date)).toEqual(minus300);
+});
+
+test.each([
+  [invalidDateObject(), invalidDate(), invalidDate(), invalidDate()],
+  [
+    mockDateObject({ day: 24, hour: 1 }),
+    mockDate({ day: 24, hour: 1 }),
+    mockDate({ day: 23, hour: 20 }),
+    mockDate({ day: 24, hour: 6 }),
+  ],
+])('DateUtils#fromObject(%p)', (date, utc, plus300, minus300) => {
+  const utils = new DateUtils();
+  const utils0 = new DateUtils({ timeZoneOffset: 0 });
+  const utilsPlus300 = new DateUtils({ timeZoneOffset: +300 });
+  const utilsMinus300 = new DateUtils({ timeZoneOffset: -300 });
+
+  expect(utils.fromObject(date)).toBeSameDate(utc);
+  expect(utils0.fromObject(date)).toBeSameDate(utc);
+
+  expect(utilsPlus300.fromObject(date)).toBeSameDate(plus300);
+  expect(utilsMinus300.fromObject(date)).toBeSameDate(minus300);
+});
+
+test.each([
+  ['year', invalidDate(), invalidDate()],
+  [
     'year',
-    Date.UTC(2019, 0, 1),
-    Date.UTC(2019, 0, 1, -5),
-    Date.UTC(2019, 0, 1, +5),
+    mockDate({ year: 2019 }),
+    mockDate({
+      year: 2019,
+      month: 1,
+      day: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      year: 2018,
+      month: 12,
+      day: 31,
+      hour: 19,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      year: 2019,
+      month: 1,
+      day: 1,
+      hour: 5,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
   ],
   [
     'month',
-    Date.UTC(2019, 4, 1),
-    Date.UTC(2019, 4, 1, -5),
-    Date.UTC(2019, 4, 1, +5),
+    mockDate({ month: 5 }),
+    mockDate({
+      month: 5,
+      day: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      month: 4,
+      day: 30,
+      hour: 19,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      month: 5,
+      day: 1,
+      hour: 5,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
   ],
   [
     'day',
-    Date.UTC(2019, 4, 24),
-    Date.UTC(2019, 4, 24, -5),
-    Date.UTC(2019, 4, 23, +5),
+    mockDate({ day: 24 }),
+    mockDate({
+      day: 24,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      day: 23,
+      hour: 19,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    mockDate({
+      day: 23,
+      hour: 5,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
   ],
-  ['hour', Date.UTC(2019, 4, 24, 1)],
-  ['minute', Date.UTC(2019, 4, 24, 1, 2)],
-  ['second', Date.UTC(2019, 4, 24, 1, 2, 3)],
+  [
+    'hour',
+    mockDate({ hour: 4 }),
+    mockDate({ hour: 4, minute: 0, second: 0, millisecond: 0 }),
+  ],
+  [
+    'minute',
+    mockDate({ minute: 4 }),
+    mockDate({ minute: 4, second: 0, millisecond: 0 }),
+  ],
+  ['second', mockDate({ second: 4 }), mockDate({ second: 4, millisecond: 0 })],
+  ['millisecond', mockDate({ millisecond: 4 }), mockDate({ millisecond: 4 })],
 ])(
-  'DateUtils#startOf(value, %p)',
-  (unit: any, zero, plus300 = zero, minus300 = zero) => {
+  'DateUtils#startOf(%p, %p)',
+  (unit: any, value, zero, plus300 = zero, minus300 = zero) => {
     const utils = new DateUtils();
     const utils0 = new DateUtils({ timeZoneOffset: 0 });
     const utilsPlus300 = new DateUtils({ timeZoneOffset: +300 });
     const utilsMinus300 = new DateUtils({ timeZoneOffset: -300 });
 
-    expect(utils.startOf(mockDate(), unit)).toEqual(
+    expect(utils.startOf(mockDate(), unit)).toBeSameDate(
       utils.startOf(mockTimestamp(), unit),
     );
-
-    expect(utils.startOf(mockTimestamp(), unit)).toEqual(
+    expect(utils.startOf(mockTimestamp(), unit)).toBeSameDate(
       utils.startOf(mockDate(), unit),
     );
 
-    expect(utils.startOf(mockDate(), unit)).toEqual(new Date(zero));
-    expect(utils0.startOf(mockDate(), unit)).toEqual(new Date(zero));
-    expect(utilsPlus300.startOf(mockDate(), unit)).toEqual(new Date(plus300));
-    expect(utilsMinus300.startOf(mockDate(), unit)).toEqual(new Date(minus300));
+    expect(utils.startOf(value, unit)).toBeSameDate(zero);
+    expect(utils0.startOf(value, unit)).toBeSameDate(zero);
+    expect(utilsPlus300.startOf(value, unit)).toBeSameDate(plus300);
+    expect(utilsMinus300.startOf(value, unit)).toBeSameDate(minus300);
   },
 );
 
 test.each([
   [
     'year',
-    Date.UTC(2019, 11, 31, 23, 59, 59, 999),
-    Date.UTC(2019, 11, 31, 18, 59, 59, 999),
-    Date.UTC(2020, 0, 1, 4, 59, 59, 999),
+    mockDate({ year: 2019 }),
+    mockDate({
+      year: 2019,
+      month: 12,
+      day: 31,
+      hour: 23,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2019,
+      month: 12,
+      day: 31,
+      hour: 18,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2020,
+      month: 1,
+      day: 1,
+      hour: 4,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
   ],
   [
     'month',
-    Date.UTC(2019, 4, 31, 23, 59, 59, 999),
-    Date.UTC(2019, 4, 31, 18, 59, 59, 999),
-    Date.UTC(2019, 5, 1, 4, 59, 59, 999),
+    mockDate({ month: 5, day: 24 }),
+    mockDate({
+      month: 5,
+      day: 31,
+      hour: 23,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      month: 5,
+      day: 31,
+      hour: 18,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      month: 6,
+      day: 1,
+      hour: 4,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
   ],
   [
     'day',
-    Date.UTC(2019, 4, 24, 23, 59, 59, 999),
-    Date.UTC(2019, 4, 24, 18, 59, 59, 999),
-    Date.UTC(2019, 4, 24, 4, 59, 59, 999),
+    mockDate({ year: 2019, month: 5, day: 24, hour: 4 }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 23,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 18,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
   ],
-  ['hour', Date.UTC(2019, 4, 24, 1, 59, 59, 999)],
-  ['minute', Date.UTC(2019, 4, 24, 1, 2, 59, 999)],
-  ['second', Date.UTC(2019, 4, 24, 1, 2, 3, 999)],
+  [
+    'hour',
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 59,
+      second: 59,
+      millisecond: 999,
+    }),
+  ],
+  [
+    'minute',
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 999,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 59,
+      millisecond: 999,
+    }),
+  ],
+  [
+    'second',
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 0,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 999,
+    }),
+  ],
+  [
+    'millisecond',
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 333,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 4,
+      minute: 4,
+      second: 4,
+      millisecond: 333,
+    }),
+  ],
 ])(
-  'DateUtils#endOf(value, %p)',
-  (unit: any, zero, plus300 = zero, minus300 = zero) => {
+  'DateUtils#endOf(%p, %p)',
+  (unit: any, value, zero, plus300 = zero, minus300 = zero) => {
     const utils = new DateUtils();
     const utils0 = new DateUtils({ timeZoneOffset: 0 });
     const utilsPlus300 = new DateUtils({ timeZoneOffset: +300 });
     const utilsMinus300 = new DateUtils({ timeZoneOffset: -300 });
 
-    expect(utils.endOf(mockDate(), unit)).toEqual(
+    expect(utils.endOf(mockDate(), unit)).toBeSameDate(
       utils.endOf(mockTimestamp(), unit),
     );
 
-    expect(utils.endOf(mockTimestamp(), unit)).toEqual(
+    expect(utils.endOf(mockTimestamp(), unit)).toBeSameDate(
       utils.endOf(mockDate(), unit),
     );
 
-    expect(utils.endOf(mockDate(), unit)).toEqual(new Date(zero));
-    expect(utils0.endOf(mockDate(), unit)).toEqual(new Date(zero));
-    expect(utilsPlus300.endOf(mockDate(), unit)).toEqual(new Date(plus300));
-    expect(utilsMinus300.endOf(mockDate(), unit)).toEqual(new Date(minus300));
+    expect(utils.endOf(value, unit)).toBeSameDate(zero);
+    expect(utils0.endOf(value, unit)).toBeSameDate(zero);
+    expect(utilsPlus300.endOf(value, unit)).toBeSameDate(plus300);
+    expect(utilsMinus300.endOf(value, unit)).toBeSameDate(minus300);
   },
 );
 
@@ -342,12 +627,16 @@ test.each`
 
 test.each([
   [undefined, undefined, ''],
-  [INVALID_DATE, undefined, 'Invalid Date Range'],
-  [INVALID_DATE, INVALID_DATE, 'Invalid Date Range'],
-  [Date.UTC(2020, 4, 24), INVALID_DATE, 'Invalid Date Range'],
-  [Date.UTC(2020, 4, 24), undefined, 'May 24, 2020 - …'],
-  [Date.UTC(2020, 4, 24), Date.UTC(2020, 5, 24), 'May 24 - Jun 24, 2020'],
-  [Date.UTC(2020, 4, 24), Date.UTC(2019, 4, 24), 'May 24, 2019 - May 24, 2020'],
+  [invalidDate(), undefined, 'Invalid Date Range'],
+  [invalidDate(), invalidDate(), 'Invalid Date Range'],
+  [mockDate(), invalidDate(), 'Invalid Date Range'],
+  [mockDate(), undefined, 'May 24, 2019 - …'],
+  [mockDate({ month: 5 }), mockDate({ month: 6 }), 'May 24 - Jun 24, 2019'],
+  [
+    mockDate({ year: 2020 }),
+    mockDate({ year: 2019 }),
+    'May 24, 2019 - May 24, 2020',
+  ],
 ])('DateUtils#formatDateRange', (start, end, result) => {
   const utils = new DateUtils();
 

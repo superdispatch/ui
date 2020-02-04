@@ -193,9 +193,35 @@ export class DateUtils {
     return { year, month, day, hour, minute, second, millisecond };
   }
 
-  fromObject(object: DateObject): Date {
+  fromObject({
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
+    millisecond,
+  }: DateObject): Date {
+    if (
+      Number.isNaN(year) ||
+      Number.isNaN(month) ||
+      Number.isNaN(day) ||
+      Number.isNaN(hour) ||
+      Number.isNaN(minute) ||
+      Number.isNaN(second) ||
+      Number.isNaN(millisecond)
+    ) {
+      return new Date(NaN);
+    }
+
     return DateTime.fromObject({
-      ...object,
+      year,
+      month,
+      day,
+      hour,
+      minute,
+      second,
+      millisecond,
       zone: FixedOffsetZone.instance(this.timeZoneOffset),
     }).toJSDate();
   }
