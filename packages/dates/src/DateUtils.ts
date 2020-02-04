@@ -84,36 +84,6 @@ export function toDateRange(range: NullableDateRangeLike): DateRange {
   return [start, end];
 }
 
-export function isSameDate(
-  value: NullableDateLike,
-  compare: NullableDateLike,
-  unit: DateUnit = 'millisecond',
-) {
-  if (value == null && compare == null) {
-    return true;
-  }
-
-  if (value == null || compare == null) {
-    return false;
-  }
-
-  const startOfValue = toDateTime(value).startOf(unit);
-  const startOfCompare = toDateTime(compare).startOf(unit);
-
-  return startOfValue.equals(startOfCompare);
-}
-
-export function isSameDateRange(
-  value: NullableDateRangeLike,
-  compare: NullableDateRangeLike,
-  unit?: DateUnit,
-) {
-  const range1 = toDateRange(value);
-  const range2 = toDateRange(compare);
-
-  return !range1.some((date, idx) => !isSameDate(date, range2[idx], unit));
-}
-
 export function parseDate(value: unknown, format: DateFormat): Date {
   if (Object.prototype.hasOwnProperty.call(formats, format)) {
     if (isDateLike(value)) {
@@ -257,6 +227,38 @@ export class DateUtils {
       .toJSDate();
   }
 
+  isSameDate(
+    value: NullableDateLike,
+    compare: NullableDateLike,
+    unit: DateUnit = 'millisecond',
+  ) {
+    if (value == null && compare == null) {
+      return true;
+    }
+
+    if (value == null || compare == null) {
+      return false;
+    }
+
+    const startOfValue = this.toDateTime(value).startOf(unit);
+    const startOfCompare = this.toDateTime(compare).startOf(unit);
+
+    return startOfValue.equals(startOfCompare);
+  }
+
+  isSameDateRange(
+    value: NullableDateRangeLike,
+    compare: NullableDateRangeLike,
+    unit?: DateUnit,
+  ) {
+    const range1 = toDateRange(value);
+    const range2 = toDateRange(compare);
+
+    return !range1.some(
+      (date, idx) => !this.isSameDate(date, range2[idx], unit),
+    );
+  }
+
   toLocaleString(value: DateLike, options?: DateFormatOptions) {
     return this.toDateTime(value).toLocaleString({
       ...options,
@@ -296,7 +298,7 @@ export class DateUtils {
 
     const fromText = this.format(
       from,
-      !isSameDate(from, to, 'year') ? 'date' : 'shortDate',
+      !this.isSameDate(from, to, 'year') ? 'date' : 'shortDate',
     );
 
     const toText = !to ? '…' : this.format(to, 'date');

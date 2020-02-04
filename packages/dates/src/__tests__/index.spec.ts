@@ -38,8 +38,6 @@ it('exposes public api', () => {
       "TimeField": [Function],
       "isDate": [Function],
       "isDateLike": [Function],
-      "isSameDate": [Function],
-      "isSameDateRange": [Function],
       "isValidDate": [Function],
       "parseDate": [Function],
       "stringifyDate": [Function],

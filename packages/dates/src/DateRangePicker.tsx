@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
+import { useDateUtils } from './DateContext';
 import {
   CommonDatePickerProps,
   DatePickerBase,
@@ -8,7 +9,7 @@ import {
   useDatePickerPopoverState,
 } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
-import { DateRange, isSameDateRange, toDateRange } from './DateUtils';
+import { DateRange, toDateRange } from './DateUtils';
 
 export type DateRangePickerValue = undefined | DateRange;
 export type DateRangePickerProps = CommonDatePickerProps<DateRangePickerValue>;
@@ -28,6 +29,7 @@ export function DateRangePicker({
   quickSelectionItems,
   ...props
 }: DateRangePickerProps) {
+  const utils = useDateUtils();
   const { onClose, ...stateProps } = useDatePickerPopoverState();
   const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles();
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
@@ -40,8 +42,11 @@ export function DateRangePicker({
     hoveredDate && pickingDateType === 'end' ? hoveredDate : actualToDate;
 
   const quickSelectionSelectedItem = useMemo(
-    () => quickSelectionItems?.find(item => isSameDateRange(item.value, value)),
-    [value, quickSelectionItems],
+    () =>
+      quickSelectionItems?.find(item =>
+        utils.isSameDateRange(item.value, value),
+      ),
+    [quickSelectionItems, utils, value],
   );
 
   function handleClose() {

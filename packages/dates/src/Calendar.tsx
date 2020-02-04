@@ -17,7 +17,6 @@ import { useDateUtils } from './DateContext';
 import {
   DateRangeLike,
   DateUtils,
-  isSameDate,
   isValidDate,
   NullableDate,
   toDateRange,
@@ -366,13 +365,13 @@ export function Calendar({
 
   const isFirstDayOfMonth = useCallback(
     (date: Date): boolean =>
-      isSameDate(date, utils.startOf(date, 'month'), 'day'),
+      utils.isSameDate(date, utils.startOf(date, 'month'), 'day'),
     [utils],
   );
 
   const isLastDayOfMonth = useCallback(
     (date: Date): boolean =>
-      isSameDate(date, utils.endOf(date, 'month'), 'day'),
+      utils.isSameDate(date, utils.endOf(date, 'month'), 'day'),
     [utils],
   );
 
