@@ -1,5 +1,5 @@
-import { Popover } from '@material-ui/core';
-import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
+import { OutlinedTextFieldProps, Popover } from '@material-ui/core';
+import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -10,16 +10,12 @@ import React, {
   useState,
 } from 'react';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
-import {
-  DateRange,
-  formatDateRange,
-  normalizeDateRange,
-} from '../calendar/DateRangeUtils';
-import { mergeRefs } from '../utils/mergeRefs';
+import { Calendar, CalendarProps } from './Calendar';
+import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
+import { DateRange, isValidDate, toDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
   close: () => void;
@@ -71,14 +67,18 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     },
     ref,
   ) => {
+    const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
       classes: calendarClasses,
     });
-    const textValue = useMemo(() => formatDateRange(value), [value]);
+    const textValue = useMemo(() => (!value ? '' : utils.formatRange(value)), [
+      utils,
+      value,
+    ]);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-    const [fromDate, actualToDate] = normalizeDateRange(value);
+    const [fromDate, actualToDate] = toDateRange(value);
     const toDate = actualToDate || hoveredDate;
 
     const handleClose = () => {
@@ -88,19 +88,16 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     };
 
     const handleChange = (nextValue: undefined | DateRange) => {
-      const nextRange = normalizeDateRange(nextValue);
+      const nextRange = toDateRange(nextValue);
 
       onChange?.(nextRange);
 
-      if (nextRange.length === 2) {
+      if (isValidDate(nextRange[1])) {
         handleClose();
       }
     };
 
-    const api: DateRangeFieldAPI = {
-      close: handleClose,
-      change: handleChange,
-    };
+    const api: DateRangeFieldAPI = { close: handleClose, change: handleChange };
 
     return (
       <>

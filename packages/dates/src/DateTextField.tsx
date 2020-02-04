@@ -1,20 +1,19 @@
 import {
   IconButton,
   InputAdornment,
+  OutlinedTextFieldProps,
   SvgIcon,
   TextField,
 } from '@material-ui/core';
-import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
 import { Clear } from '@material-ui/icons';
 import { mdiCalendarMonth } from '@mdi/js';
+import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
   useRef,
 } from 'react';
-
-import { mergeRefs } from '../utils/mergeRefs';
 
 export interface DateTextFieldProps
   extends RefAttributes<HTMLDivElement>,

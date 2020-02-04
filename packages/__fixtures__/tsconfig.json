@@ -1,6 +1,10 @@
 {
   "extends": "@superdispatch/tsconfig",
-  "references": [{ "path": "../ui" }, { "path": "../phones" }],
+  "references": [
+    { "path": "../ui" },
+    { "path": "../dates" },
+    { "path": "../phones" }
+  ],
   "compilerOptions": {
     "composite": true
   }

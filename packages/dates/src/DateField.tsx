@@ -1,5 +1,5 @@
-import { Popover } from '@material-ui/core';
-import { OutlinedTextFieldProps } from '@material-ui/core/TextField';
+import { OutlinedTextFieldProps, Popover } from '@material-ui/core';
+import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -9,11 +9,11 @@ import React, {
   useRef,
 } from 'react';
 
-import { Calendar, CalendarProps } from '../calendar/Calendar';
-import { formatDate } from '../calendar/DateUtils';
-import { mergeRefs } from '../utils/mergeRefs';
+import { Calendar, CalendarProps } from './Calendar';
+import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
+import { DateLike } from './DateUtils';
 
 interface DateFieldAPI {
   close: () => void;
@@ -28,7 +28,7 @@ export interface DateFieldProps
     > {
   hasClearButton?: boolean;
 
-  value?: Date;
+  value?: DateLike;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | Date) => void;
@@ -59,9 +59,13 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     },
     ref,
   ) => {
+    const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const textValue = useMemo(() => formatDate(value), [value]);
+    const textValue = useMemo(
+      () => (!value ? '' : utils.format(value, 'date')),
+      [utils, value],
+    );
 
     const handleClose = () => {
       onClose();
@@ -73,10 +77,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       handleClose();
     };
 
-    const api: DateFieldAPI = {
-      close: handleClose,
-      change: handleChange,
-    };
+    const api: DateFieldAPI = { close: handleClose, change: handleChange };
 
     return (
       <>

@@ -5,4 +5,5 @@
 [![codecov](https://codecov.io/gh/superdispatch/ui/branch/master/graph/badge.svg)](https://codecov.io/gh/superdispatch/ui)
 
 - [@superdispatch/ui](https://github.com/superdispatch/ui/tree/master/packages/ui) - UI components
-- [@superdispatch/phones](https://github.com/superdispatch/ui/tree/master/packages/phones) - Phone number components and utilities
+- [@superdispatch/dates](https://github.com/superdispatch/ui/tree/master/packages/dates) - Date and Time components
+- [@superdispatch/phones](https://github.com/superdispatch/ui/tree/master/packages/phones) - Phone Number components
