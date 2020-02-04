@@ -165,21 +165,16 @@ it('checks component css', () => {
   max-width: 100%;
 }
 
-.MuiDialogTitle-root {
+.MuiDialogActions-root {
   flex: 0 0 auto;
-  margin: 0;
-  padding: 16px 24px;
-  font-size: 20px;
-  font-family: SF Pro Display;
-  font-weight: 500;
-  line-height: 28px;
+  display: flex;
+  padding: 24px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiDialogTitle-root {
-    font-size: 22px;
-    line-height: 32px;
-  }
+.MuiDialogActions-spacing > :not(:first-child) {
+  margin-left: 16px;
 }
 
 .MuiDialogContent-root {
@@ -199,16 +194,21 @@ it('checks component css', () => {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.MuiDialogActions-root {
+.MuiDialogTitle-root {
   flex: 0 0 auto;
-  display: flex;
-  padding: 24px;
-  align-items: center;
-  justify-content: flex-end;
+  margin: 0;
+  padding: 16px 24px;
+  font-size: 20px;
+  font-family: SF Pro Display;
+  font-weight: 500;
+  line-height: 28px;
 }
 
-.MuiDialogActions-spacing > :not(:first-child) {
-  margin-left: 16px;
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiDialogTitle-root {
+    font-size: 22px;
+    line-height: 32px;
+  }
 }
 `);
 });

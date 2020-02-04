@@ -24,56 +24,6 @@ it('checks component css', () => {
       ['MuiTabs', 'MuiTab'],
     ),
   ).toMatchInlineSnapshot(`
-.MuiTabs-root {
-  display: flex;
-  overflow: hidden;
-  min-height: 40px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.MuiTabs-vertical {
-  flex-direction: column;
-}
-
-.MuiTabs-flexContainer {
-  display: flex;
-}
-
-.MuiTabs-flexContainerVertical {
-  flex-direction: column;
-}
-
-.MuiTabs-centered {
-  justify-content: center;
-}
-
-.MuiTabs-scroller {
-  flex: 1 1 auto;
-  display: inline-block;
-  position: relative;
-  white-space: nowrap;
-}
-
-.MuiTabs-fixed {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.MuiTabs-scrollable {
-  overflow-x: scroll;
-  scrollbar-width: none;
-}
-
-.MuiTabs-scrollable::-webkit-scrollbar {
-  display: none;
-}
-
-@media (max-width: 599.95px) {
-  .MuiTabs-scrollButtonsDesktop {
-    display: none;
-  }
-}
-
 .MuiTab-root {
   padding: 6px 12px;
   overflow: hidden;
@@ -174,6 +124,56 @@ it('checks component css', () => {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+}
+
+.MuiTabs-root {
+  display: flex;
+  overflow: hidden;
+  min-height: 40px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.MuiTabs-vertical {
+  flex-direction: column;
+}
+
+.MuiTabs-flexContainer {
+  display: flex;
+}
+
+.MuiTabs-flexContainerVertical {
+  flex-direction: column;
+}
+
+.MuiTabs-centered {
+  justify-content: center;
+}
+
+.MuiTabs-scroller {
+  flex: 1 1 auto;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+
+.MuiTabs-fixed {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.MuiTabs-scrollable {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.MuiTabs-scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 599.95px) {
+  .MuiTabs-scrollButtonsDesktop {
+    display: none;
+  }
 }
 `);
 });
