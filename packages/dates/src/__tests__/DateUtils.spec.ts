@@ -5,8 +5,6 @@ import {
   DateUtils,
   isDate,
   isDateLike,
-  isSameDate,
-  isSameDateRange,
   isValidDate,
   parseDate,
   stringifyDate,
@@ -128,44 +126,6 @@ test.each([
 
     expect(start).toBeSameDate(expectedStart);
     expect(finish).toBeSameDate(expectedFinish);
-  },
-);
-
-test.each`
-  value              | compare            | result
-  ${null}            | ${undefined}       | ${true}
-  ${null}            | ${mockDate()}      | ${false}
-  ${null}            | ${mockTimestamp()} | ${false}
-  ${undefined}       | ${mockDate()}      | ${false}
-  ${undefined}       | ${mockTimestamp()} | ${false}
-  ${mockDate()}      | ${mockTimestamp()} | ${true}
-  ${mockDate()}      | ${new Date()}      | ${false}
-  ${mockTimestamp()} | ${new Date()}      | ${false}
-  ${mockDate()}      | ${Date.now()}      | ${false}
-  ${mockTimestamp()} | ${Date.now()}      | ${false}
-`('isSameDate($value, $compare) => $result', ({ value, compare, result }) => {
-  [undefined, ...allUnits].forEach(unit => {
-    expect(isSameDate(value, compare, unit)).toBe(result);
-    expect(isSameDate(compare, value, unit)).toBe(result);
-
-    expect(isSameDate(value, value, unit)).toBe(true);
-    expect(isSameDate(compare, compare, unit)).toBe(true);
-  });
-});
-
-test.each`
-  value                         | compare                         | result
-  ${[null, undefined]}          | ${[undefined, null]}            | ${true}
-  ${[mockDate(), undefined]}    | ${[undefined, new Date()]}      | ${false}
-  ${[mockDate(), undefined]}    | ${[undefined, mockTimestamp()]} | ${true}
-  ${[invalidDate(), undefined]} | ${[undefined, invalidDate()]}   | ${false}
-`(
-  'isSameDateRange($value, $compare) => $result',
-  ({ value, compare, result }) => {
-    [undefined, ...allUnits].forEach(unit => {
-      expect(isSameDateRange(value, compare, unit)).toBe(result);
-      expect(isSameDateRange(compare, value, unit)).toBe(result);
-    });
   },
 );
 
@@ -672,6 +632,51 @@ test.each([
 
   expect(utils.minus(date, values)).toBeSameDate(result);
 });
+
+test.each`
+  value              | compare            | result
+  ${null}            | ${undefined}       | ${true}
+  ${null}            | ${mockDate()}      | ${false}
+  ${null}            | ${mockTimestamp()} | ${false}
+  ${undefined}       | ${mockDate()}      | ${false}
+  ${undefined}       | ${mockTimestamp()} | ${false}
+  ${mockDate()}      | ${new Date()}      | ${false}
+  ${mockTimestamp()} | ${new Date()}      | ${false}
+  ${mockDate()}      | ${Date.now()}      | ${false}
+  ${mockTimestamp()} | ${Date.now()}      | ${false}
+  ${mockDate()}      | ${mockTimestamp()} | ${true}
+`(
+  'DateRange#isSameDate($value, $compare) => $result',
+  ({ value, compare, result }) => {
+    const utils = new DateUtils();
+
+    [undefined, ...allUnits].forEach(unit => {
+      expect(utils.isSameDate(value, compare, unit)).toBe(result);
+      expect(utils.isSameDate(compare, value, unit)).toBe(result);
+
+      expect(utils.isSameDate(value, value, unit)).toBe(true);
+      expect(utils.isSameDate(compare, compare, unit)).toBe(true);
+    });
+  },
+);
+
+test.each`
+  value                         | compare                         | result
+  ${[null, undefined]}          | ${[undefined, null]}            | ${true}
+  ${[mockDate(), undefined]}    | ${[undefined, new Date()]}      | ${false}
+  ${[mockDate(), undefined]}    | ${[undefined, mockTimestamp()]} | ${true}
+  ${[invalidDate(), undefined]} | ${[undefined, invalidDate()]}   | ${false}
+`(
+  'DateRange#isSameDateRange($value, $compare) => $result',
+  ({ value, compare, result }) => {
+    const utils = new DateUtils();
+
+    [undefined, ...allUnits].forEach(unit => {
+      expect(utils.isSameDateRange(value, compare, unit)).toBe(result);
+      expect(utils.isSameDateRange(compare, value, unit)).toBe(result);
+    });
+  },
+);
 
 test.each`
   tz      | date              | shortDate   | time         | dateTime

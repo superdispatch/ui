@@ -9,7 +9,6 @@ import { useDateUtils } from './DateContext';
 import {
   DateLike,
   DateUtils,
-  isSameDate,
   isValidDate,
   NullableDateLike,
   toDate,
@@ -89,7 +88,7 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
       return !isValidDate(nextSelectedDate) ? undefined : nextSelectedDate;
     },
     [value],
-    isSameDate,
+    (a, b) => utils.isSameDate(a, b, 'day'),
   );
   const initialDate = useMemo(
     () => utils.startOf(selectedDate || Date.now(), 'day'),
@@ -132,7 +131,7 @@ export function TimeField({ value, onChange, ...props }: TimeFieldProps) {
           millisecond: dateTime.millisecond,
         });
 
-        if (!isSameDate(nextDate, selectedDate)) {
+        if (!utils.isSameDate(nextDate, selectedDate, 'minute')) {
           onChange?.(nextDate);
         }
 
