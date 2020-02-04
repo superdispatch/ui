@@ -150,7 +150,8 @@ export function stringifyDate(value: DateLike, format: DateFormat): string {
   return dateTime.toFormat(formats[format]);
 }
 
-export type FormatDateOptions = Omit<
+export type DateFormatVariant = 'date' | 'shortDate' | 'time' | 'dateTime';
+export type DateFormatOptions = Omit<
   Intl.DateTimeFormatOptions,
   'timeZone' | 'timeZoneName'
 >;
@@ -256,17 +257,14 @@ export class DateUtils {
       .toJSDate();
   }
 
-  toLocaleString(value: DateLike, options?: FormatDateOptions) {
+  toLocaleString(value: DateLike, options?: DateFormatOptions) {
     return this.toDateTime(value).toLocaleString({
       ...options,
       locale: this.options.locale,
     });
   }
 
-  format(
-    value: DateLike,
-    variant: 'date' | 'shortDate' | 'time' | 'dateTime',
-  ): string {
+  format(value: DateLike, variant: DateFormatVariant): string {
     return this.toLocaleString(
       value,
       variant === 'date'
