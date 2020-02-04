@@ -26,36 +26,39 @@ function getAllSheets(): Map<string, Element> {
   );
 }
 
-function getSheets(names: string[]): Element[] {
+function getSheets(components: string[]): Element[] {
   const sheets = getAllSheets();
 
   if (sheets.size === 0) {
     throw new Error('There are no mounted JSS components.');
   }
 
-  if (names.length === 0) {
+  if (components.length === 0) {
     throw new Error(
-      `No "names" provided. Pick any of: ${Array.from(
+      `No component names provided. Pick any of: ${Array.from(
         sheets.keys(),
         key => `  ${key}`,
       ).join('\n')}`,
     );
   }
 
-  return names.map(name => {
-    const sheet = sheets.get(name);
+  return components
+    .slice()
+    .sort((a, b) => a.localeCompare(b))
+    .map(name => {
+      const sheet = sheets.get(name);
 
-    if (!sheet) {
-      throw new Error(
-        `Sheet for component "${name}" not found. You can select one of: ${Array.from(
-          sheets.keys(),
-          key => `  ${key}`,
-        ).join('\n')}`,
-      );
-    }
+      if (!sheet) {
+        throw new Error(
+          `Sheet for component "${name}" not found. You can select one of: ${Array.from(
+            sheets.keys(),
+            key => `  ${key}`,
+          ).join('\n')}`,
+        );
+      }
 
-    return sheet;
-  });
+      return sheet;
+    });
 }
 
 function parseStyleSheet(names: string[]): Stylesheet {
@@ -88,10 +91,10 @@ expect.addSnapshotSerializer({
   print: value => value,
 });
 
-export function renderCSS(ui: ReactElement, names: string[]): string {
+export function renderCSS(ui: ReactElement, components: string[]): string {
   render(<ThemeProvider>{ui}</ThemeProvider>);
 
-  const targetSheet = parseStyleSheet(names);
+  const targetSheet = parseStyleSheet(components);
   const formatted = formatAST(targetSheet);
 
   renderedCSS.add(formatted);
