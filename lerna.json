@@ -7,8 +7,6 @@
   ],
   "command": {
     "version": {
-      "createRelease": "github",
-      "conventionalCommits": true,
       "allowBranch": "master",
       "message": "%s"
     }
