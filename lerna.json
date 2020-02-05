@@ -7,10 +7,11 @@
   ],
   "command": {
     "publish": {
-      "message": "%s",
-      "ignoreChanges": [
-        "**/pkg/**"
-      ]
+      "message": "%s"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/pkg/**",
+    "**/__tests__/**"
+  ]
 }
