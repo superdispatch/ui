@@ -150,7 +150,20 @@ describe('parseDate', () => {
     ['2019-05-24T01:02:03.045+0000', mockDate()],
     ['2019-05-24T01:02:03.045+0500', mockDate({ day: 23, hour: 20 })],
     ['2019-05-24T01:02:03.045-0500', mockDate({ hour: 6 })],
-  ])('parse %p', (input, date, dateTime = date, joda = date) => {
+    ['2019-05-24T01:02:03.045678+0000', mockDate(), mockDate(), invalidDate()],
+    [
+      '2019-05-24T01:02:03.045678+0500',
+      mockDate({ day: 23, hour: 20 }),
+      mockDate({ day: 23, hour: 20 }),
+      invalidDate(),
+    ],
+    [
+      '2019-05-24T01:02:03.045678-0500',
+      mockDate({ hour: 6 }),
+      mockDate({ hour: 6 }),
+      invalidDate(),
+    ],
+  ])('parseDate(%p)', (input, date, dateTime = date, joda = date) => {
     expect(parseDate(input, 'toString' as any)).toBeSameDate(invalidDate());
     expect(parseDate(input, 'DateISO')).toBeSameDate(date);
     expect(parseDate(input, 'DateTimeISO')).toBeSameDate(dateTime);
