@@ -7,7 +7,6 @@
   ],
   "command": {
     "publish": {
-      "message": "%s",
       "ignoreChanges": [
         "**/pkg/**"
       ]
