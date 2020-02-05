@@ -79,7 +79,7 @@ it('checks component css', () => {
   color: Color.Grey200;
   margin: 0;
   font-size: 14px;
-  margin-top: 3px;
+  margin-top: 4px;
   text-align: left;
   font-family: SF Pro Text;
   font-weight: 400;
@@ -103,12 +103,6 @@ it('checks component css', () => {
 
 .MuiFormHelperText-marginDense {
   margin-top: 4px;
-}
-
-.MuiFormHelperText-contained {
-  margin: 4px 0px 0px 0px;
-  margin-left: 14px;
-  margin-right: 14px;
 }
 
 .MuiFormLabel-root {
