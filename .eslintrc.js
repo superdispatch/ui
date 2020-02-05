@@ -11,6 +11,7 @@ module.exports = {
       ],
       settings: { react: { version: 'detect' } },
       rules: {
+        'no-warning-comments': 'off',
         'react/display-name': 'off',
         '@superdispatch/no-index-file': 'off',
         'react-hooks/exhaustive-deps': [
