@@ -321,7 +321,7 @@ export class DateUtils {
   formatRelativeTime(
     value: DateLike,
     compare: DateLike,
-    { style }: RelativeTimeFormatOptions = {},
+    { style = 'long' }: RelativeTimeFormatOptions = {},
   ): string {
     const valueDateTime = this.toDateTime(value);
     const compareDateTime = this.toDateTime(compare);
