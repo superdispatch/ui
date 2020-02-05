@@ -807,5 +807,6 @@ test.each`
     expect(utils.formatRelativeTime(value, compare, { style: 'long' })).toBe(
       long,
     );
+    expect(utils.formatRelativeTime(value, compare)).toBe(long);
   },
 );
