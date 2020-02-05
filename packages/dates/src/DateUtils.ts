@@ -126,6 +126,11 @@ export type DateFormatOptions = Omit<
   'timeZone' | 'timeZoneName'
 >;
 
+export type RelativeTimeFormatStyle = 'narrow' | 'short' | 'long';
+export interface RelativeTimeFormatOptions {
+  style?: RelativeTimeFormatStyle;
+}
+
 export class DateUtils {
   protected options: Required<DateUtilsOptions>;
 
@@ -313,11 +318,16 @@ export class DateUtils {
     return `${fromText} - ${toText}`;
   }
 
-  formatRelativeTime(value: DateLike, compare: DateLike): string {
+  formatRelativeTime(
+    value: DateLike,
+    compare: DateLike,
+    { style }: RelativeTimeFormatOptions = {},
+  ): string {
     const valueDateTime = this.toDateTime(value);
     const compareDateTime = this.toDateTime(compare);
 
     return valueDateTime.toRelative({
+      style,
       locale: this.locale,
       base: compareDateTime,
     }) as string;

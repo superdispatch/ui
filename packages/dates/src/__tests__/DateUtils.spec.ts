@@ -770,23 +770,23 @@ test.each([
 });
 
 test.each`
-  offsets                | result
-  ${[NaN]}               | ${'in 0 seconds'}
-  ${[-3]}                | ${'in 3 years'}
-  ${[+3]}                | ${'3 years ago'}
-  ${[0, -3]}             | ${'in 3 months'}
-  ${[0, +3]}             | ${'3 months ago'}
-  ${[0, 0, -3]}          | ${'in 3 days'}
-  ${[0, 0, +3]}          | ${'3 days ago'}
-  ${[0, 0, 0, -3]}       | ${'in 3 hours'}
-  ${[0, 0, 0, +3]}       | ${'3 hours ago'}
-  ${[0, 0, 0, 0, -3]}    | ${'in 3 minutes'}
-  ${[0, 0, 0, 0, +3]}    | ${'3 minutes ago'}
-  ${[0, 0, 0, 0, 0, -3]} | ${'in 3 seconds'}
-  ${[0, 0, 0, 0, 0, +3]} | ${'3 seconds ago'}
+  offsets                | narrow          | short           | long
+  ${[NaN]}               | ${'in 0 sec.'}  | ${'in 0 sec.'}  | ${'in 0 seconds'}
+  ${[-3]}                | ${'in 3 yr.'}   | ${'in 3 yr.'}   | ${'in 3 years'}
+  ${[+3]}                | ${'3 yr. ago'}  | ${'3 yr. ago'}  | ${'3 years ago'}
+  ${[0, -3]}             | ${'in 3 mo.'}   | ${'in 3 mo.'}   | ${'in 3 months'}
+  ${[0, +3]}             | ${'3 mo. ago'}  | ${'3 mo. ago'}  | ${'3 months ago'}
+  ${[0, 0, -3]}          | ${'in 3 days'}  | ${'in 3 days'}  | ${'in 3 days'}
+  ${[0, 0, +3]}          | ${'3 days ago'} | ${'3 days ago'} | ${'3 days ago'}
+  ${[0, 0, 0, -3]}       | ${'in 3 hr.'}   | ${'in 3 hr.'}   | ${'in 3 hours'}
+  ${[0, 0, 0, +3]}       | ${'3 hr. ago'}  | ${'3 hr. ago'}  | ${'3 hours ago'}
+  ${[0, 0, 0, 0, -3]}    | ${'in 3 min.'}  | ${'in 3 min.'}  | ${'in 3 minutes'}
+  ${[0, 0, 0, 0, +3]}    | ${'3 min. ago'} | ${'3 min. ago'} | ${'3 minutes ago'}
+  ${[0, 0, 0, 0, 0, -3]} | ${'in 3 sec.'}  | ${'in 3 sec.'}  | ${'in 3 seconds'}
+  ${[0, 0, 0, 0, 0, +3]} | ${'3 sec. ago'} | ${'3 sec. ago'} | ${'3 seconds ago'}
 `(
-  'DateUtils#formatRelativeTime($offsets) => $result',
-  ({ offsets, result }) => {
+  'DateUtils#formatRelativeTime($offsets)',
+  ({ offsets, narrow, short, long }) => {
     const utils = new DateUtils();
     const args = [2019, 4, 24, 0, 0, 0] as const;
     const value = new Date(...args);
@@ -798,6 +798,14 @@ test.each`
       }) as [number]),
     );
 
-    expect(utils.formatRelativeTime(value, compare)).toBe(result);
+    expect(utils.formatRelativeTime(value, compare, { style: 'narrow' })).toBe(
+      narrow,
+    );
+    expect(utils.formatRelativeTime(value, compare, { style: 'short' })).toBe(
+      short,
+    );
+    expect(utils.formatRelativeTime(value, compare, { style: 'long' })).toBe(
+      long,
+    );
   },
 );

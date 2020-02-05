@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 
 import { useDateUtils } from './DateContext';
 import { DateFormatVariant, DateLike } from './DateUtils';
@@ -9,7 +9,7 @@ export function useFormattedDate(
 ): string {
   const utils = useDateUtils();
 
-  return useMemo(() => utils.format(date, variant), [date, utils, variant]);
+  return utils.format(date, variant);
 }
 
 export interface FormattedDateProps {
@@ -21,5 +21,6 @@ export function FormattedDate({
   date,
   variant,
 }: FormattedDateProps): ReactElement {
-  return (useFormattedDate(date, variant) as unknown) as ReactElement;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{useFormattedDate(date, variant)}</>;
 }

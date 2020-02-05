@@ -35,6 +35,7 @@ it('exposes public api', () => {
       },
       "DateUtils": [Function],
       "FormattedDate": [Function],
+      "FormattedRelativeTime": [Function],
       "TimeField": [Function],
       "isDate": [Function],
       "isDateLike": [Function],
@@ -47,6 +48,7 @@ it('exposes public api', () => {
       "useDateRangePickerStyles": [Function],
       "useDateUtils": [Function],
       "useFormattedDate": [Function],
+      "useFormattedRelativeTime": [Function],
     }
   `);
 });
