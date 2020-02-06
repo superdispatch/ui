@@ -16,6 +16,7 @@ import { applyAppBarStyles } from '../app-bar/AppBarStyles';
 import { applyButtonStyles } from '../button/ButtonStyles';
 import { applyCardStyles } from '../card/CardStyles';
 import { applyCheckboxStyles } from '../checkbox/CheckboxStyles';
+import { applyChipStyles } from '../chip/ChipStyle';
 import { applyDialogStyles } from '../dialog/DialogStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
@@ -91,6 +92,7 @@ function createTheme() {
   applyTextFieldStyles(theme);
   applyToolbarStyles(theme);
   applyTooltipStyles(theme);
+  applyChipStyles(theme);
 
   // TODO: Move to `AutocompleteStyles` after official release.
   Object.assign(theme.overrides, {
