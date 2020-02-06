@@ -29,6 +29,7 @@ export interface DateRangeFieldProps
       'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
     > {
   hasClearButton?: boolean;
+  disableCloseOnSelect?: boolean;
 
   value?: DateRange;
   onBlur?: () => void;
@@ -53,9 +54,10 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       onChange,
       renderFooter,
       renderQuickSelection,
-      hasClearButton = false,
       value: valueProp,
       inputRef: inputRefProp,
+      hasClearButton = false,
+      disableCloseOnSelect = false,
       CalendarProps: {
         modifiers,
         onDayClick,
@@ -90,7 +92,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
 
       onChange?.([nextStart, nextFinish]);
 
-      if (isValidDate(nextFinish)) {
+      if (!disableCloseOnSelect && isValidDate(nextFinish)) {
         handleClose();
       }
     };
