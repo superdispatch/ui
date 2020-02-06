@@ -183,14 +183,16 @@ Object {
     </WithStyles(ForwardRef(SvgIcon))>,
   },
   "MuiChip": Object {
-    "deleteIcon": <WithStyles(ForwardRef(SvgIcon))
-      viewBox="0 0 12 12"
-    >
-      <path
-        d="M4 8l4-4M4 8l4-4M8 8L4 4m4 4L4 4"
-        stroke="currentColor"
-      />
-    </WithStyles(ForwardRef(SvgIcon))>,
+    "deleteIcon": <div>
+      <WithStyles(ForwardRef(SvgIcon))>
+        <path
+          clipRule="evenodd"
+          d="M13.239 12L17 8.239 15.761 7 12 10.761 8.239 7 7 8.239 10.761 12 7 15.761 8.239 17 12 13.239 15.761 17 17 15.761 13.239 12z"
+          fill="currentColor"
+          fillRule="evenodd"
+        />
+      </WithStyles(ForwardRef(SvgIcon))>
+    </div>,
     "size": "small",
   },
   "MuiDialogTitle": Object {

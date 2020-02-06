@@ -54,17 +54,19 @@ it('checks default props', () => {
 it('checks component css', () => {
   expect(renderCSS(<Chip />, ['MuiChip'])).toMatchInlineSnapshot(`
 .MuiChip-root {
-  color: rgba(0, 0, 0, 0.87);
   border: none;
   cursor: default;
   display: inline-flex;
   outline: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   align-items: center;
   font-family: SF Pro Text;
-  line-height: 24px;
+  font-weight: 400;
+  line-height: 20px;
   white-space: nowrap;
   border-radius: 4px;
   vertical-align: middle;
@@ -105,25 +107,11 @@ it('checks component css', () => {
   margin-right: -4px;
 }
 
-.MuiChip-root:active,
-.MuiChip-root:hover {
-  background-color: Color.Silver300;
-}
-
-.MuiChip-root:focus {
-  box-shadow: 0 0 0 2px Color.Silver300;
-}
-
-@media (min-width: 600px) {
+@media (min-width: 0px) and (max-width: 599.95px) {
   .MuiChip-root {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
   }
-}
-
-.MuiChip-root:active .MuiChip-deleteIcon,
-.MuiChip-root:hover .MuiChip-deleteIcon {
-  background-color: Color.Silver500;
 }
 
 .MuiChip-colorPrimary {
@@ -146,6 +134,15 @@ it('checks component css', () => {
   -webkit-tap-highlight-color: transparent;
 }
 
+.MuiChip-clickable:focus {
+  box-shadow: 0 0 0 2px Color.Silver300;
+}
+
+.MuiChip-clickable:active,
+.MuiChip-clickable:hover {
+  background-color: Color.Silver300;
+}
+
 .MuiChip-clickableColorPrimary:hover,
 .MuiChip-clickableColorPrimary:focus {
   background-color: rgb(20, 128, 255);
@@ -154,6 +151,10 @@ it('checks component css', () => {
 .MuiChip-clickableColorSecondary:hover,
 .MuiChip-clickableColorSecondary:focus {
   background-color: rgb(245, 20, 100);
+}
+
+.MuiChip-deletable:focus {
+  box-shadow: 0 0 0 2px Color.Silver300;
 }
 
 .MuiChip-deletableColorPrimary:focus {
@@ -222,7 +223,7 @@ it('checks component css', () => {
 }
 
 .MuiChip-icon {
-  color: #616161;
+  color: Color.Grey100;
   font-size: 1em;
   margin-left: 5px;
 }
@@ -266,23 +267,39 @@ it('checks component css', () => {
 }
 
 .MuiChip-deleteIcon {
-  color: Color.Grey200;
+  color: rgba(25, 35, 52, 0.26);
   cursor: pointer;
   margin: 0 5px 0 -6px;
-  font-size: 1em;
-  background-color: Color.Silver400;
+  display: flex;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 50%;
   -webkit-tap-highlight-color: transparent;
 }
 
+.MuiChip-deleteIcon:hover {
+  color: rgba(25, 35, 52, 0.4);
+}
+
+.MuiChip-deleteIcon:active,
+.MuiChip-deleteIcon:hover,
+.MuiChip-deleteIcon:focus {
+  background-color: Color.Silver400;
+}
+
+.MuiChip-deleteIcon > svg {
+  color: Color.Grey200;
+  font-size: 1em;
+}
+
 .MuiChip-deleteIconSmall {
-  margin-left: 0;
-  margin-right: 6px;
-  border-radius: 50%;
+  padding: 4px;
+  margin-left: -4px;
+  margin-right: 2px;
 }
 
 @media (min-width: 600px) {
   .MuiChip-deleteIconSmall {
-    margin-right: 4px;
+    margin-right: 0;
   }
 }
 
