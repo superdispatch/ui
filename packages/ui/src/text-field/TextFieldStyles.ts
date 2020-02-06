@@ -104,8 +104,11 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   };
 
   theme.overrides.MuiFormHelperText = {
-    root: { ...theme.typography.body2 },
+    root: {
+      ...theme.typography.body2,
+      marginTop: theme.spacing(0.5),
+    },
 
-    contained: { margin: theme.spacing(0.5, 0, 0, 0) },
+    contained: { marginLeft: undefined, marginRight: undefined },
   };
 }
