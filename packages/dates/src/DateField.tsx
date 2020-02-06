@@ -11,7 +11,7 @@ import React, {
 import { Calendar, CalendarProps } from './Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
-import { DateLike, isValidDate } from './DateUtils';
+import { DateFormatVariant, DateLike, isValidDate } from './DateUtils';
 import { useFormattedDate } from './FormattedDate';
 import { useDate } from './internal/useDate';
 
@@ -34,6 +34,7 @@ export interface DateFieldProps
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | Date) => void;
+  format?: DateFormatVariant;
   renderFooter?: (api: DateFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
   CalendarProps?: Omit<
@@ -53,10 +54,11 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       onChange,
       renderFooter,
       renderQuickSelection,
-      hasClearButton = false,
-      disableCloseOnSelect = false,
       value: valueProp,
       inputRef: inputRefProp,
+      format = 'date',
+      hasClearButton = false,
+      disableCloseOnSelect = false,
       CalendarProps: { onDayClick, ...calendarProps } = {},
       ...textFieldProps
     },
@@ -65,7 +67,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const value = useDate(valueProp, 'second');
-    const formatted = useFormattedDate(value, 'date');
+    const formatted = useFormattedDate(value, format);
     const textValue = !isValidDate(value) ? '' : formatted;
 
     const handleClose = () => {
