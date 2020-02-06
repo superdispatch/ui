@@ -182,6 +182,17 @@ Object {
       />
     </WithStyles(ForwardRef(SvgIcon))>,
   },
+  "MuiChip": Object {
+    "deleteIcon": <WithStyles(ForwardRef(SvgIcon))
+      viewBox="0 0 12 12"
+    >
+      <path
+        d="M4 8l4-4M4 8l4-4M8 8L4 4m4 4L4 4"
+        stroke="currentColor"
+      />
+    </WithStyles(ForwardRef(SvgIcon))>,
+    "size": "small",
+  },
   "MuiDialogTitle": Object {
     "disableTypography": true,
   },
