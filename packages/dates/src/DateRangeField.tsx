@@ -5,7 +5,6 @@ import React, {
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -18,6 +17,7 @@ import { DateTextField } from './DateTextField';
 import { DateRange, isValidDate, toDateRange } from './DateUtils';
 
 interface DateRangeFieldAPI {
+  value: DateRange;
   close: () => void;
   change: (value: undefined | DateRange) => void;
 }
@@ -29,6 +29,7 @@ export interface DateRangeFieldProps
       'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
     > {
   hasClearButton?: boolean;
+  disableCloseOnSelect?: boolean;
 
   value?: DateRange;
   onBlur?: () => void;
@@ -48,14 +49,15 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
 >(
   (
     {
-      value,
       onBlur,
       onFocus,
       onChange,
       renderFooter,
       renderQuickSelection,
-      hasClearButton = false,
+      value: valueProp,
       inputRef: inputRefProp,
+      hasClearButton = false,
+      disableCloseOnSelect = false,
       CalendarProps: {
         modifiers,
         onDayClick,
@@ -73,13 +75,11 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
       classes: calendarClasses,
     });
-    const textValue = useMemo(() => (!value ? '' : utils.formatRange(value)), [
-      utils,
-      value,
-    ]);
+    const value = toDateRange(valueProp);
+    const textValue = utils.formatRange(value);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-    const [fromDate, actualToDate] = toDateRange(value);
-    const toDate = actualToDate || hoveredDate;
+    const [startDate, actualFinishDate] = toDateRange(value);
+    const finishDate = actualFinishDate || hoveredDate;
 
     const handleClose = () => {
       onClose();
@@ -88,16 +88,20 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     };
 
     const handleChange = (nextValue: undefined | DateRange) => {
-      const nextRange = toDateRange(nextValue);
+      const [nextStart, nextFinish] = toDateRange(nextValue);
 
-      onChange?.(nextRange);
+      onChange?.([nextStart, nextFinish]);
 
-      if (isValidDate(nextRange[1])) {
+      if (!disableCloseOnSelect && isValidDate(nextFinish)) {
         handleClose();
       }
     };
 
-    const api: DateRangeFieldAPI = { close: handleClose, change: handleChange };
+    const api: DateRangeFieldAPI = {
+      value,
+      close: handleClose,
+      change: handleChange,
+    };
 
     return (
       <>
@@ -125,11 +129,11 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
             numberOfMonths={2}
             {...calendarProps}
             classes={styles}
-            selectedDays={[fromDate, toDate]}
+            selectedDays={[startDate, finishDate]}
             modifiers={{
               ...modifiers,
-              [rangeStart]: fromDate,
-              [rangeEnd]: toDate,
+              [rangeStart]: startDate,
+              [rangeEnd]: finishDate,
             }}
             footer={renderFooter?.(api)}
             quickSelection={renderQuickSelection?.(api)}
@@ -141,8 +145,8 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
               onDayClick?.(date, dateModifiers);
 
               if (!dateModifiers.disabled) {
-                if (fromDate && !actualToDate) {
-                  handleChange([fromDate, date]);
+                if (startDate && !actualFinishDate) {
+                  handleChange([startDate, date]);
                 } else {
                   handleChange([date]);
                 }

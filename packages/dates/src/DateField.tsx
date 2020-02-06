@@ -5,18 +5,19 @@ import React, {
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
-  useMemo,
   useRef,
 } from 'react';
 
 import { Calendar, CalendarProps } from './Calendar';
-import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
-import { DateLike } from './DateUtils';
+import { DateFormatVariant, DateLike, isValidDate } from './DateUtils';
+import { useFormattedDate } from './FormattedDate';
+import { useDate } from './internal/useDate';
 
 interface DateFieldAPI {
   close: () => void;
+  value: undefined | Date;
   change: (value: undefined | Date) => void;
 }
 
@@ -27,11 +28,13 @@ export interface DateFieldProps
       'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
     > {
   hasClearButton?: boolean;
+  disableCloseOnSelect?: boolean;
 
   value?: DateLike;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | Date) => void;
+  format?: DateFormatVariant;
   renderFooter?: (api: DateFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
   CalendarProps?: Omit<
@@ -46,26 +49,26 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
 >(
   (
     {
-      value,
       onBlur,
       onFocus,
       onChange,
       renderFooter,
       renderQuickSelection,
-      hasClearButton = false,
+      value: valueProp,
       inputRef: inputRefProp,
+      format = 'date',
+      hasClearButton = false,
+      disableCloseOnSelect = false,
       CalendarProps: { onDayClick, ...calendarProps } = {},
       ...textFieldProps
     },
     ref,
   ) => {
-    const utils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const textValue = useMemo(
-      () => (!value ? '' : utils.format(value, 'date')),
-      [utils, value],
-    );
+    const value = useDate(valueProp, 'second');
+    const formatted = useFormattedDate(value, format);
+    const textValue = !isValidDate(value) ? '' : formatted;
 
     const handleClose = () => {
       onClose();
@@ -74,10 +77,17 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
 
     const handleChange = (nextValue: undefined | Date) => {
       onChange?.(nextValue);
-      handleClose();
+
+      if (!disableCloseOnSelect) {
+        handleClose();
+      }
     };
 
-    const api: DateFieldAPI = { close: handleClose, change: handleChange };
+    const api: DateFieldAPI = {
+      value,
+      close: handleClose,
+      change: handleChange,
+    };
 
     return (
       <>
