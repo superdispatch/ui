@@ -27,6 +27,10 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
       height: undefined,
       borderRadius: 4,
       backgroundColor: Color.Silver200,
+      '&$disabled': {
+        opacity: undefined,
+        color: Color.Grey100,
+      },
     },
 
     sizeSmall: {
@@ -93,11 +97,6 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
       [theme.breakpoints.up('sm')]: {
         marginRight: 0,
       },
-    },
-
-    disabled: {
-      opacity: undefined,
-      color: Color.Grey100,
     },
 
     icon: {
