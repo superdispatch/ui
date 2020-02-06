@@ -254,7 +254,9 @@ function wrapHandlers(
     fn &&
     ((date, modifiers) => {
       const { hour, minute, second, millisecond } = utils.toObject(
-        initialTime || utils.startOf(Date.now(), 'day'),
+        isValidDate(initialTime)
+          ? initialTime
+          : utils.startOf(Date.now(), 'day'),
       );
 
       fn(
