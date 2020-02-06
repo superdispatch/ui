@@ -28,6 +28,7 @@ export interface DateFieldProps
       'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
     > {
   hasClearButton?: boolean;
+  disableCloseOnSelect?: boolean;
 
   value?: DateLike;
   onBlur?: () => void;
@@ -53,6 +54,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       renderFooter,
       renderQuickSelection,
       hasClearButton = false,
+      disableCloseOnSelect = false,
       value: valueProp,
       inputRef: inputRefProp,
       CalendarProps: { onDayClick, ...calendarProps } = {},
@@ -73,7 +75,10 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
 
     const handleChange = (nextValue: undefined | Date) => {
       onChange?.(nextValue);
-      handleClose();
+
+      if (!disableCloseOnSelect) {
+        handleClose();
+      }
     };
 
     const api: DateFieldAPI = {

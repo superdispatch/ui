@@ -56,6 +56,7 @@ export default function PickersDemo() {
   const [hasHelperText, setHasHelperText] = useState(false);
   const [hasClear, setHasClear] = useState(false);
   const [hasAdornment, setHasAdornment] = useState(false);
+  const [disableCloseOnSelect, setDisableCloseOnSelect] = useState(false);
 
   const utils = useMemo(() => new DateUtils({ timeZoneOffset }), [
     timeZoneOffset,
@@ -129,6 +130,13 @@ export default function PickersDemo() {
               />
 
               <FormControlLabel
+                label="Disable Close on Select"
+                control={<Switch />}
+                checked={disableCloseOnSelect}
+                onChange={(_, checked) => setDisableCloseOnSelect(checked)}
+              />
+
+              <FormControlLabel
                 label="Has Adornment"
                 control={<Switch />}
                 checked={hasAdornment}
@@ -147,6 +155,7 @@ export default function PickersDemo() {
               value={range[0]}
               onChange={value => setRange(toDateRange([value, range[1]]))}
               hasClearButton={hasClear}
+              disableCloseOnSelect={disableCloseOnSelect}
               fullWidth={isFullWidth}
               InputProps={{
                 startAdornment: hasAdornment && (
@@ -175,6 +184,7 @@ export default function PickersDemo() {
               value={range}
               onChange={value => setRange(toDateRange(value))}
               hasClearButton={hasClear}
+              disableCloseOnSelect={disableCloseOnSelect}
               fullWidth={isFullWidth}
               InputProps={{
                 startAdornment: hasAdornment && (
