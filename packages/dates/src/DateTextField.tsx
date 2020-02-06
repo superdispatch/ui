@@ -26,8 +26,7 @@ export interface DateTextFieldProps
 export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forwardRef<
   HTMLDivElement,
   DateTextFieldProps
->((props, ref) => {
-  const { onOpen, onClear, onClick, ...other } = props;
+>(({ onOpen, onClear, onClick, ...props }, ref) => {
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   function handleOpen() {
@@ -38,7 +37,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
 
   return (
     <TextField
-      {...other}
+      {...props}
       ref={mergeRefs(ref, anchorRef)}
       onClick={event => {
         onClick?.(event);
@@ -52,7 +51,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
           handleOpen();
         }
       }}
-      inputProps={{ ...other.inputProps, readOnly: true }}
+      inputProps={{ ...props.inputProps, readOnly: true }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -76,7 +75,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
             )}
           </InputAdornment>
         ),
-        ...other.InputProps,
+        ...props.InputProps,
       }}
     />
   );
