@@ -1,97 +1,80 @@
 import {
   Box,
-  Checkbox,
+  Card,
+  CardContent,
   Chip,
-  ChipProps,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   Grid,
-  Radio,
-  RadioGroup,
+  Switch,
 } from '@material-ui/core';
-import { startCase } from 'lodash';
+import { Call } from '@material-ui/icons';
+import { useSnackbarStack } from '@superdispatch/ui';
 import React, { useState } from 'react';
-
-const colors: Array<ChipProps['color']> = ['default', 'primary', 'secondary'];
-const sizes: Array<ChipProps['size']> = ['small', 'medium'];
 
 export default function ChipDemo() {
   const [disabled, setDisabled] = useState(false);
-  const [color, setColor] = useState<ChipProps['color']>('default');
-  const [size, setSize] = useState<ChipProps['size']>('medium');
+  const [hasIcon, setHasIcon] = useState(false);
+  const { addSnackbar } = useSnackbarStack();
+  const icon = hasIcon ? <Call /> : undefined;
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
           <FormControl component="fieldset">
             <FormLabel component="legend">State</FormLabel>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Disabled"
-              value={disabled}
-              onChange={(_, value) => setDisabled(value)}
-            />
+            <FormGroup row={true}>
+              <FormControlLabel
+                label="Disabled"
+                control={<Switch />}
+                checked={disabled}
+                onChange={(_, checked) => setDisabled(checked)}
+              />
+              <FormControlLabel
+                label="With Icon"
+                control={<Switch />}
+                checked={hasIcon}
+                onChange={(_, checked) => setHasIcon(checked)}
+              />
+            </FormGroup>
           </FormControl>
         </Grid>
 
-        <Grid item={true} xs={12}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Color</FormLabel>
-            <RadioGroup
-              row={true}
-              name="color"
-              value={color}
-              onChange={(_, value) => setColor(value as ChipProps['color'])}
-            >
-              {colors.map(x => (
-                <FormControlLabel
-                  key={x}
-                  value={x}
-                  control={<Radio />}
-                  label={startCase(x)}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-        </Grid>
+        <Grid item={true}>
+          <Card>
+            <CardContent>
+              <Grid container={true} spacing={2}>
+                <Grid item={true}>
+                  <Chip label="Basic" icon={icon} disabled={disabled} />
+                </Grid>
 
-        <Grid item={true} xs={12}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Size</FormLabel>
-            <RadioGroup
-              row={true}
-              name="size"
-              value={size}
-              onChange={(_, value) => setSize(value as ChipProps['size'])}
-            >
-              {sizes.map(x => (
-                <FormControlLabel
-                  key={x}
-                  value={x}
-                  control={<Radio />}
-                  label={startCase(x)}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-        </Grid>
+                <Grid item={true}>
+                  <Chip
+                    label="Clickable"
+                    clickable={true}
+                    icon={icon}
+                    disabled={disabled}
+                    onClick={() =>
+                      addSnackbar('Clicked', { variant: 'success' })
+                    }
+                  />
+                </Grid>
 
-        <Grid item={true} xs={6}>
-          <Chip label="Simple" size={size} color={color} disabled={disabled} />
-        </Grid>
-
-        <Grid item={true} xs={6}>
-          <Chip
-            label="Delete"
-            size={size}
-            color={color}
-            onDelete={() => {
-              // eslint-disable-next-line no-alert
-              alert('Delete clicked');
-            }}
-            disabled={disabled}
-          />
+                <Grid item={true}>
+                  <Chip
+                    label="Delete"
+                    icon={icon}
+                    disabled={disabled}
+                    onDelete={() => {
+                      addSnackbar('Delete clicked', { variant: 'error' });
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Box>
