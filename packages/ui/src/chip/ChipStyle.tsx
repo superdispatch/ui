@@ -73,14 +73,16 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
       width: undefined,
       height: undefined,
       display: 'flex',
-      borderRadius: '50%',
       transition: theme.transitions.create('background-color'),
 
       '&:active, &:hover, &:focus': {
-        backgroundColor: Color.Silver400,
+        '& > svg': {
+          backgroundColor: Color.Silver400,
+        },
       },
 
       '& > svg': {
+        borderRadius: '50%',
         color: Color.Grey200,
         fontSize: '1em',
       },
