@@ -74,6 +74,16 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
+      "GridStack": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "GridStack",
+        "render": [Function],
+      },
+      "InlineGrid": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "InlineGrid",
+        "render": [Function],
+      },
       "Snackbar": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Snackbar",
