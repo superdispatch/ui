@@ -9,6 +9,8 @@ const useStyles = makeStyles<SuperDispatchTheme, 'appBar' | 'toolbar'>(
   theme => ({
     appBar: {
       '&&': {
+        bottom: 0,
+        top: 'auto',
         borderLeft: 'none',
         borderRight: 'none',
         borderBottom: 'none',

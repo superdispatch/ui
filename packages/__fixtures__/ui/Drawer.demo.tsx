@@ -11,10 +11,12 @@ import {
 import { ArrowBack, Close } from '@material-ui/icons';
 import {
   Button,
+  Color,
   DrawerActions,
   DrawerContent,
   DrawerTitle,
   GridStack,
+  InlineGrid,
 } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
@@ -24,6 +26,9 @@ export default function DrawerDemo() {
   const [subtitle, setSubtitle] = useState('');
   const [hasStartAction, setHasStartAction] = useState(false);
   const [hasEndAction, setHasEndAction] = useState(true);
+  const [hasLongContent, setHasLongContent] = useState(true);
+  const [hasPrimaryAction, setHasPrimaryAction] = useState(true);
+  const [hasSecondaryAction, setHasSecondaryAction] = useState(false);
 
   return (
     <Box padding={2}>
@@ -42,7 +47,7 @@ export default function DrawerDemo() {
             subtitle={subtitle}
             startAction={
               hasStartAction && (
-                <IconButton onClick={() => setIsOpen(false)}>
+                <IconButton>
                   <ArrowBack />
                 </IconButton>
               )
@@ -91,18 +96,71 @@ export default function DrawerDemo() {
                 onChange={(_, checked) => setHasEndAction(checked)}
               />
             </FormControl>
+
+            <FormControl>
+              <FormLabel>Content</FormLabel>
+
+              <FormControlLabel
+                checked={hasLongContent}
+                label="Long Content"
+                control={<Switch />}
+                onChange={(_, checked) => setHasLongContent(checked)}
+              />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Actions</FormLabel>
+
+              <FormControlLabel
+                checked={hasPrimaryAction}
+                label="Has Primary Action"
+                control={<Switch />}
+                onChange={(_, checked) => setHasPrimaryAction(checked)}
+              />
+
+              <FormControlLabel
+                checked={hasSecondaryAction}
+                label="Has Secondary Action"
+                control={<Switch />}
+                onChange={(_, checked) => setHasSecondaryAction(checked)}
+              />
+            </FormControl>
+
+            {hasLongContent &&
+              Array.from({ length: 20 }, (_, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    height: 64,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: Color.Blue100,
+                  }}
+                >
+                  {idx + 1}
+                </div>
+              ))}
           </GridStack>
         </DrawerContent>
 
-        <DrawerActions>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => setIsOpen(false)}
-          >
-            Submit
-          </Button>
-        </DrawerActions>
+        {(hasPrimaryAction || hasSecondaryAction) && (
+          <DrawerActions>
+            <InlineGrid spacing={2}>
+              {hasPrimaryAction && (
+                <Button color="primary" variant="contained">
+                  Primary
+                </Button>
+              )}
+
+              {hasSecondaryAction && (
+                <Button color="primary" variant="outlined">
+                  Secondary
+                </Button>
+              )}
+            </InlineGrid>
+          </DrawerActions>
+        )}
       </Drawer>
     </Box>
   );
