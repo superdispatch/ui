@@ -10,29 +10,32 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 const useStyles = makeStyles<
   SuperDispatchTheme,
   'appBar' | 'appBarSticky' | 'toolbar'
->(theme => ({
-  appBar: {
-    '&&': {
-      bottom: 0,
-      top: 'auto',
-      borderLeft: 'none',
-      borderRight: 'none',
-      borderBottom: 'none',
-      transition: theme.transitions.create(['border-color']),
+>(
+  theme => ({
+    appBar: {
+      '&&': {
+        bottom: 0,
+        top: 'auto',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderBottom: 'none',
+        transition: theme.transitions.create(['border-color']),
 
-      '&:not($appBarSticky)': {
-        borderTopColor: Color.Transparent,
+        '&:not($appBarSticky)': {
+          borderTopColor: Color.Transparent,
+        },
       },
     },
-  },
-  appBarSticky: {},
-  toolbar: {
-    '&&': {
-      paddingLeft: theme.spacing(4),
-      paddingRight: theme.spacing(4),
+    appBarSticky: {},
+    toolbar: {
+      '&&': {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+      },
     },
-  },
-}));
+  }),
+  { name: 'SuperDispatchDrawerActions' },
+);
 
 export type DrawerActionsProps = Omit<HTMLAttributes<HTMLDivElement>, 'color'>;
 

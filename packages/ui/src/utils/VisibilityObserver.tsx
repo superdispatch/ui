@@ -33,7 +33,7 @@ export function VisibilityObserver({
   useIsomorphicLayoutEffect(() => {
     const { current: node } = ref;
 
-    if (!node) {
+    if (!node || !('IntersectionObserver' in window)) {
       return;
     }
 
