@@ -44,8 +44,6 @@ export const DrawerActions = forwardRef<HTMLDivElement, DrawerActionsProps>(
       <VisibilityObserver
         render={({ ref, visibility }) => (
           <>
-            <div ref={ref} />
-
             <AppBar
               {...props}
               ref={appBarRef}
@@ -56,6 +54,8 @@ export const DrawerActions = forwardRef<HTMLDivElement, DrawerActionsProps>(
             >
               <Toolbar className={styles.toolbar}>{children}</Toolbar>
             </AppBar>
+
+            <div ref={ref} />
           </>
         )}
       />
