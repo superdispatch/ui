@@ -1,5 +1,7 @@
 export * from './button/Button';
 export * from './card-button/CardButton';
+export * from './grid/GridStack';
+export * from './grid/InlineGrid';
 export * from './snackbar/Snackbar';
 export * from './snackbar/SnackbarContent';
 export * from './snackbar/SnackbarStack';
