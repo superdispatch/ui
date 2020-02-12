@@ -26,7 +26,7 @@ export default function DrawerDemo() {
   const [subtitle, setSubtitle] = useState('');
   const [hasStartAction, setHasStartAction] = useState(false);
   const [hasEndAction, setHasEndAction] = useState(true);
-  const [hasLongContent, setHasLongContent] = useState(true);
+  const [hasLongContent, setHasLongContent] = useState(false);
   const [hasPrimaryAction, setHasPrimaryAction] = useState(true);
   const [hasSecondaryAction, setHasSecondaryAction] = useState(false);
 

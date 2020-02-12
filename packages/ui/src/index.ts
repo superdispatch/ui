@@ -12,3 +12,4 @@ export * from './tag/Tag';
 export * from './theme/ThemeProvider';
 export * from './theme/Color';
 export * from './utils/mergeRefs';
+export * from './utils/VisibilityObserver';
