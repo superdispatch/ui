@@ -314,7 +314,7 @@ function wrapHandlers(
 
 function wrapModifier(
   utils: DateUtils,
-  modifier?: CalendarModifier,
+  modifier: undefined | CalendarModifier,
 ): undefined | FunctionModifier {
   return modifier && (date => modifier(fromLocalDate(utils, date)));
 }
@@ -335,6 +335,7 @@ export interface CalendarProps
       | 'modifiers'
       | 'initialMonth'
       | 'selectedDays'
+      | 'disabledDays'
       | 'classNames'
       | 'navbarElement'
       | 'captionElement'
@@ -349,6 +350,7 @@ export interface CalendarProps
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
+  disabledDays?: CalendarModifier;
   modifiers?: CalendarModifiers;
   highlightedDays?: Partial<
     Record<CalendarDayHighlightColor, CalendarModifier>
@@ -361,6 +363,7 @@ export function Calendar({
   direction,
   quickSelection,
   selectedDays,
+  disabledDays,
 
   onDayClick,
   onDayKeyDown,
@@ -448,6 +451,7 @@ export function Calendar({
           captionElement={CalendarCaption}
           weekdayElement={CalendarWeekDay}
           initialMonth={start}
+          disabledDays={wrapModifier(utils, disabledDays)}
           selectedDays={!start || !finish ? start : { from: start, to: finish }}
           modifiers={{
             ...Object.keys(modifiers).reduce<CalendarModifiers>((acc, key) => {

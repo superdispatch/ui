@@ -107,7 +107,9 @@ export default function CalendarDemo() {
               <Calendar
                 fromMonth={!disabled ? undefined : today}
                 toMonth={!disabled ? undefined : today}
-                disabledDays={!disabled ? undefined : highlightedDays}
+                disabledDays={
+                  !disabled ? undefined : date => date.getTime() < Date.now()
+                }
                 footer={
                   hasFooter && (
                     <Typography color="textSecondary">
