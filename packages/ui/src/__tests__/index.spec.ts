@@ -84,6 +84,11 @@ it('exposes public api', () => {
         "displayName": "DrawerContent",
         "render": [Function],
       },
+      "DrawerList": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DrawerList",
+        "render": [Function],
+      },
       "DrawerTitle": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DrawerTitle",

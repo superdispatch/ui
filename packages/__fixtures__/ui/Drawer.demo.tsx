@@ -5,20 +5,35 @@ import {
   FormControlLabel,
   FormLabel,
   IconButton,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  ListItemTextProps,
+  Slider,
   Switch,
   TextField,
+  Typography,
 } from '@material-ui/core';
-import { ArrowBack, Close } from '@material-ui/icons';
+import { ArrowBack, Close, Delete } from '@material-ui/icons';
 import {
   Button,
-  Color,
   DrawerActions,
   DrawerContent,
+  DrawerList,
   DrawerTitle,
   GridStack,
   InlineGrid,
 } from '@superdispatch/ui';
+import { loremIpsum } from 'lorem-ipsum';
 import React, { useState } from 'react';
+
+const listItems = Array.from(
+  { length: 10 },
+  (): ListItemTextProps => ({
+    primary: loremIpsum({ units: 'words', count: 3 }),
+    secondary: loremIpsum({ units: 'words', count: 3 }),
+  }),
+);
 
 export default function DrawerDemo() {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,6 +42,7 @@ export default function DrawerDemo() {
   const [hasStartAction, setHasStartAction] = useState(false);
   const [hasEndAction, setHasEndAction] = useState(true);
   const [hasLongContent, setHasLongContent] = useState(false);
+  const [listItemsLimit, setListItemsLimit] = useState(3);
   const [hasPrimaryAction, setHasPrimaryAction] = useState(true);
   const [hasSecondaryAction, setHasSecondaryAction] = useState(false);
 
@@ -47,14 +63,14 @@ export default function DrawerDemo() {
             subtitle={subtitle}
             startAction={
               hasStartAction && (
-                <IconButton>
+                <IconButton edge="start">
                   <ArrowBack />
                 </IconButton>
               )
             }
             endAction={
               hasEndAction && (
-                <IconButton onClick={() => setIsOpen(false)}>
+                <IconButton edge="end" onClick={() => setIsOpen(false)}>
                   <Close />
                 </IconButton>
               )
@@ -126,23 +142,35 @@ export default function DrawerDemo() {
               />
             </FormControl>
 
-            {hasLongContent &&
-              Array.from({ length: 20 }, (_, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    height: 64,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: Color.Blue100,
-                  }}
-                >
-                  {idx + 1}
-                </div>
-              ))}
+            <div>
+              <Typography>List Items Limit</Typography>
+
+              <Slider
+                min={0}
+                max={10}
+                step={1}
+                marks={true}
+                valueLabelDisplay="auto"
+                value={listItemsLimit}
+                onChange={(_, value) => setListItemsLimit(value as number)}
+              />
+            </div>
           </GridStack>
         </DrawerContent>
+
+        <DrawerList>
+          {listItems.slice(0, listItemsLimit).map((item, idx) => (
+            <ListItem key={idx} button={true}>
+              <ListItemText {...item} />
+
+              <ListItemSecondaryAction>
+                <IconButton edge="end">
+                  <Delete />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </DrawerList>
 
         {(hasPrimaryAction || hasSecondaryAction) && (
           <DrawerActions>

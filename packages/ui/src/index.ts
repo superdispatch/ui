@@ -1,6 +1,7 @@
 export * from './button/Button';
 export * from './card-button/CardButton';
 export * from './drawer/DrawerActions';
+export * from './drawer/DrawerList';
 export * from './drawer/DrawerContent';
 export * from './drawer/DrawerTitle';
 export * from './grid/GridStack';

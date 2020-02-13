@@ -4,6 +4,7 @@ import React from 'react';
 
 import { DrawerActions } from '../DrawerActions';
 import { DrawerContent } from '../DrawerContent';
+import { DrawerList } from '../DrawerList';
 import { DrawerTitle } from '../DrawerTitle';
 
 it('checks default props', () => {
@@ -22,12 +23,14 @@ it('checks component css', () => {
       <Drawer open={true}>
         <DrawerTitle title="Title" />
         <DrawerContent />
+        <DrawerList />
         <DrawerActions />
       </Drawer>,
       [
         'MuiDrawer',
         'SuperDispatchDrawerActions',
         'SuperDispatchDrawerContent',
+        'SuperDispatchDrawerList',
         'SuperDispatchDrawerTitle',
       ],
     ),
@@ -114,6 +117,30 @@ it('checks component css', () => {
 
 .SuperDispatchDrawerContent-root {
   padding: 16px 32px;
+}
+
+.SuperDispatchDrawerList-root .MuiListItem-container .MuiListItem-gutters {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.SuperDispatchDrawerList-root
+  .MuiListItem-container
+  .MuiListItemSecondaryAction-root {
+  right: 32px;
+}
+
+.SuperDispatchDrawerList-root
+  .MuiListItem-container
+  .MuiListItemSecondaryAction-root
+  .MuiIconButton-edgeEnd {
+  margin-right: -16px;
+}
+
+.SuperDispatchDrawerList-root
+  .MuiListItem-container
+  .MuiListItem-gutters.MuiListItem-secondaryAction {
+  padding-right: 64px;
 }
 
 .SuperDispatchDrawerTitle-appBar.SuperDispatchDrawerTitle-appBar {
