@@ -62,8 +62,6 @@ export default function PickersDemo() {
     timeZoneOffset,
   ]);
 
-  const today = useMemo(() => utils.startOf(Date.now(), 'day'), [utils]);
-
   return (
     <Box padding={2}>
       <Grid container={true} spacing={2}>
@@ -153,6 +151,7 @@ export default function PickersDemo() {
           <Grid item={true} xs={12}>
             <DateField
               value={range[0]}
+              disabled={disabled}
               onChange={value => setRange(toDateRange([value, range[1]]))}
               hasClearButton={hasClear}
               disableCloseOnSelect={disableCloseOnSelect}
@@ -162,10 +161,7 @@ export default function PickersDemo() {
                   <InputAdornment position="start">Date:</InputAdornment>
                 ),
               }}
-              CalendarProps={{
-                fromMonth: !disabled ? undefined : today,
-                disabledDays: !disabled ? undefined : { before: today },
-              }}
+              label={hasLabel && 'Date'}
               helperText={
                 !hasHelperText
                   ? undefined
@@ -182,6 +178,7 @@ export default function PickersDemo() {
           <Grid item={true} xs={12}>
             <DateRangeField
               value={range}
+              disabled={disabled}
               onChange={value => setRange(toDateRange(value))}
               hasClearButton={hasClear}
               disableCloseOnSelect={disableCloseOnSelect}
@@ -191,10 +188,7 @@ export default function PickersDemo() {
                   <InputAdornment position="start">Date:</InputAdornment>
                 ),
               }}
-              CalendarProps={{
-                fromMonth: !disabled ? undefined : today,
-                disabledDays: !disabled ? undefined : { before: today },
-              }}
+              label={hasLabel && 'Date Range'}
               helperText={
                 !hasHelperText
                   ? undefined
@@ -213,10 +207,10 @@ export default function PickersDemo() {
             <TimeField
               id="time"
               value={range[0]}
+              disabled={disabled}
               onChange={value => setRange(toDateRange([value, range[1]]))}
               error={hasError}
               fullWidth={isFullWidth}
-              disabled={disabled}
               label={hasLabel && 'Time'}
               helperText={
                 !hasHelperText

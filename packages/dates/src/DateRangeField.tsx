@@ -1,4 +1,9 @@
-import { OutlinedTextFieldProps, Popover, Theme } from '@material-ui/core';
+import {
+  OutlinedTextFieldProps,
+  Popover,
+  PopoverProps,
+  Theme,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { Color, mergeRefs } from '@superdispatch/ui';
 import React, {
@@ -68,6 +73,7 @@ export interface DateRangeFieldProps
     CalendarProps,
     'footer' | 'selectedDays' | 'quickSelection'
   >;
+  PopoverProps?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
 export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = forwardRef<
@@ -91,6 +97,11 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
         onDayMouseEnter,
         classes: calendarClasses,
         ...calendarProps
+      } = {},
+      PopoverProps: {
+        anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const,
+        transformOrigin = { vertical: 'top', horizontal: 'left' } as const,
+        ...popoverProps
       } = {},
       ...textFieldProps
     },
@@ -155,11 +166,12 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
         />
 
         <Popover
+          {...popoverProps}
           open={!!anchorEl}
           anchorEl={anchorEl}
           onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorOrigin={anchorOrigin}
+          transformOrigin={transformOrigin}
         >
           <Calendar
             numberOfMonths={2}

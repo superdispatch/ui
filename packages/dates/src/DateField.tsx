@@ -1,4 +1,8 @@
-import { OutlinedTextFieldProps, Popover } from '@material-ui/core';
+import {
+  OutlinedTextFieldProps,
+  Popover,
+  PopoverProps,
+} from '@material-ui/core';
 import { mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
@@ -29,7 +33,6 @@ export interface DateFieldProps
     > {
   hasClearButton?: boolean;
   disableCloseOnSelect?: boolean;
-
   value?: DateLike;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -41,6 +44,7 @@ export interface DateFieldProps
     CalendarProps,
     'footer' | 'selectedDays' | 'quickSelection'
   >;
+  PopoverProps?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
 export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
@@ -60,6 +64,11 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       hasClearButton = false,
       disableCloseOnSelect = false,
       CalendarProps: { onDayClick, ...calendarProps } = {},
+      PopoverProps: {
+        anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const,
+        transformOrigin = { vertical: 'top', horizontal: 'left' } as const,
+        ...popoverProps
+      } = {},
       ...textFieldProps
     },
     ref,
@@ -105,11 +114,12 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
         />
 
         <Popover
+          {...popoverProps}
           open={!!anchorEl}
           anchorEl={anchorEl}
           onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorOrigin={anchorOrigin}
+          transformOrigin={transformOrigin}
         >
           <Calendar
             {...calendarProps}

@@ -47,6 +47,7 @@ it('checks component css', () => {
   outline: 0;
   z-index: 1200;
   position: fixed;
+  max-width: 100%;
   min-width: 432px;
   overflow-y: auto;
   flex-direction: column;

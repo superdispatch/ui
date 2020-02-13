@@ -26,15 +26,16 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   theme.props.MuiInputLabel = { shrink: true };
 
   theme.overrides.MuiInputLabel = {
-    root: { marginBottom: theme.spacing(0.5) },
+    root: { marginBottom: theme.spacing(0.5), transformOrigin: undefined },
     formControl: {
       top: undefined,
       left: undefined,
       position: undefined,
       transform: undefined,
     },
-    shrink: { transform: undefined },
+    shrink: { transform: undefined, transformOrigin: undefined },
     outlined: {
+      zIndex: undefined,
       transform: undefined,
       pointerEvents: undefined,
       '&$shrink': { transform: undefined },
