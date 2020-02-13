@@ -1,5 +1,9 @@
 export * from './button/Button';
 export * from './card-button/CardButton';
+export * from './drawer/DrawerActions';
+export * from './drawer/DrawerList';
+export * from './drawer/DrawerContent';
+export * from './drawer/DrawerTitle';
 export * from './grid/GridStack';
 export * from './grid/InlineGrid';
 export * from './snackbar/Snackbar';
@@ -9,3 +13,4 @@ export * from './tag/Tag';
 export * from './theme/ThemeProvider';
 export * from './theme/Color';
 export * from './utils/mergeRefs';
+export * from './utils/VisibilityObserver';

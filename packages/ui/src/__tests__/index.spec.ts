@@ -74,6 +74,26 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
+      "DrawerActions": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DrawerActions",
+        "render": [Function],
+      },
+      "DrawerContent": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DrawerContent",
+        "render": [Function],
+      },
+      "DrawerList": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DrawerList",
+        "render": [Function],
+      },
+      "DrawerTitle": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DrawerTitle",
+        "render": [Function],
+      },
       "GridStack": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "GridStack",
@@ -101,6 +121,7 @@ it('exposes public api', () => {
         "render": [Function],
       },
       "ThemeProvider": [Function],
+      "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "useSnackbarStack": [Function],
     }

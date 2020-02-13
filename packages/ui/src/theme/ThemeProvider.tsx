@@ -18,6 +18,7 @@ import { applyCardStyles } from '../card/CardStyles';
 import { applyCheckboxStyles } from '../checkbox/CheckboxStyles';
 import { applyChipStyles } from '../chip/ChipStyle';
 import { applyDialogStyles } from '../dialog/DialogStyles';
+import { applyDrawerStyles } from '../drawer/DrawerStyles';
 import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
 import { applyLinkStyles } from '../link/LinkStyles';
 import { applyListStyles } from '../list/ListStyles';
@@ -79,6 +80,7 @@ function createTheme() {
   applyCardStyles(theme);
   applyCheckboxStyles(theme);
   applyDialogStyles(theme);
+  applyDrawerStyles(theme);
   applyIconButtonStyles(theme);
   applyListStyles(theme);
   applyLinkStyles(theme);

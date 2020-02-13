@@ -21,7 +21,7 @@ export default function DialogDemo() {
         Open Dialog
       </Button>
 
-      <Dialog open={isOpen}>
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogTitle>Use Google’s location service?</DialogTitle>
         <DialogContent>
           Let Google help apps determine location. This means sending anonymous
