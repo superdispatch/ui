@@ -292,15 +292,10 @@ label[data-shrink='false']
 .MuiInputLabel-root {
   display: block;
   margin-bottom: 4px;
-  transform-origin: top left;
 }
 
 .MuiInputLabel-marginDense {
   transform: translate(0, 21px) scale(1);
-}
-
-.MuiInputLabel-shrink {
-  transform-origin: top left;
 }
 
 .MuiInputLabel-animated {
@@ -324,10 +319,6 @@ label[data-shrink='false']
 
 .MuiInputLabel-filled.MuiInputLabel-shrink.MuiInputLabel-marginDense {
   transform: translate(12px, 7px) scale(0.75);
-}
-
-.MuiInputLabel-outlined {
-  z-index: 1;
 }
 
 .MuiInputLabel-outlined.MuiInputLabel-marginDense {

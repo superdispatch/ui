@@ -161,6 +161,7 @@ export default function PickersDemo() {
                   <InputAdornment position="start">Date:</InputAdornment>
                 ),
               }}
+              label={hasLabel && 'Date'}
               helperText={
                 !hasHelperText
                   ? undefined
@@ -187,6 +188,7 @@ export default function PickersDemo() {
                   <InputAdornment position="start">Date:</InputAdornment>
                 ),
               }}
+              label={hasLabel && 'Date Range'}
               helperText={
                 !hasHelperText
                   ? undefined
