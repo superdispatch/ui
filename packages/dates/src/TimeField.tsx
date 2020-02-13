@@ -80,6 +80,7 @@ export interface TimeFieldProps
 }
 
 export function TimeField({
+  disabled,
   onChange,
   value: valueProp,
   ...props
@@ -151,6 +152,7 @@ export function TimeField({
 
   return (
     <Autocomplete
+      disabled={disabled}
       freeSolo={true}
       autoComplete={true}
       value={selectedOption}

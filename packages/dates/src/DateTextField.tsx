@@ -26,11 +26,11 @@ export interface DateTextFieldProps
 export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forwardRef<
   HTMLDivElement,
   DateTextFieldProps
->(({ onOpen, onClear, onClick, ...props }, ref) => {
+>(({ onOpen, onClear, onClick, disabled, ...props }, ref) => {
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   function handleOpen() {
-    if (anchorRef.current) {
+    if (!disabled && anchorRef.current) {
       onOpen?.(anchorRef.current);
     }
   }
@@ -38,6 +38,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
   return (
     <TextField
       {...props}
+      disabled={disabled}
       ref={mergeRefs(ref, anchorRef)}
       onClick={event => {
         onClick?.(event);
@@ -57,6 +58,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
           <InputAdornment position="end">
             {onClear != null ? (
               <IconButton
+                disabled={disabled}
                 onClick={event => {
                   // Do not bubble up clicks.
                   event.stopPropagation();
@@ -67,7 +69,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
                 <Clear />
               </IconButton>
             ) : (
-              <IconButton>
+              <IconButton disabled={disabled}>
                 <SvgIcon>
                   <path d={mdiCalendarMonth} />
                 </SvgIcon>
