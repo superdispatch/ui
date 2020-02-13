@@ -88,11 +88,15 @@ export const DrawerTitle = forwardRef<HTMLDivElement, DrawerTitleProps>(
                     </Grid>
                   )}
 
-                  <Grid item={true} xs={true}>
-                    <Typography variant="h3">{title}</Typography>
+                  <Grid item={true} xs={true} zeroMinWidth={true}>
+                    <Typography variant="h3" noWrap={true}>
+                      {title}
+                    </Typography>
 
                     {!!subtitle && (
-                      <Typography variant="body2">{subtitle}</Typography>
+                      <Typography variant="body2" noWrap={true}>
+                        {subtitle}
+                      </Typography>
                     )}
                   </Grid>
 
