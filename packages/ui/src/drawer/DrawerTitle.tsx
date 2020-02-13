@@ -32,12 +32,18 @@ const useStyles = makeStyles<
       },
     },
     startAction: {
-      marginLeft: theme.spacing(-2),
       marginRight: theme.spacing(0.5),
+
+      '& .MuiIconButton-edgeStart': {
+        marginLeft: theme.spacing(-2),
+      },
     },
     endAction: {
-      marginRight: theme.spacing(-2),
       marginLeft: theme.spacing(0.5),
+
+      '& .MuiIconButton-edgeEnd': {
+        marginRight: theme.spacing(-2),
+      },
     },
   }),
   { name: 'SuperDispatchDrawerTitle' },

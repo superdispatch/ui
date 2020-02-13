@@ -160,12 +160,18 @@ it('checks component css', () => {
 }
 
 .SuperDispatchDrawerTitle-startAction {
-  margin-left: -16px;
   margin-right: 4px;
+}
+
+.SuperDispatchDrawerTitle-startAction .MuiIconButton-edgeStart {
+  margin-left: -16px;
 }
 
 .SuperDispatchDrawerTitle-endAction {
   margin-left: 4px;
+}
+
+.SuperDispatchDrawerTitle-endAction .MuiIconButton-edgeEnd {
   margin-right: -16px;
 }
 `);
