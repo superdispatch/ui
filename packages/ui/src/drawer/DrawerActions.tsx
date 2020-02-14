@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, HTMLAttributes } from 'react';
 
-import { VisibilityObserver } from '..';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { VisibilityObserver } from '../utils/VisibilityObserver';
 
 const useStyles = makeStyles<
   SuperDispatchTheme,
