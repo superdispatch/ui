@@ -76,10 +76,46 @@ it('renders days', () => {
   expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveTextContent('24');
 });
 
-it('selects day', () => {
-  const wrapper = renderCalendar(<Calendar selectedDays={stubModifier} />);
+it('selects days', () => {
+  const wrapper = renderCalendar(
+    <Calendar
+      selectedDays={(date, utils) => {
+        const startDate = utils.fromObject({ year: 2019, month: 5, day: 24 });
+        const finishDate = utils.endOf(
+          utils.fromObject({
+            year: 2019,
+            month: 5,
+            day: 27,
+          }),
+          'day',
+        );
 
-  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveClass(
+        return date >= startDate && date <= finishDate;
+      }}
+    />,
+  );
+
+  expect(wrapper.getByLabelText(/May 23 2019/)).not.toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 25 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 26 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 27 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 28 2019/)).not.toHaveClass(
     'SuperDispatchCalendar-selected',
   );
 });
