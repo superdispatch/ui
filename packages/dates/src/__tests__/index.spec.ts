@@ -20,14 +20,11 @@ it('exposes public api', () => {
         "displayName": "DateField",
         "render": [Function],
       },
-      "DatePicker": [Function],
-      "DatePickerBase": [Function],
       "DateRangeField": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DateRangeField",
         "render": [Function],
       },
-      "DateRangePicker": [Function],
       "DateTextField": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DateTextField",
@@ -44,8 +41,6 @@ it('exposes public api', () => {
       "stringifyDate": [Function],
       "toDate": [Function],
       "toDateRange": [Function],
-      "useDatePickerPopoverState": [Function],
-      "useDateRangePickerStyles": [Function],
       "useDateUtils": [Function],
       "useFormattedDate": [Function],
       "useFormattedRelativeTime": [Function],

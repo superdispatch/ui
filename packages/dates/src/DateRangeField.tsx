@@ -2,23 +2,52 @@ import {
   OutlinedTextFieldProps,
   Popover,
   PopoverProps,
+  Theme,
 } from '@material-ui/core';
-import { mergeRefs } from '@superdispatch/ui';
+import { makeStyles } from '@material-ui/styles';
+import { Color, mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
+  useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { Calendar, CalendarProps } from './Calendar';
+import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
-import { useDateRangePickerStyles } from './DateRangePickerStyles';
 import { DateTextField } from './DateTextField';
 import { DateRange, isValidDate, toDateRange } from './DateUtils';
+
+const useStyles = makeStyles<Theme>(
+  theme => ({
+    outside: {},
+    disabled: {},
+    selected: {},
+    rangeStart: {},
+    rangeEnd: {},
+
+    day: {
+      '&$selected:not($outside)': {
+        '&$rangeStart:before': { left: theme.spacing(0.5) },
+        '&$rangeEnd:before': { right: theme.spacing(0.5) },
+        '&:not($rangeStart):not($rangeEnd)': {
+          '&:after': { backgroundColor: Color.Transparent },
+          '&$disabled': { '&:before': { backgroundColor: Color.Silver100 } },
+          '&:not($disabled)': {
+            color: Color.Blue500,
+            '&:before': { backgroundColor: Color.Blue50 },
+          },
+        },
+      },
+    },
+  }),
+  { name: 'SuperDispatchDateRangeField' },
+);
 
 interface DateRangeFieldAPI {
   value: DateRange;
@@ -79,17 +108,56 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     },
     ref,
   ) => {
-    const utils = useDateUtils();
+    const dateUtils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const { rangeStart, rangeEnd, ...styles } = useDateRangePickerStyles({
+    const { rangeStart, rangeEnd, ...styles } = useStyles({
       classes: calendarClasses,
     });
     const value = toDateRange(valueProp);
-    const textValue = utils.formatRange(value);
+    const textValue = dateUtils.formatRange(value);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
     const [startDate, actualFinishDate] = toDateRange(value);
     const finishDate = actualFinishDate || hoveredDate;
+
+    const absoluteStartDate = useMemo(
+      () =>
+        !isValidDate(startDate)
+          ? undefined
+          : dateUtils.startOf(startDate, 'day'),
+      [dateUtils, startDate],
+    );
+
+    const absoluteFinishDate = useMemo(
+      () =>
+        !isValidDate(finishDate)
+          ? undefined
+          : dateUtils.endOf(finishDate, 'day'),
+      [dateUtils, finishDate],
+    );
+
+    const isSelectedDate = useCallback<CalendarModifier>(
+      (date, utils) => {
+        if (absoluteStartDate && absoluteFinishDate) {
+          return date >= absoluteStartDate && date <= absoluteFinishDate;
+        }
+
+        if (absoluteStartDate && !absoluteFinishDate) {
+          return utils.isSameDate(date, absoluteStartDate, 'day');
+        }
+
+        return false;
+      },
+      [absoluteFinishDate, absoluteStartDate],
+    );
+    const isStartDate = useCallback<CalendarModifier>(
+      (date, utils) => utils.isSameDate(startDate, date, 'day'),
+      [startDate],
+    );
+    const isFinishDate = useCallback<CalendarModifier>(
+      (date, utils) => utils.isSameDate(finishDate, date, 'day'),
+      [finishDate],
+    );
 
     const handleClose = () => {
       onClose();
@@ -140,11 +208,12 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
             numberOfMonths={2}
             {...calendarProps}
             classes={styles}
-            selectedDays={[startDate, finishDate]}
+            initialMonth={startDate}
+            selectedDays={isSelectedDate}
             modifiers={{
               ...modifiers,
-              [rangeStart]: startDate,
-              [rangeEnd]: finishDate,
+              [rangeStart]: isStartDate,
+              [rangeEnd]: isFinishDate,
             }}
             footer={renderFooter?.(api)}
             quickSelection={renderQuickSelection?.(api)}

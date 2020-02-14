@@ -170,14 +170,14 @@ export class DateUtils {
   }
 
   fromObject({
-    year,
-    month,
-    day,
-    hour,
-    minute,
-    second,
-    millisecond,
-  }: DateObject): Date {
+    year = 0,
+    month = 1,
+    day = 1,
+    hour = 0,
+    minute = 0,
+    second = 0,
+    millisecond = 0,
+  }: Partial<DateObject>): Date {
     if (
       Number.isNaN(year) ||
       Number.isNaN(month) ||
@@ -245,10 +245,14 @@ export class DateUtils {
       return false;
     }
 
-    const startOfValue = this.toDateTime(value).startOf(unit);
-    const startOfCompare = this.toDateTime(compare).startOf(unit);
+    const dateTimeValue = this.toDateTime(value);
+    const dateTimeCompare = this.toDateTime(compare);
 
-    return startOfValue.equals(startOfCompare);
+    return (
+      dateTimeValue.isValid &&
+      dateTimeCompare.isValid &&
+      dateTimeValue.startOf(unit).equals(dateTimeCompare.startOf(unit))
+    );
   }
 
   isSameDateRange(

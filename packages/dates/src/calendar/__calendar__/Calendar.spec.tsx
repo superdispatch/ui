@@ -1,7 +1,159 @@
 import { renderCSS } from '@superdispatch/testutils';
-import React from 'react';
+import { ThemeProvider } from '@superdispatch/ui';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import MockDate from 'mockdate';
+import React, { ComponentType, ReactElement } from 'react';
 
-import { Calendar } from '../Calendar';
+import { DateContextProvider } from '../../DateContext';
+import {
+  Calendar,
+  CalendarDayHighlightColor,
+  CalendarModifier,
+} from '../Calendar';
+
+const stubTimeZoneOffset = -300;
+const stubModifier: CalendarModifier = (date, utils) =>
+  utils.isSameDate(
+    date,
+    utils.fromObject({ year: 2019, month: 5, day: 24 }),
+    'day',
+  );
+
+beforeEach(() => {
+  MockDate.set(Date.UTC(2019, 4, 24, 1, 2, 3, 45));
+});
+
+afterEach(() => {
+  MockDate.reset();
+});
+
+const Wrapper: ComponentType = ({ children }) => (
+  <ThemeProvider>
+    <DateContextProvider timeZoneOffset={stubTimeZoneOffset}>
+      {children}
+    </DateContextProvider>
+  </ThemeProvider>
+);
+
+function renderCalendar(ui: ReactElement) {
+  return render(ui, { wrapper: Wrapper });
+}
+
+it('renders month', () => {
+  const wrapper = renderCalendar(<Calendar />);
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+
+  userEvent.click(wrapper.getByLabelText('Previous Month'));
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('April 2019');
+
+  userEvent.click(wrapper.getByLabelText('Next Month'));
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+});
+
+it('renders weeks', () => {
+  const wrapper = renderCalendar(<Calendar />);
+
+  const [weeksRow] = wrapper.getAllByRole('row');
+
+  expect(weeksRow).toBeTruthy();
+  expect(weeksRow.childNodes).toHaveLength(7);
+  expect(weeksRow.childNodes[0]).toHaveTextContent('S');
+  expect(weeksRow.childNodes[1]).toHaveTextContent('M');
+  expect(weeksRow.childNodes[2]).toHaveTextContent('T');
+  expect(weeksRow.childNodes[3]).toHaveTextContent('W');
+  expect(weeksRow.childNodes[4]).toHaveTextContent('T');
+  expect(weeksRow.childNodes[5]).toHaveTextContent('F');
+  expect(weeksRow.childNodes[6]).toHaveTextContent('S');
+});
+
+it('renders days', () => {
+  const wrapper = renderCalendar(<Calendar />);
+
+  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveTextContent('24');
+});
+
+it('selects days', () => {
+  const wrapper = renderCalendar(
+    <Calendar
+      selectedDays={(date, utils) => {
+        const startDate = utils.fromObject({ year: 2019, month: 5, day: 24 });
+        const finishDate = utils.endOf(
+          utils.fromObject({
+            year: 2019,
+            month: 5,
+            day: 27,
+          }),
+          'day',
+        );
+
+        return date >= startDate && date <= finishDate;
+      }}
+    />,
+  );
+
+  expect(wrapper.getByLabelText(/May 23 2019/)).not.toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 25 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 26 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 27 2019/)).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+
+  expect(wrapper.getByLabelText(/May 28 2019/)).not.toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+});
+
+it('disables day', () => {
+  const wrapper = renderCalendar(
+    <Calendar selectedDays={stubModifier} disabledDays={stubModifier} />,
+  );
+
+  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveClass(
+    'SuperDispatchCalendar-disabled',
+  );
+});
+
+it('highlights days', () => {
+  const wrapper = renderCalendar(<div />);
+  const highlights: CalendarDayHighlightColor[] = [
+    'blue',
+    'green',
+    'purple',
+    'red',
+    'teal',
+    'yellow',
+  ];
+
+  highlights.forEach(highlight => {
+    wrapper.rerender(
+      <Calendar
+        selectedDays={stubModifier}
+        highlightedDays={{ [highlight]: stubModifier }}
+      />,
+    );
+
+    const day = wrapper.getByLabelText('Fri May 24 2019');
+
+    expect(day).toHaveClass(`SuperDispatchCalendar-${highlight}`);
+  });
+});
 
 it('checks component css', () => {
   expect(renderCSS(<Calendar />, ['SuperDispatchCalendar']))
@@ -68,6 +220,7 @@ it('checks component css', () => {
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
     }
 
     .SuperDispatchCalendar-body {

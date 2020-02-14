@@ -4,29 +4,29 @@ import React from 'react';
 import { DateRangeField } from '../DateRangeField';
 
 it('checks component css', () => {
-  expect(renderCSS(<DateRangeField />, ['SuperDispatchDateRangePicker']))
+  expect(renderCSS(<DateRangeField />, ['SuperDispatchDateRangeField']))
     .toMatchInlineSnapshot(`
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside).SuperDispatchDateRangePicker-rangeStart:before {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside).SuperDispatchDateRangeField-rangeStart:before {
       left: 4px;
     }
 
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside).SuperDispatchDateRangePicker-rangeEnd:before {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside).SuperDispatchDateRangeField-rangeEnd:before {
       right: 4px;
     }
 
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside):not(.SuperDispatchDateRangePicker-rangeStart):not(.SuperDispatchDateRangePicker-rangeEnd):after {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):after {
       background-color: Color.Transparent;
     }
 
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside):not(.SuperDispatchDateRangePicker-rangeStart):not(.SuperDispatchDateRangePicker-rangeEnd):not(.SuperDispatchDateRangePicker-disabled) {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):not(.SuperDispatchDateRangeField-disabled) {
       color: Color.Blue500;
     }
 
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside):not(.SuperDispatchDateRangePicker-rangeStart):not(.SuperDispatchDateRangePicker-rangeEnd):not(.SuperDispatchDateRangePicker-disabled):before {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):not(.SuperDispatchDateRangeField-disabled):before {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchDateRangePicker-day.SuperDispatchDateRangePicker-selected:not(.SuperDispatchDateRangePicker-outside):not(.SuperDispatchDateRangePicker-rangeStart):not(.SuperDispatchDateRangePicker-rangeEnd).SuperDispatchDateRangePicker-disabled:before {
+    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd).SuperDispatchDateRangeField-disabled:before {
       background-color: Color.Silver100;
     }
   `);
