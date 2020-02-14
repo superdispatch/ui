@@ -1,4 +1,10 @@
-import { AppBar, Grid, Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Grid,
+  Toolbar,
+  Typography,
+  TypographyProps,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
@@ -54,14 +60,26 @@ export interface DrawerTitleProps
   children?: ReactNode;
 
   title: ReactNode;
+  titleTypographyProps?: Omit<TypographyProps, 'children'>;
   subtitle?: ReactNode;
+  subtitleTypographyProps?: Omit<TypographyProps, 'children'>;
+
   startAction?: ReactNode;
   endAction?: ReactNode;
 }
 
 export const DrawerTitle = forwardRef<HTMLDivElement, DrawerTitleProps>(
   (
-    { title, subtitle, startAction, endAction, className, ...props },
+    {
+      title,
+      titleTypographyProps,
+      subtitle,
+      subtitleTypographyProps,
+      startAction,
+      endAction,
+      className,
+      ...props
+    },
     appBarRef,
   ) => {
     const styles = useStyles();
@@ -89,12 +107,20 @@ export const DrawerTitle = forwardRef<HTMLDivElement, DrawerTitleProps>(
                   )}
 
                   <Grid item={true} xs={true} zeroMinWidth={true}>
-                    <Typography variant="h3" noWrap={true}>
+                    <Typography
+                      variant="h3"
+                      noWrap={true}
+                      {...titleTypographyProps}
+                    >
                       {title}
                     </Typography>
 
                     {!!subtitle && (
-                      <Typography variant="body2" noWrap={true}>
+                      <Typography
+                        variant="body2"
+                        noWrap={true}
+                        {...subtitleTypographyProps}
+                      >
                         {subtitle}
                       </Typography>
                     )}
