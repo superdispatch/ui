@@ -55,6 +55,7 @@ it('checks component css', () => {
   margin: 0;
   display: inline-flex;
   padding: 0;
+  z-index: 0;
   position: relative;
   min-width: 0;
   flex-direction: column;
@@ -140,11 +141,19 @@ it('checks component css', () => {
   cursor: text;
   display: inline-flex;
   position: relative;
-  font-size: 1rem;
+  font-size: 14px;
   box-sizing: border-box;
   align-items: center;
   font-family: SF Pro Text;
-  line-height: 1.1875em;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+@media (min-width: 0px) and (max-width: 599.95px) {
+  .MuiInputBase-root {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 .MuiInputBase-root.Mui-disabled {
