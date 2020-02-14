@@ -1,7 +1,74 @@
 import { renderCSS } from '@superdispatch/testutils';
+import { ThemeProvider } from '@superdispatch/ui';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import MockDate from 'mockdate';
 import React from 'react';
 
-import { Calendar } from '../Calendar';
+import { Calendar, CalendarProps } from '../Calendar';
+import { DateContextProvider } from '../DateContext';
+
+beforeEach(() => {
+  MockDate.set(Date.UTC(2019, 4, 24, 1, 2, 3, 45));
+});
+
+afterEach(() => {
+  MockDate.reset();
+});
+
+function renderCalendar(props?: CalendarProps) {
+  return render(
+    <ThemeProvider>
+      <DateContextProvider timeZoneOffset={-300}>
+        <Calendar selectedDays={[new Date()]} {...props} />
+      </DateContextProvider>
+    </ThemeProvider>,
+  );
+}
+
+it('renders month', () => {
+  const wrapper = renderCalendar();
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+
+  userEvent.click(wrapper.getByLabelText('Previous Month'));
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('April 2019');
+
+  userEvent.click(wrapper.getByLabelText('Next Month'));
+
+  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+});
+
+it('renders weeks', () => {
+  const wrapper = renderCalendar();
+
+  const [weeksRow] = wrapper.getAllByRole('row');
+
+  expect(weeksRow).toBeTruthy();
+  expect(weeksRow.childNodes).toHaveLength(7);
+  expect(weeksRow.childNodes[0]).toHaveTextContent('S');
+  expect(weeksRow.childNodes[1]).toHaveTextContent('M');
+  expect(weeksRow.childNodes[2]).toHaveTextContent('T');
+  expect(weeksRow.childNodes[3]).toHaveTextContent('W');
+  expect(weeksRow.childNodes[4]).toHaveTextContent('T');
+  expect(weeksRow.childNodes[5]).toHaveTextContent('F');
+  expect(weeksRow.childNodes[6]).toHaveTextContent('S');
+});
+
+it.only('selects day', () => {
+  const wrapper = renderCalendar({
+    selectedDays: [new Date(2019, 4, 24, 12)],
+  });
+
+  const selected = wrapper.getByLabelText('Fri May 23 2019');
+
+  expect(selected).toHaveTextContent('23');
+
+  wrapper.debug(selected);
+
+  expect(selected).toHaveAttribute('aria-selected', 'true');
+});
 
 it('checks component css', () => {
   expect(renderCSS(<Calendar />, ['SuperDispatchCalendar']))

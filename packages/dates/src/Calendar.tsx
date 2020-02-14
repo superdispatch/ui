@@ -75,6 +75,7 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      textDecoration: 'none',
 
       color: Color.Grey300,
       width: theme.spacing(5),
@@ -340,6 +341,8 @@ export interface CalendarProps
       | 'navbarElement'
       | 'captionElement'
       | 'weekdayElement'
+      | 'weekdaysLong'
+      | 'weekdaysShort'
       | CalendarDayEventHandlerName
     > {
   selectedDays?: DateRangeLike;
