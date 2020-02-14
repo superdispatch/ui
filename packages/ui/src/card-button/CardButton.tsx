@@ -106,10 +106,7 @@ export interface CardButtonProps
   classes?: ClassNameMap<CardButtonClassKey>;
 }
 
-export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef<
-  HTMLButtonElement,
-  CardButtonProps
->(
+export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef(
   (
     {
       hint,
