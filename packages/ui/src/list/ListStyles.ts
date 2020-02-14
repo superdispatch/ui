@@ -1,4 +1,4 @@
-import { Color } from '..';
+import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function applyListStyles(theme: SuperDispatchTheme) {

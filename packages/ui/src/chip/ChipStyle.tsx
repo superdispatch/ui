@@ -1,7 +1,7 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
-import { Color } from '..';
+import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function applyChipStyles(theme: SuperDispatchTheme) {
