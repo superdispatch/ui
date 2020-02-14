@@ -1,25 +1,27 @@
 import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
-import React, { ReactNode, useCallback, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,
   DayPickerProps,
   FunctionModifier,
+  Modifiers,
 } from 'react-day-picker';
 
-import { CalendarCaption } from './CalendarCaption';
-import { CalendarNavbar } from './CalendarNavbar';
-import { CalendarWeekDay } from './CalendarWeekDay';
-import { useDateUtils } from './DateContext';
+import { useDateUtils } from '../DateContext';
 import {
-  DateRangeLike,
+  DateLike,
   DateUtils,
   isValidDate,
   NullableDate,
-  toDateRange,
-} from './DateUtils';
+  NullableDateLike,
+  toDate,
+} from '../DateUtils';
+import { CalendarCaption } from './CalendarCaption';
+import { CalendarNavbar } from './CalendarNavbar';
+import { CalendarWeekDay } from './CalendarWeekDay';
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
@@ -206,7 +208,12 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
   { name: 'SuperDispatchCalendar' },
 );
 
-function toLocalDate(utils: DateUtils, date: NullableDate): undefined | Date {
+function toLocalDate(
+  utils: DateUtils,
+  value: NullableDateLike,
+): undefined | Date {
+  const date = toDate(value);
+
   if (!isValidDate(date)) {
     return undefined;
   }
@@ -317,10 +324,10 @@ function wrapModifier(
   utils: DateUtils,
   modifier: undefined | CalendarModifier,
 ): undefined | FunctionModifier {
-  return modifier && (date => modifier(fromLocalDate(utils, date)));
+  return modifier && (date => modifier(fromLocalDate(utils, date), utils));
 }
 
-export type CalendarModifier = (date: Date) => boolean;
+export type CalendarModifier = (date: Date, utils: DateUtils) => boolean;
 export interface CalendarModifiers {
   today?: CalendarModifier;
   outside?: CalendarModifier;
@@ -345,19 +352,28 @@ export interface CalendarProps
       | 'weekdaysShort'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: DateRangeLike;
-
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
 
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
-  disabledDays?: CalendarModifier;
+  initialMonth?: DateLike;
+
   modifiers?: CalendarModifiers;
+  selectedDays?: CalendarModifier;
+  disabledDays?: CalendarModifier;
   highlightedDays?: Partial<
     Record<CalendarDayHighlightColor, CalendarModifier>
   >;
+}
+
+function isFirstDayOfMonth(date: Date, utils: DateUtils): boolean {
+  return utils.isSameDate(date, utils.startOf(date, 'month'), 'day');
+}
+
+function isLastDayOfMonth(date: Date, utils: DateUtils): boolean {
+  return utils.isSameDate(date, utils.endOf(date, 'month'), 'day');
 }
 
 export function Calendar({
@@ -379,37 +395,15 @@ export function Calendar({
 
   modifiers = {},
   highlightedDays = {},
+  initialMonth: initialMonthProp,
 
   ...props
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const [initialStart, initialFinish] = useMemo(
-    () => toDateRange(selectedDays),
-    [selectedDays],
-  );
-  const [start, finish] = useMemo(
-    () => [toLocalDate(utils, initialStart), toLocalDate(utils, initialFinish)],
-    [initialFinish, initialStart, utils],
-  );
-
-  const isFirstDayOfMonth = useCallback(
-    (localDate: Date): boolean => {
-      const date = fromLocalDate(utils, localDate);
-
-      return utils.isSameDate(date, utils.startOf(date, 'month'), 'day');
-    },
-    [utils],
-  );
-
-  const isLastDayOfMonth = useCallback(
-    (localDate: Date): boolean => {
-      const date = fromLocalDate(utils, localDate);
-
-      return utils.isSameDate(date, utils.endOf(date, 'month'), 'day');
-    },
-    [utils],
-  );
+  const initialMonth =
+    toLocalDate(utils, initialMonthProp) ??
+    toLocalDate(utils, utils.startOf(Date.now(), 'month'));
 
   return (
     <Grid container={true} direction={direction}>
@@ -436,10 +430,33 @@ export function Calendar({
       <Grid item={true} xs={12} sm="auto">
         <DayPicker
           {...props}
+          classNames={styles}
+          navbarElement={CalendarNavbar}
+          captionElement={CalendarCaption}
+          weekdayElement={CalendarWeekDay}
+          initialMonth={initialMonth}
+          selectedDays={wrapModifier(utils, selectedDays)}
+          disabledDays={wrapModifier(utils, disabledDays)}
+          modifiers={{
+            ...Object.keys(modifiers).reduce<Partial<Modifiers>>((acc, key) => {
+              acc[key] = wrapModifier(utils, modifiers[key]);
+
+              return acc;
+            }, {}),
+
+            [styles.firstDayOfMonth]: wrapModifier(utils, isFirstDayOfMonth),
+            [styles.lastDayOfMonth]: wrapModifier(utils, isLastDayOfMonth),
+            [styles.blue]: wrapModifier(utils, highlightedDays.blue),
+            [styles.green]: wrapModifier(utils, highlightedDays.green),
+            [styles.purple]: wrapModifier(utils, highlightedDays.purple),
+            [styles.red]: wrapModifier(utils, highlightedDays.red),
+            [styles.teal]: wrapModifier(utils, highlightedDays.teal),
+            [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
+          }}
           {...wrapHandlers(
             utils,
             styles,
-            initialStart,
+            initialMonth,
             onDayClick,
             onDayKeyDown,
             onDayMouseEnter,
@@ -449,29 +466,6 @@ export function Calendar({
             onDayTouchEnd,
             onDayTouchStart,
           )}
-          classNames={styles}
-          navbarElement={CalendarNavbar}
-          captionElement={CalendarCaption}
-          weekdayElement={CalendarWeekDay}
-          initialMonth={start}
-          disabledDays={wrapModifier(utils, disabledDays)}
-          selectedDays={!start || !finish ? start : { from: start, to: finish }}
-          modifiers={{
-            ...Object.keys(modifiers).reduce<CalendarModifiers>((acc, key) => {
-              acc[key] = wrapModifier(utils, modifiers[key]);
-
-              return acc;
-            }, {}),
-
-            [styles.firstDayOfMonth]: isFirstDayOfMonth,
-            [styles.lastDayOfMonth]: isLastDayOfMonth,
-            [styles.blue]: wrapModifier(utils, highlightedDays.blue),
-            [styles.green]: wrapModifier(utils, highlightedDays.green),
-            [styles.purple]: wrapModifier(utils, highlightedDays.purple),
-            [styles.red]: wrapModifier(utils, highlightedDays.red),
-            [styles.teal]: wrapModifier(utils, highlightedDays.teal),
-            [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
-          }}
         />
 
         {!!footer && <div className={styles.footer}>{footer}</div>}

@@ -3,10 +3,22 @@ import { ThemeProvider } from '@superdispatch/ui';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MockDate from 'mockdate';
-import React from 'react';
+import React, { ComponentType, ReactElement } from 'react';
 
-import { Calendar, CalendarProps } from '../Calendar';
-import { DateContextProvider } from '../DateContext';
+import { DateContextProvider } from '../../DateContext';
+import {
+  Calendar,
+  CalendarDayHighlightColor,
+  CalendarModifier,
+} from '../Calendar';
+
+const stubTimeZoneOffset = -300;
+const stubModifier: CalendarModifier = (date, utils) =>
+  utils.isSameDate(
+    date,
+    utils.fromObject({ year: 2019, month: 5, day: 24 }),
+    'day',
+  );
 
 beforeEach(() => {
   MockDate.set(Date.UTC(2019, 4, 24, 1, 2, 3, 45));
@@ -16,18 +28,20 @@ afterEach(() => {
   MockDate.reset();
 });
 
-function renderCalendar(props?: CalendarProps) {
-  return render(
-    <ThemeProvider>
-      <DateContextProvider timeZoneOffset={-300}>
-        <Calendar selectedDays={[new Date()]} {...props} />
-      </DateContextProvider>
-    </ThemeProvider>,
-  );
+const Wrapper: ComponentType = ({ children }) => (
+  <ThemeProvider>
+    <DateContextProvider timeZoneOffset={stubTimeZoneOffset}>
+      {children}
+    </DateContextProvider>
+  </ThemeProvider>
+);
+
+function renderCalendar(ui: ReactElement) {
+  return render(ui, { wrapper: Wrapper });
 }
 
 it('renders month', () => {
-  const wrapper = renderCalendar();
+  const wrapper = renderCalendar(<Calendar />);
 
   expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
 
@@ -41,7 +55,7 @@ it('renders month', () => {
 });
 
 it('renders weeks', () => {
-  const wrapper = renderCalendar();
+  const wrapper = renderCalendar(<Calendar />);
 
   const [weeksRow] = wrapper.getAllByRole('row');
 
@@ -56,18 +70,53 @@ it('renders weeks', () => {
   expect(weeksRow.childNodes[6]).toHaveTextContent('S');
 });
 
-it.only('selects day', () => {
-  const wrapper = renderCalendar({
-    selectedDays: [new Date(2019, 4, 24, 12)],
+it('renders days', () => {
+  const wrapper = renderCalendar(<Calendar />);
+
+  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveTextContent('24');
+});
+
+it('selects day', () => {
+  const wrapper = renderCalendar(<Calendar selectedDays={stubModifier} />);
+
+  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveClass(
+    'SuperDispatchCalendar-selected',
+  );
+});
+
+it('disables day', () => {
+  const wrapper = renderCalendar(
+    <Calendar selectedDays={stubModifier} disabledDays={stubModifier} />,
+  );
+
+  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveClass(
+    'SuperDispatchCalendar-disabled',
+  );
+});
+
+it('highlights days', () => {
+  const wrapper = renderCalendar(<div />);
+  const highlights: CalendarDayHighlightColor[] = [
+    'blue',
+    'green',
+    'purple',
+    'red',
+    'teal',
+    'yellow',
+  ];
+
+  highlights.forEach(highlight => {
+    wrapper.rerender(
+      <Calendar
+        selectedDays={stubModifier}
+        highlightedDays={{ [highlight]: stubModifier }}
+      />,
+    );
+
+    const day = wrapper.getByLabelText('Fri May 24 2019');
+
+    expect(day).toHaveClass(`SuperDispatchCalendar-${highlight}`);
   });
-
-  const selected = wrapper.getByLabelText('Fri May 23 2019');
-
-  expect(selected).toHaveTextContent('23');
-
-  wrapper.debug(selected);
-
-  expect(selected).toHaveAttribute('aria-selected', 'true');
 });
 
 it('checks component css', () => {
@@ -135,6 +184,7 @@ it('checks component css', () => {
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
     }
 
     .SuperDispatchCalendar-body {

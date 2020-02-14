@@ -12,11 +12,12 @@ import React, {
   ReactNode,
   RefAttributes,
   useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { Calendar, CalendarModifier, CalendarProps } from './Calendar';
+import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
@@ -107,25 +108,55 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     },
     ref,
   ) => {
-    const utils = useDateUtils();
+    const dateUtils = useDateUtils();
     const inputRef = useRef<HTMLInputElement>(null);
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const { rangeStart, rangeEnd, ...styles } = useStyles({
       classes: calendarClasses,
     });
     const value = toDateRange(valueProp);
-    const textValue = utils.formatRange(value);
+    const textValue = dateUtils.formatRange(value);
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
     const [startDate, actualFinishDate] = toDateRange(value);
     const finishDate = actualFinishDate || hoveredDate;
 
+    const absoluteStartDate = useMemo(
+      () =>
+        !isValidDate(startDate)
+          ? undefined
+          : dateUtils.startOf(startDate, 'day'),
+      [dateUtils, startDate],
+    );
+
+    const absoluteFinishDate = useMemo(
+      () =>
+        !isValidDate(finishDate)
+          ? undefined
+          : dateUtils.endOf(finishDate, 'day'),
+      [dateUtils, finishDate],
+    );
+
+    const isSelectedDate = useCallback<CalendarModifier>(
+      (date, utils) => {
+        if (absoluteStartDate && absoluteFinishDate) {
+          return date >= absoluteStartDate && date <= absoluteFinishDate;
+        }
+
+        if (absoluteStartDate && !absoluteFinishDate) {
+          return utils.isSameDate(date, absoluteStartDate, 'day');
+        }
+
+        return false;
+      },
+      [absoluteFinishDate, absoluteStartDate],
+    );
     const isStartDate = useCallback<CalendarModifier>(
-      date => utils.isSameDate(startDate, date, 'day'),
-      [startDate, utils],
+      (date, utils) => utils.isSameDate(startDate, date, 'day'),
+      [startDate],
     );
     const isFinishDate = useCallback<CalendarModifier>(
-      date => utils.isSameDate(finishDate, date, 'day'),
-      [finishDate, utils],
+      (date, utils) => utils.isSameDate(finishDate, date, 'day'),
+      [finishDate],
     );
 
     const handleClose = () => {
@@ -177,7 +208,8 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
             numberOfMonths={2}
             {...calendarProps}
             classes={styles}
-            selectedDays={[startDate, finishDate]}
+            initialMonth={startDate}
+            selectedDays={isSelectedDate}
             modifiers={{
               ...modifiers,
               [rangeStart]: isStartDate,

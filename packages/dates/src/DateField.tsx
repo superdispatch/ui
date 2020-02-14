@@ -9,10 +9,11 @@ import React, {
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
+  useCallback,
   useRef,
 } from 'react';
 
-import { Calendar, CalendarProps } from './Calendar';
+import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
 import { DateFormatVariant, DateLike, isValidDate } from './DateUtils';
@@ -79,6 +80,11 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     const formatted = useFormattedDate(value, format);
     const textValue = !isValidDate(value) ? '' : formatted;
 
+    const isSelectedDay = useCallback<CalendarModifier>(
+      (date, utils) => utils.isSameDate(date, value, 'day'),
+      [value],
+    );
+
     const handleClose = () => {
       onClose();
       onBlur?.();
@@ -123,7 +129,8 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
         >
           <Calendar
             {...calendarProps}
-            selectedDays={[value]}
+            initialMonth={value}
+            selectedDays={isSelectedDay}
             footer={renderFooter?.(api)}
             quickSelection={renderQuickSelection?.(api)}
             onDayClick={(day, modifiers) => {

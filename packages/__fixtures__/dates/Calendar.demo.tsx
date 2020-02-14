@@ -16,6 +16,7 @@ import {
   CalendarProps,
   CalendarQuickSelection,
   CalendarQuickSelectionItem,
+  DateUtils,
   useDateUtils,
 } from '@superdispatch/dates';
 import { startCase } from 'lodash';
@@ -34,19 +35,21 @@ const colors: Color[] = [
 ];
 
 export default function CalendarDemo() {
-  const utils = useDateUtils();
+  const dateUtils = useDateUtils();
   const [color, setColor] = useState<Color>('off');
   const [disabled, setDisabled] = useState(false);
   const [hasFooter, setHasFooter] = useState(false);
   const [hasQuickSelection, setHasQuickSelection] = useState(false);
-  const today = useMemo(() => utils.startOf(Date.now(), 'day'), [utils]);
+  const today = useMemo(() => dateUtils.startOf(Date.now(), 'day'), [
+    dateUtils,
+  ]);
 
-  const highlightedDays = useMemo(
+  const quickSelectionDays = useMemo(
     () =>
       Array.from({ length: 7 }, (_, idx) =>
-        utils.plus(today, { day: idx * 2 }),
+        dateUtils.plus(today, { day: idx * 2 }),
       ),
-    [today, utils],
+    [today, dateUtils],
   );
 
   return (
@@ -118,14 +121,19 @@ export default function CalendarDemo() {
                   )
                 }
                 highlightedDays={
-                  color === 'off' ? {} : { [color]: highlightedDays }
+                  color === 'off'
+                    ? {}
+                    : {
+                        [color]: (date: Date, utils: DateUtils) =>
+                          utils.toObject(date).day % 2 === 0,
+                      }
                 }
                 quickSelection={
                   hasQuickSelection && (
                     <CalendarQuickSelection>
-                      {highlightedDays.map((day, idx) => (
+                      {quickSelectionDays.map((day, idx) => (
                         <CalendarQuickSelectionItem key={idx}>
-                          {utils.format(day, 'date')}
+                          {dateUtils.format(day, 'date')}
                         </CalendarQuickSelectionItem>
                       ))}
                     </CalendarQuickSelection>

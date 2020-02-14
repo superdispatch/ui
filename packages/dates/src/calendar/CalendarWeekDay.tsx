@@ -12,9 +12,9 @@ export function CalendarWeekDay({
   return (
     <Typography
       variant="h5"
-      component="div"
+      component="abbr"
       className={className}
-      abbr={localeUtils.formatWeekdayLong(weekday)}
+      title={localeUtils.formatWeekdayLong(weekday)}
     >
       {weekdaysShort[weekday]}
     </Typography>
