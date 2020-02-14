@@ -12,22 +12,20 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   theme => ({
     root: {
-      '& .MuiListItem-container': {
-        '& .MuiListItem-gutters': {
-          paddingLeft: theme.spacing(4),
-          paddingRight: theme.spacing(4),
+      '& .MuiListItem-gutters': {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
 
-          '&.MuiListItem-secondaryAction': {
-            paddingRight: theme.spacing(8),
-          },
+        '&.MuiListItem-secondaryAction': {
+          paddingRight: theme.spacing(8),
         },
+      },
 
-        '& .MuiListItemSecondaryAction-root': {
-          right: theme.spacing(4),
+      '& .MuiListItemSecondaryAction-root': {
+        right: theme.spacing(4),
 
-          '& .MuiIconButton-edgeEnd': {
-            marginRight: theme.spacing(-2),
-          },
+        '& .MuiIconButton-edgeEnd': {
+          marginRight: theme.spacing(-2),
         },
       },
     },
@@ -36,8 +34,8 @@ const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
 );
 
 export interface DrawerListProps
-  extends ListProps<'ul'>,
-    RefAttributes<HTMLUListElement> {}
+  extends RefAttributes<HTMLDivElement>,
+    Omit<ListProps<'div'>, 'component'> {}
 
 export const DrawerList: ForwardRefExoticComponent<DrawerListProps> = forwardRef(
   ({ className, ...props }, ref) => {
@@ -47,7 +45,7 @@ export const DrawerList: ForwardRefExoticComponent<DrawerListProps> = forwardRef
       <List
         {...props}
         ref={ref}
-        component="ul"
+        component="div"
         className={clsx(className, styles.root)}
       />
     );

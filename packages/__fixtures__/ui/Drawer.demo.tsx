@@ -25,7 +25,7 @@ import {
   InlineGrid,
 } from '@superdispatch/ui';
 import { loremIpsum } from 'lorem-ipsum';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const listItems = Array.from(
   { length: 10 },
@@ -43,8 +43,11 @@ export default function DrawerDemo() {
   const [hasEndAction, setHasEndAction] = useState(true);
   const [hasLongContent, setHasLongContent] = useState(false);
   const [listItemsLimit, setListItemsLimit] = useState(3);
+  const [hasListItemAction, setHasListItemAction] = useState(true);
   const [hasPrimaryAction, setHasPrimaryAction] = useState(true);
   const [hasSecondaryAction, setHasSecondaryAction] = useState(false);
+
+  const ref = useRef<HTMLInputElement>(null);
 
   return (
     <Box padding={2}>
@@ -125,20 +128,13 @@ export default function DrawerDemo() {
             </FormControl>
 
             <FormControl>
-              <FormLabel>Actions</FormLabel>
+              <FormLabel>List Items</FormLabel>
 
               <FormControlLabel
-                checked={hasPrimaryAction}
-                label="Has Primary Action"
+                checked={hasListItemAction}
+                label="Has List Item Action"
                 control={<Switch />}
-                onChange={(_, checked) => setHasPrimaryAction(checked)}
-              />
-
-              <FormControlLabel
-                checked={hasSecondaryAction}
-                label="Has Secondary Action"
-                control={<Switch />}
-                onChange={(_, checked) => setHasSecondaryAction(checked)}
+                onChange={(_, checked) => setHasListItemAction(checked)}
               />
             </FormControl>
 
@@ -155,19 +151,39 @@ export default function DrawerDemo() {
                 onChange={(_, value) => setListItemsLimit(value as number)}
               />
             </div>
+
+            <FormControl>
+              <FormLabel>Actions</FormLabel>
+
+              <FormControlLabel
+                checked={hasPrimaryAction}
+                label="Has Primary Action"
+                control={<Switch />}
+                onChange={(_, checked) => setHasPrimaryAction(checked)}
+              />
+
+              <FormControlLabel
+                checked={hasSecondaryAction}
+                label="Has Secondary Action"
+                control={<Switch />}
+                onChange={(_, checked) => setHasSecondaryAction(checked)}
+              />
+            </FormControl>
           </GridStack>
         </DrawerContent>
 
-        <DrawerList>
+        <DrawerList ref={ref}>
           {listItems.slice(0, listItemsLimit).map((item, idx) => (
-            <ListItem key={idx} button={true}>
+            <ListItem key={idx} button={true} ContainerComponent="div">
               <ListItemText {...item} />
 
-              <ListItemSecondaryAction>
-                <IconButton edge="end">
-                  <Delete />
-                </IconButton>
-              </ListItemSecondaryAction>
+              {hasListItemAction && (
+                <ListItemSecondaryAction>
+                  <IconButton edge="end">
+                    <Delete />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              )}
             </ListItem>
           ))}
         </DrawerList>

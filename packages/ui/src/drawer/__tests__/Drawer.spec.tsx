@@ -120,27 +120,22 @@ it('checks component css', () => {
   padding: 16px 32px;
 }
 
-.SuperDispatchDrawerList-root .MuiListItem-container .MuiListItem-gutters {
+.SuperDispatchDrawerList-root .MuiListItem-gutters {
   padding-left: 32px;
   padding-right: 32px;
 }
 
-.SuperDispatchDrawerList-root
-  .MuiListItem-container
-  .MuiListItemSecondaryAction-root {
+.SuperDispatchDrawerList-root .MuiListItemSecondaryAction-root {
   right: 32px;
 }
 
 .SuperDispatchDrawerList-root
-  .MuiListItem-container
   .MuiListItemSecondaryAction-root
   .MuiIconButton-edgeEnd {
   margin-right: -16px;
 }
 
-.SuperDispatchDrawerList-root
-  .MuiListItem-container
-  .MuiListItem-gutters.MuiListItem-secondaryAction {
+.SuperDispatchDrawerList-root .MuiListItem-gutters.MuiListItem-secondaryAction {
   padding-right: 64px;
 }
 
