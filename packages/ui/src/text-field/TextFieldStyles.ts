@@ -19,7 +19,10 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   };
 
   theme.overrides.MuiInputBase = {
-    root: { '&$disabled': { backgroundColor: Color.Silver100 } },
+    root: {
+      ...theme.typography.body2,
+      '&$disabled': { backgroundColor: Color.Silver100 },
+    },
     inputMultiline: { resize: 'vertical' },
   };
 
