@@ -23,7 +23,7 @@ export function VisibilityObserver({
   marginLeft = '0px',
   marginRight = '0px',
   marginBottom = '0px',
-}: VisibilityObserverProps) {
+}: VisibilityObserverProps): ReactElement {
   const ref = useRef<unknown>(null);
   const [visibility, setVisibility] = useState<
     VisibilityObserverRenderProps['visibility']

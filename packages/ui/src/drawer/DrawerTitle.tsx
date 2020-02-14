@@ -7,7 +7,13 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
@@ -56,7 +62,8 @@ const useStyles = makeStyles<
 );
 
 export interface DrawerTitleProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'title'> {
+  extends RefAttributes<HTMLDivElement>,
+    Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'title'> {
   children?: ReactNode;
 
   title: ReactNode;
@@ -68,7 +75,7 @@ export interface DrawerTitleProps
   endAction?: ReactNode;
 }
 
-export const DrawerTitle = forwardRef<HTMLDivElement, DrawerTitleProps>(
+export const DrawerTitle: ForwardRefExoticComponent<DrawerTitleProps> = forwardRef(
   (
     {
       title,

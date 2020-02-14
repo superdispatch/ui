@@ -1,13 +1,20 @@
 import { Grid, GridProps } from '@material-ui/core';
-import React, { Children, forwardRef } from 'react';
+import React, {
+  Children,
+  forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
+} from 'react';
 
-export type GridStackProps = Pick<
-  GridProps,
-  'style' | 'className' | 'children' | 'spacing' | 'alignItems'
->;
+export interface GridStackProps
+  extends RefAttributes<HTMLDivElement>,
+    Pick<
+      GridProps,
+      'style' | 'className' | 'children' | 'spacing' | 'alignItems'
+    > {}
 
-export const GridStack = forwardRef<HTMLDivElement, GridStackProps>(
-  ({ children, alignItems = 'stretch', ...props }, ref) => {
+export const GridStack: ForwardRefExoticComponent<GridStackProps> = forwardRef(
+  ({ children, alignItems = 'stretch' as const, ...props }, ref) => {
     const items = Children.toArray(children);
 
     return (

@@ -1,13 +1,20 @@
 import { Grid, GridProps } from '@material-ui/core';
-import React, { Children, forwardRef } from 'react';
+import React, {
+  Children,
+  forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
+} from 'react';
 
-export type InlineGridProps = Pick<
-  GridProps,
-  'style' | 'className' | 'children' | 'spacing' | 'justify'
->;
+export interface InlineGridProps
+  extends RefAttributes<HTMLDivElement>,
+    Pick<
+      GridProps,
+      'style' | 'className' | 'children' | 'spacing' | 'justify'
+    > {}
 
-export const InlineGrid = forwardRef<HTMLDivElement, InlineGridProps>(
-  ({ children, justify = 'flex-start', ...props }, ref) => {
+export const InlineGrid: ForwardRefExoticComponent<InlineGridProps> = forwardRef(
+  ({ children, justify = 'flex-start' as const, ...props }, ref) => {
     const items = Children.toArray(children);
 
     return (

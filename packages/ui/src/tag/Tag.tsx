@@ -82,10 +82,7 @@ export interface TagProps
   variant: 'subtle' | 'bold';
 }
 
-export const Tag: ForwardRefExoticComponent<TagProps> = forwardRef<
-  unknown,
-  TagProps
->(
+export const Tag: ForwardRefExoticComponent<TagProps> = forwardRef(
   (
     {
       color,
@@ -94,7 +91,7 @@ export const Tag: ForwardRefExoticComponent<TagProps> = forwardRef<
       classes,
       className,
       noWrap = true,
-      component = 'div',
+      component = 'div' as const,
       ...props
     },
     ref,

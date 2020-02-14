@@ -27,10 +27,7 @@ export interface SnackbarProps
   onClose?: (reason: SnackbarCloseReason) => void;
 }
 
-export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef<
-  unknown,
-  SnackbarProps
->(
+export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
   (
     {
       open,

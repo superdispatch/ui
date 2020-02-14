@@ -17,27 +17,26 @@ export interface ButtonProps
   variant: 'text' | 'outlined' | 'contained';
 }
 
-export const Button: ForwardRefExoticComponent<ButtonProps> = forwardRef<
-  HTMLButtonElement,
-  ButtonProps
->(({ size, color, children, disabled, isActive, isLoading, ...props }, ref) => (
-  <MaterialButton
-    {...props}
-    ref={ref}
-    size={size}
-    data-color={color}
-    aria-busy={isLoading}
-    aria-expanded={isActive}
-    disabled={disabled || isLoading}
-    color={color === 'primary' ? color : undefined}
-  >
-    {!isLoading ? (
-      children
-    ) : (
-      <>
-        {children}
-        <CircularProgress size="1em" color="inherit" />
-      </>
-    )}
-  </MaterialButton>
-));
+export const Button: ForwardRefExoticComponent<ButtonProps> = forwardRef(
+  ({ size, color, children, disabled, isActive, isLoading, ...props }, ref) => (
+    <MaterialButton
+      {...props}
+      ref={ref}
+      size={size}
+      data-color={color}
+      aria-busy={isLoading}
+      aria-expanded={isActive}
+      disabled={disabled || isLoading}
+      color={color === 'primary' ? color : undefined}
+    >
+      {!isLoading ? (
+        children
+      ) : (
+        <>
+          {children}
+          <CircularProgress size="1em" color="inherit" />
+        </>
+      )}
+    </MaterialButton>
+  ),
+);

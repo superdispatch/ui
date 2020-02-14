@@ -79,10 +79,7 @@ export interface SnackbarContentProps
   classes?: Partial<ClassNameMap<SnackbarContentClassKey>>;
 }
 
-export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = forwardRef<
-  unknown,
-  SnackbarContentProps
->(
+export const SnackbarContent: ForwardRefExoticComponent<SnackbarContentProps> = forwardRef(
   (
     {
       action,
