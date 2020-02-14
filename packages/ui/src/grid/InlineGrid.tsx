@@ -10,17 +10,25 @@ export interface InlineGridProps
   extends RefAttributes<HTMLDivElement>,
     Pick<
       GridProps,
-      'style' | 'className' | 'children' | 'spacing' | 'justify'
+      'style' | 'className' | 'children' | 'wrap' | 'spacing' | 'justify'
     > {}
 
 export const InlineGrid: ForwardRefExoticComponent<InlineGridProps> = forwardRef(
-  ({ children, justify = 'flex-start' as const, ...props }, ref) => {
+  (
+    {
+      children,
+      wrap = 'wrap' as const,
+      justify = 'flex-start' as const,
+      ...props
+    },
+    ref,
+  ) => {
     const items = Children.toArray(children);
 
     return (
-      <Grid {...props} ref={ref} justify={justify} container={true}>
+      <Grid {...props} ref={ref} wrap={wrap} justify={justify} container={true}>
         {items.map((item, idx) => (
-          <Grid key={idx} item={true}>
+          <Grid key={idx} item={true} zeroMinWidth={true}>
             {item}
           </Grid>
         ))}

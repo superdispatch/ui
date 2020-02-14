@@ -8,6 +8,7 @@ import {
   GridItemsAlignment,
   GridJustification,
   GridSpacing,
+  GridWrap,
   MenuItem,
   Slider,
   Switch,
@@ -19,6 +20,7 @@ import React, { useState } from 'react';
 
 export default function GridsDemo() {
   const [items, setItems] = useState(3);
+  const [wrap, setWrap] = useState<GridWrap>('wrap');
   const [spacing, setSpacing] = useState<GridSpacing>(2);
   const [justify, setJustify] = useState<GridJustification>('flex-start');
   const [alignItems, setAlignItems] = useState<GridItemsAlignment>('stretch');
@@ -80,33 +82,51 @@ export default function GridsDemo() {
               </Typography>
             </Grid>
 
-            <Grid item={true} xs={12}>
-              <TextField
-                select={true}
-                label="Justification"
-                value={justify}
-                onChange={event =>
-                  setJustify(event.target.value as GridJustification)
-                }
-              >
-                {[
-                  'flex-start',
-                  'center',
-                  'flex-end',
-                  'space-between',
-                  'space-around',
-                  'space-evenly',
-                ].map(value => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </TextField>
+            <Grid item={true} xs={12} container={true} spacing={2}>
+              <Grid item={true}>
+                <TextField
+                  select={true}
+                  label="Justification"
+                  value={justify}
+                  onChange={event =>
+                    setJustify(event.target.value as GridJustification)
+                  }
+                >
+                  {[
+                    'flex-start',
+                    'center',
+                    'flex-end',
+                    'space-between',
+                    'space-around',
+                    'space-evenly',
+                  ].map(value => (
+                    <MenuItem key={value} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+
+              <Grid item={true}>
+                <TextField
+                  select={true}
+                  label="Wrap"
+                  value={wrap}
+                  onChange={event => setWrap(event.target.value as GridWrap)}
+                >
+                  {['nowrap', 'wrap', 'wrap-reverse'].map(value => (
+                    <MenuItem key={value} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
             </Grid>
 
             <Grid item={true} xs={12}>
               <div style={{ width: 256 }}>
                 <InlineGrid
+                  wrap={wrap}
                   spacing={spacing}
                   justify={justify}
                   style={{ backgroundColor: Color.Silver500 }}
