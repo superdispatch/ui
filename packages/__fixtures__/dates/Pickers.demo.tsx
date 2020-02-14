@@ -43,7 +43,7 @@ function formatUTC(offset: number): string {
   return out;
 }
 
-const offsetOptions = Array.from({ length: 10 }, (_, idx) => (idx - 6) * 60);
+const offsetOptions = Array.from({ length: 22 }, (_, idx) => (idx - 11) * 60);
 
 export default function PickersDemo() {
   const [range, setRange] = useState<DateRange>([]);

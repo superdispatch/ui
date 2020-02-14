@@ -1,26 +1,27 @@
 import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import { ClassNameMap } from '@material-ui/styles/withStyles';
+import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
-import React, { ReactNode, useCallback, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,
   DayPickerProps,
-  Modifier,
+  FunctionModifier,
+  Modifiers,
 } from 'react-day-picker';
 
-import { CalendarCaption } from './CalendarCaption';
-import { CalendarNavbar } from './CalendarNavbar';
-import { CalendarWeekDay } from './CalendarWeekDay';
-import { useDateUtils } from './DateContext';
+import { useDateUtils } from '../DateContext';
 import {
-  DateRangeLike,
+  DateLike,
   DateUtils,
   isValidDate,
   NullableDate,
-  toDateRange,
-} from './DateUtils';
+  NullableDateLike,
+  toDate,
+} from '../DateUtils';
+import { CalendarCaption } from './CalendarCaption';
+import { CalendarNavbar } from './CalendarNavbar';
+import { CalendarWeekDay } from './CalendarWeekDay';
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
@@ -76,6 +77,7 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      textDecoration: 'none',
 
       color: Color.Grey300,
       width: theme.spacing(5),
@@ -206,6 +208,41 @@ const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
   { name: 'SuperDispatchCalendar' },
 );
 
+function toLocalDate(
+  utils: DateUtils,
+  value: NullableDateLike,
+): undefined | Date {
+  const date = toDate(value);
+
+  if (!isValidDate(date)) {
+    return undefined;
+  }
+
+  const object = utils.toObject(date);
+
+  return new Date(
+    object.year,
+    object.month - 1,
+    object.day,
+    object.hour,
+    object.minute,
+    object.second,
+    object.millisecond,
+  );
+}
+
+function fromLocalDate(utils: DateUtils, date: Date): Date {
+  return utils.fromObject({
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds(),
+    millisecond: date.getMilliseconds(),
+  });
+}
+
 export interface CalendarDayModifiers {
   disabled: boolean;
   selected: boolean;
@@ -252,30 +289,24 @@ function wrapHandlers(
     fn: undefined | CalendarDayEventHandler,
   ): undefined | ReactDayPickerDayEventHandler =>
     fn &&
-    ((date, modifiers) => {
-      const { hour, minute, second, millisecond } = utils.toObject(
-        isValidDate(initialTime)
-          ? initialTime
-          : utils.startOf(Date.now(), 'day'),
-      );
-
+    ((date, modifiers) =>
       fn(
         utils.fromObject({
+          ...utils.toObject(
+            isValidDate(initialTime)
+              ? initialTime
+              : utils.startOf(Date.now(), 'day'),
+          ),
+
           year: date.getFullYear(),
           month: date.getMonth() + 1,
           day: date.getDate(),
-
-          hour,
-          minute,
-          second,
-          millisecond,
         }),
         {
           disabled: !!modifiers[styles.disabled],
           selected: !!modifiers[styles.selected],
         },
-      );
-    });
+      ));
 
   return {
     onDayClick: wrap(onDayClick),
@@ -289,22 +320,18 @@ function wrapHandlers(
   };
 }
 
-function toLocalDate(utils: DateUtils, date: NullableDate): undefined | Date {
-  if (!isValidDate(date)) {
-    return undefined;
-  }
+function wrapModifier(
+  utils: DateUtils,
+  modifier: undefined | CalendarModifier,
+): undefined | FunctionModifier {
+  return modifier && (date => modifier(fromLocalDate(utils, date), utils));
+}
 
-  const object = utils.toObject(date);
-
-  return new Date(
-    object.year,
-    object.month - 1,
-    object.day,
-    object.hour,
-    object.minute,
-    object.second,
-    object.millisecond,
-  );
+export type CalendarModifier = (date: Date, utils: DateUtils) => boolean;
+export interface CalendarModifiers {
+  today?: CalendarModifier;
+  outside?: CalendarModifier;
+  [other: string]: undefined | CalendarModifier;
 }
 
 export interface CalendarProps
@@ -313,35 +340,49 @@ export interface CalendarProps
       DayPickerProps,
       | 'month'
       | 'months'
+      | 'modifiers'
       | 'initialMonth'
       | 'selectedDays'
+      | 'disabledDays'
       | 'classNames'
       | 'navbarElement'
       | 'captionElement'
       | 'weekdayElement'
+      | 'weekdaysLong'
+      | 'weekdaysShort'
       | CalendarDayEventHandlerName
     > {
-  selectedDays?: DateRangeLike;
-
   direction?: GridDirection;
   classes?: Partial<ClassNameMap<keyof ClassNames>>;
 
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
+  initialMonth?: DateLike;
+
+  modifiers?: CalendarModifiers;
+  selectedDays?: CalendarModifier;
+  disabledDays?: CalendarModifier;
   highlightedDays?: Partial<
-    Record<CalendarDayHighlightColor, Modifier | Modifier[]>
+    Record<CalendarDayHighlightColor, CalendarModifier>
   >;
+}
+
+function isFirstDayOfMonth(date: Date, utils: DateUtils): boolean {
+  return utils.isSameDate(date, utils.startOf(date, 'month'), 'day');
+}
+
+function isLastDayOfMonth(date: Date, utils: DateUtils): boolean {
+  return utils.isSameDate(date, utils.endOf(date, 'month'), 'day');
 }
 
 export function Calendar({
   footer,
   classes,
   direction,
-  modifiers,
   quickSelection,
   selectedDays,
-  highlightedDays,
+  disabledDays,
 
   onDayClick,
   onDayKeyDown,
@@ -352,30 +393,17 @@ export function Calendar({
   onDayTouchEnd,
   onDayTouchStart,
 
+  modifiers = {},
+  highlightedDays = {},
+  initialMonth: initialMonthProp,
+
   ...props
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const [initialStart, initialFinish] = useMemo(
-    () => toDateRange(selectedDays),
-    [selectedDays],
-  );
-  const [start, finish] = useMemo(
-    () => [toLocalDate(utils, initialStart), toLocalDate(utils, initialFinish)],
-    [initialFinish, initialStart, utils],
-  );
-
-  const isFirstDayOfMonth = useCallback(
-    (date: Date): boolean =>
-      utils.isSameDate(date, utils.startOf(date, 'month'), 'day'),
-    [utils],
-  );
-
-  const isLastDayOfMonth = useCallback(
-    (date: Date): boolean =>
-      utils.isSameDate(date, utils.endOf(date, 'month'), 'day'),
-    [utils],
-  );
+  const initialMonth =
+    toLocalDate(utils, initialMonthProp) ??
+    toLocalDate(utils, utils.startOf(Date.now(), 'month'));
 
   return (
     <Grid container={true} direction={direction}>
@@ -402,10 +430,33 @@ export function Calendar({
       <Grid item={true} xs={12} sm="auto">
         <DayPicker
           {...props}
+          classNames={styles}
+          navbarElement={CalendarNavbar}
+          captionElement={CalendarCaption}
+          weekdayElement={CalendarWeekDay}
+          initialMonth={initialMonth}
+          selectedDays={wrapModifier(utils, selectedDays)}
+          disabledDays={wrapModifier(utils, disabledDays)}
+          modifiers={{
+            ...Object.keys(modifiers).reduce<Partial<Modifiers>>((acc, key) => {
+              acc[key] = wrapModifier(utils, modifiers[key]);
+
+              return acc;
+            }, {}),
+
+            [styles.firstDayOfMonth]: wrapModifier(utils, isFirstDayOfMonth),
+            [styles.lastDayOfMonth]: wrapModifier(utils, isLastDayOfMonth),
+            [styles.blue]: wrapModifier(utils, highlightedDays.blue),
+            [styles.green]: wrapModifier(utils, highlightedDays.green),
+            [styles.purple]: wrapModifier(utils, highlightedDays.purple),
+            [styles.red]: wrapModifier(utils, highlightedDays.red),
+            [styles.teal]: wrapModifier(utils, highlightedDays.teal),
+            [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
+          }}
           {...wrapHandlers(
             utils,
             styles,
-            initialStart,
+            initialMonth,
             onDayClick,
             onDayKeyDown,
             onDayMouseEnter,
@@ -415,23 +466,6 @@ export function Calendar({
             onDayTouchEnd,
             onDayTouchStart,
           )}
-          classNames={styles}
-          navbarElement={CalendarNavbar}
-          captionElement={CalendarCaption}
-          weekdayElement={CalendarWeekDay}
-          initialMonth={start}
-          selectedDays={!start || !finish ? start : { from: start, to: finish }}
-          modifiers={{
-            ...modifiers,
-            [styles.firstDayOfMonth]: isFirstDayOfMonth,
-            [styles.lastDayOfMonth]: isLastDayOfMonth,
-            [styles.blue]: highlightedDays?.blue,
-            [styles.green]: highlightedDays?.green,
-            [styles.purple]: highlightedDays?.purple,
-            [styles.red]: highlightedDays?.red,
-            [styles.teal]: highlightedDays?.teal,
-            [styles.yellow]: highlightedDays?.yellow,
-          }}
         />
 
         {!!footer && <div className={styles.footer}>{footer}</div>}

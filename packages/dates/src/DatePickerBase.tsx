@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import { useEventCallback } from 'utility-hooks';
 
-import { Calendar, CalendarProps } from './Calendar';
-import { CalendarQuickSelection } from './CalendarQuickSelection';
-import { CalendarQuickSelectionItem } from './CalendarQuickSelectionItem';
+import { Calendar, CalendarProps } from './calendar/Calendar';
+import { CalendarQuickSelection } from './calendar/CalendarQuickSelection';
+import { CalendarQuickSelectionItem } from './calendar/CalendarQuickSelectionItem';
 import { DateRange } from './DateUtils';
 
 export type DatePickerBaseValue = undefined | Date | DateRange;
