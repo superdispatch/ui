@@ -26,7 +26,12 @@ export const GridStack: ForwardRefExoticComponent<GridStackProps> = forwardRef(
         alignItems={alignItems}
       >
         {items.map((item, idx) => (
-          <Grid key={idx} item={true} zeroMinWidth={true}>
+          <Grid
+            key={idx}
+            item={true}
+            zeroMinWidth={true}
+            xs={alignItems === 'stretch' ? 12 : undefined}
+          >
             {item}
           </Grid>
         ))}
