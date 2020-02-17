@@ -6,9 +6,6 @@ export function applyDrawerStyles(theme: SuperDispatchTheme) {
   };
 
   theme.overrides.MuiDrawer = {
-    paper: {
-      maxWidth: '100%',
-      minWidth: theme.spacing(54),
-    },
+    paper: { maxWidth: '100%' },
   };
 }

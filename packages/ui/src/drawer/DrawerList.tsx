@@ -12,6 +12,8 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   theme => ({
     root: {
+      minWidth: theme.spacing(54),
+
       '& .MuiListItem-gutters': {
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
