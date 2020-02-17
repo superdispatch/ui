@@ -48,7 +48,6 @@ it('checks component css', () => {
   z-index: 1200;
   position: fixed;
   max-width: 100%;
-  min-width: 432px;
   overflow-y: auto;
   flex-direction: column;
   -webkit-overflow-scrolling: touch;
@@ -118,6 +117,11 @@ it('checks component css', () => {
 
 .SuperDispatchDrawerContent-root {
   padding: 16px 32px;
+  min-width: 432px;
+}
+
+.SuperDispatchDrawerList-root {
+  min-width: 432px;
 }
 
 .SuperDispatchDrawerList-root .MuiListItem-gutters {
