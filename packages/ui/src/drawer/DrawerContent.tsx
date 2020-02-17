@@ -11,9 +11,7 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   theme => ({
-    root: {
-      padding: theme.spacing(2, 4),
-    },
+    root: { padding: theme.spacing(2, 4), minWidth: theme.spacing(54) },
   }),
   { name: 'SuperDispatchDrawerContent' },
 );
