@@ -1837,21 +1837,20 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@material-ui/core@^4.9.2":
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.2.tgz#23c9a697af15d8daf56ffad1955b24209ef48106"
-  integrity sha512-fSf/yBuE5GR7dA+FiQAAGY7HrCN/8RaYApi9tx3IKMiJIJkRCHk+E2lktgJZ+QRsaqCACLo2lwhU2CW5aeO0UQ==
+"@material-ui/core@^4.9.3":
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.3.tgz#29ad51f4d36cbc3af7a9db27d92f93fa4fa42d50"
+  integrity sha512-EQrhN7XHdCfBCMiCTHmiHSn/H1tj2qCt5W/kSDhr1gaYAtBTTiQ29j2xR1NcHT1siVQqAtgIkPephqbTEgQLwA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/styles" "^4.9.0"
-    "@material-ui/system" "^4.9.1"
+    "@material-ui/system" "^4.9.3"
     "@material-ui/types" "^5.0.0"
     "@material-ui/utils" "^4.7.1"
     "@types/react-transition-group" "^4.2.0"
     clsx "^1.0.2"
     convert-css-length "^2.0.1"
     hoist-non-react-statics "^3.3.2"
-    normalize-scroll-left "^0.2.0"
     popper.js "^1.14.1"
     prop-types "^15.7.2"
     react-is "^16.8.0"
@@ -1864,10 +1863,10 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/lab@^4.0.0-alpha.42":
-  version "4.0.0-alpha.42"
-  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.42.tgz#f8789d3ba39a1e5a13f462d618c2eec53f87ae10"
-  integrity sha512-JbKEMIXSslh03u6HNU1Pp1VXd9ycJ1dqkI+iQK6yR+Sng2mvMKzJ80GCV5ROXAXwwNnD8zHOopLZNIpTsEAVgQ==
+"@material-ui/lab@^4.0.0-alpha.43":
+  version "4.0.0-alpha.43"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.43.tgz#4bc673924cf1922750d70adcbb71414d3c18ff23"
+  integrity sha512-UxsQggLpwr5HEZU+YRZkRVtpt5Cp27VwfYZz1InyGNWrtx9WovAYxEyR1xDvp/cmKhnSPCecVnqmb3dtLTpDqQ==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^4.7.1"
@@ -1897,10 +1896,10 @@
     jss-plugin-vendor-prefixer "^10.0.3"
     prop-types "^15.7.2"
 
-"@material-ui/system@^4.9.1":
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.9.1.tgz#beb6595e1b164317340bdc5a629a6798fc35f82d"
-  integrity sha512-CLrJK2aKNWNwruGVTRf+rLz96P4jmozpY2UaCE6hBTa1oGsQ396YXOQQABQ4c0igawmdyf5iQb0zs9j5zsAf1w==
+"@material-ui/system@^4.9.3":
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.9.3.tgz#ee48990d7941237fdaf21b7b399981d614bb0875"
+  integrity sha512-DBGsTKYrLlFpHG8BUp0X6ZpvaOzef+GhSwn/8DwVTXUdHitphaPQoL9xucrI8X9MTBo//El+7nylko7lo7eJIw==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^4.7.1"
@@ -2390,10 +2389,10 @@
     "@testing-library/dom" "^6.11.0"
     "@types/testing-library__react" "^9.1.2"
 
-"@testing-library/user-event@^8.1.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-8.1.0.tgz#6362a9a01c5a4f612e8ef6eafd69e71e355c9f09"
-  integrity sha512-42VHeLj4877FYIlehDQEP24rmixcfkRpPSil8icNKFJfU4pNArI0EPaKCoAaDr/p6NThW+QHFRiwws80PUNFtg==
+"@testing-library/user-event@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-8.1.1.tgz#780b5bc0db44243ba7f8bbbe30265bf10d7c7ac9"
+  integrity sha512-sJ4WGVOK0+8kphgEJwTfVLyLwhejzWQYH35BgUK0EZv3cKr6Gnofjo4GVyUaj/q1ddqK65FdPS3iZQguZZmJGg==
 
 "@tootallnate/once@1":
   version "1.0.0"
@@ -3358,10 +3357,10 @@ babel-plugin-jest-hoist@^25.1.0:
   dependencies:
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-optimize-clsx@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-optimize-clsx/-/babel-plugin-optimize-clsx-2.5.0.tgz#ed7b41b610562fc72bbe6910bccdef4bec7f7f64"
-  integrity sha512-5jP8zpqlGB2hwMpL6Dos+t8IwgG6a0VnQ17ktUNekkVM+Zz4DkPiofpARlY+GjDSQ1wgTCaR5ILn+AUf/GuvKQ==
+babel-plugin-optimize-clsx@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-optimize-clsx/-/babel-plugin-optimize-clsx-2.6.0.tgz#ae0b9db19565ab0355607c9d58e23e73025e53f1"
+  integrity sha512-FizJqgyoj8EG3Y3F+BLxB+0rxDb9AFfh826ob4e70SXMxOcmibpi/8RiEHQ2FbGt/2PF6k2128dZ1xVQ4f1JNA==
   dependencies:
     "@babel/generator" "^7.6.2"
     "@babel/template" "^7.6.0"
@@ -8818,11 +8817,6 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-normalize-scroll-left@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.2.0.tgz#9445d74275f303cc661e113329aefa492f58114c"
-  integrity sha512-t5oCENZJl8TGusJKoCJm7+asaSsPuNmK6+iEjrZ5TyBj2f02brCRsd4c83hwtu+e5d4LCSBZ0uoDlMjBo+A8yA==
-
 normalize-url@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
@@ -9918,10 +9912,10 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cosmos-playground2@^5.0.7:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/react-cosmos-playground2/-/react-cosmos-playground2-5.0.7.tgz#1026644c708067e292636bc790ba456a4e59e275"
-  integrity sha512-+MeSa/+Iu51ZK91lj6ScDrfiFPLgWO1+rqxFR2wXdzopAp7yxlfRjaQwsNkKswA+vyp79HTNxJ4hhpuUd2jPPg==
+react-cosmos-playground2@^5.0.8:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/react-cosmos-playground2/-/react-cosmos-playground2-5.0.8.tgz#bd036b59850ec805294549bd7a61e2bc595f4952"
+  integrity sha512-0zI98kjgua9WOY1YTXSOincjycU4kFsEQMqhix/wTAQHo1fVumA5VtKK9UO+leA04SVviUyRsBedwYvp0KCEbg==
 
 react-cosmos-shared2@^5.0.4:
   version "5.0.4"
@@ -9934,10 +9928,10 @@ react-cosmos-shared2@^5.0.4:
     react-is "^16.12.0"
     socket.io-client "2.2.0"
 
-react-cosmos@^5.0.7:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/react-cosmos/-/react-cosmos-5.0.7.tgz#ade2a8d9fa42cf613f6bc41f5a1fb2e5a3da9da5"
-  integrity sha512-RwkxNrSg7osVgVDfaF+oqlhauab2duCJSRyfV4hFguabTmztDjiw25ku1kY1ejlnO8TUbD74zt2cuSsa+VvozQ==
+react-cosmos@^5.0.8:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/react-cosmos/-/react-cosmos-5.0.8.tgz#e6b527d58208dd28c057058265ab26e1b9023cbf"
+  integrity sha512-cVc2sMoPDv8D2XeM/fAlAIeynOf01DL6Cc+IHuv6zw/yX6F1AixzNN0s0bfMZLdg26OKoaqvY7Bol1bSqXJfqg==
   dependencies:
     "@skidding/launch-editor" "^2.2.3"
     "@skidding/webpack-hot-middleware" "^2.25.0"
@@ -9952,7 +9946,7 @@ react-cosmos@^5.0.7:
     micromatch "^4.0.2"
     open "^7.0.0"
     pkg-up "^3.1.0"
-    react-cosmos-playground2 "^5.0.7"
+    react-cosmos-playground2 "^5.0.8"
     react-cosmos-shared2 "^5.0.4"
     react-error-overlay "^6.0.4"
     regenerator-runtime "^0.13.3"
