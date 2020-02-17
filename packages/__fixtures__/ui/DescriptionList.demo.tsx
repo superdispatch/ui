@@ -1,4 +1,4 @@
-import { Box, Slider, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, Slider, Typography } from '@material-ui/core';
 import { CalendarToday, Notes, Room } from '@material-ui/icons';
 import {
   DescriptionList,
@@ -36,22 +36,24 @@ export default function DescriptionListDemo() {
             <GridStack spacing={2} key={size}>
               <Typography>{startCase(size)}</Typography>
 
-              <Box maxWidth={width}>
-                <DescriptionList size={size}>
-                  <DescriptionListItem
-                    icon={<CalendarToday />}
-                    label="Posted on"
-                    content="Feb 03, 2020"
-                  />
+              <Card>
+                <CardContent style={{ maxWidth: width }}>
+                  <DescriptionList size={size}>
+                    <DescriptionListItem
+                      icon={<CalendarToday />}
+                      label="Posted on"
+                      content="Feb 03, 2020"
+                    />
 
-                  <DescriptionListItem
-                    icon={<Room />}
-                    content="167 Zosh Rd, Dallas, PA 18612"
-                  />
+                    <DescriptionListItem
+                      icon={<Room />}
+                      content="167 Zosh Rd, Dallas, PA 18612"
+                    />
 
-                  <DescriptionListItem icon={<Notes />} label="Notes" />
-                </DescriptionList>
-              </Box>
+                    <DescriptionListItem icon={<Notes />} label="Notes" />
+                  </DescriptionList>
+                </CardContent>
+              </Card>
             </GridStack>
           ))}
         </InlineGrid>

@@ -1,5 +1,5 @@
 import { Tooltip, Typography, TypographyProps } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
   forwardRef,
@@ -14,6 +14,28 @@ import { VisibilityObserver } from '..';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
+function sizeVariant(
+  theme: SuperDispatchTheme,
+  mobileSpacing: number,
+  desktopSpacing: number,
+): CSSProperties {
+  return {
+    margin: theme.spacing(-mobileSpacing / 2, 0),
+
+    '& > $item': {
+      padding: theme.spacing(mobileSpacing / 2, 0),
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      margin: theme.spacing(-desktopSpacing / 2, 0),
+
+      '& > $item': {
+        padding: theme.spacing(desktopSpacing / 2, 0),
+      },
+    },
+  };
+}
+
 const useStyles = makeStyles<
   SuperDispatchTheme,
   | 'list'
@@ -25,9 +47,9 @@ const useStyles = makeStyles<
 >(
   theme => ({
     list: {
-      '&[data-size="small"]': {},
-      '&[data-size="medium"]': {},
-      '&[data-size="large"]': {},
+      '&[data-size="small"]': sizeVariant(theme, 1, 0.5),
+      '&[data-size="medium"]': sizeVariant(theme, 2, 1),
+      '&[data-size="large"]': sizeVariant(theme, 3, 2),
     },
 
     item: { display: 'flex', alignItems: 'center' },
@@ -128,22 +150,22 @@ export const DescriptionListItem: ForwardRefExoticComponent<DescriptionListItemP
         {(!!label || !!content) && (
           <VisibilityObserver
             render={({ ref, visibility }) => {
-              const isTooltipEnabled = !!content || visibility === 'invisible';
+              const isTooltipEnabled = !!content && visibility === 'invisible';
 
               return (
                 <Tooltip
+                  enterDelay={1000}
                   title={content || ''}
                   disableFocusListener={true}
                   open={isTooltipOpen && isTooltipEnabled}
+                  onOpen={() => setIsTooltipOpen(true)}
                   onClose={() => setIsTooltipOpen(false)}
                 >
                   <Typography
                     noWrap={true}
                     variant="body2"
                     component="span"
-                    onClick={() => {
-                      setIsTooltipOpen(true);
-                    }}
+                    onClick={() => setIsTooltipOpen(true)}
                     className={clsx(styles.content, {
                       [styles.contentClickable]: visibility === 'invisible',
                     })}
