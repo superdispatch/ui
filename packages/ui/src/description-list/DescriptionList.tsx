@@ -39,6 +39,8 @@ function sizeVariant(
 const useStyles = makeStyles<
   SuperDispatchTheme,
   | 'list'
+  | 'listSmall'
+  | 'listLarge'
   | 'item'
   | 'icon'
   | 'content'
@@ -46,11 +48,9 @@ const useStyles = makeStyles<
   | 'textOverflowAnchor'
 >(
   theme => ({
-    list: {
-      '&[data-size="small"]': sizeVariant(theme, 1, 0.5),
-      '&[data-size="medium"]': sizeVariant(theme, 2, 1),
-      '&[data-size="large"]': sizeVariant(theme, 3, 2),
-    },
+    list: sizeVariant(theme, 2, 1),
+    listSmall: sizeVariant(theme, 1, 0.5),
+    listLarge: sizeVariant(theme, 3, 2),
 
     item: { display: 'flex', alignItems: 'center' },
 
@@ -97,7 +97,7 @@ export interface DescriptionListProps
 }
 
 export const DescriptionList: ForwardRefExoticComponent<DescriptionListProps> = forwardRef(
-  ({ className, size = 'medium', ...props }, ref) => {
+  ({ size, className, ...props }, ref) => {
     const styles = useStyles();
 
     return (
@@ -105,7 +105,10 @@ export const DescriptionList: ForwardRefExoticComponent<DescriptionListProps> = 
         {...props}
         ref={ref}
         data-size={size}
-        className={clsx(styles.list, className)}
+        className={clsx(styles.list, className, {
+          [styles.listSmall]: size === 'small',
+          [styles.listLarge]: size === 'large',
+        })}
       />
     );
   },

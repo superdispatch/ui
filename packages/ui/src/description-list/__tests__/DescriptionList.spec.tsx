@@ -12,63 +12,57 @@ it('checks component css', () => {
       ['SuperDispatchDescriptionList'],
     ),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchDescriptionList-list[data-size='small'] {
-      margin: -4px 0px;
-    }
-
-    .SuperDispatchDescriptionList-list[data-size='medium'] {
+    .SuperDispatchDescriptionList-list {
       margin: -8px 0px;
     }
 
-    .SuperDispatchDescriptionList-list[data-size='large'] {
-      margin: -12px 0px;
-    }
-
-    .SuperDispatchDescriptionList-list[data-size='large']
-      > .SuperDispatchDescriptionList-item {
-      padding: 12px 0px;
-    }
-
-    @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-list[data-size='large'] {
-        margin: -8px 0px;
-      }
-
-      .SuperDispatchDescriptionList-list[data-size='large']
-        > .SuperDispatchDescriptionList-item {
-        padding: 8px 0px;
-      }
-    }
-
-    .SuperDispatchDescriptionList-list[data-size='medium']
-      > .SuperDispatchDescriptionList-item {
+    .SuperDispatchDescriptionList-list > .SuperDispatchDescriptionList-item {
       padding: 8px 0px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-list[data-size='medium'] {
+      .SuperDispatchDescriptionList-list {
         margin: -4px 0px;
       }
 
-      .SuperDispatchDescriptionList-list[data-size='medium']
-        > .SuperDispatchDescriptionList-item {
+      .SuperDispatchDescriptionList-list > .SuperDispatchDescriptionList-item {
         padding: 4px 0px;
       }
     }
 
-    .SuperDispatchDescriptionList-list[data-size='small']
-      > .SuperDispatchDescriptionList-item {
+    .SuperDispatchDescriptionList-listSmall {
+      margin: -4px 0px;
+    }
+
+    .SuperDispatchDescriptionList-listSmall > .SuperDispatchDescriptionList-item {
       padding: 4px 0px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-list[data-size='small'] {
+      .SuperDispatchDescriptionList-listSmall {
         margin: -2px 0px;
       }
 
-      .SuperDispatchDescriptionList-list[data-size='small']
-        > .SuperDispatchDescriptionList-item {
+      .SuperDispatchDescriptionList-listSmall > .SuperDispatchDescriptionList-item {
         padding: 2px 0px;
+      }
+    }
+
+    .SuperDispatchDescriptionList-listLarge {
+      margin: -12px 0px;
+    }
+
+    .SuperDispatchDescriptionList-listLarge > .SuperDispatchDescriptionList-item {
+      padding: 12px 0px;
+    }
+
+    @media (min-width: 600px) {
+      .SuperDispatchDescriptionList-listLarge {
+        margin: -8px 0px;
+      }
+
+      .SuperDispatchDescriptionList-listLarge > .SuperDispatchDescriptionList-item {
+        padding: 8px 0px;
       }
     }
 
