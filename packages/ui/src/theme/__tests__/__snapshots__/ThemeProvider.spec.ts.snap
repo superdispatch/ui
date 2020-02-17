@@ -44,9 +44,13 @@ Object {
 exports[`exposes overridden theme: palette 1`] = `
 Object {
   "action": Object {
+    "activatedOpaciy": 0.12,
     "active": "rgba(0, 0, 0, 0.54)",
     "disabled": "Color.Silver400",
     "disabledBackground": "rgba(0, 0, 0, 0.12)",
+    "disabledOpacity": 0.38,
+    "focus": "rgba(0, 0, 0, 0.12)",
+    "focusOpacity": 0.12,
     "hover": "Color.Silver100",
     "hoverOpacity": 0.04,
     "selected": "Color.Silver300",
