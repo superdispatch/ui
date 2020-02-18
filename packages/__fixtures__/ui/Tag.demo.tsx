@@ -1,13 +1,11 @@
 import {
-  Box,
   FormControl,
   FormControlLabel,
   FormLabel,
-  Grid,
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-import { Tag, TagProps } from '@superdispatch/ui';
+import { GridStack, InlineGrid, Tag, TagProps } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -26,43 +24,33 @@ export default function TagDemo() {
   const [color, setColor] = useState<TagProps['color']>('blue');
 
   return (
-    <>
-      <Box padding={2}>
-        <Grid container={true} spacing={1}>
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Color</FormLabel>
-              <RadioGroup
-                row={true}
-                name="color"
-                value={color}
-                onChange={(_, value) => setColor(value as TagProps['color'])}
-              >
-                {colors.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </Box>
-
-      <Box padding={2}>
-        <Grid container={true} spacing={1}>
-          {variants.map(variant => (
-            <Grid key={variant} item={true} sm={4} xs={12}>
-              <Tag color={color} variant={variant}>
-                {startCase(variant)} {startCase(color)}
-              </Tag>
-            </Grid>
+    <GridStack spacing={2}>
+      <FormControl>
+        <FormLabel>Color</FormLabel>
+        <RadioGroup
+          row={true}
+          name="color"
+          value={color}
+          onChange={(_, value) => setColor(value as TagProps['color'])}
+        >
+          {colors.map(x => (
+            <FormControlLabel
+              key={x}
+              value={x}
+              control={<Radio />}
+              label={startCase(x)}
+            />
           ))}
-        </Grid>
-      </Box>
-    </>
+        </RadioGroup>
+      </FormControl>
+
+      <InlineGrid spacing={2}>
+        {variants.map(variant => (
+          <Tag key={variant} color={color} variant={variant}>
+            {startCase(variant)} {startCase(color)}
+          </Tag>
+        ))}
+      </InlineGrid>
+    </GridStack>
   );
 }

@@ -51,7 +51,9 @@ export default function CosmosDecorator({ children }: CosmosDecoratorProps) {
         </Box>
       )}
 
-      <Box marginTop={5}>{children}</Box>
+      <Box marginTop={5} padding={2}>
+        {children}
+      </Box>
     </ThemeProvider>
   );
 }

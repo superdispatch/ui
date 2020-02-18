@@ -1,15 +1,14 @@
 import {
-  Box,
   FormControl,
   FormControlLabel,
   FormLabel,
-  Grid,
   IconButton,
   Radio,
   RadioGroup,
 } from '@material-ui/core';
 import { IconButtonProps } from '@material-ui/core/IconButton';
 import { Check } from '@material-ui/icons';
+import { GridStack, InlineGrid } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -28,70 +27,57 @@ export default function IconButtonDemo() {
   const [color, setColor] = useState<IconButtonProps['color']>('default');
 
   return (
-    <>
-      <Box padding={2}>
-        <Grid container={true} spacing={1}>
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">State</FormLabel>
-              <RadioGroup
-                row={true}
-                value={state}
-                name="state"
-                onChange={(_, value) => setState(value as State)}
-              >
-                {states.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Color</FormLabel>
-              <RadioGroup
-                row={true}
-                name="color"
-                value={color}
-                onChange={(_, value) =>
-                  setColor(value as IconButtonProps['color'])
-                }
-              >
-                {colors.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </Box>
-
-      <Box padding={2}>
-        <Grid container={true} spacing={1}>
-          {sizes.map(size => (
-            <Grid item={true} key={size} sm={2} xs={12}>
-              <IconButton
-                size={size}
-                color={color}
-                disabled={state === 'disabled'}
-              >
-                <Check />
-              </IconButton>
-            </Grid>
+    <GridStack spacing={2}>
+      <FormControl>
+        <FormLabel>State</FormLabel>
+        <RadioGroup
+          row={true}
+          value={state}
+          name="state"
+          onChange={(_, value) => setState(value as State)}
+        >
+          {states.map(x => (
+            <FormControlLabel
+              key={x}
+              value={x}
+              control={<Radio />}
+              label={startCase(x)}
+            />
           ))}
-        </Grid>
-      </Box>
-    </>
+        </RadioGroup>
+      </FormControl>
+
+      <FormControl>
+        <FormLabel>Color</FormLabel>
+        <RadioGroup
+          row={true}
+          name="color"
+          value={color}
+          onChange={(_, value) => setColor(value as IconButtonProps['color'])}
+        >
+          {colors.map(x => (
+            <FormControlLabel
+              key={x}
+              value={x}
+              control={<Radio />}
+              label={startCase(x)}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+
+      <InlineGrid spacing={2}>
+        {sizes.map(size => (
+          <IconButton
+            key={size}
+            size={size}
+            color={color}
+            disabled={state === 'disabled'}
+          >
+            <Check />
+          </IconButton>
+        ))}
+      </InlineGrid>
+    </GridStack>
   );
 }

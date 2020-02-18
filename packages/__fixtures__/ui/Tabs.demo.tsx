@@ -1,4 +1,5 @@
-import { Box, Tab, Tabs, Typography } from '@material-ui/core';
+import { Tab, Tabs, Typography } from '@material-ui/core';
+import { GridStack } from '@superdispatch/ui';
 import React from 'react';
 
 export default function TabsDemo() {
@@ -12,10 +13,8 @@ export default function TabsDemo() {
   ];
 
   return (
-    <>
-      <Box padding={2}>
-        <Typography>With Scroll Buttons</Typography>
-      </Box>
+    <GridStack spacing={2}>
+      <Typography variant="h6">With Scroll Buttons</Typography>
 
       <Tabs
         scrollButtons="on"
@@ -27,15 +26,13 @@ export default function TabsDemo() {
         ))}
       </Tabs>
 
-      <Box padding={2}>
-        <Typography>Without Scroll Buttons</Typography>
-      </Box>
+      <Typography variant="h6">Without Scroll Buttons</Typography>
 
       <Tabs value={value} onChange={(_, nextValue) => setValue(nextValue)}>
         {options.map(x => (
           <Tab key={x} label={x} />
         ))}
       </Tabs>
-    </>
+    </GridStack>
   );
 }

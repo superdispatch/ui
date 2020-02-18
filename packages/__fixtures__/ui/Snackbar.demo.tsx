@@ -1,17 +1,16 @@
 import {
-  Box,
-  CircularProgress,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Grid,
   Radio,
   RadioGroup,
   Switch,
 } from '@material-ui/core';
 import {
   Button,
+  GridStack,
+  InlineGrid,
   Snackbar,
   SnackbarStackOptions,
   SnackbarVariant,
@@ -19,7 +18,7 @@ import {
 } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import { loremIpsum } from 'lorem-ipsum';
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { useWhenValueChanges } from 'utility-hooks';
 
 const variants: SnackbarVariant[] = ['default', 'success', 'error'];
@@ -42,7 +41,6 @@ interface State {
 
 export default function SnackbarDemo() {
   const { addSnackbar, clearStack } = useSnackbarStack();
-  const [hideProgress, setHideProgress] = useState(0);
 
   const [
     { isOpen, isLong, hasUndo, hasClose, hasAutoHide, variant, message },
@@ -68,163 +66,113 @@ export default function SnackbarDemo() {
     updateState({ message: makeMessage(isLong) }),
   );
 
-  useEffect(() => {
-    if (!isOpen || !hasClose) {
-      return;
-    }
-
-    let id: number;
-    const closesAt = Date.now() + AUTO_HIDE_DURATION;
-
-    function run() {
-      const timeLeft = closesAt - Date.now();
-
-      if (timeLeft <= 0) {
-        return;
-      }
-
-      setHideProgress(100 - Math.ceil((timeLeft * 100) / AUTO_HIDE_DURATION));
-      id = requestAnimationFrame(run);
-    }
-
-    run();
-
-    return () => {
-      if (id) {
-        cancelAnimationFrame(id);
-      }
-    };
-  }, [hasClose, isOpen, key]);
-
   return (
-    <>
-      <Box padding={2}>
-        <Grid container={true} spacing={1} alignItems="center">
-          <Grid item={true} sm="auto" xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Visual</FormLabel>
+    <GridStack spacing={2}>
+      <FormControl>
+        <FormLabel>Visual</FormLabel>
 
-              <FormGroup row={true}>
-                <FormControlLabel
-                  label="Open"
-                  control={<Switch />}
-                  checked={isOpen}
-                  onChange={(_, checked) => updateState({ isOpen: checked })}
-                />
+        <FormGroup row={true}>
+          <FormControlLabel
+            label="Open"
+            control={<Switch />}
+            checked={isOpen}
+            onChange={(_, checked) => updateState({ isOpen: checked })}
+          />
 
-                <FormControlLabel
-                  label="Long"
-                  control={<Switch />}
-                  checked={isLong}
-                  onChange={(_, checked) => updateState({ isLong: checked })}
-                />
+          <FormControlLabel
+            label="Long"
+            control={<Switch />}
+            checked={isLong}
+            onChange={(_, checked) => updateState({ isLong: checked })}
+          />
 
-                <FormControlLabel
-                  label="Auto Hide"
-                  control={<Switch />}
-                  checked={hasAutoHide}
-                  onChange={(_, checked) =>
-                    updateState({ hasAutoHide: checked })
-                  }
-                />
+          <FormControlLabel
+            label="Auto Hide"
+            control={<Switch />}
+            checked={hasAutoHide}
+            onChange={(_, checked) => updateState({ hasAutoHide: checked })}
+          />
 
-                <FormControlLabel
-                  label="Undoable"
-                  control={<Switch />}
-                  checked={hasUndo}
-                  onChange={(_, checked) => updateState({ hasUndo: checked })}
-                />
+          <FormControlLabel
+            label="Undoable"
+            control={<Switch />}
+            checked={hasUndo}
+            onChange={(_, checked) => updateState({ hasUndo: checked })}
+          />
 
-                <FormControlLabel
-                  label="Closable"
-                  control={<Switch />}
-                  checked={hasClose}
-                  onChange={(_, checked) => updateState({ hasClose: checked })}
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid>
+          <FormControlLabel
+            label="Closable"
+            control={<Switch />}
+            checked={hasClose}
+            onChange={(_, checked) => updateState({ hasClose: checked })}
+          />
+        </FormGroup>
+      </FormControl>
 
-          <Grid item={true} sm="auto" xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Variant</FormLabel>
-              <RadioGroup
-                row={true}
-                name="variant"
-                value={variant}
-                onChange={(_, value) =>
-                  updateState({ variant: value as SnackbarVariant })
-                }
-              >
-                {variants.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
+      <FormControl>
+        <FormLabel>Variant</FormLabel>
+        <RadioGroup
+          row={true}
+          name="variant"
+          value={variant}
+          onChange={(_, value) =>
+            updateState({ variant: value as SnackbarVariant })
+          }
+        >
+          {variants.map(x => (
+            <FormControlLabel
+              key={x}
+              value={x}
+              control={<Radio />}
+              label={startCase(x)}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
 
-          <Grid item={true} sm="auto" xs={12}>
-            <Grid container={true} spacing={1}>
-              <Grid item={true}>
+      <InlineGrid spacing={1}>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            const snackMessage = makeMessage(isLong);
+
+            const options: SnackbarStackOptions = {
+              variant,
+              hasCloseButton: hasClose,
+              key: Math.random(),
+              autoHideDuration: !hasAutoHide ? undefined : AUTO_HIDE_DURATION,
+            };
+
+            addSnackbar(snackMessage, {
+              ...options,
+              action: hasUndo && (
                 <Button
-                  color="primary"
-                  variant="outlined"
+                  size="small"
+                  variant="contained"
+                  color="white"
                   onClick={() => {
-                    const snackMessage = makeMessage(isLong);
-
-                    const options: SnackbarStackOptions = {
-                      variant,
-                      hasCloseButton: hasClose,
-                      key: Math.random(),
-                      autoHideDuration: !hasAutoHide
-                        ? undefined
-                        : AUTO_HIDE_DURATION,
-                    };
-
-                    addSnackbar(snackMessage, {
-                      ...options,
-                      action: hasUndo && (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="white"
-                          onClick={() => {
-                            addSnackbar(
-                              <span>
-                                <strong>Undid:</strong> <em>{snackMessage}</em>
-                              </span>,
-                              options,
-                            );
-                          }}
-                        >
-                          Undo
-                        </Button>
-                      ),
-                    });
+                    addSnackbar(
+                      <span>
+                        <strong>Undid:</strong> <em>{snackMessage}</em>
+                      </span>,
+                      options,
+                    );
                   }}
                 >
-                  Add To Stack
+                  Undo
                 </Button>
-              </Grid>
+              ),
+            });
+          }}
+        >
+          Add To Stack
+        </Button>
 
-              <Grid item={true}>
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  onClick={() => clearStack()}
-                >
-                  Clear Stack
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
+        <Button color="primary" variant="outlined" onClick={() => clearStack()}>
+          Clear Stack
+        </Button>
+      </InlineGrid>
 
       <Snackbar
         key={key}
@@ -255,29 +203,8 @@ export default function SnackbarDemo() {
           )
         }
       >
-        {!hasAutoHide ? (
-          message
-        ) : (
-          <Box
-            width="100%"
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box display="flex" flexGrow={1}>
-              {message}
-            </Box>
-
-            <Box display="flex" marginLeft={2} flexShrink={0}>
-              <CircularProgress
-                color="inherit"
-                value={hideProgress}
-                variant={hideProgress <= 1 ? 'indeterminate' : 'static'}
-              />
-            </Box>
-          </Box>
-        )}
+        {message}
       </Snackbar>
-    </>
+    </GridStack>
   );
 }

@@ -1,18 +1,24 @@
 import {
-  Box,
+  Card,
+  CardContent,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Grid,
   Radio,
   RadioGroup,
   Switch,
 } from '@material-ui/core';
 import { MoreHoriz, Save, Send } from '@material-ui/icons';
-import { Button, ButtonProps, Color } from '@superdispatch/ui';
+import {
+  Button,
+  ButtonProps,
+  Color,
+  GridStack,
+  InlineGrid,
+} from '@superdispatch/ui';
 import { startCase } from 'lodash';
-import React, { Fragment, MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
 const states: State[] = ['stale', 'disabled', 'active', 'loading'];
@@ -49,129 +55,121 @@ export default function ButtonDemo() {
   }, [buttonStateMap]);
 
   return (
-    <>
-      <Box padding={2}>
-        <Grid container={true} spacing={1}>
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Content</FormLabel>
-              <FormGroup row={true}>
-                <FormControlLabel
-                  value={hasStartIcon}
-                  label="Has Start Icon"
-                  control={<Switch />}
-                  onChange={(_, checked) => setHasStartIcon(checked)}
-                />
+    <GridStack spacing={2}>
+      <InlineGrid spacing={2}>
+        <FormControl>
+          <FormLabel>Content</FormLabel>
+          <FormGroup row={true}>
+            <FormControlLabel
+              checked={hasStartIcon}
+              label="Has Start Icon"
+              control={<Switch />}
+              onChange={(_, checked) => setHasStartIcon(checked)}
+            />
 
-                <FormControlLabel
-                  value={hasEndIcon}
-                  label="Has End Icon"
-                  control={<Switch />}
-                  onChange={(_, checked) => setHasEndIcon(checked)}
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid>
+            <FormControlLabel
+              checked={hasEndIcon}
+              label="Has End Icon"
+              control={<Switch />}
+              onChange={(_, checked) => setHasEndIcon(checked)}
+            />
+          </FormGroup>
+        </FormControl>
 
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">State</FormLabel>
-              <RadioGroup
-                row={true}
-                value={globalState}
-                name="state"
-                onChange={(_, value) => setGlobalState(value as State)}
-              >
-                {states.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
+        <FormControl>
+          <FormLabel>State</FormLabel>
+          <RadioGroup
+            row={true}
+            value={globalState}
+            name="state"
+            onChange={(_, value) => setGlobalState(value as State)}
+          >
+            {states.map(x => (
+              <FormControlLabel
+                key={x}
+                value={x}
+                control={<Radio />}
+                label={startCase(x)}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
 
-          <Grid item={true} sm={true} xs={12}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Color</FormLabel>
-              <RadioGroup
-                row={true}
-                name="color"
-                value={color}
-                onChange={(_, value) => setColor(value as ButtonProps['color'])}
-              >
-                {colors.map(x => (
-                  <FormControlLabel
-                    key={x}
-                    value={x}
-                    control={<Radio />}
-                    label={startCase(x)}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </Box>
+        <FormControl>
+          <FormLabel>Color</FormLabel>
+          <RadioGroup
+            row={true}
+            name="color"
+            value={color}
+            onChange={(_, value) => setColor(value as ButtonProps['color'])}
+          >
+            {colors.map(x => (
+              <FormControlLabel
+                key={x}
+                value={x}
+                control={<Radio />}
+                label={startCase(x)}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+      </InlineGrid>
 
-      <Box padding={2} bgcolor={color === 'white' ? Color.Grey500 : undefined}>
-        <Grid container={true} spacing={1}>
-          {variants.map(variant => (
-            <Fragment key={variant}>
-              {sizes.map(size => {
-                const buttonKey = `${variant}-${size}`;
-                const buttonState =
-                  buttonStateMap.get(buttonKey) || globalState;
-                const props: ButtonProps = {
-                  size,
-                  color,
-                  variant,
-                  disabled: buttonState === 'disabled',
-                  isActive: buttonState === 'active',
-                  isLoading: buttonState === 'loading',
-                  onClick: (event: MouseEvent) => {
-                    if (event.shiftKey) {
-                      return;
-                    }
+      <Card
+        style={{
+          backgroundColor: color === 'white' ? Color.Grey500 : undefined,
+        }}
+      >
+        <CardContent>
+          <InlineGrid spacing={2}>
+            {variants.map(variant => (
+              <GridStack spacing={1} key={variant}>
+                {sizes.map(size => {
+                  const buttonKey = `${variant}-${size}`;
+                  const buttonState =
+                    buttonStateMap.get(buttonKey) || globalState;
+                  const props: ButtonProps = {
+                    size,
+                    color,
+                    variant,
+                    disabled: buttonState === 'disabled',
+                    isActive: buttonState === 'active',
+                    isLoading: buttonState === 'loading',
+                    onClick: (event: MouseEvent) => {
+                      if (event.shiftKey) {
+                        return;
+                      }
 
-                    setButtonStateMap(prev =>
-                      new Map(prev).set(
-                        buttonKey,
-                        event.altKey ? 'disabled' : 'loading',
-                      ),
-                    );
-                  },
-                };
+                      setButtonStateMap(prev =>
+                        new Map(prev).set(
+                          buttonKey,
+                          event.altKey ? 'disabled' : 'loading',
+                        ),
+                      );
+                    },
+                  };
 
-                return (
-                  <Grid item={true} key={size} sm={4} xs={12}>
-                    <Grid container={true} spacing={1}>
-                      <Grid item={true}>
-                        <Button
-                          {...props}
-                          startIcon={hasStartIcon && <Save />}
-                          endIcon={hasEndIcon && <Send />}
-                        >
-                          Button
-                        </Button>
-                      </Grid>
+                  return (
+                    <InlineGrid key={size} spacing={1}>
+                      <Button
+                        {...props}
+                        startIcon={hasStartIcon && <Save />}
+                        endIcon={hasEndIcon && <Send />}
+                      >
+                        Button
+                      </Button>
 
-                      <Grid item={true}>
-                        <Button {...props}>
-                          <MoreHoriz />
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                );
-              })}
-            </Fragment>
-          ))}
-        </Grid>
-      </Box>
-    </>
+                      <Button {...props}>
+                        <MoreHoriz />
+                      </Button>
+                    </InlineGrid>
+                  );
+                })}
+              </GridStack>
+            ))}
+          </InlineGrid>
+        </CardContent>
+      </Card>
+    </GridStack>
   );
 }

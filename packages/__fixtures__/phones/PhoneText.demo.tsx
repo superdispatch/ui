@@ -1,5 +1,6 @@
-import { Box, Grid, TextField, Typography } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { PhoneText } from '@superdispatch/phones';
+import { GridStack } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
 export default function PhoneTextDemo() {
@@ -7,31 +8,23 @@ export default function PhoneTextDemo() {
   const [fallback, setFallback] = useState('Invalid Phone Number');
 
   return (
-    <Box padding={2}>
-      <Grid container={true} spacing={2}>
-        <Grid item={true}>
-          <TextField
-            label="Raw"
-            value={phone}
-            onChange={event => setPhone(event.target.value)}
-          />
-        </Grid>
+    <GridStack spacing={2}>
+      <TextField
+        label="Raw"
+        value={phone}
+        onChange={event => setPhone(event.target.value)}
+      />
 
-        <Grid item={true}>
-          <TextField
-            label="Fallback Text"
-            value={fallback}
-            onChange={event => setFallback(event.target.value)}
-          />
-        </Grid>
+      <TextField
+        label="Fallback Text"
+        value={fallback}
+        onChange={event => setFallback(event.target.value)}
+      />
 
-        <Grid item={true} xs={12}>
-          <PhoneText
-            phone={phone}
-            fallback={<Typography color="error">{fallback}</Typography>}
-          />
-        </Grid>
-      </Grid>
-    </Box>
+      <PhoneText
+        phone={phone}
+        fallback={<Typography color="error">{fallback}</Typography>}
+      />
+    </GridStack>
   );
 }
