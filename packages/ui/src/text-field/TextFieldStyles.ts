@@ -23,6 +23,7 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       ...theme.typography.body2,
       '&$disabled': { backgroundColor: Color.Silver100 },
     },
+    input: { textOverflow: 'ellipsis' },
     inputMultiline: { resize: 'vertical' },
   };
 
