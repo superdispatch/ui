@@ -7,6 +7,7 @@ export * from './drawer/DrawerContent';
 export * from './drawer/DrawerTitle';
 export * from './grid/GridStack';
 export * from './grid/InlineGrid';
+export * from './overflow-text/OverflowText';
 export * from './snackbar/Snackbar';
 export * from './snackbar/SnackbarContent';
 export * from './snackbar/SnackbarStack';

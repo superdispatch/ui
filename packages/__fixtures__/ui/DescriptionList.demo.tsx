@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 const sizes = ['small', 'medium', 'large'] as const;
 
 export default function DescriptionListDemo() {
-  const [width, setWidth] = useState(200);
+  const [width, setWidth] = useState(240);
 
   return (
     <Box padding={2}>
@@ -24,7 +24,7 @@ export default function DescriptionListDemo() {
             <Slider
               step={8}
               min={80}
-              max={240}
+              max={260}
               value={width}
               onChange={(_, value) => setWidth(value as number)}
             />

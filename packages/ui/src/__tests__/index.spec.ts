@@ -114,6 +114,11 @@ it('exposes public api', () => {
         "displayName": "InlineGrid",
         "render": [Function],
       },
+      "OverflowText": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "OverflowText",
+        "render": [Function],
+      },
       "Snackbar": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Snackbar",

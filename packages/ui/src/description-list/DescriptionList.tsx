@@ -1,4 +1,4 @@
-import { Tooltip, Typography, TypographyProps } from '@material-ui/core';
+import { Typography, TypographyProps } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
@@ -7,10 +7,9 @@ import React, {
   HTMLAttributes,
   ReactNode,
   RefAttributes,
-  useState,
 } from 'react';
 
-import { VisibilityObserver } from '..';
+import { OverflowText } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -38,14 +37,7 @@ function sizeVariant(
 
 const useStyles = makeStyles<
   SuperDispatchTheme,
-  | 'list'
-  | 'listSmall'
-  | 'listLarge'
-  | 'item'
-  | 'icon'
-  | 'content'
-  | 'contentClickable'
-  | 'textOverflowAnchor'
+  'list' | 'listSmall' | 'listLarge' | 'item' | 'icon'
 >(
   theme => ({
     list: sizeVariant(theme, 2, 1),
@@ -66,25 +58,6 @@ const useStyles = makeStyles<
           fontSize: theme.spacing(2),
         },
       },
-    },
-
-    content: {
-      marginBottom: -1,
-      borderBottom: '1px dashed transparent',
-      transition: theme.transitions.create('border'),
-
-      '&$contentClickable': {
-        cursor: 'pointer',
-        borderBottomColor: Color.Silver500,
-      },
-    },
-
-    contentClickable: {},
-
-    textOverflowAnchor: {
-      width: '1px',
-      height: '100%',
-      display: 'inline-block',
     },
   }),
   { name: 'SuperDispatchDescriptionList' },
@@ -144,58 +117,32 @@ export const DescriptionListItem: ForwardRefExoticComponent<DescriptionListItemP
     rootRef,
   ) => {
     const styles = useStyles();
-    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
     return (
       <div {...props} ref={rootRef} className={clsx(styles.item, className)}>
         {!!icon && <div className={styles.icon}>{icon}</div>}
 
         {(!!label || !!content) && (
-          <VisibilityObserver
-            render={({ ref, visibility }) => {
-              const isTooltipEnabled = !!content && visibility === 'invisible';
+          <OverflowText
+            {...contentTypographyProps}
+            variant="body2"
+            TooltipProps={{ title: content }}
+          >
+            {!!label && (
+              <Typography
+                {...labelTypographyProps}
+                variant="body2"
+                component="span"
+                color="textSecondary"
+              >
+                {label}
+              </Typography>
+            )}
 
-              return (
-                <Tooltip
-                  enterDelay={1000}
-                  title={content || ''}
-                  disableFocusListener={true}
-                  open={isTooltipOpen && isTooltipEnabled}
-                  onOpen={() => setIsTooltipOpen(true)}
-                  onClose={() => setIsTooltipOpen(false)}
-                >
-                  <Typography
-                    noWrap={true}
-                    variant="body2"
-                    component="span"
-                    onClick={() => setIsTooltipOpen(true)}
-                    className={clsx(styles.content, {
-                      [styles.contentClickable]: visibility === 'invisible',
-                    })}
-                  >
-                    {!!label && (
-                      <Typography
-                        {...labelTypographyProps}
-                        variant="body2"
-                        component="span"
-                        color="textSecondary"
-                      >
-                        {label}
-                      </Typography>
-                    )}
+            {!!label && !!content && ' '}
 
-                    {!!label && !!content && <>&nbsp;</>}
-
-                    {content}
-
-                    {!!content && (
-                      <span ref={ref} className={styles.textOverflowAnchor} />
-                    )}
-                  </Typography>
-                </Tooltip>
-              );
-            }}
-          />
+            {content}
+          </OverflowText>
         )}
       </div>
     );
