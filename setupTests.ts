@@ -11,6 +11,18 @@ declare global {
   }
 }
 
+beforeEach(() => {
+  jest.spyOn(console, 'warn');
+  jest.spyOn(console, 'error');
+});
+
+afterEach(() => {
+  // eslint-disable-next-line no-console
+  expect(console.warn).not.toBeCalled();
+  // eslint-disable-next-line no-console
+  expect(console.error).not.toBeCalled();
+});
+
 expect.extend({
   toBeSameDate(received: unknown, expected: unknown) {
     const pass =
