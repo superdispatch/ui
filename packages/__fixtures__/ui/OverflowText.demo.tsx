@@ -4,24 +4,24 @@ import { loremIpsum } from 'lorem-ipsum';
 import React, { useState } from 'react';
 
 const lorems = {
-  sentence: loremIpsum({ count: 1, units: 'sentence' }),
-  paragraph: loremIpsum({ count: 1, units: 'paragraph' }),
+  short: loremIpsum({ count: 3, units: 'word' }),
+  long: loremIpsum({ count: 1, units: 'paragraph' }),
 } as const;
 
 export default function DescriptionListDemo() {
-  const [width, setWidth] = useState(240);
+  const [width, setWidth] = useState(120);
 
   return (
     <Box padding={2}>
       <GridStack spacing={2}>
         <InlineGrid spacing={2} wrap="nowrap">
           <Box minWidth={200}>
-            <Typography>Width</Typography>
+            <Typography>Width ({width}px)</Typography>
 
             <Slider
               step={8}
               min={80}
-              max={260}
+              max={200}
               value={width}
               onChange={(_, value) => setWidth(value as number)}
             />
@@ -35,14 +35,14 @@ export default function DescriptionListDemo() {
                 <>
                   <Typography variant="h6">Basic</Typography>
 
-                  <OverflowText>{lorems.sentence}</OverflowText>
+                  <OverflowText>{lorems.short}</OverflowText>
                 </>
 
                 <>
                   <Typography variant="h6">Custom tooltip</Typography>
 
-                  <OverflowText TooltipProps={{ title: lorems.paragraph }}>
-                    {lorems.sentence}
+                  <OverflowText TooltipProps={{ title: lorems.long }}>
+                    {lorems.short}
                   </OverflowText>
                 </>
               </GridStack>
