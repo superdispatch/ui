@@ -126,6 +126,7 @@ export const DescriptionListItem: ForwardRefExoticComponent<DescriptionListItemP
           <OverflowText
             {...contentTypographyProps}
             variant="body2"
+            component="span"
             TooltipProps={{ title: content }}
           >
             {!!label && (
