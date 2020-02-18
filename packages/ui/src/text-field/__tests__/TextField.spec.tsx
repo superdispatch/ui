@@ -186,6 +186,7 @@ it('checks component css', () => {
   min-width: 0;
   background: none;
   box-sizing: content-box;
+  text-overflow: ellipsis;
   animation-name: mui-auto-fill-cancel;
   -webkit-tap-highlight-color: transparent;
 }
