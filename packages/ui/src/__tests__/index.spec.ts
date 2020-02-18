@@ -74,6 +74,16 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
+      "DescriptionList": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DescriptionList",
+        "render": [Function],
+      },
+      "DescriptionListItem": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "DescriptionListItem",
+        "render": [Function],
+      },
       "DrawerActions": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DrawerActions",
@@ -102,6 +112,11 @@ it('exposes public api', () => {
       "InlineGrid": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "InlineGrid",
+        "render": [Function],
+      },
+      "OverflowText": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "OverflowText",
         "render": [Function],
       },
       "Snackbar": Object {
