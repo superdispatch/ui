@@ -6,7 +6,12 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, { forwardRef, ForwardRefExoticComponent, useState } from 'react';
+import React, {
+  ElementType,
+  forwardRef,
+  ForwardRefExoticComponent,
+  useState,
+} from 'react';
 
 import { Color, SuperDispatchTheme } from '..';
 import { VisibilityObserver } from '../utils/VisibilityObserver';
@@ -37,6 +42,7 @@ const useStyles = makeStyles<
 );
 
 export interface OverflowTextProps extends Omit<TypographyProps, 'noWrap'> {
+  component?: ElementType;
   TooltipProps?: Omit<TooltipProps, 'open' | 'children'>;
 }
 
