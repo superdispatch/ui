@@ -8,6 +8,10 @@ it('checks component css', () => {
     renderCSS(
       <DescriptionList>
         <DescriptionListItem />
+        <DescriptionListItem icon={<div />} />
+        <DescriptionListItem label={<div />} />
+        <DescriptionListItem content={<div />} />
+        <DescriptionListItem label={<div />} content={<div />} />
       </DescriptionList>,
       ['SuperDispatchDescriptionList'],
     ),
