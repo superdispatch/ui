@@ -28,6 +28,7 @@ const packages = listPackages();
 const indexFile = `
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Box } from '@material-ui/core';
 import { ThemeProvider } from '@superdispatch/ui';
 import Demo from './demo';
 
@@ -39,7 +40,9 @@ ReactDOM.render(
       return theme;
     }}
   >
-    <Demo />
+    <Box padding={2}>
+      <Demo />
+    </Box>
   </ThemeProvider>,
   document.getElementById('root')
 );

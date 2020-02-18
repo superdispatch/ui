@@ -1,5 +1,4 @@
 import {
-  Box,
   Drawer,
   FormControl,
   FormControlLabel,
@@ -50,7 +49,7 @@ export default function DrawerDemo() {
   const ref = useRef<HTMLInputElement>(null);
 
   return (
-    <Box padding={2}>
+    <>
       <Button
         color="primary"
         variant="outlined"
@@ -206,6 +205,6 @@ export default function DrawerDemo() {
           </DrawerActions>
         )}
       </Drawer>
-    </Box>
+    </>
   );
 }

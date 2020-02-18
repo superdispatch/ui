@@ -1,16 +1,15 @@
 import {
-  Box,
   Button,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Grid,
   Switch,
   TextField,
   Tooltip,
 } from '@material-ui/core';
 import { PopperPlacementType } from '@material-ui/core/Popper';
+import { GridStack, InlineGrid } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
@@ -41,44 +40,39 @@ export default function TooltipDemo() {
   }, [text]);
 
   return (
-    <Box padding={2}>
-      <Grid container={true} alignItems="flex-end" spacing={2}>
-        <Grid item={true}>
-          <TextField
-            label="Text"
-            value={text}
-            onChange={event => setText(event.target.value)}
-          />
-        </Grid>
+    <GridStack spacing={2}>
+      <InlineGrid spacing={2}>
+        <FormControl>
+          <FormLabel>Visibility</FormLabel>
+          <FormGroup row={true}>
+            <FormControlLabel
+              label="Open"
+              checked={isOpen}
+              control={<Switch />}
+              onChange={(_, checked) => setIsOpen(checked)}
+            />
+          </FormGroup>
+        </FormControl>
 
-        <Grid item={true}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Visibility</FormLabel>
-            <FormGroup row={true}>
-              <FormControlLabel
-                label="Open"
-                checked={isOpen}
-                control={<Switch />}
-                onChange={(_, checked) => setIsOpen(checked)}
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-      </Grid>
+        <TextField
+          label="Text"
+          value={text}
+          onChange={event => setText(event.target.value)}
+        />
+      </InlineGrid>
 
-      <Grid container={true} spacing={2} justify="center">
+      <InlineGrid spacing={2} justify="center">
         {placements.map(placement => (
-          <Grid item={true} key={`${title}-${isOpen}-${placement}`}>
-            <Tooltip
-              title={title}
-              placement={placement}
-              open={isOpen || undefined}
-            >
-              <Button>{startCase(placement)}</Button>
-            </Tooltip>
-          </Grid>
+          <Tooltip
+            title={title}
+            placement={placement}
+            open={isOpen || undefined}
+            key={`${title}-${isOpen}-${placement}`}
+          >
+            <Button>{startCase(placement)}</Button>
+          </Tooltip>
         ))}
-      </Grid>
-    </Box>
+      </InlineGrid>
+    </GridStack>
   );
 }

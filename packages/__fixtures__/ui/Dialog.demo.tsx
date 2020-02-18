@@ -1,5 +1,4 @@
 import {
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,7 +11,7 @@ export default function DialogDemo() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Box padding={2}>
+    <>
       <Button
         color="primary"
         variant="outlined"
@@ -46,6 +45,6 @@ export default function DialogDemo() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </>
   );
 }

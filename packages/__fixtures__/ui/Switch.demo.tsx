@@ -1,16 +1,15 @@
 import {
-  Box,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormHelperText,
   FormLabel,
-  Grid,
   Radio,
   Switch,
   TextField,
 } from '@material-ui/core';
+import { GridStack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -30,124 +29,104 @@ export default function SwitchDemo() {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <Box padding={2}>
-      <Grid container={true} spacing={2}>
-        <Grid item={true} xs={12}>
-          <FormControl>
-            <FormLabel>Label Position</FormLabel>
-            <FormGroup row={true}>
-              <FormControlLabel label="Right Label" control={<Switch />} />
+    <GridStack spacing={2}>
+      <FormControl>
+        <FormLabel>Label Position</FormLabel>
+        <FormGroup row={true}>
+          <FormControlLabel label="Right Label" control={<Switch />} />
 
-              <FormControlLabel
-                label="Left Label"
-                labelPlacement="start"
-                control={<Switch />}
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
+          <FormControlLabel
+            label="Left Label"
+            labelPlacement="start"
+            control={<Switch />}
+          />
+        </FormGroup>
+      </FormControl>
 
-        <Grid item={true} xs={12}>
-          <FormControl>
-            <FormLabel>Readonly</FormLabel>
-            <FormGroup row={true}>
-              <FormControlLabel
-                checked={true}
-                label="On"
-                control={<Switch />}
-              />
+      <FormControl>
+        <FormLabel>Readonly</FormLabel>
+        <FormGroup row={true}>
+          <FormControlLabel checked={true} label="On" control={<Switch />} />
 
-              <FormControlLabel
-                checked={false}
-                label="Off"
-                control={<Switch />}
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
+          <FormControlLabel checked={false} label="Off" control={<Switch />} />
+        </FormGroup>
+      </FormControl>
 
-        <Grid item={true} xs={12}>
-          <FormControl>
-            <FormLabel>Disabled</FormLabel>
-            <FormGroup row={true}>
-              <FormControlLabel
-                label="On"
-                checked={true}
-                disabled={true}
-                control={<Switch />}
-              />
+      <FormControl>
+        <FormLabel>Disabled</FormLabel>
+        <FormGroup row={true}>
+          <FormControlLabel
+            label="On"
+            checked={true}
+            disabled={true}
+            control={<Switch />}
+          />
 
-              <FormControlLabel
-                label="Off"
-                checked={false}
-                disabled={true}
-                control={<Switch />}
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
+          <FormControlLabel
+            label="Off"
+            checked={false}
+            disabled={true}
+            control={<Switch />}
+          />
+        </FormGroup>
+      </FormControl>
 
-        <Grid item={true} xs={12}>
-          <FormControl error={!!errorMessage}>
-            <FormLabel>Vertical</FormLabel>
-            <FormGroup>
-              {options.map(option => (
-                <FormControlLabel
-                  key={option}
-                  label={startCase(option)}
-                  checked={selected.has(option)}
-                  onChange={(_, checked) =>
-                    setSelected(prev => {
-                      const next = new Set<string>(prev);
-                      if (checked) {
-                        next.add(option);
-                      } else {
-                        next.delete(option);
-                      }
-                      return next;
-                    })
+      <FormControl error={!!errorMessage}>
+        <FormLabel>Vertical</FormLabel>
+        <FormGroup>
+          {options.map(option => (
+            <FormControlLabel
+              key={option}
+              label={startCase(option)}
+              checked={selected.has(option)}
+              onChange={(_, checked) =>
+                setSelected(prev => {
+                  const next = new Set<string>(prev);
+                  if (checked) {
+                    next.add(option);
+                  } else {
+                    next.delete(option);
                   }
-                  control={<Switch />}
-                />
-              ))}
-            </FormGroup>
+                  return next;
+                })
+              }
+              control={<Switch />}
+            />
+          ))}
+        </FormGroup>
 
-            {!errorMessage ? (
-              <FormHelperText>Select two</FormHelperText>
-            ) : (
-              <FormHelperText>{errorMessage}</FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
+        {!errorMessage ? (
+          <FormHelperText>Select two</FormHelperText>
+        ) : (
+          <FormHelperText>{errorMessage}</FormHelperText>
+        )}
+      </FormControl>
 
-        <Grid item={true} xs={12}>
-          <FormControl>
-            <FormLabel>Inline Form</FormLabel>
-            <FormGroup row={true}>
-              <FormControlLabel
-                label="Radio"
-                control={<Radio />}
-                checked={isChecked}
-                onChange={(_, checked) => setIsChecked(checked)}
-              />
-              <FormControlLabel
-                label="Checkbox"
-                control={<Checkbox />}
-                checked={isChecked}
-                onChange={(_, checked) => setIsChecked(checked)}
-              />
-              <FormControlLabel
-                label="Switch"
-                control={<Switch />}
-                checked={isChecked}
-                onChange={(_, checked) => setIsChecked(checked)}
-              />
+      <FormControl>
+        <FormLabel>Inline Form</FormLabel>
+        <FormGroup row={true}>
+          <FormControlLabel
+            label="Radio"
+            control={<Radio />}
+            checked={isChecked}
+            onChange={(_, checked) => setIsChecked(checked)}
+          />
+          <FormControlLabel
+            label="Checkbox"
+            control={<Checkbox />}
+            checked={isChecked}
+            onChange={(_, checked) => setIsChecked(checked)}
+          />
+          <FormControlLabel
+            label="Switch"
+            control={<Switch />}
+            checked={isChecked}
+            onChange={(_, checked) => setIsChecked(checked)}
+          />
 
-              <TextField placeholder="Text Field" />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-      </Grid>
-    </Box>
+          <TextField placeholder="Text Field" />
+        </FormGroup>
+      </FormControl>
+    </GridStack>
   );
 }

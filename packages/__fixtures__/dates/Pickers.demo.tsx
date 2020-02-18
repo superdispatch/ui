@@ -1,10 +1,8 @@
 import {
-  Box,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Grid,
   InputAdornment,
   MenuItem,
   Switch,
@@ -25,6 +23,7 @@ import {
   TimeField,
   toDateRange,
 } from '@superdispatch/dates';
+import { GridStack } from '@superdispatch/ui';
 import React, { useMemo, useState } from 'react';
 
 const utcDateUtils = new DateUtils({ timeZoneOffset: 0 });
@@ -63,209 +62,197 @@ export default function PickersDemo() {
   ]);
 
   return (
-    <Box padding={2}>
-      <Grid container={true} spacing={2}>
-        <Grid item={true}>
-          <TextField
-            select={true}
-            label="TimeZone Offset"
-            value={timeZoneOffset}
-            onChange={event => setTimeZoneOffset(Number(event.target.value))}
-          >
-            {offsetOptions.map(option => (
-              <MenuItem key={option} value={option}>
-                {formatUTC(option)}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+    <DateContextProvider timeZoneOffset={timeZoneOffset}>
+      <GridStack spacing={2}>
+        <TextField
+          select={true}
+          label="TimeZone Offset"
+          value={timeZoneOffset}
+          onChange={event => setTimeZoneOffset(Number(event.target.value))}
+        >
+          {offsetOptions.map(option => (
+            <MenuItem key={option} value={option}>
+              {formatUTC(option)}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <Grid item={true}>
-          <FormControl>
-            <FormLabel>Visual</FormLabel>
+        <FormControl>
+          <FormLabel>Visual</FormLabel>
 
-            <FormGroup row={true}>
-              <FormControlLabel
-                label="Disabled"
-                control={<Switch />}
-                checked={disabled}
-                onChange={(_, checked) => setDisabled(checked)}
-              />
-
-              <FormControlLabel
-                label="Full width"
-                control={<Switch />}
-                checked={isFullWidth}
-                onChange={(_, checked) => setIsFullWidth(checked)}
-              />
-
-              <FormControlLabel
-                label="Label"
-                control={<Switch />}
-                checked={hasLabel}
-                onChange={(_, checked) => setHasLabel(checked)}
-              />
-
-              <FormControlLabel
-                label="Error"
-                control={<Switch />}
-                checked={hasError}
-                onChange={(_, checked) => setHasError(checked)}
-              />
-
-              <FormControlLabel
-                label="Helper Text"
-                control={<Switch />}
-                checked={hasHelperText}
-                onChange={(_, checked) => setHasHelperText(checked)}
-              />
-
-              <FormControlLabel
-                label="Clearable"
-                control={<Switch />}
-                checked={hasClear}
-                onChange={(_, checked) => setHasClear(checked)}
-              />
-
-              <FormControlLabel
-                label="Disable Close on Select"
-                control={<Switch />}
-                checked={disableCloseOnSelect}
-                onChange={(_, checked) => setDisableCloseOnSelect(checked)}
-              />
-
-              <FormControlLabel
-                label="Has Adornment"
-                control={<Switch />}
-                checked={hasAdornment}
-                onChange={(_, checked) => setHasAdornment(checked)}
-              />
-            </FormGroup>
-          </FormControl>
-        </Grid>
-
-        <DateContextProvider timeZoneOffset={timeZoneOffset}>
-          <Grid item={true} xs={12}>
-            <Typography variant="h3">Date Field</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            <DateField
-              value={range[0]}
-              disabled={disabled}
-              onChange={value => setRange(toDateRange([value, range[1]]))}
-              hasClearButton={hasClear}
-              disableCloseOnSelect={disableCloseOnSelect}
-              fullWidth={isFullWidth}
-              InputProps={{
-                startAdornment: hasAdornment && (
-                  <InputAdornment position="start">Date:</InputAdornment>
-                ),
-              }}
-              label={hasLabel && 'Date'}
-              helperText={
-                !hasHelperText
-                  ? undefined
-                  : hasError
-                  ? 'Invalid Date'
-                  : 'Pick Date'
-              }
+          <FormGroup row={true}>
+            <FormControlLabel
+              label="Disabled"
+              control={<Switch />}
+              checked={disabled}
+              onChange={(_, checked) => setDisabled(checked)}
             />
-          </Grid>
 
-          <Grid item={true} xs={12}>
-            <Typography variant="h3">Date Range Field</Typography>
-          </Grid>
-          <Grid item={true} xs={12}>
-            <DateRangeField
-              value={range}
-              disabled={disabled}
-              onChange={value => setRange(toDateRange(value))}
-              hasClearButton={hasClear}
-              disableCloseOnSelect={disableCloseOnSelect}
-              fullWidth={isFullWidth}
-              InputProps={{
-                startAdornment: hasAdornment && (
-                  <InputAdornment position="start">Date:</InputAdornment>
-                ),
-              }}
-              label={hasLabel && 'Date Range'}
-              helperText={
-                !hasHelperText
-                  ? undefined
-                  : hasError
-                  ? 'Invalid Rate Range'
-                  : 'Pick Date Range'
-              }
+            <FormControlLabel
+              label="Full width"
+              control={<Switch />}
+              checked={isFullWidth}
+              onChange={(_, checked) => setIsFullWidth(checked)}
             />
-          </Grid>
 
-          <Grid item={true} xs={12}>
-            <Typography variant="h3">Time Field</Typography>
-          </Grid>
-
-          <Grid item={true} xs={12}>
-            <TimeField
-              id="time"
-              value={range[0]}
-              disabled={disabled}
-              onChange={value => setRange(toDateRange([value, range[1]]))}
-              error={hasError}
-              fullWidth={isFullWidth}
-              label={hasLabel && 'Time'}
-              helperText={
-                !hasHelperText
-                  ? undefined
-                  : hasError
-                  ? 'Invalid Time'
-                  : 'Enter Time'
-              }
+            <FormControlLabel
+              label="Label"
+              control={<Switch />}
+              checked={hasLabel}
+              onChange={(_, checked) => setHasLabel(checked)}
             />
-          </Grid>
-        </DateContextProvider>
 
-        <Grid item={true} xs={12}>
-          <Table>
-            <TableBody>
+            <FormControlLabel
+              label="Error"
+              control={<Switch />}
+              checked={hasError}
+              onChange={(_, checked) => setHasError(checked)}
+            />
+
+            <FormControlLabel
+              label="Helper Text"
+              control={<Switch />}
+              checked={hasHelperText}
+              onChange={(_, checked) => setHasHelperText(checked)}
+            />
+
+            <FormControlLabel
+              label="Clearable"
+              control={<Switch />}
+              checked={hasClear}
+              onChange={(_, checked) => setHasClear(checked)}
+            />
+
+            <FormControlLabel
+              label="Disable Close on Select"
+              control={<Switch />}
+              checked={disableCloseOnSelect}
+              onChange={(_, checked) => setDisableCloseOnSelect(checked)}
+            />
+
+            <FormControlLabel
+              label="Has Adornment"
+              control={<Switch />}
+              checked={hasAdornment}
+              onChange={(_, checked) => setHasAdornment(checked)}
+            />
+          </FormGroup>
+        </FormControl>
+
+        <GridStack spacing={1}>
+          <Typography variant="h3">Date Field</Typography>
+
+          <DateField
+            value={range[0]}
+            disabled={disabled}
+            onChange={value => setRange(toDateRange([value, range[1]]))}
+            hasClearButton={hasClear}
+            disableCloseOnSelect={disableCloseOnSelect}
+            fullWidth={isFullWidth}
+            InputProps={{
+              startAdornment: hasAdornment && (
+                <InputAdornment position="start">Date:</InputAdornment>
+              ),
+            }}
+            label={hasLabel && 'Date'}
+            helperText={
+              !hasHelperText
+                ? undefined
+                : hasError
+                ? 'Invalid Date'
+                : 'Pick Date'
+            }
+          />
+        </GridStack>
+
+        <GridStack spacing={1}>
+          <Typography variant="h3">Date Range Field</Typography>
+
+          <DateRangeField
+            value={range}
+            disabled={disabled}
+            onChange={value => setRange(toDateRange(value))}
+            hasClearButton={hasClear}
+            disableCloseOnSelect={disableCloseOnSelect}
+            fullWidth={isFullWidth}
+            InputProps={{
+              startAdornment: hasAdornment && (
+                <InputAdornment position="start">Date:</InputAdornment>
+              ),
+            }}
+            label={hasLabel && 'Date Range'}
+            helperText={
+              !hasHelperText
+                ? undefined
+                : hasError
+                ? 'Invalid Rate Range'
+                : 'Pick Date Range'
+            }
+          />
+        </GridStack>
+
+        <GridStack spacing={1}>
+          <Typography variant="h3">Time Field</Typography>
+
+          <TimeField
+            id="time"
+            value={range[0]}
+            disabled={disabled}
+            onChange={value => setRange(toDateRange([value, range[1]]))}
+            error={hasError}
+            fullWidth={isFullWidth}
+            label={hasLabel && 'Time'}
+            helperText={
+              !hasHelperText
+                ? undefined
+                : hasError
+                ? 'Invalid Time'
+                : 'Enter Time'
+            }
+          />
+        </GridStack>
+
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell variant="head">ISO</TableCell>
+              <TableCell>
+                {range[0] && stringifyDate(range[0], 'DateTimeISO')}
+              </TableCell>
+
+              <TableCell>
+                {range[1] && stringifyDate(range[1], 'DateTimeISO')}
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell variant="head">UTC</TableCell>
+              <TableCell>
+                {range[0] && utcDateUtils.format(range[0], 'dateTime')}
+              </TableCell>
+
+              <TableCell>
+                {range[1] && utcDateUtils.format(range[1], 'dateTime')}
+              </TableCell>
+            </TableRow>
+
+            {timeZoneOffset !== 0 && (
               <TableRow>
-                <TableCell variant="head">ISO</TableCell>
+                <TableCell variant="head">
+                  {formatUTC(timeZoneOffset)}
+                </TableCell>
                 <TableCell>
-                  {range[0] && stringifyDate(range[0], 'DateTimeISO')}
+                  {range[0] && utils.format(range[0], 'dateTime')}
                 </TableCell>
 
                 <TableCell>
-                  {range[1] && stringifyDate(range[1], 'DateTimeISO')}
+                  {range[1] && utils.format(range[1], 'dateTime')}
                 </TableCell>
               </TableRow>
-
-              <TableRow>
-                <TableCell variant="head">UTC</TableCell>
-                <TableCell>
-                  {range[0] && utcDateUtils.format(range[0], 'dateTime')}
-                </TableCell>
-
-                <TableCell>
-                  {range[1] && utcDateUtils.format(range[1], 'dateTime')}
-                </TableCell>
-              </TableRow>
-
-              {timeZoneOffset !== 0 && (
-                <TableRow>
-                  <TableCell variant="head">
-                    {formatUTC(timeZoneOffset)}
-                  </TableCell>
-                  <TableCell>
-                    {range[0] && utils.format(range[0], 'dateTime')}
-                  </TableCell>
-
-                  <TableCell>
-                    {range[1] && utils.format(range[1], 'dateTime')}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </Grid>
-      </Grid>
-    </Box>
+            )}
+          </TableBody>
+        </Table>
+      </GridStack>
+    </DateContextProvider>
   );
 }

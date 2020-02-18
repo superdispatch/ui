@@ -12,44 +12,42 @@ export default function DescriptionListDemo() {
   const [width, setWidth] = useState(120);
 
   return (
-    <Box padding={2}>
+    <GridStack spacing={2}>
+      <InlineGrid spacing={2} wrap="nowrap">
+        <Box minWidth={200}>
+          <Typography>Width ({width}px)</Typography>
+
+          <Slider
+            step={8}
+            min={80}
+            max={200}
+            value={width}
+            onChange={(_, value) => setWidth(value as number)}
+          />
+        </Box>
+      </InlineGrid>
+
       <GridStack spacing={2}>
-        <InlineGrid spacing={2} wrap="nowrap">
-          <Box minWidth={200}>
-            <Typography>Width ({width}px)</Typography>
+        <Card style={{ maxWidth: width }}>
+          <CardContent>
+            <GridStack spacing={1}>
+              <>
+                <Typography variant="h6">Basic</Typography>
 
-            <Slider
-              step={8}
-              min={80}
-              max={200}
-              value={width}
-              onChange={(_, value) => setWidth(value as number)}
-            />
-          </Box>
-        </InlineGrid>
+                <OverflowText>{lorems.short}</OverflowText>
+              </>
 
-        <GridStack spacing={2}>
-          <Card style={{ maxWidth: width }}>
-            <CardContent>
-              <GridStack spacing={1}>
-                <>
-                  <Typography variant="h6">Basic</Typography>
+              <>
+                <Typography variant="h6">Custom tooltip</Typography>
 
-                  <OverflowText>{lorems.short}</OverflowText>
-                </>
-
-                <>
-                  <Typography variant="h6">Custom tooltip</Typography>
-
-                  <OverflowText TooltipProps={{ title: lorems.long }}>
-                    {lorems.short}
-                  </OverflowText>
-                </>
-              </GridStack>
-            </CardContent>
-          </Card>
-        </GridStack>
+                <OverflowText TooltipProps={{ title: lorems.long }}>
+                  {lorems.short}
+                </OverflowText>
+              </>
+            </GridStack>
+          </CardContent>
+        </Card>
       </GridStack>
-    </Box>
+    </GridStack>
   );
 }
