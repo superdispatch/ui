@@ -2,6 +2,7 @@ import {
   createGenerateClassName,
   createMuiTheme,
   CssBaseline,
+  SvgIcon,
   Theme,
 } from '@material-ui/core';
 import {
@@ -98,6 +99,20 @@ function createTheme() {
   applyChipStyles(theme);
 
   // TODO: Move to `AutocompleteStyles` after official release.
+  Object.assign(theme.props, {
+    MuiAutocomplete: {
+      closeIcon: (
+        <SvgIcon>
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M13.239 12L17 8.239 15.761 7 12 10.761 8.239 7 7 8.239 10.761 12 7 15.761 8.239 17 12 13.239 15.761 17 17 15.761 13.239 12z"
+            fill="currentColor"
+          />
+        </SvgIcon>
+      ),
+    },
+  });
   Object.assign(theme.overrides, {
     MuiAutocomplete: {
       paper: { ...theme.typography.body2 },
@@ -123,12 +138,20 @@ function createTheme() {
       clearIndicator: {
         '& .MuiSvgIcon-root': {
           fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+
+          [theme.breakpoints.up('sm')]: {
+            fontSize: theme.spacing(2),
+          },
         },
       },
       inputRoot: {
         '&[class*="MuiOutlinedInput-root"]': {
           padding: undefined,
           paddingLeft: theme.spacing(1.5),
+
+          [theme.breakpoints.up('sm')]: {
+            paddingLeft: 6,
+          },
 
           '& $input': {
             padding: undefined,
