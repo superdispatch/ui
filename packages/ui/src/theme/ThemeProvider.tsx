@@ -137,6 +137,7 @@ function createTheme() {
       },
       clearIndicator: {
         '& .MuiSvgIcon-root': {
+          color: Color.Grey100,
           fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
 
           [theme.breakpoints.up('sm')]: {
