@@ -100,7 +100,20 @@ function createTheme() {
   Object.assign(theme.overrides, {
     MuiAutocomplete: {
       paper: { ...theme.typography.body2 },
-      endAdornment: { top: 'calc(50% - 12px)' },
+      tag: {
+        margin: theme.spacing(0.5),
+
+        [theme.breakpoints.up('sm')]: {
+          margin: theme.spacing(0.25),
+        },
+      },
+      endAdornment: {
+        top: 'calc(50% - 18px)',
+
+        [theme.breakpoints.up('sm')]: {
+          top: 'calc(50% - 14px)',
+        },
+      },
       inputRoot: {
         '&[class*="MuiOutlinedInput-root"]': {
           padding: undefined,
