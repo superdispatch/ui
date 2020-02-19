@@ -128,6 +128,7 @@ function createTheme() {
       inputRoot: {
         '&[class*="MuiOutlinedInput-root"]': {
           padding: undefined,
+          paddingLeft: theme.spacing(1.5),
 
           '& $input': {
             padding: undefined,
