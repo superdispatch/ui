@@ -36,6 +36,7 @@ import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import {
   applyTypographyStyles,
   createTypographyOptions,
+  getTypographyProp,
 } from '../typography/TypographyStyles';
 import { Color } from './Color';
 
@@ -108,10 +109,20 @@ function createTheme() {
         },
       },
       endAdornment: {
-        top: 'calc(50% - 18px)',
+        top: 'calc(50% - 16px)',
 
         [theme.breakpoints.up('sm')]: {
           top: 'calc(50% - 14px)',
+        },
+      },
+      popupIndicator: {
+        '& .MuiSvgIcon-root': {
+          fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+        },
+      },
+      clearIndicator: {
+        '& .MuiSvgIcon-root': {
+          fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
         },
       },
       inputRoot: {
