@@ -22,7 +22,7 @@ it('checks default props', () => {
 
 it('checks component css', () => {
   expect(
-    renderCSS(<Autocomplete options={[]} renderInput={() => <input />} />, [
+    renderCSS(<Autocomplete options={[]} renderInput={() => <div />} />, [
       'MuiAutocomplete',
     ]),
   ).toMatchInlineSnapshot(`
