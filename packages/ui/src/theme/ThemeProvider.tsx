@@ -124,11 +124,10 @@ function createTheme() {
         },
       },
       endAdornment: {
-        top: 'calc(50% - 16px)',
-
-        [theme.breakpoints.up('sm')]: {
-          top: 'calc(50% - 14px)',
-        },
+        top: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
