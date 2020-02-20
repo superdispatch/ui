@@ -24,7 +24,7 @@ export default function GridsDemo() {
   const [justify, setJustify] = useState<GridJustification>('flex-start');
   const [alignItems, setAlignItems] = useState<GridItemsAlignment>('stretch');
 
-  const [dynamicWidth, setDynamicWidth] = useState(false);
+  const [dynamicSize, setDynamicSize] = useState(false);
 
   return (
     <Grid container={true} spacing={2}>
@@ -35,13 +35,32 @@ export default function GridsDemo() {
               <FormLabel>Child</FormLabel>
               <FormGroup row={true}>
                 <FormControlLabel
-                  checked={dynamicWidth}
-                  label="Dynamic Width"
+                  checked={dynamicSize}
+                  label="Dynamic Size"
                   control={<Switch />}
-                  onChange={(_, checked) => setDynamicWidth(checked)}
+                  onChange={(_, checked) => setDynamicSize(checked)}
                 />
               </FormGroup>
             </FormControl>
+          </Grid>
+
+          <Grid item={true}>
+            <TextField
+              select={true}
+              label="Alignment"
+              value={alignItems}
+              onChange={event =>
+                setAlignItems(event.target.value as GridItemsAlignment)
+              }
+            >
+              {['flex-start', 'center', 'flex-end', 'stretch', 'baseline'].map(
+                value => (
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
+                ),
+              )}
+            </TextField>
           </Grid>
 
           <Grid item={true} xs={true}>
@@ -127,6 +146,7 @@ export default function GridsDemo() {
                 wrap={wrap}
                 spacing={spacing}
                 justify={justify}
+                alignItems={alignItems}
                 style={{ backgroundColor: Color.Silver500 }}
               >
                 {Array.from({ length: items }, (_, idx) => (
@@ -138,8 +158,8 @@ export default function GridsDemo() {
                       justifyContent: 'center',
                       border: `1px solid ${Color.Blue500}`,
                       backgroundColor: Color.Blue200,
-                      height: 64,
-                      width: !dynamicWidth ? 64 : (idx + 1) * 24,
+                      width: !dynamicSize ? 64 : (idx + 1) * 24,
+                      height: !dynamicSize ? 64 : (idx + 1) * 24,
                     }}
                   >
                     {idx + 1}
@@ -160,25 +180,6 @@ export default function GridsDemo() {
           </Grid>
 
           <Grid item={true} xs={12}>
-            <TextField
-              select={true}
-              label="Alignment"
-              value={alignItems}
-              onChange={event =>
-                setAlignItems(event.target.value as GridItemsAlignment)
-              }
-            >
-              {['flex-start', 'center', 'flex-end', 'stretch', 'baseline'].map(
-                value => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ),
-              )}
-            </TextField>
-          </Grid>
-
-          <Grid item={true} xs={12}>
             <div style={{ width: 256, backgroundColor: Color.Silver500 }}>
               <GridStack spacing={spacing} alignItems={alignItems}>
                 {Array.from({ length: items }, (_, idx) => (
@@ -190,9 +191,8 @@ export default function GridsDemo() {
                       justifyContent: 'center',
                       border: `1px solid ${Color.Blue500}`,
                       backgroundColor: Color.Blue200,
-                      height: 64,
-                      width: '100%',
-                      minWidth: !dynamicWidth ? 64 : (idx + 1) * 24,
+                      height: !dynamicSize ? 64 : (idx + 1) * 24,
+                      minWidth: !dynamicSize ? 64 : (idx + 1) * 24,
                     }}
                   >
                     {idx + 1}
