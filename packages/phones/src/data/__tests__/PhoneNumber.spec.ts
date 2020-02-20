@@ -1,5 +1,18 @@
 import { PhoneNumber } from '../PhoneNumber';
 
+describe('.isPhoneNumberLike', () => {
+  test.each`
+    input                | output
+    ${''}                | ${true}
+    ${{ region: 'foo' }} | ${true}
+    ${{ region: 1 }}     | ${false}
+    ${null}              | ${false}
+    ${undefined}         | ${false}
+  `('"$input" → "$output"', ({ input, output }) => {
+    expect(PhoneNumber.isPhoneNumberLike(input)).toEqual(output);
+  });
+});
+
 describe('.fromInternational', () => {
   test.each`
     input                | output
