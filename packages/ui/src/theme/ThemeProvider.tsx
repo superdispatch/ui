@@ -37,7 +37,6 @@ import { applyTooltipStyles } from '../tooltip/TooltipStyles';
 import {
   applyTypographyStyles,
   createTypographyOptions,
-  getTypographyProp,
 } from '../typography/TypographyStyles';
 import { Color } from './Color';
 
@@ -131,13 +130,13 @@ function createTheme() {
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
-          fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+          fontSize: theme.spacing(3),
         },
       },
       clearIndicator: {
         '& .MuiSvgIcon-root': {
           color: Color.Grey100,
-          fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+          fontSize: theme.spacing(3),
 
           [theme.breakpoints.up('sm')]: {
             fontSize: theme.spacing(2),
