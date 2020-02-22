@@ -71,7 +71,7 @@ it('checks component css', () => {
 }
 
 .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-  padding-left: 12px;
+  padding: 6px 8px;
 }
 
 .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'][class*='MuiOutlinedInput-marginDense'] {
@@ -133,12 +133,8 @@ it('checks component css', () => {
 
 .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
   .MuiAutocomplete-input {
+  padding: 4px;
   min-width: 96px;
-}
-
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
-  .MuiAutocomplete-input:first-child {
-  padding-left: 6px;
 }
 
 .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
@@ -148,7 +144,12 @@ it('checks component css', () => {
 
 @media (min-width: 600px) {
   .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-    padding-left: 6px;
+    padding: 4px 6px;
+  }
+
+  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+    .MuiAutocomplete-input {
+    padding: 2px;
   }
 }
 

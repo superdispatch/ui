@@ -145,16 +145,23 @@ function createTheme() {
       },
       inputRoot: {
         '&[class*="MuiOutlinedInput-root"]': {
-          padding: undefined,
-          paddingLeft: theme.spacing(1.5),
-
-          [theme.breakpoints.up('sm')]: {
-            paddingLeft: 6,
-          },
+          padding: theme.spacing(0.75, 1),
 
           '& $input': {
-            padding: undefined,
+            padding: theme.spacing(0.5),
             minWidth: theme.spacing(12),
+          },
+
+          '& $input:first-child': {
+            paddingLeft: undefined,
+          },
+
+          [theme.breakpoints.up('sm')]: {
+            padding: theme.spacing(0.5, 0.75),
+
+            '& $input': {
+              padding: theme.spacing(0.25),
+            },
           },
         },
       },

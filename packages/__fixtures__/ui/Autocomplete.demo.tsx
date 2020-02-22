@@ -4,12 +4,13 @@ import {
   FormControlLabel,
   FormGroup,
   FormLabel,
+  Grid,
   InputAdornment,
   Switch,
   TextField,
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { GridStack, InlineGrid } from '@superdispatch/ui';
+import { GridStack } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
 const top100Films = [
@@ -184,76 +185,80 @@ export default function AutocompleteDemo() {
         </FormGroup>
       </FormControl>
 
-      <InlineGrid spacing={2}>
-        <Autocomplete
-          forcePopupIcon={isLoading ? false : hasPopup}
-          disableClearable={isLoading}
-          loading={isLoading}
-          disabled={disabled}
-          options={top100Films}
-          getOptionLabel={option => option.title}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label={hasLabel && 'Combo box'}
-              fullWidth={isFullWidth}
-              error={hasError}
-              helperText={
-                !hasHelperText
-                  ? undefined
-                  : hasError
-                  ? 'Invalid Value'
-                  : 'Select film'
-              }
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: isLoading ? (
-                  <InputAdornment position="end">
-                    <CircularProgress color="inherit" size={20} />
-                  </InputAdornment>
-                ) : (
-                  params.InputProps.endAdornment
-                ),
-              }}
-            />
-          )}
-        />
+      <Grid container={true} spacing={2}>
+        <Grid item={true}>
+          <Autocomplete
+            forcePopupIcon={isLoading ? false : hasPopup}
+            disableClearable={isLoading}
+            loading={isLoading}
+            disabled={disabled}
+            options={top100Films}
+            getOptionLabel={option => option.title}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label={hasLabel && 'Combo box'}
+                fullWidth={isFullWidth}
+                error={hasError}
+                helperText={
+                  !hasHelperText
+                    ? undefined
+                    : hasError
+                    ? 'Invalid Value'
+                    : 'Select film'
+                }
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: isLoading ? (
+                    <InputAdornment position="end">
+                      <CircularProgress color="inherit" size={20} />
+                    </InputAdornment>
+                  ) : (
+                    params.InputProps.endAdornment
+                  ),
+                }}
+              />
+            )}
+          />
+        </Grid>
 
-        <Autocomplete
-          forcePopupIcon={isLoading ? false : hasPopup}
-          disableClearable={isLoading}
-          loading={isLoading}
-          disabled={disabled}
-          multiple={true}
-          options={top100Films}
-          getOptionLabel={option => option.title}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label={hasLabel && 'Multiple values'}
-              fullWidth={isFullWidth}
-              error={hasError}
-              helperText={
-                !hasHelperText
-                  ? undefined
-                  : hasError
-                  ? 'Invalid Value'
-                  : 'Select film'
-              }
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: isLoading ? (
-                  <InputAdornment position="end">
-                    <CircularProgress color="inherit" size={20} />
-                  </InputAdornment>
-                ) : (
-                  params.InputProps.endAdornment
-                ),
-              }}
-            />
-          )}
-        />
-      </InlineGrid>
+        <Grid item={true}>
+          <Autocomplete
+            forcePopupIcon={isLoading ? false : hasPopup}
+            disableClearable={isLoading}
+            loading={isLoading}
+            disabled={disabled}
+            multiple={true}
+            options={top100Films}
+            getOptionLabel={option => option.title}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label={hasLabel && 'Multiple values'}
+                fullWidth={isFullWidth}
+                error={hasError}
+                helperText={
+                  !hasHelperText
+                    ? undefined
+                    : hasError
+                    ? 'Invalid Value'
+                    : 'Select film'
+                }
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: isLoading ? (
+                    <InputAdornment position="end">
+                      <CircularProgress color="inherit" size={20} />
+                    </InputAdornment>
+                  ) : (
+                    params.InputProps.endAdornment
+                  ),
+                }}
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
     </GridStack>
   );
 }
