@@ -426,7 +426,7 @@ label[data-shrink='false']
 
 .MuiOutlinedInput-input {
   height: 24px;
-  padding: 10px 16px;
+  padding: 10px 12px;
   font-size: 14px;
   font-family: SF Pro Text;
   font-weight: 400;

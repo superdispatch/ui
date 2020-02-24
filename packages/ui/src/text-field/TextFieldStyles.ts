@@ -86,7 +86,7 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
 
     input: {
       ...theme.typography.body2,
-      padding: theme.spacing(1.25, 2),
+      padding: theme.spacing(1.25, 1.5),
       height: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
 
       [theme.breakpoints.up('sm')]: {
