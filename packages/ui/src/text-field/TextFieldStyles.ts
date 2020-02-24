@@ -53,11 +53,16 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   theme.overrides.MuiOutlinedInput = {
     root: {
       '& .MuiInputAdornment-root': {
-        '& > .MuiSvgIcon-root': {
+        '& .MuiSvgIcon-root': {
           fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
 
           [theme.breakpoints.up('sm')]: {
-            fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+            fontSize: getTypographyProp(
+              theme,
+              'desktop',
+              'body2',
+              'lineHeight',
+            ),
           },
         },
 
@@ -91,8 +96,20 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     },
 
     multiline: { padding: theme.spacing(0.75, 1) },
-    adornedStart: { paddingLeft: theme.spacing(1) },
-    adornedEnd: { paddingRight: theme.spacing(1) },
+    adornedStart: {
+      paddingLeft: theme.spacing(1.5),
+
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(1),
+      },
+    },
+    adornedEnd: {
+      paddingRight: theme.spacing(1.5),
+
+      [theme.breakpoints.up('sm')]: {
+        paddingRight: theme.spacing(1),
+      },
+    },
   };
 
   theme.overrides.MuiSelect = {
@@ -101,10 +118,22 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       '$disabled &': { color: Color.Grey100 },
     },
 
-    iconOutlined: { right: theme.spacing(0.5) },
+    iconOutlined: {
+      right: theme.spacing(1.5),
+
+      [theme.breakpoints.up('sm')]: {
+        right: theme.spacing(1),
+      },
+    },
 
     selectMenu: {
-      '&&': { paddingRight: theme.spacing(3.5) },
+      '&&': {
+        paddingRight: theme.spacing(4.5),
+
+        [theme.breakpoints.up('sm')]: {
+          right: theme.spacing(4),
+        },
+      },
     },
   };
 

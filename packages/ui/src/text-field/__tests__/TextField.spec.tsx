@@ -363,7 +363,7 @@ label[data-shrink='false']
   border-color: Color.Silver400;
 }
 
-.MuiOutlinedInput-root .MuiInputAdornment-root > .MuiSvgIcon-root {
+.MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
   font-size: 24px;
 }
 
@@ -382,8 +382,8 @@ label[data-shrink='false']
 }
 
 @media (min-width: 600px) {
-  .MuiOutlinedInput-root .MuiInputAdornment-root > .MuiSvgIcon-root {
-    font-size: 24px;
+  .MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
+    font-size: 20px;
   }
 }
 
@@ -392,11 +392,23 @@ label[data-shrink='false']
 }
 
 .MuiOutlinedInput-adornedStart {
-  padding-left: 8px;
+  padding-left: 12px;
+}
+
+@media (min-width: 600px) {
+  .MuiOutlinedInput-adornedStart {
+    padding-left: 8px;
+  }
 }
 
 .MuiOutlinedInput-adornedEnd {
-  padding-right: 8px;
+  padding-right: 12px;
+}
+
+@media (min-width: 600px) {
+  .MuiOutlinedInput-adornedEnd {
+    padding-right: 8px;
+  }
 }
 
 .MuiOutlinedInput-multiline {
@@ -511,7 +523,13 @@ label[data-shrink='false']
 }
 
 .MuiSelect-selectMenu.MuiSelect-selectMenu {
-  padding-right: 28px;
+  padding-right: 36px;
+}
+
+@media (min-width: 600px) {
+  .MuiSelect-selectMenu.MuiSelect-selectMenu {
+    right: 32px;
+  }
 }
 
 .MuiSelect-icon {
@@ -536,7 +554,13 @@ label[data-shrink='false']
 }
 
 .MuiSelect-iconOutlined {
-  right: 4px;
+  right: 12px;
+}
+
+@media (min-width: 600px) {
+  .MuiSelect-iconOutlined {
+    right: 8px;
+  }
 }
 
 .PrivateNotchedOutline-root-59 {

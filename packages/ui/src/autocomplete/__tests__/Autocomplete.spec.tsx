@@ -139,7 +139,7 @@ it('checks component css', () => {
 
 .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
   .MuiAutocomplete-endAdornment {
-  right: 9px;
+  right: 12px;
 }
 
 @media (min-width: 600px) {
@@ -150,6 +150,11 @@ it('checks component css', () => {
   .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
     .MuiAutocomplete-input {
     padding: 2px;
+  }
+
+  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+    .MuiAutocomplete-endAdornment {
+    right: 8px;
   }
 }
 
