@@ -52,30 +52,6 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiOutlinedInput = {
     root: {
-      '& .MuiInputAdornment-root': {
-        '& > .MuiSvgIcon-root': {
-          fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-
-          [theme.breakpoints.up('sm')]: {
-            fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-          },
-        },
-
-        '&.MuiInputAdornment-positionStart': {
-          '& > .MuiIconButton-root': {
-            padding: theme.spacing(1),
-            marginLeft: theme.spacing(-0.5),
-          },
-        },
-
-        '&.MuiInputAdornment-positionEnd': {
-          '& > .MuiIconButton-root': {
-            padding: theme.spacing(1),
-            marginRight: theme.spacing(-0.5),
-          },
-        },
-      },
-
       '&:hover $notchedOutline': { borderColor: Color.Grey100 },
     },
 
@@ -105,6 +81,28 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
 
     selectMenu: {
       '&&': { paddingRight: theme.spacing(3.5) },
+    },
+  };
+
+  theme.overrides.MuiInputAdornment = {
+    root: {
+      '& .MuiSvgIcon-root': {
+        fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+
+        [theme.breakpoints.up('sm')]: {
+          fontSize: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
+        },
+      },
+
+      '& .MuiIconButton-root': { padding: theme.spacing(1) },
+    },
+
+    positionStart: {
+      '& .MuiIconButton-root': { marginLeft: theme.spacing(-0.75) },
+    },
+
+    positionEnd: {
+      '& .MuiIconButton-root': { marginRight: theme.spacing(-0.75) },
     },
   };
 

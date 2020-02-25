@@ -149,6 +149,20 @@ it('checks component css', () => {
   white-space: nowrap;
 }
 
+.MuiInputAdornment-root .MuiSvgIcon-root {
+  font-size: 24px;
+}
+
+.MuiInputAdornment-root .MuiIconButton-root {
+  padding: 8px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-root .MuiSvgIcon-root {
+    font-size: 20px;
+  }
+}
+
 .MuiInputAdornment-filled.MuiInputAdornment-positionStart:not(.MuiInputAdornment-hiddenLabel) {
   margin-top: 16px;
 }
@@ -157,8 +171,16 @@ it('checks component css', () => {
   margin-right: 8px;
 }
 
+.MuiInputAdornment-positionStart .MuiIconButton-root {
+  margin-left: -6px;
+}
+
 .MuiInputAdornment-positionEnd {
   margin-left: 8px;
+}
+
+.MuiInputAdornment-positionEnd .MuiIconButton-root {
+  margin-right: -6px;
 }
 
 .MuiInputAdornment-disablePointerEvents {
@@ -396,30 +418,6 @@ label[data-shrink='false']
 
 .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
   border-color: Color.Silver400;
-}
-
-.MuiOutlinedInput-root .MuiInputAdornment-root > .MuiSvgIcon-root {
-  font-size: 24px;
-}
-
-.MuiOutlinedInput-root
-  .MuiInputAdornment-root.MuiInputAdornment-positionEnd
-  > .MuiIconButton-root {
-  padding: 8px;
-  margin-right: -4px;
-}
-
-.MuiOutlinedInput-root
-  .MuiInputAdornment-root.MuiInputAdornment-positionStart
-  > .MuiIconButton-root {
-  padding: 8px;
-  margin-left: -4px;
-}
-
-@media (min-width: 600px) {
-  .MuiOutlinedInput-root .MuiInputAdornment-root > .MuiSvgIcon-root {
-    font-size: 24px;
-  }
 }
 
 .MuiOutlinedInput-colorSecondary.Mui-focused .MuiOutlinedInput-notchedOutline {
