@@ -1,4 +1,4 @@
-import { MenuItem, TextField } from '@material-ui/core';
+import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
 import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
 
@@ -32,21 +32,32 @@ it('checks component css', () => {
   expect(
     renderCSS(
       <>
-        <TextField label="Text" helperText="Text" />
+        <TextField
+          label="Text"
+          helperText="Text"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <div />
+              </InputAdornment>
+            ),
+          }}
+        />
         <TextField select={true}>
           <MenuItem />
         </TextField>
       </>,
       [
+        'MuiFormControl',
+        'MuiFormHelperText',
+        'MuiFormLabel',
+        'MuiInputAdornment',
         'MuiInputBase',
         'MuiInputLabel',
-        'PrivateNotchedOutline',
-        'MuiFormControl',
-        'MuiFormLabel',
         'MuiOutlinedInput',
         'MuiSelect',
-        'MuiFormHelperText',
         'MuiTextField',
+        'PrivateNotchedOutline',
       ],
     ),
   ).toMatchInlineSnapshot(`
@@ -128,6 +139,64 @@ it('checks component css', () => {
 
 .MuiFormLabel-asterisk.Mui-error {
   color: Color.Red300;
+}
+
+.MuiInputAdornment-root {
+  height: 0.01em;
+  display: flex;
+  max-height: 2em;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.MuiInputAdornment-root .MuiSvgIcon-root {
+  font-size: 24px;
+}
+
+.MuiInputAdornment-root .MuiIconButton-root {
+  padding: 8px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-root .MuiSvgIcon-root {
+    font-size: 20px;
+  }
+}
+
+.MuiInputAdornment-filled.MuiInputAdornment-positionStart:not(.MuiInputAdornment-hiddenLabel) {
+  margin-top: 16px;
+}
+
+.MuiInputAdornment-positionStart {
+  margin-right: 8px;
+}
+
+.MuiInputAdornment-positionStart .MuiIconButton-root {
+  margin-left: -4px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-positionStart .MuiIconButton-root {
+    margin-left: -6px;
+  }
+}
+
+.MuiInputAdornment-positionEnd {
+  margin-left: 8px;
+}
+
+.MuiInputAdornment-positionEnd .MuiIconButton-root {
+  margin-right: -4px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-positionEnd .MuiIconButton-root {
+    margin-right: -6px;
+  }
+}
+
+.MuiInputAdornment-disablePointerEvents {
+  pointer-events: none;
 }
 
 @keyframes mui-auto-fill {
@@ -363,52 +432,16 @@ label[data-shrink='false']
   border-color: Color.Silver400;
 }
 
-.MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
-  font-size: 24px;
-}
-
-.MuiOutlinedInput-root
-  .MuiInputAdornment-root.MuiInputAdornment-positionEnd
-  > .MuiIconButton-root {
-  padding: 8px;
-  margin-right: -4px;
-}
-
-.MuiOutlinedInput-root
-  .MuiInputAdornment-root.MuiInputAdornment-positionStart
-  > .MuiIconButton-root {
-  padding: 8px;
-  margin-left: -4px;
-}
-
-@media (min-width: 600px) {
-  .MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
-    font-size: 20px;
-  }
-}
-
 .MuiOutlinedInput-colorSecondary.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #f50057;
 }
 
 .MuiOutlinedInput-adornedStart {
-  padding-left: 12px;
-}
-
-@media (min-width: 600px) {
-  .MuiOutlinedInput-adornedStart {
-    padding-left: 8px;
-  }
+  padding-left: 8px;
 }
 
 .MuiOutlinedInput-adornedEnd {
-  padding-right: 12px;
-}
-
-@media (min-width: 600px) {
-  .MuiOutlinedInput-adornedEnd {
-    padding-right: 8px;
-  }
+  padding-right: 8px;
 }
 
 .MuiOutlinedInput-multiline {
@@ -426,7 +459,7 @@ label[data-shrink='false']
 
 .MuiOutlinedInput-input {
   height: 24px;
-  padding: 10px 12px;
+  padding: 10px 16px;
   font-size: 14px;
   font-family: SF Pro Text;
   font-weight: 400;
@@ -523,13 +556,7 @@ label[data-shrink='false']
 }
 
 .MuiSelect-selectMenu.MuiSelect-selectMenu {
-  padding-right: 36px;
-}
-
-@media (min-width: 600px) {
-  .MuiSelect-selectMenu.MuiSelect-selectMenu {
-    right: 32px;
-  }
+  padding-right: 28px;
 }
 
 .MuiSelect-icon {
@@ -554,16 +581,10 @@ label[data-shrink='false']
 }
 
 .MuiSelect-iconOutlined {
-  right: 12px;
+  right: 4px;
 }
 
-@media (min-width: 600px) {
-  .MuiSelect-iconOutlined {
-    right: 8px;
-  }
-}
-
-.PrivateNotchedOutline-root-59 {
+.PrivateNotchedOutline-root-66 {
   top: -5px;
   left: 0;
   right: 0;
@@ -578,14 +599,14 @@ label[data-shrink='false']
   pointer-events: none;
 }
 
-.PrivateNotchedOutline-legend-60 {
+.PrivateNotchedOutline-legend-67 {
   padding: 0;
   text-align: left;
   transition: width 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   line-height: 11px;
 }
 
-.PrivateNotchedOutline-legendLabelled-61 {
+.PrivateNotchedOutline-legendLabelled-68 {
   width: auto;
   height: 11px;
   display: block;
@@ -597,12 +618,12 @@ label[data-shrink='false']
   visibility: hidden;
 }
 
-.PrivateNotchedOutline-legendLabelled-61 span {
+.PrivateNotchedOutline-legendLabelled-68 span {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.PrivateNotchedOutline-legendNotched-62 {
+.PrivateNotchedOutline-legendNotched-69 {
   max-width: 1000px;
   transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;
 }
