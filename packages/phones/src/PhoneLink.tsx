@@ -8,20 +8,20 @@ import React, {
   useMemo,
 } from 'react';
 
-import { PhoneNumber } from './data/PhoneNumber';
+import { NullablePhoneNumberLike, PhoneNumber } from './data/PhoneNumber';
 import { usePhoneNumber } from './PhoneText';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
     Omit<LinkProps, 'ref' | 'href' | 'children'> {
-  phone: string;
+  phone: NullablePhoneNumberLike;
   fallback?: ReactNode;
 }
 
 export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   HTMLAnchorElement,
   PhoneLinkProps
->(({ phone, fallback = null, ...props }, ref) => {
+>(({ phone, fallback, ...props }, ref) => {
   const phoneNumber = usePhoneNumber(phone);
   const linkProps = useMemo<Pick<LinkProps, 'href' | 'children'>>(
     () => ({
@@ -32,7 +32,7 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   );
 
   return !linkProps.children ? (
-    (fallback as ReactElement)
+    ((fallback || phone || null) as ReactElement)
   ) : (
     <Link {...props} {...linkProps} ref={ref} />
   );
