@@ -1,24 +1,36 @@
 import { ReactElement, ReactNode, useMemo } from 'react';
 
-import { PhoneNumber } from './data/PhoneNumber';
+import { NullablePhoneNumberLike, PhoneNumber } from './data/PhoneNumber';
 
-export function usePhoneNumber(phone: string): undefined | PhoneNumber {
-  return useMemo(() => PhoneNumber.fromInternational(phone), [phone]);
+export function usePhoneNumber(
+  phone: NullablePhoneNumberLike,
+): undefined | PhoneNumber {
+  return useMemo(() => {
+    if (!PhoneNumber.isPhoneNumberLike(phone)) {
+      return undefined;
+    }
+
+    if (typeof phone === 'string') {
+      return PhoneNumber.fromInternational(phone);
+    }
+
+    return phone;
+  }, [phone]);
 }
 
 export interface PhoneTextProps {
-  phone: string;
+  phone: NullablePhoneNumberLike;
   fallback?: ReactNode;
 }
 
 export function PhoneText({
   phone,
-  fallback = null,
+  fallback,
 }: PhoneTextProps): null | ReactElement {
   const phoneNumber = usePhoneNumber(phone);
   const children = useMemo(() => PhoneNumber.toInternational(phoneNumber), [
     phoneNumber,
   ]);
 
-  return (children || fallback) as ReactElement;
+  return (children || fallback || phone || null) as ReactElement;
 }
