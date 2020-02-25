@@ -9,6 +9,7 @@ export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
 
   Object.assign(theme.props, {
     MuiAutocomplete: {
+      disableClearable: true,
       closeIcon: (
         <SvgIcon>
           <path

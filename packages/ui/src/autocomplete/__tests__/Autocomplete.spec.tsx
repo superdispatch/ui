@@ -16,6 +16,7 @@ it('checks default props', () => {
           fillRule="evenodd"
         />
       </WithStyles(ForwardRef(SvgIcon))>,
+      "disableClearable": true,
     }
   `);
 });

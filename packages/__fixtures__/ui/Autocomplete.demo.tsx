@@ -122,6 +122,7 @@ const top100Films = [
 
 export default function AutocompleteDemo() {
   const [disabled, setDisabled] = useState(false);
+  const [clearable, setClearable] = useState(false);
   const [hasLabel, setHasLabel] = useState(true);
   const [hasPopup, setPopup] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -139,6 +140,13 @@ export default function AutocompleteDemo() {
             control={<Switch />}
             checked={disabled}
             onChange={(_, checked) => setDisabled(checked)}
+          />
+
+          <FormControlLabel
+            label="Clearable"
+            control={<Switch />}
+            checked={clearable}
+            onChange={(_, checked) => setClearable(checked)}
           />
 
           <FormControlLabel
@@ -189,7 +197,7 @@ export default function AutocompleteDemo() {
         <Grid item={true}>
           <Autocomplete
             forcePopupIcon={isLoading ? false : hasPopup}
-            disableClearable={isLoading}
+            disableClearable={isLoading || !clearable}
             loading={isLoading}
             disabled={disabled}
             options={top100Films}
@@ -225,7 +233,7 @@ export default function AutocompleteDemo() {
         <Grid item={true}>
           <Autocomplete
             forcePopupIcon={isLoading ? false : hasPopup}
-            disableClearable={isLoading}
+            disableClearable={isLoading || !clearable}
             loading={isLoading}
             disabled={disabled}
             multiple={true}
