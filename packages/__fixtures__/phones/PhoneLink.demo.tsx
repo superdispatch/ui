@@ -1,4 +1,4 @@
-import { TextField, Typography } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { PhoneLink } from '@superdispatch/phones';
 import { GridStack } from '@superdispatch/ui';
 import React, { useState } from 'react';
@@ -21,10 +21,7 @@ export default function PhoneTextDemo() {
         onChange={event => setFallback(event.target.value)}
       />
 
-      <PhoneLink
-        phone={phone}
-        fallback={<Typography color="error">{fallback}</Typography>}
-      />
+      <PhoneLink phone={phone} fallback={fallback} />
     </GridStack>
   );
 }
