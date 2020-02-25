@@ -269,8 +269,18 @@ function getAYT(regionCode: null | undefined | PhoneRegionCode) {
   }
 }
 
-function extractDigits(value: null | string | undefined): string {
-  return value?.replace(/\D+/g, '') ?? '';
+function extractPhone(value: null | string | undefined): string {
+  if (value == null) {
+    return '';
+  }
+
+  let digits = value.replace(/\D+/g, '');
+
+  if (value.includes('+')) {
+    digits = `+${digits}`;
+  }
+
+  return digits;
 }
 
 export class PhoneNumber {
@@ -308,28 +318,30 @@ export class PhoneNumber {
     }
 
     // If we get plain string, we use APN constructor directly.
-    if (typeof value === 'string') {
-      const digits = extractDigits(value);
-
-      if (!digits) {
-        return undefined;
-      }
-
-      // Try parse as international.
-      const international = new APN(`+${digits}`);
-
-      if (PhoneNumber.isValidAPN(international)) {
-        return international;
-      }
-
-      // Fallback to US number
-      return PhoneNumber.toAPN({
-        region: DEFAULT_REGION_CODE,
-        nationalNumber: digits,
-      });
+    if (typeof value !== 'string') {
+      return PhoneNumber.toAYT(value)?.getPhoneNumber();
     }
 
-    return PhoneNumber.toAYT(value)?.getPhoneNumber();
+    const digits = extractPhone(value);
+
+    if (!digits) {
+      return undefined;
+    }
+
+    // Try parse as international.
+    const international = digits.startsWith('+')
+      ? new APN(digits)
+      : new APN(digits, DEFAULT_REGION_CODE);
+
+    if (PhoneNumber.isValidAPN(international)) {
+      return international;
+    }
+
+    // Fallback to US number
+    return PhoneNumber.toAPN({
+      region: DEFAULT_REGION_CODE,
+      nationalNumber: digits,
+    });
   }
 
   private static fromAPN(apn: undefined | APN): undefined | PhoneNumber {
