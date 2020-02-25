@@ -21,7 +21,12 @@ import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDateUtils } from './DateContext';
 import { useDatePickerPopoverState } from './DatePickerBase';
 import { DateTextField } from './DateTextField';
-import { DateRange, isValidDate, toDateRange } from './DateUtils';
+import {
+  DateRange,
+  isValidDate,
+  NullableDateRangeLike,
+  toDateRange,
+} from './DateUtils';
 
 const useStyles = makeStyles<Theme>(
   theme => ({
@@ -64,7 +69,7 @@ export interface DateRangeFieldProps
   hasClearButton?: boolean;
   disableCloseOnSelect?: boolean;
 
-  value?: DateRange;
+  value?: NullableDateRangeLike;
   onBlur?: () => void;
   onFocus?: () => void;
   onChange?: (value: undefined | DateRange) => void;
@@ -77,10 +82,7 @@ export interface DateRangeFieldProps
   PopoverProps?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
-export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = forwardRef<
-  HTMLDivElement,
-  DateRangeFieldProps
->(
+export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = forwardRef(
   (
     {
       onBlur,
@@ -98,7 +100,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
         onDayMouseEnter,
         classes: calendarClasses,
         ...calendarProps
-      } = {},
+      } = {} as const,
       PopoverProps: {
         anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const,
         transformOrigin = { vertical: 'top', horizontal: 'left' } as const,
