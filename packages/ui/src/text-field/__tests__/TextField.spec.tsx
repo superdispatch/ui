@@ -172,7 +172,13 @@ it('checks component css', () => {
 }
 
 .MuiInputAdornment-positionStart .MuiIconButton-root {
-  margin-left: -6px;
+  margin-left: -4px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-positionStart .MuiIconButton-root {
+    margin-left: -6px;
+  }
 }
 
 .MuiInputAdornment-positionEnd {
@@ -180,7 +186,13 @@ it('checks component css', () => {
 }
 
 .MuiInputAdornment-positionEnd .MuiIconButton-root {
-  margin-right: -6px;
+  margin-right: -4px;
+}
+
+@media (min-width: 600px) {
+  .MuiInputAdornment-positionEnd .MuiIconButton-root {
+    margin-right: -6px;
+  }
 }
 
 .MuiInputAdornment-disablePointerEvents {
