@@ -9,6 +9,7 @@ export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
 
   Object.assign(theme.props, {
     MuiAutocomplete: {
+      disableClearable: true,
       closeIcon: (
         <SvgIcon>
           <path
@@ -66,11 +67,19 @@ export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
             paddingLeft: undefined,
           },
 
+          '& $endAdornment': {
+            right: theme.spacing(1.5),
+          },
+
           [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(0.5, 0.75),
 
             '& $input': {
               padding: theme.spacing(0.25),
+            },
+
+            '& $endAdornment': {
+              right: theme.spacing(1),
             },
           },
         },
