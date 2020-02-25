@@ -8,6 +8,7 @@ module.exports = ({ isDocs = false } = {}) => api => {
   return {
     presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
     plugins: [
+      require.resolve('../tools/babel-plugin-pure-export-calls'),
       require.resolve('../tools/babel-plugin-inject-display-name'),
       isDocs && !isTest && require.resolve('../tools/babel-plugin-csb'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
