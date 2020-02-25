@@ -98,11 +98,23 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     },
 
     positionStart: {
-      '& .MuiIconButton-root': { marginLeft: theme.spacing(-0.75) },
+      '& .MuiIconButton-root': {
+        marginLeft: theme.spacing(-0.5),
+
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(-0.75),
+        },
+      },
     },
 
     positionEnd: {
-      '& .MuiIconButton-root': { marginRight: theme.spacing(-0.75) },
+      '& .MuiIconButton-root': {
+        marginRight: theme.spacing(-0.5),
+
+        [theme.breakpoints.up('sm')]: {
+          marginRight: theme.spacing(-0.75),
+        },
+      },
     },
   };
 
