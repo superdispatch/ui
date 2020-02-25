@@ -1,4 +1,4 @@
-import { MenuItem, TextField } from '@material-ui/core';
+import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
 import { renderCSS, renderTheme } from '@superdispatch/testutils';
 import React from 'react';
 
@@ -32,21 +32,32 @@ it('checks component css', () => {
   expect(
     renderCSS(
       <>
-        <TextField label="Text" helperText="Text" />
+        <TextField
+          label="Text"
+          helperText="Text"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <div />
+              </InputAdornment>
+            ),
+          }}
+        />
         <TextField select={true}>
           <MenuItem />
         </TextField>
       </>,
       [
+        'MuiFormControl',
+        'MuiFormHelperText',
+        'MuiFormLabel',
+        'MuiInputAdornment',
         'MuiInputBase',
         'MuiInputLabel',
-        'PrivateNotchedOutline',
-        'MuiFormControl',
-        'MuiFormLabel',
         'MuiOutlinedInput',
         'MuiSelect',
-        'MuiFormHelperText',
         'MuiTextField',
+        'PrivateNotchedOutline',
       ],
     ),
   ).toMatchInlineSnapshot(`
@@ -128,6 +139,30 @@ it('checks component css', () => {
 
 .MuiFormLabel-asterisk.Mui-error {
   color: Color.Red300;
+}
+
+.MuiInputAdornment-root {
+  height: 0.01em;
+  display: flex;
+  max-height: 2em;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.MuiInputAdornment-filled.MuiInputAdornment-positionStart:not(.MuiInputAdornment-hiddenLabel) {
+  margin-top: 16px;
+}
+
+.MuiInputAdornment-positionStart {
+  margin-right: 8px;
+}
+
+.MuiInputAdornment-positionEnd {
+  margin-left: 8px;
+}
+
+.MuiInputAdornment-disablePointerEvents {
+  pointer-events: none;
 }
 
 @keyframes mui-auto-fill {
@@ -539,7 +574,7 @@ label[data-shrink='false']
   right: 4px;
 }
 
-.PrivateNotchedOutline-root-59 {
+.PrivateNotchedOutline-root-66 {
   top: -5px;
   left: 0;
   right: 0;
@@ -554,14 +589,14 @@ label[data-shrink='false']
   pointer-events: none;
 }
 
-.PrivateNotchedOutline-legend-60 {
+.PrivateNotchedOutline-legend-67 {
   padding: 0;
   text-align: left;
   transition: width 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   line-height: 11px;
 }
 
-.PrivateNotchedOutline-legendLabelled-61 {
+.PrivateNotchedOutline-legendLabelled-68 {
   width: auto;
   height: 11px;
   display: block;
@@ -573,12 +608,12 @@ label[data-shrink='false']
   visibility: hidden;
 }
 
-.PrivateNotchedOutline-legendLabelled-61 span {
+.PrivateNotchedOutline-legendLabelled-68 span {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.PrivateNotchedOutline-legendNotched-62 {
+.PrivateNotchedOutline-legendNotched-69 {
   max-width: 1000px;
   transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;
 }
