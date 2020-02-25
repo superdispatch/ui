@@ -77,10 +77,22 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       '$disabled &': { color: Color.Grey100 },
     },
 
-    iconOutlined: { right: theme.spacing(0.5) },
+    iconOutlined: {
+      right: theme.spacing(1.5),
+
+      [theme.breakpoints.up('sm')]: {
+        right: theme.spacing(1),
+      },
+    },
 
     selectMenu: {
-      '&&': { paddingRight: theme.spacing(3.5) },
+      '&&': {
+        paddingRight: theme.spacing(4.5),
+
+        [theme.breakpoints.up('sm')]: {
+          right: theme.spacing(4),
+        },
+      },
     },
   };
 

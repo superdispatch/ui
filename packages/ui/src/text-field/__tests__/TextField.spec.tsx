@@ -556,7 +556,13 @@ label[data-shrink='false']
 }
 
 .MuiSelect-selectMenu.MuiSelect-selectMenu {
-  padding-right: 28px;
+  padding-right: 36px;
+}
+
+@media (min-width: 600px) {
+  .MuiSelect-selectMenu.MuiSelect-selectMenu {
+    right: 32px;
+  }
 }
 
 .MuiSelect-icon {
@@ -581,7 +587,13 @@ label[data-shrink='false']
 }
 
 .MuiSelect-iconOutlined {
-  right: 4px;
+  right: 12px;
+}
+
+@media (min-width: 600px) {
+  .MuiSelect-iconOutlined {
+    right: 8px;
+  }
 }
 
 .PrivateNotchedOutline-root-66 {
