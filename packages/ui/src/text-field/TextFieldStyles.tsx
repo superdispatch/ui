@@ -1,7 +1,16 @@
+import { SvgIcon, SvgIconProps } from '@material-ui/core';
+import React, { forwardRef } from 'react';
+
 import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import { getTypographyProp } from '../typography/TypographyStyles';
+
+const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
+  <SvgIcon ref={ref} {...props}>
+    <path d="M12 16.5L6 9h12l-6 7.5z" fill="currentColor" />
+  </SvgIcon>
+));
 
 export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };
@@ -71,10 +80,20 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     adornedEnd: { paddingRight: theme.spacing(1) },
   };
 
+  theme.props.MuiSelect = {
+    IconComponent: SelectIcon,
+  };
+
   theme.overrides.MuiSelect = {
     icon: {
-      fontSize: iconSizeVariant('default'),
+      top: `calc(50% - ${iconSizeVariant('small', true)} / 2)`,
+      fontSize: iconSizeVariant('small', true),
       '$disabled &': { color: Color.Grey100 },
+
+      [theme.breakpoints.up('sm')]: {
+        top: `calc(50% - ${iconSizeVariant('small')} / 2)`,
+        fontSize: iconSizeVariant('small'),
+      },
     },
 
     iconOutlined: {
