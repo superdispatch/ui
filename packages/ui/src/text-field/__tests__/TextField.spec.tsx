@@ -17,7 +17,15 @@ Object {
   "notched": false,
 }
 `);
-  expect(props.MuiSelect).toMatchInlineSnapshot(`undefined`);
+  expect(props.MuiSelect).toMatchInlineSnapshot(`
+Object {
+  "IconComponent": Object {
+    "$$typeof": Symbol(react.forward_ref),
+    "displayName": "SelectIcon",
+    "render": [Function],
+  },
+}
+`);
   expect(props.MuiFormHelperText).toMatchInlineSnapshot(`undefined`);
   expect(props.MuiTextField).toMatchInlineSnapshot(`
 Object {
@@ -566,7 +574,7 @@ label[data-shrink='false']
 }
 
 .MuiSelect-icon {
-  top: calc(50% - 12px);
+  top: calc(50% - 24px / 2);
   color: rgba(0, 0, 0, 0.54);
   right: 0;
   position: absolute;
@@ -576,6 +584,13 @@ label[data-shrink='false']
 
 .Mui-disabled .MuiSelect-icon {
   color: Color.Grey100;
+}
+
+@media (min-width: 600px) {
+  .MuiSelect-icon {
+    top: calc(50% - 16px / 2);
+    font-size: 16px;
+  }
 }
 
 .MuiSelect-iconOpen {

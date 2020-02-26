@@ -1,6 +1,7 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
+import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -10,6 +11,11 @@ export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
   Object.assign(theme.props, {
     MuiAutocomplete: {
       disableClearable: true,
+      popupIcon: (
+        <SvgIcon>
+          <path d="M12 16.5L6 9h12l-6 7.5z" fill="currentColor" />
+        </SvgIcon>
+      ),
       closeIcon: (
         <SvgIcon>
           <path
@@ -41,7 +47,11 @@ export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
-          fontSize: theme.spacing(3),
+          fontSize: iconSizeVariant('small', true),
+
+          [theme.breakpoints.up('sm')]: {
+            fontSize: iconSizeVariant('small'),
+          },
         },
       },
       clearIndicator: {
