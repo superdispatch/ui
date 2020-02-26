@@ -17,6 +17,12 @@ it('checks default props', () => {
         />
       </WithStyles(ForwardRef(SvgIcon))>,
       "disableClearable": true,
+      "popupIcon": <WithStyles(ForwardRef(SvgIcon))>
+        <path
+          d="M12 16.5L6 9h12l-6 7.5z"
+          fill="currentColor"
+        />
+      </WithStyles(ForwardRef(SvgIcon))>,
     }
   `);
 });
@@ -27,299 +33,305 @@ it('checks component css', () => {
       'MuiAutocomplete',
     ]),
   ).toMatchInlineSnapshot(`
-.MuiAutocomplete-root:hover .MuiAutocomplete-clearIndicatorDirty,
-.MuiAutocomplete-root.Mui-focused .MuiAutocomplete-clearIndicatorDirty {
-  visibility: visible;
-}
+    .MuiAutocomplete-root:hover .MuiAutocomplete-clearIndicatorDirty,
+    .MuiAutocomplete-root.Mui-focused .MuiAutocomplete-clearIndicatorDirty {
+      visibility: visible;
+    }
 
-.MuiAutocomplete-tag {
-  margin: 4px;
-  max-width: calc(100% - 6px);
-}
+    .MuiAutocomplete-tag {
+      margin: 4px;
+      max-width: calc(100% - 6px);
+    }
 
-@media (min-width: 600px) {
-  .MuiAutocomplete-tag {
-    margin: 2px;
-  }
-}
+    @media (min-width: 600px) {
+      .MuiAutocomplete-tag {
+        margin: 2px;
+      }
+    }
 
-.MuiAutocomplete-tagSizeSmall {
-  margin: 2px;
-  max-width: calc(100% - 4px);
-}
+    .MuiAutocomplete-tagSizeSmall {
+      margin: 2px;
+      max-width: calc(100% - 4px);
+    }
 
-.MuiAutocomplete-inputRoot {
-  flex-wrap: wrap;
-}
+    .MuiAutocomplete-inputRoot {
+      flex-wrap: wrap;
+    }
 
-.MuiAutocomplete-hasPopupIcon .MuiAutocomplete-inputRoot,
-.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot {
-  padding-right: 30px;
-}
+    .MuiAutocomplete-hasPopupIcon .MuiAutocomplete-inputRoot,
+    .MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot {
+      padding-right: 30px;
+    }
 
-.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
-  .MuiAutocomplete-inputRoot {
-  padding-right: 56px;
-}
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
+      .MuiAutocomplete-inputRoot {
+      padding-right: 56px;
+    }
 
-.MuiAutocomplete-inputRoot .MuiAutocomplete-input {
-  width: 0;
-  min-width: 30px;
-}
+    .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
+      width: 0;
+      min-width: 30px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiInput-root'] {
-  padding-bottom: 1px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiInput-root'] {
+      padding-bottom: 1px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-  padding: 6px 8px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
+      padding: 6px 8px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'][class*='MuiOutlinedInput-marginDense'] {
-  padding: 6px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'][class*='MuiOutlinedInput-marginDense'] {
+      padding: 6px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
-  padding-top: 19px;
-  padding-left: 8px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
+      padding-top: 19px;
+      padding-left: 8px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'][class*='MuiFilledInput-marginDense'] {
-  padding-bottom: 1px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'][class*='MuiFilledInput-marginDense'] {
+      padding-bottom: 1px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'][class*='MuiFilledInput-marginDense']
-  .MuiAutocomplete-input {
-  padding: 4.5px 4px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'][class*='MuiFilledInput-marginDense']
+      .MuiAutocomplete-input {
+      padding: 4.5px 4px;
+    }
 
-.MuiAutocomplete-hasPopupIcon
-  .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'],
-.MuiAutocomplete-hasClearIcon
-  .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
-  padding-right: 39px;
-}
+    .MuiAutocomplete-hasPopupIcon
+      .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'],
+    .MuiAutocomplete-hasClearIcon
+      .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
+      padding-right: 39px;
+    }
 
-.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
-  .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
-  padding-right: 65px;
-}
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
+      .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root'] {
+      padding-right: 65px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiFilledInput-root']
-  .MuiAutocomplete-input {
-  padding: 9px 4px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root']
+      .MuiAutocomplete-input {
+      padding: 9px 4px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiFilledInput-root']
-  .MuiAutocomplete-endAdornment {
-  right: 9px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiFilledInput-root']
+      .MuiAutocomplete-endAdornment {
+      right: 9px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'][class*='MuiOutlinedInput-marginDense']
-  .MuiAutocomplete-input {
-  padding: 4.5px 4px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'][class*='MuiOutlinedInput-marginDense']
+      .MuiAutocomplete-input {
+      padding: 4.5px 4px;
+    }
 
-.MuiAutocomplete-hasPopupIcon
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'],
-.MuiAutocomplete-hasClearIcon
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-  padding-right: 39px;
-}
+    .MuiAutocomplete-hasPopupIcon
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'],
+    .MuiAutocomplete-hasClearIcon
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
+      padding-right: 39px;
+    }
 
-.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-  padding-right: 65px;
-}
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
+      padding-right: 65px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
-  .MuiAutocomplete-input {
-  padding: 4px;
-  min-width: 96px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+      .MuiAutocomplete-input {
+      padding: 4px;
+      min-width: 96px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
-  .MuiAutocomplete-endAdornment {
-  right: 12px;
-}
+    .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+      .MuiAutocomplete-endAdornment {
+      right: 12px;
+    }
 
-@media (min-width: 600px) {
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
-    padding: 4px 6px;
-  }
+    @media (min-width: 600px) {
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root'] {
+        padding: 4px 6px;
+      }
 
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+        .MuiAutocomplete-input {
+        padding: 2px;
+      }
+
+      .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+        .MuiAutocomplete-endAdornment {
+        right: 8px;
+      }
+    }
+
+    .MuiAutocomplete-inputRoot[class*='MuiInput-root'][class*='MuiInput-marginDense']
+      .MuiAutocomplete-input {
+      padding: 4px 4px 5px;
+    }
+
+    .MuiAutocomplete-inputRoot[class*='MuiInput-root'][class*='MuiInput-marginDense']
+      .MuiAutocomplete-input:first-child {
+      padding: 3px 0 6px;
+    }
+
+    .MuiAutocomplete-inputRoot[class*='MuiInput-root'] .MuiAutocomplete-input {
+      padding: 4px;
+    }
+
+    .MuiAutocomplete-inputRoot[class*='MuiInput-root']
+      .MuiAutocomplete-input:first-child {
+      padding: 6px 0;
+    }
+
     .MuiAutocomplete-input {
-    padding: 2px;
-  }
+      opacity: 0;
+      flex-grow: 1;
+      text-overflow: ellipsis;
+    }
 
-  .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
+    .MuiAutocomplete-inputFocused {
+      opacity: 1;
+    }
+
     .MuiAutocomplete-endAdornment {
-    right: 8px;
-  }
-}
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      position: absolute;
+      align-items: center;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiInput-root'][class*='MuiInput-marginDense']
-  .MuiAutocomplete-input {
-  padding: 4px 4px 5px;
-}
+    .MuiAutocomplete-clearIndicator {
+      color: rgba(0, 0, 0, 0.54);
+      padding: 4px;
+      visibility: hidden;
+      margin-right: -2px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiInput-root'][class*='MuiInput-marginDense']
-  .MuiAutocomplete-input:first-child {
-  padding: 3px 0 6px;
-}
+    .MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
+      color: Color.Grey100;
+      font-size: 24px;
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiInput-root'] .MuiAutocomplete-input {
-  padding: 4px;
-}
+    @media (min-width: 600px) {
+      .MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
+        font-size: 16px;
+      }
+    }
 
-.MuiAutocomplete-inputRoot[class*='MuiInput-root']
-  .MuiAutocomplete-input:first-child {
-  padding: 6px 0;
-}
+    .MuiAutocomplete-popupIndicator {
+      color: rgba(0, 0, 0, 0.54);
+      padding: 2px;
+      margin-right: -2px;
+    }
 
-.MuiAutocomplete-input {
-  opacity: 0;
-  flex-grow: 1;
-  text-overflow: ellipsis;
-}
+    .MuiAutocomplete-popupIndicator .MuiSvgIcon-root {
+      font-size: 24px;
+    }
 
-.MuiAutocomplete-inputFocused {
-  opacity: 1;
-}
+    @media (min-width: 600px) {
+      .MuiAutocomplete-popupIndicator .MuiSvgIcon-root {
+        font-size: 16px;
+      }
+    }
 
-.MuiAutocomplete-endAdornment {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  position: absolute;
-  align-items: center;
-}
+    .MuiAutocomplete-popupIndicatorOpen {
+      transform: rotate(180deg);
+    }
 
-.MuiAutocomplete-clearIndicator {
-  color: rgba(0, 0, 0, 0.54);
-  padding: 4px;
-  visibility: hidden;
-  margin-right: -2px;
-}
+    .MuiAutocomplete-popper {
+      z-index: 1300;
+    }
 
-.MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
-  color: Color.Grey100;
-  font-size: 24px;
-}
+    .MuiAutocomplete-popperDisablePortal {
+      position: absolute;
+    }
 
-@media (min-width: 600px) {
-  .MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
-    font-size: 16px;
-  }
-}
+    .MuiAutocomplete-paper {
+      margin: 4px 0;
+      overflow: hidden;
+      font-size: 14px;
+      font-family: SF Pro Text;
+      font-weight: 400;
+      line-height: 20px;
+    }
 
-.MuiAutocomplete-popupIndicator {
-  color: rgba(0, 0, 0, 0.54);
-  padding: 2px;
-  margin-right: -2px;
-}
+    @media (min-width: 0px) and (max-width: 599.95px) {
+      .MuiAutocomplete-paper {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
 
-.MuiAutocomplete-popupIndicator .MuiSvgIcon-root {
-  font-size: 24px;
-}
+    .MuiAutocomplete-paper > ul {
+      overflow: auto;
+      max-height: 40vh;
+    }
 
-.MuiAutocomplete-popupIndicatorOpen {
-  transform: rotate(180deg);
-}
+    .MuiAutocomplete-listbox {
+      margin: 0;
+      padding: 8px 0px;
+      position: relative;
+      list-style: none;
+    }
 
-.MuiAutocomplete-popper {
-  z-index: 1300;
-}
+    .MuiAutocomplete-loading {
+      color: Color.Grey200;
+      padding: 14px 16px;
+    }
 
-.MuiAutocomplete-popperDisablePortal {
-  position: absolute;
-}
+    .MuiAutocomplete-noOptions {
+      color: Color.Grey200;
+      padding: 14px 16px;
+    }
 
-.MuiAutocomplete-paper {
-  margin: 4px 0;
-  overflow: hidden;
-  font-size: 14px;
-  font-family: SF Pro Text;
-  font-weight: 400;
-  line-height: 20px;
-}
+    .MuiAutocomplete-option {
+      cursor: pointer;
+      display: flex;
+      outline: 0;
+      box-sizing: border-box;
+      min-height: 48px;
+      align-items: center;
+      padding-top: 6px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 6px;
+      justify-content: flex-start;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiAutocomplete-paper {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
+    @media (min-width: 600px) {
+      .MuiAutocomplete-option {
+        min-height: auto;
+      }
+    }
 
-.MuiAutocomplete-paper > ul {
-  overflow: auto;
-  max-height: 40vh;
-}
+    .MuiAutocomplete-option[aria-selected='true'] {
+      background-color: Color.Silver300;
+    }
 
-.MuiAutocomplete-listbox {
-  margin: 0;
-  padding: 8px 0px;
-  position: relative;
-  list-style: none;
-}
+    .MuiAutocomplete-option[data-focus='true'] {
+      background-color: Color.Silver100;
+    }
 
-.MuiAutocomplete-loading {
-  color: Color.Grey200;
-  padding: 14px 16px;
-}
+    .MuiAutocomplete-option:active {
+      background-color: Color.Silver300;
+    }
 
-.MuiAutocomplete-noOptions {
-  color: Color.Grey200;
-  padding: 14px 16px;
-}
+    .MuiAutocomplete-option[aria-disabled='true'] {
+      opacity: 0.38;
+      pointer-events: none;
+    }
 
-.MuiAutocomplete-option {
-  cursor: pointer;
-  display: flex;
-  outline: 0;
-  box-sizing: border-box;
-  min-height: 48px;
-  align-items: center;
-  padding-top: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 6px;
-  justify-content: flex-start;
-  -webkit-tap-highlight-color: transparent;
-}
+    .MuiAutocomplete-groupLabel {
+      top: -8px;
+      background-color: Color.White;
+    }
 
-@media (min-width: 600px) {
-  .MuiAutocomplete-option {
-    min-height: auto;
-  }
-}
-
-.MuiAutocomplete-option[aria-selected='true'] {
-  background-color: Color.Silver300;
-}
-
-.MuiAutocomplete-option[data-focus='true'] {
-  background-color: Color.Silver100;
-}
-
-.MuiAutocomplete-option:active {
-  background-color: Color.Silver300;
-}
-
-.MuiAutocomplete-option[aria-disabled='true'] {
-  opacity: 0.38;
-  pointer-events: none;
-}
-
-.MuiAutocomplete-groupLabel {
-  top: -8px;
-  background-color: Color.White;
-}
-
-.MuiAutocomplete-groupUl {
-  padding: 0;
-}
-`);
+    .MuiAutocomplete-groupUl {
+      padding: 0;
+    }
+  `);
 });
