@@ -60,9 +60,7 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
   };
 
   theme.overrides.MuiOutlinedInput = {
-    root: {
-      '&:hover $notchedOutline': { borderColor: Color.Grey100 },
-    },
+    root: { '&:hover $notchedOutline': { borderColor: undefined } },
 
     input: {
       ...theme.typography.body2,
