@@ -417,10 +417,6 @@ label[data-shrink='false']
   border-radius: 4px;
 }
 
-.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-  border-color: Color.Grey100;
-}
-
 @media (hover: none) {
   .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
     border-color: rgba(0, 0, 0, 0.23);
