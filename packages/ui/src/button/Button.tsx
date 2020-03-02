@@ -8,17 +8,30 @@ import React, {
 
 export interface ButtonProps
   extends RefAttributes<HTMLButtonElement>,
-    Omit<MuiButtonProps, 'color' | 'variant'> {
+    Omit<MuiButtonProps, 'color'> {
   rel?: string;
   target?: string;
   isActive?: boolean;
   isLoading?: boolean;
-  color: 'primary' | 'error' | 'success' | 'white';
-  variant: 'text' | 'outlined' | 'contained';
+  color?: 'primary' | 'error' | 'success' | 'white';
 }
 
 export const Button: ForwardRefExoticComponent<ButtonProps> = forwardRef(
-  ({ size, color, children, disabled, isActive, isLoading, ...props }, ref) => (
+  (
+    {
+      size,
+      children,
+      disabled,
+      isActive,
+      isLoading,
+
+      color = 'primary',
+      variant = 'contained',
+
+      ...props
+    },
+    ref,
+  ) => (
     <MaterialButton
       {...props}
       ref={ref}
