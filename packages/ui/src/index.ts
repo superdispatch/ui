@@ -1,3 +1,4 @@
+export * from './adaptive-toolbar/AdaptiveToolbar';
 export * from './button/Button';
 export * from './card-button/CardButton';
 export * from './description-list/DescriptionList';
