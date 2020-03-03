@@ -1,9 +1,16 @@
 import { AppBar, Box, Slider, Typography } from '@material-ui/core';
-import { AdaptiveToolbar, GridStack, InlineGrid } from '@superdispatch/ui';
+import {
+  AdaptiveToolbar,
+  GridStack,
+  InlineGrid,
+  useSnackbarStack,
+} from '@superdispatch/ui';
 import React, { useState } from 'react';
 
 export function AdaptiveToolbarDemo() {
   const [width, setWidth] = useState(320);
+  const { addSnackbar } = useSnackbarStack();
+
   return (
     <GridStack>
       <InlineGrid spacing={2} wrap="nowrap">
@@ -23,14 +30,62 @@ export function AdaptiveToolbarDemo() {
       <AppBar style={{ maxWidth: width }}>
         <AdaptiveToolbar
           items={[
-            { key: 'Send Offer', label: 'Send Offer' },
-            { key: 'Post o SLB', label: 'Post o SLB' },
-            { key: 'Change Date Ranges', label: 'Change Date Ranges' },
-            { key: 'Increase Price By', label: 'Increase Price By' },
-            { key: 'Mark as Accepted', label: 'Mark as Accepted' },
-            { key: 'Send Customer Invoice', label: 'Send Customer Invoice' },
-            { key: 'Archive', label: 'Archive' },
-            { key: 'Delete', label: 'Delete' },
+            {
+              key: 'send_offer',
+              label: 'Send Offer',
+              onClick: () => {
+                addSnackbar('Send Offer');
+              },
+            },
+            {
+              key: 'post_to_slb',
+              label: 'Post to SLB',
+              onClick: () => {
+                addSnackbar('Post to SLB');
+              },
+            },
+            {
+              key: 'change_date_ranges',
+              label: 'Change Date Ranges',
+              onClick: () => {
+                addSnackbar('Change Date Ranges');
+              },
+            },
+            {
+              key: 'increase_price_by',
+              label: 'Increase Price By',
+              onClick: () => {
+                addSnackbar('Increase Price By');
+              },
+            },
+            {
+              key: 'mark_as_accepted',
+              label: 'Mark as Accepted',
+              onClick: () => {
+                addSnackbar('Mark as Accepted');
+              },
+            },
+            {
+              key: 'send_customer_invoice',
+              label: 'Send Customer Invoice',
+              onClick: () => {
+                addSnackbar('Send Customer Invoice');
+              },
+            },
+            {
+              key: 'archive',
+              label: 'Archive',
+              onClick: () => {
+                addSnackbar('Archive');
+              },
+            },
+            {
+              key: 'delete',
+              label: 'Delete',
+              onClick: () => {
+                addSnackbar('Delete');
+              },
+            },
           ]}
         />
       </AppBar>

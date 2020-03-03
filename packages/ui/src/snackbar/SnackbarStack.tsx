@@ -56,7 +56,7 @@ export interface SnackbarStack {
   removeBelowElement: (node: HTMLElement) => void;
   addSnackbar: (
     message: ReactNode,
-    options: SnackbarStackOptions,
+    options?: SnackbarStackOptions,
   ) => () => void;
 }
 
@@ -194,7 +194,7 @@ export function SnackbarStackProvider({
           key = Math.random(),
           hasCloseButton = true,
           autoHideDuration = 5000,
-        },
+        }: SnackbarStackOptions = {},
       ) => {
         const close = () =>
           setSnackbarMap(prev => {

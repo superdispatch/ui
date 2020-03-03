@@ -25,6 +25,7 @@ import { Button } from '../button/Button';
 export interface AdaptiveToolbarItem {
   key: Key;
   label: ReactNode;
+  onClick: () => void;
 }
 
 export interface AdaptiveToolbarProps
@@ -110,7 +111,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
             <Grid container={true} spacing={1} wrap="nowrap" component="div">
               {items.map(item => (
                 <Grid key={item.key} item={true} ref={itemNodeRef}>
-                  <Button variant="outlined">
+                  <Button variant="outlined" onClick={item.onClick}>
                     <Typography noWrap={true} variant="inherit">
                       {item.label}
                     </Typography>
@@ -138,7 +139,15 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
                 }}
               >
                 {menuItems.map(item => (
-                  <MenuItem key={item.key}>{item.label}</MenuItem>
+                  <MenuItem
+                    key={item.key}
+                    onClick={() => {
+                      item.onClick();
+                      setMenuButtonRef(undefined);
+                    }}
+                  >
+                    {item.label}
+                  </MenuItem>
                 ))}
               </Menu>
             </Grid>
