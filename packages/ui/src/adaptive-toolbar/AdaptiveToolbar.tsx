@@ -14,7 +14,6 @@ import React, {
   Key,
   ReactNode,
   RefAttributes,
-  useCallback,
   useLayoutEffect,
   useRef,
   useState,
@@ -37,14 +36,6 @@ export interface AdaptiveToolbarProps
 export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = forwardRef(
   ({ items, ...props }, ref) => {
     const itemNodes = useRef<Array<null | HTMLElement>>([]);
-    const itemNodesIdx = useRef(0);
-    useLayoutEffect(() => {
-      itemNodesIdx.current = 0;
-    });
-    const itemNodeRef = useCallback((node: null | HTMLElement) => {
-      itemNodes.current[itemNodesIdx.current++] = node;
-    }, []);
-
     const rootRef = useRef<HTMLDivElement>(null);
     const optionsButtonRef = useRef<HTMLDivElement>(null);
     const [firstHiddenIdx, setFirstHiddenIdx] = useState(-1);
@@ -67,8 +58,10 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
         const optionsButtonWidth = optionsButtonRect?.width || 0;
         const maxRightPosition = rootWidth - optionsButtonWidth;
 
-        const lastNode = itemNodes.current[itemNodes.current.length - 1];
-        const hiddenIdx = itemNodes.current.findIndex(itemNode => {
+        const mountedNodes = itemNodes.current.filter(
+          (x): x is HTMLDivElement => x != null,
+        );
+        const hiddenIdx = mountedNodes.findIndex((itemNode, idx) => {
           if (!itemNode) {
             return false;
           }
@@ -78,7 +71,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
           const itemRect = itemNode.getBoundingClientRect();
           const itemRightPosition = itemRect.left + itemRect.width;
 
-          return lastNode === itemNode
+          return idx === mountedNodes.length - 1
             ? itemRightPosition > rootWidth
             : itemRightPosition > maxRightPosition;
         });
@@ -109,9 +102,15 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
         <Grid container={true} spacing={1} wrap="nowrap" ref={rootRef}>
           <Grid item={true} style={{ overflow: 'hidden' }}>
             <Grid container={true} spacing={1} wrap="nowrap" component="div">
-              {items.map(item => (
-                <Grid key={item.key} item={true} ref={itemNodeRef}>
-                  <Button variant="outlined" onClick={item.onClick}>
+              {items.map((item, idx) => (
+                <Grid
+                  key={item.key}
+                  item={true}
+                  ref={node => {
+                    itemNodes.current[idx] = node;
+                  }}
+                >
+                  <Button type="button" onClick={item.onClick}>
                     <Typography noWrap={true} variant="inherit">
                       {item.label}
                     </Typography>
@@ -124,6 +123,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
           {menuItems.length > 0 && (
             <Grid item={true} ref={optionsButtonRef} component="div">
               <Button
+                type="button"
                 onClick={({ currentTarget }) => {
                   setMenuButtonRef(currentTarget);
                 }}
