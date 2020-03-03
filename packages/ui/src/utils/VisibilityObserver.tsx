@@ -7,6 +7,7 @@ export interface VisibilityObserverRenderProps {
 }
 
 export interface VisibilityObserverProps {
+  threshold?: number;
   marginTop?: string;
   marginLeft?: string;
   marginRight?: string;
@@ -18,6 +19,7 @@ export interface VisibilityObserverProps {
 export function VisibilityObserver({
   render,
   onChange,
+  threshold = 0,
   marginTop = '0px',
   marginLeft = '0px',
   marginRight = '0px',
@@ -49,14 +51,15 @@ export function VisibilityObserver({
       }
 
       observerRef.current = new IntersectionObserver(
-        entry =>
-          setVisibility(entry[0].isIntersecting ? 'visible' : 'invisible'),
-        { rootMargin },
+        entry => {
+          setVisibility(entry[0].isIntersecting ? 'visible' : 'invisible');
+        },
+        { rootMargin, threshold },
       );
 
       observerRef.current.observe(node);
     },
-    [rootMargin],
+    [threshold, rootMargin],
   );
 
   useWhenValueChanges(visibility, () => onChange?.(visibility));
