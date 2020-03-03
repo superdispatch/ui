@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/styles';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
@@ -46,6 +47,11 @@ function useResizeObserver<T extends HTMLElement>(
   }, [cb, node]);
 }
 
+const useStyles = makeStyles(
+  { actions: { overflow: 'hidden' } },
+  { name: 'SuperDispatchAdaptiveToolbar' },
+);
+
 export interface AdaptiveToolbarItem {
   key: Key;
   label: ReactNode;
@@ -60,6 +66,8 @@ export interface AdaptiveToolbarProps
 
 export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = forwardRef(
   ({ items, ...props }, ref) => {
+    const styles = useStyles();
+
     const itemNodes = useRef<Array<null | HTMLElement>>([]);
     const optionsButtonRef = useRef<HTMLDivElement>(null);
     const [firstHiddenIdx, setFirstHiddenIdx] = useState(-1);
@@ -106,7 +114,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
     return (
       <Toolbar {...props} ref={ref}>
         <Grid container={true} spacing={1} wrap="nowrap" ref={setRootNode}>
-          <Grid item={true} style={{ overflow: 'hidden' }}>
+          <Grid item={true} className={styles.actions}>
             <Grid container={true} spacing={1} wrap="nowrap" component="div">
               {items.map((item, idx) => (
                 <Grid
