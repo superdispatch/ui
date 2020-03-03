@@ -81,10 +81,6 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
         (x): x is HTMLDivElement => x != null,
       );
       const hiddenIdx = mountedNodes.findIndex((itemNode, idx) => {
-        if (!itemNode) {
-          return false;
-        }
-
         itemNode.removeAttribute('hidden');
 
         const itemRect = itemNode.getBoundingClientRect();
@@ -100,9 +96,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
 
       if (hiddenIdx !== -1) {
         mountedNodes.slice(hiddenIdx).forEach(itemNode => {
-          if (itemNode) {
-            itemNode.setAttribute('hidden', 'true');
-          }
+          itemNode.setAttribute('hidden', 'true');
         });
       }
 
