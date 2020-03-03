@@ -90,9 +90,12 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
         const itemRect = itemNode.getBoundingClientRect();
         const itemRightPosition = itemRect.left + itemRect.width;
 
-        return idx === mountedNodes.length - 1
-          ? itemRightPosition > rootWidth
-          : itemRightPosition > maxRightPosition;
+        // Ignore options button width when checking last item.
+        if (idx === mountedNodes.length - 1) {
+          return itemRightPosition > rootWidth;
+        }
+
+        return itemRightPosition > maxRightPosition;
       });
 
       if (hiddenIdx !== -1) {
