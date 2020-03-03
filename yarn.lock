@@ -12038,10 +12038,10 @@ utila@^0.4.0, utila@~0.4:
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=
 
-utility-hooks@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/utility-hooks/-/utility-hooks-0.6.0.tgz#6a8acbfa5aa6a16096a0ce696592d025d9c44397"
-  integrity sha512-HlS/ACYfbx4vc+8HkoYsLRfqDV/GUl3+VBgVrcS7Wa5rQHn92LWNgayCmix+Gll/+U1Fef+GC6UVB6HED/F8LQ==
+utility-hooks@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/utility-hooks/-/utility-hooks-0.6.1.tgz#1cbb3678d3c9d15b0faa15bd6d1029e7acba7072"
+  integrity sha512-AdLJDHG7mbywROeuTJ4f43aF4J1iFNjtUStMde+i6o2i0SAwYsGb9aB+ODmZWLClM8ujHqabPRTIeEL5fYIqrg==
 
 utils-merge@1.0.1:
   version "1.0.1"

@@ -8,7 +8,7 @@ import {
 import React, { useState } from 'react';
 
 export function AdaptiveToolbarDemo() {
-  const [width, setWidth] = useState(320);
+  const [width, setWidth] = useState(400);
   const { addSnackbar } = useSnackbarStack();
 
   return (

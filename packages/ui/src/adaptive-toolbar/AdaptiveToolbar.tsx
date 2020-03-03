@@ -14,12 +14,37 @@ import React, {
   Key,
   ReactNode,
   RefAttributes,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
+import { useEventCallback, useIsomorphicLayoutEffect } from 'utility-hooks';
 
 import { Button } from '../button/Button';
+
+function useResizeObserver<T extends HTMLElement>(
+  node: null | undefined | T,
+  callback: (node: T) => void,
+): void {
+  const cb = useEventCallback(callback);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!node) {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      cb(node);
+    });
+
+    resizeObserver.observe(node);
+
+    cb(node);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [cb, node]);
+}
 
 export interface AdaptiveToolbarItem {
   key: Key;
@@ -36,70 +61,54 @@ export interface AdaptiveToolbarProps
 export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = forwardRef(
   ({ items, ...props }, ref) => {
     const itemNodes = useRef<Array<null | HTMLElement>>([]);
-    const rootRef = useRef<HTMLDivElement>(null);
     const optionsButtonRef = useRef<HTMLDivElement>(null);
     const [firstHiddenIdx, setFirstHiddenIdx] = useState(-1);
 
     const menuItems = firstHiddenIdx === -1 ? [] : items.slice(firstHiddenIdx);
     const [menuButtonNode, setMenuButtonRef] = useState<HTMLElement>();
 
-    useLayoutEffect(() => {
-      const { current: node } = rootRef;
+    const [rootNode, setRootNode] = useState<null | HTMLDivElement>(null);
 
-      if (!node) {
-        return;
-      }
+    useResizeObserver(rootNode, () => {
+      const rootRect = (rootNode as HTMLElement).getBoundingClientRect();
+      const rootWidth = rootRect.left + rootRect.width;
 
-      const calculate = () => {
-        const rootRect = node.getBoundingClientRect();
-        const rootWidth = rootRect.left + rootRect.width;
+      const optionsButtonRect = optionsButtonRef.current?.getBoundingClientRect();
+      const optionsButtonWidth = optionsButtonRect?.width || 0;
+      const maxRightPosition = rootWidth - optionsButtonWidth;
 
-        const optionsButtonRect = optionsButtonRef.current?.getBoundingClientRect();
-        const optionsButtonWidth = optionsButtonRect?.width || 0;
-        const maxRightPosition = rootWidth - optionsButtonWidth;
-
-        const mountedNodes = itemNodes.current.filter(
-          (x): x is HTMLDivElement => x != null,
-        );
-        const hiddenIdx = mountedNodes.findIndex((itemNode, idx) => {
-          if (!itemNode) {
-            return false;
-          }
-
-          itemNode.removeAttribute('hidden');
-
-          const itemRect = itemNode.getBoundingClientRect();
-          const itemRightPosition = itemRect.left + itemRect.width;
-
-          return idx === mountedNodes.length - 1
-            ? itemRightPosition > rootWidth
-            : itemRightPosition > maxRightPosition;
-        });
-
-        if (hiddenIdx !== -1) {
-          itemNodes.current.slice(hiddenIdx).forEach(itemNode => {
-            if (itemNode) {
-              itemNode.setAttribute('hidden', 'true');
-            }
-          });
+      const mountedNodes = itemNodes.current.filter(
+        (x): x is HTMLDivElement => x != null,
+      );
+      const hiddenIdx = mountedNodes.findIndex((itemNode, idx) => {
+        if (!itemNode) {
+          return false;
         }
 
-        setFirstHiddenIdx(hiddenIdx);
-      };
+        itemNode.removeAttribute('hidden');
 
-      const resizeObserver = new ResizeObserver(calculate);
+        const itemRect = itemNode.getBoundingClientRect();
+        const itemRightPosition = itemRect.left + itemRect.width;
 
-      calculate();
-      resizeObserver.observe(node);
+        return idx === mountedNodes.length - 1
+          ? itemRightPosition > rootWidth
+          : itemRightPosition > maxRightPosition;
+      });
 
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }, []);
+      if (hiddenIdx !== -1) {
+        itemNodes.current.slice(hiddenIdx).forEach(itemNode => {
+          if (itemNode) {
+            itemNode.setAttribute('hidden', 'true');
+          }
+        });
+      }
+
+      setFirstHiddenIdx(hiddenIdx);
+    });
 
     return (
       <Toolbar {...props} ref={ref}>
-        <Grid container={true} spacing={1} wrap="nowrap" ref={rootRef}>
+        <Grid container={true} spacing={1} wrap="nowrap" ref={setRootNode}>
           <Grid item={true} style={{ overflow: 'hidden' }}>
             <Grid container={true} spacing={1} wrap="nowrap" component="div">
               {items.map((item, idx) => (
