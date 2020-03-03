@@ -96,7 +96,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
       });
 
       if (hiddenIdx !== -1) {
-        itemNodes.current.slice(hiddenIdx).forEach(itemNode => {
+        mountedNodes.slice(hiddenIdx).forEach(itemNode => {
           if (itemNode) {
             itemNode.setAttribute('hidden', 'true');
           }
