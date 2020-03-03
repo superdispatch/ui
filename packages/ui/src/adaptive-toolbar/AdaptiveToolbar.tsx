@@ -133,7 +133,9 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
               <Menu
                 open={!!menuButtonNode}
                 anchorEl={menuButtonNode}
-                onClose={() => setMenuButtonRef(undefined)}
+                onClose={() => {
+                  setMenuButtonRef(undefined);
+                }}
               >
                 {menuItems.map(item => (
                   <MenuItem key={item.key}>{item.label}</MenuItem>
