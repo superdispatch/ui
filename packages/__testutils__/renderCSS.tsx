@@ -9,9 +9,9 @@ const colors = new Map<string, string>(
 );
 
 const colorRegExp = new RegExp(
-  [...colors.keys()]
-    .map(x => x.replace('(', '\\(').replace(')', '\\)'))
-    .join('|'),
+  Array.from(colors.keys(), x =>
+    x.replace('(', '\\(').replace(')', '\\)'),
+  ).join('|'),
   'g',
 );
 
@@ -19,7 +19,7 @@ const renderedCSS = new Set<string>();
 
 function getAllSheets(): Map<string, Element> {
   return new Map<string, Element>(
-    Array.from(document.querySelectorAll('[data-jss]')).map(node => [
+    Array.from(document.querySelectorAll('[data-jss]'), node => [
       node.getAttribute('data-meta') as string,
       node,
     ]),

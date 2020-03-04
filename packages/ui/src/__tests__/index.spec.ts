@@ -144,6 +144,7 @@ it('exposes public api', () => {
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "useSnackbarStack": [Function],
+      "useVisibilityObserver": [Function],
     }
   `);
 });

@@ -1,68 +1,70 @@
-import { ReactElement, useCallback, useRef, useState } from 'react';
-import { useWhenValueChanges } from 'utility-hooks';
+import { ReactElement, useState } from 'react';
+import { useIsomorphicLayoutEffect, useWhenValueChanges } from 'utility-hooks';
 
-export interface VisibilityObserverRenderProps {
-  ref: <T extends HTMLElement>(node: null | T) => void;
-  visibility: 'undetermined' | 'visible' | 'invisible';
-}
+export type ElementVisibility = 'undetermined' | 'visible' | 'invisible';
 
-export interface VisibilityObserverProps {
+export interface VisibilityObserverOptions {
   threshold?: number;
   marginTop?: string;
   marginLeft?: string;
   marginRight?: string;
   marginBottom?: string;
+}
+
+export function useVisibilityObserver<T extends Element>(
+  node: null | undefined | T,
+  {
+    threshold = 0,
+    marginTop = '0px',
+    marginLeft = '0px',
+    marginRight = '0px',
+    marginBottom = '0px',
+  }: VisibilityObserverOptions = {},
+): ElementVisibility {
+  const [state, setState] = useState<ElementVisibility>('undetermined');
+  const rootMargin = `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
+
+  useIsomorphicLayoutEffect(() => {
+    if (!node || !('IntersectionObserver' in window)) {
+      return setState('undetermined');
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setState(entry.isIntersecting ? 'visible' : 'invisible');
+      },
+      { rootMargin, threshold },
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [node, threshold, rootMargin]);
+
+  return state;
+}
+
+export interface VisibilityObserverRenderProps {
+  visibility: ElementVisibility;
+  ref: <T extends HTMLElement>(node: null | T) => void;
+}
+
+export interface VisibilityObserverProps extends VisibilityObserverOptions {
   render: (props: VisibilityObserverRenderProps) => ReactElement;
-  onChange?: (visibility: VisibilityObserverRenderProps['visibility']) => void;
+  onChange?: (visibility: ElementVisibility) => void;
 }
 
 export function VisibilityObserver({
   render,
   onChange,
-  threshold = 0,
-  marginTop = '0px',
-  marginLeft = '0px',
-  marginRight = '0px',
-  marginBottom = '0px',
+  ...options
 }: VisibilityObserverProps): ReactElement {
-  const [visibility, setVisibility] = useState<
-    VisibilityObserverRenderProps['visibility']
-  >('undetermined');
-  const rootMargin = `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
-
-  const observerRef = useRef<IntersectionObserver>();
-
-  // Use memoize `ref` so it would be called just once on mount and unmount.
-  const ref = useCallback<VisibilityObserverRenderProps['ref']>(
-    node => {
-      if (!('IntersectionObserver' in window)) {
-        return;
-      }
-
-      // Clear exist observer before moving further.
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-        observerRef.current = undefined;
-      }
-
-      // This means that node is unmounted and we can leave.
-      if (!node) {
-        return;
-      }
-
-      observerRef.current = new IntersectionObserver(
-        entry => {
-          setVisibility(entry[0].isIntersecting ? 'visible' : 'invisible');
-        },
-        { rootMargin, threshold },
-      );
-
-      observerRef.current.observe(node);
-    },
-    [threshold, rootMargin],
-  );
+  const [node, setNode] = useState<null | HTMLElement>(null);
+  const visibility = useVisibilityObserver(node, options);
 
   useWhenValueChanges(visibility, () => onChange?.(visibility));
 
-  return render({ ref, visibility });
+  return render({ ref: setNode, visibility });
 }

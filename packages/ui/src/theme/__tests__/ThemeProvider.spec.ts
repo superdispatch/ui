@@ -6,9 +6,9 @@ const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
 );
 const colorRegExp = new RegExp(
-  [...colors.keys()]
-    .map(x => x.replace('(', '\\(').replace(')', '\\)'))
-    .join('|'),
+  Array.from(colors.keys(), x =>
+    x.replace('(', '\\(').replace(')', '\\)'),
+  ).join('|'),
   'g',
 );
 
