@@ -8,6 +8,11 @@ it('exposes public api', () => {
         "displayName": "PhoneField",
         "render": [Function],
       },
+      "PhoneFieldFlag": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "PhoneFieldFlag",
+        "render": [Function],
+      },
       "PhoneLink": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "PhoneLink",
