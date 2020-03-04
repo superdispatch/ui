@@ -3,6 +3,11 @@ import * as api from '..';
 it('exposes public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
+      "AdaptiveToolbar": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "AdaptiveToolbar",
+        "render": [Function],
+      },
       "Button": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Button",
