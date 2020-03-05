@@ -34,7 +34,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/packages/webpage/**.*', '**/packages/__fixtures__/**.*'],
+      files: ['**/packages/webpage/**.*'],
       rules: { 'import/no-anonymous-default-export': 'off' },
     },
   ],
