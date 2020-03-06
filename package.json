@@ -69,7 +69,6 @@
     "react-test-renderer": "^16.13.0",
     "snapshot-diff": "^0.7.0",
     "typescript": "^3.8.3",
-    "utility-hooks": "^0.6.1",
     "webpack": "^4.42.0"
   },
   "engines": {
