@@ -6,5 +6,5 @@
     "@superdispatch/dates": "packages/dates/pkg",
     "@superdispatch/phones": "packages/phones/pkg"
   },
-  "sandboxes": ["/packages/webpage"]
+  "sandboxes": ["/"]
 }
