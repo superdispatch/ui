@@ -10,7 +10,6 @@ module.exports = ({ isDocs = false } = {}) => api => {
     plugins: [
       require.resolve('../tools/babel-plugin-pure-export-calls'),
       require.resolve('../tools/babel-plugin-inject-display-name'),
-      isDocs && !isTest && require.resolve('../tools/babel-plugin-csb'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
     ].filter(Boolean),
   };
