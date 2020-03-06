@@ -10,28 +10,52 @@ import { Edit } from '@material-ui/icons';
 
 function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
   const Component = ctx.hooks?.mountedDecorators?.values().next().value;
-  const csbParams = get(Component, 'csbParams');
-  const sandbox = usePromise<{ sandbox_id: string }>(
+  const pr = get(Component, 'pr');
+  const branch = get(Component, 'branch');
+  const filename = get(Component, 'filename');
+  const prCSB = usePromise(
     ({ abortSignal }) =>
-      ky('https://codesandbox.io/api/v1/sandboxes/define', {
+      ky(`https://gh.csb.dev/api/superdispatch/ui/prs/${pr}/builds`, {
         signal: abortSignal,
-        searchParams: { json: 1, parameters: csbParams },
-      }).json(),
-    [csbParams],
-    { skip: !csbParams },
+      })
+        .json<{
+          builds: Array<{
+            status?: string;
+            sandboxes?: Array<{ url: string }>;
+          }>;
+        }>()
+        .then(
+          response =>
+            response.builds.find(build => build.status === 'succeeded')
+              ?.sandboxes?.[0]?.url,
+        ),
+    [],
+    { skip: !pr },
   );
+
+  const branchCSB = !branch
+    ? undefined
+    : `https://codesandbox.io/s/github/superdispatch/ui/tree/${branch}/packages/webpage`;
+
+  const csbURL = pr ? prCSB.value : branchCSB;
+
+  const csbParams = new URLSearchParams({
+    module: filename,
+    hidenavigation: '1',
+    initialpath: `/iframe.html?id=${ctx.id}`,
+  });
 
   return (
     <ThemeProvider>
-      {!!csbParams && (
+      {!!csbURL && (
         <Box position="fixed" top="8px" right="8px">
-          {sandbox.status === 'fulfilled' ? (
+          {prCSB.status === 'fulfilled' ? (
             <Fab
               size="small"
               color="primary"
               target="_blank"
               rel="noopener noreferrer"
-              href={`https://codesandbox.io/s/${sandbox.value.sandbox_id}?module=demo.tsx`}
+              href={`${csbURL}?${csbParams.toString()}`}
             >
               <Edit fontSize="small" />
             </Fab>
