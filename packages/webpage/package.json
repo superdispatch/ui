@@ -1,5 +1,28 @@
 {
   "name": "@superdispatch/ui-webpage",
   "version": "0.2.12",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "build-storybook -o ../../docs",
+    "start": "start-storybook -p 5000"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.45",
+    "@mdi/js": "^4.9.95",
+    "@superdispatch/dates": "*",
+    "@superdispatch/phones": "*",
+    "@superdispatch/ui": "*",
+    "awesome-phonenumber": "^2.27.0",
+    "ky": "^0.18.0",
+    "lorem-ipsum": "^2.0.3",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "^5.3.14",
+    "@superdispatch/babel-preset": "^0.1.46",
+    "babel-loader": "^8.0.6"
+  }
 }
