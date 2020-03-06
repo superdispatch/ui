@@ -7,7 +7,7 @@ import {
 } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
-export function AdaptiveToolbarDemo() {
+export default function AdaptiveToolbarDemo() {
   const [width, setWidth] = useState(400);
   const { addSnackbar } = useSnackbarStack();
 

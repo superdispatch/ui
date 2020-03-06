@@ -5,7 +5,10 @@ module.exports = ({ types }) => ({
     ExportNamedDeclaration(path) {
       const { node } = path;
 
-      if (node.declaration.type !== 'VariableDeclaration') {
+      if (
+        !node.declaration ||
+        node.declaration.type !== 'VariableDeclaration'
+      ) {
         return;
       }
 
