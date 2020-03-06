@@ -48,31 +48,31 @@ ReactDOM.render(
 );
 `.trim();
 
-function makeParams(name, code, codeDependencies) {
-  const dependencies = new Map();
+function makeParams(name, code, deps) {
+  const depsMap = {};
 
   // Add modules used in demo code.
-  codeDependencies.forEach(id => {
+  deps.forEach(id => {
     // Use versions from `root` package dev dependencies if possible.
-    dependencies.set(id, rootPkg.devDependencies[id] || 'latest');
+    depsMap[id] = rootPkg.devDependencies[id] || 'latest';
   });
 
   // Add peer dependencies of required modules.
   packages.forEach(pkg => {
-    if (pkg.peerDependencies && codeDependencies.has(pkg.name)) {
-      dependencies.set(pkg.name, pkg.version);
+    if (pkg.peerDependencies && deps.has(pkg.name)) {
+      depsMap[pkg.name] = pkg.version;
 
       Object.entries(pkg.peerDependencies).forEach(([id, version]) => {
-        dependencies.set(id, version);
+        depsMap[id] = version;
       });
     }
   });
 
   // Remove direct dependencies of required modules.
   packages.forEach(pkg => {
-    if (pkg.dependecies && codeDependencies.has(pkg.name)) {
+    if (pkg.dependecies && deps.has(pkg.name)) {
       Object.keys(pkg.dependecies).forEach(id => {
-        codeDependencies.delete(id);
+        delete depsMap[id];
       });
     }
   });
@@ -89,7 +89,7 @@ function makeParams(name, code, codeDependencies) {
           main: 'index.tsx',
           title: `${_.startCase(name)} | Super Dispatch UI`,
           scripts: { start: 'react-scripts start' },
-          dependencies: Object.fromEntries(dependencies.entries()),
+          dependencies: depsMap,
         },
       },
     },
