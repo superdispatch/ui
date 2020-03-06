@@ -1,6 +1,6 @@
 {
-  "installCommand": "yarn install",
-  "buildCommand": "yarn build",
+  "installCommand": "install",
+  "buildCommand": "build",
   "packages": ["packages/ui", "packages/dates", "packages/phones"],
   "publishDirectory": {
     "@superdispatch/ui": "pkg",
