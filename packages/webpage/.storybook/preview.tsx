@@ -1,7 +1,7 @@
 import { addDecorator } from '@storybook/react';
 import React, { PropsWithChildren } from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
-import { Box, Fab, CircularProgress } from '@material-ui/core';
+import { Box, Fab } from '@material-ui/core';
 import { StoryContext } from '@storybook/addons';
 import { get } from 'lodash';
 import { usePromise } from 'utility-hooks';
@@ -49,25 +49,19 @@ function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
     <ThemeProvider>
       {!!csbURL && (
         <Box position="fixed" top="8px" right="8px">
-          {prCSB.status === 'fulfilled' ? (
-            <Fab
-              size="small"
-              color="primary"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`${csbURL}?${csbParams.toString()}`}
-            >
-              <Edit fontSize="small" />
-            </Fab>
-          ) : (
-            <Fab size="small" color="primary">
-              <CircularProgress size={24} color="inherit" />{' '}
-            </Fab>
-          )}
+          <Fab
+            size="small"
+            color="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${csbURL}?${csbParams.toString()}`}
+          >
+            <Edit fontSize="small" />
+          </Fab>
         </Box>
       )}
 
-      <Box padding={2} marginTop={5}>
+      <Box padding={2} marginTop={!csbURL ? 0 : 5}>
         {children}
       </Box>
     </ThemeProvider>
