@@ -23,6 +23,7 @@
   "devDependencies": {
     "@storybook/react": "^5.3.14",
     "@superdispatch/babel-preset": "^0.1.46",
+    "@superdispatch/tsconfig": "^0.1.13",
     "babel-loader": "^8.0.6"
   }
 }
