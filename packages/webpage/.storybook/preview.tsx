@@ -7,6 +7,17 @@ import { get } from 'lodash';
 import { usePromise } from 'utility-hooks';
 import ky from 'ky';
 import { Edit } from '@material-ui/icons';
+import { withA11y } from '@storybook/addon-a11y';
+import { withKnobs } from '@storybook/addon-knobs';
+
+addDecorator(withKnobs);
+addDecorator(withA11y);
+
+addDecorator((Story, ctx) => (
+  <ThemeDecorator {...ctx}>
+    <Story {...ctx} />
+  </ThemeDecorator>
+));
 
 function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
   const Component = ctx.hooks?.mountedDecorators?.values().next().value;
@@ -67,9 +78,3 @@ function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
     </ThemeProvider>
   );
 }
-
-addDecorator((Story, ctx) => (
-  <ThemeDecorator {...ctx}>
-    <Story {...ctx} />
-  </ThemeDecorator>
-));
