@@ -1,5 +1,4 @@
-import { Typography } from '@material-ui/core';
-import { TypographyProps } from '@material-ui/core/Typography';
+import { Typography, TypographyProps } from '@material-ui/core';
 import { GridStack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React from 'react';
