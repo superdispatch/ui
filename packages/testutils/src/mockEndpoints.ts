@@ -2,7 +2,7 @@ import {
   mockEndpoint,
   MockEndpointOptions,
   MockEndpointRequest,
-} from './MockEndpoint';
+} from './mockEndpoint';
 
 export type MockEndpoints<TEndpointName extends string> = {
   [TKey in TEndpointName]: MockEndpointOptions;

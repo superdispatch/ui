@@ -1,4 +1,4 @@
-import qs from 'qs';
+import { parse } from 'qs';
 
 expect.addSnapshotSerializer({
   test(value: unknown) {
@@ -16,7 +16,7 @@ expect.addSnapshotSerializer({
     return serialize({
       hash,
       pathname,
-      searchParams: qs.parse(search, {
+      searchParams: parse(search, {
         ignoreQueryPrefix: true,
         decoder: (str, defaultDecoder, charset) => {
           const decoded = defaultDecoder(str, defaultDecoder, charset);
