@@ -1,17 +1,8 @@
-import {
-  CircularProgress,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  InputAdornment,
-  Switch,
-  TextField,
-} from '@material-ui/core';
+import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import { boolean } from '@storybook/addon-knobs';
 import { GridStack } from '@superdispatch/ui';
-import React, { useState } from 'react';
+import React from 'react';
 
 const top100Films = [
   { title: 'The Shawshank Redemption', year: 1994 },
@@ -121,152 +112,85 @@ const top100Films = [
 ];
 
 export default function AutocompleteDemo() {
-  const [disabled, setDisabled] = useState(false);
-  const [clearable, setClearable] = useState(false);
-  const [hasLabel, setHasLabel] = useState(true);
-  const [hasPopup, setPopup] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [isFullWidth, setIsFullWidth] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const [hasHelperText, setHasHelperText] = useState(false);
+  const disabled = boolean('Disabled', false);
+  const clearable = boolean('Clearable', false);
+  const hasLabel = boolean('Has Label', true);
+  const hasPopup = boolean('Has Popup', true);
+  const hasError = boolean('Has Error', false);
+  const isFullWidth = boolean('Full Width', false);
+  const isLoading = boolean('Loading', false);
+  const hasHelperText = boolean('Has Helper Text', false);
+
   return (
     <GridStack spacing={2}>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Visual</FormLabel>
-
-        <FormGroup row={true}>
-          <FormControlLabel
-            label="Disabled"
-            control={<Switch />}
-            checked={disabled}
-            onChange={(_, checked) => setDisabled(checked)}
+      <Autocomplete
+        forcePopupIcon={isLoading ? false : hasPopup}
+        disableClearable={isLoading || !clearable}
+        loading={isLoading}
+        disabled={disabled}
+        options={top100Films}
+        getOptionLabel={option => option.title}
+        renderInput={params => (
+          <TextField
+            {...params}
+            label={hasLabel && 'Combo box'}
+            fullWidth={isFullWidth}
+            error={hasError}
+            helperText={
+              !hasHelperText
+                ? undefined
+                : hasError
+                ? 'Invalid Value'
+                : 'Select film'
+            }
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: isLoading ? (
+                <InputAdornment position="end">
+                  <CircularProgress color="inherit" size={20} />
+                </InputAdornment>
+              ) : (
+                params.InputProps.endAdornment
+              ),
+            }}
           />
+        )}
+      />
 
-          <FormControlLabel
-            label="Clearable"
-            control={<Switch />}
-            checked={clearable}
-            onChange={(_, checked) => setClearable(checked)}
+      <Autocomplete
+        forcePopupIcon={isLoading ? false : hasPopup}
+        disableClearable={isLoading || !clearable}
+        loading={isLoading}
+        disabled={disabled}
+        multiple={true}
+        options={top100Films}
+        getOptionLabel={option => option.title}
+        renderInput={params => (
+          <TextField
+            {...params}
+            label={hasLabel && 'Multiple values'}
+            fullWidth={isFullWidth}
+            error={hasError}
+            helperText={
+              !hasHelperText
+                ? undefined
+                : hasError
+                ? 'Invalid Value'
+                : 'Select film'
+            }
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: isLoading ? (
+                <InputAdornment position="end">
+                  <CircularProgress color="inherit" size={20} />
+                </InputAdornment>
+              ) : (
+                params.InputProps.endAdornment
+              ),
+            }}
           />
-
-          <FormControlLabel
-            label="Loading"
-            control={<Switch />}
-            checked={isLoading}
-            onChange={(_, checked) => setLoading(checked)}
-          />
-
-          <FormControlLabel
-            label="Full width"
-            control={<Switch />}
-            checked={isFullWidth}
-            onChange={(_, checked) => setIsFullWidth(checked)}
-          />
-
-          <FormControlLabel
-            label="Has Popup"
-            control={<Switch />}
-            checked={hasPopup}
-            onChange={(_, checked) => setPopup(checked)}
-          />
-
-          <FormControlLabel
-            label="Has Label"
-            control={<Switch />}
-            checked={hasLabel}
-            onChange={(_, checked) => setHasLabel(checked)}
-          />
-
-          <FormControlLabel
-            label="Has Error"
-            control={<Switch />}
-            checked={hasError}
-            onChange={(_, checked) => setHasError(checked)}
-          />
-
-          <FormControlLabel
-            label="Has Helper Text"
-            control={<Switch />}
-            checked={hasHelperText}
-            onChange={(_, checked) => setHasHelperText(checked)}
-          />
-        </FormGroup>
-      </FormControl>
-
-      <Grid container={true} spacing={2}>
-        <Grid item={true}>
-          <Autocomplete
-            forcePopupIcon={isLoading ? false : hasPopup}
-            disableClearable={isLoading || !clearable}
-            loading={isLoading}
-            disabled={disabled}
-            options={top100Films}
-            getOptionLabel={option => option.title}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label={hasLabel && 'Combo box'}
-                fullWidth={isFullWidth}
-                error={hasError}
-                helperText={
-                  !hasHelperText
-                    ? undefined
-                    : hasError
-                    ? 'Invalid Value'
-                    : 'Select film'
-                }
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: isLoading ? (
-                    <InputAdornment position="end">
-                      <CircularProgress color="inherit" size={20} />
-                    </InputAdornment>
-                  ) : (
-                    params.InputProps.endAdornment
-                  ),
-                }}
-              />
-            )}
-          />
-        </Grid>
-
-        <Grid item={true}>
-          <Autocomplete
-            forcePopupIcon={isLoading ? false : hasPopup}
-            disableClearable={isLoading || !clearable}
-            loading={isLoading}
-            disabled={disabled}
-            multiple={true}
-            options={top100Films}
-            getOptionLabel={option => option.title}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label={hasLabel && 'Multiple values'}
-                fullWidth={isFullWidth}
-                error={hasError}
-                helperText={
-                  !hasHelperText
-                    ? undefined
-                    : hasError
-                    ? 'Invalid Value'
-                    : 'Select film'
-                }
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: isLoading ? (
-                    <InputAdornment position="end">
-                      <CircularProgress color="inherit" size={20} />
-                    </InputAdornment>
-                  ) : (
-                    params.InputProps.endAdornment
-                  ),
-                }}
-              />
-            )}
-          />
-        </Grid>
-      </Grid>
+        )}
+      />
     </GridStack>
   );
 }

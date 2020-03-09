@@ -1,83 +1,37 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-} from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { IconButtonProps } from '@material-ui/core/IconButton';
 import { Check } from '@material-ui/icons';
-import { GridStack, InlineGrid } from '@superdispatch/ui';
-import { startCase } from 'lodash';
-import React, { useState } from 'react';
-
-type State = 'stale' | 'disabled';
-const states: State[] = ['stale', 'disabled'];
-const colors: Array<IconButtonProps['color']> = [
-  'default',
-  'primary',
-  'inherit',
-];
+import { select } from '@storybook/addon-knobs';
+import { InlineGrid } from '@superdispatch/ui';
+import React from 'react';
 
 const sizes: Array<IconButtonProps['size']> = ['small', 'medium'];
 
 export default function IconButtonDemo() {
-  const [state, setState] = useState<State>('stale');
-  const [color, setColor] = useState<IconButtonProps['color']>('default');
+  const state = select(
+    'State',
+    { Stale: 'stale', Disabled: 'disabled' },
+    'stale',
+  );
+
+  const color = select(
+    'Color',
+    { Default: 'default', Primary: 'primary', Inherit: 'inherit' },
+    'default',
+  );
 
   return (
-    <GridStack spacing={2}>
-      <FormControl>
-        <FormLabel>State</FormLabel>
-        <RadioGroup
-          row={true}
-          value={state}
-          name="state"
-          onChange={(_, value) => setState(value as State)}
+    <InlineGrid spacing={2}>
+      {sizes.map(size => (
+        <IconButton
+          key={size}
+          size={size}
+          color={color}
+          disabled={state === 'disabled'}
         >
-          {states.map(x => (
-            <FormControlLabel
-              key={x}
-              value={x}
-              control={<Radio />}
-              label={startCase(x)}
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Color</FormLabel>
-        <RadioGroup
-          row={true}
-          name="color"
-          value={color}
-          onChange={(_, value) => setColor(value as IconButtonProps['color'])}
-        >
-          {colors.map(x => (
-            <FormControlLabel
-              key={x}
-              value={x}
-              control={<Radio />}
-              label={startCase(x)}
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
-
-      <InlineGrid spacing={2}>
-        {sizes.map(size => (
-          <IconButton
-            key={size}
-            size={size}
-            color={color}
-            disabled={state === 'disabled'}
-          >
-            <Check />
-          </IconButton>
-        ))}
-      </InlineGrid>
-    </GridStack>
+          <Check />
+        </IconButton>
+      ))}
+    </InlineGrid>
   );
 }
