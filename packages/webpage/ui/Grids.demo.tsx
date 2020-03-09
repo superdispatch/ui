@@ -1,96 +1,58 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  GridItemsAlignment,
-  GridJustification,
-  GridSpacing,
-  GridWrap,
-  MenuItem,
-  Slider,
-  Switch,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Grid, GridSpacing, Typography } from '@material-ui/core';
+import { boolean, number, select } from '@storybook/addon-knobs';
 import { Color, GridStack, InlineGrid } from '@superdispatch/ui';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function GridsDemo() {
-  const [items, setItems] = useState(3);
-  const [wrap, setWrap] = useState<GridWrap>('wrap');
-  const [spacing, setSpacing] = useState<GridSpacing>(2);
-  const [justify, setJustify] = useState<GridJustification>('flex-start');
-  const [alignItems, setAlignItems] = useState<GridItemsAlignment>('stretch');
+  const items = number('Items', 3, {
+    min: 1,
+    step: 1,
+    max: 20,
+    range: true,
+  });
+  const spacing = number('Spacing', 2, {
+    min: 0,
+    max: 10,
+    step: 1,
+    range: true,
+  }) as GridSpacing;
 
-  const [dynamicSize, setDynamicSize] = useState(false);
+  const dynamicSize = boolean('Dynamic Size', false);
+  const alignItems = select(
+    'Alignment',
+    {
+      'flex-start': 'flex-start',
+      center: 'center',
+      'flex-end': 'flex-end',
+      stretch: 'stretch',
+      baseline: 'baseline',
+    },
+    'stretch',
+  );
+  const justifyContent = select(
+    'Justification',
+    {
+      'flex-start': 'flex-start',
+      center: 'center',
+      'flex-end': 'flex-end',
+      'space-between': 'space-between',
+      'space-around': 'space-around',
+      'space-evenly': 'space-evenly',
+    },
+    'flex-start',
+  );
+  const wrap = select(
+    'Justification',
+    {
+      nowrap: 'nowrap',
+      wrap: 'wrap',
+      'wrap-reverse': 'wrap-reverse',
+    },
+    'wrap',
+  );
 
   return (
     <Grid container={true} spacing={2}>
-      <Grid item={true} xs={12}>
-        <Grid container={true} spacing={2}>
-          <Grid item={true}>
-            <FormControl>
-              <FormLabel>Child</FormLabel>
-              <FormGroup row={true}>
-                <FormControlLabel
-                  checked={dynamicSize}
-                  label="Dynamic Size"
-                  control={<Switch />}
-                  onChange={(_, checked) => setDynamicSize(checked)}
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid>
-
-          <Grid item={true}>
-            <TextField
-              select={true}
-              label="Alignment"
-              value={alignItems}
-              onChange={event =>
-                setAlignItems(event.target.value as GridItemsAlignment)
-              }
-            >
-              {['flex-start', 'center', 'flex-end', 'stretch', 'baseline'].map(
-                value => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ),
-              )}
-            </TextField>
-          </Grid>
-
-          <Grid item={true} xs={true}>
-            <Typography gutterBottom={true}>Items</Typography>
-            <Slider
-              min={1}
-              max={10}
-              step={1}
-              marks={true}
-              valueLabelDisplay="auto"
-              value={items}
-              onChange={(_, value) => setItems(value as number)}
-            />
-          </Grid>
-
-          <Grid item={true} xs={true}>
-            <Typography gutterBottom={true}>Spacing</Typography>
-            <Slider
-              min={0}
-              max={10}
-              step={1}
-              marks={true}
-              valueLabelDisplay="auto"
-              value={spacing}
-              onChange={(_, value) => setSpacing(value as GridSpacing)}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-
       <Grid item={true} xs={6}>
         <Grid container={true} spacing={2}>
           <Grid item={true} xs={12}>
@@ -99,53 +61,12 @@ export default function GridsDemo() {
             </Typography>
           </Grid>
 
-          <Grid item={true} xs={12} container={true} spacing={2}>
-            <Grid item={true}>
-              <TextField
-                select={true}
-                label="Justification"
-                value={justify}
-                onChange={event =>
-                  setJustify(event.target.value as GridJustification)
-                }
-              >
-                {[
-                  'flex-start',
-                  'center',
-                  'flex-end',
-                  'space-between',
-                  'space-around',
-                  'space-evenly',
-                ].map(value => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-
-            <Grid item={true}>
-              <TextField
-                select={true}
-                label="Wrap"
-                value={wrap}
-                onChange={event => setWrap(event.target.value as GridWrap)}
-              >
-                {['nowrap', 'wrap', 'wrap-reverse'].map(value => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-          </Grid>
-
           <Grid item={true} xs={12}>
             <div style={{ width: 256 }}>
               <InlineGrid
                 wrap={wrap}
                 spacing={spacing}
-                justify={justify}
+                justify={justifyContent}
                 alignItems={alignItems}
                 style={{ backgroundColor: Color.Silver500 }}
               >
