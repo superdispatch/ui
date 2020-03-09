@@ -14,6 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowBack, Close, Delete } from '@material-ui/icons';
+import { boolean } from '@storybook/addon-knobs';
 import {
   Button,
   DrawerActions,
@@ -35,7 +36,8 @@ const listItems = Array.from(
 );
 
 export default function DrawerDemo() {
-  const [isOpen, setIsOpen] = useState(true);
+  const isInitiallyOpen = boolean('Initially Opened', true);
+  const [isOpen, setIsOpen] = useState(isInitiallyOpen);
   const [title, setTitle] = useState('Drawer Title');
   const [subtitle, setSubtitle] = useState('');
   const [hasStartAction, setHasStartAction] = useState(false);
