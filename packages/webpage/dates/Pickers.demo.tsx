@@ -1,18 +1,12 @@
 import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
   InputAdornment,
-  MenuItem,
-  Switch,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  TextField,
   Typography,
 } from '@material-ui/core';
+import { boolean, select } from '@storybook/addon-knobs';
 import {
   DateContextProvider,
   DateField,
@@ -42,21 +36,30 @@ function formatUTC(offset: number): string {
   return out;
 }
 
-const offsetOptions = Array.from({ length: 22 }, (_, idx) => (idx - 11) * 60);
+const offsetOptions = Array.from({ length: 22 }).reduce<Record<string, number>>(
+  (acc, _, idx) => {
+    const offset = (idx - 11) * 60;
+
+    acc[formatUTC(offset)] = offset;
+
+    return acc;
+  },
+  {},
+);
 
 export default function PickersDemo() {
+  const timeZoneOffset = select<number>('Time Zone Offset', offsetOptions, 0);
+
+  const disabled = boolean('Disabled', false);
+  const hasLabel = boolean('Has Label', false);
+  const hasError = boolean('Has Error', false);
+  const isFullWidth = boolean('Has Full Width', false);
+  const hasHelperText = boolean('Has Helper Text', false);
+  const hasClear = boolean('Clearable', false);
+  const hasAdornment = boolean('With Adornment', false);
+  const disableCloseOnSelect = boolean('Disable Close on Select', false);
+
   const [range, setRange] = useState<DateRange>([]);
-  const [timeZoneOffset, setTimeZoneOffset] = useState(0);
-
-  const [disabled, setDisabled] = useState(false);
-  const [hasLabel, setHasLabel] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [isFullWidth, setIsFullWidth] = useState(false);
-  const [hasHelperText, setHasHelperText] = useState(false);
-  const [hasClear, setHasClear] = useState(false);
-  const [hasAdornment, setHasAdornment] = useState(false);
-  const [disableCloseOnSelect, setDisableCloseOnSelect] = useState(false);
-
   const utils = useMemo(() => new DateUtils({ timeZoneOffset }), [
     timeZoneOffset,
   ]);
@@ -64,81 +67,6 @@ export default function PickersDemo() {
   return (
     <DateContextProvider timeZoneOffset={timeZoneOffset}>
       <GridStack spacing={2}>
-        <TextField
-          select={true}
-          label="TimeZone Offset"
-          value={timeZoneOffset}
-          onChange={event => setTimeZoneOffset(Number(event.target.value))}
-        >
-          {offsetOptions.map(option => (
-            <MenuItem key={option} value={option}>
-              {formatUTC(option)}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <FormControl>
-          <FormLabel>Visual</FormLabel>
-
-          <FormGroup row={true}>
-            <FormControlLabel
-              label="Disabled"
-              control={<Switch />}
-              checked={disabled}
-              onChange={(_, checked) => setDisabled(checked)}
-            />
-
-            <FormControlLabel
-              label="Full width"
-              control={<Switch />}
-              checked={isFullWidth}
-              onChange={(_, checked) => setIsFullWidth(checked)}
-            />
-
-            <FormControlLabel
-              label="Label"
-              control={<Switch />}
-              checked={hasLabel}
-              onChange={(_, checked) => setHasLabel(checked)}
-            />
-
-            <FormControlLabel
-              label="Error"
-              control={<Switch />}
-              checked={hasError}
-              onChange={(_, checked) => setHasError(checked)}
-            />
-
-            <FormControlLabel
-              label="Helper Text"
-              control={<Switch />}
-              checked={hasHelperText}
-              onChange={(_, checked) => setHasHelperText(checked)}
-            />
-
-            <FormControlLabel
-              label="Clearable"
-              control={<Switch />}
-              checked={hasClear}
-              onChange={(_, checked) => setHasClear(checked)}
-            />
-
-            <FormControlLabel
-              label="Disable Close on Select"
-              control={<Switch />}
-              checked={disableCloseOnSelect}
-              onChange={(_, checked) => setDisableCloseOnSelect(checked)}
-            />
-
-            <FormControlLabel
-              label="Has Adornment"
-              control={<Switch />}
-              checked={hasAdornment}
-              onChange={(_, checked) => setHasAdornment(checked)}
-            />
-          </FormGroup>
-        </FormControl>
-
         <GridStack spacing={1}>
           <Typography variant="h3">Date Field</Typography>
 
@@ -154,6 +82,7 @@ export default function PickersDemo() {
                 <InputAdornment position="start">Date:</InputAdornment>
               ),
             }}
+            error={hasError}
             label={hasLabel && 'Date'}
             helperText={
               !hasHelperText
@@ -180,6 +109,7 @@ export default function PickersDemo() {
                 <InputAdornment position="start">Date:</InputAdornment>
               ),
             }}
+            error={hasError}
             label={hasLabel && 'Date Range'}
             helperText={
               !hasHelperText
