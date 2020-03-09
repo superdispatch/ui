@@ -40,14 +40,14 @@ export class MockEvent {
     fireEvent.change(element, { target: { ...element, value: text } });
   }
 
-  static changeFile(element: HTMLElement, file: File) {
-    MockEvent.click(element);
-    fireEvent.change(element, { target: { ...element, files: [file] } });
-  }
-
   static changeAndBlur(element: HTMLElement, text: string) {
     MockEvent.change(element, text);
     fireEvent.blur(element, { target: { ...element, value: text } });
+  }
+
+  static changeFile(element: HTMLElement, file: File) {
+    MockEvent.click(element);
+    fireEvent.change(element, { target: { ...element, files: [file] } });
   }
 
   static changeFileAndBlur(element: HTMLElement, file: File) {
