@@ -1,5 +1,10 @@
 import { act, fireEvent } from '@testing-library/react';
 
+const keyCodes = new Map([
+  ['Enter', 13],
+  ['Escape', 27],
+]);
+
 export class MockEvent {
   static focus(element: HTMLElement): void {
     act(() => {
@@ -25,13 +30,28 @@ export class MockEvent {
     });
   }
 
+  static keyPress(element: HTMLElement, key: 'Enter' | 'Escape') {
+    MockEvent.click(element);
+    fireEvent.keyPress(element, { key, keyCode: keyCodes.get(key) });
+  }
+
   static change(element: HTMLElement, text: string) {
     MockEvent.click(element);
     fireEvent.change(element, { target: { ...element, value: text } });
   }
 
+  static changeFile(element: HTMLElement, file: File) {
+    MockEvent.click(element);
+    fireEvent.change(element, { target: { ...element, files: [file] } });
+  }
+
   static changeAndBlur(element: HTMLElement, text: string) {
     MockEvent.change(element, text);
     fireEvent.blur(element, { target: { ...element, value: text } });
+  }
+
+  static changeFileAndBlur(element: HTMLElement, file: File) {
+    MockEvent.changeFile(element, file);
+    fireEvent.blur(element, { target: { ...element, files: [file] } });
   }
 }
