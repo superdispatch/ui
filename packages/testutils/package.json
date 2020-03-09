@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",
-    "fetch-mock": "^9.1.1"
+    "fetch-mock": "^9.1.1",
+    "qs": "^6.9.1"
   },
   "peerDependencies": {
     "@testing-library/react": "^9.5.0"
@@ -31,9 +32,6 @@
             "**/__tests__/**/*"
           ]
         }
-      ],
-      [
-        "@pika/plugin-build-web"
       ],
       [
         "@pika/plugin-build-node"

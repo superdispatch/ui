@@ -30,10 +30,11 @@ module.exports = {
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
-        'import/no-extraneous-dependencies': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
-        'import/no-anonymous-default-export': 'off',
+        '@typescript-eslint/no-namespace': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
+        'import/no-anonymous-default-export': 'off',
+        'import/no-extraneous-dependencies': 'off',
       },
     },
     {
