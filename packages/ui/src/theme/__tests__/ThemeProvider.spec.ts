@@ -1,4 +1,4 @@
-import { renderTheme } from '@superdispatch/testutils';
+import { renderTheme } from '@superdispatch/ui-testutils';
 
 import { Color } from '../Color';
 

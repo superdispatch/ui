@@ -1,4 +1,4 @@
-import { renderCSS } from '@superdispatch/testutils';
+import { renderCSS } from '@superdispatch/ui-testutils';
 import React from 'react';
 
 import { OverflowText } from '../OverflowText';

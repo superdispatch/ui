@@ -23,7 +23,10 @@ module.exports = {
       },
     },
     {
-      files: ['setupTestGlobals.ts', '**/{__tests__,__testutils__}/*.{ts,tsx}'],
+      files: [
+        'setupTestGlobals.ts',
+        '**/{__tests__,__testutils__,testutils/src}/*.{ts,tsx}',
+      ],
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
