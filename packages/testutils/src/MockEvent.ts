@@ -17,17 +17,15 @@ export class MockEvent {
 
     const href = element.getAttribute('href');
 
-    act(() => {
-      if (href) {
-        element.removeAttribute('href');
-      }
+    if (href) {
+      element.removeAttribute('href');
+    }
 
-      element.click();
+    fireEvent.click(element);
 
-      if (href) {
-        element.setAttribute('href', href);
-      }
-    });
+    if (href) {
+      element.setAttribute('href', href);
+    }
   }
 
   static keyPress(element: HTMLElement, key: 'Enter' | 'Escape') {
