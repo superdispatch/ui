@@ -1,10 +1,16 @@
 {
   "buildCommand": "build",
-  "packages": ["packages/ui", "packages/dates", "packages/phones"],
+  "packages": [
+    "packages/ui",
+    "packages/dates",
+    "packages/phones",
+    "packages/testutils"
+  ],
   "publishDirectory": {
     "@superdispatch/ui": "packages/ui/pkg",
     "@superdispatch/dates": "packages/dates/pkg",
-    "@superdispatch/phones": "packages/phones/pkg"
+    "@superdispatch/phones": "packages/phones/pkg",
+    "@superdispatch/testutilss": "packages/testutils/pkg"
   },
   "sandboxes": ["/packages/webpage"]
 }
