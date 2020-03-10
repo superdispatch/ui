@@ -32,7 +32,7 @@ function makeProxy<T extends Record<string, (...args: any[]) => any>>(
   );
 }
 
-export class MockSchema {
+export abstract class MockSchema {
   protected readonly address = makeProxy(faker.address);
   protected readonly commerce = makeProxy(faker.commerce);
   protected readonly company = makeProxy(faker.company);
