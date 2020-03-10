@@ -1,0 +1,9 @@
+{
+  "exclude": ["**/pkg/**/*", "**/*.spec.*"],
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg/dist-types"
+  }
+}

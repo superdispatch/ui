@@ -46,6 +46,7 @@
     "@types/luxon": "^1.21.0",
     "@types/mockdate": "^2.0.0",
     "@types/prettier": "^1.19.0",
+    "@types/qs": "^6.9.1",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/react-window": "^1.8.1",

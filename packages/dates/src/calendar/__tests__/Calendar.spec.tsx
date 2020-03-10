@@ -1,5 +1,5 @@
-import { renderCSS } from '@superdispatch/testutils';
 import { ThemeProvider } from '@superdispatch/ui';
+import { renderCSS } from '@superdispatch/ui-testutils';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MockDate from 'mockdate';
