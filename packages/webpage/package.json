@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-webpage",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "private": true,
   "scripts": {
     "build": "build-storybook -o ../../docs",
@@ -11,7 +11,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.45",
     "@mdi/js": "^4.9.95",
-    "@superdispatch/dates": "^0.2.13",
+    "@superdispatch/dates": "^0.2.14",
     "@superdispatch/phones": "^0.2.13",
     "@superdispatch/ui": "*",
     "awesome-phonenumber": "^2.27.0",
