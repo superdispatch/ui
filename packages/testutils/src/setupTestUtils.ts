@@ -1,0 +1,18 @@
+import { act } from '@testing-library/react';
+import fetchMock from 'fetch-mock';
+
+import { setupMockFunctionMatchers } from './matchers/mock-function-matchers';
+import { setupLocationSerializer } from './serializers/location-serializer';
+
+export async function setupTestUtils() {
+  setupLocationSerializer();
+  await setupMockFunctionMatchers();
+
+  afterEach(async () => {
+    await act(async () => {
+      await fetchMock.flush();
+    });
+
+    fetchMock.reset();
+  });
+}
