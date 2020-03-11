@@ -15,7 +15,6 @@ import {
   DateLike,
   DateUtils,
   isValidDate,
-  NullableDate,
   NullableDateLike,
   toDate,
 } from '../DateUtils';
@@ -275,7 +274,7 @@ type ReactDayPickerDayEventHandler = (
 function wrapHandlers(
   utils: DateUtils,
   styles: ClassNameMap<keyof ClassNames>,
-  initialTime: NullableDate,
+  initialTime: Date,
   onDayClick: undefined | CalendarDayEventHandler,
   onDayKeyDown: undefined | CalendarDayEventHandler,
   onDayMouseEnter: undefined | CalendarDayEventHandler,
@@ -289,24 +288,20 @@ function wrapHandlers(
     fn: undefined | CalendarDayEventHandler,
   ): undefined | ReactDayPickerDayEventHandler =>
     fn &&
-    ((date, modifiers) =>
-      fn(
-        utils.fromObject({
-          ...utils.toObject(
-            isValidDate(initialTime)
-              ? initialTime
-              : utils.startOf(Date.now(), 'day'),
-          ),
+    ((localDate, modifiers) => {
+      const date = utils.fromObject({
+        ...utils.toObject(initialTime),
 
-          year: date.getFullYear(),
-          month: date.getMonth() + 1,
-          day: date.getDate(),
-        }),
-        {
-          disabled: !!modifiers[styles.disabled],
-          selected: !!modifiers[styles.selected],
-        },
-      ));
+        year: localDate.getFullYear(),
+        month: localDate.getMonth() + 1,
+        day: localDate.getDate(),
+      });
+
+      return fn(date, {
+        disabled: !!modifiers[styles.disabled],
+        selected: !!modifiers[styles.selected],
+      });
+    });
 
   return {
     onDayClick: wrap(onDayClick),
@@ -401,9 +396,11 @@ export function Calendar({
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const initialMonth =
-    toLocalDate(utils, initialMonthProp) ??
-    toLocalDate(utils, utils.startOf(Date.now(), 'month'));
+  const initialTime = isValidDate(initialMonthProp)
+    ? toDate(initialMonthProp)
+    : utils.startOf(Date.now(), 'month');
+
+  const initialMonth = toLocalDate(utils, initialTime);
 
   return (
     <Grid container={true} direction={direction}>
@@ -456,7 +453,7 @@ export function Calendar({
           {...wrapHandlers(
             utils,
             styles,
-            initialMonth,
+            initialTime,
             onDayClick,
             onDayKeyDown,
             onDayMouseEnter,
