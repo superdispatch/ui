@@ -25,7 +25,7 @@ function makeProxy<T extends Record<string, (...args: any[]) => any>>(
           faker.seed(currentSeed);
           seeds.set(key, currentSeed);
 
-          return fn(...args);
+          return fn.apply(category, args);
         };
       },
     },
