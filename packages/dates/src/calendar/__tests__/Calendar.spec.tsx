@@ -1,3 +1,4 @@
+import { MockEvent } from '@superdispatch/testutils/';
 import { ThemeProvider } from '@superdispatch/ui';
 import { renderCSS } from '@superdispatch/ui-testutils';
 import { render } from '@testing-library/react';
@@ -6,6 +7,7 @@ import MockDate from 'mockdate';
 import React, { ComponentType, ReactElement } from 'react';
 
 import { DateContextProvider } from '../../DateContext';
+import { DateUtils } from '../../DateUtils';
 import {
   Calendar,
   CalendarDayHighlightColor,
@@ -13,6 +15,7 @@ import {
 } from '../Calendar';
 
 const stubTimeZoneOffset = -300;
+const stubUtils = new DateUtils({ timeZoneOffset: stubTimeZoneOffset });
 const stubModifier: CalendarModifier = (date, utils) =>
   utils.isSameDate(
     date,
@@ -73,20 +76,39 @@ it('renders weeks', () => {
 it('renders days', () => {
   const wrapper = renderCalendar(<Calendar />);
 
-  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveTextContent('24');
+  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
+});
+
+it('sets start of date when `initialTime` not passed', () => {
+  const onDayClick = jest.fn();
+  const wrapper = renderCalendar(<Calendar onDayClick={onDayClick} />);
+
+  expect(onDayClick).not.toHaveBeenCalled();
+  MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
+  expect(onDayClick).toHaveBeenCalledTimes(1);
+  expect(onDayClick).toHaveBeenCalledWith(
+    stubUtils.fromObject({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    { disabled: false, selected: false },
+  );
 });
 
 it('selects days', () => {
+  const onDayClick = jest.fn();
   const wrapper = renderCalendar(
     <Calendar
+      onDayClick={onDayClick}
       selectedDays={(date, utils) => {
         const startDate = utils.fromObject({ year: 2019, month: 5, day: 24 });
         const finishDate = utils.endOf(
-          utils.fromObject({
-            year: 2019,
-            month: 5,
-            day: 27,
-          }),
+          utils.fromObject({ year: 2019, month: 5, day: 27 }),
           'day',
         );
 
@@ -99,21 +121,21 @@ it('selects days', () => {
     'SuperDispatchCalendar-selected',
   );
 
-  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
-    'SuperDispatchCalendar-selected',
-  );
+  for (let day = 24; day <= 27; day++) {
+    const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
 
-  expect(wrapper.getByLabelText(/May 25 2019/)).toHaveClass(
-    'SuperDispatchCalendar-selected',
-  );
+    expect(element).toHaveClass('SuperDispatchCalendar-selected');
 
-  expect(wrapper.getByLabelText(/May 26 2019/)).toHaveClass(
-    'SuperDispatchCalendar-selected',
-  );
+    MockEvent.click(element);
 
-  expect(wrapper.getByLabelText(/May 27 2019/)).toHaveClass(
-    'SuperDispatchCalendar-selected',
-  );
+    expect(onDayClick).toHaveBeenCalledTimes(1);
+    expect(onDayClick).toHaveBeenCalledWith(
+      stubUtils.fromObject({ year: 2019, month: 5, day }),
+      { disabled: false, selected: true },
+    );
+
+    onDayClick.mockClear();
+  }
 
   expect(wrapper.getByLabelText(/May 28 2019/)).not.toHaveClass(
     'SuperDispatchCalendar-selected',
@@ -121,12 +143,21 @@ it('selects days', () => {
 });
 
 it('disables day', () => {
+  const onDayClick = jest.fn();
   const wrapper = renderCalendar(
-    <Calendar selectedDays={stubModifier} disabledDays={stubModifier} />,
+    <Calendar onDayClick={onDayClick} disabledDays={stubModifier} />,
   );
 
-  expect(wrapper.getByLabelText('Fri May 24 2019')).toHaveClass(
+  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
     'SuperDispatchCalendar-disabled',
+  );
+
+  MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
+
+  expect(onDayClick).toHaveBeenCalledTimes(1);
+  expect(onDayClick).toHaveBeenCalledWith(
+    stubUtils.fromObject({ year: 2019, month: 5, day: 24 }),
+    { disabled: true, selected: false },
   );
 });
 
@@ -149,7 +180,7 @@ it('highlights days', () => {
       />,
     );
 
-    const day = wrapper.getByLabelText('Fri May 24 2019');
+    const day = wrapper.getByLabelText(/May 24 2019/);
 
     expect(day).toHaveClass(`SuperDispatchCalendar-${highlight}`);
   });
