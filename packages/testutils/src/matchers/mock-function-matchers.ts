@@ -1,3 +1,5 @@
+import { toMatchInlineSnapshot } from 'jest-snapshot';
+
 declare global {
   namespace jest {
     interface Matchers<R, T = {}> {
@@ -20,9 +22,7 @@ declare global {
   }
 }
 
-export async function setupMockFunctionMatchers() {
-  const { toMatchInlineSnapshot } = await import('jest-snapshot');
-
+export function setupMockFunctionMatchers() {
   expect.extend({
     toHaveBeenLastCalledWithMatchingInlineSnapshot(
       received: unknown,
