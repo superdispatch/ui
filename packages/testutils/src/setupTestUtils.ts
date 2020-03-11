@@ -4,6 +4,8 @@ import fetchMock from 'fetch-mock';
 import { setupMockFunctionMatchers } from './matchers/mock-function-matchers';
 import { setupLocationSerializer } from './serializers/location-serializer';
 
+export * from './matchers/mock-function-matchers';
+
 export function setupTestUtils() {
   setupLocationSerializer();
   setupMockFunctionMatchers();
