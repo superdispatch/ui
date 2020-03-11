@@ -10,7 +10,7 @@
     "@superdispatch/ui": "packages/ui/pkg",
     "@superdispatch/dates": "packages/dates/pkg",
     "@superdispatch/phones": "packages/phones/pkg",
-    "@superdispatch/testutilss": "packages/testutils/pkg"
+    "@superdispatch/testutils": "packages/testutils/pkg"
   },
   "sandboxes": ["/packages/webpage"]
 }
