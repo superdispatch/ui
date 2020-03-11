@@ -13,15 +13,16 @@ export class MockEvent {
   }
 
   static click(element: HTMLElement) {
-    MockEvent.focus(element);
-
     const href = element.getAttribute('href');
 
     if (href) {
       element.removeAttribute('href');
     }
 
-    fireEvent.click(element);
+    act(() => {
+      MockEvent.focus(element);
+      fireEvent.click(element);
+    });
 
     if (href) {
       element.setAttribute('href', href);
