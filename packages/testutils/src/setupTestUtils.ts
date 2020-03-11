@@ -4,9 +4,9 @@ import fetchMock from 'fetch-mock';
 import { setupMockFunctionMatchers } from './matchers/mock-function-matchers';
 import { setupLocationSerializer } from './serializers/location-serializer';
 
-export async function setupTestUtils() {
+export function setupTestUtils() {
   setupLocationSerializer();
-  await setupMockFunctionMatchers();
+  setupMockFunctionMatchers();
 
   afterEach(async () => {
     await act(async () => {
