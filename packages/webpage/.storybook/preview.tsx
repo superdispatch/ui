@@ -5,7 +5,6 @@ import { Box, Fab } from '@material-ui/core';
 import { StoryContext } from '@storybook/addons';
 import { get } from 'lodash';
 import { usePromise } from 'utility-hooks';
-import ky from 'ky';
 import { Edit } from '@material-ui/icons';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
@@ -25,21 +24,21 @@ function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
   const branch = get(Component, 'branch');
   const filename = get(Component, 'filename');
   const prCSB = usePromise(
-    ({ abortSignal }) =>
-      ky(`https://gh.csb.dev/api/superdispatch/ui/prs/${pr}/builds`, {
-        signal: abortSignal,
-      })
-        .json<{
-          builds: Array<{
-            status?: string;
-            sandboxes?: Array<{ url: string }>;
-          }>;
-        }>()
-        .then(
-          response =>
-            response.builds.find(build => build.status === 'succeeded')
-              ?.sandboxes?.[0]?.url,
-        ),
+    async ({ abortSignal }) => {
+      const response = await fetch(
+        `https://gh.csb.dev/api/superdispatch/ui/prs/${pr}/builds`,
+        { signal: abortSignal },
+      );
+      const data: {
+        builds: Array<{
+          status?: string;
+          sandboxes?: Array<{ url: string }>;
+        }>;
+      } = await response.json();
+      const lastBuild = data.builds.find(build => build.status === 'succeeded');
+
+      return lastBuild?.sandboxes?.[0].url;
+    },
     [],
     { skip: !pr },
   );
