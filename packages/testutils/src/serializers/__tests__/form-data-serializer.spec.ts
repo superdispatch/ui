@@ -3,11 +3,7 @@ import { setupFormDataSerializer } from '../form-data-serializer';
 setupFormDataSerializer();
 
 it('serializes form data', () => {
-  expect(new FormData()).toMatchInlineSnapshot(`
-    FormData {
-      "constructor": [Function],
-    }
-  `);
+  expect(new FormData()).toMatchInlineSnapshot(`FormData {}`);
 
   {
     const formData = new FormData();
@@ -17,7 +13,6 @@ it('serializes form data', () => {
 
     expect(formData).toMatchInlineSnapshot(`
       FormData {
-        "constructor": [Function],
         "file": File {},
         "name": "John",
       }
@@ -29,10 +24,9 @@ it('serializes form data', () => {
     formData.append('name', 'John');
 
     expect({ form: formData, foo: 'bar' }).toMatchInlineSnapshot(`
-      Object {
+      FormData {
         "foo": "bar",
         "form": FormData {
-          "constructor": [Function],
           "name": "John",
         },
       }

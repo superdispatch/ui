@@ -6,7 +6,7 @@ export function setupFormDataSerializer() {
 
     print(formData: FormData, serialize) {
       const serialized = Object.fromEntries(formData.entries());
-      serialized.constructor = FormData;
+      serialized.__proto__.constructor = FormData;
       return serialize(serialized);
     },
   });
