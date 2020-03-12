@@ -8,7 +8,7 @@ export function setupFormDataSerializer() {
 
     print(formData: FormData, serialize) {
       const serialized = fromPairs(Array.from(formData));
-      return `FormData${serialize(serialized).replace(/^Object/, '')}`;
+      return serialize(serialized).replace(/^Object/, 'FormData');
     },
   });
 }
