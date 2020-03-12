@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import { parse } from 'qs';
 
 export function setupLocationSerializer() {
@@ -6,7 +7,6 @@ export function setupLocationSerializer() {
       return (
         typeof value === 'object' &&
         value != null &&
-        'key' in value &&
         'hash' in value &&
         'search' in value &&
         'pathname' in value
@@ -14,21 +14,23 @@ export function setupLocationSerializer() {
     },
 
     print({ hash, search, pathname }: Location, serialize) {
-      return serialize({
-        hash,
-        pathname,
-        searchParams: parse(search, {
-          ignoreQueryPrefix: true,
-          decoder: (str, defaultDecoder, charset) => {
-            const decoded = defaultDecoder(str, defaultDecoder, charset);
+      const searchParams = parse(search, {
+        ignoreQueryPrefix: true,
+        decoder: (str, defaultDecoder, charset) => {
+          const decoded = defaultDecoder(str, defaultDecoder, charset);
 
-            try {
-              return JSON.parse(decoded);
-            } catch (e) {
-              return decoded;
-            }
-          },
-        }),
+          try {
+            return JSON.parse(decoded);
+          } catch (e) {
+            return decoded;
+          }
+        },
+      });
+
+      return serialize({
+        pathname,
+        ...(!!hash && { hash }),
+        ...(!isEmpty(searchParams) && { searchParams }),
       });
     },
   });
