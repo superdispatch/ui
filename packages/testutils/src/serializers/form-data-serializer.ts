@@ -1,3 +1,5 @@
+import { fromPairs } from 'lodash';
+
 export function setupFormDataSerializer() {
   expect.addSnapshotSerializer({
     test(value: unknown) {
@@ -5,9 +7,8 @@ export function setupFormDataSerializer() {
     },
 
     print(formData: FormData, serialize) {
-      const serialized = Object.fromEntries(formData.entries());
-      serialized.__proto__.constructor = FormData;
-      return serialize(serialized);
+      const serialized = fromPairs(Array.from(formData));
+      return `FormData${serialize(serialized).replace(/^Object/, '')}`;
     },
   });
 }
