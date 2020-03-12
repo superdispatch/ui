@@ -2917,10 +2917,10 @@
   resolved "https://registry.yarnpkg.com/@superdispatch/prettier-config/-/prettier-config-0.1.26.tgz#29adc37fa0da3be529937fb7fb361dc31b05cf59"
   integrity sha512-lXYTGFhmGHj3IlGCoQtPY5kaklYdtou6XXbzP+CQDbbSus+S31j2y9x/mDxIly8OtNWfa2JRxbqcxCRAIKO2Qw==
 
-"@superdispatch/tsconfig@^0.1.1", "@superdispatch/tsconfig@^0.1.13":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@superdispatch/tsconfig/-/tsconfig-0.1.13.tgz#fb536860d1a90f20c26f19838270e1764ed9f560"
-  integrity sha512-AeHfroExw85sAPbpiK770iVqqxaS3w3Wdx2Fo7RrQYYqovZtFz9I7pG0TiPuRoDkCVIA0VGFQEaLYZCiiuFbFg==
+"@superdispatch/tsconfig@^0.1.13", "@superdispatch/tsconfig@^0.1.48":
+  version "0.1.48"
+  resolved "https://registry.yarnpkg.com/@superdispatch/tsconfig/-/tsconfig-0.1.48.tgz#f7a956959a2b90e637354b07a5dfb162505431e0"
+  integrity sha512-cNT+zqmjHEG8i2pONTLrXDjfDBM02XSLigSBDDU9A0JjpsaH5o/wZhuogSV/6TZHuvmmrL30iTZm6VoHJaAJXQ==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"

@@ -35,7 +35,7 @@
     "@superdispatch/eslint-plugin": "^0.1.46",
     "@superdispatch/js-tools": "^0.1.46",
     "@superdispatch/prettier-config": "^0.1.26",
-    "@superdispatch/tsconfig": "^0.1.1",
+    "@superdispatch/tsconfig": "^0.1.48",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "@testing-library/react-hooks": "^3.2.1",
