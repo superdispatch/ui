@@ -6,7 +6,7 @@ setupTestUtils();
 test('basic', async () => {
   const mock = mockEndpoint('foo', {
     method: 'GET',
-    matcher: 'path:/foo',
+    matcher: '/foo',
     response: { foo: 'bar' },
   });
 
@@ -29,13 +29,12 @@ test('basic', async () => {
 test('json body', async () => {
   const mock = mockEndpoint('foo', {
     method: 'POST',
-    matcher: 'path:/foo',
+    matcher: '/foo',
     response: { foo: 'bar' },
   });
 
   const expectedRequest = {
     pathname: '/foo',
-    searchParams: {},
     body: { foo: 'bar', bar: 'baz' },
   };
   const expectedResponse = { foo: 'bar' };
@@ -77,7 +76,7 @@ test('json body', async () => {
   expect(mock).toHaveLastReturnedWith(expectedResponse);
 });
 
-test.only('FormData body', async () => {
+test('FormData body', async () => {
   function makeFormData(values: Record<string, string>): FormData {
     const formData = new FormData();
 
@@ -90,48 +89,48 @@ test.only('FormData body', async () => {
 
   const mock = mockEndpoint('foo', {
     method: 'POST',
-    matcher: 'path:/foo',
+    matcher: '/foo',
     response: { foo: 'bar' },
   });
 
   const expectedRequest = {
     pathname: '/foo',
-    searchParams: {},
     body: makeFormData({ foo: 'bar', bar: 'baz' }),
   };
   const expectedResponse = { foo: 'bar' };
 
-  // await fetch('http://locahost/foo', {
-  //   method: 'POST',
-  //   body: makeFormData({ foo: 'bar', bar: 'baz' }),
-  // });
-  //
-  // expect(mock).toHaveBeenCalledTimes(1);
-  // expect(mock).toHaveBeenLastCalledWith(expectedRequest);
-  // expect(mock).toHaveLastReturnedWith(expectedResponse);
+  await fetch('http://locahost/foo', {
+    method: 'POST',
+    headers: { 'content-type': 'multipart/form-data' },
+    body: makeFormData({ foo: 'bar', bar: 'baz' }),
+  });
+
+  expect(mock).toHaveBeenCalledTimes(1);
+  expect(mock).toHaveBeenLastCalledWith(expectedRequest);
+  expect(mock).toHaveLastReturnedWith(expectedResponse);
 
   await fetch(
     new Request('http://locahost/foo', {
       method: 'POST',
-      // headers: { 'content-type': 'multipart/form-data' },
+      headers: { 'content-type': 'multipart/form-data' },
       body: makeFormData({ foo: 'bar', bar: 'baz' }),
-
     }),
   );
 
-  // expect(mock).toHaveBeenCalledTimes(2);
+  expect(mock).toHaveBeenCalledTimes(2);
   expect(mock).toHaveBeenLastCalledWith(expectedRequest);
   expect(mock).toHaveLastReturnedWith(expectedResponse);
 
-  // await fetch(
-  //   new Request('http://locahost/foo', {
-  //     method: 'POST',
-  //     body: makeFormData({ foo: 'bar', bar: 'baz' }),
-  //   }),
-  //   { body: makeFormData({ foo: 'bar', bar: 'baz' }) },
-  // );
-  //
-  // expect(mock).toHaveBeenCalledTimes(3);
-  // expect(mock).toHaveBeenLastCalledWith(expectedRequest);
-  // expect(mock).toHaveLastReturnedWith(expectedResponse);
+  await fetch(
+    new Request('http://locahost/foo', {
+      method: 'POST',
+      headers: { 'content-type': 'multipart/form-data' },
+      body: makeFormData({ foo: 'bar', bar: 'baz' }),
+    }),
+    { body: makeFormData({ foo: 'bar', bar: 'baz' }) },
+  );
+
+  expect(mock).toHaveBeenCalledTimes(3);
+  expect(mock).toHaveBeenLastCalledWith(expectedRequest);
+  expect(mock).toHaveLastReturnedWith(expectedResponse);
 });

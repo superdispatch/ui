@@ -15,7 +15,9 @@
     "@babel/runtime": "^7.8.4",
     "faker": "^4.1.0",
     "fetch-mock": "^9.1.1",
-    "qs": "^6.9.1"
+    "path-to-regexp": "^6.1.0",
+    "qs": "^6.9.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "peerDependencies": {
     "@testing-library/react": "^9.5.0"

@@ -1,94 +1,153 @@
-import fetchMock from 'fetch-mock';
-import { Request, RequestInit } from 'node-fetch';
+import { Match, match, MatchFunction } from 'path-to-regexp';
 import { ParsedUrlQuery } from 'querystring';
 import { parse } from 'url';
 
-Object.assign(global, {
-  fetch: fetchMock.config.fetch,
-  Request: fetchMock.config.Request,
-  Response: fetchMock.config.Response,
-  Headers: fetchMock.config.Headers,
-});
+export type MockEndpointParams = Record<string, string>;
+
+interface MockEndpoint {
+  method: string;
+  headers: string[][];
+  matchers: Array<MatchFunction<MockEndpointParams>>;
+  resolver: jest.Mock<object | Response, [MockEndpointRequest]>;
+}
 
 export interface MockEndpointRequest {
   body?: unknown;
   pathname: string;
-  searchParams: ParsedUrlQuery;
+  params?: MockEndpointParams;
+  searchParams?: ParsedUrlQuery;
+}
+
+const endpoints = new Map<string, MockEndpoint>();
+function findEndpoint(
+  request: Request,
+): [undefined | MockEndpoint, Match<MockEndpointParams>, ParsedUrlQuery] {
+  const uri = parse(request.url, true);
+  const pathname = uri.pathname || '/';
+
+  for (const endpoint of endpoints.values()) {
+    let endpointMatch: Match<MockEndpointParams> = false;
+
+    if (endpoint.method !== request.method) {
+      continue;
+    }
+
+    const { headers } = endpoint;
+
+    if (headers.length > 0) {
+      const hasInvalidHeader = headers.some(
+        ([key, value]) => request.headers.get(key) !== value,
+      );
+
+      if (hasInvalidHeader) {
+        continue;
+      }
+    }
+
+    for (const matcher of endpoint.matchers) {
+      endpointMatch = matcher(pathname);
+
+      if (endpointMatch) {
+        break;
+      }
+    }
+
+    if (endpointMatch) {
+      return [endpoint, endpointMatch, uri.query];
+    }
+  }
+
+  return [undefined, false, uri.query];
+}
+
+export function setupMockEndpoints() {
+  const fetchMock = jest.fn(
+    async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
+      const request = new Request(input, init);
+      const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
+
+      if (!endpoint || !endpointMatch) {
+        return new Response(null, { status: 404 });
+      }
+
+      let body: unknown = null;
+
+      const { _bodyText, _bodyFormData } = request as any;
+
+      if (_bodyFormData) {
+        body = _bodyFormData;
+      } else {
+        try {
+          body = JSON.parse(_bodyText);
+        } catch {}
+      }
+
+      const response = endpoint.resolver({
+        pathname: endpointMatch.path,
+        ...(!!body && { body }),
+        ...(Object.keys(searchParams).length > 0 && { searchParams }),
+        ...(Object.keys(endpointMatch.params).length > 0 && {
+          params: endpointMatch.params,
+        }),
+      });
+
+      if (response instanceof Response) {
+        return response;
+      }
+
+      return new Response(JSON.stringify(response));
+    },
+  );
+
+  Object.assign(global, { fetch: fetchMock });
+
+  afterEach(() => {
+    endpoints.clear();
+    fetchMock.mockClear();
+  });
 }
 
 export interface MockEndpointOptions {
-  matcher: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD';
-
-  params?: Record<string, string>;
-  headers?: Record<string, string>;
-
-  response: object | ((request: MockEndpointRequest) => object);
+  matcher: string | string[];
+  method: MockEndpoint['method'];
+  headers?: HeadersInit;
+  response:
+    | object
+    | Response
+    | ((request: MockEndpointRequest) => object | Response);
 }
 
 export function mockEndpoint(
   name: string,
-  { response, ...options }: MockEndpointOptions,
+  { response, matcher, headers, method }: MockEndpointOptions,
 ): jest.Mock<object, [MockEndpointRequest]> {
-  const resolver = jest.fn<object, [MockEndpointRequest]>(arg => {
-    if (typeof response === 'function') {
-      return response(arg);
+  if (endpoints.has(name)) {
+    throw new Error(`MockEndpoint: "${name}" was already registered.`);
+  }
+
+  const resolver = jest.fn<object, [MockEndpointRequest]>(arg =>
+    typeof response === 'function' ? response(arg) : response,
+  );
+
+  const paths = !Array.isArray(matcher) ? [matcher] : matcher;
+  const matchers = paths.map(x => {
+    if (x.startsWith('path:')) {
+      throw new Error(
+        `MockEndpoint: Use deprecated "path:" suffix in "${name}" endpoint. Replace: "${x}", with "${x.replace(
+          'path:',
+          '',
+        )}"`,
+      );
     }
 
-    return response;
+    return match<MockEndpointParams>(x);
   });
 
-  fetchMock.mock({
-    ...options,
-    name,
-    async response(
-      url,
-      init?: Request | RequestInit,
-      originalRequest?: Request,
-    ) {
-      const initBody = await init?.body;
-      const request = new Request(
-        originalRequest == null ? url : originalRequest,
-        { ...init, ...(!!initBody && { body: initBody }) },
-      );
-
-      console.log(init, originalRequest, request);
-
-      const { pathname, query } = parse(request.url, true);
-      const contentType = request.headers.get('content-type');
-
-      let body: unknown = null;
-
-      if (contentType) {
-        if (contentType.startsWith('text/plain')) {
-          body = await request.text();
-        } else if (contentType.startsWith('application/json')) {
-          body = await request.json();
-        }
-      }
-
-      // console.log(headers.get('content-type'));
-
-      // if (body) {
-      //   if (body instanceof Buffer) {
-      //     body = body.toString();
-      //   }
-      //
-      //   if (typeof body === 'string') {
-      //     try {
-      //       body = JSON.parse(body);
-      //     } catch {}
-      //   }
-      // }
-
-      // console.log(body);
-
-      return resolver({
-        searchParams: query,
-        pathname: pathname || '/',
-        ...(!!body && { body }),
-      });
-    },
+  endpoints.set(name, {
+    method,
+    matchers,
+    resolver,
+    headers: Array.from(new Headers(headers)),
   });
 
   return resolver;
