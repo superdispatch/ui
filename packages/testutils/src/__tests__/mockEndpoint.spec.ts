@@ -50,6 +50,26 @@ it('wraps global fetch', async () => {
   }
 });
 
+it('throws when endpoint name already registered', () => {
+  expect(() =>
+    mockEndpoint('foo', {
+      method: 'GET',
+      matcher: '/foo',
+      response: {},
+    }),
+  ).not.toThrow();
+
+  expect(() =>
+    mockEndpoint('foo', {
+      method: 'GET',
+      matcher: '/foo',
+      response: {},
+    }),
+  ).toThrowErrorMatchingInlineSnapshot(
+    `"MockEndpoint: \\"foo\\" was already registered."`,
+  );
+});
+
 it.each<
   [
     string,

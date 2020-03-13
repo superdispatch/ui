@@ -141,18 +141,7 @@ export function mockEndpoint(
   );
 
   const paths = !Array.isArray(matcher) ? [matcher] : matcher;
-  const matchers = paths.map(x => {
-    if (x.startsWith('path:')) {
-      throw new Error(
-        `MockEndpoint: Use deprecated "path:" suffix in "${name}" endpoint. Replace: "${x}", with "${x.replace(
-          'path:',
-          '',
-        )}"`,
-      );
-    }
-
-    return match<MockEndpointParams>(x);
-  });
+  const matchers = paths.map(x => match<MockEndpointParams>(x));
 
   endpoints.set(name, {
     method,
