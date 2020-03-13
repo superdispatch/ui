@@ -1,6 +1,5 @@
+import { fromPairs, isEmpty } from 'lodash';
 import { Match, match, MatchFunction } from 'path-to-regexp';
-import { ParsedUrlQuery } from 'querystring';
-import { parse } from 'url';
 
 export type MockEndpointParams = Record<string, string>;
 
@@ -15,15 +14,15 @@ export interface MockEndpointRequest {
   body?: unknown;
   pathname: string;
   params?: MockEndpointParams;
-  searchParams?: ParsedUrlQuery;
+  searchParams?: MockEndpointParams;
 }
 
 const endpoints = new Map<string, MockEndpoint>();
+
 function findEndpoint(
   request: Request,
-): [undefined | MockEndpoint, Match<MockEndpointParams>, ParsedUrlQuery] {
-  const uri = parse(request.url, true);
-  const pathname = uri.pathname || '/';
+): [undefined | MockEndpoint, Match<MockEndpointParams>, URLSearchParams] {
+  const { pathname, searchParams } = new URL(request.url);
 
   for (const endpoint of endpoints.values()) {
     let endpointMatch: Match<MockEndpointParams> = false;
@@ -53,11 +52,11 @@ function findEndpoint(
     }
 
     if (endpointMatch) {
-      return [endpoint, endpointMatch, uri.query];
+      return [endpoint, endpointMatch, searchParams];
     }
   }
 
-  return [undefined, false, uri.query];
+  return [undefined, false, searchParams];
 }
 
 export function setupMockEndpoints() {
@@ -70,7 +69,7 @@ export function setupMockEndpoints() {
         return new Response(null, { status: 404 });
       }
 
-      let body: unknown = null;
+      let body: unknown;
 
       const { _bodyText, _bodyFormData } = request as any;
 
@@ -79,15 +78,25 @@ export function setupMockEndpoints() {
       } else {
         try {
           body = JSON.parse(_bodyText);
-        } catch {}
+        } catch {
+          body = _bodyText;
+        }
       }
 
+      const requiredHeaders = new Headers(endpoint.headers);
+      const parsedHeaders = fromPairs(
+        Array.from(request.headers).filter(
+          ([key]) => key !== 'content-type' && !requiredHeaders.has(key),
+        ),
+      );
+      const parsedSearchParams = Array.from(searchParams.entries());
       const response = endpoint.resolver({
         pathname: endpointMatch.path,
         ...(!!body && { body }),
-        ...(Object.keys(searchParams).length > 0 && { searchParams }),
-        ...(Object.keys(endpointMatch.params).length > 0 && {
-          params: endpointMatch.params,
+        ...(!isEmpty(parsedHeaders) && { headers: parsedHeaders }),
+        ...(!isEmpty(endpointMatch.params) && { params: endpointMatch.params }),
+        ...(parsedSearchParams.length > 0 && {
+          searchParams: fromPairs(parsedSearchParams),
         }),
       });
 
@@ -95,7 +104,9 @@ export function setupMockEndpoints() {
         return response;
       }
 
-      return new Response(JSON.stringify(response));
+      return new Response(JSON.stringify(response), {
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
   );
 
