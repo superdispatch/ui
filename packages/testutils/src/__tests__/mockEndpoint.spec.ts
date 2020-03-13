@@ -44,7 +44,13 @@ it('wraps global fetch', async () => {
     const response = await fetch(...args);
 
     expect(mock).toHaveBeenCalledTimes(1);
-    expect(mock).toHaveBeenLastCalledWith({ pathname: '/foo' });
+    expect(mock).toHaveBeenLastCalledWith({
+      body: '',
+      params: {},
+      headers: {},
+      pathname: '/foo',
+      searchParams: {},
+    });
     expect(mock).toHaveLastReturnedWith({ foo: 'bar' });
 
     expect(response).toBeInstanceOf(Response);
@@ -222,7 +228,13 @@ it.each<
     expect(response.ok).toBe(true);
 
     expect(mock).toHaveBeenCalledTimes(1);
-    expect(mock).toHaveBeenLastCalledWith(expected);
+    expect(mock).toHaveBeenLastCalledWith({
+      body: '',
+      params: {},
+      headers: {},
+      searchParams: {},
+      ...expected,
+    });
 
     mock.mockClear();
   }
@@ -245,6 +257,9 @@ it('exposes headers', async () => {
 
     expect(mock).toHaveBeenCalledTimes(1);
     expect(mock).toHaveBeenLastCalledWith({
+      body: '',
+      params: {},
+      searchParams: {},
       pathname: '/foo',
       headers: { 'x-hello': 'World' },
     });
@@ -290,6 +305,9 @@ it.each<[string, () => BodyInit, undefined | (() => unknown)]>([
       expect(response.ok).toBe(true);
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith({
+        params: {},
+        headers: {},
+        searchParams: {},
         pathname: '/foo',
         body: makeResponse(),
       });

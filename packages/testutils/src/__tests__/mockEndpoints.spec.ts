@@ -14,14 +14,34 @@ it('creates dictionary of endpoints', async () => {
   await fetch('http://host/');
 
   expect(endpoints.foo).toHaveBeenCalledTimes(1);
-  expect(endpoints.foo).toHaveBeenLastCalledWith({ pathname: '/' });
+  expect(endpoints.foo).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+    Array [
+      Object {
+        "body": "",
+        "headers": Object {},
+        "params": Object {},
+        "pathname": "/",
+        "searchParams": Object {},
+      },
+    ]
+  `);
 
   expect(endpoints.bar).toHaveBeenCalledTimes(0);
 
   await fetch('http://host/', { method: 'POST' });
 
   expect(endpoints.bar).toHaveBeenCalledTimes(1);
-  expect(endpoints.bar).toHaveBeenLastCalledWith({ pathname: '/' });
+  expect(endpoints.bar).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+    Array [
+      Object {
+        "body": "",
+        "headers": Object {},
+        "params": Object {},
+        "pathname": "/",
+        "searchParams": Object {},
+      },
+    ]
+  `);
 });
 
 it('allows to pass default headers for all endpoints', async () => {
@@ -44,7 +64,17 @@ it('allows to pass default headers for all endpoints', async () => {
   await fetch('http://host/', { headers: { Foo: 'Bar' } });
 
   expect(endpoints.foo).toHaveBeenCalledTimes(1);
-  expect(endpoints.foo).toHaveBeenLastCalledWith({ pathname: '/' });
+  expect(endpoints.foo).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+    Array [
+      Object {
+        "body": "",
+        "headers": Object {},
+        "params": Object {},
+        "pathname": "/",
+        "searchParams": Object {},
+      },
+    ]
+  `);
 
   expect(endpoints.bar).toHaveBeenCalledTimes(0);
 
@@ -55,5 +85,15 @@ it('allows to pass default headers for all endpoints', async () => {
   await fetch('http://host/', { method: 'POST', headers: { Foo: 'Bar' } });
 
   expect(endpoints.bar).toHaveBeenCalledTimes(1);
-  expect(endpoints.bar).toHaveBeenLastCalledWith({ pathname: '/' });
+  expect(endpoints.bar).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+Array [
+  Object {
+    "body": "",
+    "headers": Object {},
+    "params": Object {},
+    "pathname": "/",
+    "searchParams": Object {},
+  },
+]
+`);
 });

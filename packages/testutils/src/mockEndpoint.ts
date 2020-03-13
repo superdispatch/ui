@@ -1,4 +1,4 @@
-import { fromPairs, isEmpty } from 'lodash';
+import { fromPairs } from 'lodash';
 import { Match, match, MatchFunction } from 'path-to-regexp';
 
 export type MockEndpointParams = Record<string, string>;
@@ -11,11 +11,11 @@ interface MockEndpoint {
 }
 
 export interface MockEndpointRequest {
-  body?: unknown;
+  body: unknown;
   pathname: string;
-  params?: MockEndpointParams;
-  headers?: MockEndpointParams;
-  searchParams?: MockEndpointParams;
+  params: MockEndpointParams;
+  headers: MockEndpointParams;
+  searchParams: MockEndpointParams;
 }
 
 const endpoints = new Map<string, MockEndpoint>();
@@ -95,13 +95,11 @@ export function setupMockEndpoints() {
       );
       const parsedSearchParams = Array.from(searchParams.entries());
       const response = endpoint.resolver({
+        body,
+        headers: parsedHeaders,
         pathname: endpointMatch.path,
-        ...(!!body && { body }),
-        ...(!isEmpty(parsedHeaders) && { headers: parsedHeaders }),
-        ...(!isEmpty(endpointMatch.params) && { params: endpointMatch.params }),
-        ...(parsedSearchParams.length > 0 && {
-          searchParams: fromPairs(parsedSearchParams),
-        }),
+        params: endpointMatch.params,
+        searchParams: fromPairs(parsedSearchParams),
       });
 
       if (response instanceof Response) {
