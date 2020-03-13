@@ -1,6 +1,6 @@
-import { setupFormDataSerializer } from '../form-data-serializer';
+import { setupTestUtils } from '../../setupTestUtils';
 
-setupFormDataSerializer();
+setupTestUtils();
 
 it('serializes empty FormData', () => {
   expect(new FormData()).toMatchInlineSnapshot(`FormData {}`);
@@ -25,11 +25,11 @@ it('serialize composed FormData', () => {
   formData.append('name', 'John');
 
   expect({ foo: 'bar', form: formData }).toMatchInlineSnapshot(`
-    Object {
-      "foo": "bar",
-      "form": FormData {
-        "name": "John",
-      },
-    }
-  `);
+Object {
+  "foo": "bar",
+  "form": FormData {
+    "name": "John",
+  },
+}
+`);
 });
