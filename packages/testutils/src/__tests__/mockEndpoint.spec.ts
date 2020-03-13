@@ -1,6 +1,10 @@
 import { flatMap } from 'lodash';
 
-import { mockEndpoint, MockEndpointOptions } from '../mockEndpoint';
+import {
+  mockEndpoint,
+  MockEndpointOptions,
+  MockEndpointRequest,
+} from '../mockEndpoint';
 import { setupTestUtils } from '../setupTestUtils';
 
 setupTestUtils();
@@ -31,7 +35,7 @@ it('wraps global fetch', async () => {
   });
 
   const mockArgs: Array<Parameters<typeof fetch>> = makeFetchArgs(
-    'http://local.host/foo',
+    'http://host/foo',
   );
 
   for (const args of mockArgs) {
@@ -85,63 +89,55 @@ it.each<
   [
     'url',
     { matcher: '/foo', method: 'GET', response: {} },
-    [['http://local.host/foo']],
-    [['http://local.host/bar']],
+    [['http://host/foo']],
+    [['http://host/bar']],
   ],
   [
     'multiple urls',
     { matcher: ['/foo', '/bar'], method: 'GET', response: {} },
-    [['http://local.host/foo'], ['http://local.host/bar']],
-    [['http://local.host/baz']],
+    [['http://host/foo'], ['http://host/bar']],
+    [['http://host/baz']],
   ],
   [
     'url pattern',
     { matcher: '/foo/:id', method: 'GET', response: {} },
-    [
-      ['http://local.host/foo/1'],
-      ['http://local.host/foo/2'],
-      ['http://local.host/foo/bar'],
-    ],
-    [
-      ['http://local.host/foo'],
-      ['http://local.host/foo/'],
-      ['http://local.host/foo/1/bar'],
-    ],
+    [['http://host/foo/1'], ['http://host/foo/2'], ['http://host/foo/bar']],
+    [['http://host/foo'], ['http://host/foo/'], ['http://host/foo/1/bar']],
   ],
   [
     'multiple url patterns',
     { matcher: ['/foo/:id', '/foo/:id/bar'], method: 'GET', response: {} },
     [
-      ['http://local.host/foo/1'],
-      ['http://local.host/foo/1/bar'],
-      ['http://local.host/foo/bar'],
-      ['http://local.host/foo/bar/bar'],
+      ['http://host/foo/1'],
+      ['http://host/foo/1/bar'],
+      ['http://host/foo/bar'],
+      ['http://host/foo/bar/bar'],
     ],
     [
-      ['http://local.host/foo'],
-      ['http://local.host/foo/'],
-      ['http://local.host/foo/1/baz'],
-      ['http://local.host/foo/1/bar/baz'],
+      ['http://host/foo'],
+      ['http://host/foo/'],
+      ['http://host/foo/1/baz'],
+      ['http://host/foo/1/bar/baz'],
     ],
   ],
   [
     'method',
     { matcher: '/foo', method: 'GET', response: {} },
-    [['http://local.host/foo', { method: 'GET' }]],
-    [['http://local.host/foo', { method: 'POST' }]],
+    [['http://host/foo', { method: 'GET' }]],
+    [['http://host/foo', { method: 'POST' }]],
   ],
   [
     'headers',
     { matcher: '/foo', method: 'GET', response: {}, headers: { Foo: 'bar' } },
     [
-      ['http://local.host/foo', { headers: { Foo: 'bar' } }],
-      ['http://local.host/foo', { headers: [['Foo', 'bar']] }],
-      ['http://local.host/foo', { headers: new Headers([['Foo', 'bar']]) }],
+      ['http://host/foo', { headers: { Foo: 'bar' } }],
+      ['http://host/foo', { headers: [['Foo', 'bar']] }],
+      ['http://host/foo', { headers: new Headers([['Foo', 'bar']]) }],
     ],
     [
-      ['http://local.host/foo', { headers: { Foo: 'baz' } }],
-      ['http://local.host/foo', { headers: [['Foo', 'baz']] }],
-      ['http://local.host/foo', { headers: new Headers([['Foo', 'baz']]) }],
+      ['http://host/foo', { headers: { Foo: 'baz' } }],
+      ['http://host/foo', { headers: [['Foo', 'baz']] }],
+      ['http://host/foo', { headers: new Headers([['Foo', 'baz']]) }],
     ],
   ],
 ])('matches by %p', async (name, options, validVariants, invalidVariants) => {
@@ -176,6 +172,52 @@ it.each<
   }
 });
 
+it.each<
+  [
+    string,
+    Partial<MockEndpointOptions>,
+    Parameters<typeof makeFetchArgs>,
+    Partial<MockEndpointRequest>,
+  ]
+>([
+  [
+    'headers',
+    { matcher: '/' },
+    ['http://host/', { headers: { Foo: 'Bar', Bar: 'Baz' } }],
+    { pathname: '/', headers: { foo: 'Bar', bar: 'Baz' } },
+  ],
+  [
+    'searchParams',
+    { matcher: '/' },
+    ['http://host/?foo=bar&bar=baz'],
+    { pathname: '/', searchParams: { foo: 'bar', bar: 'baz' } },
+  ],
+  [
+    'params',
+    { matcher: '/:foo/:bar' },
+    ['http://host/baz/1'],
+    { pathname: '/baz/1', params: { foo: 'baz', bar: '1' } },
+  ],
+])('exposes %s', async (name, options, fetchArgs, expected) => {
+  const mock = mockEndpoint(name, {
+    method: 'GET',
+    response: {},
+    ...options,
+  } as any);
+  const mockArgs = makeFetchArgs(...fetchArgs);
+
+  for (const args of mockArgs) {
+    const response = await fetch(...args);
+
+    expect(response.ok).toBe(true);
+
+    expect(mock).toHaveBeenCalledTimes(1);
+    expect(mock).toHaveBeenLastCalledWith(expected);
+
+    mock.mockClear();
+  }
+});
+
 it('exposes headers', async () => {
   const mock = mockEndpoint('foo', {
     method: 'GET',
@@ -183,14 +225,9 @@ it('exposes headers', async () => {
     response: { foo: 'bar' },
   });
 
-  const mockArgs: Array<Parameters<typeof fetch>> = [
-    ['http://locahost/foo', { headers: { 'X-Hello': 'World' } }],
-    [new Request('http://locahost/foo', { headers: { 'X-Hello': 'World' } })],
-    [
-      new Request('http://locahost/foo', { headers: { 'X-Hello': 'WRONG' } }),
-      { headers: { 'X-Hello': 'World' } },
-    ],
-  ];
+  const mockArgs = makeFetchArgs('http://host/foo', {
+    headers: { 'X-Hello': 'World' },
+  });
 
   for (const args of mockArgs) {
     const response = await fetch(...args);
@@ -232,7 +269,7 @@ it.each<[string, () => BodyInit, undefined | (() => unknown)]>([
       response: { foo: 'bar' },
     });
 
-    const mockArgs = makeFetchArgs('http://locahost/foo', {
+    const mockArgs = makeFetchArgs('http://host/foo', {
       method: 'POST',
       body: makeBody(),
     });
@@ -268,7 +305,7 @@ it('accepts response factory', async () => {
     }),
   });
 
-  const response = await fetch('http://localhost/foo/bar?baz=quoz', {
+  const response = await fetch('http://host/foo/bar?baz=quoz', {
     method: 'POST',
     body: 'noop',
   });
@@ -280,4 +317,26 @@ it('accepts response factory', async () => {
     params: { id: 'bar' },
     searchParams: { baz: 'quoz' },
   });
+});
+
+it('accepts request instance', async () => {
+  mockEndpoint('foo', {
+    method: 'GET',
+    matcher: '/foo',
+    response: new Response(null, { status: 500 }),
+  });
+
+  mockEndpoint('bar', {
+    method: 'GET',
+    matcher: '/bar',
+    response: () => new Response(null, { status: 500 }),
+  });
+
+  await expect(fetch('http://host/foo')).resolves.toEqual(
+    new Response(null, { status: 500 }),
+  );
+
+  await expect(fetch('http://host/bar')).resolves.toEqual(
+    new Response(null, { status: 500 }),
+  );
 });

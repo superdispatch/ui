@@ -14,6 +14,7 @@ export interface MockEndpointRequest {
   body?: unknown;
   pathname: string;
   params?: MockEndpointParams;
+  headers?: MockEndpointParams;
   searchParams?: MockEndpointParams;
 }
 
