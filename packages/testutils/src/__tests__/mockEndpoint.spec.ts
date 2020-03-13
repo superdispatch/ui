@@ -183,7 +183,17 @@ it.each<
   [
     'headers',
     { matcher: '/' },
-    ['http://host/', { headers: { Foo: 'Bar', Bar: 'Baz' } }],
+    [
+      'http://host/',
+      {
+        headers: {
+          Foo: 'Bar',
+          Bar: 'Baz',
+          Accept: 'text/plain',
+          'Content-Type': 'text/plain',
+        },
+      },
+    ],
     { pathname: '/', headers: { foo: 'Bar', bar: 'Baz' } },
   ],
   [

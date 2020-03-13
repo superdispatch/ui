@@ -87,7 +87,10 @@ export function setupMockEndpoints() {
       const requiredHeaders = new Headers(endpoint.headers);
       const parsedHeaders = fromPairs(
         Array.from(request.headers).filter(
-          ([key]) => key !== 'content-type' && !requiredHeaders.has(key),
+          ([key]) =>
+            key !== 'accept' &&
+            key !== 'content-type' &&
+            !requiredHeaders.has(key),
         ),
       );
       const parsedSearchParams = Array.from(searchParams.entries());
