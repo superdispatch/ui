@@ -61,6 +61,8 @@ function findEndpoint(
 }
 
 export function setupMockEndpoints() {
+  require('whatwg-fetch');
+
   const fetchMock = jest.fn(
     async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
       const request = new Request(input, init);
