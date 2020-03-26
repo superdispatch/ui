@@ -69,6 +69,10 @@ export function setupMockEndpoints() {
       const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
 
       if (!endpoint || !endpointMatch) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Unmatched ${request.method.toUpperCase()} ${request.url}`,
+        );
         return new Response(null, { status: 404 });
       }
 
@@ -117,6 +121,11 @@ export function setupMockEndpoints() {
   Object.assign(global, { fetch: fetchMock });
 
   afterEach(() => {
+    endpoints.forEach((endpoint, key) => {
+      if (!endpoint.resolver.mock.calls.length) {
+        console.warn(`Warning: ${key} is mocked but not called`); // eslint-disable-line no-console
+      }
+    });
     endpoints.clear();
     fetchMock.mockClear();
   });

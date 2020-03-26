@@ -368,3 +368,50 @@ it('accepts request instance', async () => {
     new Response(null, { status: 500 }),
   );
 });
+
+describe('warning unmocked endpoint', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  it('calls fetch without mocks', async () => {
+    try {
+      await fetch('http://host/bar');
+    } catch (e) {
+      // ignore error
+    }
+    // eslint-disable-next-line no-console
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    // eslint-disable-next-line no-console
+    expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+      Array [
+        "Unmatched GET http://host/bar",
+      ]
+    `);
+  });
+});
+
+describe('warns mocked but not called', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterAll(() => {
+    // eslint-disable-next-line jest/no-standalone-expect,no-console
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    // eslint-disable-next-line jest/no-standalone-expect,no-console
+    expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+      Array [
+        "Warning: foo is mocked but not called",
+      ]
+    `);
+  });
+
+  it('calls fetch', () => {
+    mockEndpoint('foo', {
+      method: 'GET',
+      matcher: '/foo',
+      response: {},
+    });
+  });
+});
