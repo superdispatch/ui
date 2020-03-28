@@ -71,9 +71,9 @@ export function setupMockEndpoints() {
       if (!endpoint || !endpointMatch) {
         // eslint-disable-next-line no-console
         console.warn(
-          `Unmatched '${request.method.toUpperCase()}' request to '${
-            request.url
-          }'`,
+          "Unmatched '%s' request to '%s'",
+          request.method,
+          request.url,
         );
         return new Response(null, { status: 404 });
       }

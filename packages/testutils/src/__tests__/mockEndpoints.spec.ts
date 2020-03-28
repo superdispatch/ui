@@ -45,6 +45,7 @@ it('creates dictionary of endpoints', async () => {
 });
 
 it('allows to pass default headers for all endpoints', async () => {
+  const warn = jest.spyOn(console, 'warn').mockImplementation();
   const endpoints = mockEndpoints(
     {
       foo: { matcher: '/', method: 'GET', response: {} },
@@ -97,6 +98,5 @@ Array [
 ]
 `);
 
-  // eslint-disable-next-line no-console
-  (console.warn as jest.Mock).mockClear();
+  warn.mockClear();
 });
