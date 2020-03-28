@@ -10,7 +10,7 @@ node_modules/
 
 # distributive
 *.tgz
-.netlify/
+.firebase/
 docs/
 packages/*/pkg/
 

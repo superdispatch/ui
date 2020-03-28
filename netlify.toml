@@ -1,4 +1,0 @@
-[build]
-  publish = "docs"
-  command = "yarn docs"
-  environment = { NODE_VERSION = "10" }
