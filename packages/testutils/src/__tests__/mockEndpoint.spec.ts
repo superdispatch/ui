@@ -176,6 +176,9 @@ it.each<
 
     mock.mockClear();
   }
+
+  // eslint-disable-next-line no-console
+  (console.warn as jest.Mock).mockClear();
 });
 
 it.each<
@@ -367,4 +370,18 @@ it('accepts request instance', async () => {
   await expect(fetch('http://host/bar')).resolves.toEqual(
     new Response(null, { status: 500 }),
   );
+});
+
+it('warns unmocked endpoint', async () => {
+  await fetch('http://host/bar');
+  // eslint-disable-next-line no-console
+  expect(console.warn).toHaveBeenCalledTimes(1);
+  // eslint-disable-next-line no-console
+  expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+      Array [
+        "Unmatched 'GET' request to 'http://host/bar'",
+      ]
+    `);
+  // eslint-disable-next-line no-console
+  (console.warn as jest.Mock).mockClear();
 });
