@@ -176,6 +176,9 @@ it.each<
 
     mock.mockClear();
   }
+
+  // eslint-disable-next-line no-console
+  (console.warn as jest.Mock).mockClear();
 });
 
 it.each<
@@ -375,43 +378,16 @@ describe('warning unmocked endpoint', () => {
   });
 
   it('calls fetch without mocks', async () => {
-    try {
-      await fetch('http://host/bar');
-    } catch (e) {
-      // ignore error
-    }
+    await fetch('http://host/bar');
     // eslint-disable-next-line no-console
     expect(console.warn).toHaveBeenCalledTimes(1);
     // eslint-disable-next-line no-console
     expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
       Array [
-        "Unmatched GET http://host/bar",
+        "Unmatched 'GET' request to 'http://host/bar'",
       ]
     `);
-  });
-});
-
-describe('warns mocked but not called', () => {
-  beforeEach(() => {
-    jest.spyOn(console, 'warn').mockImplementation();
-  });
-
-  afterAll(() => {
-    // eslint-disable-next-line jest/no-standalone-expect,no-console
-    expect(console.warn).toHaveBeenCalledTimes(1);
-    // eslint-disable-next-line jest/no-standalone-expect,no-console
-    expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-      Array [
-        "Warning: foo is mocked but not called",
-      ]
-    `);
-  });
-
-  it('calls fetch', () => {
-    mockEndpoint('foo', {
-      method: 'GET',
-      matcher: '/foo',
-      response: {},
-    });
+    // eslint-disable-next-line no-console
+    (console.warn as jest.Mock).mockClear();
   });
 });
