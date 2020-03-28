@@ -56,7 +56,7 @@ jobs:
       - name: Publish Docs
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          yarn docs --loglevel error
+          yarn docs --quiet
           yarn firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
 
       - name: Publish
