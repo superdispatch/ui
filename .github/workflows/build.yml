@@ -54,7 +54,7 @@ jobs:
         run: yarn build
 
       - name: Publish Docs
-        if: ${{ github.ref == 'master' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           yarn docs
           yarn global add firebase-tools
