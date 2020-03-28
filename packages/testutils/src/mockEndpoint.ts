@@ -69,6 +69,12 @@ export function setupMockEndpoints() {
       const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
 
       if (!endpoint || !endpointMatch) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Unmatched '${request.method.toUpperCase()}' request to '${
+            request.url
+          }'`,
+        );
         return new Response(null, { status: 404 });
       }
 
