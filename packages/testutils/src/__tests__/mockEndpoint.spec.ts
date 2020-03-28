@@ -372,22 +372,16 @@ it('accepts request instance', async () => {
   );
 });
 
-describe('warning unmocked endpoint', () => {
-  beforeEach(() => {
-    jest.spyOn(console, 'warn').mockImplementation();
-  });
-
-  it('calls fetch without mocks', async () => {
-    await fetch('http://host/bar');
-    // eslint-disable-next-line no-console
-    expect(console.warn).toHaveBeenCalledTimes(1);
-    // eslint-disable-next-line no-console
-    expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
+it('warns unmocked endpoint', async () => {
+  await fetch('http://host/bar');
+  // eslint-disable-next-line no-console
+  expect(console.warn).toHaveBeenCalledTimes(1);
+  // eslint-disable-next-line no-console
+  expect(console.warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
       Array [
         "Unmatched 'GET' request to 'http://host/bar'",
       ]
     `);
-    // eslint-disable-next-line no-console
-    (console.warn as jest.Mock).mockClear();
-  });
+  // eslint-disable-next-line no-console
+  (console.warn as jest.Mock).mockClear();
 });
