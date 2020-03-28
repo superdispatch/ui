@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn lerna run build",
+    "build": "yarn lerna run build --no-private",
     "prebump": "yarn && yarn lint && yarn docs && yarn test && yarn build",
     "bump": "lerna version",
     "docs": "yarn workspace @superdispatch/ui-webpage build",
