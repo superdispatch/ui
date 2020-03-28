@@ -53,6 +53,13 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Publish Docs
+        if: ${{ github.ref == 'master' }}
+        run: |
+          yarn docs
+          yarn global add firebase-tools
+          firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
+
       - name: Publish
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: |

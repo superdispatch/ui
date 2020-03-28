@@ -17,7 +17,6 @@
     "bump": "lerna version",
     "docs": "yarn workspace @superdispatch/ui-webpage build",
     "lint": "js-tools lint",
-    "nuke": "git clean -xdf -e \".idea\" -e \".vscode\"",
     "prestart": "yarn",
     "start": "yarn workspace @superdispatch/ui-webpage start",
     "tdd": "jest --watch",
