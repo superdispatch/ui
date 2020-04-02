@@ -74,11 +74,7 @@ export function toDateRange(range: NullableDateRangeLike): DateRange {
     .slice(0, 2)
     .map(toDate)
     .sort((a, b) =>
-      Number.isNaN(a.getTime())
-        ? -1
-        : Number.isNaN(b.getTime())
-        ? 1
-        : a.getTime() - b.getTime(),
+      !isValidDate(a) ? -1 : !isValidDate(b) ? 1 : a.valueOf() - b.valueOf(),
     );
 
   return [start, end];
@@ -206,6 +202,21 @@ export class DateUtils {
     return this.toDateTime(value)
       .set(values)
       .toJSDate();
+  }
+
+  mergeDateAndTime(date: DateLike, time: DateLike): Date {
+    const { hour, minute, second, millisecond } = this.toObject(time);
+
+    if (
+      Number.isNaN(hour) ||
+      Number.isNaN(minute) ||
+      Number.isNaN(second) ||
+      Number.isNaN(millisecond)
+    ) {
+      return new Date(NaN);
+    }
+
+    return this.update(date, { hour, minute, second, millisecond });
   }
 
   startOf(value: DateLike, unit: DateUnit): Date {

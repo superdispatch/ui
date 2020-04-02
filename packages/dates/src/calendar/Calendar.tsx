@@ -289,13 +289,7 @@ function wrapHandlers(
   ): undefined | ReactDayPickerDayEventHandler =>
     fn &&
     ((localDate, modifiers) => {
-      const date = utils.fromObject({
-        ...utils.toObject(initialTime),
-
-        year: localDate.getFullYear(),
-        month: localDate.getMonth() + 1,
-        day: localDate.getDate(),
-      });
+      const date = utils.mergeDateAndTime(localDate, initialTime);
 
       return fn(date, {
         disabled: !!modifiers[styles.disabled],

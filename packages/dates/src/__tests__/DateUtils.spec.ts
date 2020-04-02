@@ -257,6 +257,45 @@ test.each([
 });
 
 test.each([
+  [invalidDate(), invalidDate(), invalidDate()],
+  [mockDate(), invalidDate(), invalidDate()],
+  [invalidDate(), mockDate(), invalidDate()],
+  [
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 11,
+      minute: 12,
+      second: 13,
+      millisecond: 14,
+    }),
+    mockDate({
+      year: 1,
+      month: 2,
+      day: 3,
+      hour: 12,
+      minute: 13,
+      second: 14,
+      millisecond: 15,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 12,
+      minute: 13,
+      second: 14,
+      millisecond: 15,
+    }),
+  ],
+])('DateUtils#mergeDateAndTime(%p, %p) => %p', (date, time, expected) => {
+  const utils = new DateUtils();
+
+  expect(utils.mergeDateAndTime(date, time)).toBeSameDate(expected);
+});
+
+test.each([
   ['year', invalidDate(), invalidDate()],
   [
     'year',
