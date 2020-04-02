@@ -23,7 +23,7 @@ const useStyles = makeStyles<
   SuperDispatchTheme,
   'appBar' | 'appBarSticky' | 'toolbar' | 'startAction' | 'endAction'
 >(
-  theme => ({
+  (theme) => ({
     appBar: {
       '&&': {
         borderTop: 'none',

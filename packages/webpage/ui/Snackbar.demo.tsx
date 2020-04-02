@@ -56,7 +56,7 @@ export default function SnackbarDemo() {
   }));
 
   const updateState = useCallback(
-    (partial: Partial<State>) => setState(prev => ({ ...prev, ...partial })),
+    (partial: Partial<State>) => setState((prev) => ({ ...prev, ...partial })),
     [],
   );
 
@@ -119,7 +119,7 @@ export default function SnackbarDemo() {
             updateState({ variant: value as SnackbarVariant })
           }
         >
-          {variants.map(x => (
+          {variants.map((x) => (
             <FormControlLabel
               key={x}
               value={x}

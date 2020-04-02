@@ -92,7 +92,7 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
         value={value}
         readOnly={true}
         disabled={disabled}
-        onClick={event => onOpen(event.currentTarget)}
+        onClick={(event) => onOpen(event.currentTarget)}
       />
 
       <Popover
@@ -110,7 +110,7 @@ export function DatePickerBase<TValue extends DatePickerBaseValue>({
           quickSelection={
             !!quickSelectionItems && (
               <CalendarQuickSelection>
-                {quickSelectionItems.map(quickSelectionItem => (
+                {quickSelectionItems.map((quickSelectionItem) => (
                   <CalendarQuickSelectionItem
                     key={quickSelectionItem.label}
                     selected={quickSelectionSelectedItem === quickSelectionItem}

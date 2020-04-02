@@ -13,7 +13,7 @@ import { phoneFieldCountries } from './internal/PhoneMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 const useStyles = makeStyles<Theme, {}, MenuClassKey>(
-  theme => ({
+  (theme) => ({
     list: {},
     paper: { maxHeight: theme.spacing(30) },
   }),
@@ -44,7 +44,7 @@ export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
         anchorEl={anchorEl}
         keepMounted={false}
       >
-        {Array.from(phoneFieldCountries.keys(), country => [
+        {Array.from(phoneFieldCountries.keys(), (country) => [
           <PhoneFieldMenuItem
             key={country}
             regionCode={country}

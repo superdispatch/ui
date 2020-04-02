@@ -29,7 +29,7 @@ import {
 } from './DateUtils';
 
 const useStyles = makeStyles<Theme>(
-  theme => ({
+  (theme) => ({
     outside: {},
     disabled: {},
     selected: {},

@@ -76,7 +76,7 @@ export default function TextFieldDemo() {
           ),
         }}
       >
-        {subscriptionTypes.map(x => (
+        {subscriptionTypes.map((x) => (
           <MenuItem key={x} value={x}>
             {startCase(x)}
           </MenuItem>

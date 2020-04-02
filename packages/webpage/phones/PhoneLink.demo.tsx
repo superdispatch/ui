@@ -12,13 +12,13 @@ export default function PhoneTextDemo() {
       <TextField
         label="Raw"
         value={phone}
-        onChange={event => setPhone(event.target.value)}
+        onChange={(event) => setPhone(event.target.value)}
       />
 
       <TextField
         label="Fallback Text"
         value={fallback}
-        onChange={event => setFallback(event.target.value)}
+        onChange={(event) => setFallback(event.target.value)}
       />
 
       <PhoneLink phone={phone} fallback={fallback} />

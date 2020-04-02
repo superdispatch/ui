@@ -73,7 +73,7 @@ export default function PickersDemo() {
           <DateField
             value={range[0]}
             disabled={disabled}
-            onChange={value => setRange(toDateRange([value, range[1]]))}
+            onChange={(value) => setRange(toDateRange([value, range[1]]))}
             hasClearButton={hasClear}
             disableCloseOnSelect={disableCloseOnSelect}
             fullWidth={isFullWidth}
@@ -100,7 +100,7 @@ export default function PickersDemo() {
           <DateRangeField
             value={range}
             disabled={disabled}
-            onChange={value => setRange(toDateRange(value))}
+            onChange={(value) => setRange(toDateRange(value))}
             hasClearButton={hasClear}
             disableCloseOnSelect={disableCloseOnSelect}
             fullWidth={isFullWidth}
@@ -128,7 +128,7 @@ export default function PickersDemo() {
             id="time"
             value={range[0]}
             disabled={disabled}
-            onChange={value => setRange(toDateRange([value, range[1]]))}
+            onChange={(value) => setRange(toDateRange([value, range[1]]))}
             error={hasError}
             fullWidth={isFullWidth}
             label={hasLabel && 'Time'}

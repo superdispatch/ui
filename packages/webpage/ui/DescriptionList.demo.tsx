@@ -22,7 +22,7 @@ export default function DescriptionListDemo() {
 
   return (
     <InlineGrid spacing={2}>
-      {sizes.map(size => (
+      {sizes.map((size) => (
         <GridStack spacing={2} key={size}>
           <Typography>{startCase(size)}</Typography>
 

@@ -5,12 +5,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 import { useEventCallback } from 'utility-hooks';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
@@ -19,8 +14,7 @@ import { useSnackbarStack } from './SnackbarStack';
 type SnackbarCloseReason = 'timeout' | 'explicit';
 
 export interface SnackbarProps
-  extends RefAttributes<unknown>,
-    Omit<MaterialSnackbarProps, 'onClose' | 'message'> {
+  extends Omit<MaterialSnackbarProps, 'onClose' | 'message' | 'children'> {
   children?: ReactNode;
   variant?: SnackbarVariant;
   hasCloseButton?: boolean;

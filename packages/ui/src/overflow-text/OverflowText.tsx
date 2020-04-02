@@ -20,7 +20,7 @@ const useStyles = makeStyles<
   SuperDispatchTheme,
   'root' | 'truncated' | 'sentinel'
 >(
-  theme => ({
+  (theme) => ({
     root: {
       marginBottom: -1,
       borderBottom: '1px dashed transparent',
@@ -82,7 +82,7 @@ export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwar
                 {...props}
                 ref={rootRef}
                 noWrap={true}
-                onClick={event => {
+                onClick={(event) => {
                   setIsOpen(true);
                   onClick?.(event);
                 }}

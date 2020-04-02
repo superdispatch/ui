@@ -10,7 +10,7 @@ import React, {
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
-  theme => ({
+  (theme) => ({
     root: {
       minWidth: theme.spacing(54),
 

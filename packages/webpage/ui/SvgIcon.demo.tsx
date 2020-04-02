@@ -19,9 +19,9 @@ const fontSizes: Array<SvgIconProps['fontSize']> = [
 export default function SvgIconDemo() {
   return (
     <GridStack spacing={2}>
-      {colors.map(color => (
+      {colors.map((color) => (
         <InlineGrid key={color} spacing={2}>
-          {fontSizes.map(fontSize => (
+          {fontSizes.map((fontSize) => (
             <Check key={fontSize} color={color} fontSize={fontSize} />
           ))}
         </InlineGrid>

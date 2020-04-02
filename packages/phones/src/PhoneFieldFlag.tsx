@@ -5,7 +5,7 @@ import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 import { PhoneRegionCode } from './data/PhoneNumber';
 
 const useStyles = makeStyles<Theme>(
-  theme => ({
+  (theme) => ({
     root: { minHeight: theme.spacing(2), minWidth: theme.spacing(2.75) },
   }),
   { name: 'SuperDispatchPhoneFieldFlag' },

@@ -172,7 +172,7 @@ describe('parseDate', () => {
 });
 
 describe('stringifyDate', () => {
-  test.each(allFormats)('stringify invalid value with %p', format => {
+  test.each(allFormats)('stringify invalid value with %p', (format) => {
     expect(stringifyDate(NaN, format)).toBe('Invalid Date');
     expect(stringifyDate(Infinity, format)).toBe('Invalid Date');
     expect(stringifyDate(invalidDate(), format)).toBe('Invalid Date');
@@ -702,7 +702,7 @@ test.each`
   ({ value, compare, result }) => {
     const utils = new DateUtils();
 
-    [undefined, ...allUnits].forEach(unit => {
+    [undefined, ...allUnits].forEach((unit) => {
       expect(utils.isSameDate(value, compare, unit)).toBe(result);
       expect(utils.isSameDate(compare, value, unit)).toBe(result);
 
@@ -723,7 +723,7 @@ test.each`
   ({ value, compare, result }) => {
     const utils = new DateUtils();
 
-    [undefined, ...allUnits].forEach(unit => {
+    [undefined, ...allUnits].forEach((unit) => {
       expect(utils.isSameDateRange(value, compare, unit)).toBe(result);
       expect(utils.isSameDateRange(compare, value, unit)).toBe(result);
     });

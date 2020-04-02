@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = api => {
+module.exports = (api) => {
   api.cache(() =>
     JSON.stringify({
       NODE_ENV: process.env.NODE_ENV,

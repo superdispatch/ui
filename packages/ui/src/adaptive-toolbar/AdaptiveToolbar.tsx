@@ -59,7 +59,7 @@ export interface AdaptiveToolbarItem {
 }
 
 export interface AdaptiveToolbarProps
-  extends RefAttributes<unknown>,
+  extends RefAttributes<HTMLDivElement>,
     Omit<ToolbarProps, 'children'> {
   items: AdaptiveToolbarItem[];
 }
@@ -103,7 +103,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
       });
 
       if (hiddenIdx !== -1) {
-        mountedNodes.slice(hiddenIdx).forEach(itemNode => {
+        mountedNodes.slice(hiddenIdx).forEach((itemNode) => {
           itemNode.setAttribute('hidden', 'true');
         });
       }
@@ -120,7 +120,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
                 <Grid
                   key={item.key}
                   item={true}
-                  ref={node => {
+                  ref={(node) => {
                     itemNodes.current[idx] = node;
                   }}
                 >
@@ -152,7 +152,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
                   setMenuButtonRef(undefined);
                 }}
               >
-                {menuItems.map(item => (
+                {menuItems.map((item) => (
                   <MenuItem
                     key={item.key}
                     onClick={() => {

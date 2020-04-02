@@ -33,7 +33,7 @@ export type CalendarClassNames =
   | 'lastDayOfMonth';
 
 const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
-  theme => ({
+  (theme) => ({
     container: { display: 'inline-block' },
 
     wrapper: {
@@ -313,7 +313,7 @@ function wrapModifier(
   utils: DateUtils,
   modifier: undefined | CalendarModifier,
 ): undefined | FunctionModifier {
-  return modifier && (date => modifier(fromLocalDate(utils, date), utils));
+  return modifier && ((date) => modifier(fromLocalDate(utils, date), utils));
 }
 
 export type CalendarModifier = (date: Date, utils: DateUtils) => boolean;

@@ -16,9 +16,9 @@ const variants: Array<TagProps['variant']> = ['subtle', 'bold'];
 export default function TagDemo() {
   return (
     <GridStack spacing={2}>
-      {colors.map(color => (
+      {colors.map((color) => (
         <InlineGrid key={color} spacing={2}>
-          {variants.map(variant => (
+          {variants.map((variant) => (
             <Tag key={variant} color={color} variant={variant}>
               {startCase(variant)} {startCase(color)}
             </Tag>

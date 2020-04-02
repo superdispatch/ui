@@ -148,8 +148,10 @@ it.each<
   ],
 ])('matches by %p', async (name, options, validVariants, invalidVariants) => {
   const mock = mockEndpoint(name, options);
-  const validMockArgs = flatMap(validVariants, args => makeFetchArgs(...args));
-  const invalidMockArgs = flatMap(invalidVariants, args =>
+  const validMockArgs = flatMap(validVariants, (args) =>
+    makeFetchArgs(...args),
+  );
+  const invalidMockArgs = flatMap(invalidVariants, (args) =>
     makeFetchArgs(...args),
   );
 

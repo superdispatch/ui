@@ -22,7 +22,7 @@ export default function IconButtonDemo() {
 
   return (
     <InlineGrid spacing={2}>
-      {sizes.map(size => (
+      {sizes.map((size) => (
         <IconButton
           key={size}
           size={size}

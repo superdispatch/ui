@@ -103,7 +103,7 @@ function StackItem({ item, style, className }: StackItemProps) {
   return (
     <animated.div style={style} className={className}>
       <SnackbarContent
-        ref={node => {
+        ref={(node) => {
           if (node) {
             item.node = node as HTMLDivElement;
           }
@@ -147,10 +147,10 @@ export function SnackbarStackProvider({
     [snackbarMap, isMobile],
   );
 
-  const transitions = useTransition(stack, item => `${item.id}-${isMobile}`, {
+  const transitions = useTransition(stack, (item) => `${item.id}-${isMobile}`, {
     config: { tension: 340 },
     from: { opacity: 0, height: 0, marginTop: 0 },
-    enter: item => next => {
+    enter: (item) => (next) => {
       const { node } = item;
 
       return Promise.resolve(
@@ -176,14 +176,14 @@ export function SnackbarStackProvider({
 
   const api = useMemo(
     (): SnackbarStack => ({
-      clearStack: () => setSnackbarMap(x => (x.size === 0 ? x : new Map())),
-      addBelowElement: node =>
-        setBelowElements(prev =>
+      clearStack: () => setSnackbarMap((x) => (x.size === 0 ? x : new Map())),
+      addBelowElement: (node) =>
+        setBelowElements((prev) =>
           prev.includes(node) ? prev : [...prev, node],
         ),
-      removeBelowElement: node =>
-        setBelowElements(prev =>
-          !prev.includes(node) ? prev : prev.filter(x => x !== node),
+      removeBelowElement: (node) =>
+        setBelowElements((prev) =>
+          !prev.includes(node) ? prev : prev.filter((x) => x !== node),
         ),
       addSnackbar: (
         message,
@@ -197,7 +197,7 @@ export function SnackbarStackProvider({
         }: SnackbarStackOptions = {},
       ) => {
         const close = () =>
-          setSnackbarMap(prev => {
+          setSnackbarMap((prev) => {
             if (!prev.has(key)) {
               return prev;
             }
@@ -217,13 +217,13 @@ export function SnackbarStackProvider({
           variant,
           hasCloseButton,
           autoHideDuration,
-          onClose: reason => {
+          onClose: (reason) => {
             close();
             onClose?.(reason);
           },
         };
 
-        setSnackbarMap(prev => {
+        setSnackbarMap((prev) => {
           const next = new Map(prev);
 
           if (next.has(key)) {

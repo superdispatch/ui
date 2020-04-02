@@ -36,7 +36,7 @@ export default function PhoneFieldDemo() {
       <TextField
         label="Raw"
         value={raw}
-        onChange={event => setRaw(event.target.value)}
+        onChange={(event) => setRaw(event.target.value)}
       />
 
       <FormControl>
