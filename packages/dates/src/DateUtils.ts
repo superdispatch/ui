@@ -199,9 +199,7 @@ export class DateUtils {
   }
 
   update(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .set(values)
-      .toJSDate();
+    return this.toDateTime(value).set(values).toJSDate();
   }
 
   mergeDateAndTime(date: DateLike, time: DateLike): Date {
@@ -220,27 +218,19 @@ export class DateUtils {
   }
 
   startOf(value: DateLike, unit: DateUnit): Date {
-    return this.toDateTime(value)
-      .startOf(unit)
-      .toJSDate();
+    return this.toDateTime(value).startOf(unit).toJSDate();
   }
 
   endOf(value: DateLike, unit: DateUnit): Date {
-    return this.toDateTime(value)
-      .endOf(unit)
-      .toJSDate();
+    return this.toDateTime(value).endOf(unit).toJSDate();
   }
 
   plus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .plus(values)
-      .toJSDate();
+    return this.toDateTime(value).plus(values).toJSDate();
   }
 
   minus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .minus(values)
-      .toJSDate();
+    return this.toDateTime(value).minus(values).toJSDate();
   }
 
   isSameDate(

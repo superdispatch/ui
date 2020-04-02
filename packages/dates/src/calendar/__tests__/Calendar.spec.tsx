@@ -134,7 +134,7 @@ it('highlights days', () => {
     'yellow',
   ];
 
-  highlights.forEach(highlight => {
+  highlights.forEach((highlight) => {
     wrapper.rerender(
       <Calendar
         highlightedDays={{

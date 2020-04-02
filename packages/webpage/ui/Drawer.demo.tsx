@@ -89,14 +89,14 @@ export default function DrawerDemo() {
               label="Title Text"
               value={title}
               fullWidth={true}
-              onChange={event => setTitle(event.target.value)}
+              onChange={(event) => setTitle(event.target.value)}
             />
             <TextField
               id="subtitle"
               label="Subtitle Text"
               value={subtitle}
               fullWidth={true}
-              onChange={event => setSubtitle(event.target.value)}
+              onChange={(event) => setSubtitle(event.target.value)}
             />
 
             <FormControl>

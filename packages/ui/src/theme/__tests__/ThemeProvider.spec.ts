@@ -6,18 +6,18 @@ const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),
 );
 const colorRegExp = new RegExp(
-  Array.from(colors.keys(), x =>
+  Array.from(colors.keys(), (x) =>
     x.replace('(', '\\(').replace(')', '\\)'),
   ).join('|'),
   'g',
 );
 
 expect.addSnapshotSerializer({
-  test: value =>
+  test: (value) =>
     !!value && typeof value === 'string' && colorRegExp.test(value),
   print: (value: string) =>
     JSON.stringify(
-      value.replace(colorRegExp, color => colors.get(color) as string),
+      value.replace(colorRegExp, (color) => colors.get(color) as string),
     ),
 });
 
@@ -30,7 +30,7 @@ it('exposes overridden theme', () => {
 });
 
 it('allows to modify overridden theme', () => {
-  const modifier = jest.fn(x => x);
+  const modifier = jest.fn((x) => x);
   const theme = renderTheme(modifier);
 
   expect(modifier).toHaveBeenCalledTimes(1);

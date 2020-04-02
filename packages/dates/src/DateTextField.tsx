@@ -40,14 +40,14 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
       {...props}
       disabled={disabled}
       ref={mergeRefs(ref, anchorRef)}
-      onClick={event => {
+      onClick={(event) => {
         onClick?.(event);
 
         if (!event.defaultPrevented) {
           handleOpen();
         }
       }}
-      onKeyDown={event => {
+      onKeyDown={(event) => {
         if (event.key === ' ' || event.key === 'Enter') {
           handleOpen();
         }
@@ -59,7 +59,7 @@ export const DateTextField: ForwardRefExoticComponent<DateTextFieldProps> = forw
             {onClear != null ? (
               <IconButton
                 disabled={disabled}
-                onClick={event => {
+                onClick={(event) => {
                   // Do not bubble up clicks.
                   event.stopPropagation();
 

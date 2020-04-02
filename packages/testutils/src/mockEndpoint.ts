@@ -146,12 +146,12 @@ export function mockEndpoint(
     throw new Error(`MockEndpoint: "${name}" was already registered.`);
   }
 
-  const resolver = jest.fn<object, [MockEndpointRequest]>(arg =>
+  const resolver = jest.fn<object, [MockEndpointRequest]>((arg) =>
     typeof response === 'function' ? response(arg) : response,
   );
 
   const paths = !Array.isArray(matcher) ? [matcher] : matcher;
-  const matchers = paths.map(x => match<MockEndpointParams>(x));
+  const matchers = paths.map((x) => match<MockEndpointParams>(x));
 
   endpoints.set(name, {
     method,

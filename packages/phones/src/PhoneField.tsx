@@ -23,7 +23,7 @@ import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 
 const useStyles = makeStyles<Theme>(
-  theme => ({
+  (theme) => ({
     inputAdornedStart: { marginLeft: theme.spacing(-1), marginRight: 0 },
     selectButton: {
       color: Color.Blue300,
@@ -84,13 +84,13 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
         placeholder={placeholder}
         ref={mergeRefs(ref, anchorRef)}
         inputRef={mergeRefs(inputRefProp, inputRef)}
-        onBlur={event =>
+        onBlur={(event) =>
           onBlur?.({
             region: currentRegion,
             nationalNumber: event.target.value,
           })
         }
-        onChange={event =>
+        onChange={(event) =>
           onChange?.({
             region: currentRegion,
             nationalNumber: event.target.value,
@@ -130,7 +130,7 @@ export const PhoneField: ForwardRefExoticComponent<PhoneFieldProps> = forwardRef
         onClose={() => setIsOpen(false)}
         anchorEl={!isOpen ? undefined : anchorRef.current}
         selectedCountry={currentRegion}
-        onSelect={next =>
+        onSelect={(next) =>
           onChange?.({ region: next, nationalNumber: currentNumber })
         }
       />

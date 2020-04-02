@@ -35,7 +35,9 @@ function ThemeDecorator({ children, ...ctx }: PropsWithChildren<StoryContext>) {
           sandboxes?: Array<{ url: string }>;
         }>;
       } = await response.json();
-      const lastBuild = data.builds.find(build => build.status === 'succeeded');
+      const lastBuild = data.builds.find(
+        (build) => build.status === 'succeeded',
+      );
 
       return lastBuild?.sandboxes?.[0].url;
     },

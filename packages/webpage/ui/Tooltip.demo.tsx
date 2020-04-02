@@ -26,7 +26,7 @@ export default function TooltipDemo() {
 
   return (
     <InlineGrid spacing={2} justify="center">
-      {placements.map(placement => (
+      {placements.map((placement) => (
         <Tooltip
           title={title}
           placement={placement}

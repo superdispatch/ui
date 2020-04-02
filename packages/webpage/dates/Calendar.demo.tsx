@@ -49,7 +49,7 @@ export default function CalendarDemo() {
         fromMonth={!disabled ? undefined : today}
         toMonth={!disabled ? undefined : today}
         disabledDays={
-          !disabled ? undefined : date => date.getTime() < Date.now()
+          !disabled ? undefined : (date) => date.getTime() < Date.now()
         }
         footer={
           hasFooter && (

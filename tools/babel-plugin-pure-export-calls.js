@@ -12,7 +12,7 @@ module.exports = ({ types }) => ({
         return;
       }
 
-      node.declaration.declarations.forEach(declarator => {
+      node.declaration.declarations.forEach((declarator) => {
         if (declarator.type !== 'VariableDeclarator') {
           return;
         }

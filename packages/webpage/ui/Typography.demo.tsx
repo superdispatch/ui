@@ -26,9 +26,9 @@ const variants: Array<TypographyProps['variant']> = [
 export default function TypographyDemo() {
   return (
     <GridStack spacing={2}>
-      {colors.map(color => (
+      {colors.map((color) => (
         <GridStack key={color} spacing={1}>
-          {variants.map(variant => (
+          {variants.map((variant) => (
             <Typography key={variant} color={color} variant={variant}>
               <code>{variant}</code> {startCase(color)}
             </Typography>

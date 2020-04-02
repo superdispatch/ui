@@ -21,7 +21,7 @@ export default function TabsDemo() {
         value={value}
         onChange={(_, nextValue) => setValue(nextValue)}
       >
-        {options.map(x => (
+        {options.map((x) => (
           <Tab key={x} label={x} />
         ))}
       </Tabs>
@@ -29,7 +29,7 @@ export default function TabsDemo() {
       <Typography variant="h6">Without Scroll Buttons</Typography>
 
       <Tabs value={value} onChange={(_, nextValue) => setValue(nextValue)}>
-        {options.map(x => (
+        {options.map((x) => (
           <Tab key={x} label={x} />
         ))}
       </Tabs>

@@ -129,8 +129,8 @@ export default function AutocompleteDemo() {
         loading={isLoading}
         disabled={disabled}
         options={top100Films}
-        getOptionLabel={option => option.title}
-        renderInput={params => (
+        getOptionLabel={(option) => option.title}
+        renderInput={(params) => (
           <TextField
             {...params}
             label={hasLabel && 'Combo box'}
@@ -164,8 +164,8 @@ export default function AutocompleteDemo() {
         disabled={disabled}
         multiple={true}
         options={top100Films}
-        getOptionLabel={option => option.title}
-        renderInput={params => (
+        getOptionLabel={(option) => option.title}
+        renderInput={(params) => (
           <TextField
             {...params}
             label={hasLabel && 'Multiple values'}
