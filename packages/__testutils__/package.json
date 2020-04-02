@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-testutils",
-  "version": "0.2.13",
+  "version": "0.2.23",
   "private": true,
   "main": "index.ts",
   "types": "index.ts"
