@@ -22,9 +22,9 @@ beforeEach(() => {
 
 afterEach(() => {
   // eslint-disable-next-line no-console
-  // expect(console.warn).not.toBeCalled();
+  expect(console.warn).not.toBeCalled();
   // eslint-disable-next-line no-console
-  // expect(console.error).not.toBeCalled();
+  expect(console.error).not.toBeCalled();
 });
 
 expect.extend({
