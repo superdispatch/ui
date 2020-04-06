@@ -9,7 +9,7 @@ import { useWhenValueChanges } from 'utility-hooks';
 
 import { useIsMounted } from './internal/useIsMounted';
 
-export interface AppFormConfig<TValues extends FormikValues, TResponse>
+export interface AppFormikConfig<TValues extends FormikValues, TResponse>
   extends Omit<FormikConfig<TValues>, 'onSubmit'> {
   /**
    * Resets form when input value changes
@@ -24,18 +24,18 @@ export interface AppFormConfig<TValues extends FormikValues, TResponse>
   onSubmitFailure?: (error: Error, values: TValues) => void;
 }
 
-export type AppFormStatus<TResponse> =
+export type AppFormikStatus<TResponse> =
   | { type: 'initial'; payload?: undefined }
   | { type: 'submitted'; payload: TResponse }
   | { type: 'rejected'; payload: Error };
 
 export interface AppFormik<TValues extends FormikValues, TResponse>
   extends Omit<FormikContextType<TValues>, 'status' | 'setStatus'> {
-  status: AppFormStatus<TResponse>;
-  setStatus: (status: AppFormStatus<TResponse>) => void;
+  status: AppFormikStatus<TResponse>;
+  setStatus: (status: AppFormikStatus<TResponse>) => void;
 }
 
-export function useAppForm<TValues extends FormikValues, TResponse>({
+export function useAppFormik<TValues extends FormikValues, TResponse>({
   key,
   onSubmit,
   onSubmitSuccess,
@@ -45,7 +45,7 @@ export function useAppForm<TValues extends FormikValues, TResponse>({
   enableReinitialize = true,
   initialStatus = { type: 'initial' },
   ...config
-}: AppFormConfig<TValues, TResponse>): AppFormik<TValues, TResponse> {
+}: AppFormikConfig<TValues, TResponse>): AppFormik<TValues, TResponse> {
   const isMounted = useIsMounted();
 
   const formik = useFormik<TValues>({

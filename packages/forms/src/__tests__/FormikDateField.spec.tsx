@@ -7,13 +7,13 @@ import React, { ReactElement } from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikDateField } from '../FormikDateField';
-import { AppFormConfig } from '../useAppForm';
+import { AppFormikConfig } from '../useAppFormik';
 
 const stubUtils = new DateUtils({ timeZoneOffset: -300 });
 
 function renderDateField<T, R>(
   element: ReactElement,
-  formProps: AppFormConfig<T, R>,
+  formProps: AppFormikConfig<T, R>,
 ) {
   return renderFormField(
     <ThemeProvider>

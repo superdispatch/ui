@@ -10,7 +10,7 @@ it('exposes public api', () => {
       "FormikPhoneField": [Function],
       "FormikRadioGroupField": [Function],
       "FormikTextField": [Function],
-      "useAppForm": [Function],
+      "useAppFormik": [Function],
       "validatePhone": [Function],
     }
   `);

@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { AppFormConfig, useAppForm } from '../useAppForm';
+import { AppFormikConfig, useAppFormik } from '../useAppFormik';
 
 test('handle success action', async () => {
   const handleSubmit = jest.fn(() =>
@@ -11,7 +11,7 @@ test('handle success action', async () => {
   const handleSuccess = jest.fn();
 
   const { result, waitForNextUpdate } = renderHook(() =>
-    useAppForm({
+    useAppFormik({
       initialValues: { foo: 'bar' },
       onSubmit: handleSubmit,
       onSubmitSuccess: handleSuccess,
@@ -50,7 +50,7 @@ test('handle failure action', async () => {
   const handleFailure = jest.fn();
 
   const { result, waitForNextUpdate } = renderHook(() =>
-    useAppForm({
+    useAppFormik({
       initialValues: { foo: 'bar' },
       getFormErrors,
       onSubmit: handleSubmit,
@@ -107,7 +107,7 @@ test('cancel handler when unmounted', async () => {
   const handleSuccess = jest.fn();
 
   const { result, unmount } = renderHook(() =>
-    useAppForm({
+    useAppFormik({
       initialValues: { foo: 'bar' },
       onSubmit: handleSubmit,
       onSubmitSuccess: handleSuccess,
@@ -123,8 +123,8 @@ test('cancel handler when unmounted', async () => {
 
 test('reset form when key changes', async () => {
   const { result, rerender } = renderHook(
-    (props: Partial<AppFormConfig<{ foo: string }, void>>) =>
-      useAppForm({
+    (props: Partial<AppFormikConfig<{ foo: string }, void>>) =>
+      useAppFormik({
         initialValues: { foo: 'bar' },
         onSubmit: jest.fn(),
         ...props,
