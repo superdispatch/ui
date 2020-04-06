@@ -103,11 +103,11 @@ export function FormPhoneField({
       error={!!errorMessage}
       disabled={disabled || isSubmitting}
       helperText={errorMessage || helperText}
-      onBlur={value => {
+      onBlur={(value) => {
         onBlur?.(value);
         setTouched(true);
       }}
-      onChange={value => {
+      onChange={(value) => {
         onChange?.(value);
 
         setValue(value);

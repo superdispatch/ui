@@ -30,7 +30,7 @@ export function FormRadioGroupField({
     <RadioGroupField
       {...props}
       {...field}
-      onBlur={event => {
+      onBlur={(event) => {
         onBlur?.(event);
         field.onBlur(event);
       }}

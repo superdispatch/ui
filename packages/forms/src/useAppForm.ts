@@ -49,10 +49,10 @@ export function useAppForm<TValues extends FormikValues, TResponse>({
     onSubmit: (values, { setErrors, setStatus }) =>
       Promise.resolve(onSubmit(values))
         .then(
-          response => ({ type: 'submitted', payload: response }),
-          error => ({ type: 'rejected', payload: error }),
+          (response) => ({ type: 'submitted', payload: response }),
+          (error) => ({ type: 'rejected', payload: error }),
         )
-        .then(status => {
+        .then((status) => {
           if (isMounted.current) {
             setStatus(status);
 

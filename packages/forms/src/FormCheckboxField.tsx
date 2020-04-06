@@ -74,7 +74,7 @@ export function FormCheckboxField({
       error={!!errorMessage}
       disabled={disabled || isSubmitting}
       helperText={errorMessage || helperText}
-      onBlur={event => {
+      onBlur={(event) => {
         onBlur?.(event);
         field.onBlur(event);
       }}

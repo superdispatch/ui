@@ -81,7 +81,7 @@ test('handles errors', async () => {
       name="date"
       label="Date"
       onChange={handleChange}
-      validate={value =>
+      validate={(value) =>
         !stubUtils.isSameDate(value, Date.UTC(2019, 4, 10, 1, 2, 3, 45))
           ? 'Invalid Date'
           : undefined

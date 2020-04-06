@@ -1,4 +1,4 @@
-import {RefObject, useLayoutEffect, useRef} from "react";
+import { RefObject, useLayoutEffect, useRef } from 'react';
 
 export function useIsMounted(): RefObject<boolean> {
   const ref = useRef(false);

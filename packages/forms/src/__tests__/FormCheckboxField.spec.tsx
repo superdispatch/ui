@@ -54,7 +54,7 @@ test('validates field', async () => {
       name="agree"
       onChange={handleChange}
       onBlur={handleBlur}
-      validate={value =>
+      validate={(value) =>
         value === false ? 'Check agree before continue' : undefined
       }
     />,

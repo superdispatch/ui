@@ -39,7 +39,7 @@ export function FormDateField({
         onBlur?.();
         setTouched(true);
       }}
-      onChange={value => {
+      onChange={(value) => {
         onChange?.(value);
         setValue(value);
       }}

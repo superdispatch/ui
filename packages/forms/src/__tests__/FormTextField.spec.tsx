@@ -47,7 +47,7 @@ test('should handle change', async () => {
 test('should validate', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
-  const formatError = jest.fn(error => error);
+  const formatError = jest.fn((error) => error);
 
   const wrapper = renderFormFiled(
     <FormTextField
@@ -55,7 +55,7 @@ test('should validate', async () => {
       label="Name"
       onChange={handleChange}
       formatError={formatError}
-      validate={value => (!value ? 'Name is Required' : undefined)}
+      validate={(value) => (!value ? 'Name is Required' : undefined)}
     />,
     {
       initialValues: { name: 'John' },
@@ -81,7 +81,7 @@ test('disable field when submitting', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn(
     () =>
-      new Promise(resolve => {
+      new Promise((resolve) => {
         setTimeout(() => {
           resolve();
         }, 200);
@@ -93,7 +93,7 @@ test('disable field when submitting', async () => {
       name="name"
       label="Name"
       onChange={handleChange}
-      validate={value => (!value ? 'Name is Required' : undefined)}
+      validate={(value) => (!value ? 'Name is Required' : undefined)}
     />,
     {
       initialValues: { name: 'John' },
@@ -119,8 +119,8 @@ test('format and parse value', async () => {
     <FormTextField
       name="name"
       label="Name"
-      format={value => String(value).toUpperCase()}
-      parse={event => String(event.target.value).toLowerCase()}
+      format={(value) => String(value).toUpperCase()}
+      parse={(event) => String(event.target.value).toLowerCase()}
       onChange={handleChange}
     />,
     {

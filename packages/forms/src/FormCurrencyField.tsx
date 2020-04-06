@@ -36,11 +36,11 @@ export function FormCurrencyField({
       disabled={disabled || isSubmitting}
       helperText={errorText || helperText}
       InputProps={{ ...InputProps, startAdornment }}
-      onBlur={event => {
+      onBlur={(event) => {
         onBlur?.(event);
         field.onBlur(event);
       }}
-      onChange={event => {
+      onChange={(event) => {
         onChange?.(event);
         field.onChange(event);
       }}

@@ -11,11 +11,6 @@
   "scripts": {
     "build": "pika build"
   },
-  "peerDependencies": {
-    "@material-ui/core": "^4.8.0",
-    "formik": "^2.1.4",
-    "react": "^16.8.0"
-  },
   "dependencies": {
     "@superdispatch/dates": "^0.2.24",
     "@superdispatch/phones": "^0.2.24",
@@ -26,6 +21,11 @@
   "devDependencies": {
     "@material-ui/core": "^4.8.0",
     "formik": "^2.1.4"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.8.0",
+    "formik": "^2.1.4",
+    "react": "^16.8.0"
   },
   "publishConfig": {
     "access": "public",

@@ -1,8 +1,8 @@
-import {FieldValidator, useField, useFormikContext} from 'formik';
-import React, {ReactNode} from 'react';
+import { FieldValidator, useField, useFormikContext } from 'formik';
+import React, { ReactNode } from 'react';
 
-import {useUID} from './internal/useUID';
-import {NumberField, NumberFieldProps} from './NumberField';
+import { useUID } from './internal/useUID';
+import { NumberField, NumberFieldProps } from './NumberField';
 
 interface FormNumberFieldProps extends NumberFieldProps {
   name: string;
@@ -37,11 +37,11 @@ export function FormNumberField({
       disabled={disabled || isSubmitting}
       error={!!error}
       helperText={helperText || errorMessage}
-      onBlur={event => {
+      onBlur={(event) => {
         onBlur?.(event);
         setTouched(true);
       }}
-      onChange={event => {
+      onChange={(event) => {
         onChange?.(event);
         setValue(event.target.value);
       }}

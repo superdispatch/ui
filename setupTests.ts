@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import {matcherHint, printExpected, printReceived} from 'jest-matcher-utils';
+import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
 
-import {setupMockFunctionMatchers} from './packages/testutils/src/matchers/mock-function-matchers';
+import { setupMockFunctionMatchers } from './packages/testutils/src/matchers/mock-function-matchers';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

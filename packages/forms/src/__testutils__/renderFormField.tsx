@@ -1,9 +1,9 @@
-import {MockEvent} from '@superdispatch/testutils';
-import {render} from '@testing-library/react';
-import {Form, FormikProvider} from 'formik';
-import React, {PropsWithChildren, ReactElement} from 'react';
+import { MockEvent } from '@superdispatch/testutils';
+import { render } from '@testing-library/react';
+import { Form, FormikProvider } from 'formik';
+import React, { PropsWithChildren, ReactElement } from 'react';
 
-import {AppFormConfig, useAppForm} from '../useAppForm';
+import { AppFormConfig, useAppForm } from '../useAppForm';
 
 function getWrapper<T, R>(formProps: AppFormConfig<T, R>) {
   return function Wrapper({ children }: PropsWithChildren<{}>) {

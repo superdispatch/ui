@@ -19,7 +19,7 @@ export function FormTextField<T>({
   parse,
   format,
   validate,
-  formatError = error => error,
+  formatError = (error) => error,
 
   id,
   onBlur,
@@ -46,11 +46,11 @@ export function FormTextField<T>({
       helperText={errorMessage || helperText}
       disabled={disabled ?? isSubmitting}
       value={format ? format(field.value) : field.value}
-      onBlur={event => {
+      onBlur={(event) => {
         onBlur?.(event);
         field.onBlur(event);
       }}
-      onChange={event => {
+      onChange={(event) => {
         onChange?.(event);
 
         if (parse) {
