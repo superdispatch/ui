@@ -24,7 +24,7 @@ export type TagClassKey =
   | 'variantBold';
 
 const useStyles = makeStyles<Theme, {}, TagClassKey>(
-  theme => ({
+  (theme) => ({
     root: {
       maxWidth: '100%',
       alignItems: 'center',

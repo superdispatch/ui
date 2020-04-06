@@ -38,7 +38,7 @@ export default function AdaptiveToolbarDemo() {
             'Send Customer Invoice',
             'Archive',
             'Delete',
-          ].map(label => ({
+          ].map((label) => ({
             label,
             key: label,
             onClick: () => addSnackbar(label),

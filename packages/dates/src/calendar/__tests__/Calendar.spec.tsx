@@ -1,50 +1,17 @@
 import { MockEvent } from '@superdispatch/testutils/';
-import { ThemeProvider } from '@superdispatch/ui';
 import { renderCSS } from '@superdispatch/ui-testutils';
-import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MockDate from 'mockdate';
-import React, { ComponentType, ReactElement } from 'react';
+import React from 'react';
 
-import { DateContextProvider } from '../../DateContext';
-import { DateUtils } from '../../DateUtils';
 import {
-  Calendar,
-  CalendarDayHighlightColor,
-  CalendarModifier,
-} from '../Calendar';
-
-const stubTimeZoneOffset = -300;
-const stubUtils = new DateUtils({ timeZoneOffset: stubTimeZoneOffset });
-const stubModifier: CalendarModifier = (date, utils) =>
-  utils.isSameDate(
-    date,
-    utils.fromObject({ year: 2019, month: 5, day: 24 }),
-    'day',
-  );
-
-beforeEach(() => {
-  MockDate.set(Date.UTC(2019, 4, 24, 1, 2, 3, 45));
-});
-
-afterEach(() => {
-  MockDate.reset();
-});
-
-const Wrapper: ComponentType = ({ children }) => (
-  <ThemeProvider>
-    <DateContextProvider timeZoneOffset={stubTimeZoneOffset}>
-      {children}
-    </DateContextProvider>
-  </ThemeProvider>
-);
-
-function renderCalendar(ui: ReactElement) {
-  return render(ui, { wrapper: Wrapper });
-}
+  renderDateComponent,
+  STUB_DATE,
+} from '../../__testutils__/renderDateComponent';
+import { DateUtils } from '../../DateUtils';
+import { Calendar, CalendarDayHighlightColor } from '../Calendar';
 
 it('renders month', () => {
-  const wrapper = renderCalendar(<Calendar />);
+  const wrapper = renderDateComponent(<Calendar />);
 
   expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
 
@@ -58,7 +25,7 @@ it('renders month', () => {
 });
 
 it('renders weeks', () => {
-  const wrapper = renderCalendar(<Calendar />);
+  const wrapper = renderDateComponent(<Calendar />);
 
   const [weeksRow] = wrapper.getAllByRole('row');
 
@@ -74,35 +41,27 @@ it('renders weeks', () => {
 });
 
 it('renders days', () => {
-  const wrapper = renderCalendar(<Calendar />);
+  const wrapper = renderDateComponent(<Calendar />);
 
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
 });
 
 it('sets start of date when `initialTime` not passed', () => {
   const onDayClick = jest.fn();
-  const wrapper = renderCalendar(<Calendar onDayClick={onDayClick} />);
+  const wrapper = renderDateComponent(<Calendar onDayClick={onDayClick} />);
 
   expect(onDayClick).not.toHaveBeenCalled();
   MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
   expect(onDayClick).toHaveBeenCalledTimes(1);
   expect(onDayClick).toHaveBeenCalledWith(
-    stubUtils.fromObject({
-      year: 2019,
-      month: 5,
-      day: 24,
-      hour: 0,
-      minute: 0,
-      second: 0,
-      millisecond: 0,
-    }),
+    wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
     { disabled: false, selected: false },
   );
 });
 
 it('selects days', () => {
   const onDayClick = jest.fn();
-  const wrapper = renderCalendar(
+  const wrapper = renderDateComponent(
     <Calendar
       onDayClick={onDayClick}
       selectedDays={(date, utils) => {
@@ -130,7 +89,7 @@ it('selects days', () => {
 
     expect(onDayClick).toHaveBeenCalledTimes(1);
     expect(onDayClick).toHaveBeenCalledWith(
-      stubUtils.fromObject({ year: 2019, month: 5, day }),
+      wrapper.dateUtils.fromObject({ year: 2019, month: 5, day }),
       { disabled: false, selected: true },
     );
 
@@ -142,10 +101,13 @@ it('selects days', () => {
   );
 });
 
-it('disables day', () => {
+it('disables days', () => {
   const onDayClick = jest.fn();
-  const wrapper = renderCalendar(
-    <Calendar onDayClick={onDayClick} disabledDays={stubModifier} />,
+  const wrapper = renderDateComponent(
+    <Calendar
+      onDayClick={onDayClick}
+      disabledDays={(date, utils) => utils.isSameDate(date, STUB_DATE, 'day')}
+    />,
   );
 
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
@@ -156,13 +118,13 @@ it('disables day', () => {
 
   expect(onDayClick).toHaveBeenCalledTimes(1);
   expect(onDayClick).toHaveBeenCalledWith(
-    stubUtils.fromObject({ year: 2019, month: 5, day: 24 }),
+    wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
     { disabled: true, selected: false },
   );
 });
 
 it('highlights days', () => {
-  const wrapper = renderCalendar(<div />);
+  const wrapper = renderDateComponent(<div />);
   const highlights: CalendarDayHighlightColor[] = [
     'blue',
     'green',
@@ -172,11 +134,13 @@ it('highlights days', () => {
     'yellow',
   ];
 
-  highlights.forEach(highlight => {
+  highlights.forEach((highlight) => {
     wrapper.rerender(
       <Calendar
-        selectedDays={stubModifier}
-        highlightedDays={{ [highlight]: stubModifier }}
+        highlightedDays={{
+          [highlight]: (value: Date, utils: DateUtils): boolean =>
+            utils.isSameDate(value, STUB_DATE, 'day'),
+        }}
       />,
     );
 

@@ -22,7 +22,7 @@ describe('toHaveBeenLastCalledWithMatchingInlineSnapshot', () => {
 
 describe('toHaveLastReturnedWithMatchingInlineSnapshot', () => {
   it('prints arguments of a function it was last called with', () => {
-    const fn = jest.fn(x => x);
+    const fn = jest.fn((x) => x);
 
     fn({ foo: 'bar' });
 

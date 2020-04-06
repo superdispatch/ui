@@ -24,7 +24,7 @@ export type CardButtonClassKey =
   | 'endIcon';
 
 const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
-  theme => ({
+  (theme) => ({
     root: {
       width: '100%',
       display: 'flex',

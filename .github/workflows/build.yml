@@ -57,7 +57,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
           yarn docs --quiet
-          npx firebase-tools deploy --token ${{secrets.FIREBASE_TOKEN}}
+          yarn firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
 
       - name: Publish
         if: ${{ startsWith(github.ref, 'refs/tags/') }}

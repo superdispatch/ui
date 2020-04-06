@@ -23,16 +23,18 @@ export interface DateUtilsOptions {
   timeZoneOffset?: number;
 }
 
-const defaultDateUtilsOptions: Required<DateUtilsOptions> = {
-  locale: 'en-US',
-  timeZoneOffset: 0,
-} as const;
+const defaultDateUtilsOptions: Required<DateUtilsOptions> =
+  {
+    locale: 'en-US',
+    timeZoneOffset: 0,
+  } as const;
 
-const formats: Record<DateFormat, string> = {
-  DateISO: '_',
-  DateTimeISO: '_',
-  JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
-} as const;
+const formats: Record<DateFormat, string> =
+  {
+    DateISO: '_',
+    DateTimeISO: '_',
+    JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
+  } as const;
 
 function toDateTime(
   value: DateLike,
@@ -74,11 +76,7 @@ export function toDateRange(range: NullableDateRangeLike): DateRange {
     .slice(0, 2)
     .map(toDate)
     .sort((a, b) =>
-      Number.isNaN(a.getTime())
-        ? -1
-        : Number.isNaN(b.getTime())
-        ? 1
-        : a.getTime() - b.getTime(),
+      !isValidDate(a) ? -1 : !isValidDate(b) ? 1 : a.valueOf() - b.valueOf(),
     );
 
   return [start, end];
@@ -203,33 +201,38 @@ export class DateUtils {
   }
 
   update(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .set(values)
-      .toJSDate();
+    return this.toDateTime(value).set(values).toJSDate();
+  }
+
+  mergeDateAndTime(date: DateLike, time: DateLike): Date {
+    const { hour, minute, second, millisecond } = this.toObject(time);
+
+    if (
+      Number.isNaN(hour) ||
+      Number.isNaN(minute) ||
+      Number.isNaN(second) ||
+      Number.isNaN(millisecond)
+    ) {
+      return new Date(NaN);
+    }
+
+    return this.update(date, { hour, minute, second, millisecond });
   }
 
   startOf(value: DateLike, unit: DateUnit): Date {
-    return this.toDateTime(value)
-      .startOf(unit)
-      .toJSDate();
+    return this.toDateTime(value).startOf(unit).toJSDate();
   }
 
   endOf(value: DateLike, unit: DateUnit): Date {
-    return this.toDateTime(value)
-      .endOf(unit)
-      .toJSDate();
+    return this.toDateTime(value).endOf(unit).toJSDate();
   }
 
   plus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .plus(values)
-      .toJSDate();
+    return this.toDateTime(value).plus(values).toJSDate();
   }
 
   minus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value)
-      .minus(values)
-      .toJSDate();
+    return this.toDateTime(value).minus(values).toJSDate();
   }
 
   isSameDate(
@@ -330,10 +333,12 @@ export class DateUtils {
     const valueDateTime = this.toDateTime(value);
     const compareDateTime = this.toDateTime(compare);
 
-    return valueDateTime.toRelative({
-      style,
-      locale: this.locale,
-      base: compareDateTime,
-    }) as string;
+    return (
+      valueDateTime.toRelative({
+        style,
+        locale: this.locale,
+        base: compareDateTime,
+      }) as string
+    );
   }
 }

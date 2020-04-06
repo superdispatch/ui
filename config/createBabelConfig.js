@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ({ isDocs = false } = {}) => api => {
+module.exports = ({ isDocs = false } = {}) => (api) => {
   const isTest = api.env('test');
 
   api.cache(() => JSON.stringify({ isTest, isDocs }));

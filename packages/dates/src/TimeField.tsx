@@ -29,7 +29,7 @@ function toTimeFieldOption(utils: DateUtils, value: Date): TimeFieldOption {
     value: value.getTime(),
     label: utils.format(value, 'time'),
     pattern: new RegExp(
-      `^(${timeFormats.map(format => dateTime.toFormat(format)).join('|')})`,
+      `^(${timeFormats.map((format) => dateTime.toFormat(format)).join('|')})`,
       'i',
     ),
   };
@@ -52,7 +52,7 @@ const optionsFilterCache = new Map<string, TimeFieldOption[]>();
 
 function filterOptions(
   options: TimeFieldOption[],
-  { inputValue }: FilterOptionsState,
+  { inputValue }: FilterOptionsState<TimeFieldOption>,
 ): TimeFieldOption[] {
   const filter = normalizeInputValue(inputValue);
 
@@ -66,7 +66,7 @@ function filterOptions(
     return cached;
   }
 
-  const filtered = options.filter(option => option.pattern.test(filter));
+  const filtered = options.filter((option) => option.pattern.test(filter));
 
   optionsFilterCache.set(inputValue, filtered);
 
@@ -174,7 +174,7 @@ export function TimeField({
         }
       }}
       onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}
-      renderInput={params => (
+      renderInput={(params) => (
         <TextField variant="outlined" {...props} {...params} />
       )}
     />

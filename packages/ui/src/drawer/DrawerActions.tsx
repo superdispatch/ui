@@ -16,7 +16,7 @@ const useStyles = makeStyles<
   SuperDispatchTheme,
   'appBar' | 'appBarSticky' | 'toolbar'
 >(
-  theme => ({
+  (theme) => ({
     appBar: {
       '&&': {
         bottom: 0,

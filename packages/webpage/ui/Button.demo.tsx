@@ -65,9 +65,9 @@ export default function ButtonDemo() {
     >
       <CardContent>
         <InlineGrid spacing={2}>
-          {variants.map(variant => (
+          {variants.map((variant) => (
             <GridStack spacing={1} key={variant}>
-              {sizes.map(size => {
+              {sizes.map((size) => {
                 const buttonKey = `${variant}-${size}`;
                 const buttonState = buttonStateMap.get(buttonKey) || state;
                 const props: ButtonProps = {
@@ -82,7 +82,7 @@ export default function ButtonDemo() {
                       return;
                     }
 
-                    setButtonStateMap(prev =>
+                    setButtonStateMap((prev) =>
                       new Map(prev).set(
                         buttonKey,
                         event.altKey ? 'disabled' : 'loading',

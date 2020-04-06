@@ -10,12 +10,13 @@ export default function GridsDemo() {
     max: 20,
     range: true,
   });
-  const spacing = number('Spacing', 2, {
-    min: 0,
-    max: 10,
-    step: 1,
-    range: true,
-  }) as GridSpacing;
+  const spacing =
+    number('Spacing', 2, {
+      min: 0,
+      max: 10,
+      step: 1,
+      range: true,
+    }) as GridSpacing;
 
   const dynamicSize = boolean('Dynamic Size', false);
   const alignItems = select(

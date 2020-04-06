@@ -24,7 +24,7 @@ function Demo({ label }: { label: string }) {
         onClose={() => setOpen(false)}
         anchorEl={buttonRef.current}
       >
-        {options.map(option => (
+        {options.map((option) => (
           <MenuItem
             key={option}
             onClick={() => {

@@ -172,7 +172,7 @@ describe('parseDate', () => {
 });
 
 describe('stringifyDate', () => {
-  test.each(allFormats)('stringify invalid value with %p', format => {
+  test.each(allFormats)('stringify invalid value with %p', (format) => {
     expect(stringifyDate(NaN, format)).toBe('Invalid Date');
     expect(stringifyDate(Infinity, format)).toBe('Invalid Date');
     expect(stringifyDate(invalidDate(), format)).toBe('Invalid Date');
@@ -254,6 +254,45 @@ test.each([
 
   expect(utilsPlus300.fromObject(date)).toBeSameDate(plus300);
   expect(utilsMinus300.fromObject(date)).toBeSameDate(minus300);
+});
+
+test.each([
+  [invalidDate(), invalidDate(), invalidDate()],
+  [mockDate(), invalidDate(), invalidDate()],
+  [invalidDate(), mockDate(), invalidDate()],
+  [
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 11,
+      minute: 12,
+      second: 13,
+      millisecond: 14,
+    }),
+    mockDate({
+      year: 1,
+      month: 2,
+      day: 3,
+      hour: 12,
+      minute: 13,
+      second: 14,
+      millisecond: 15,
+    }),
+    mockDate({
+      year: 2019,
+      month: 5,
+      day: 24,
+      hour: 12,
+      minute: 13,
+      second: 14,
+      millisecond: 15,
+    }),
+  ],
+])('DateUtils#mergeDateAndTime(%p, %p) => %p', (date, time, expected) => {
+  const utils = new DateUtils();
+
+  expect(utils.mergeDateAndTime(date, time)).toBeSameDate(expected);
 });
 
 test.each([
@@ -663,7 +702,7 @@ test.each`
   ({ value, compare, result }) => {
     const utils = new DateUtils();
 
-    [undefined, ...allUnits].forEach(unit => {
+    [undefined, ...allUnits].forEach((unit) => {
       expect(utils.isSameDate(value, compare, unit)).toBe(result);
       expect(utils.isSameDate(compare, value, unit)).toBe(result);
 
@@ -684,7 +723,7 @@ test.each`
   ({ value, compare, result }) => {
     const utils = new DateUtils();
 
-    [undefined, ...allUnits].forEach(unit => {
+    [undefined, ...allUnits].forEach((unit) => {
       expect(utils.isSameDateRange(value, compare, unit)).toBe(result);
       expect(utils.isSameDateRange(compare, value, unit)).toBe(result);
     });

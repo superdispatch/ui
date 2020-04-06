@@ -91,13 +91,13 @@ export default function CheckboxDemo() {
       <FormControl error={!!errorMessage}>
         <FormLabel>Vertical</FormLabel>
         <FormGroup>
-          {options.map(option => (
+          {options.map((option) => (
             <FormControlLabel
               key={option}
               label={startCase(option)}
               checked={selected.has(option)}
               onChange={(_, checked) =>
-                setSelected(prev => {
+                setSelected((prev) => {
                   const next = new Set<string>(prev);
                   if (checked) {
                     next.add(option);

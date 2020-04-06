@@ -1,7 +1,7 @@
 import {
-  OutlinedTextFieldProps,
   Popover,
   PopoverProps,
+  StandardTextFieldProps,
   Theme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -29,7 +29,7 @@ import {
 } from './DateUtils';
 
 const useStyles = makeStyles<Theme>(
-  theme => ({
+  (theme) => ({
     outside: {},
     disabled: {},
     selected: {},
@@ -62,10 +62,7 @@ interface DateRangeFieldAPI {
 
 export interface DateRangeFieldProps
   extends RefAttributes<HTMLDivElement>,
-    Omit<
-      OutlinedTextFieldProps,
-      'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
-    > {
+    Omit<StandardTextFieldProps, 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
   hasClearButton?: boolean;
   disableCloseOnSelect?: boolean;
 
@@ -117,10 +114,10 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       classes: calendarClasses,
     });
     const value = toDateRange(valueProp);
-    const textValue = dateUtils.formatRange(value);
+    const [startDate, finishDateProp] = value;
+
     const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-    const [startDate, actualFinishDate] = toDateRange(value);
-    const finishDate = actualFinishDate || hoveredDate;
+    const finishDate = finishDateProp || hoveredDate;
 
     const absoluteStartDate = useMemo(
       () =>
@@ -168,11 +165,20 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
     };
 
     const handleChange = (nextValue: undefined | DateRange) => {
-      const [nextStart, nextFinish] = toDateRange(nextValue);
+      const [nextStartValue, nextFinishValue] = toDateRange(nextValue);
 
-      onChange?.([nextStart, nextFinish]);
+      onChange?.([
+        !isValidDate(nextStartValue)
+          ? undefined
+          : isValidDate(startDate)
+          ? dateUtils.mergeDateAndTime(nextStartValue, startDate)
+          : dateUtils.startOf(nextStartValue, 'day'),
+        !isValidDate(nextFinishValue)
+          ? undefined
+          : dateUtils.endOf(nextFinishValue, 'day'),
+      ]);
 
-      if (!disableCloseOnSelect && isValidDate(nextFinish)) {
+      if (!disableCloseOnSelect && isValidDate(nextFinishValue)) {
         handleClose();
       }
     };
@@ -182,6 +188,8 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       close: handleClose,
       change: handleChange,
     };
+
+    const textValue = dateUtils.formatRange(value);
 
     return (
       <>
@@ -227,7 +235,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
               onDayClick?.(date, dateModifiers);
 
               if (!dateModifiers.disabled) {
-                if (startDate && !actualFinishDate) {
+                if (startDate && !finishDateProp) {
                   handleChange([startDate, date]);
                 } else {
                   handleChange([date]);

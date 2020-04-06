@@ -204,7 +204,6 @@ it('checks component css', () => {
     }
 
     .MuiAutocomplete-clearIndicator {
-      color: rgba(0, 0, 0, 0.54);
       padding: 4px;
       visibility: hidden;
       margin-right: -2px;
@@ -222,7 +221,6 @@ it('checks component css', () => {
     }
 
     .MuiAutocomplete-popupIndicator {
-      color: rgba(0, 0, 0, 0.54);
       padding: 2px;
       margin-right: -2px;
     }
@@ -265,16 +263,12 @@ it('checks component css', () => {
       }
     }
 
-    .MuiAutocomplete-paper > ul {
-      overflow: auto;
-      max-height: 40vh;
-    }
-
     .MuiAutocomplete-listbox {
       margin: 0;
       padding: 8px 0px;
-      position: relative;
+      overflow: auto;
       list-style: none;
+      max-height: 40vh;
     }
 
     .MuiAutocomplete-loading {
@@ -332,6 +326,10 @@ it('checks component css', () => {
 
     .MuiAutocomplete-groupUl {
       padding: 0;
+    }
+
+    .MuiAutocomplete-groupUl .MuiAutocomplete-option {
+      padding-left: 24px;
     }
   `);
 });

@@ -9,7 +9,7 @@ const colors = new Map<string, string>(
 );
 
 const colorRegExp = new RegExp(
-  Array.from(colors.keys(), x =>
+  Array.from(colors.keys(), (x) =>
     x.replace('(', '\\(').replace(')', '\\)'),
   ).join('|'),
   'g',
@@ -19,7 +19,7 @@ const renderedCSS = new Set<string>();
 
 function getAllSheets(): Map<string, Element> {
   return new Map<string, Element>(
-    Array.from(document.querySelectorAll('[data-jss]'), node => [
+    Array.from(document.querySelectorAll('[data-jss]'), (node) => [
       node.getAttribute('data-meta') as string,
       node,
     ]),
@@ -37,7 +37,7 @@ function getSheets(components: string[]): Element[] {
     throw new Error(
       `No component names provided. Pick any of: ${Array.from(
         sheets.keys(),
-        key => `  ${key}`,
+        (key) => `  ${key}`,
       ).join('\n')}`,
     );
   }
@@ -45,14 +45,14 @@ function getSheets(components: string[]): Element[] {
   return components
     .slice()
     .sort((a, b) => a.localeCompare(b))
-    .map(name => {
+    .map((name) => {
       const sheet = sheets.get(name);
 
       if (!sheet) {
         throw new Error(
           `Sheet for component "${name}" not found. You can select one of: ${Array.from(
             sheets.keys(),
-            key => `  ${key}`,
+            (key) => `  ${key}`,
           ).join('\n')}`,
         );
       }
@@ -64,7 +64,7 @@ function getSheets(components: string[]): Element[] {
 function parseStyleSheet(names: string[]): Stylesheet {
   return css.parse(
     getSheets(names)
-      .map(node => node.textContent)
+      .map((node) => node.textContent)
       .join('\n'),
   );
 }
@@ -75,20 +75,16 @@ function formatAST(sheet: Stylesheet): string {
       .stringify(sheet)
       .replace(
         /font-family: ([\S\s][^;]+);/gm,
-        (_, fonts) =>
-          `font-family: ${fonts
-            .split(',')
-            .shift()
-            .trim()};`,
+        (_, fonts) => `font-family: ${fonts.split(',').shift().trim()};`,
       )
-      .replace(colorRegExp, color => colors.get(color) as string),
+      .replace(colorRegExp, (color) => colors.get(color) as string),
     { parser: 'css', singleQuote: true },
   ).trim();
 }
 
 expect.addSnapshotSerializer({
-  test: value => typeof value === 'string' && renderedCSS.has(value),
-  print: value => value,
+  test: (value) => typeof value === 'string' && renderedCSS.has(value),
+  print: (value) => value,
 });
 
 export function renderCSS(ui: ReactElement, components: string[]): string {

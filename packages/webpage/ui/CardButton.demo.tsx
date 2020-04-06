@@ -13,7 +13,7 @@ export default function CardButtonDemo() {
 
   return (
     <GridStack spacing={2}>
-      {sizes.map(size => (
+      {sizes.map((size) => (
         <CardButton
           key={size}
           size={size}

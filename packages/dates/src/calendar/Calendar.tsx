@@ -33,7 +33,7 @@ export type CalendarClassNames =
   | 'lastDayOfMonth';
 
 const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
-  theme => ({
+  (theme) => ({
     container: { display: 'inline-block' },
 
     wrapper: {
@@ -289,13 +289,7 @@ function wrapHandlers(
   ): undefined | ReactDayPickerDayEventHandler =>
     fn &&
     ((localDate, modifiers) => {
-      const date = utils.fromObject({
-        ...utils.toObject(initialTime),
-
-        year: localDate.getFullYear(),
-        month: localDate.getMonth() + 1,
-        day: localDate.getDate(),
-      });
+      const date = utils.mergeDateAndTime(localDate, initialTime);
 
       return fn(date, {
         disabled: !!modifiers[styles.disabled],
@@ -319,7 +313,7 @@ function wrapModifier(
   utils: DateUtils,
   modifier: undefined | CalendarModifier,
 ): undefined | FunctionModifier {
-  return modifier && (date => modifier(fromLocalDate(utils, date), utils));
+  return modifier && ((date) => modifier(fromLocalDate(utils, date), utils));
 }
 
 export type CalendarModifier = (date: Date, utils: DateUtils) => boolean;

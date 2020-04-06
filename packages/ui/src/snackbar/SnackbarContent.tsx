@@ -29,7 +29,7 @@ type SnackbarContentClassKey =
   | 'variantSuccess';
 
 const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
-  theme => ({
+  (theme) => ({
     root: {
       color: Color.White,
       backgroundColor: Color.Grey500,
