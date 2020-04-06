@@ -36,9 +36,7 @@ jobs:
             yarn-
 
       - name: Install Dependencies
-        run: |
-          yarn global add lerna firebase-tools
-          yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Typecheck
         run: yarn tsc
