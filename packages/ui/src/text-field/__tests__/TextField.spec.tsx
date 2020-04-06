@@ -255,7 +255,7 @@ it('checks component css', () => {
       color: currentColor;
       width: 100%;
       border: 0;
-      height: 1.1876em;
+      height: 24px;
       margin: 0;
       display: block;
       padding: 6px 0 7px;
@@ -310,6 +310,12 @@ it('checks component css', () => {
     .MuiInputBase-input:-webkit-autofill {
       animation-name: mui-auto-fill;
       animation-duration: 5000s;
+    }
+
+    @media (min-width: 600px) {
+      .MuiInputBase-input {
+        height: 20px;
+      }
     }
 
     label[data-shrink='false']
@@ -457,32 +463,24 @@ it('checks component css', () => {
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: rgba(0, 0, 0, 0.23);
+      top: 0;
+      border-color: Color.Silver500;
+    }
+
+    .MuiOutlinedInput-notchedOutline legend {
+      display: none;
     }
 
     .MuiOutlinedInput-input {
-      height: 24px;
       padding: 10px 12px;
-      font-size: 14px;
-      font-family: SF Pro Text;
-      font-weight: 400;
-      line-height: 20px;
     }
 
     .MuiOutlinedInput-input:-webkit-autofill {
       border-radius: inherit;
     }
 
-    @media (min-width: 0px) and (max-width: 599.95px) {
-      .MuiOutlinedInput-input {
-        font-size: 16px;
-        line-height: 24px;
-      }
-    }
-
     @media (min-width: 600px) {
       .MuiOutlinedInput-input {
-        height: 20px;
         padding: 6px 8px;
       }
     }

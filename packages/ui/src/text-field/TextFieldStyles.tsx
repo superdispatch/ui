@@ -32,7 +32,13 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
       ...theme.typography.body2,
       '&$disabled': { backgroundColor: Color.Silver100 },
     },
-    input: { textOverflow: 'ellipsis' },
+    input: {
+      textOverflow: 'ellipsis',
+      height: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
+      [theme.breakpoints.up('sm')]: {
+        height: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
+      },
+    },
     inputMultiline: { resize: 'vertical' },
   };
 
@@ -63,19 +69,19 @@ export function applyTextFieldStyles(theme: SuperDispatchTheme) {
     root: { '&:hover $notchedOutline': { borderColor: undefined } },
 
     input: {
-      ...theme.typography.body2,
       padding: theme.spacing(1.25, 1.5),
-      height: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-
-      [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(0.75, 1),
-        height: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
-      },
+      [theme.breakpoints.up('sm')]: { padding: theme.spacing(0.75, 1) },
     },
 
     multiline: { padding: theme.spacing(0.75, 1) },
     adornedStart: { paddingLeft: theme.spacing(1) },
     adornedEnd: { paddingRight: theme.spacing(1) },
+
+    notchedOutline: {
+      top: 0,
+      borderColor: Color.Silver500,
+      '& legend': { display: 'none' },
+    },
   };
 
   theme.props.MuiSelect = {
