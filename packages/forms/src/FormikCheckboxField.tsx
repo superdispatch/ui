@@ -1,45 +1,8 @@
-import {
-  Checkbox,
-  CheckboxProps,
-  FormControl,
-  FormControlLabel,
-  FormControlLabelProps,
-  FormHelperText,
-} from '@material-ui/core';
+import { CheckboxField, CheckboxFieldProps } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import { useUID } from './internal/useUID';
-
-interface CheckboxFieldProps
-  extends Omit<CheckboxProps, 'onBlur' | 'onChange'>,
-    Pick<FormControlLabelProps, 'label' | 'onBlur' | 'onChange'> {
-  error?: boolean;
-  helperText?: ReactNode;
-}
-
-function CheckboxField({
-  label,
-  error,
-  checked,
-  onBlur,
-  onChange,
-  helperText,
-  ...props
-}: CheckboxFieldProps) {
-  return (
-    <FormControl error={error}>
-      <FormControlLabel
-        label={label}
-        checked={checked}
-        onBlur={onBlur}
-        onChange={onChange}
-        control={<Checkbox color="primary" disableRipple={true} {...props} />}
-      />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </FormControl>
-  );
-}
 
 export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;

@@ -8,7 +8,7 @@ import {
   RadioGroup,
   RadioGroupProps,
 } from '@material-ui/core';
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 
 export interface RadioGroupFieldProps
   extends Omit<FormControlProps, 'hiddenLabel' | 'onChange'>,
@@ -22,27 +22,31 @@ export interface RadioGroupFieldProps
   FormHelperTextProps?: Omit<FormHelperTextProps, 'children'>;
 }
 
-export function RadioGroupField({
-  name,
-  value = '',
-  onChange,
-  RadioGroupProps: radioGroupProps,
+export const RadioGroupField: ForwardRefExoticComponent<RadioGroupFieldProps> = forwardRef(
+  (
+    {
+      name,
+      value = '',
+      onChange,
+      RadioGroupProps: radioGroupProps,
 
-  label,
-  FormLabelProps: formLabelProps,
+      label,
+      FormLabelProps: formLabelProps,
 
-  helperText,
-  FormHelperTextProps: formHelperTextProps,
+      helperText,
+      FormHelperTextProps: formHelperTextProps,
 
-  children,
+      children,
 
-  ...formControlProps
-}: RadioGroupFieldProps) {
-  return (
+      ...formControlProps
+    },
+    ref,
+  ) => (
     <FormControl {...formControlProps} hiddenLabel={!label}>
       {!!label && <FormLabel {...formLabelProps}>{label}</FormLabel>}
 
       <RadioGroup
+        ref={ref}
         {...radioGroupProps}
         name={name}
         value={value}
@@ -55,5 +59,5 @@ export function RadioGroupField({
         <FormHelperText {...formHelperTextProps}>{helperText}</FormHelperText>
       )}
     </FormControl>
-  );
-}
+  ),
+);

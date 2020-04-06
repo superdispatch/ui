@@ -7,3 +7,5 @@ export * from './FormikRadioGroupField';
 export * from './FormikDateField';
 export * from './FormikCurrencyField';
 export * from './FormikPhoneField';
+export {CheckboxField} from "@superdispatch/ui/pkg/dist-types/checkbox/CheckboxField";
+export {CheckboxFieldProps} from "@superdispatch/ui/pkg/dist-types/checkbox/CheckboxField";

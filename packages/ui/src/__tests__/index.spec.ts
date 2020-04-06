@@ -18,6 +18,16 @@ it('exposes public api', () => {
         "displayName": "CardButton",
         "render": [Function],
       },
+      "CheckboxField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "CheckboxField",
+        "render": [Function],
+      },
+      "CheckboxGroupField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "CheckboxGroupField",
+        "render": [Function],
+      },
       "Color": Object {
         "Blue100": "#A8D1FF",
         "Blue200": "#66ADFF",
@@ -122,6 +132,16 @@ it('exposes public api', () => {
       "OverflowText": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "OverflowText",
+        "render": [Function],
+      },
+      "RadioField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "RadioField",
+        "render": [Function],
+      },
+      "RadioGroupField": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "RadioGroupField",
         "render": [Function],
       },
       "Snackbar": Object {

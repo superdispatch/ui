@@ -1,15 +1,17 @@
 import {
-  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Radio,
-  RadioGroup,
   Switch,
   TextField,
 } from '@material-ui/core';
-import { GridStack } from '@superdispatch/ui';
+import {
+  CheckboxField,
+  GridStack,
+  RadioField,
+  RadioGroupField,
+} from '@superdispatch/ui';
 import React, { useState } from 'react';
 
 export default function RadioDemo() {
@@ -21,66 +23,44 @@ export default function RadioDemo() {
       <FormControl>
         <FormLabel>Label Position</FormLabel>
         <FormGroup row={true}>
-          <FormControlLabel label="Right Label" control={<Radio />} />
+          <RadioField label="Right Label" />
 
-          <FormControlLabel
+          <RadioField
             label="Left Label"
-            labelPlacement="start"
-            control={<Radio />}
+            FormControlLabelProps={{ labelPlacement: 'start' }}
           />
         </FormGroup>
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Readonly</FormLabel>
-        <FormGroup row={true}>
-          <FormControlLabel checked={true} label="On" control={<Radio />} />
+      <RadioGroupField label="Readonly" RadioGroupProps={{ row: true }}>
+        <RadioField checked={true} label="On" />
 
-          <FormControlLabel checked={false} label="Off" control={<Radio />} />
-        </FormGroup>
-      </FormControl>
+        <RadioField checked={false} label="Off" />
+      </RadioGroupField>
 
-      <FormControl>
-        <FormLabel>Disabled</FormLabel>
-        <FormGroup row={true}>
-          <FormControlLabel
-            label="On"
-            checked={true}
-            disabled={true}
-            control={<Radio />}
-          />
+      <RadioGroupField label="Disabled" RadioGroupProps={{ row: true }}>
+        <RadioField label="On" checked={true} disabled={true} />
 
-          <FormControlLabel
-            label="Off"
-            checked={false}
-            disabled={true}
-            control={<Radio />}
-          />
-        </FormGroup>
-      </FormControl>
+        <RadioField label="Off" checked={false} disabled={true} />
+      </RadioGroupField>
 
-      <FormControl>
-        <FormLabel>Vertical</FormLabel>
-
-        <RadioGroup
-          name="vertical"
-          value={selected}
-          onChange={({ target }) => setSelected(target.value)}
-        >
-          <FormControlLabel label="One" value="1" control={<Radio />} />
-          <FormControlLabel label="Two" value="2" control={<Radio />} />
-          <FormControlLabel label="Three" value="3" control={<Radio />} />
-        </RadioGroup>
-      </FormControl>
+      <RadioGroupField
+        label="Vertical"
+        value={selected}
+        onChange={({ target }) => setSelected(target.value)}
+      >
+        <RadioField label="One" value="1" />
+        <RadioField label="Two" value="2" />
+        <RadioField label="Three" value="3" />
+      </RadioGroupField>
 
       <FormControl>
         <FormLabel>Inline Form</FormLabel>
         <FormGroup row={true}>
-          <FormControlLabel
+          <CheckboxField
             label="Checkbox"
             checked={isChecked}
             onChange={(_, checked) => setIsChecked(checked)}
-            control={<Checkbox />}
           />
           <FormControlLabel
             label="Switch"
@@ -88,11 +68,10 @@ export default function RadioDemo() {
             onChange={(_, checked) => setIsChecked(checked)}
             control={<Switch />}
           />
-          <FormControlLabel
+          <RadioField
             label="Radio"
             checked={isChecked}
             onChange={(_, checked) => setIsChecked(checked)}
-            control={<Radio />}
           />
 
           <TextField placeholder="Text Field" />
