@@ -1,15 +1,15 @@
-import {DateField, DateFieldProps} from '@superdispatch/dates';
-import {FieldValidator, useField, useFormikContext} from 'formik';
+import { DateField, DateFieldProps } from '@superdispatch/dates';
+import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
 
-import {useUID} from './internal/useUID';
+import { useUID } from './internal/useUID';
 
-export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
+export interface FormDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormikDateField({
+export function FormDateField({
   id,
   name,
   validate,
@@ -19,7 +19,7 @@ export function FormikDateField({
   disabled,
   helperText,
   ...rest
-}: FormikDateFieldProps) {
+}: FormDateFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField<

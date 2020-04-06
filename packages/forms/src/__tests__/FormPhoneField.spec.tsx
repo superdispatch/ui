@@ -1,6 +1,6 @@
 import { PhoneNumber } from '@superdispatch/phones';
 
-import { validatePhone } from '../FormikPhoneField';
+import { validatePhone } from '../FormPhoneField';
 
 const requiredMessage = 'This field is required';
 const invalidMessage = 'Invalid phone number';

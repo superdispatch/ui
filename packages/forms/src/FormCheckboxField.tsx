@@ -41,12 +41,12 @@ function CheckboxField({
   );
 }
 
-export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
+export interface FormCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormikCheckboxField({
+export function FormCheckboxField({
   id,
   name,
   validate,
@@ -56,7 +56,7 @@ export function FormikCheckboxField({
   disabled,
   helperText,
   ...rest
-}: FormikCheckboxFieldProps) {
+}: FormCheckboxFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }] = useField({

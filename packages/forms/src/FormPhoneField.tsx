@@ -1,9 +1,13 @@
-import {PhoneField, PhoneFieldProps, PhoneNumber, PhoneNumberLike,} from '@superdispatch/phones';
-import {useField, useFormikContext} from 'formik';
-import {FieldValidator} from 'formik/dist/types';
+import {
+  PhoneField,
+  PhoneFieldProps,
+  PhoneNumber,
+  PhoneNumberLike,
+} from '@superdispatch/phones';
+import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
 
-import {useUID} from './internal/useUID';
+import { useUID } from './internal/useUID';
 
 // TODO: Add `PhoneNumber.isPhoneNumberLike` helper.
 function isPhoneNumberLike(value: unknown): value is PhoneNumberLike {
@@ -63,13 +67,13 @@ export function validatePhone(
   }
 }
 
-interface FormikPhoneFieldProps
+export interface FormPhoneFieldProps
   extends Omit<PhoneFieldProps, 'error' | 'value'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormikPhoneField({
+export function FormPhoneField({
   name,
 
   id,
@@ -81,7 +85,7 @@ export function FormikPhoneField({
   validate,
 
   ...rest
-}: FormikPhoneFieldProps) {
+}: FormPhoneFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField({

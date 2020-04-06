@@ -6,7 +6,7 @@ import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
 import { renderFormFiled } from '../__testutils__/renderFormField';
-import { FormikDateField } from '../FormikDateField';
+import { FormDateField } from '../FormDateField';
 import { AppFormConfig } from '../useAppForm';
 
 const stubUtils = new DateUtils({ timeZoneOffset: -300 });
@@ -35,7 +35,7 @@ test('handles changes', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
   const wrapper = renderDateField(
-    <FormikDateField
+    <FormDateField
       name="date"
       label="Date"
       onChange={handleChange}
@@ -77,7 +77,7 @@ test('handles errors', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
   const wrapper = renderDateField(
-    <FormikDateField
+    <FormDateField
       name="date"
       label="Date"
       onChange={handleChange}

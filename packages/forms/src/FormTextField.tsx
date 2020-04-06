@@ -1,12 +1,11 @@
 import { TextField } from '@material-ui/core';
 import { StandardTextFieldProps } from '@material-ui/core/TextField';
-import { useField, useFormikContext } from 'formik';
-import { FieldValidator } from 'formik/dist/types';
+import { FieldValidator, useField, useFormikContext } from 'formik';
 import React, { ChangeEvent, ReactNode } from 'react';
 
 import { useUID } from './internal/useUID';
 
-export interface FormikTextFieldProps<T>
+export interface FormTextFieldProps<T>
   extends Omit<StandardTextFieldProps, 'error'> {
   name: string;
   validate?: FieldValidator;
@@ -15,12 +14,12 @@ export interface FormikTextFieldProps<T>
   parse?: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => T;
 }
 
-export function FormikTextField<T>({
+export function FormTextField<T>({
   name,
   parse,
   format,
   validate,
-  formatError = (error) => error,
+  formatError = error => error,
 
   id,
   onBlur,
@@ -28,7 +27,7 @@ export function FormikTextField<T>({
   disabled,
   helperText,
   ...rest
-}: FormikTextFieldProps<T>) {
+}: FormTextFieldProps<T>) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue }] = useField<T>({

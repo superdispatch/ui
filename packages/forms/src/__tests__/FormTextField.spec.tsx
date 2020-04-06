@@ -4,7 +4,7 @@ import { act } from '@testing-library/react-hooks';
 import React from 'react';
 
 import { renderFormFiled } from '../__testutils__/renderFormField';
-import { FormikTextField } from '../FormikTextField';
+import { FormTextField } from '../FormTextField';
 
 test('should handle change', async () => {
   const handleBlur = jest.fn();
@@ -12,7 +12,7 @@ test('should handle change', async () => {
   const handleSubmit = jest.fn();
 
   const wrapper = renderFormFiled(
-    <FormikTextField
+    <FormTextField
       name="name"
       label="Name"
       onChange={handleChange}
@@ -50,7 +50,7 @@ test('should validate', async () => {
   const formatError = jest.fn(error => error);
 
   const wrapper = renderFormFiled(
-    <FormikTextField
+    <FormTextField
       name="name"
       label="Name"
       onChange={handleChange}
@@ -89,7 +89,7 @@ test('disable field when submitting', async () => {
   );
 
   const wrapper = renderFormFiled(
-    <FormikTextField
+    <FormTextField
       name="name"
       label="Name"
       onChange={handleChange}
@@ -116,7 +116,7 @@ test('format and parse value', async () => {
   const handleSubmit = jest.fn();
 
   const wrapper = renderFormFiled(
-    <FormikTextField
+    <FormTextField
       name="name"
       label="Name"
       format={value => String(value).toUpperCase()}

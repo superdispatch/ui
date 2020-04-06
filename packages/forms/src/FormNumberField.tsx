@@ -1,16 +1,16 @@
-import { FieldValidator, useField, useFormikContext } from 'formik';
-import React, { ReactNode } from 'react';
+import {FieldValidator, useField, useFormikContext} from 'formik';
+import React, {ReactNode} from 'react';
 
-import { NumberField, NumberFieldProps } from './NumberField';
-import {useUID} from "./internal/useUID";
+import {useUID} from './internal/useUID';
+import {NumberField, NumberFieldProps} from './NumberField';
 
-interface FormikNumberFieldProps extends NumberFieldProps {
+interface FormNumberFieldProps extends NumberFieldProps {
   name: string;
   validate?: FieldValidator;
   formatError?: (error: string) => ReactNode;
 }
 
-export function FormikNumberField({
+export function FormNumberField({
   id,
   name,
   validate,
@@ -20,7 +20,7 @@ export function FormikNumberField({
   onBlur,
   onChange,
   ...props
-}: FormikNumberFieldProps) {
+}: FormNumberFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField({
