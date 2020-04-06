@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn lerna run build --no-private",
+    "build": "lerna run build --no-private",
     "prebump": "yarn && yarn lint && yarn docs && yarn test && yarn build",
     "bump": "lerna version",
     "docs": "yarn workspace @superdispatch/ui-webpage build",
@@ -57,7 +57,6 @@
     "html-webpack-plugin": "^4.0.4",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
-    "lerna": "^3.20.2",
     "lint-staged": "^10.0.8",
     "lodash": "^4.17.15",
     "mockdate": "^2.0.5",
