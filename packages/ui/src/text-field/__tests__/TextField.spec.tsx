@@ -255,7 +255,7 @@ it('checks component css', () => {
       color: currentColor;
       width: 100%;
       border: 0;
-      height: 1.1875em;
+      height: 1.1876em;
       margin: 0;
       display: block;
       padding: 6px 0 7px;

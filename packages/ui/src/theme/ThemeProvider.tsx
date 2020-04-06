@@ -43,35 +43,36 @@ import { Color } from './Color';
 export type SuperDispatchTheme = Readonly<Required<Theme>>;
 
 function createTheme() {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: Color.Blue300,
+  const theme =
+    createMuiTheme({
+      palette: {
+        primary: {
+          main: Color.Blue300,
+        },
+
+        error: {
+          main: Color.Red300,
+        },
+
+        action: {
+          hover: Color.Silver100,
+          selected: Color.Silver300,
+          disabled: Color.Silver400,
+        },
+
+        text: {
+          primary: Color.Grey500,
+          secondary: Color.Grey200,
+          hint: Color.Grey100,
+          disabled: Color.Grey100,
+        },
       },
 
-      error: {
-        main: Color.Red300,
-      },
+      typography: createTypographyOptions(),
 
-      action: {
-        hover: Color.Silver100,
-        selected: Color.Silver300,
-        disabled: Color.Silver400,
-      },
-
-      text: {
-        primary: Color.Grey500,
-        secondary: Color.Grey200,
-        hint: Color.Grey100,
-        disabled: Color.Grey100,
-      },
-    },
-
-    typography: createTypographyOptions(),
-
-    props: {},
-    overrides: {},
-  }) as SuperDispatchTheme;
+      props: {},
+      overrides: {},
+    }) as SuperDispatchTheme;
 
   // Implement Typography changes first.
   applyTypographyStyles(theme);
