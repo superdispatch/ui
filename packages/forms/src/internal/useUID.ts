@@ -1,6 +1,7 @@
-import { uniqueId } from 'lodash';
 import { useConstant } from 'utility-hooks';
 
+let current = 0;
+
 export function useUID() {
-  return useConstant(() => uniqueId('uid_'));
+  return useConstant(() => `form_uid_${++current}`);
 }

@@ -14,7 +14,6 @@
   "dependencies": {
     "@superdispatch/dates": "^0.2.24",
     "@superdispatch/phones": "^0.2.24",
-    "lodash": "^4.17.15",
     "react-number-format": "^4.4.1",
     "utility-hooks": "^0.6.1"
   },

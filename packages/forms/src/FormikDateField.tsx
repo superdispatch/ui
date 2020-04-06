@@ -4,12 +4,12 @@ import React from 'react';
 
 import { useUID } from './internal/useUID';
 
-export interface FormDateFieldProps extends Omit<DateFieldProps, 'error'> {
+export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormDateField({
+export function FormikDateField({
   id,
   name,
   validate,
@@ -18,8 +18,8 @@ export function FormDateField({
   onChange,
   disabled,
   helperText,
-  ...rest
-}: FormDateFieldProps) {
+  ...props
+}: FormikDateFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField<
@@ -29,7 +29,7 @@ export function FormDateField({
 
   return (
     <DateField
-      {...rest}
+      {...props}
       {...field}
       id={id || uid}
       error={!!errorText}

@@ -4,13 +4,13 @@ import React from 'react';
 
 import { NumberField, NumberFieldProps } from './NumberField';
 
-export interface FormCurrencyFieldProps
+export interface FormikCurrencyFieldProps
   extends Omit<NumberFieldProps, 'error'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormCurrencyField({
+export function FormikCurrencyField({
   name,
   validate,
 
@@ -22,15 +22,15 @@ export function FormCurrencyField({
     startAdornment = <InputAdornment position="start">$</InputAdornment>,
     ...InputProps
   } = {},
-  ...rest
-}: FormCurrencyFieldProps) {
+  ...props
+}: FormikCurrencyFieldProps) {
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }] = useField({ name, validate });
   const errorText = touched && error;
 
   return (
     <NumberField
-      {...rest}
+      {...props}
       name={name}
       error={!!errorText}
       disabled={disabled || isSubmitting}

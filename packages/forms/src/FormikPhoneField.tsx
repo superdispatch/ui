@@ -4,7 +4,8 @@ import {
   PhoneNumber,
   PhoneNumberLike,
 } from '@superdispatch/phones';
-import { FieldValidator, useField, useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
+import { FieldValidator } from 'formik/dist/types';
 import React from 'react';
 
 import { useUID } from './internal/useUID';
@@ -67,13 +68,13 @@ export function validatePhone(
   }
 }
 
-export interface FormPhoneFieldProps
+interface FormikPhoneFieldProps
   extends Omit<PhoneFieldProps, 'error' | 'value'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormPhoneField({
+export function FormikPhoneField({
   name,
 
   id,
@@ -84,25 +85,25 @@ export function FormPhoneField({
 
   validate,
 
-  ...rest
-}: FormPhoneFieldProps) {
+  ...props
+}: FormikPhoneFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField({
     name,
     validate,
   });
-  const errorMessage = touched && error;
+  const errorText = touched && error;
 
   return (
     <PhoneField
-      {...rest}
+      {...props}
       name={name}
       id={id || uid}
       value={field.value}
-      error={!!errorMessage}
+      error={!!errorText}
       disabled={disabled || isSubmitting}
-      helperText={errorMessage || helperText}
+      helperText={errorText || helperText}
       onBlur={(value) => {
         onBlur?.(value);
         setTouched(true);

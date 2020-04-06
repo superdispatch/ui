@@ -3,14 +3,14 @@ import { act, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { renderFormFiled } from '../__testutils__/renderFormField';
-import { FormCheckboxField } from '../FormCheckboxField';
+import { FormikCheckboxField } from '../FormikCheckboxField';
 
 test('handles changes', async () => {
   const handleSubmit = jest.fn();
   const handleChange = jest.fn();
   const handleBlur = jest.fn();
   const wrapper = renderFormFiled(
-    <FormCheckboxField
+    <FormikCheckboxField
       label="Agree"
       name="agree"
       onChange={handleChange}
@@ -49,7 +49,7 @@ test('validates field', async () => {
   const handleChange = jest.fn();
   const handleBlur = jest.fn();
   const wrapper = renderFormFiled(
-    <FormCheckboxField
+    <FormikCheckboxField
       label="Agree"
       name="agree"
       onChange={handleChange}

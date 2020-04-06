@@ -4,13 +4,13 @@ import React, { ReactNode } from 'react';
 import { useUID } from './internal/useUID';
 import { NumberField, NumberFieldProps } from './NumberField';
 
-interface FormNumberFieldProps extends NumberFieldProps {
+interface FormikNumberFieldProps extends NumberFieldProps {
   name: string;
   validate?: FieldValidator;
   formatError?: (error: string) => ReactNode;
 }
 
-export function FormNumberField({
+export function FormikNumberField({
   id,
   name,
   validate,
@@ -20,14 +20,14 @@ export function FormNumberField({
   onBlur,
   onChange,
   ...props
-}: FormNumberFieldProps) {
+}: FormikNumberFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField({
     name,
     validate,
   });
-  const errorMessage = touched && error && formatError?.(error);
+  const errorText = touched && error && formatError?.(error);
 
   return (
     <NumberField
@@ -36,7 +36,7 @@ export function FormNumberField({
       id={id || uid}
       disabled={disabled || isSubmitting}
       error={!!error}
-      helperText={helperText || errorMessage}
+      helperText={helperText || errorText}
       onBlur={(event) => {
         onBlur?.(event);
         setTouched(true);

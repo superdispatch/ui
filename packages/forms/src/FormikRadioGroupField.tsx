@@ -3,13 +3,13 @@ import React from 'react';
 
 import { RadioGroupField, RadioGroupFieldProps } from './RadioGroupField';
 
-export interface FormRadioGroupFieldProps
+export interface FormikRadioGroupFieldProps
   extends Omit<RadioGroupFieldProps, 'error' | 'value'> {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormRadioGroupField({
+export function FormikRadioGroupField({
   name,
   validate,
 
@@ -18,7 +18,7 @@ export function FormRadioGroupField({
   disabled,
   helperText,
   ...props
-}: FormRadioGroupFieldProps) {
+}: FormikRadioGroupFieldProps) {
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }] = useField({
     name,

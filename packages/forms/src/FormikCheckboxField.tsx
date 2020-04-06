@@ -25,7 +25,7 @@ function CheckboxField({
   onBlur,
   onChange,
   helperText,
-  ...rest
+  ...props
 }: CheckboxFieldProps) {
   return (
     <FormControl error={error}>
@@ -34,19 +34,19 @@ function CheckboxField({
         checked={checked}
         onBlur={onBlur}
         onChange={onChange}
-        control={<Checkbox color="primary" disableRipple={true} {...rest} />}
+        control={<Checkbox color="primary" disableRipple={true} {...props} />}
       />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 }
 
-export interface FormCheckboxFieldProps extends CheckboxFieldProps {
+export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
 }
 
-export function FormCheckboxField({
+export function FormikCheckboxField({
   id,
   name,
   validate,
@@ -55,8 +55,8 @@ export function FormCheckboxField({
   onChange,
   disabled,
   helperText,
-  ...rest
-}: FormCheckboxFieldProps) {
+  ...props
+}: FormikCheckboxFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }] = useField({
@@ -64,16 +64,16 @@ export function FormCheckboxField({
     validate,
     type: 'checkbox',
   });
-  const errorMessage = touched && error;
+  const errorText = touched && error;
 
   return (
     <CheckboxField
-      {...rest}
+      {...props}
       {...field}
       id={id || uid}
-      error={!!errorMessage}
+      error={!!errorText}
       disabled={disabled || isSubmitting}
-      helperText={errorMessage || helperText}
+      helperText={errorText || helperText}
       onBlur={(event) => {
         onBlur?.(event);
         field.onBlur(event);

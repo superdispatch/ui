@@ -23,7 +23,7 @@ export type AppFormStatus<TResponse> =
   | { type: 'submitted'; payload: TResponse }
   | { type: 'rejected'; payload: Error };
 
-export interface AppForm<TValues extends FormikValues, TResponse>
+export interface AppFormik<TValues extends FormikValues, TResponse>
   extends Omit<FormikContextType<TValues>, 'status' | 'setStatus'> {
   status: AppFormStatus<TResponse>;
   setStatus: (status: AppFormStatus<TResponse>) => void;
@@ -39,7 +39,7 @@ export function useAppForm<TValues extends FormikValues, TResponse>({
   enableReinitialize = true,
   initialStatus = { type: 'initial' },
   ...config
-}: AppFormConfig<TValues, TResponse>): AppForm<TValues, TResponse> {
+}: AppFormConfig<TValues, TResponse>): AppFormik<TValues, TResponse> {
   const isMounted = useIsMounted();
 
   const formik = useFormik<TValues>({
@@ -79,5 +79,5 @@ export function useAppForm<TValues extends FormikValues, TResponse>({
     }
   });
 
-  return formik as AppForm<TValues, TResponse>;
+  return formik as AppFormik<TValues, TResponse>;
 }
