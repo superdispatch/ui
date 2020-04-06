@@ -1,7 +1,7 @@
 import { DateContextProvider, DateUtils } from '@superdispatch/dates';
 import { MockEvent } from '@superdispatch/testutils';
 import { ThemeProvider } from '@superdispatch/ui';
-import { wait } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
@@ -61,7 +61,7 @@ test('handles changes', async () => {
 
   wrapper.submitForm();
 
-  await wait(() => {
+  await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
   expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`

@@ -1,5 +1,5 @@
 import { MockEvent } from '@superdispatch/testutils';
-import { act, fireEvent, wait } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { renderFormFiled } from '../__testutils__/renderFormField';
@@ -34,7 +34,7 @@ test('handles changes', async () => {
 
   wrapper.submitForm();
 
-  await wait(() => expect(handleSubmit).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(handleSubmit).toHaveBeenCalledTimes(1));
   expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
     Array [
       Object {

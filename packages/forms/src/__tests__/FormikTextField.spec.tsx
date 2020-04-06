@@ -1,5 +1,5 @@
 import { MockEvent } from '@superdispatch/testutils';
-import { wait } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { act } from '@testing-library/react-hooks';
 import React from 'react';
 
@@ -32,7 +32,7 @@ test('should handle change', async () => {
 
   wrapper.submitForm();
 
-  await wait(() => {
+  await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
   expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
@@ -106,7 +106,7 @@ test('disable field when submitting', async () => {
 
   wrapper.submitForm();
 
-  await wait(() => {
+  await waitFor(() => {
     expect(input).toBeDisabled();
   });
 });
@@ -137,7 +137,7 @@ test('format and parse value', async () => {
 
   wrapper.submitForm();
 
-  await wait(() => {
+  await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
   expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
