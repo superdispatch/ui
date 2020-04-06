@@ -11,6 +11,9 @@ import { useIsMounted } from './internal/useIsMounted';
 
 export interface AppFormConfig<TValues extends FormikValues, TResponse>
   extends Omit<FormikConfig<TValues>, 'onSubmit'> {
+  /**
+   * Resets form when input value changes
+   */
   key?: unknown;
   getFormErrors?: (error: unknown) => FormikErrors<TValues>;
   onSubmit: (values: TValues) => TResponse | PromiseLike<TResponse>;
