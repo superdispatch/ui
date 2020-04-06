@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
+import {matcherHint, printExpected, printReceived} from 'jest-matcher-utils';
+
+import {setupMockFunctionMatchers} from './packages/testutils/src/matchers/mock-function-matchers';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -11,6 +13,8 @@ declare global {
   }
 }
 
+setupMockFunctionMatchers();
+
 beforeEach(() => {
   jest.spyOn(console, 'warn');
   jest.spyOn(console, 'error');
@@ -18,9 +22,9 @@ beforeEach(() => {
 
 afterEach(() => {
   // eslint-disable-next-line no-console
-  expect(console.warn).not.toBeCalled();
+  // expect(console.warn).not.toBeCalled();
   // eslint-disable-next-line no-console
-  expect(console.error).not.toBeCalled();
+  // expect(console.error).not.toBeCalled();
 });
 
 expect.extend({

@@ -1,0 +1,10 @@
+{
+  "exclude": ["**/pkg/**/*", "**/*.spec.*"],
+  "extends": "../../tsconfig.build.json",
+  "references": [{ "path": "../ui" }, { "path": "../phones" }, { "path": "../dates" }],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg/dist-types"
+  }
+}
