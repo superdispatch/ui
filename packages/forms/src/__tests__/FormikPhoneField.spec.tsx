@@ -1,5 +1,3 @@
-import { PhoneNumber } from '@superdispatch/phones';
-
 import { validatePhone } from '../FormikPhoneField';
 
 const requiredMessage = 'This field is required';
@@ -20,8 +18,8 @@ test.each<[any, string | undefined, boolean?]>([
   ['61', tooShortMessage],
   ['615-994-33001', tooLongMessage],
 
-  [PhoneNumber.getExample('US'), undefined],
-  [PhoneNumber.toNational(PhoneNumber.getExample('US')), undefined],
+  [{ region: 'US', nationalNumber: '(615) 994-3300' }, undefined],
+  ['615-994-3300', undefined],
 ])('validates %p phone %s', (...args: any[]) => {
   const [value, message, required] = args;
   expect(

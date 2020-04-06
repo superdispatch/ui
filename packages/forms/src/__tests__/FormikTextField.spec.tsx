@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 import { act } from '@testing-library/react-hooks';
 import React from 'react';
 
-import { renderFormFiled } from '../__testutils__/renderFormField';
+import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikTextField } from '../FormikTextField';
 
 test('should handle change', async () => {
@@ -11,7 +11,7 @@ test('should handle change', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormFiled(
+  const wrapper = renderFormField(
     <FormikTextField
       name="name"
       label="Name"
@@ -49,7 +49,7 @@ test('should validate', async () => {
   const handleSubmit = jest.fn();
   const formatError = jest.fn((error) => error);
 
-  const wrapper = renderFormFiled(
+  const wrapper = renderFormField(
     <FormikTextField
       name="name"
       label="Name"
@@ -88,7 +88,7 @@ test('disable field when submitting', async () => {
       }),
   );
 
-  const wrapper = renderFormFiled(
+  const wrapper = renderFormField(
     <FormikTextField
       name="name"
       label="Name"
@@ -115,7 +115,7 @@ test('format and parse value', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormFiled(
+  const wrapper = renderFormField(
     <FormikTextField
       name="name"
       label="Name"

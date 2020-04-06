@@ -35,8 +35,8 @@ export function FormikNumberField({
       {...props}
       id={id || uid}
       disabled={disabled || isSubmitting}
-      error={!!error}
-      helperText={helperText || errorText}
+      error={!!errorText}
+      helperText={errorText || helperText}
       onBlur={(event) => {
         onBlur?.(event);
         setTouched(true);

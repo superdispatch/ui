@@ -5,7 +5,7 @@ import { waitFor } from '@testing-library/react';
 import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
-import { renderFormFiled } from '../__testutils__/renderFormField';
+import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikDateField } from '../FormikDateField';
 import { AppFormConfig } from '../useAppForm';
 
@@ -15,7 +15,7 @@ function renderDateField<T, R>(
   element: ReactElement,
   formProps: AppFormConfig<T, R>,
 ) {
-  return renderFormFiled(
+  return renderFormField(
     <ThemeProvider>
       <DateContextProvider timeZoneOffset={-300}>{element}</DateContextProvider>
     </ThemeProvider>,

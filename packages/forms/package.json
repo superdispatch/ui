@@ -17,10 +17,6 @@
     "react-number-format": "^4.4.1",
     "utility-hooks": "^0.6.1"
   },
-  "devDependencies": {
-    "@material-ui/core": "^4.8.0",
-    "formik": "^2.1.4"
-  },
   "peerDependencies": {
     "@material-ui/core": "^4.8.0",
     "formik": "^2.1.4",

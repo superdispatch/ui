@@ -12,7 +12,7 @@ function getWrapper<T, R>(formProps: AppFormConfig<T, R>) {
   };
 }
 
-export function renderFormFiled<T, R>(
+export function renderFormField<T, R>(
   element: ReactElement,
   formProps: AppFormConfig<T, R>,
 ) {
