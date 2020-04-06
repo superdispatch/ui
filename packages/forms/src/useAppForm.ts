@@ -15,6 +15,9 @@ export interface AppFormConfig<TValues extends FormikValues, TResponse>
    * Resets form when input value changes
    */
   key?: unknown;
+  /**
+   * Extracts errors from the submission error
+   */
   getFormErrors?: (error: unknown) => FormikErrors<TValues>;
   onSubmit: (values: TValues) => TResponse | PromiseLike<TResponse>;
   onSubmitSuccess?: (response: TResponse, values: TValues) => void;
