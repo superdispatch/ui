@@ -131,7 +131,9 @@ test('reset form when key changes', async () => {
       }),
   );
 
-  await act(() => result.current.setFieldValue('foo', 'baz'));
+  await act(async () => {
+    await result.current.setFieldValue('foo', 'baz');
+  });
 
   expect(result.current.values).toMatchInlineSnapshot(`
 Object {
