@@ -4,6 +4,7 @@ import {
   CssBaseline,
   Theme,
 } from '@material-ui/core';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import {
   StylesProvider,
   ThemeProvider as MaterialThemeProvider,
@@ -43,8 +44,11 @@ import { Color } from './Color';
 export type SuperDispatchTheme = Readonly<Required<Theme>>;
 
 function createTheme() {
+  const breakpoints = createBreakpoints({});
   const theme =
     createMuiTheme({
+      breakpoints,
+
       palette: {
         primary: {
           main: Color.Blue300,
@@ -68,7 +72,7 @@ function createTheme() {
         },
       },
 
-      typography: createTypographyOptions(),
+      typography: createTypographyOptions(breakpoints),
 
       props: {},
       overrides: {},
