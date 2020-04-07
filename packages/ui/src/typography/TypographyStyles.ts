@@ -53,7 +53,7 @@ export function createTypographyOptions(
       lineHeight: '40px',
       fontWeight: 700,
       fontFamily: HEADING_FONT_FAMILY,
-      [xs]: { fontSize: '34px', lineHeight: '44px' },
+      [xs]: { fontSize: '28px', lineHeight: '36px' },
     },
 
     h2: {
@@ -61,7 +61,7 @@ export function createTypographyOptions(
       lineHeight: '28px',
       fontWeight: 500,
       fontFamily: HEADING_FONT_FAMILY,
-      [xs]: { fontSize: '26px', lineHeight: '32px' },
+      [xs]: { fontSize: '22px', lineHeight: '26px' },
     },
 
     h3: {
@@ -69,14 +69,14 @@ export function createTypographyOptions(
       lineHeight: '28px',
       fontWeight: 500,
       fontFamily: HEADING_FONT_FAMILY,
-      [xs]: { fontSize: '22px', lineHeight: '32px' },
+      [xs]: { fontSize: '20px', lineHeight: '26px' },
     },
 
     h4: {
       fontSize: '16px',
       lineHeight: '24px',
       fontWeight: 500,
-      [xs]: { fontSize: '18px', lineHeight: '28px' },
+      [xs]: { fontSize: '17px', lineHeight: '26px' },
     },
 
     h5: {
