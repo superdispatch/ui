@@ -2,7 +2,6 @@ import { CSSProperties } from '@material-ui/styles/withStyles';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { getTypographyProp } from '../typography/TypographyStyles';
 
 function textVariant(
   text: Color,
@@ -90,6 +89,8 @@ function containedVariant(
 }
 
 export function applyButtonStyles(theme: SuperDispatchTheme) {
+  const sm = theme.breakpoints.up('sm');
+
   theme.props.MuiButton = {
     disableFocusRipple: true,
   };
@@ -106,9 +107,7 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
 
       padding: theme.spacing(1.25, 3),
 
-      [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(0.75, 2),
-      },
+      [sm]: { padding: theme.spacing(0.75, 2) },
 
       '&:hover': {
         backgroundColor: undefined,
@@ -141,33 +140,31 @@ export function applyButtonStyles(theme: SuperDispatchTheme) {
 
     label: {
       '& > .MuiSvgIcon-root': {
-        fontSize: getTypographyProp(theme, 'mobile', 'button', 'lineHeight'),
-
-        [theme.breakpoints.up('sm')]: {
-          fontSize: getTypographyProp(theme, 'desktop', 'button', 'lineHeight'),
-        },
+        fontSize: '24px',
+        [sm]: { fontSize: '20px' },
 
         '$sizeLarge &': {
-          fontSize: getTypographyProp(theme, 'mobile', 'h4', 'lineHeight'),
-
-          [theme.breakpoints.up('sm')]: {
-            fontSize: getTypographyProp(theme, 'desktop', 'h4', 'lineHeight'),
-          },
+          fontSize: '28px',
+          [sm]: { fontSize: '24px' },
         },
       },
     },
 
     sizeSmall: {
       padding: theme.spacing(0.5, 3),
-      [theme.breakpoints.up('sm')]: { padding: theme.spacing(0.25, 2) },
+      [sm]: { padding: theme.spacing(0.25, 2) },
     },
 
     sizeLarge: {
-      ...theme.typography.h4,
-      fontWeight: theme.typography.body1.fontWeight,
-
+      fontSize: '18px',
+      lineHeight: '28px',
       padding: theme.spacing(1.75, 8),
-      [theme.breakpoints.up('sm')]: { padding: theme.spacing(1, 4) },
+
+      [sm]: {
+        fontSize: '16px',
+        lineHeight: '24px',
+        padding: theme.spacing(1, 4),
+      },
     },
 
     text: {
