@@ -13,6 +13,8 @@ const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
 ));
 
 export function overrideTextField(theme: SuperDispatchTheme) {
+  const sm = theme.breakpoints.up('sm');
+
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };
 
   theme.overrides.MuiFormLabel = {
@@ -35,7 +37,7 @@ export function overrideTextField(theme: SuperDispatchTheme) {
     input: {
       textOverflow: 'ellipsis',
       height: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-      [theme.breakpoints.up('sm')]: {
+      [sm]: {
         height: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
       },
     },
@@ -70,7 +72,7 @@ export function overrideTextField(theme: SuperDispatchTheme) {
 
     input: {
       padding: theme.spacing(1.25, 1.5),
-      [theme.breakpoints.up('sm')]: { padding: theme.spacing(0.75, 1) },
+      [sm]: { padding: theme.spacing(0.75, 1) },
     },
 
     multiline: { padding: theme.spacing(0.75, 1) },
@@ -94,7 +96,7 @@ export function overrideTextField(theme: SuperDispatchTheme) {
       fontSize: iconSizeVariant('small', true),
       '$disabled &': { color: Color.Grey100 },
 
-      [theme.breakpoints.up('sm')]: {
+      [sm]: {
         top: `calc(50% - ${iconSizeVariant('small')} / 2)`,
         fontSize: iconSizeVariant('small'),
       },
@@ -102,19 +104,13 @@ export function overrideTextField(theme: SuperDispatchTheme) {
 
     iconOutlined: {
       right: theme.spacing(1.5),
-
-      [theme.breakpoints.up('sm')]: {
-        right: theme.spacing(1),
-      },
+      [sm]: { right: theme.spacing(1) },
     },
 
     selectMenu: {
       '&&': {
         paddingRight: theme.spacing(4.5),
-
-        [theme.breakpoints.up('sm')]: {
-          right: theme.spacing(4),
-        },
+        [sm]: { right: theme.spacing(4) },
       },
     },
   };
@@ -123,8 +119,7 @@ export function overrideTextField(theme: SuperDispatchTheme) {
     root: {
       '& .MuiSvgIcon-root': {
         fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-
-        [theme.breakpoints.up('sm')]: {
+        [sm]: {
           fontSize: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
         },
       },
@@ -135,20 +130,14 @@ export function overrideTextField(theme: SuperDispatchTheme) {
     positionStart: {
       '& .MuiIconButton-root': {
         marginLeft: theme.spacing(-0.5),
-
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(-0.75),
-        },
+        [sm]: { marginLeft: theme.spacing(-0.75) },
       },
     },
 
     positionEnd: {
       '& .MuiIconButton-root': {
         marginRight: theme.spacing(-0.5),
-
-        [theme.breakpoints.up('sm')]: {
-          marginRight: theme.spacing(-0.75),
-        },
+        [sm]: { marginRight: theme.spacing(-0.75) },
       },
     },
   };
