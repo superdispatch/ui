@@ -1,4 +1,5 @@
 import { Theme } from '@material-ui/core';
+import { Breakpoints } from '@material-ui/core/styles/createBreakpoints';
 import {
   TypographyOptions,
   Variant,
@@ -15,25 +16,8 @@ const FALLBACK_FONT_FAMILY =
 const CONTENT_FONT_FAMILY = `SF Pro Text, ${FALLBACK_FONT_FAMILY}`;
 const HEADING_FONT_FAMILY = `SF Pro Display, ${FALLBACK_FONT_FAMILY}`;
 
-const typographyVariants: Variant[] = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'body2',
-  'body1',
-  'button',
-  'caption',
-];
-
-function px(value: number): string {
-  return `${value}px`;
-}
-
-function xsOnly(theme: Theme): string {
-  return theme.breakpoints.only('xs');
+function xsOnly(breakpoints: Breakpoints): string {
+  return breakpoints.only('xs');
 }
 
 export function getTypographyProp(
@@ -45,103 +29,103 @@ export function getTypographyProp(
   let css = theme.typography[variant];
 
   if (platform === 'mobile') {
-    css = css[xsOnly(theme)] as CSSProperties;
+    css = css[xsOnly(theme.breakpoints)] as CSSProperties;
   }
 
   return css?.[prop] as string;
 }
 
-function getFontSize(variant: Variant): number {
-  switch (variant) {
-    case 'h1':
-      return 32;
-    case 'h2':
-      return 24;
-    case 'h3':
-      return 20;
-    case 'h4':
-      return 16;
-    case 'h6':
-    case 'caption':
-      return 12;
-    default:
-      return 14;
-  }
-}
+export function createTypographyOptions(
+  breakpoints: Breakpoints,
+): TypographyOptions {
+  const xs = breakpoints.only('xs');
 
-function toMobileFontSize(fontSize: CSSProperties['fontSize']): number {
-  return parseInt(fontSize as string, 10) + 2;
-}
+  return {
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+    fontFamily: CONTENT_FONT_FAMILY,
 
-function toFontHeight(fontSize: CSSProperties['fontSize']): number {
-  switch (parseInt(fontSize as string, 10)) {
-    case 34:
-      return 44;
-    case 32:
-      return 40;
-    case 26:
-    case 22:
-      return 32;
-    case 24:
-    case 20:
-    case 18:
-      return 28;
-    case 16:
-      return 24;
-    case 12:
-      return 16;
-    default:
-    case 14:
-      return 20;
-  }
-}
+    h1: {
+      fontSize: '32px',
+      lineHeight: '40px',
+      fontWeight: 700,
+      fontFamily: HEADING_FONT_FAMILY,
+      [xs]: { fontSize: '34px', lineHeight: '44px' },
+    },
 
-export function createTypographyOptions(): TypographyOptions {
-  const options: TypographyOptions = { fontFamily: CONTENT_FONT_FAMILY };
+    h2: {
+      fontSize: '24px',
+      lineHeight: '28px',
+      fontWeight: 500,
+      fontFamily: HEADING_FONT_FAMILY,
+      [xs]: { fontSize: '26px', lineHeight: '32px' },
+    },
 
-  typographyVariants.forEach((variant: Variant) => {
-    const fontSize = getFontSize(variant);
+    h3: {
+      fontSize: '20px',
+      lineHeight: '28px',
+      fontWeight: 500,
+      fontFamily: HEADING_FONT_FAMILY,
+      [xs]: { fontSize: '22px', lineHeight: '32px' },
+    },
 
-    options[variant] = {
-      fontSize: px(fontSize),
-      lineHeight: px(toFontHeight(fontSize)),
+    h4: {
+      fontSize: '16px',
+      lineHeight: '24px',
+      fontWeight: 500,
+      [xs]: { fontSize: '18px', lineHeight: '28px' },
+    },
 
-      fontFamily:
-        variant !== 'h1' && variant !== 'h2' && variant !== 'h3'
-          ? CONTENT_FONT_FAMILY
-          : HEADING_FONT_FAMILY,
+    h5: {
+      fontSize: '14px',
+      lineHeight: '20px',
+      fontWeight: 600,
+      [xs]: { fontSize: '16px', lineHeight: '24px' },
+    },
 
-      fontWeight:
-        variant === 'h1' || variant === 'h6'
-          ? 700
-          : variant === 'h2' || variant === 'h3' || variant === 'h4'
-          ? 500
-          : variant === 'h5' || variant === 'body1' || variant === 'button'
-          ? 600
-          : 400,
+    h6: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      fontWeight: 700,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      [xs]: { fontSize: '14px', lineHeight: '20px' },
+    },
 
-      letterSpacing: variant === 'h6' ? '0.1em' : undefined,
-      textTransform: variant === 'h6' ? 'uppercase' : undefined,
-    };
-  });
+    body1: {
+      fontSize: '14px',
+      lineHeight: '20px',
+      fontWeight: 600,
+      [xs]: { fontSize: '16px', lineHeight: '24px' },
+    },
 
-  return options;
-}
+    body2: {
+      fontSize: '14px',
+      lineHeight: '20px',
+      fontWeight: 400,
+      [xs]: { fontSize: '16px', lineHeight: '24px' },
+    },
 
-function responsiveTypography(theme: SuperDispatchTheme) {
-  typographyVariants.forEach((variant: Variant) => {
-    const css = theme.typography[variant];
-    const fontSize = toMobileFontSize(css.fontSize);
+    caption: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      fontWeight: 400,
+      [xs]: { fontSize: '14px', lineHeight: '20px' },
+    },
 
-    css[xsOnly(theme)] = {
-      fontSize: px(fontSize),
-      lineHeight: px(toFontHeight(fontSize)),
-    };
-  });
+    button: {
+      fontSize: '14px',
+      lineHeight: '20px',
+      fontWeight: 600,
+      textTransform: undefined,
+      [xs]: { fontSize: '16px', lineHeight: '24px' },
+    },
+  };
 }
 
 export function applyTypographyStyles(theme: SuperDispatchTheme) {
-  responsiveTypography(theme);
-
   theme.props.MuiTypography = { variant: 'body2' };
 }
