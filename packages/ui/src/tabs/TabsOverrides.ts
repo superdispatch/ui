@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyTabsStyles(theme: SuperDispatchTheme) {
+export function overrideTabs(theme: SuperDispatchTheme) {
   theme.props.MuiTabs = {
     variant: 'scrollable',
     textColor: 'primary',

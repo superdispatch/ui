@@ -4,7 +4,7 @@ import React from 'react';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyChipStyles(theme: SuperDispatchTheme) {
+export function overrideChip(theme: SuperDispatchTheme) {
   theme.props.MuiChip = {
     size: 'small',
     deleteIcon: (

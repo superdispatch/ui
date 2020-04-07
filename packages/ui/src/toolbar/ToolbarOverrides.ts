@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyToolbarStyles(theme: SuperDispatchTheme) {
+export function overrideToolbar(theme: SuperDispatchTheme) {
   theme.overrides.MuiToolbar = {
     regular: { minHeight: theme.spacing(8) },
 

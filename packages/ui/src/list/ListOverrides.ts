@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyListStyles(theme: SuperDispatchTheme) {
+export function overrideList(theme: SuperDispatchTheme) {
   theme.overrides.MuiListItem = {
     root: {
       '&$selected, &$selected:hover': { backgroundColor: Color.Blue50 },

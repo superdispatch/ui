@@ -17,7 +17,7 @@ export function iconSizeVariant(
   }
 }
 
-export function applySvgIconStyles(theme: SuperDispatchTheme) {
+export function overrideSvgIcon(theme: SuperDispatchTheme) {
   theme.overrides.MuiSvgIcon = {
     root: {
       fontSize: iconSizeVariant('default'),

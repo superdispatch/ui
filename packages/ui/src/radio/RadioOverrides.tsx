@@ -4,7 +4,7 @@ import React from 'react';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyRadioStyles(theme: SuperDispatchTheme) {
+export function overrideRadio(theme: SuperDispatchTheme) {
   theme.props.MuiRadio = {
     color: 'primary',
     icon: (
