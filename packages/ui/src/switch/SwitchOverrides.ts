@@ -2,6 +2,8 @@ import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function overrideSwitch(theme: SuperDispatchTheme) {
+  const sm = theme.breakpoints.up('sm');
+
   theme.props.MuiSwitch = {
     color: 'primary',
     disableRipple: true,
@@ -13,8 +15,7 @@ export function overrideSwitch(theme: SuperDispatchTheme) {
       width: theme.spacing(9.5),
       height: theme.spacing(5.5),
       padding: theme.spacing(0.75, 1.5),
-
-      [theme.breakpoints.up('sm')]: {
+      [sm]: {
         width: theme.spacing(8),
         height: theme.spacing(4),
         padding: theme.spacing(0.5, 1.5),
@@ -30,10 +31,7 @@ export function overrideSwitch(theme: SuperDispatchTheme) {
       }),
 
       borderRadius: theme.spacing(2),
-
-      [theme.breakpoints.up('sm')]: {
-        borderRadius: theme.spacing(1.625),
-      },
+      [sm]: { borderRadius: theme.spacing(1.625) },
     },
 
     thumb: {
@@ -41,27 +39,17 @@ export function overrideSwitch(theme: SuperDispatchTheme) {
       boxShadow: undefined,
       width: theme.spacing(3),
       height: theme.spacing(3),
-
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(2),
-        height: theme.spacing(2),
-      },
+      [sm]: { width: theme.spacing(2), height: theme.spacing(2) },
     },
 
     switchBase: {
       left: theme.spacing(1),
       padding: theme.spacing(1.25, 1),
-
-      [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(1),
-      },
+      [sm]: { padding: theme.spacing(1) },
 
       '&$checked': {
         transform: `translateX(${theme.spacing(2.5)}px)`,
-
-        [theme.breakpoints.up('sm')]: {
-          transform: `translateX(${theme.spacing(2)}px)`,
-        },
+        [sm]: { transform: `translateX(${theme.spacing(2)}px)` },
       },
 
       '&$checked + $track': {

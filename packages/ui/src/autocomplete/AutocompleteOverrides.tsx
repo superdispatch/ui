@@ -6,6 +6,8 @@ import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function overrideAutocomplete(theme: SuperDispatchTheme) {
+  const sm = theme.breakpoints.up('sm');
+
   // TODO: Remove `Object.assign` after official release of `Autocomplete`.
 
   Object.assign(theme.props, {
@@ -34,10 +36,7 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
       paper: { ...theme.typography.body2 },
       tag: {
         margin: theme.spacing(0.5),
-
-        [theme.breakpoints.up('sm')]: {
-          margin: theme.spacing(0.25),
-        },
+        [sm]: { margin: theme.spacing(0.25) },
       },
       endAdornment: {
         top: 0,
@@ -48,20 +47,14 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
       popupIndicator: {
         '& .MuiSvgIcon-root': {
           fontSize: iconSizeVariant('small', true),
-
-          [theme.breakpoints.up('sm')]: {
-            fontSize: iconSizeVariant('small'),
-          },
+          [sm]: { fontSize: iconSizeVariant('small') },
         },
       },
       clearIndicator: {
         '& .MuiSvgIcon-root': {
           color: Color.Grey100,
           fontSize: theme.spacing(3),
-
-          [theme.breakpoints.up('sm')]: {
-            fontSize: theme.spacing(2),
-          },
+          [sm]: { fontSize: theme.spacing(2) },
         },
       },
       inputRoot: {
@@ -73,24 +66,13 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
             minWidth: theme.spacing(12),
           },
 
-          '& $input:first-child': {
-            paddingLeft: undefined,
-          },
+          '& $input:first-child': { paddingLeft: undefined },
+          '& $endAdornment': { right: theme.spacing(1.5) },
 
-          '& $endAdornment': {
-            right: theme.spacing(1.5),
-          },
-
-          [theme.breakpoints.up('sm')]: {
+          [sm]: {
             padding: theme.spacing(0.5, 0.75),
-
-            '& $input': {
-              padding: theme.spacing(0.25),
-            },
-
-            '& $endAdornment': {
-              right: theme.spacing(1),
-            },
+            '& $input': { padding: theme.spacing(0.25) },
+            '& $endAdornment': { right: theme.spacing(1) },
           },
         },
       },
