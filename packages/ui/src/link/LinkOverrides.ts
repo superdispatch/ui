@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyLinkStyles(theme: SuperDispatchTheme) {
+export function overrideLink(theme: SuperDispatchTheme) {
   theme.props.MuiLink = { underline: 'none' };
 
   theme.overrides.MuiLink = {

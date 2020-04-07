@@ -32,7 +32,7 @@ function popperArrowVariant(
   };
 }
 
-export function applyTooltipStyles(theme: SuperDispatchTheme) {
+export function overrideTooltip(theme: SuperDispatchTheme) {
   theme.props.MuiTooltip = { arrow: true };
 
   theme.overrides.MuiTooltip = {

@@ -4,7 +4,9 @@ import React from 'react';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyChipStyles(theme: SuperDispatchTheme) {
+export function overrideChip(theme: SuperDispatchTheme) {
+  const sm = theme.breakpoints.up('sm');
+
   theme.props.MuiChip = {
     size: 'small',
     deleteIcon: (
@@ -40,11 +42,7 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
     labelSmall: {
       paddingLeft: 6,
       paddingRight: 6,
-
-      [theme.breakpoints.up('sm')]: {
-        paddingLeft: 4,
-        paddingRight: 4,
-      },
+      [sm]: { paddingLeft: 4, paddingRight: 4 },
     },
 
     clickable: {
@@ -95,10 +93,7 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
       padding: theme.spacing(0.5),
       marginLeft: theme.spacing(-0.5),
       marginRight: theme.spacing(0.25),
-
-      [theme.breakpoints.up('sm')]: {
-        marginRight: 0,
-      },
+      [sm]: { marginRight: 0 },
     },
 
     icon: {
@@ -112,10 +107,7 @@ export function applyChipStyles(theme: SuperDispatchTheme) {
       height: undefined,
       marginLeft: 8,
       marginRight: undefined,
-
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: 4,
-      },
+      [sm]: { marginLeft: 4 },
     },
   };
 }

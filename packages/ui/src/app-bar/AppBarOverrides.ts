@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyAppBarStyles(theme: SuperDispatchTheme) {
+export function overrideAppBar(theme: SuperDispatchTheme) {
   theme.props.MuiAppBar = {
     elevation: 0,
     color: 'inherit',

@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyMenuStyles(theme: SuperDispatchTheme) {
+export function overrideMenu(theme: SuperDispatchTheme) {
   theme.props.MuiMenu = {
     keepMounted: true,
     getContentAnchorEl: null,

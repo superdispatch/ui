@@ -17,19 +17,17 @@ export function iconSizeVariant(
   }
 }
 
-export function applySvgIconStyles(theme: SuperDispatchTheme) {
+export function overrideSvgIcon(theme: SuperDispatchTheme) {
+  const xs = theme.breakpoints.only('xs');
+
   theme.overrides.MuiSvgIcon = {
     root: {
       fontSize: iconSizeVariant('default'),
-      [theme.breakpoints.only('xs')]: {
-        fontSize: iconSizeVariant('default', true),
-      },
+      [xs]: { fontSize: iconSizeVariant('default', true) },
     },
     fontSizeSmall: {
       fontSize: iconSizeVariant('small'),
-      [theme.breakpoints.only('xs')]: {
-        fontSize: iconSizeVariant('small', true),
-      },
+      [xs]: { fontSize: iconSizeVariant('small', true) },
     },
     fontSizeLarge: { fontSize: iconSizeVariant('large') },
     colorAction: { color: Color.Grey100 },
