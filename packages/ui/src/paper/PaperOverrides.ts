@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyPaperStyles(theme: SuperDispatchTheme) {
+export function overridePaper(theme: SuperDispatchTheme) {
   theme.props.MuiPaper = { elevation: 0 };
 
   theme.overrides.MuiPaper = {

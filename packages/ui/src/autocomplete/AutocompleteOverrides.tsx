@@ -1,11 +1,11 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
-import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
+import { iconSizeVariant } from '../svg-icon/SvgIconOverrides';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyAutocompleteStyles(theme: SuperDispatchTheme) {
+export function overrideAutocomplete(theme: SuperDispatchTheme) {
   // TODO: Remove `Object.assign` after official release of `Autocomplete`.
 
   Object.assign(theme.props, {

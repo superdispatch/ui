@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applySwitchStyles(theme: SuperDispatchTheme) {
+export function overrideSwitch(theme: SuperDispatchTheme) {
   theme.props.MuiSwitch = {
     color: 'primary',
     disableRipple: true,

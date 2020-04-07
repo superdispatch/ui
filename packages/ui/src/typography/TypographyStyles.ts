@@ -126,6 +126,6 @@ export function createTypographyOptions(
   };
 }
 
-export function applyTypographyStyles(theme: SuperDispatchTheme) {
+export function overrideTypography(theme: SuperDispatchTheme) {
   theme.props.MuiTypography = { variant: 'body2' };
 }

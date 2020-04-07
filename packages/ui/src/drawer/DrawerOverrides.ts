@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function applyDrawerStyles(theme: SuperDispatchTheme) {
+export function overrideDrawer(theme: SuperDispatchTheme) {
   theme.props.MuiDrawer = {
     anchor: 'right',
   };

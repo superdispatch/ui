@@ -13,31 +13,31 @@ import { Rule, StyleSheet } from 'jss';
 import React, { ReactElement, ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
-import { applyAppBarStyles } from '../app-bar/AppBarStyles';
-import { applyAutocompleteStyles } from '../autocomplete/AutocompleteStyles';
-import { applyButtonStyles } from '../button/ButtonStyles';
-import { applyCardStyles } from '../card/CardStyles';
-import { applyCheckboxStyles } from '../checkbox/CheckboxStyles';
-import { applyChipStyles } from '../chip/ChipStyle';
-import { applyDialogStyles } from '../dialog/DialogStyles';
-import { applyDrawerStyles } from '../drawer/DrawerStyles';
-import { applyIconButtonStyles } from '../icon-button/IconButtonStyles';
-import { applyLinkStyles } from '../link/LinkStyles';
-import { applyListStyles } from '../list/ListStyles';
-import { applyMenuStyles } from '../menu/MenuStyles';
-import { applyPaperStyles } from '../paper/PaperStyles';
-import { applyRadioStyles } from '../radio/RadioStyles';
+import { overrideAppBar } from '../app-bar/AppBarOverrides';
+import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
+import { overrideButton } from '../button/ButtonOverrides';
+import { overrideCard } from '../card/CardOverrides';
+import { overrideCheckbox } from '../checkbox/CheckboxOverrides';
+import { overrideChip } from '../chip/ChipOverrides';
+import { overrideDialog } from '../dialog/DialogOverrides';
+import { overrideDrawer } from '../drawer/DrawerOverrides';
+import { overrideIconButton } from '../icon-button/IconButtonOverrides';
+import { overrideLink } from '../link/LinkOverrides';
+import { overrideList } from '../list/ListOverrides';
+import { overrideMenu } from '../menu/MenuOverrides';
+import { overridePaper } from '../paper/PaperOverrides';
+import { overrideRadio } from '../radio/RadioOverrides';
+import { overrideSnackbar } from '../snackbar/SnackbarOverrides';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
-import { applySnackbarStyles } from '../snackbar/SnackbarStyles';
-import { applySvgIconStyles } from '../svg-icon/SvgIconStyles';
-import { applySwitchStyles } from '../switch/SwitchStyles';
-import { applyTabsStyles } from '../tabs/TabsStyles';
-import { applyTextFieldStyles } from '../text-field/TextFieldStyles';
-import { applyToolbarStyles } from '../toolbar/ToolbarStyles';
-import { applyTooltipStyles } from '../tooltip/TooltipStyles';
+import { overrideSvgIcon } from '../svg-icon/SvgIconOverrides';
+import { overrideSwitch } from '../switch/SwitchOverrides';
+import { overrideTabs } from '../tabs/TabsOverrides';
+import { overrideTextField } from '../text-field/TextFieldOverrides';
+import { overrideToolbar } from '../toolbar/ToolbarOverrides';
+import { overrideTooltip } from '../tooltip/TooltipOverrides';
 import {
-  applyTypographyStyles,
   createTypographyOptions,
+  overrideTypography,
 } from '../typography/TypographyStyles';
 import { Color } from './Color';
 
@@ -78,30 +78,28 @@ function createTheme() {
       overrides: {},
     }) as SuperDispatchTheme;
 
-  // Implement Typography changes first.
-  applyTypographyStyles(theme);
-
-  applyAppBarStyles(theme);
-  applyAutocompleteStyles(theme);
-  applyButtonStyles(theme);
-  applyCardStyles(theme);
-  applyCheckboxStyles(theme);
-  applyDialogStyles(theme);
-  applyDrawerStyles(theme);
-  applyIconButtonStyles(theme);
-  applyListStyles(theme);
-  applyLinkStyles(theme);
-  applyMenuStyles(theme);
-  applyPaperStyles(theme);
-  applyRadioStyles(theme);
-  applySnackbarStyles(theme);
-  applySvgIconStyles(theme);
-  applySwitchStyles(theme);
-  applyTabsStyles(theme);
-  applyTextFieldStyles(theme);
-  applyToolbarStyles(theme);
-  applyTooltipStyles(theme);
-  applyChipStyles(theme);
+  overrideAppBar(theme);
+  overrideAutocomplete(theme);
+  overrideButton(theme);
+  overrideCard(theme);
+  overrideCheckbox(theme);
+  overrideChip(theme);
+  overrideDialog(theme);
+  overrideDrawer(theme);
+  overrideIconButton(theme);
+  overrideLink(theme);
+  overrideList(theme);
+  overrideMenu(theme);
+  overridePaper(theme);
+  overrideRadio(theme);
+  overrideSnackbar(theme);
+  overrideSvgIcon(theme);
+  overrideSwitch(theme);
+  overrideTabs(theme);
+  overrideTextField(theme);
+  overrideToolbar(theme);
+  overrideTooltip(theme);
+  overrideTypography(theme);
 
   return theme;
 }

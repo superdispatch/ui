@@ -1,7 +1,7 @@
 import { SvgIcon, SvgIconProps } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 
-import { iconSizeVariant } from '../svg-icon/SvgIconStyles';
+import { iconSizeVariant } from '../svg-icon/SvgIconOverrides';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import { getTypographyProp } from '../typography/TypographyStyles';
@@ -12,7 +12,7 @@ const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
   </SvgIcon>
 ));
 
-export function applyTextFieldStyles(theme: SuperDispatchTheme) {
+export function overrideTextField(theme: SuperDispatchTheme) {
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };
 
   theme.overrides.MuiFormLabel = {

@@ -88,7 +88,7 @@ function containedVariant(
   };
 }
 
-export function applyButtonStyles(theme: SuperDispatchTheme) {
+export function overrideButton(theme: SuperDispatchTheme) {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiButton = {
