@@ -108,6 +108,7 @@ module.exports = {
     '<rootDir>/packages/phones/',
     '<rootDir>/packages/ui/',
     '<rootDir>/packages/testutils/',
+    '<rootDir>/packages/forms/',
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner

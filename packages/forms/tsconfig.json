@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "references": [
+    { "path": "../ui" },
+    { "path": "../phones" },
+    { "path": "../dates" }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src"
+  }
+}

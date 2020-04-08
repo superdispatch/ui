@@ -1,15 +1,15 @@
 import {
-  Checkbox,
-  FormControl,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
-  FormLabel,
-  Radio,
   Switch,
   TextField,
 } from '@material-ui/core';
-import { GridStack } from '@superdispatch/ui';
+import {
+  CheckboxField,
+  CheckboxGroupField,
+  GridStack,
+  RadioField,
+} from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -30,107 +30,74 @@ export default function CheckboxDemo() {
 
   return (
     <GridStack spacing={2}>
-      <FormControl>
-        <FormLabel>Label Position</FormLabel>
+      <CheckboxGroupField label="Label Position" FormGroupProps={{ row: true }}>
+        <CheckboxField label="Right Label" />
+
+        <CheckboxField
+          label="Left Label"
+          FormControlLabelProps={{ labelPlacement: 'start' }}
+        />
+      </CheckboxGroupField>
+
+      <CheckboxGroupField label="Readonly" FormGroupProps={{ row: true }}>
+        <CheckboxField checked={true} label="On" />
+
+        <CheckboxField checked={false} label="Off" />
+
+        <CheckboxField
+          checked={true}
+          label="Indeterminate"
+          indeterminate={true}
+        />
+      </CheckboxGroupField>
+
+      <CheckboxGroupField label="Disabled" FormGroupProps={{ row: true }}>
+        <CheckboxField label="On" checked={true} disabled={true} />
+
+        <CheckboxField label="Off" checked={false} disabled={true} />
+
+        <CheckboxField
+          checked={true}
+          disabled={true}
+          label="Indeterminate"
+          indeterminate={true}
+        />
+      </CheckboxGroupField>
+
+      <CheckboxGroupField
+        label="Vertical"
+        error={!!errorMessage}
+        helperText={errorMessage || 'Select two'}
+      >
+        {options.map((option) => (
+          <CheckboxField
+            key={option}
+            label={startCase(option)}
+            checked={selected.has(option)}
+            onChange={(_, checked) =>
+              setSelected((prev) => {
+                const next = new Set<string>(prev);
+                if (checked) {
+                  next.add(option);
+                } else {
+                  next.delete(option);
+                }
+                return next;
+              })
+            }
+          />
+        ))}
+      </CheckboxGroupField>
+
+      <CheckboxGroupField label="Inline Form" FormGroupProps={{ row: true }}>
         <FormGroup row={true}>
-          <FormControlLabel label="Right Label" control={<Checkbox />} />
-
-          <FormControlLabel
-            label="Left Label"
-            labelPlacement="start"
-            control={<Checkbox />}
-          />
-        </FormGroup>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Readonly</FormLabel>
-        <FormGroup row={true}>
-          <FormControlLabel checked={true} label="On" control={<Checkbox />} />
-
-          <FormControlLabel
-            checked={false}
-            label="Off"
-            control={<Checkbox />}
-          />
-
-          <FormControlLabel
-            checked={true}
-            label="Indeterminate"
-            control={<Checkbox indeterminate={true} />}
-          />
-        </FormGroup>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Disabled</FormLabel>
-        <FormGroup row={true}>
-          <FormControlLabel
-            label="On"
-            checked={true}
-            disabled={true}
-            control={<Checkbox />}
-          />
-
-          <FormControlLabel
-            label="Off"
-            checked={false}
-            disabled={true}
-            control={<Checkbox />}
-          />
-
-          <FormControlLabel
-            checked={true}
-            disabled={true}
-            label="Indeterminate"
-            control={<Checkbox indeterminate={true} />}
-          />
-        </FormGroup>
-      </FormControl>
-
-      <FormControl error={!!errorMessage}>
-        <FormLabel>Vertical</FormLabel>
-        <FormGroup>
-          {options.map((option) => (
-            <FormControlLabel
-              key={option}
-              label={startCase(option)}
-              checked={selected.has(option)}
-              onChange={(_, checked) =>
-                setSelected((prev) => {
-                  const next = new Set<string>(prev);
-                  if (checked) {
-                    next.add(option);
-                  } else {
-                    next.delete(option);
-                  }
-                  return next;
-                })
-              }
-              control={<Checkbox />}
-            />
-          ))}
-        </FormGroup>
-
-        {!errorMessage ? (
-          <FormHelperText>Select two</FormHelperText>
-        ) : (
-          <FormHelperText>{errorMessage}</FormHelperText>
-        )}
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Inline Form</FormLabel>
-        <FormGroup row={true}>
-          <FormControlLabel
+          <RadioField
             label="Radio"
-            control={<Radio />}
             checked={isChecked}
             onChange={(_, checked) => setIsChecked(checked)}
           />
-          <FormControlLabel
+          <CheckboxField
             label="Checkbox"
-            control={<Checkbox />}
             checked={isChecked}
             onChange={(_, checked) => setIsChecked(checked)}
           />
@@ -143,7 +110,7 @@ export default function CheckboxDemo() {
 
           <TextField placeholder="Text Field" />
         </FormGroup>
-      </FormControl>
+      </CheckboxGroupField>
     </GridStack>
   );
 }
