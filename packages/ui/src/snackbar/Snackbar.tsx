@@ -1,12 +1,18 @@
 import {
   Portal,
+  Slide,
   Snackbar as MaterialSnackbar,
   SnackbarCloseReason as MaterialSnackbarCloseReason,
   SnackbarProps as MaterialSnackbarProps,
 } from '@material-ui/core';
+import { TransitionProps } from '@material-ui/core/transitions';
 import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
+
+function SlideTransition(props: TransitionProps) {
+  return <Slide {...props} direction="up" />;
+}
 
 export type SnackbarCloseReason = 'timeout' | 'explicit';
 
@@ -28,6 +34,7 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
       children,
       ContentProps,
       hasCloseButton = onClose != null,
+      TransitionComponent = SlideTransition,
       ...props
     },
     ref,
@@ -46,6 +53,7 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
           {...props}
           ref={ref}
           open={open}
+          TransitionComponent={TransitionComponent}
           onClose={(_, reason) => {
             handleClose(reason);
           }}
