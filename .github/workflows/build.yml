@@ -97,7 +97,7 @@ jobs:
 
       - name: Deploy docs
         if: ${{ startsWith(github.ref, 'refs/tags/') != true }}
-        uses: amondnet/now-deployment@v2
+        uses: doniyor2109/now-deployment@v2
         with:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
