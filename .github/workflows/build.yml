@@ -60,8 +60,9 @@ jobs:
         run: yarn docs --quiet
 
       - name: Now deploy args
+        id: now-deploy-args
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: echo "::set-env name=NOW_ARGS::--prod"
+        run: echo "::set-env name=value::--prod"
 
       - name: Deploy docs
         if: ${{ startsWith(github.ref, 'refs/tags/') != true }}
@@ -69,7 +70,7 @@ jobs:
         with:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          now-args: ${{ env.NOW_ARGS }}
+          now-args: ${{ steps.now-deploy-args.outputs.value }}
           now-org-id: ${{ secrets.ZEIT_ORG_ID}}
           now-project-id: ${{ secrets.ZEIT_PROJECT_ID}}
           working-directory: ./
