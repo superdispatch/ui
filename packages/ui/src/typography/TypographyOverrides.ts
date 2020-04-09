@@ -1,39 +1,13 @@
-import { Theme } from '@material-ui/core';
 import { Breakpoints } from '@material-ui/core/styles/createBreakpoints';
-import {
-  TypographyOptions,
-  Variant,
-} from '@material-ui/core/styles/createTypography';
-import { CSSProperties } from '@material-ui/styles';
+import { TypographyOptions } from '@material-ui/core/styles/createTypography';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-
-export type ThemePlatform = 'desktop' | 'mobile';
 
 const FALLBACK_FONT_FAMILY =
   "-apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif";
 
 const CONTENT_FONT_FAMILY = `SF Pro Text, ${FALLBACK_FONT_FAMILY}`;
 const HEADING_FONT_FAMILY = `SF Pro Display, ${FALLBACK_FONT_FAMILY}`;
-
-function xsOnly(breakpoints: Breakpoints): string {
-  return breakpoints.only('xs');
-}
-
-export function getTypographyProp(
-  theme: Theme,
-  platform: ThemePlatform,
-  variant: Variant,
-  prop: 'fontSize' | 'lineHeight',
-): string | undefined {
-  let css = theme.typography[variant];
-
-  if (platform === 'mobile') {
-    css = css[xsOnly(theme.breakpoints)] as CSSProperties;
-  }
-
-  return css?.[prop] as string;
-}
 
 export function createTypographyOptions(
   breakpoints: Breakpoints,
