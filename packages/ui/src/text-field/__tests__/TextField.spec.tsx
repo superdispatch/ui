@@ -608,7 +608,7 @@ it('checks component css', () => {
       }
     }
 
-    .PrivateNotchedOutline-root-66 {
+    .PrivateNotchedOutline-root-73 {
       top: -5px;
       left: 0;
       right: 0;
@@ -623,14 +623,14 @@ it('checks component css', () => {
       pointer-events: none;
     }
 
-    .PrivateNotchedOutline-legend-67 {
+    .PrivateNotchedOutline-legend-74 {
       padding: 0;
       text-align: left;
       transition: width 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
       line-height: 11px;
     }
 
-    .PrivateNotchedOutline-legendLabelled-68 {
+    .PrivateNotchedOutline-legendLabelled-75 {
       width: auto;
       height: 11px;
       display: block;
@@ -642,13 +642,13 @@ it('checks component css', () => {
       visibility: hidden;
     }
 
-    .PrivateNotchedOutline-legendLabelled-68 > span {
+    .PrivateNotchedOutline-legendLabelled-75 > span {
       display: inline-block;
       padding-left: 5px;
       padding-right: 5px;
     }
 
-    .PrivateNotchedOutline-legendNotched-69 {
+    .PrivateNotchedOutline-legendNotched-76 {
       max-width: 1000px;
       transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;
     }
