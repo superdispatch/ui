@@ -38,7 +38,7 @@ import { overrideTooltip } from '../tooltip/TooltipOverrides';
 import {
   createTypographyOptions,
   overrideTypography,
-} from '../typography/TypographyStyles';
+} from '../typography/TypographyOverrides';
 import { Color } from './Color';
 
 export type SuperDispatchTheme = Readonly<Required<Theme>>;

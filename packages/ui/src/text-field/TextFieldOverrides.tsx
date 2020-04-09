@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react';
 import { iconSizeVariant } from '../svg-icon/SvgIconOverrides';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { getTypographyProp } from '../typography/TypographyStyles';
 
 const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
   <SvgIcon ref={ref} {...props}>
@@ -36,10 +35,8 @@ export function overrideTextField(theme: SuperDispatchTheme) {
     },
     input: {
       textOverflow: 'ellipsis',
-      height: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-      [sm]: {
-        height: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
-      },
+      height: theme.spacing(3),
+      [sm]: { height: theme.spacing(2.5) },
     },
     inputMultiline: { resize: 'vertical' },
   };
@@ -118,10 +115,8 @@ export function overrideTextField(theme: SuperDispatchTheme) {
   theme.overrides.MuiInputAdornment = {
     root: {
       '& .MuiSvgIcon-root': {
-        fontSize: getTypographyProp(theme, 'mobile', 'body2', 'lineHeight'),
-        [sm]: {
-          fontSize: getTypographyProp(theme, 'desktop', 'body2', 'lineHeight'),
-        },
+        fontSize: theme.spacing(3),
+        [sm]: { fontSize: theme.spacing(2.5) },
       },
 
       '& .MuiIconButton-root': { padding: theme.spacing(1) },
