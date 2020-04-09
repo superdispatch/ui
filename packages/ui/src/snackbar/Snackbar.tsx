@@ -1,17 +1,20 @@
 import {
   Portal,
+  Slide,
   Snackbar as MaterialSnackbar,
-  Theme,
-  useMediaQuery,
+  SnackbarCloseReason as MaterialSnackbarCloseReason,
+  SnackbarProps as MaterialSnackbarProps,
 } from '@material-ui/core';
-import { SnackbarProps as MaterialSnackbarProps } from '@material-ui/core/Snackbar';
+import { TransitionProps } from '@material-ui/core/transitions';
 import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
-import { useEventCallback } from 'utility-hooks';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
-import { useSnackbarStack } from './SnackbarStack';
 
-type SnackbarCloseReason = 'timeout' | 'explicit';
+function SlideTransition(props: TransitionProps) {
+  return <Slide {...props} direction="up" />;
+}
+
+export type SnackbarCloseReason = 'timeout' | 'explicit';
 
 export interface SnackbarProps
   extends Omit<MaterialSnackbarProps, 'onClose' | 'message' | 'children'> {
@@ -29,40 +32,20 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
       variant,
       onClose,
       children,
-      onEnter,
-      onExit,
       ContentProps,
       hasCloseButton = onClose != null,
+      TransitionComponent = SlideTransition,
       ...props
     },
     ref,
   ) => {
-    const isMobile = useMediaQuery((theme: Theme) =>
-      theme.breakpoints.only('xs'),
-    );
-    const { addBelowElement, removeBelowElement } = useSnackbarStack();
-
-    const handleClose = (reason: string | SnackbarCloseReason) => {
+    const handleClose = (
+      reason: SnackbarCloseReason | MaterialSnackbarCloseReason,
+    ) => {
       if (reason !== 'clickaway') {
         onClose?.(reason === 'timeout' ? 'timeout' : 'explicit');
       }
     };
-
-    const handleSnackbarClose = useEventCallback(
-      (_: React.SyntheticEvent, reason: string) => handleClose(reason),
-    );
-
-    const handleEnter = useEventCallback(
-      (node: HTMLElement, isAppearing: boolean) => {
-        onEnter?.(node, isAppearing);
-        addBelowElement(node);
-      },
-    );
-
-    const handleExit = useEventCallback((node: HTMLElement) => {
-      onExit?.(node);
-      removeBelowElement(node);
-    });
 
     return (
       <Portal>
@@ -70,17 +53,21 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
           {...props}
           ref={ref}
           open={open}
-          key={`${isMobile}`}
-          onExit={handleExit}
-          onEnter={handleEnter}
-          onClose={handleSnackbarClose}
+          TransitionComponent={TransitionComponent}
+          onClose={(_, reason) => {
+            handleClose(reason);
+          }}
         >
           <SnackbarContent
             {...ContentProps}
             action={action}
             variant={variant}
             onClose={
-              !hasCloseButton ? undefined : () => handleClose('explicit')
+              !hasCloseButton
+                ? undefined
+                : () => {
+                    handleClose('explicit');
+                  }
             }
           >
             {children}
