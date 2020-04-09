@@ -12,6 +12,8 @@ on:
 
 jobs:
   build:
+    env:
+      NOW_ARGS: ''
     runs-on: ubuntu-latest
 
     steps:
@@ -51,13 +53,24 @@ jobs:
         uses: codecov/codecov-action@v1
 
       - name: Build
-        run: yarn build
-
-      - name: Publish Docs
-        if: ${{ github.ref == 'refs/heads/master' }}
         run: |
+          yarn build
           yarn docs --quiet
-          yarn firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
+
+      - name: Now deploy args
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: echo "::set-env name=NOW_ARGS::--prod"
+
+      - name: Deploy docs
+        if: ${{ startsWith(github.ref, 'refs/tags/') != true }}
+        uses: amondnet/now-deployment@v2
+        with:
+          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          now-args: NOW_ARGS
+          now-org-id: ${{ secrets.ZEIT_ORG_ID}}
+          now-project-id: ${{ secrets.ZEIT_PROJECT_ID}}
+          working-directory: ./
 
       - name: Publish
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
