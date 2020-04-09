@@ -69,7 +69,7 @@ jobs:
         with:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          now-args: ${{ NOW_ARGS }}
+          now-args: ${{ env.NOW_ARGS }}
           now-org-id: ${{ secrets.ZEIT_ORG_ID}}
           now-project-id: ${{ secrets.ZEIT_PROJECT_ID}}
           working-directory: ./
