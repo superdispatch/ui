@@ -23,18 +23,16 @@ export interface DateUtilsOptions {
   timeZoneOffset?: number;
 }
 
-const defaultDateUtilsOptions: Required<DateUtilsOptions> =
-  {
-    locale: 'en-US',
-    timeZoneOffset: 0,
-  } as const;
+const defaultDateUtilsOptions: Required<DateUtilsOptions> = {
+  locale: 'en-US',
+  timeZoneOffset: 0,
+};
 
-const formats: Record<DateFormat, string> =
-  {
-    DateISO: '_',
-    DateTimeISO: '_',
-    JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
-  } as const;
+const formats: Record<DateFormat, string> = {
+  DateISO: '_',
+  DateTimeISO: '_',
+  JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
+};
 
 function toDateTime(
   value: DateLike,
@@ -333,12 +331,10 @@ export class DateUtils {
     const valueDateTime = this.toDateTime(value);
     const compareDateTime = this.toDateTime(compare);
 
-    return (
-      valueDateTime.toRelative({
-        style,
-        locale: this.locale,
-        base: compareDateTime,
-      }) as string
-    );
+    return valueDateTime.toRelative({
+      style,
+      locale: this.locale,
+      base: compareDateTime,
+    }) as string;
   }
 }

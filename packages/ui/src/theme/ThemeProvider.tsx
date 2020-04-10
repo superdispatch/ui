@@ -45,38 +45,37 @@ export type SuperDispatchTheme = Readonly<Required<Theme>>;
 
 function createTheme() {
   const breakpoints = createBreakpoints({});
-  const theme =
-    createMuiTheme({
-      breakpoints,
+  const theme = createMuiTheme({
+    breakpoints,
 
-      palette: {
-        primary: {
-          main: Color.Blue300,
-        },
-
-        error: {
-          main: Color.Red300,
-        },
-
-        action: {
-          hover: Color.Silver100,
-          selected: Color.Silver300,
-          disabled: Color.Silver400,
-        },
-
-        text: {
-          primary: Color.Grey500,
-          secondary: Color.Grey200,
-          hint: Color.Grey100,
-          disabled: Color.Grey100,
-        },
+    palette: {
+      primary: {
+        main: Color.Blue300,
       },
 
-      typography: createTypographyOptions(breakpoints),
+      error: {
+        main: Color.Red300,
+      },
 
-      props: {},
-      overrides: {},
-    }) as SuperDispatchTheme;
+      action: {
+        hover: Color.Silver100,
+        selected: Color.Silver300,
+        disabled: Color.Silver400,
+      },
+
+      text: {
+        primary: Color.Grey500,
+        secondary: Color.Grey200,
+        hint: Color.Grey100,
+        disabled: Color.Grey100,
+      },
+    },
+
+    typography: createTypographyOptions(breakpoints),
+
+    props: {},
+    overrides: {},
+  }) as SuperDispatchTheme;
 
   overrideAppBar(theme);
   overrideAutocomplete(theme);

@@ -35,6 +35,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'import/no-anonymous-default-export': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'testing-library/prefer-screen-queries': 'off',
       },
     },
     {

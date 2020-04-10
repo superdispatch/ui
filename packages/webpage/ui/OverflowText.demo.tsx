@@ -4,11 +4,10 @@ import { GridStack, OverflowText } from '@superdispatch/ui';
 import { loremIpsum } from 'lorem-ipsum';
 import React from 'react';
 
-const lorems =
-  {
-    short: loremIpsum({ count: 3, units: 'word' }),
-    long: loremIpsum({ count: 1, units: 'paragraph' }),
-  } as const;
+const lorems = {
+  short: loremIpsum({ count: 3, units: 'word' }),
+  long: loremIpsum({ count: 1, units: 'paragraph' }),
+} as const;
 
 export default function DescriptionListDemo() {
   const width = number('Width', 120, {

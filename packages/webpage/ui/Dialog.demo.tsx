@@ -37,7 +37,6 @@ export default function DialogDemo() {
 
           <Button
             color="primary"
-            autoFocus={true}
             variant="contained"
             onClick={() => setIsOpen(false)}
           >
