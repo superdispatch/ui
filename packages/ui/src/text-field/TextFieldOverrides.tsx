@@ -1,7 +1,6 @@
 import { SvgIcon, SvgIconProps } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 
-import { iconSizeVariant } from '../svg-icon/SvgIconOverrides';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -89,14 +88,11 @@ export function overrideTextField(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiSelect = {
     icon: {
-      top: `calc(50% - ${iconSizeVariant('small', true)} / 2)`,
-      fontSize: iconSizeVariant('small', true),
+      top: 'calc(50% - 0.5em)',
       '$disabled &': { color: Color.Grey100 },
 
-      [sm]: {
-        top: `calc(50% - ${iconSizeVariant('small')} / 2)`,
-        fontSize: iconSizeVariant('small'),
-      },
+      fontSize: theme.spacing(3),
+      [sm]: { fontSize: theme.spacing(2) },
     },
 
     iconOutlined: {
