@@ -1,7 +1,6 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
-import { iconSizeVariant } from '../svg-icon/SvgIconOverrides';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -46,8 +45,8 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
-          fontSize: iconSizeVariant('small', true),
-          [sm]: { fontSize: iconSizeVariant('small') },
+          fontSize: theme.spacing(3),
+          [sm]: { fontSize: theme.spacing(2) },
         },
       },
       clearIndicator: {

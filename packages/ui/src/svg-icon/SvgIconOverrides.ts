@@ -1,35 +1,19 @@
-import { IconProps } from '@material-ui/core/Icon';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-export function iconSizeVariant(
-  size?: IconProps['fontSize'],
-  isMobile = false,
-): string {
-  switch (size) {
-    case 'small':
-      return `${isMobile ? 24 : 16}px`;
-    case 'large':
-      return '32px';
-    default:
-      return `${isMobile ? 32 : 24}px`;
-  }
-}
-
 export function overrideSvgIcon(theme: SuperDispatchTheme) {
-  const xs = theme.breakpoints.only('xs');
+  const sm = theme.breakpoints.up('sm');
 
   theme.overrides.MuiSvgIcon = {
+    colorAction: { color: Color.Grey100 },
     root: {
-      fontSize: iconSizeVariant('default'),
-      [xs]: { fontSize: iconSizeVariant('default', true) },
+      fontSize: theme.spacing(4),
+      [sm]: { fontSize: theme.spacing(3) },
     },
     fontSizeSmall: {
-      fontSize: iconSizeVariant('small'),
-      [xs]: { fontSize: iconSizeVariant('small', true) },
+      fontSize: theme.spacing(3),
+      [sm]: { fontSize: theme.spacing(2) },
     },
-    fontSizeLarge: { fontSize: iconSizeVariant('large') },
-    colorAction: { color: Color.Grey100 },
+    fontSizeLarge: { fontSize: theme.spacing(4) },
   };
 }

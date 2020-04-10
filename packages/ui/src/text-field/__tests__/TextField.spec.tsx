@@ -567,7 +567,7 @@ it('checks component css', () => {
     }
 
     .MuiSelect-icon {
-      top: calc(50% - 24px / 2);
+      top: calc(50% - 0.5em);
       color: rgba(0, 0, 0, 0.54);
       right: 0;
       position: absolute;
@@ -585,7 +585,6 @@ it('checks component css', () => {
 
     @media (min-width: 600px) {
       .MuiSelect-icon {
-        top: calc(50% - 16px / 2);
         font-size: 16px;
       }
     }

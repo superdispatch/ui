@@ -15,15 +15,15 @@ it('checks component css', () => {
       width: 1em;
       height: 1em;
       display: inline-block;
-      font-size: 24px;
+      font-size: 32px;
       transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       flex-shrink: 0;
       user-select: none;
     }
 
-    @media (min-width: 0px) and (max-width: 599.95px) {
+    @media (min-width: 600px) {
       .MuiSvgIcon-root {
-        font-size: 32px;
+        font-size: 24px;
       }
     }
 
@@ -52,12 +52,12 @@ it('checks component css', () => {
     }
 
     .MuiSvgIcon-fontSizeSmall {
-      font-size: 16px;
+      font-size: 24px;
     }
 
-    @media (min-width: 0px) and (max-width: 599.95px) {
+    @media (min-width: 600px) {
       .MuiSvgIcon-fontSizeSmall {
-        font-size: 24px;
+        font-size: 16px;
       }
     }
 
