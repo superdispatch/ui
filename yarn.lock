@@ -4412,7 +4412,7 @@ autoprefixer@^9.7.2:
     postcss "^7.0.27"
     postcss-value-parser "^4.0.3"
 
-awesome-phonenumber@^2.27.0:
+awesome-phonenumber@^2.30.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/awesome-phonenumber/-/awesome-phonenumber-2.30.0.tgz#2ee75eb541c47038e8073de03791aef94373d30c"
   integrity sha512-SwYTHSCLwd9K6wGe9S3mLnfbnEXK3MQL18JBXgiDDUAFMR4QFH0Vit1jpQ+j3Vfoxp7UqneqawezWL+tGEbcFg==
