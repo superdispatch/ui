@@ -21,8 +21,8 @@ export interface ValidatePhoneRules {
 export function validatePhone(
   value: unknown,
   {
-    typeMessage = 'Invalid Type',
     required,
+    typeMessage = 'Invalid Type',
     requiredMessage = 'This field is required',
     invalidMessage = 'Invalid phone number',
     tooLongMessage = 'Phone number is too long',
