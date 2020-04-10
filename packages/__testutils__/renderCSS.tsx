@@ -84,7 +84,7 @@ function formatAST(sheet: Stylesheet): string {
 
 expect.addSnapshotSerializer({
   test: (value) => typeof value === 'string' && renderedCSS.has(value),
-  print: (value) => value,
+  print: (value) => String(value),
 });
 
 export function renderCSS(ui: ReactElement, components: string[]): string {

@@ -13,7 +13,9 @@ export function setupLocationSerializer() {
       );
     },
 
-    print({ hash, search, pathname }: Location, serialize) {
+    print(location, serialize) {
+      const { hash, search, pathname } = location as Location;
+
       const searchParams = parse(search, {
         ignoreQueryPrefix: true,
         decoder: (str, defaultDecoder, charset) => {

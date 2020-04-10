@@ -15,9 +15,12 @@ const colorRegExp = new RegExp(
 expect.addSnapshotSerializer({
   test: (value) =>
     !!value && typeof value === 'string' && colorRegExp.test(value),
-  print: (value: string) =>
+  print: (value) =>
     JSON.stringify(
-      value.replace(colorRegExp, (color) => colors.get(color) as string),
+      String(value).replace(
+        colorRegExp,
+        (color) => colors.get(color) as string,
+      ),
     ),
 });
 
