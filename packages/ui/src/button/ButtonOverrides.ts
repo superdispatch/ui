@@ -124,15 +124,11 @@ export function overrideButton(theme: SuperDispatchTheme) {
           '& > [role="progressbar"]': {
             position: 'absolute',
             visibility: 'visible',
-            fontSize: theme.spacing(2),
-            top: `calc(50% - ${theme.spacing(1)}px)`,
-            left: `calc(50% - ${theme.spacing(1)}px)`,
+            top: 'calc(50% - 0.5em)',
+            left: 'calc(50% - 0.5em)',
 
-            '$sizeLarge &': {
-              fontSize: theme.spacing(3),
-              top: `calc(50% - ${theme.spacing(1.5)}px)`,
-              left: `calc(50% - ${theme.spacing(1.5)}px)`,
-            },
+            fontSize: theme.spacing(2),
+            '$sizeLarge &': { fontSize: theme.spacing(3) },
           },
         },
       },

@@ -59,8 +59,8 @@ it('checks component css', () => {
     }
 
     .MuiButton-root[aria-busy='true'] .MuiButton-label > [role='progressbar'] {
-      top: calc(50% - 8px);
-      left: calc(50% - 8px);
+      top: calc(50% - 0.5em);
+      left: calc(50% - 0.5em);
       position: absolute;
       font-size: 16px;
       visibility: visible;
@@ -70,8 +70,6 @@ it('checks component css', () => {
       .MuiButton-root[aria-busy='true']
       .MuiButton-label
       > [role='progressbar'] {
-      top: calc(50% - 12px);
-      left: calc(50% - 12px);
       font-size: 24px;
     }
 
