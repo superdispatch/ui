@@ -1,16 +1,13 @@
 import {
   Grid,
   IconButton,
-  makeStyles,
   SnackbarContent as MuiSnackbarContent,
-  Theme,
-} from '@material-ui/core';
-import {
   SnackbarContentClassKey as MuiSnackbarContentClassKey,
   SnackbarContentProps as MuiSnackbarContentProps,
-} from '@material-ui/core/SnackbarContent';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+  Theme,
+} from '@material-ui/core';
 import { CheckCircle, Close, Warning } from '@material-ui/icons';
+import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
   forwardRef,

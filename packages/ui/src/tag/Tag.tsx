@@ -1,6 +1,5 @@
-import { makeStyles, Theme, Typography } from '@material-ui/core';
-import { TypographyProps } from '@material-ui/core/Typography';
-import { ClassNameMap } from '@material-ui/styles/withStyles';
+import { Theme, Typography, TypographyProps } from '@material-ui/core';
+import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import cx from 'clsx';
 import React, {
   ElementType,

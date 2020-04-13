@@ -1,6 +1,10 @@
-import { ButtonBase, makeStyles, Theme, Typography } from '@material-ui/core';
-import { ButtonBaseProps } from '@material-ui/core/ButtonBase';
-import { ClassNameMap } from '@material-ui/styles/withStyles';
+import {
+  ButtonBase,
+  ButtonBaseProps,
+  Theme,
+  Typography,
+} from '@material-ui/core';
+import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
   forwardRef,

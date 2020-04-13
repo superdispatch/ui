@@ -1,6 +1,5 @@
 import { BaseTextFieldProps, TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
-import { FilterOptionsState } from '@material-ui/lab/useAutocomplete/useAutocomplete';
+import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime, FixedOffsetZone } from 'luxon';
 import React, { useEffect, useMemo } from 'react';
 

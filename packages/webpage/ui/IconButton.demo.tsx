@@ -1,5 +1,4 @@
-import { IconButton } from '@material-ui/core';
-import { IconButtonProps } from '@material-ui/core/IconButton';
+import { IconButton, IconButtonProps } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import { select } from '@storybook/addon-knobs';
 import { InlineGrid } from '@superdispatch/ui';

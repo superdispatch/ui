@@ -1,7 +1,5 @@
-import { TextField } from '@material-ui/core';
-import { StandardTextFieldProps } from '@material-ui/core/TextField';
-import { useField, useFormikContext } from 'formik';
-import { FieldValidator } from 'formik/dist/types';
+import { StandardTextFieldProps, TextField } from '@material-ui/core';
+import { FieldValidator, useField, useFormikContext } from 'formik';
 import React, { ChangeEvent, ReactNode } from 'react';
 
 import { useUID } from './internal/useUID';

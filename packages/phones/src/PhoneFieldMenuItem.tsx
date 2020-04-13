@@ -1,12 +1,11 @@
 import {
-  makeStyles,
   MenuItem,
   MenuItemClassKey,
   MenuItemProps,
   Theme,
   Typography,
 } from '@material-ui/core';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
