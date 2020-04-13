@@ -27,6 +27,7 @@
     "@superdispatch/babel-preset": "^0.1.46",
     "@superdispatch/tsconfig": "^0.1.13",
     "babel-loader": "^8.0.6",
+    "babel-plugin-direct-import": "^0.6.0",
     "typescript": "^3.8.3"
   }
 }
