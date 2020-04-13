@@ -1,5 +1,8 @@
-import { Button as MaterialButton, CircularProgress } from '@material-ui/core';
-import { ButtonProps as MuiButtonProps } from '@material-ui/core/Button';
+import {
+  Button as MaterialButton,
+  ButtonProps as MuiButtonProps,
+  CircularProgress,
+} from '@material-ui/core';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,

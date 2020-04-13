@@ -20,6 +20,32 @@ module.exports = {
               '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
           },
         ],
+
+        'import/no-internal-modules': [
+          'error',
+          {
+            allow: [
+              '**/packages/*/src/**',
+              '@testing-library/jest-dom/extend-expect',
+              '@material-ui/core/transitions',
+              '@material-ui/core/styles/createTypography',
+              '@material-ui/core/styles/createBreakpoints',
+            ],
+          },
+        ],
+
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: '@material-ui/core',
+                importNames: ['makeStyles'],
+                message: 'Import from "@material-ui/styles" instead.',
+              },
+            ],
+          },
+        ],
       },
     },
     {

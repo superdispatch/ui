@@ -1,13 +1,13 @@
 import {
   ButtonBase,
   InputAdornment,
-  makeStyles,
   OutlinedTextFieldProps,
   TextField,
   Theme,
   Typography,
 } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/styles';
 import { Color, mergeRefs } from '@superdispatch/ui';
 import React, {
   forwardRef,

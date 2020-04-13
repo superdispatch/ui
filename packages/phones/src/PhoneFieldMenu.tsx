@@ -1,11 +1,11 @@
 import {
   Divider,
-  makeStyles,
   Menu,
   MenuClassKey,
+  MenuProps,
   Theme,
 } from '@material-ui/core';
-import { MenuProps } from '@material-ui/core/Menu';
+import { makeStyles } from '@material-ui/styles';
 import React, { forwardRef } from 'react';
 
 import { PhoneRegionCode } from './data/PhoneNumber';

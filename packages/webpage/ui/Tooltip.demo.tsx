@@ -1,5 +1,4 @@
-import { Button, Tooltip } from '@material-ui/core';
-import { PopperPlacementType } from '@material-ui/core/Popper';
+import { Button, PopperPlacementType, Tooltip } from '@material-ui/core';
 import { boolean, text } from '@storybook/addon-knobs';
 import { InlineGrid } from '@superdispatch/ui';
 import { startCase } from 'lodash';

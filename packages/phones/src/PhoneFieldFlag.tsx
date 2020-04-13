@@ -1,4 +1,5 @@
-import { makeStyles, Theme, Typography } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 

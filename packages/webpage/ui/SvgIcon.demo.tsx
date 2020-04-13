@@ -1,4 +1,4 @@
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { SvgIconProps } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import { GridStack, InlineGrid } from '@superdispatch/ui';
 import React from 'react';

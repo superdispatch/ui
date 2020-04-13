@@ -3,8 +3,7 @@ import {
   PhoneFieldProps,
   PhoneNumber,
 } from '@superdispatch/phones';
-import { useField, useFormikContext } from 'formik';
-import { FieldValidator } from 'formik/dist/types';
+import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
 
 import { useUID } from './internal/useUID';
