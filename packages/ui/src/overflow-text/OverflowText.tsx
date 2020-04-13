@@ -13,7 +13,8 @@ import React, {
   useState,
 } from 'react';
 
-import { Color, SuperDispatchTheme } from '..';
+import { Color } from '../theme/Color';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import { VisibilityObserver } from '../utils/VisibilityObserver';
 
 const useStyles = makeStyles<
