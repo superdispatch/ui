@@ -11,7 +11,20 @@ module.exports = (api) => {
   );
 
   return {
-    plugins: [require.resolve('./babel-plugin-deploy-info')],
+    plugins: [
+      require.resolve('./babel-plugin-deploy-info'),
+      [
+        'babel-plugin-direct-import',
+        {
+          modules: [
+            '@material-ui/lab',
+            '@material-ui/core',
+            '@material-ui/icons',
+            '@material-ui/styles',
+          ],
+        },
+      ],
+    ],
     presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
   };
 };

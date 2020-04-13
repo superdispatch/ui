@@ -11,6 +11,17 @@ module.exports = () => (api) => {
       require.resolve('../tools/babel-plugin-pure-export-calls'),
       require.resolve('../tools/babel-plugin-inject-display-name'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
+      [
+        'babel-plugin-direct-import',
+        {
+          modules: [
+            '@material-ui/lab',
+            '@material-ui/core',
+            '@material-ui/icons',
+            '@material-ui/styles',
+          ],
+        },
+      ],
     ].filter(Boolean),
   };
 };

@@ -4510,6 +4510,13 @@ babel-plugin-add-react-displayname@^0.0.5:
   resolved "https://registry.yarnpkg.com/babel-plugin-add-react-displayname/-/babel-plugin-add-react-displayname-0.0.5.tgz#339d4cddb7b65fd62d1df9db9fe04de134122bd5"
   integrity sha1-M51M3be2X9YtHfnbn+BN4TQSK9U=
 
+babel-plugin-direct-import@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-direct-import/-/babel-plugin-direct-import-0.6.0.tgz#399fa8eeaf2cd9052f2ce69a66e998a2b6f14068"
+  integrity sha512-S2b0fuYRY+rix82s7qAzF5LzkbWprz2E0oTsYEJ9t6/USpU6nRjVo6M8TiAqk3VB/Iek0iu1c2NL9BotXXR4zw==
+  dependencies:
+    resolve "^1.15.1"
+
 babel-plugin-dynamic-import-node-babel-7@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node-babel-7/-/babel-plugin-dynamic-import-node-babel-7-2.0.7.tgz#e778a8edb17488b472aa058ec451f1e75da4c0ec"
