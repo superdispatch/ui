@@ -64,6 +64,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-window": "^1.8.1",
     "babel-jest": "^25.1.0",
+    "babel-plugin-annotate-pure-calls": "^0.4.0",
     "babel-plugin-optimize-clsx": "^2.6.0",
     "css": "^2.2.4",
     "eslint": "^6.8.0",

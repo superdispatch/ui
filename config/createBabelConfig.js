@@ -8,7 +8,7 @@ module.exports = () => (api) => {
   return {
     presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
     plugins: [
-      require.resolve('../tools/babel-plugin-pure-export-calls'),
+      'babel-plugin-annotate-pure-calls',
       require.resolve('../tools/babel-plugin-inject-display-name'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
       [
