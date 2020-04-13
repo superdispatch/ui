@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = ({ isDocs = false } = {}) => (api) => {
+module.exports = () => (api) => {
   const isTest = api.env('test');
 
-  api.cache(() => JSON.stringify({ isTest, isDocs }));
+  api.cache(() => JSON.stringify({ isTest }));
 
   return {
     presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
