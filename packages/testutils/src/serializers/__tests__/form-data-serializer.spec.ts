@@ -10,11 +10,9 @@ it('serializes FormData with some data', () => {
   const formData = new FormData();
 
   formData.append('name', 'John');
-  formData.append('file', new Blob([], { type: 'image/jpg' }));
 
   expect(formData).toMatchInlineSnapshot(`
     FormData {
-      "file": File {},
       "name": "John",
     }
   `);
