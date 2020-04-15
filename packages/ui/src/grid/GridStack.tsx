@@ -22,6 +22,7 @@ export const GridStack: ForwardRefExoticComponent<GridStackProps> = forwardRef(
         {...props}
         ref={ref}
         container={true}
+        wrap="nowrap"
         direction="column"
         alignItems={alignItems}
       >
