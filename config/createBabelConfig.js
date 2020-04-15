@@ -6,9 +6,16 @@ module.exports = () => (api) => {
   api.cache(() => JSON.stringify({ isTest }));
 
   return {
-    presets: [['@superdispatch/babel-preset', { targets: 'esmodules' }]],
+    presets: [
+      [
+        '@superdispatch/babel-preset',
+        {
+          targets: 'esmodules',
+          optimize: { pureCalls: true },
+        },
+      ],
+    ],
     plugins: [
-      'babel-plugin-annotate-pure-calls',
       require.resolve('../tools/babel-plugin-inject-display-name'),
       ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
     ],
