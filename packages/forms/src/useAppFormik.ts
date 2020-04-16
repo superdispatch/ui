@@ -7,6 +7,7 @@ import {
 } from 'formik';
 import { useWhenValueChanges } from 'utility-hooks';
 
+import { useAppFormikContext } from './AppFormikProvider';
 import { useIsMounted } from './internal/useIsMounted';
 
 export interface AppFormikConfig<TValues extends FormikValues, TResponse>
@@ -40,13 +41,15 @@ export function useAppFormik<TValues extends FormikValues, TResponse>({
   onSubmit,
   onSubmitSuccess,
   onSubmitFailure,
-  getFormErrors,
+  getFormErrors: getFormErrorsOption,
 
   enableReinitialize = true,
   initialStatus = { type: 'initial' },
   ...config
 }: AppFormikConfig<TValues, TResponse>): AppFormik<TValues, TResponse> {
   const isMounted = useIsMounted();
+  const ctx = useAppFormikContext();
+  const getFormErrors = getFormErrorsOption || ctx.getFormErrors;
 
   const formik = useFormik<TValues>({
     ...config,

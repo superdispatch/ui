@@ -1,5 +1,9 @@
+import { MockEvent } from '@superdispatch/testutils';
+import { render, waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
+import React from 'react';
 
+import { AppFormikProvider } from '../AppFormikProvider';
 import { AppFormikConfig, useAppFormik } from '../useAppFormik';
 
 test('handle success action', async () => {
@@ -68,28 +72,28 @@ test('handle failure action', async () => {
   expect(handleSubmit).toHaveBeenCalledTimes(1);
   expect(handleFailure).toHaveBeenCalledTimes(1);
   expect(handleFailure).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-Array [
-  Object {
-    "meta": Object {
-      "status": 500,
-    },
-  },
-  Object {
-    "foo": "baz",
-  },
-]
-`);
+    Array [
+      Object {
+        "meta": Object {
+          "status": 500,
+        },
+      },
+      Object {
+        "foo": "baz",
+      },
+    ]
+  `);
 
   expect(getFormErrors).toHaveBeenCalledTimes(1);
   expect(getFormErrors).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-Array [
-  Object {
-    "meta": Object {
-      "status": 500,
-    },
-  },
-]
-`);
+    Array [
+      Object {
+        "meta": Object {
+          "status": 500,
+        },
+      },
+    ]
+  `);
 
   expect(result.current.errors).toMatchInlineSnapshot(`
     Object {
