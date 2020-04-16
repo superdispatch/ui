@@ -1,5 +1,5 @@
 export * from './useFormikEnhanced';
-export * from './FormikEnhancedProvider';
+export * from './FormsProvider';
 
 export * from './FormikTextField';
 export * from './FormikCheckboxField';

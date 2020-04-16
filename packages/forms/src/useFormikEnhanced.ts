@@ -7,7 +7,7 @@ import {
 } from 'formik';
 import { useWhenValueChanges } from 'utility-hooks';
 
-import { useFormikEnhancedContext } from './FormikEnhancedProvider';
+import { useFormsContext } from './FormsProvider';
 import { useIsMounted } from './internal/useIsMounted';
 
 export interface FormikEnhancedConfig<TValues extends FormikValues, TResponse>
@@ -30,8 +30,11 @@ export type FormikEnhancedStatus<TResponse> =
   | { type: 'submitted'; payload: TResponse }
   | { type: 'rejected'; payload: Error };
 
-export interface FormikEnhanced<TValues extends FormikValues, TResponse>
-  extends Omit<FormikContextType<TValues>, 'status' | 'setStatus'> {
+// TODO Remove after https://github.com/jaredpalmer/formik/pull/2323
+export interface FormikContextTypeEnhanced<
+  TValues extends FormikValues,
+  TResponse
+> extends Omit<FormikContextType<TValues>, 'status' | 'setStatus'> {
   status: FormikEnhancedStatus<TResponse>;
   setStatus: (status: FormikEnhancedStatus<TResponse>) => void;
 }
@@ -46,12 +49,12 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
   enableReinitialize = true,
   initialStatus = { type: 'initial' },
   ...config
-}: FormikEnhancedConfig<TValues, TResponse>): FormikEnhanced<
+}: FormikEnhancedConfig<TValues, TResponse>): FormikContextTypeEnhanced<
   TValues,
   TResponse
 > {
   const isMounted = useIsMounted();
-  const ctx = useFormikEnhancedContext();
+  const ctx = useFormsContext();
   const getFormErrors = getFormErrorsOption || ctx.getFormErrors;
 
   const formik = useFormik<TValues>({
@@ -91,5 +94,5 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
     }
   });
 
-  return formik as FormikEnhanced<TValues, TResponse>;
+  return formik as FormikContextTypeEnhanced<TValues, TResponse>;
 }

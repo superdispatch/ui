@@ -2,14 +2,11 @@ import { render } from '@testing-library/react';
 import { FormikValues } from 'formik';
 import React from 'react';
 
-import {
-  FormikEnhancedContext,
-  FormikEnhancedProvider,
-} from '../FormikEnhancedProvider';
+import { FormsContext, FormsProvider } from '../FormsProvider';
 import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
 export async function renderProvider<TValues extends FormikValues, TResponse>(
-  defaultConfig: FormikEnhancedContext,
+  defaultConfig: FormsContext,
   formConfig: FormikEnhancedConfig<TValues, TResponse>,
 ) {
   function Foo() {
@@ -27,8 +24,8 @@ export async function renderProvider<TValues extends FormikValues, TResponse>(
   }
 
   return render(
-    <FormikEnhancedProvider {...defaultConfig}>
+    <FormsProvider {...defaultConfig}>
       <Foo />
-    </FormikEnhancedProvider>,
+    </FormsProvider>,
   );
 }

@@ -5,7 +5,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { renderProvider } from '../__testutils__/renderProvider';
 import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
-describe('AppFormikProvider', () => {
+describe('FormsProvider', () => {
   test('default configs', async () => {
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
     const wrapper = await renderProvider(
@@ -71,7 +71,7 @@ describe('AppFormikProvider', () => {
   });
 });
 
-describe('useAppFormik', () => {
+describe('useFormikEnhanced', () => {
   test('handle success action', async () => {
     const handleSubmit = jest.fn(() =>
       Promise.resolve({

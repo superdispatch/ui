@@ -5,12 +5,12 @@ it('exposes public api', () => {
     Object {
       "FormikCheckboxField": [Function],
       "FormikDateField": [Function],
-      "FormikEnhancedProvider": [Function],
       "FormikPhoneField": [Function],
       "FormikRadioGroupField": [Function],
       "FormikTextField": [Function],
+      "FormsProvider": [Function],
       "useFormikEnhanced": [Function],
-      "useFormikEnhancedContext": [Function],
+      "useFormsContext": [Function],
       "validatePhone": [Function],
     }
   `);
