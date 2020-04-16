@@ -6,3 +6,4 @@
 - [@superdispatch/ui](https://github.com/superdispatch/ui/tree/master/packages/ui) - UI components
 - [@superdispatch/dates](https://github.com/superdispatch/ui/tree/master/packages/dates) - Date and Time components
 - [@superdispatch/phones](https://github.com/superdispatch/ui/tree/master/packages/phones) - Phone Number components
+- [@superdispatch/forms](https://github.com/superdispatch/ui/tree/master/packages/forms) - UI, Date, Time and Phone Number component adapters to work with forms
