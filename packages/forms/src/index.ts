@@ -1,4 +1,5 @@
 export * from './useAppFormik';
+export * from './AppFormikProvider';
 
 export * from './FormikTextField';
 export * from './FormikCheckboxField';
