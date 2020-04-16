@@ -39,7 +39,7 @@ function useFormikEnhanced(
 
 ##### Usage
 
-```
+```typescript jsx
 import { useFormikEnhanced, FormikTextField } from '@superdispatch/forms';
 import { FormikProvider, Form } from 'formik';
 
