@@ -7,10 +7,10 @@ import {
 } from 'formik';
 import { useWhenValueChanges } from 'utility-hooks';
 
-import { useAppFormikContext } from './AppFormikProvider';
+import { useFormikEnhancedContext } from './FormikEnhancedProvider';
 import { useIsMounted } from './internal/useIsMounted';
 
-export interface AppFormikConfig<TValues extends FormikValues, TResponse>
+export interface FormikEnhancedConfig<TValues extends FormikValues, TResponse>
   extends Omit<FormikConfig<TValues>, 'onSubmit'> {
   /**
    * Resets form when input value changes
@@ -25,18 +25,18 @@ export interface AppFormikConfig<TValues extends FormikValues, TResponse>
   onSubmitFailure?: (error: Error, values: TValues) => void;
 }
 
-export type AppFormikStatus<TResponse> =
+export type FormikEnhancedStatus<TResponse> =
   | { type: 'initial'; payload?: undefined }
   | { type: 'submitted'; payload: TResponse }
   | { type: 'rejected'; payload: Error };
 
-export interface AppFormik<TValues extends FormikValues, TResponse>
+export interface FormikEnhanced<TValues extends FormikValues, TResponse>
   extends Omit<FormikContextType<TValues>, 'status' | 'setStatus'> {
-  status: AppFormikStatus<TResponse>;
-  setStatus: (status: AppFormikStatus<TResponse>) => void;
+  status: FormikEnhancedStatus<TResponse>;
+  setStatus: (status: FormikEnhancedStatus<TResponse>) => void;
 }
 
-export function useAppFormik<TValues extends FormikValues, TResponse>({
+export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
   key,
   onSubmit,
   onSubmitSuccess,
@@ -46,9 +46,12 @@ export function useAppFormik<TValues extends FormikValues, TResponse>({
   enableReinitialize = true,
   initialStatus = { type: 'initial' },
   ...config
-}: AppFormikConfig<TValues, TResponse>): AppFormik<TValues, TResponse> {
+}: FormikEnhancedConfig<TValues, TResponse>): FormikEnhanced<
+  TValues,
+  TResponse
+> {
   const isMounted = useIsMounted();
-  const ctx = useAppFormikContext();
+  const ctx = useFormikEnhancedContext();
   const getFormErrors = getFormErrorsOption || ctx.getFormErrors;
 
   const formik = useFormik<TValues>({
@@ -88,5 +91,5 @@ export function useAppFormik<TValues extends FormikValues, TResponse>({
     }
   });
 
-  return formik as AppFormik<TValues, TResponse>;
+  return formik as FormikEnhanced<TValues, TResponse>;
 }
