@@ -44,20 +44,19 @@ import { useFormikEnhanced, FormikTextField } from '@superdispatch/forms';
 import { FormikProvider, Form } from 'formik';
 
 function UpdateProfileForm() {
-    const form = useFormikEnhanced({
-        initialValues: { firstName: '' },
-        onSubmit: () => udateProfile(),
-        onSubmitSuccess: () => alert('Profile updated successfully'),
-    });
+  const form = useFormikEnhanced({
+    initialValues: { firstName: '' },
+    onSubmit: () => udateProfile(),
+    onSubmitSuccess: () => alert('Profile updated successfully'),
+  });
 
-    return (
-        <FormikProvider value={form}>
-           <Form>
-                <FormikTextField name"firstName" />
-                <button type="submit">Update</button>
-           </Form>
-        </FormikProvider>
-    );
+  return (
+    <FormikProvider value={form}>
+      <Form>
+        <FormikTextField name="firstName" />
+        <button type="submit">Update</button>
+      </Form>
+    </FormikProvider>
+  );
 }
-
 ```
