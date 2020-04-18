@@ -1,5 +1,5 @@
 import { DateContextProvider, DateUtils } from '@superdispatch/dates';
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { ThemeProvider } from '@superdispatch/ui';
 import { waitFor } from '@testing-library/react';
 import MockDate from 'mockdate';

@@ -1,6 +1,4 @@
-import { setupMockFunctionMatchers } from '../mock-function-matchers';
-
-setupMockFunctionMatchers();
+import '../mock-function-matchers';
 
 describe('toHaveBeenLastCalledWithMatchingInlineSnapshot', () => {
   it('prints arguments of a function it was last called with', () => {

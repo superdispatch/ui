@@ -1,4 +1,4 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { render } from '@testing-library/react';
 import { Form, FormikProvider } from 'formik';
 import React, { PropsWithChildren, ReactElement } from 'react';

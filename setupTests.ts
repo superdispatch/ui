@@ -2,8 +2,6 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
 
-import { setupMockFunctionMatchers } from './packages/testutils/src/matchers/mock-function-matchers';
-
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
@@ -12,8 +10,6 @@ declare global {
     }
   }
 }
-
-setupMockFunctionMatchers();
 
 beforeEach(() => {
   jest.spyOn(console, 'warn');

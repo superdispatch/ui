@@ -5,9 +5,6 @@ import {
   MockEndpointOptions,
   MockEndpointRequest,
 } from '../mockEndpoint';
-import { setupTestUtils } from '../setupTestUtils';
-
-setupTestUtils();
 
 function makeFetchArgs(
   input: string,
@@ -381,13 +378,11 @@ it('warns unmocked endpoint', async () => {
   await fetch('http://host/bar');
 
   expect(warn).toHaveBeenCalledTimes(1);
-  expect(warn).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      "Unmatched '%s' request to '%s'",
-      "GET",
-      "http://host/bar",
-    ]
-  `);
+  expect(warn).toHaveBeenLastCalledWith(
+    "Unmatched '%s' request to '%s'",
+    'GET',
+    'http://host/bar',
+  );
 
   warn.mockClear();
 });

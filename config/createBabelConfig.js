@@ -9,10 +9,7 @@ module.exports = () => (api) => {
     presets: [
       [
         '@superdispatch/babel-preset',
-        {
-          targets: 'esmodules',
-          optimize: { pureCalls: true },
-        },
+        { targets: 'esmodules', optimize: { pureCalls: true } },
       ],
     ],
     plugins: [

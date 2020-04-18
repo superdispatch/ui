@@ -7,10 +7,3 @@
 ```bash
 yarn add @superdispatch/testutils @testing-library/react
 ```
-
-#### Setup
-
-```javascript
-// In setupTests
-import '@superdispatch/testutils';
-```

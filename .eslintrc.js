@@ -51,7 +51,7 @@ module.exports = {
     {
       files: [
         'setupTestGlobals.ts',
-        '**/{__tests__,__testutils__,testutils/src}/**/*.{ts,tsx}',
+        '**/{__tests__,__testutils__,jestutils,testutils/src}/**/*.{ts,tsx}',
       ],
       extends: ['plugin:@superdispatch/jest'],
       rules: {
