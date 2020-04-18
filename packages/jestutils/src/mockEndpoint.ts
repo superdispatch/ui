@@ -1,14 +1,9 @@
+import 'whatwg-fetch';
+
 import { fromPairs } from 'lodash';
 import { Match, match, MatchFunction } from 'path-to-regexp';
 
 export type MockEndpointParams = Record<string, string>;
-
-interface MockEndpoint {
-  method: string;
-  headers: string[][];
-  matchers: Array<MatchFunction<MockEndpointParams>>;
-  resolver: jest.Mock<object | Response, [MockEndpointRequest]>;
-}
 
 export interface MockEndpointRequest {
   body: unknown;
@@ -18,52 +13,19 @@ export interface MockEndpointRequest {
   searchParams: MockEndpointParams;
 }
 
-const endpoints = new Map<string, MockEndpoint>();
-
-function findEndpoint(
-  request: Request,
-): [undefined | MockEndpoint, Match<MockEndpointParams>, URLSearchParams] {
-  const { pathname, searchParams } = new URL(request.url);
-
-  for (const endpoint of endpoints.values()) {
-    let endpointMatch: Match<MockEndpointParams> = false;
-
-    if (endpoint.method !== request.method) {
-      continue;
-    }
-
-    const { headers } = endpoint;
-
-    if (headers.length > 0) {
-      const hasInvalidHeader = headers.some(
-        ([key, value]) => request.headers.get(key) !== value,
-      );
-
-      if (hasInvalidHeader) {
-        continue;
-      }
-    }
-
-    for (const matcher of endpoint.matchers) {
-      endpointMatch = matcher(pathname);
-
-      if (endpointMatch) {
-        break;
-      }
-    }
-
-    if (endpointMatch) {
-      return [endpoint, endpointMatch, searchParams];
-    }
-  }
-
-  return [undefined, false, searchParams];
+interface MockEndpoint {
+  method: string;
+  headers: string[][];
+  matchers: Array<MatchFunction<MockEndpointParams>>;
+  resolver: jest.Mock<object | Response, [MockEndpointRequest]>;
 }
 
-export function setupMockEndpoints() {
-  require('whatwg-fetch');
+const endpoints = new Map<string, MockEndpoint>();
 
-  const fetchMock = jest.fn(
+let fetchMock: jest.SpyInstance;
+
+beforeEach(() => {
+  fetchMock = jest.spyOn(window, 'fetch').mockImplementation(
     async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
       const request = new Request(input, init);
       const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
@@ -119,13 +81,51 @@ export function setupMockEndpoints() {
       });
     },
   );
+});
 
-  Object.assign(global, { fetch: fetchMock });
+afterEach(() => {
+  endpoints.clear();
+  fetchMock.mockClear();
+});
 
-  afterEach(() => {
-    endpoints.clear();
-    fetchMock.mockClear();
-  });
+function findEndpoint(
+  request: Request,
+): [undefined | MockEndpoint, Match<MockEndpointParams>, URLSearchParams] {
+  const { pathname, searchParams } = new URL(request.url);
+
+  for (const endpoint of endpoints.values()) {
+    let endpointMatch: Match<MockEndpointParams> = false;
+
+    if (endpoint.method !== request.method) {
+      continue;
+    }
+
+    const { headers } = endpoint;
+
+    if (headers.length > 0) {
+      const hasInvalidHeader = headers.some(
+        ([key, value]) => request.headers.get(key) !== value,
+      );
+
+      if (hasInvalidHeader) {
+        continue;
+      }
+    }
+
+    for (const matcher of endpoint.matchers) {
+      endpointMatch = matcher(pathname);
+
+      if (endpointMatch) {
+        break;
+      }
+    }
+
+    if (endpointMatch) {
+      return [endpoint, endpointMatch, searchParams];
+    }
+  }
+
+  return [undefined, false, searchParams];
 }
 
 export interface MockEndpointOptions {

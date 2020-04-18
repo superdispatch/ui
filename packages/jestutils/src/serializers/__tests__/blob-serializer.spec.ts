@@ -1,6 +1,4 @@
-import { setupTestUtils } from '../../setupTestUtils';
-
-setupTestUtils();
+import '../../setupTestUtils';
 
 it('serializes File', () => {
   expect(new File(['id,name'], 'report.csv', { type: 'text/csv' }))

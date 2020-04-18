@@ -1,4 +1,4 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
@@ -34,14 +34,11 @@ test('handles changes', async () => {
 
   wrapper.submitForm();
 
-  await waitFor(() => expect(handleSubmit).toHaveBeenCalledTimes(1));
-  expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "agree": false,
-      },
-    ]
-  `);
+  await waitFor(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({ agree: false });
 });
 
 test('validates field', async () => {
