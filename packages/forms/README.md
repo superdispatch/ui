@@ -27,7 +27,7 @@ The package contains enhanced form and `formil` field adaptors via `material-ui`
   - [`FormikRadioGroupField`](#formikradiogroupfield)
   - [`FormikTextField`](#formiktextfield)
 
-##### useFormikEnhanced
+#### useFormikEnhanced
 
 ```ts
 function useFormikEnhanced(
@@ -59,7 +59,7 @@ function UpdateProfileForm() {
 }
 ```
 
-##### FormsProvider
+#### FormsProvider
 
 Set default props for `useFormikEnhanced`.
 
@@ -79,7 +79,7 @@ function Root() {
 }
 ```
 
-##### FormikCheckboxField
+#### FormikCheckboxField
 
 Formik field adapter for Material Checkbox.
 
@@ -101,7 +101,7 @@ function UpdateProfile() {
 }
 ```
 
-##### FormikDateField
+#### FormikDateField
 
 Formik field adapter for `@superdispatch/dates`.
 
@@ -123,7 +123,7 @@ function UpdateProfile() {
 }
 ```
 
-##### FormikPhoneField
+#### FormikPhoneField
 
 Formik field adapter for `@superdispatch/phones`.
 
@@ -145,7 +145,7 @@ function UpdateProfile() {
 }
 ```
 
-##### FormikRadioGroupField
+#### FormikRadioGroupField
 
 Formik field adapter for Material Radio Group.
 
@@ -171,7 +171,7 @@ function UpdateProfile() {
 }
 ```
 
-##### FormikTextField
+#### FormikTextField
 
 Formik field adapter for Material TextField.
 
