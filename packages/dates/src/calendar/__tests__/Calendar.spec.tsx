@@ -1,4 +1,4 @@
-import { MockEvent } from '@superdispatch/testutils/';
+import { MockEvent } from '@superdispatch/jestutils';
 import { renderCSS } from '@superdispatch/ui-testutils';
 import userEvent from '@testing-library/user-event';
 import React from 'react';

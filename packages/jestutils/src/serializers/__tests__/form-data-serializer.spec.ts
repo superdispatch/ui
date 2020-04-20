@@ -1,6 +1,4 @@
-import { setupTestUtils } from '../../setupTestUtils';
-
-setupTestUtils();
+import '../../setupTestUtils';
 
 it('serializes empty FormData', () => {
   expect(new FormData()).toMatchInlineSnapshot(`FormData {}`);

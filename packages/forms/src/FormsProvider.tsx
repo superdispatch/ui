@@ -6,20 +6,20 @@ import React, {
   useMemo,
 } from 'react';
 
-export interface AppFormikContext {
+export interface FormsContext {
   getFormErrors?: (error: unknown) => FormikErrors<unknown>;
 }
 
-const Context = createContext<AppFormikContext>({});
+const Context = createContext<FormsContext>({});
 
-export function useAppFormikContext(): AppFormikContext {
+export function useFormsContext(): FormsContext {
   return useContext(Context);
 }
 
-export function AppFormikProvider({
+export function FormsProvider({
   children,
   getFormErrors,
-}: PropsWithChildren<AppFormikContext>) {
+}: PropsWithChildren<FormsContext>) {
   const ctx = useMemo(
     () => ({
       getFormErrors,

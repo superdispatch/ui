@@ -1,11 +1,11 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { renderProvider } from '../__testutils__/renderProvider';
-import { AppFormikConfig, useAppFormik } from '../useAppFormik';
+import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
-describe('AppFormikProvider', () => {
+describe('FormsProvider', () => {
   test('default configs', async () => {
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
     const wrapper = await renderProvider(
@@ -71,7 +71,7 @@ describe('AppFormikProvider', () => {
   });
 });
 
-describe('useAppFormik', () => {
+describe('useFormikEnhanced', () => {
   test('handle success action', async () => {
     const handleSubmit = jest.fn(() =>
       Promise.resolve({
@@ -81,7 +81,7 @@ describe('useAppFormik', () => {
     const handleSuccess = jest.fn();
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAppFormik({
+      useFormikEnhanced({
         initialValues: { foo: 'bar' },
         onSubmit: handleSubmit,
         onSubmitSuccess: handleSuccess,
@@ -120,7 +120,7 @@ describe('useAppFormik', () => {
     const handleFailure = jest.fn();
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAppFormik({
+      useFormikEnhanced({
         initialValues: { foo: 'bar' },
         getFormErrors,
         onSubmit: handleSubmit,
@@ -177,7 +177,7 @@ describe('useAppFormik', () => {
     const handleSuccess = jest.fn();
 
     const { result, unmount } = renderHook(() =>
-      useAppFormik({
+      useFormikEnhanced({
         initialValues: { foo: 'bar' },
         onSubmit: handleSubmit,
         onSubmitSuccess: handleSuccess,
@@ -193,8 +193,8 @@ describe('useAppFormik', () => {
 
   test('reset form when key changes', async () => {
     const { result, rerender } = renderHook(
-      (props: Partial<AppFormikConfig<{ foo: string }, void>>) =>
-        useAppFormik({
+      (props: Partial<FormikEnhancedConfig<{ foo: string }, void>>) =>
+        useFormikEnhanced({
           initialValues: { foo: 'bar' },
           onSubmit: jest.fn(),
           ...props,

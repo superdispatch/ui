@@ -2,15 +2,15 @@ import { render } from '@testing-library/react';
 import { FormikValues } from 'formik';
 import React from 'react';
 
-import { AppFormikContext, AppFormikProvider } from '../AppFormikProvider';
-import { AppFormikConfig, useAppFormik } from '../useAppFormik';
+import { FormsContext, FormsProvider } from '../FormsProvider';
+import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
 export async function renderProvider<TValues extends FormikValues, TResponse>(
-  defaultConfig: AppFormikContext,
-  formConfig: AppFormikConfig<TValues, TResponse>,
+  defaultConfig: FormsContext,
+  formConfig: FormikEnhancedConfig<TValues, TResponse>,
 ) {
   function Foo() {
-    const { handleSubmit, errors } = useAppFormik<TValues, TResponse>(
+    const { handleSubmit, errors } = useFormikEnhanced<TValues, TResponse>(
       formConfig,
     );
     return (
@@ -24,8 +24,8 @@ export async function renderProvider<TValues extends FormikValues, TResponse>(
   }
 
   return render(
-    <AppFormikProvider {...defaultConfig}>
+    <FormsProvider {...defaultConfig}>
       <Foo />
-    </AppFormikProvider>,
+    </FormsProvider>,
   );
 }

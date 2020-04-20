@@ -5,7 +5,7 @@ import {
   FormikPhoneField,
   FormikRadioGroupField,
   FormikTextField,
-  useAppFormik,
+  useFormikEnhanced,
 } from '@superdispatch/forms';
 import { PhoneNumber } from '@superdispatch/phones';
 import {
@@ -30,7 +30,7 @@ interface FormValues {
 
 export default function TextFieldDemo() {
   const { addSnackbar } = useSnackbarStack();
-  const form = useAppFormik<FormValues, void>({
+  const form = useFormikEnhanced<FormValues, void>({
     initialValues: {
       first_name: '',
       last_name: '',

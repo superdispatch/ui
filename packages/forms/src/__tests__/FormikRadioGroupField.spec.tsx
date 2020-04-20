@@ -1,4 +1,4 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { RadioField } from '@superdispatch/ui';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';

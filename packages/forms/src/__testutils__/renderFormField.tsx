@@ -1,20 +1,20 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { render } from '@testing-library/react';
 import { Form, FormikProvider } from 'formik';
 import React, { PropsWithChildren, ReactElement } from 'react';
 
-import { AppFormikConfig, useAppFormik } from '../useAppFormik';
+import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
-function getWrapper<T, R>(formProps: AppFormikConfig<T, R>) {
+function getWrapper<T, R>(formProps: FormikEnhancedConfig<T, R>) {
   return function Wrapper({ children }: PropsWithChildren<{}>) {
-    const form = useAppFormik(formProps);
+    const form = useFormikEnhanced(formProps);
     return <FormikProvider value={form}>{children}</FormikProvider>;
   };
 }
 
 export function renderFormField<T, R>(
   element: ReactElement,
-  formProps: AppFormikConfig<T, R>,
+  formProps: FormikEnhancedConfig<T, R>,
 ) {
   const wrapper = render(
     <Form>

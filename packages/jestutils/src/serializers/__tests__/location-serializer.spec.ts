@@ -1,8 +1,6 @@
+import '../location-serializer';
+
 import { parse } from 'url';
-
-import { setupLocationSerializer } from '../location-serializer';
-
-setupLocationSerializer();
 
 function makeLocation(url: string) {
   const { pathname, search, hash } = parse(url);

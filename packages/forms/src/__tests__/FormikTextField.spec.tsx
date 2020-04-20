@@ -1,4 +1,4 @@
-import { MockEvent } from '@superdispatch/testutils';
+import { MockEvent } from '@superdispatch/jestutils';
 import { waitFor } from '@testing-library/react';
 import { act } from '@testing-library/react-hooks';
 import React from 'react';
