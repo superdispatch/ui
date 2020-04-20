@@ -12,7 +12,9 @@ module.exports = {
       settings: { react: { version: 'detect' } },
       rules: {
         'react/display-name': 'off',
+        'eslint-comments/no-use': 'off',
         '@superdispatch/no-index-file': 'off',
+
         'react-hooks/exhaustive-deps': [
           'error',
           {
