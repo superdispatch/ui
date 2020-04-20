@@ -38,6 +38,10 @@ it('checks component css', () => {
       visibility: visible;
     }
 
+    .MuiAutocomplete-fullWidth {
+      width: 100%;
+    }
+
     .MuiAutocomplete-tag {
       margin: 4px;
       max-width: calc(100% - 6px);
