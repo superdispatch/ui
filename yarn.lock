@@ -9,7 +9,7 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
   integrity sha512-a9gxpmdXtZEInkCSHUJDLHZVBgb1QS0jhss4cPP93EW7s+uC5bikET2twEF3KV+7rDblJcmNvTR7VJejqd2C2g==
@@ -2471,20 +2471,10 @@
     "@types/node" "^10.12.18"
     rollup "^1.1.0"
 
-"@pika/plugin-bundle-types@^0.9.2":
+"@pika/plugin-bundle-node@^0.9.2":
   version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-bundle-types/-/plugin-bundle-types-0.9.2.tgz#2859f2e10d94d9e9840f7fb7635622aa935899ba"
-  integrity sha512-X61Ewl1CAmgOmnzGUodML7XitlDkNBCwbdiA7kax5Qf2jutu+Ahc3n5DqFAyRh+mluCDvnwglM9vTY5M8j9fJw==
-  dependencies:
-    "@pika/types" "^0.9.2"
-    rimraf "^3.0.0"
-    rollup "^1.1.0"
-    rollup-plugin-dts "^1.1.12"
-
-"@pika/plugin-bundle-web@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-bundle-web/-/plugin-bundle-web-0.9.2.tgz#ac7bf39d8c156c0741f7ec4b4c5d7be1ccfbbdae"
-  integrity sha512-2zLfeSbsOTEBw76LPl9r0DGST7g8P/MlVdHWuMDQhfMOLYHFzqV218UFE1BU9l4pO1M2z4TuG4gTQ2cTaa+HgA==
+  resolved "https://registry.yarnpkg.com/@pika/plugin-bundle-node/-/plugin-bundle-node-0.9.2.tgz#1b96d199768428135230568d110f12907013be4e"
+  integrity sha512-Rmc82VJWmf8QeboQ3gcgDUKLxPmhjUVr/6OlDDoDniLheIU6FXbXsWVnutkhy5qqy6TqojsbL1Wx/Y4KYlW6AA==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
@@ -2494,9 +2484,20 @@
     "@rollup/plugin-commonjs" "^11.0.0"
     "@rollup/plugin-json" "^4.0.0"
     "@rollup/plugin-node-resolve" "^7.0.0"
+    babel-plugin-dynamic-import-node-babel-7 "^2.0.7"
+    builtin-modules "^3.0.0"
     rollup "^1.1.0"
     rollup-plugin-babel "^4.3.0"
-    rollup-plugin-terser "^5.1.1"
+
+"@pika/plugin-bundle-types@^0.9.2":
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/@pika/plugin-bundle-types/-/plugin-bundle-types-0.9.2.tgz#2859f2e10d94d9e9840f7fb7635622aa935899ba"
+  integrity sha512-X61Ewl1CAmgOmnzGUodML7XitlDkNBCwbdiA7kax5Qf2jutu+Ahc3n5DqFAyRh+mluCDvnwglM9vTY5M8j9fJw==
+  dependencies:
+    "@pika/types" "^0.9.2"
+    rimraf "^3.0.0"
+    rollup "^1.1.0"
+    rollup-plugin-dts "^1.1.12"
 
 "@pika/plugin-standard-pkg@^0.9.2":
   version "0.9.2"
@@ -10429,14 +10430,6 @@ jest-watcher@^25.4.0:
     jest-util "^25.4.0"
     string-length "^3.1.0"
 
-jest-worker@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-24.9.0.tgz#5dbfdb5b2d322e98567898238a9697bcce67b3e5"
-  integrity sha512-51PE4haMSXcHohnSMdM42anbvZANYTqMrr52tVKPqqsPJMzoP6FYYDVqahX/HrAoKEKz3uUPzSvKs9A3qR4iVw==
-  dependencies:
-    merge-stream "^2.0.0"
-    supports-color "^6.1.0"
-
 jest-worker@^25.1.0, jest-worker@^25.4.0:
   version "25.4.0"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-25.4.0.tgz#ee0e2ceee5a36ecddf5172d6d7e0ab00df157384"
@@ -14447,18 +14440,7 @@ rollup-plugin-dts@^1.1.12:
   optionalDependencies:
     "@babel/code-frame" "^7.8.3"
 
-rollup-plugin-terser@^5.1.1:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.3.0.tgz#9c0dd33d5771df9630cd027d6a2559187f65885e"
-  integrity sha512-XGMJihTIO3eIBsVGq7jiNYOdDMb3pVxuzY0uhOE/FM4x/u9nQgr3+McsjzqBn3QfHIpNSZmFnpoKAwHBEcsT7g==
-  dependencies:
-    "@babel/code-frame" "^7.5.5"
-    jest-worker "^24.9.0"
-    rollup-pluginutils "^2.8.2"
-    serialize-javascript "^2.1.2"
-    terser "^4.6.2"
-
-rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
+rollup-pluginutils@^2.8.1:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
@@ -15716,7 +15698,7 @@ terser-webpack-plugin@^2.1.2:
     terser "^4.4.3"
     webpack-sources "^1.4.3"
 
-terser@^4.1.2, terser@^4.4.3, terser@^4.6.2, terser@^4.6.3:
+terser@^4.1.2, terser@^4.4.3, terser@^4.6.3:
   version "4.6.11"
   resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.11.tgz#12ff99fdd62a26de2a82f508515407eb6ccd8a9f"
   integrity sha512-76Ynm7OXUG5xhOpblhytE7X58oeNSmC8xnNhjWVo8CksHit0U0kO4hfNbPrrYwowLWFgM2n9L176VNx2QaHmtA==
