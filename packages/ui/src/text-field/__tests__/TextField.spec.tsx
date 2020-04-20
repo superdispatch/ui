@@ -613,11 +613,11 @@ it('checks component css', () => {
       right: 0;
       bottom: 0;
       margin: 0;
-      padding: 0;
+      padding: 0 8px;
+      overflow: hidden;
       position: absolute;
       border-style: solid;
       border-width: 1px;
-      padding-left: 8px;
       border-radius: inherit;
       pointer-events: none;
     }

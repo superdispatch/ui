@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/jestutils",
-  "version": "0.2.32",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -41,9 +41,6 @@
       ],
       [
         "@pika/plugin-build-types"
-      ],
-      [
-        "@pika/plugin-bundle-types"
       ]
     ]
   }
