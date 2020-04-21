@@ -37,7 +37,7 @@
         }
       ],
       [
-        "@pika/plugin-bundle-node"
+        "@pika/plugin-build-node"
       ],
       [
         "@pika/plugin-build-types"
