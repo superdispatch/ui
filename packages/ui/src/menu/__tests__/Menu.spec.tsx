@@ -12,7 +12,6 @@ it('checks default props', () => {
         "vertical": "bottom",
       },
       "getContentAnchorEl": null,
-      "keepMounted": true,
       "transformOrigin": Object {
         "horizontal": "left",
         "vertical": "top",
@@ -36,66 +35,66 @@ it('checks component css', () => {
       ],
     ),
   ).toMatchInlineSnapshot(`
-.MuiMenu-paper {
-  max-height: calc(100% - 96px);
-  -webkit-overflow-scrolling: touch;
-}
+    .MuiMenu-paper {
+      max-height: calc(100% - 96px);
+      -webkit-overflow-scrolling: touch;
+    }
 
-.MuiMenu-list {
-  outline: 0;
-}
+    .MuiMenu-list {
+      outline: 0;
+    }
 
-.MuiMenuItem-root {
-  width: auto;
-  overflow: hidden;
-  font-size: 14px;
-  box-sizing: border-box;
-  min-height: 48px;
-  font-family: SF Pro Text;
-  font-weight: 400;
-  line-height: 20px;
-  padding-top: 8px;
-  white-space: nowrap;
-  padding-bottom: 8px;
-}
+    .MuiMenuItem-root {
+      width: auto;
+      overflow: hidden;
+      font-size: 14px;
+      box-sizing: border-box;
+      min-height: 48px;
+      font-family: SF Pro Text;
+      font-weight: 400;
+      line-height: 20px;
+      padding-top: 8px;
+      white-space: nowrap;
+      padding-bottom: 8px;
+    }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiMenuItem-root {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
+    @media (min-width: 0px) and (max-width: 599.95px) {
+      .MuiMenuItem-root {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
 
-@media (min-width: 600px) {
-  .MuiMenuItem-root {
-    min-height: auto;
-  }
-}
+    @media (min-width: 600px) {
+      .MuiMenuItem-root {
+        min-height: auto;
+      }
+    }
 
-.MuiMenuItem-dense {
-  font-size: 14px;
-  min-height: auto;
-  font-family: SF Pro Text;
-  font-weight: 400;
-  line-height: 20px;
-}
+    .MuiMenuItem-dense {
+      font-size: 14px;
+      min-height: auto;
+      font-family: SF Pro Text;
+      font-weight: 400;
+      line-height: 20px;
+    }
 
-@media (min-width: 0px) and (max-width: 599.95px) {
-  .MuiMenuItem-dense {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
+    @media (min-width: 0px) and (max-width: 599.95px) {
+      .MuiMenuItem-dense {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
 
-.MuiPopover-paper {
-  outline: 0;
-  position: absolute;
-  max-width: calc(100% - 32px);
-  min-width: 16px;
-  max-height: calc(100% - 32px);
-  min-height: 16px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-`);
+    .MuiPopover-paper {
+      outline: 0;
+      position: absolute;
+      max-width: calc(100% - 32px);
+      min-width: 16px;
+      max-height: calc(100% - 32px);
+      min-height: 16px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  `);
 });
