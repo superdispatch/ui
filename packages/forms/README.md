@@ -29,10 +29,27 @@ The package contains enhanced form and `formil` field adaptors via `material-ui`
 
 #### useFormikEnhanced
 
+Returns enhanced Formik.
+
+##### Config
+
 ```ts
-function useFormikEnhanced(
-  config: FormikEnhancedConfig,
-): FormikContextTypeEnhanced;
+import { FormikConfig, FormikErrors, FormikValues } from 'formik';
+
+interface FormikEnhancedConfig<TValues extends FormikValues, TResponse>
+  extends Omit<FormikConfig<TValues>, 'onSubmit'> {
+  /**
+   * Resets form when input value changes
+   */
+  key?: unknown;
+  /**
+   * Extracts errors from the submission error
+   */
+  getFormErrors?: (error: unknown) => FormikErrors<TValues>;
+  onSubmit: (values: TValues) => TResponse | PromiseLike<TResponse>;
+  onSubmitSuccess?: (response: TResponse, values: TValues) => void;
+  onSubmitFailure?: (error: Error, values: TValues) => void;
+}
 ```
 
 ##### Usage
@@ -42,14 +59,14 @@ import { useFormikEnhanced, FormikTextField } from '@superdispatch/forms';
 import { FormikProvider, Form } from 'formik';
 
 function UpdateProfileForm() {
-  const form = useFormikEnhanced({
+  const formik = useFormikEnhanced({
     initialValues: { firstName: '' },
     onSubmit: () => udateProfile(),
     onSubmitSuccess: () => alert('Profile updated successfully'),
   });
 
   return (
-    <FormikProvider value={form}>
+    <FormikProvider value={formik}>
       <Form>
         <FormikTextField name="firstName" />
         <button type="submit">Update</button>
@@ -62,6 +79,17 @@ function UpdateProfileForm() {
 #### FormsProvider
 
 Set default props for `useFormikEnhanced`.
+
+##### Props
+
+```ts
+import { PropsWithChildren } from 'react';
+import { FormikErrors } from 'formik';
+
+type FormsProviderProps = PropsWithChildren<{
+  getFormErrors?: (error: unknown) => FormikErrors<unknown>;
+}>;
+```
 
 ##### Usage
 
@@ -82,6 +110,18 @@ function Root() {
 #### FormikCheckboxField
 
 Formik field adapter for Material Checkbox.
+
+##### Props
+
+```tsx
+import { CheckboxFieldProps } from '@superdispatch/ui';
+import { FieldValidator } from 'formik';
+
+interface FormikCheckboxFieldProps extends CheckboxFieldProps {
+  name: string;
+  validate?: FieldValidator;
+}
+```
 
 ##### Usage
 
@@ -105,6 +145,18 @@ function UpdateProfile() {
 
 Formik field adapter for `@superdispatch/dates`.
 
+##### Props
+
+```tsx
+import { FieldValidator } from 'formik';
+import { DateFieldProps } from '@superdispatch/dates';
+
+interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
+  name: string;
+  validate?: FieldValidator;
+}
+```
+
 ##### Usage
 
 ```tsx
@@ -127,6 +179,19 @@ function UpdateProfile() {
 
 Formik field adapter for `@superdispatch/phones`.
 
+##### Props
+
+```tsx
+import { PhoneFieldProps } from '@superdispatch/dates';
+import { FieldValidator } from 'formik';
+
+interface FormikPhoneFieldProps
+  extends Omit<PhoneFieldProps, 'error' | 'value'> {
+  name: string;
+  validate?: FieldValidator;
+}
+```
+
 ##### Usage
 
 ```tsx
@@ -148,6 +213,19 @@ function UpdateProfile() {
 #### FormikRadioGroupField
 
 Formik field adapter for Material Radio Group.
+
+##### Props
+
+```tsx
+import { FieldValidator } from 'formik';
+import { RadioGroupFieldProps } from '@superdispatch/ui';
+
+interface FormikRadioGroupFieldProps
+  extends Omit<RadioGroupFieldProps, 'error' | 'value'> {
+  name: string;
+  validate?: FieldValidator;
+}
+```
 
 ##### Usage
 
@@ -174,6 +252,23 @@ function UpdateProfile() {
 #### FormikTextField
 
 Formik field adapter for Material TextField.
+
+##### Props
+
+```tsx
+import { StandardTextFieldProps } from '@material-ui/core';
+import { FieldValidator } from 'formik';
+import { ChangeEvent, ReactNode } from 'react';
+
+interface FormikTextFieldProps<T>
+  extends Omit<StandardTextFieldProps, 'error'> {
+  name: string;
+  validate?: FieldValidator;
+  formatError?: (error: string) => ReactNode;
+  format?: (value: T) => string;
+  parse?: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => T;
+}
+```
 
 ##### Usage
 
