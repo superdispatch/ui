@@ -28,6 +28,7 @@ module.exports = {
           {
             allow: [
               '**/packages/*/src/**',
+              '**/packages/webpage/internal/**',
               '@testing-library/jest-dom/extend-expect',
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
