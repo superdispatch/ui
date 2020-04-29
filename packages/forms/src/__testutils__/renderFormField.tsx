@@ -7,8 +7,9 @@ import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
 function getWrapper<T, R>(formProps: FormikEnhancedConfig<T, R>) {
   return function Wrapper({ children }: PropsWithChildren<{}>) {
-    const form = useFormikEnhanced(formProps);
-    return <FormikProvider value={form}>{children}</FormikProvider>;
+    const formik = useFormikEnhanced(formProps);
+
+    return <FormikProvider value={formik}>{children}</FormikProvider>;
   };
 }
 
@@ -26,7 +27,7 @@ export function renderFormField<T, R>(
   return {
     ...wrapper,
     submitForm: () => {
-      MockEvent.click(wrapper.getByText('Submit'));
+      MockEvent.click(wrapper.getByRole('button', { name: 'Submit' }));
     },
   };
 }

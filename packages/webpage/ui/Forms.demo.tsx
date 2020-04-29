@@ -86,7 +86,21 @@ export default function TextFieldDemo() {
             <FormikTextField name="last_name" label="Last name" />
           </InlineGrid>
 
-          <FormikDateField name="date_of_birth" label="Date of birth" />
+          <FormikDateField
+            name="date_of_birth"
+            label="Date of birth"
+            validate={(value) => {
+              if (!value) {
+                return 'Please enter a date of birth';
+              }
+
+              if (value > new Date()) {
+                return "Date of birth can't be in future";
+              }
+
+              return undefined;
+            }}
+          />
 
           <FormikPhoneField name="phone" label="Pone number" />
 
