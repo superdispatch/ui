@@ -3,9 +3,9 @@ import React, {
   ComponentType,
   InputHTMLAttributes,
   RefObject,
+  useCallback,
   useState,
 } from 'react';
-import { useEventCallback } from 'utility-hooks';
 
 import { Calendar, CalendarProps } from './calendar/Calendar';
 import { CalendarQuickSelection } from './calendar/CalendarQuickSelection';
@@ -27,20 +27,23 @@ export interface DatePickerPopoverState {
 }
 
 export function useDatePickerPopoverState(
-  inputRef?: RefObject<null | HTMLInputElement>,
+  inputRef: RefObject<null | HTMLInputElement>,
 ): DatePickerPopoverState {
   const [anchorEl, setAnchorEl] = useState<DatePickerPopoverState['anchorEl']>(
     null,
   );
 
-  const onOpen = useEventCallback((next: HTMLElement) => {
-    inputRef?.current?.focus();
-    setAnchorEl(next);
-  });
+  const onOpen = useCallback(
+    (next: HTMLElement) => {
+      inputRef.current?.focus();
+      setAnchorEl(next);
+    },
+    [inputRef],
+  );
 
-  const onClose = useEventCallback(() => {
+  const onClose = useCallback(() => {
     setAnchorEl(null);
-  });
+  }, []);
 
   return { onOpen, onClose, anchorEl };
 }
