@@ -1,4 +1,4 @@
-import { DateContextProvider, DateUtils } from '@superdispatch/dates';
+import { DateContextProvider } from '@superdispatch/dates';
 import { MockEvent } from '@superdispatch/jestutils';
 import { ThemeProvider } from '@superdispatch/ui';
 import { waitFor } from '@testing-library/react';
@@ -8,8 +8,6 @@ import React, { ReactElement } from 'react';
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikDateField } from '../FormikDateField';
 import { FormikEnhancedConfig } from '../useFormikEnhanced';
-
-const stubUtils = new DateUtils({ timeZoneOffset: -300 });
 
 function renderDateField<T, R>(
   element: ReactElement,
@@ -81,22 +79,26 @@ test('handles errors', async () => {
       name="date"
       label="Date"
       onChange={handleChange}
-      validate={(value) =>
-        !stubUtils.isSameDate(value, Date.UTC(2019, 4, 10, 1, 2, 3, 45))
-          ? 'Invalid Date'
-          : undefined
-      }
+      validate={(value) => {
+        if (!value) {
+          return 'Required';
+        }
+
+        if (value < new Date()) {
+          return 'Invalid';
+        }
+
+        return undefined;
+      }}
     />,
     {
-      initialValues: { date: new Date() },
       onSubmit: handleSubmit,
+      initialValues: { date: undefined },
     },
   );
 
-  const field = wrapper.getByLabelText('Date');
+  MockEvent.click(wrapper.getByLabelText('Date'));
+  MockEvent.click(wrapper.getByLabelText(/May 20/));
 
-  MockEvent.click(field);
-  MockEvent.click(wrapper.getByLabelText('Wed May 29 2019'));
-
-  await wrapper.findByText('Invalid Date');
+  await wrapper.findByText('Invalid');
 });

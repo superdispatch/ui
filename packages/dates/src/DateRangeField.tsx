@@ -16,6 +16,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useWhenValueChanges } from 'utility-hooks';
 
 import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDateUtils } from './DateContext';
@@ -158,12 +159,6 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       [finishDate],
     );
 
-    const handleClose = () => {
-      onClose();
-      setHoveredDate(undefined);
-      onBlur?.();
-    };
-
     const handleChange = (nextValue: undefined | DateRange) => {
       const [nextStartValue, nextFinishValue] = toDateRange(nextValue);
 
@@ -179,17 +174,24 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       ]);
 
       if (!disableCloseOnSelect && isValidDate(nextFinishValue)) {
-        handleClose();
+        onClose();
       }
     };
 
     const api: DateRangeFieldAPI = {
       value,
-      close: handleClose,
+      close: onClose,
       change: handleChange,
     };
 
     const textValue = dateUtils.formatRange(value);
+
+    useWhenValueChanges(anchorEl, () => {
+      if (!anchorEl) {
+        onBlur?.();
+        setHoveredDate(undefined);
+      }
+    });
 
     return (
       <>
@@ -209,8 +211,8 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
         <Popover
           {...popoverProps}
           open={!!anchorEl}
+          onClose={onClose}
           anchorEl={anchorEl}
-          onClose={handleClose}
           anchorOrigin={anchorOrigin}
           transformOrigin={transformOrigin}
         >

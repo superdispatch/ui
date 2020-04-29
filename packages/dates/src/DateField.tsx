@@ -12,6 +12,7 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
+import { useWhenValueChanges } from 'utility-hooks';
 
 import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
 import { useDatePickerPopoverState } from './DatePickerBase';
@@ -85,24 +86,25 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       [value],
     );
 
-    const handleClose = () => {
-      onClose();
-      onBlur?.();
-    };
-
     const handleChange = (nextValue: undefined | Date) => {
       onChange?.(nextValue);
 
       if (!disableCloseOnSelect) {
-        handleClose();
+        onClose();
       }
     };
 
     const api: DateFieldAPI = {
       value,
-      close: handleClose,
+      close: onClose,
       change: handleChange,
     };
+
+    useWhenValueChanges(anchorEl, () => {
+      if (onBlur && !anchorEl) {
+        onBlur();
+      }
+    });
 
     return (
       <>
@@ -113,17 +115,19 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
           value={textValue}
           onOpen={onOpen}
           onClear={
-            !textValue || !hasClearButton
+            !onChange || !textValue || !hasClearButton
               ? undefined
-              : () => onChange?.(undefined)
+              : () => {
+                  onChange(undefined);
+                }
           }
         />
 
         <Popover
           {...popoverProps}
           open={!!anchorEl}
+          onClose={onClose}
           anchorEl={anchorEl}
-          onClose={handleClose}
           anchorOrigin={anchorOrigin}
           transformOrigin={transformOrigin}
         >
