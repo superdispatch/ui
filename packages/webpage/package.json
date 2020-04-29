@@ -7,9 +7,9 @@
     "start": "start-storybook -p 5000"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.5",
+    "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.45",
+    "@material-ui/lab": "^4.0.0-alpha.51",
     "@mdi/js": "^5.0.45",
     "@storybook/addon-actions": "^5.3.18",
     "@superdispatch/dates": "^0.3.3",
