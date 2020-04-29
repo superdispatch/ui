@@ -550,7 +550,6 @@ it('checks component css', () => {
     }
 
     .MuiSelect-selectMenu {
-      height: auto;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

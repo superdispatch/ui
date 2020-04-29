@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.4",
     "@superdispatch/ui": "^0.3.3",
-    "awesome-phonenumber": "^2.30.0",
+    "awesome-phonenumber": "^2.31.0",
     "clsx": "^1.1.0",
     "utility-hooks": "^0.6.1"
   },
