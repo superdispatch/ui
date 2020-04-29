@@ -1,5 +1,6 @@
 import { MockEvent } from '@superdispatch/jestutils';
 import { renderCSS } from '@superdispatch/ui-testutils';
+import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -45,6 +46,57 @@ it('renders days', () => {
 
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
 });
+
+it.each([-540, -420, -300, 300, 420, 540])(
+  'respects timezone offset (%p)',
+  (timeZoneOffset) => {
+    const handlers = {
+      click: jest.fn(),
+      keyDown: jest.fn(),
+      mouseEnter: jest.fn(),
+      mouseLeave: jest.fn(),
+      mouseDown: jest.fn(),
+      mouseUp: jest.fn(),
+      touchEnd: jest.fn(),
+      touchStart: jest.fn(),
+    } as const;
+
+    const wrapper = renderDateComponent(
+      <Calendar
+        onDayClick={handlers.click}
+        onDayKeyDown={handlers.keyDown}
+        onDayMouseEnter={handlers.mouseEnter}
+        onDayMouseLeave={handlers.mouseLeave}
+        onDayMouseDown={handlers.mouseDown}
+        onDayMouseUp={handlers.mouseUp}
+        onDayTouchEnd={handlers.touchEnd}
+        onDayTouchStart={handlers.touchStart}
+      />,
+      { timeZoneOffset },
+    );
+
+    for (const event of [
+      'click',
+      'keyDown',
+      'mouseEnter',
+      'mouseLeave',
+      'mouseDown',
+      'mouseUp',
+      'touchEnd',
+      'touchStart',
+    ] as const) {
+      const { [event]: handler } = handlers;
+
+      expect(handler).not.toHaveBeenCalled();
+      fireEvent[event](wrapper.getByLabelText(/May 24/));
+      expect(handler).toHaveBeenCalledTimes(1);
+      expect(handler).toHaveBeenCalledWith(
+        wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
+        { disabled: false, selected: false },
+      );
+    }
+  },
+);
 
 it('sets start of date when `initialTime` not passed', () => {
   const onDayClick = jest.fn();
