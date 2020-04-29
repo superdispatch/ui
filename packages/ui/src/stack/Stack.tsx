@@ -8,14 +8,14 @@ import React, {
   RefAttributes,
 } from 'react';
 
-import { SuperDispatchTheme } from '..';
-import { CloneableReactNode, VerticalAlign } from '../theme/types';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { CloneableReactNode, HorizontalAlign } from '../theme/types';
 
 type StackClassKey =
   | 'root'
   | 'item'
-  | 'alignLeft'
   | 'alignRight'
+  | 'alignCenter'
   | 'space1'
   | 'space2'
   | 'space3'
@@ -27,7 +27,7 @@ type StackClassKey =
   | 'space9'
   | 'space10';
 
-const useStyles = makeStyles<SuperDispatchTheme>(
+const useStyles = makeStyles<SuperDispatchTheme, {}, StackClassKey>(
   (theme) => ({
     root: {},
     item: { '&:last-child': { paddingBottom: 0 } },
@@ -62,17 +62,17 @@ export interface StackProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
   space: StackSpacing;
-  align?: VerticalAlign;
+  align?: HorizontalAlign;
   children?: CloneableReactNode;
   classes?: Partial<ClassNameMap<StackClassKey>>;
 }
 
 export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
-  ({ space, classes, children, align = 'left' as const, ...props }, ref) => {
+  ({ space, classes, children, align, className, ...props }, ref) => {
     const styles = useStyles({ classes });
 
     return (
-      <div {...props} ref={ref}>
+      <div {...props} ref={ref} className={clsx(className, styles.root)}>
         {Children.map(children, (child, idx) => (
           <div
             key={idx}

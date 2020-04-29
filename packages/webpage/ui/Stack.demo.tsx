@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@material-ui/core';
 import { number, select } from '@storybook/addon-knobs';
-import { Stack, StackSpacing } from '@superdispatch/ui';
+import { Color, Stack, StackSpacing } from '@superdispatch/ui';
 import React from 'react';
 
 import { Placeholder } from '../internal/Placeholder';
@@ -25,7 +25,11 @@ export default function StackDemo() {
 
       <Card>
         <CardContent>
-          <Stack align={align} space={space}>
+          <Stack
+            align={align}
+            space={space}
+            style={{ maxWidth: '224px', backgroundColor: Color.Grey100 }}
+          >
             <Placeholder width={align ? 40 : undefined} height={40} />
             <Placeholder width={align ? 60 : undefined} height={40} />
             <Placeholder width={align ? 80 : undefined} height={40} />
