@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-webpage",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "private": true,
   "scripts": {
     "build": "build-storybook -o ../../docs",
@@ -12,7 +12,7 @@
     "@material-ui/lab": "^4.0.0-alpha.51",
     "@mdi/js": "^5.0.45",
     "@storybook/addon-actions": "^5.3.18",
-    "@superdispatch/dates": "^0.3.5",
+    "@superdispatch/dates": "^0.3.6",
     "@superdispatch/phones": "^0.3.4",
     "@superdispatch/ui": "^0.3.3",
     "lorem-ipsum": "^2.0.3",
