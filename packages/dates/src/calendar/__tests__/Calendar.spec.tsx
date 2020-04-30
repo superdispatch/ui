@@ -8,7 +8,12 @@ import {
   renderDateComponent,
   STUB_DATE,
 } from '../../__testutils__/renderDateComponent';
-import { DateUtils } from '../../DateUtils';
+import {
+  DateLike,
+  DateObject,
+  DateUtils,
+  NullableDateLike,
+} from '../../DateUtils';
 import { Calendar, CalendarDayHighlightColor } from '../Calendar';
 
 it('renders month', () => {
@@ -47,9 +52,60 @@ it('renders days', () => {
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
 });
 
-it.each([-540, -420, -300, 300, 420, 540])(
-  'respects timezone offset (%p)',
-  (timeZoneOffset) => {
+it('modifies date base on time zone offset and initial time', () => {
+  const variants: Array<[
+    number,
+    NullableDateLike,
+    DateLike,
+    Partial<DateObject>,
+  ]> = [
+    // Sets time to 00:00
+    [-7, undefined, Date.UTC(2019, 4, 24, 7), { hour: 0 }],
+    [-5, undefined, Date.UTC(2019, 4, 24, 5), { hour: 0 }],
+    [-3, undefined, Date.UTC(2019, 4, 24, 3), { hour: 0 }],
+    [7, undefined, Date.UTC(2019, 4, 23, 17), { hour: 0 }],
+    [5, undefined, Date.UTC(2019, 4, 23, 19), { hour: 0 }],
+    [3, undefined, Date.UTC(2019, 4, 23, 21), { hour: 0 }],
+
+    // Gets time from 00:00Z
+    [-7, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 17 }],
+    [-5, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 19 }],
+    [-3, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 21 }],
+    [3, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 3 }],
+    [5, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 5 }],
+    [7, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 7 }],
+
+    // Gets time from 5:00Z
+    [-7, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 25, 5), { hour: 22 }],
+    [-5, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 0 }],
+    [-3, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 2 }],
+    [3, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 8 }],
+    [5, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 10 }],
+    [7, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 12 }],
+
+    // Gets time from 15:00Z
+    [-7, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 8 }],
+    [-5, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 10 }],
+    [-3, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 12 }],
+    [3, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 18 }],
+    [5, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 20 }],
+    [7, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 22 }],
+
+    // Gets time from 20:00Z
+    [-7, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 13 }],
+    [-5, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 15 }],
+    [-3, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 17 }],
+    [3, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 23 }],
+    [5, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 23, 20), { hour: 1 }],
+    [7, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 23, 20), { hour: 3 }],
+  ];
+
+  for (const [
+    timeZoneOffset,
+    initialTime,
+    expectedDate,
+    expectedDateObject,
+  ] of variants) {
     const handlers = {
       click: jest.fn(),
       keyDown: jest.fn(),
@@ -63,6 +119,7 @@ it.each([-540, -420, -300, 300, 420, 540])(
 
     const wrapper = renderDateComponent(
       <Calendar
+        initialTime={initialTime}
         onDayClick={handlers.click}
         onDayKeyDown={handlers.keyDown}
         onDayMouseEnter={handlers.mouseEnter}
@@ -72,7 +129,7 @@ it.each([-540, -420, -300, 300, 420, 540])(
         onDayTouchEnd={handlers.touchEnd}
         onDayTouchStart={handlers.touchStart}
       />,
-      { timeZoneOffset },
+      { timeZoneOffset: timeZoneOffset * 60 },
     );
 
     for (const event of [
@@ -90,13 +147,29 @@ it.each([-540, -420, -300, 300, 420, 540])(
       expect(handler).not.toHaveBeenCalled();
       fireEvent[event](wrapper.getByLabelText(/May 24/));
       expect(handler).toHaveBeenCalledTimes(1);
-      expect(handler).toHaveBeenCalledWith(
-        wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
-        { disabled: false, selected: false },
+      expect(handler).toHaveBeenCalledWith(new Date(expectedDate), {
+        disabled: false,
+        selected: false,
+      });
+
+      expect(new Date(expectedDate)).toEqual(
+        wrapper.dateUtils.fromObject({
+          year: 2019,
+          month: 5,
+          day: 24,
+          ...expectedDateObject,
+        }),
       );
     }
-  },
-);
+
+    wrapper.unmount();
+  }
+});
+
+// it.each([-540, -420, -300, 300, 420, 540])(
+//   'respects timezone offset (%p)',
+//   (timeZoneOffset) => {},
+// );
 
 it('sets start of date when `initialTime` not passed', () => {
   const onDayClick = jest.fn();

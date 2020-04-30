@@ -1,7 +1,7 @@
 import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,
@@ -11,13 +11,7 @@ import DayPicker, {
 } from 'react-day-picker';
 
 import { useDateUtils } from '../DateContext';
-import {
-  DateLike,
-  DateUtils,
-  isValidDate,
-  NullableDateLike,
-  toDate,
-} from '../DateUtils';
+import { DateUtils, isValidDate, NullableDateLike, toDate } from '../DateUtils';
 import { CalendarCaption } from './CalendarCaption';
 import { CalendarNavbar } from './CalendarNavbar';
 import { CalendarWeekDay } from './CalendarWeekDay';
@@ -356,7 +350,8 @@ export interface CalendarProps
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
-  initialMonth?: DateLike;
+  initialTime?: NullableDateLike;
+  initialMonth?: NullableDateLike;
 
   modifiers?: CalendarModifiers;
   selectedDays?: CalendarModifier;
@@ -393,17 +388,28 @@ export function Calendar({
 
   modifiers = {},
   highlightedDays = {},
+
+  initialTime: initialTimeProp,
   initialMonth: initialMonthProp,
 
   ...props
 }: CalendarProps) {
   const utils = useDateUtils();
   const styles = useStyles({ classes });
-  const initialTime = isValidDate(initialMonthProp)
-    ? toDate(initialMonthProp)
-    : utils.startOf(Date.now(), 'month');
+  const [initialTime, initialMonth] = useMemo(() => {
+    let time = toDate(initialTimeProp);
+    let month = toDate(initialMonthProp);
 
-  const initialMonth = toLocalDate(utils, initialTime);
+    if (!isValidDate(month)) {
+      month = utils.startOf(Date.now(), 'month');
+    }
+
+    if (!isValidDate(time)) {
+      time = month;
+    }
+
+    return [time, toLocalDate(utils, month)];
+  }, [utils, initialTimeProp, initialMonthProp]);
 
   return (
     <Grid container={true} direction={direction}>
