@@ -1,4 +1,4 @@
-import { ClassNameMap, makeStyles } from '@material-ui/styles';
+import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
   Children,
@@ -27,31 +27,60 @@ type StackClassKey =
   | 'space9'
   | 'space10';
 
+function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
+  return { paddingBottom: theme.spacing(space) };
+}
+
+function alignVariant(align: HorizontalAlign): CSSProperties {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems:
+      align === 'right'
+        ? 'flex-end'
+        : align === 'center'
+        ? 'center'
+        : undefined,
+  };
+}
+
 const useStyles = makeStyles<SuperDispatchTheme, {}, StackClassKey>(
   (theme) => ({
-    root: {},
-    item: { '&:last-child': { paddingBottom: 0 } },
-    alignRight: {
-      display: 'flex',
-      alignItems: 'flex-end',
-      flexDirection: 'column',
-    },
-    alignCenter: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
+    root: {
+      '& > $item': {
+        '&:last-child': { paddingBottom: 0 },
+      },
+
+      '&$space1 > $item': spaceVariant(theme, 1),
+      '&$space2 > $item': spaceVariant(theme, 2),
+      '&$space3 > $item': spaceVariant(theme, 3),
+      '&$space4 > $item': spaceVariant(theme, 4),
+      '&$space5 > $item': spaceVariant(theme, 5),
+      '&$space6 > $item': spaceVariant(theme, 6),
+      '&$space7 > $item': spaceVariant(theme, 7),
+      '&$space8 > $item': spaceVariant(theme, 8),
+      '&$space9 > $item': spaceVariant(theme, 9),
+      '&$space10 > $item': spaceVariant(theme, 10),
+
+      '&$alignRight > $item': alignVariant('right'),
+      '&$alignCenter > $item': alignVariant('center'),
     },
 
-    space1: { paddingBottom: theme.spacing(1) },
-    space2: { paddingBottom: theme.spacing(2) },
-    space3: { paddingBottom: theme.spacing(3) },
-    space4: { paddingBottom: theme.spacing(4) },
-    space5: { paddingBottom: theme.spacing(5) },
-    space6: { paddingBottom: theme.spacing(6) },
-    space7: { paddingBottom: theme.spacing(7) },
-    space8: { paddingBottom: theme.spacing(8) },
-    space9: { paddingBottom: theme.spacing(9) },
-    space10: { paddingBottom: theme.spacing(10) },
+    space1: {},
+    space2: {},
+    space3: {},
+    space4: {},
+    space5: {},
+    space6: {},
+    space7: {},
+    space8: {},
+    space9: {},
+    space10: {},
+
+    alignRight: {},
+    alignCenter: {},
+
+    item: {},
   }),
   { name: 'SuperDispatchStack' },
 );
@@ -72,26 +101,27 @@ export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
     const styles = useStyles({ classes });
 
     return (
-      <div {...props} ref={ref} className={clsx(className, styles.root)}>
-        {Children.map(children, (child, idx) => (
-          <div
-            key={idx}
-            className={clsx(styles.item, {
-              [styles.alignRight]: align === 'right',
-              [styles.alignCenter]: align === 'center',
+      <div
+        {...props}
+        ref={ref}
+        className={clsx(className, styles.root, {
+          [styles.space1]: space === 1,
+          [styles.space2]: space === 2,
+          [styles.space3]: space === 3,
+          [styles.space4]: space === 4,
+          [styles.space5]: space === 5,
+          [styles.space6]: space === 6,
+          [styles.space7]: space === 7,
+          [styles.space8]: space === 8,
+          [styles.space9]: space === 9,
+          [styles.space10]: space === 10,
 
-              [styles.space1]: space === 1,
-              [styles.space2]: space === 2,
-              [styles.space3]: space === 3,
-              [styles.space4]: space === 4,
-              [styles.space5]: space === 5,
-              [styles.space6]: space === 6,
-              [styles.space7]: space === 7,
-              [styles.space8]: space === 8,
-              [styles.space9]: space === 9,
-              [styles.space10]: space === 10,
-            })}
-          >
+          [styles.alignRight]: align === 'right',
+          [styles.alignCenter]: align === 'center',
+        })}
+      >
+        {Children.map(children, (child, idx) => (
+          <div key={idx} className={clsx(styles.item)}>
             {child}
           </div>
         ))}

@@ -13,60 +13,62 @@ it('checks component css', () => {
       ['SuperDispatchStack'],
     ),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchStack-item:last-child {
-      padding-bottom: 0;
+    .SuperDispatchStack-root.SuperDispatchStack-space1 > .SuperDispatchStack-item {
+      padding-bottom: 8px;
     }
 
-    .SuperDispatchStack-alignRight {
+    .SuperDispatchStack-root.SuperDispatchStack-space2 > .SuperDispatchStack-item {
+      padding-bottom: 16px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space3 > .SuperDispatchStack-item {
+      padding-bottom: 24px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space4 > .SuperDispatchStack-item {
+      padding-bottom: 32px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space5 > .SuperDispatchStack-item {
+      padding-bottom: 40px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space6 > .SuperDispatchStack-item {
+      padding-bottom: 48px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space7 > .SuperDispatchStack-item {
+      padding-bottom: 56px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space8 > .SuperDispatchStack-item {
+      padding-bottom: 64px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space9 > .SuperDispatchStack-item {
+      padding-bottom: 72px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-space10 > .SuperDispatchStack-item {
+      padding-bottom: 80px;
+    }
+
+    .SuperDispatchStack-root.SuperDispatchStack-alignRight
+      > .SuperDispatchStack-item {
       display: flex;
       align-items: flex-end;
       flex-direction: column;
     }
 
-    .SuperDispatchStack-alignCenter {
+    .SuperDispatchStack-root.SuperDispatchStack-alignCenter
+      > .SuperDispatchStack-item {
       display: flex;
       align-items: center;
       flex-direction: column;
     }
 
-    .SuperDispatchStack-space1 {
-      padding-bottom: 8px;
-    }
-
-    .SuperDispatchStack-space2 {
-      padding-bottom: 16px;
-    }
-
-    .SuperDispatchStack-space3 {
-      padding-bottom: 24px;
-    }
-
-    .SuperDispatchStack-space4 {
-      padding-bottom: 32px;
-    }
-
-    .SuperDispatchStack-space5 {
-      padding-bottom: 40px;
-    }
-
-    .SuperDispatchStack-space6 {
-      padding-bottom: 48px;
-    }
-
-    .SuperDispatchStack-space7 {
-      padding-bottom: 56px;
-    }
-
-    .SuperDispatchStack-space8 {
-      padding-bottom: 64px;
-    }
-
-    .SuperDispatchStack-space9 {
-      padding-bottom: 72px;
-    }
-
-    .SuperDispatchStack-space10 {
-      padding-bottom: 80px;
+    .SuperDispatchStack-root > .SuperDispatchStack-item:last-child {
+      padding-bottom: 0;
     }
   `);
 });
