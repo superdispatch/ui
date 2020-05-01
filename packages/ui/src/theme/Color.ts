@@ -21,6 +21,10 @@ export enum Color {
   White08 = 'rgba(255, 255, 255, 0.08)',
   Transparent = 'rgba(0, 0, 0, 0)',
 
+  Black = '#000',
+  Black50 = 'rgba(0, 0, 0, 0.5)',
+  Black20 = 'rgba(0, 0, 0, 0.2)',
+
   //
   // Neutral Colors
   //

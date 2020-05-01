@@ -15,6 +15,7 @@ import { useConstant } from 'utility-hooks';
 
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
+import { overrideAvatar } from '../avatar/AvatarOverrides';
 import { overrideButton } from '../button/ButtonOverrides';
 import { overrideCard } from '../card/CardOverrides';
 import { overrideCheckbox } from '../checkbox/CheckboxOverrides';
@@ -79,6 +80,7 @@ function createTheme() {
 
   overrideAppBar(theme);
   overrideAutocomplete(theme);
+  overrideAvatar(theme);
   overrideButton(theme);
   overrideCard(theme);
   overrideCheckbox(theme);
