@@ -124,6 +124,11 @@ it('exposes public api', () => {
         "displayName": "GridStack",
         "render": [Function],
       },
+      "Inline": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Inline",
+        "render": [Function],
+      },
       "InlineGrid": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "InlineGrid",
