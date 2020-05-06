@@ -24,6 +24,7 @@ it('checks component css', () => {
       line-height: 20px;
       user-select: none;
       border-radius: 50%;
+      text-transform: uppercase;
       justify-content: center;
     }
 
