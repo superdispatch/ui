@@ -72,7 +72,7 @@
     "lint-staged": "^10.2.0",
     "lodash": "^4.17.15",
     "mockdate": "^2.0.5",
-    "prettier": "^˚2.0.5",
+    "prettier": "^2.0.5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-test-renderer": "^16.13.0",
