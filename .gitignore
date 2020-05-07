@@ -10,7 +10,6 @@ node_modules/
 
 # distributive
 *.tgz
-.firebase/
 docs/
 packages/*/pkg/
 
