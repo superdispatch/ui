@@ -38,7 +38,7 @@ export default function AvatarButtonDemo() {
             Click with pressed <code>Alt</code> (<code>Option</code>) button to
             disable avatars.
             <br />
-            Click with pressed <code>Shit</code> button to set a loading state.
+            Click with pressed <code>Shift</code> button to set a loading state.
             <br />
             Click with pressed <code>Alt + Shift</code> button to update avatar.
           </Alert>
