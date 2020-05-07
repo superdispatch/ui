@@ -8,6 +8,11 @@ it('exposes public api', () => {
         "displayName": "AdaptiveToolbar",
         "render": [Function],
       },
+      "AvatarButton": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "AvatarButton",
+        "render": [Function],
+      },
       "Button": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Button",
@@ -29,6 +34,9 @@ it('exposes public api', () => {
         "render": [Function],
       },
       "Color": Object {
+        "Black": "#000",
+        "Black20": "rgba(0, 0, 0, 0.2)",
+        "Black50": "rgba(0, 0, 0, 0.5)",
         "Blue100": "#A8D1FF",
         "Blue200": "#66ADFF",
         "Blue300": "#0075FF",
