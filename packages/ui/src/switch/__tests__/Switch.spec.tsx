@@ -133,7 +133,7 @@ it('checks component css', () => {
     }
 
     .MuiSwitch-colorSecondary.Mui-disabled + .MuiSwitch-track {
-      background-color: #000;
+      background-color: Color.Black;
     }
 
     .MuiSwitch-colorSecondary.Mui-checked:hover {
@@ -193,7 +193,7 @@ it('checks component css', () => {
       transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
         background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       border-radius: 16px;
-      background-color: #000;
+      background-color: Color.Black;
     }
 
     @media (min-width: 600px) {
