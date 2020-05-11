@@ -79,6 +79,7 @@ it('checks component css', () => {
       position: relative;
       font-size: inherit;
       text-align: inherit;
+      line-height: inherit;
       user-select: inherit;
       border-radius: 0;
       vertical-align: inherit;
