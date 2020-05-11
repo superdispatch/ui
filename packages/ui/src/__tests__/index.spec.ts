@@ -132,6 +132,11 @@ it('exposes public api', () => {
         "displayName": "GridStack",
         "render": [Function],
       },
+      "InfoCard": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "InfoCard",
+        "render": [Function],
+      },
       "Inline": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Inline",
