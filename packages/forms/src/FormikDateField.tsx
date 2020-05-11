@@ -1,8 +1,7 @@
 import { DateField, DateFieldProps } from '@superdispatch/dates';
+import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
-
-import { useUID } from './internal/useUID';
 
 export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;

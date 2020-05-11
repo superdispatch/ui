@@ -1,8 +1,7 @@
 import { StandardTextFieldProps, TextField } from '@material-ui/core';
+import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React, { ChangeEvent, ReactNode } from 'react';
-
-import { useUID } from './internal/useUID';
 
 export interface FormikTextFieldProps<T>
   extends Omit<StandardTextFieldProps, 'error'> {

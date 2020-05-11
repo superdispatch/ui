@@ -3,10 +3,9 @@ import {
   PhoneFieldProps,
   PhoneNumber,
 } from '@superdispatch/phones';
+import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
-
-import { useUID } from './internal/useUID';
 
 export interface ValidatePhoneRules {
   typeMessage?: string;
