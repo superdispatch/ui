@@ -7,6 +7,7 @@ it('checks default props', () => {
 
   expect(props.MuiLink).toMatchInlineSnapshot(`
     Object {
+      "color": "textPrimary",
       "underline": "none",
     }
   `);
@@ -15,28 +16,42 @@ it('checks default props', () => {
 it('checks component css', () => {
   expect(renderCSS(<Link>Text</Link>, ['MuiLink'])).toMatchInlineSnapshot(`
     .MuiLink-root {
-      border-top: none;
-      transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-      border-left: none;
-      border-right: none;
-      border-bottom: 0.1em solid;
+      background-size: 100% 1px;
+      background-color: Color.Transparent;
+      background-repeat: repeat-x;
+      background-position: 0 100%;
     }
 
-    .MuiLink-root.MuiTypography-colorPrimary {
-      color: Color.Grey500;
-      border-color: Color.Silver500;
-    }
-
-    .MuiLink-root.MuiTypography-colorPrimary:focus {
+    .MuiLink-root:focus {
       outline: none;
-      border-color: Color.Blue300;
     }
 
-    .MuiLink-root.MuiTypography-colorPrimary:hover,
-    .MuiLink-root.MuiTypography-colorPrimary:active {
+    .MuiLink-root:hover,
+    .MuiLink-root:active {
+      background-image: linear-gradient(
+        to right,
+        currentColor 0%,
+        currentColor 100%
+      );
+    }
+
+    .MuiLink-root.MuiTypography-colorTextPrimary {
+      background-image: linear-gradient(
+        to right,
+        Color.Silver500 0%,
+        Color.Silver500 100%
+      );
+    }
+
+    .MuiLink-root.MuiTypography-colorTextPrimary:focus,
+    .MuiLink-root.MuiTypography-colorTextPrimary:hover,
+    .MuiLink-root.MuiTypography-colorTextPrimary:active {
       color: Color.Blue300;
-      border-color: currentColor;
+      background-image: linear-gradient(
+        to right,
+        Color.Blue300 0%,
+        Color.Blue300 100%
+      );
     }
 
     .MuiLink-underlineNone {
@@ -56,22 +71,18 @@ it('checks component css', () => {
     }
 
     .MuiLink-button {
+      border: 0;
       cursor: pointer;
       margin: 0;
       outline: 0;
       padding: 0;
-      position: static;
+      position: relative;
       font-size: inherit;
       text-align: inherit;
-      align-items: inherit;
-      font-family: inherit;
-      font-weight: inherit;
-      line-height: inherit;
       user-select: inherit;
       border-radius: 0;
       vertical-align: inherit;
       -moz-appearance: none;
-      background-color: transparent;
       -webkit-appearance: none;
       -webkit-tap-highlight-color: transparent;
     }
