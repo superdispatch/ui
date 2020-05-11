@@ -11,6 +11,7 @@ export * from './drawer/DrawerContent';
 export * from './drawer/DrawerTitle';
 export * from './grid/GridStack';
 export * from './grid/InlineGrid';
+export * from './info-card/InfoCard';
 export * from './inline/Inline';
 export * from './overflow-text/OverflowText';
 export * from './radio/RadioField';
