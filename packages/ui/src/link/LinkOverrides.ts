@@ -1,46 +1,40 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
+function line(color: string) {
+  return `linear-gradient(to right, ${color} 0%, ${color} 100%)`;
+}
+
 export function overrideLink(theme: SuperDispatchTheme) {
-  theme.props.MuiLink = { underline: 'none' };
+  theme.props.MuiLink = { underline: 'none', color: 'textPrimary' };
 
   theme.overrides.MuiLink = {
     root: {
-      borderTop: 'none',
-      borderLeft: 'none',
-      borderRight: 'none',
-      borderBottom: '0.1em solid',
+      backgroundSize: '100% 1px',
+      backgroundRepeat: 'repeat-x',
+      backgroundPosition: '0 100%',
+      backgroundColor: Color.Transparent,
 
-      transition: theme.transitions.create(['color', 'border-color'], {
-        duration: theme.transitions.duration.short,
-      }),
+      '&:focus': { outline: 'none' },
+      '&:hover, &:active': { backgroundImage: line('currentColor') },
 
-      '&.MuiTypography-colorPrimary': {
-        color: Color.Grey500,
-        borderColor: Color.Silver500,
+      '&.MuiTypography-colorTextPrimary': {
+        backgroundImage: line(Color.Silver500),
 
-        '&:focus': {
-          outline: 'none',
-          borderColor: Color.Blue300,
-        },
-
-        '&:hover, &:active': {
+        '&:focus, &:hover, &:active': {
           color: Color.Blue300,
-          borderColor: 'currentColor',
+          backgroundImage: line(Color.Blue300),
         },
       },
     },
 
     button: {
-      border: undefined,
-      position: 'static',
+      // Reset button styles.
+      backgroundColor: undefined,
 
+      // Override browser defaults.
       fontSize: 'inherit',
       textAlign: 'inherit',
-      lineHeight: 'inherit',
-      fontFamily: 'inherit',
-      alignItems: 'inherit',
-      fontWeight: 'inherit',
       userSelect: 'inherit',
       verticalAlign: 'inherit',
     },
