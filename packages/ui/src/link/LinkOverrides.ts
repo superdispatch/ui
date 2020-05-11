@@ -35,6 +35,7 @@ export function overrideLink(theme: SuperDispatchTheme) {
       // Override browser defaults.
       fontSize: 'inherit',
       textAlign: 'inherit',
+      lineHeight: 'inherit',
       userSelect: 'inherit',
       verticalAlign: 'inherit',
     },
