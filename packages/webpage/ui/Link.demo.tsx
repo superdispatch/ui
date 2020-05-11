@@ -11,8 +11,6 @@ export default function LinkDemo() {
   const color = select(
     'Color',
     {
-      Initial: 'initial',
-      Inherit: 'inherit',
       Primary: 'primary',
       Secondary: 'secondary',
       'Text Primary': 'textPrimary',
