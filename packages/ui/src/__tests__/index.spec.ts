@@ -187,6 +187,7 @@ it('exposes public api', () => {
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "useSnackbarStack": [Function],
+      "useUID": [Function],
       "useVisibilityObserver": [Function],
     }
   `);
