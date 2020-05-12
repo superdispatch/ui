@@ -1,5 +1,5 @@
 import { Typography, TypographyProps } from '@material-ui/core';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React from 'react';
 
@@ -25,16 +25,16 @@ const variants: Array<TypographyProps['variant']> = [
 
 export default function TypographyDemo() {
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       {colors.map((color) => (
-        <GridStack key={color} spacing={1}>
+        <Stack key={color} space={1}>
           {variants.map((variant) => (
             <Typography key={variant} color={color} variant={variant}>
               <code>{variant}</code> {startCase(color)}
             </Typography>
           ))}
-        </GridStack>
+        </Stack>
       ))}
-    </GridStack>
+    </Stack>
   );
 }

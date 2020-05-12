@@ -1,6 +1,6 @@
 import { TextField } from '@material-ui/core';
 import { PhoneText } from '@superdispatch/phones';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
 export default function PhoneTextDemo() {
@@ -8,7 +8,7 @@ export default function PhoneTextDemo() {
   const [fallback, setFallback] = useState('Invalid Phone Number');
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <TextField
         label="Raw"
         value={phone}
@@ -22,6 +22,6 @@ export default function PhoneTextDemo() {
       />
 
       <PhoneText phone={phone} fallback={fallback} />
-    </GridStack>
+    </Stack>
   );
 }

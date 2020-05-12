@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@material-ui/core';
 import { number } from '@storybook/addon-knobs';
-import { GridStack, OverflowText } from '@superdispatch/ui';
+import { OverflowText, Stack } from '@superdispatch/ui';
 import { loremIpsum } from 'lorem-ipsum';
 import React from 'react';
 
@@ -20,7 +20,7 @@ export default function DescriptionListDemo() {
   return (
     <Card style={{ maxWidth: width }}>
       <CardContent>
-        <GridStack spacing={1}>
+        <Stack space={1}>
           <>
             <Typography variant="h6">Basic</Typography>
 
@@ -34,7 +34,7 @@ export default function DescriptionListDemo() {
               {lorems.short}
             </OverflowText>
           </>
-        </GridStack>
+        </Stack>
       </CardContent>
     </Card>
   );

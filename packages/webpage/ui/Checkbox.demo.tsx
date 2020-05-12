@@ -7,8 +7,8 @@ import {
 import {
   CheckboxField,
   CheckboxGroupField,
-  GridStack,
   RadioField,
+  Stack,
 } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
@@ -29,7 +29,7 @@ export default function CheckboxDemo() {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <CheckboxGroupField label="Label Position" FormGroupProps={{ row: true }}>
         <CheckboxField label="Right Label" />
 
@@ -111,6 +111,6 @@ export default function CheckboxDemo() {
           <TextField placeholder="Text Field" />
         </FormGroup>
       </CheckboxGroupField>
-    </GridStack>
+    </Stack>
   );
 }

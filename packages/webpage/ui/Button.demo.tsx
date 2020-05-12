@@ -1,14 +1,9 @@
 import { Card, CardContent } from '@material-ui/core';
-import { MoreHoriz, Save, Send } from '@material-ui/icons';
+import { Info, MoreHoriz, Save, Send } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
 import { boolean, select } from '@storybook/addon-knobs';
-import {
-  Button,
-  ButtonProps,
-  Color,
-  GridStack,
-  InlineGrid,
-} from '@superdispatch/ui';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import { Button, ButtonProps, Color, Inline, Stack } from '@superdispatch/ui';
+import React, { useEffect, useState } from 'react';
 
 type State = 'stale' | 'disabled' | 'active' | 'loading';
 
@@ -64,52 +59,56 @@ export default function ButtonDemo() {
       }}
     >
       <CardContent>
-        <InlineGrid spacing={2}>
-          {variants.map((variant) => (
-            <GridStack spacing={1} key={variant}>
-              {sizes.map((size) => {
-                const buttonKey = `${variant}-${size}`;
-                const buttonState = buttonStateMap.get(buttonKey) || state;
-                const props: ButtonProps = {
-                  size,
-                  color,
-                  variant,
-                  disabled: buttonState === 'disabled',
-                  isActive: buttonState === 'active',
-                  isLoading: buttonState === 'loading',
-                  onClick: (event: MouseEvent) => {
-                    if (event.shiftKey) {
-                      return;
-                    }
+        <Stack space={2}>
+          <Alert icon={<Info />} color="info" variant="filled">
+            Click with pressed <code>Alt</code> (<code>Option</code>) key to
+            disable button.
+            <br />
+            Click with pressed <code>Shift</code> key to set a loading state.
+          </Alert>
 
-                    setButtonStateMap((prev) =>
-                      new Map(prev).set(
-                        buttonKey,
-                        event.altKey ? 'disabled' : 'loading',
-                      ),
-                    );
-                  },
-                };
+          <Inline space={2}>
+            {variants.map((variant) => (
+              <Inline key={variant} space={2}>
+                {['Button', <MoreHoriz key="icon" />].map((child, idx) => (
+                  <Stack space={2} key={idx} align="center">
+                    {sizes.map((size) => {
+                      const buttonKey = `${variant}-${size}-${idx}`;
+                      const buttonState =
+                        buttonStateMap.get(buttonKey) || state;
 
-                return (
-                  <InlineGrid key={size} spacing={1}>
-                    <Button
-                      {...props}
-                      startIcon={hasStartIcon && <Save />}
-                      endIcon={hasEndIcon && <Send />}
-                    >
-                      Button
-                    </Button>
-
-                    <Button {...props}>
-                      <MoreHoriz />
-                    </Button>
-                  </InlineGrid>
-                );
-              })}
-            </GridStack>
-          ))}
-        </InlineGrid>
+                      return (
+                        <Button
+                          key={buttonKey}
+                          size={size}
+                          color={color}
+                          variant={variant}
+                          disabled={buttonState === 'disabled'}
+                          isActive={buttonState === 'active'}
+                          isLoading={buttonState === 'loading'}
+                          startIcon={hasStartIcon && <Save />}
+                          endIcon={hasEndIcon && <Send />}
+                          onClick={({ altKey, shiftKey }) => {
+                            if (altKey || shiftKey) {
+                              setButtonStateMap((prev) =>
+                                new Map(prev).set(
+                                  buttonKey,
+                                  altKey ? 'disabled' : 'loading',
+                                ),
+                              );
+                            }
+                          }}
+                        >
+                          {child}
+                        </Button>
+                      );
+                    })}
+                  </Stack>
+                ))}
+              </Inline>
+            ))}
+          </Inline>
+        </Stack>
       </CardContent>
     </Card>
   );

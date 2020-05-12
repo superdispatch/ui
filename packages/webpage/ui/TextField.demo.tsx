@@ -1,7 +1,7 @@
 import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { boolean } from '@storybook/addon-knobs';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -21,7 +21,7 @@ export default function TextFieldDemo() {
   const [subscriptionType, setSubscriptionType] = useState('');
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <TextField
         id="email"
         value={text}
@@ -82,6 +82,6 @@ export default function TextFieldDemo() {
           </MenuItem>
         ))}
       </TextField>
-    </GridStack>
+    </Stack>
   );
 }

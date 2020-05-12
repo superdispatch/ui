@@ -1,6 +1,6 @@
 import { Button, PopperPlacementType, Tooltip } from '@material-ui/core';
 import { boolean, text } from '@storybook/addon-knobs';
-import { InlineGrid } from '@superdispatch/ui';
+import { Inline } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React from 'react';
 
@@ -24,7 +24,7 @@ export default function TooltipDemo() {
   const title = text('Title', 'Tooltip');
 
   return (
-    <InlineGrid spacing={2} justify="center">
+    <Inline space={2} horizontalAlign="center">
       {placements.map((placement) => (
         <Tooltip
           title={title}
@@ -35,6 +35,6 @@ export default function TooltipDemo() {
           <Button>{startCase(placement)}</Button>
         </Tooltip>
       ))}
-    </InlineGrid>
+    </Inline>
   );
 }

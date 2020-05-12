@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import {
   Button,
-  GridStack,
-  InlineGrid,
+  Inline,
   Snackbar,
   SnackbarStackOptions,
   SnackbarVariant,
+  Stack,
   useSnackbarStack,
 } from '@superdispatch/ui';
 import { startCase } from 'lodash';
@@ -67,7 +67,7 @@ export default function SnackbarDemo() {
   );
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <FormControl>
         <FormLabel>Visual</FormLabel>
 
@@ -130,7 +130,7 @@ export default function SnackbarDemo() {
         </RadioGroup>
       </FormControl>
 
-      <InlineGrid spacing={1}>
+      <Inline space={1}>
         <Button
           color="primary"
           variant="outlined"
@@ -172,7 +172,7 @@ export default function SnackbarDemo() {
         <Button color="primary" variant="outlined" onClick={() => clearStack()}>
           Clear Stack
         </Button>
-      </InlineGrid>
+      </Inline>
 
       <Snackbar
         key={key}
@@ -205,6 +205,6 @@ export default function SnackbarDemo() {
       >
         {message}
       </Snackbar>
-    </GridStack>
+    </Stack>
   );
 }

@@ -1,7 +1,7 @@
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { boolean } from '@storybook/addon-knobs';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import React from 'react';
 
 const top100Films = [
@@ -122,7 +122,7 @@ export default function AutocompleteDemo() {
   const hasHelperText = boolean('Has Helper Text', false);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <Autocomplete
         forcePopupIcon={isLoading ? false : hasPopup}
         disableClearable={isLoading || !clearable}
@@ -191,6 +191,6 @@ export default function AutocompleteDemo() {
           />
         )}
       />
-    </GridStack>
+    </Stack>
   );
 }

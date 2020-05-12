@@ -1,5 +1,5 @@
 import { Tab, Tabs, Typography } from '@material-ui/core';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import React from 'react';
 
 export default function TabsDemo() {
@@ -13,7 +13,7 @@ export default function TabsDemo() {
   ];
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <Typography variant="h6">With Scroll Buttons</Typography>
 
       <Tabs
@@ -33,6 +33,6 @@ export default function TabsDemo() {
           <Tab key={x} label={x} />
         ))}
       </Tabs>
-    </GridStack>
+    </Stack>
   );
 }
