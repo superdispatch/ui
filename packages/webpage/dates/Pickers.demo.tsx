@@ -17,7 +17,7 @@ import {
   TimeField,
   toDateRange,
 } from '@superdispatch/dates';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import React, { useMemo, useState } from 'react';
 
 const utcDateUtils = new DateUtils({ timeZoneOffset: 0 });
@@ -66,8 +66,8 @@ export default function PickersDemo() {
 
   return (
     <DateContextProvider timeZoneOffset={timeZoneOffset}>
-      <GridStack spacing={2}>
-        <GridStack spacing={1}>
+      <Stack space={2}>
+        <Stack space={1}>
           <Typography variant="h3">Date Field</Typography>
 
           <DateField
@@ -92,9 +92,9 @@ export default function PickersDemo() {
                 : 'Pick Date'
             }
           />
-        </GridStack>
+        </Stack>
 
-        <GridStack spacing={1}>
+        <Stack space={1}>
           <Typography variant="h3">Date Range Field</Typography>
 
           <DateRangeField
@@ -119,9 +119,9 @@ export default function PickersDemo() {
                 : 'Pick Date Range'
             }
           />
-        </GridStack>
+        </Stack>
 
-        <GridStack spacing={1}>
+        <Stack space={1}>
           <Typography variant="h3">Time Field</Typography>
 
           <TimeField
@@ -140,7 +140,7 @@ export default function PickersDemo() {
                 : 'Enter Time'
             }
           />
-        </GridStack>
+        </Stack>
 
         <Table>
           <TableBody>
@@ -182,7 +182,7 @@ export default function PickersDemo() {
             )}
           </TableBody>
         </Table>
-      </GridStack>
+      </Stack>
     </DateContextProvider>
   );
 }

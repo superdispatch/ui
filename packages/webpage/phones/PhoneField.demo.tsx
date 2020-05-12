@@ -11,7 +11,7 @@ import {
   PhoneNumber,
   PhonePossibility,
 } from '@superdispatch/phones';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -32,7 +32,7 @@ export default function PhoneFieldDemo() {
   useEffect(() => setPhone(PhoneNumber.fromInternational(raw)), [raw]);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <TextField
         label="Raw"
         value={raw}
@@ -58,6 +58,6 @@ export default function PhoneFieldDemo() {
         error={!!errorMessage}
         helperText={errorMessage}
       />
-    </GridStack>
+    </Stack>
   );
 }

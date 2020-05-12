@@ -1,5 +1,4 @@
-import { Button, Menu, MenuItem } from '@material-ui/core';
-import { InlineGrid } from '@superdispatch/ui';
+import { Button, Grid, Menu, MenuItem } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
 
 const options = ['Profile', 'My account', 'Logout'];
@@ -44,10 +43,14 @@ function Demo({ label }: { label: string }) {
 
 export default function MenuDemo() {
   return (
-    <InlineGrid spacing={2} justify="space-between">
-      <Demo label="Left" />
+    <Grid container={true} justify="space-between">
+      <Grid item={true}>
+        <Demo label="Left" />
+      </Grid>
 
-      <Demo label="Right" />
-    </InlineGrid>
+      <Grid item={true}>
+        <Demo label="Right" />
+      </Grid>
+    </Grid>
   );
 }

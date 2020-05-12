@@ -9,7 +9,7 @@ import {
   Switch,
   TextField,
 } from '@material-ui/core';
-import { GridStack } from '@superdispatch/ui';
+import { Stack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
 
@@ -29,7 +29,7 @@ export default function SwitchDemo() {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <FormControl>
         <FormLabel>Label Position</FormLabel>
         <FormGroup row={true}>
@@ -127,6 +127,6 @@ export default function SwitchDemo() {
           <TextField placeholder="Text Field" />
         </FormGroup>
       </FormControl>
-    </GridStack>
+    </Stack>
   );
 }

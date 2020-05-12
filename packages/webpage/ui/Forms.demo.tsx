@@ -10,9 +10,9 @@ import {
 import { PhoneNumber } from '@superdispatch/phones';
 import {
   Button,
-  GridStack,
-  InlineGrid,
+  Inline,
   RadioField,
+  Stack,
   useSnackbarStack,
 } from '@superdispatch/ui';
 import { random } from 'faker';
@@ -79,12 +79,12 @@ export default function TextFieldDemo() {
   return (
     <FormikProvider value={form}>
       <Form>
-        <GridStack spacing={2}>
-          <InlineGrid spacing={2}>
+        <Stack space={2}>
+          <Inline space={2}>
             <FormikTextField name="first_name" label="First name" />
 
             <FormikTextField name="last_name" label="Last name" />
-          </InlineGrid>
+          </Inline>
 
           <FormikDateField
             name="date_of_birth"
@@ -115,7 +115,7 @@ export default function TextFieldDemo() {
             <RadioField label="CEO" value="ceo" />
           </FormikRadioGroupField>
 
-          <InlineGrid spacing={2}>
+          <Inline space={2}>
             <Button type="submit" variant="contained">
               Submit
             </Button>
@@ -128,8 +128,8 @@ export default function TextFieldDemo() {
             >
               Reset
             </Button>
-          </InlineGrid>
-        </GridStack>
+          </Inline>
+        </Stack>
       </Form>
     </FormikProvider>
   );

@@ -21,8 +21,8 @@ import {
   DrawerContent,
   DrawerList,
   DrawerTitle,
-  GridStack,
-  InlineGrid,
+  Inline,
+  Stack,
 } from '@superdispatch/ui';
 import { loremIpsum } from 'lorem-ipsum';
 import React, { useRef, useState } from 'react';
@@ -83,7 +83,7 @@ export default function DrawerDemo() {
         )}
 
         <DrawerContent>
-          <GridStack spacing={2}>
+          <Stack space={2}>
             <TextField
               id="title"
               label="Title Text"
@@ -170,7 +170,7 @@ export default function DrawerDemo() {
                 onChange={(_, checked) => setHasSecondaryAction(checked)}
               />
             </FormControl>
-          </GridStack>
+          </Stack>
         </DrawerContent>
 
         <DrawerList ref={ref}>
@@ -191,7 +191,7 @@ export default function DrawerDemo() {
 
         {(hasPrimaryAction || hasSecondaryAction) && (
           <DrawerActions>
-            <InlineGrid spacing={2}>
+            <Inline space={2}>
               {hasPrimaryAction && (
                 <Button color="primary" variant="contained">
                   Primary
@@ -203,7 +203,7 @@ export default function DrawerDemo() {
                   Secondary
                 </Button>
               )}
-            </InlineGrid>
+            </Inline>
           </DrawerActions>
         )}
       </Drawer>

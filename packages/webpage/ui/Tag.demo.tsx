@@ -1,4 +1,4 @@
-import { GridStack, InlineGrid, Tag, TagProps } from '@superdispatch/ui';
+import { Inline, Stack, Tag, TagProps } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React from 'react';
 
@@ -15,16 +15,16 @@ const variants: Array<TagProps['variant']> = ['subtle', 'bold'];
 
 export default function TagDemo() {
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       {colors.map((color) => (
-        <InlineGrid key={color} spacing={2}>
+        <Inline key={color} space={2}>
           {variants.map((variant) => (
             <Tag key={variant} color={color} variant={variant}>
               {startCase(variant)} {startCase(color)}
             </Tag>
           ))}
-        </InlineGrid>
+        </Inline>
       ))}
-    </GridStack>
+    </Stack>
   );
 }

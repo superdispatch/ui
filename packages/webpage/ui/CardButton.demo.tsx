@@ -1,6 +1,6 @@
 import { Add, AttachFile } from '@material-ui/icons';
 import { boolean } from '@storybook/addon-knobs';
-import { CardButton, CardButtonProps, GridStack } from '@superdispatch/ui';
+import { CardButton, CardButtonProps, Stack } from '@superdispatch/ui';
 import React from 'react';
 
 const sizes: Array<CardButtonProps['size']> = ['small', 'medium', 'large'];
@@ -12,7 +12,7 @@ export default function CardButtonDemo() {
   const hasError = boolean('Has Error', false);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       {sizes.map((size) => (
         <CardButton
           key={size}
@@ -25,6 +25,6 @@ export default function CardButtonDemo() {
           Add Attachments
         </CardButton>
       ))}
-    </GridStack>
+    </Stack>
   );
 }

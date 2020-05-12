@@ -4,8 +4,8 @@ import { number } from '@storybook/addon-knobs';
 import {
   DescriptionList,
   DescriptionListItem,
-  GridStack,
-  InlineGrid,
+  Inline,
+  Stack,
 } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React from 'react';
@@ -21,10 +21,10 @@ export default function DescriptionListDemo() {
   });
 
   return (
-    <InlineGrid spacing={2}>
+    <Inline space={2}>
       {sizes.map((size) => (
-        <GridStack spacing={2} key={size}>
-          <Typography>{startCase(size)}</Typography>
+        <Stack space={2} key={size}>
+          <Typography variant="h6">{startCase(size)}</Typography>
 
           <Card>
             <CardContent style={{ maxWidth: width }}>
@@ -44,8 +44,8 @@ export default function DescriptionListDemo() {
               </DescriptionList>
             </CardContent>
           </Card>
-        </GridStack>
+        </Stack>
       ))}
-    </InlineGrid>
+    </Inline>
   );
 }

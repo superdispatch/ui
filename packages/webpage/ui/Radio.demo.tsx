@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core';
 import {
   CheckboxField,
-  GridStack,
   RadioField,
   RadioGroupField,
+  Stack,
 } from '@superdispatch/ui';
 import React, { useState } from 'react';
 
@@ -19,7 +19,7 @@ export default function RadioDemo() {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <GridStack spacing={2}>
+    <Stack space={2}>
       <FormControl>
         <FormLabel>Label Position</FormLabel>
         <FormGroup row={true}>
@@ -77,6 +77,6 @@ export default function RadioDemo() {
           <TextField placeholder="Text Field" />
         </FormGroup>
       </FormControl>
-    </GridStack>
+    </Stack>
   );
 }

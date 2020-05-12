@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import { select } from '@storybook/addon-knobs';
-import { InlineGrid } from '@superdispatch/ui';
+import { Inline } from '@superdispatch/ui';
 import React from 'react';
 
 const sizes: Array<IconButtonProps['size']> = ['small', 'medium'];
@@ -20,7 +20,7 @@ export default function IconButtonDemo() {
   );
 
   return (
-    <InlineGrid spacing={2}>
+    <Inline space={2}>
       {sizes.map((size) => (
         <IconButton
           key={size}
@@ -31,6 +31,6 @@ export default function IconButtonDemo() {
           <Check />
         </IconButton>
       ))}
-    </InlineGrid>
+    </Inline>
   );
 }

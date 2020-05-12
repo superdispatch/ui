@@ -1,8 +1,8 @@
 import { AppBar, Box, Slider, Typography } from '@material-ui/core';
 import {
   AdaptiveToolbar,
-  GridStack,
-  InlineGrid,
+  Inline,
+  Stack,
   useSnackbarStack,
 } from '@superdispatch/ui';
 import React, { useState } from 'react';
@@ -12,8 +12,8 @@ export default function AdaptiveToolbarDemo() {
   const { addSnackbar } = useSnackbarStack();
 
   return (
-    <GridStack>
-      <InlineGrid spacing={2} wrap="nowrap">
+    <Stack space={1}>
+      <Inline space={2}>
         <Box minWidth={200}>
           <Typography>Width ({width}px)</Typography>
 
@@ -25,7 +25,7 @@ export default function AdaptiveToolbarDemo() {
             onChange={(_, value) => setWidth(value as number)}
           />
         </Box>
-      </InlineGrid>
+      </Inline>
 
       <AppBar style={{ maxWidth: width }}>
         <AdaptiveToolbar
@@ -45,6 +45,6 @@ export default function AdaptiveToolbarDemo() {
           }))}
         />
       </AppBar>
-    </GridStack>
+    </Stack>
   );
 }

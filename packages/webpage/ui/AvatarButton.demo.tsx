@@ -35,12 +35,12 @@ export default function AvatarButtonDemo() {
       <CardContent>
         <Stack space={2}>
           <Alert icon={<Info />} color="info" variant="filled">
-            Click with pressed <code>Alt</code> (<code>Option</code>) button to
+            Click with pressed <code>Alt</code> (<code>Option</code>) key to
             disable avatars.
             <br />
-            Click with pressed <code>Shift</code> button to set a loading state.
+            Click with pressed <code>Shift</code> key to set a loading state.
             <br />
-            Click with pressed <code>Alt + Shift</code> button to update avatar.
+            Click with pressed <code>Alt + Shift</code> key to update avatar.
           </Alert>
 
           {sizes.map((size) => {
