@@ -92,6 +92,8 @@ export function overrideButton(theme: SuperDispatchTheme) {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiButton = {
+    color: 'primary',
+    variant: 'outlined',
     disableFocusRipple: true,
   };
 
