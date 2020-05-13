@@ -238,108 +238,120 @@ it('checks component css', () => {
       background-color: Color.White;
     }
 
-    .MuiButton-outlined[data-color='primary'] {
-      color: Color.Grey500;
-      box-shadow: inset 0 0 0 1px Color.Silver500, 0 0 0 2px Color.Transparent;
-      background-color: Color.White;
-    }
-
     .MuiButton-outlined[data-color='white'] {
       color: Color.White;
       box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.Transparent;
       background-color: Color.Transparent;
     }
 
-    .MuiButton-outlined[data-color='white'][aria-busy='true'] {
-      color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 2px Color.Transparent;
-    }
-
-    .MuiButton-outlined[data-color='white'].Mui-disabled:not([aria-busy='true']) {
-      color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 2px Color.Transparent;
-    }
-
-    .MuiButton-outlined[data-color='white']:not(.Mui-disabled):hover,
-    .MuiButton-outlined[data-color='white']:not(.Mui-disabled):active,
-    .MuiButton-outlined[data-color='white']:not(.Mui-disabled)[aria-expanded='true'] {
+    .MuiButton-outlined[data-color='white']:hover {
       color: Color.White;
       box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.Transparent;
       background-color: Color.White10;
     }
 
-    .MuiButton-outlined[data-color='white']:not(.Mui-disabled):focus {
+    .MuiButton-outlined[data-color='white'][aria-expanded='true'] {
+      color: Color.White;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.Transparent;
+      background-color: Color.White10;
+    }
+
+    .MuiButton-outlined[data-color='white']:focus {
       box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.White40;
     }
 
-    .MuiButton-outlined[data-color='primary'][aria-busy='true'] {
-      color: Color.Grey200;
-      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 2px Color.Transparent;
+    .MuiButton-outlined[data-color='white'].Mui-disabled {
+      color: Color.White50;
+      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 2px Color.Transparent;
+      background-color: Color.Transparent;
     }
 
-    .MuiButton-outlined[data-color='primary'].Mui-disabled:not([aria-busy='true']) {
-      color: Color.Silver500;
-      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 2px Color.Transparent;
+    .MuiButton-outlined[data-color='white'].Mui-disabled[aria-busy='true'] {
+      color: Color.White50;
     }
 
-    .MuiButton-outlined[data-color='primary']:not(.Mui-disabled):hover,
-    .MuiButton-outlined[data-color='primary']:not(.Mui-disabled):active,
-    .MuiButton-outlined[data-color='primary']:not(.Mui-disabled)[aria-expanded='true'] {
-      color: Color.Blue300;
-      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Transparent;
-      background-color: Color.Blue50;
-    }
-
-    .MuiButton-outlined[data-color='primary']:not(.Mui-disabled):focus {
-      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Blue100;
-    }
-
-    .MuiButton-outlined[data-color='success'][aria-busy='true'] {
-      color: Color.Green300;
-      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 2px Color.Transparent;
-    }
-
-    .MuiButton-outlined[data-color='success'].Mui-disabled:not([aria-busy='true']) {
-      color: Color.Green100;
-      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 2px Color.Transparent;
-    }
-
-    .MuiButton-outlined[data-color='success']:not(.Mui-disabled):hover,
-    .MuiButton-outlined[data-color='success']:not(.Mui-disabled):active,
-    .MuiButton-outlined[data-color='success']:not(.Mui-disabled)[aria-expanded='true'] {
+    .MuiButton-outlined[data-color='success']:hover {
       color: Color.Green300;
       box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Transparent;
       background-color: Color.Green50;
     }
 
-    .MuiButton-outlined[data-color='success']:not(.Mui-disabled):focus {
+    .MuiButton-outlined[data-color='success'][aria-expanded='true'] {
+      color: Color.Green300;
+      box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Transparent;
+      background-color: Color.Green50;
+    }
+
+    .MuiButton-outlined[data-color='success']:focus {
       box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Green100;
     }
 
-    .MuiButton-outlined[data-color='error'][aria-busy='true'] {
-      color: Color.Red300;
-      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 2px Color.Transparent;
+    .MuiButton-outlined[data-color='success'].Mui-disabled {
+      color: Color.Green100;
+      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 2px Color.Transparent;
+      background-color: Color.White;
     }
 
-    .MuiButton-outlined[data-color='error'].Mui-disabled:not([aria-busy='true']) {
-      color: Color.Red100;
-      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 2px Color.Transparent;
+    .MuiButton-outlined[data-color='success'].Mui-disabled[aria-busy='true'] {
+      color: Color.Green300;
     }
 
-    .MuiButton-outlined[data-color='error']:not(.Mui-disabled):hover,
-    .MuiButton-outlined[data-color='error']:not(.Mui-disabled):active,
-    .MuiButton-outlined[data-color='error']:not(.Mui-disabled)[aria-expanded='true'] {
+    .MuiButton-outlined[data-color='error']:hover {
       color: Color.Red300;
       box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Transparent;
       background-color: Color.Red50;
     }
 
-    .MuiButton-outlined[data-color='error']:not(.Mui-disabled):focus {
+    .MuiButton-outlined[data-color='error'][aria-expanded='true'] {
+      color: Color.Red300;
+      box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Transparent;
+      background-color: Color.Red50;
+    }
+
+    .MuiButton-outlined[data-color='error']:focus {
       box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Red100;
     }
 
+    .MuiButton-outlined[data-color='error'].Mui-disabled {
+      color: Color.Red100;
+      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 2px Color.Transparent;
+      background-color: Color.White;
+    }
+
+    .MuiButton-outlined[data-color='error'].Mui-disabled[aria-busy='true'] {
+      color: Color.Red300;
+    }
+
     .MuiButton-outlinedPrimary {
+      color: Color.Grey500;
+      box-shadow: inset 0 0 0 1px Color.Silver500, 0 0 0 2px Color.Transparent;
+      background-color: Color.White;
+    }
+
+    .MuiButton-outlinedPrimary:hover {
       color: Color.Blue300;
+      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Transparent;
+      background-color: Color.Blue50;
+    }
+
+    .MuiButton-outlinedPrimary[aria-expanded='true'] {
+      color: Color.Blue300;
+      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Transparent;
+      background-color: Color.Blue50;
+    }
+
+    .MuiButton-outlinedPrimary:focus {
+      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Blue100;
+    }
+
+    .MuiButton-outlinedPrimary.Mui-disabled {
+      color: Color.Silver500;
+      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 2px Color.Transparent;
+      background-color: Color.White;
+    }
+
+    .MuiButton-outlinedPrimary.Mui-disabled[aria-busy='true'] {
+      color: Color.Grey200;
     }
 
     @media (hover: none) {
