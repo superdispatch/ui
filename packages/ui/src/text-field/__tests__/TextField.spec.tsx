@@ -264,6 +264,7 @@ it('checks component css', () => {
       box-sizing: content-box;
       text-overflow: ellipsis;
       animation-name: mui-auto-fill-cancel;
+      letter-spacing: inherit;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -550,7 +551,9 @@ it('checks component css', () => {
     }
 
     .MuiSelect-selectMenu {
+      height: auto;
       overflow: hidden;
+      min-height: 1.1876em;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
