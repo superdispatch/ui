@@ -52,27 +52,34 @@ function outlinedVariant(
   return {
     backgroundColor,
     color: staleText,
+    border: undefined,
     boxShadow: outlinedBorder(staleBorder),
 
-    '&[aria-busy="true"]': {
-      color: progress,
-      boxShadow: outlinedBorder(disabledBorder),
+    '&:hover': {
+      color: activeText,
+      border: undefined,
+      backgroundColor: activeBackground,
+      boxShadow: outlinedBorder(activeBorder),
     },
 
-    '&$disabled:not([aria-busy="true"])': {
+    '&[aria-expanded="true"]': {
+      color: activeText,
+      backgroundColor: activeBackground,
+      boxShadow: outlinedBorder(activeBorder),
+    },
+
+    '&:focus': {
+      boxShadow: outlinedBorder(activeBorder, activeOutline),
+    },
+
+    '&$disabled': {
+      backgroundColor,
       color: disabledText,
       boxShadow: outlinedBorder(disabledBorder),
     },
 
-    '&:not($disabled)': {
-      '&:hover, &:active, &[aria-expanded="true"]': {
-        color: activeText,
-        backgroundColor: activeBackground,
-        boxShadow: outlinedBorder(activeBorder),
-      },
-      '&:focus': {
-        boxShadow: outlinedBorder(activeBorder, activeOutline),
-      },
+    '&$disabled[aria-busy="true"]': {
+      color: progress,
     },
   };
 }
@@ -236,6 +243,7 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.Red300,
         Color.White,
       ),
+
       '&[data-color="success"]': outlinedVariant(
         Color.Green300,
         Color.Green300,
@@ -248,18 +256,7 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.Green300,
         Color.White,
       ),
-      '&[data-color="primary"]': outlinedVariant(
-        Color.Grey500,
-        Color.Silver500,
-        Color.Silver500,
-        Color.Silver400,
-        Color.Blue300,
-        Color.Blue300,
-        Color.Blue100,
-        Color.Blue50,
-        Color.Grey200,
-        Color.White,
-      ),
+
       '&[data-color="white"]': outlinedVariant(
         Color.White,
         Color.White50,
@@ -274,10 +271,19 @@ export function overrideButton(theme: SuperDispatchTheme) {
       ),
     },
 
-    outlinedPrimary: {
-      border: undefined,
-      '&:hover': { border: undefined, backgroundColor: undefined },
-    },
+    outlinedPrimary: outlinedVariant(
+      Color.Grey500,
+      Color.Silver500,
+      Color.Silver500,
+      Color.Silver400,
+      Color.Blue300,
+      Color.Blue300,
+      Color.Blue100,
+      Color.Blue50,
+      Color.Grey200,
+      Color.White,
+    ),
+
     outlinedSizeSmall: { padding: undefined, fontSize: undefined },
     outlinedSizeLarge: { padding: undefined, fontSize: undefined },
 
