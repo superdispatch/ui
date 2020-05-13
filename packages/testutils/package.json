@@ -16,7 +16,7 @@
     "faker": "^4.1.0",
     "lodash": "^4.17.15",
     "path-to-regexp": "^6.1.0",
-    "qs": "^6.9.1",
+    "qs": "^6.9.4",
     "whatwg-fetch": "^3.0.0"
   },
   "peerDependencies": {
