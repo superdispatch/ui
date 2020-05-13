@@ -172,4 +172,9 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  watchPlugins: [
+    require.resolve('jest-watch-typeahead/filename'),
+    require.resolve('jest-watch-typeahead/testname'),
+  ],
 };
