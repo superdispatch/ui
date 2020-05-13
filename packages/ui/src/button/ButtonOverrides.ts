@@ -3,6 +3,10 @@ import { CSSProperties } from '@material-ui/styles';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
+function outlineShadow(size = 0, color: Color = Color.Transparent) {
+  return `0 0 0 ${size}px ${color}`;
+}
+
 function textVariant(
   text: Color,
   outline: Color,
@@ -11,7 +15,7 @@ function textVariant(
 ): CSSProperties {
   return {
     color: text,
-    boxShadow: `0 0 0 0 ${outline}`,
+    boxShadow: outlineShadow(),
     '&[aria-busy="true"]': { color: progress },
     '&$disabled:not([aria-busy="true"])': { color: outline },
     '&:not($disabled)': {
@@ -20,10 +24,17 @@ function textVariant(
       },
       '&:focus': {
         backgroundColor: background,
-        boxShadow: `0 0 0 2px ${outline}`,
+        boxShadow: outlineShadow(2, outline),
       },
     },
   };
+}
+
+function outlinedBorder(
+  borderColor: Color,
+  outlineColor: Color = Color.Transparent,
+) {
+  return `inset 0 0 0 1px ${borderColor}, 0 0 0 2px ${outlineColor}`;
 }
 
 function outlinedVariant(
@@ -41,26 +52,26 @@ function outlinedVariant(
   return {
     backgroundColor,
     color: staleText,
-    boxShadow: `inset 0 0 0 1px ${staleBorder}, 0 0 0 0 ${activeOutline}`,
+    boxShadow: outlinedBorder(staleBorder),
 
     '&[aria-busy="true"]': {
       color: progress,
-      boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
+      boxShadow: outlinedBorder(disabledBorder),
     },
 
     '&$disabled:not([aria-busy="true"])': {
       color: disabledText,
-      boxShadow: `inset 0 0 0 1px ${disabledBorder}, 0 0 0 0 ${activeOutline}`,
+      boxShadow: outlinedBorder(disabledBorder),
     },
 
     '&:not($disabled)': {
       '&:hover, &:active, &[aria-expanded="true"]': {
         color: activeText,
         backgroundColor: activeBackground,
-        boxShadow: `inset 0 0 0 1px ${activeBorder}, 0 0 0 0 ${activeOutline}`,
+        boxShadow: outlinedBorder(activeBorder),
       },
       '&:focus': {
-        boxShadow: `inset 0 0 0 1px ${activeBorder}, 0 0 0 2px ${activeOutline}`,
+        boxShadow: outlinedBorder(activeBorder, activeOutline),
       },
     },
   };
@@ -77,12 +88,14 @@ function containedVariant(
   return {
     color: text,
     backgroundColor,
+    boxShadow: outlineShadow(),
+
     '&$disabled': {
       backgroundColor: disabledBackground,
       color: disabledText,
     },
     '&:not($disabled)': {
-      '&:focus': { boxShadow: `0 0 0 3px ${outline}` },
+      '&:focus': { boxShadow: outlineShadow(3, outline) },
       '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
     },
   };
@@ -102,10 +115,12 @@ export function overrideButton(theme: SuperDispatchTheme) {
       color: undefined,
       minWidth: theme.spacing(6),
 
-      transition: theme.transitions.create(
-        ['color', 'border', 'box-shadow', 'background-color'],
-        { duration: theme.transitions.duration.short },
-      ),
+      transition: theme.transitions.create([
+        'color',
+        'border',
+        'box-shadow',
+        'background-color',
+      ]),
 
       padding: theme.spacing(1.25, 3),
 

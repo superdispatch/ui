@@ -29,10 +29,10 @@ it('checks component css', () => {
       font-size: 14px;
       min-width: 48px;
       box-sizing: border-box;
-      transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       font-family: SF Pro Text;
       font-weight: 600;
       line-height: 20px;
@@ -104,22 +104,22 @@ it('checks component css', () => {
 
     .MuiButton-text[data-color='error'] {
       color: Color.Red300;
-      box-shadow: 0 0 0 0 Color.Red100;
+      box-shadow: 0 0 0 0px Color.Transparent;
     }
 
     .MuiButton-text[data-color='success'] {
       color: Color.Green300;
-      box-shadow: 0 0 0 0 Color.Green100;
+      box-shadow: 0 0 0 0px Color.Transparent;
     }
 
     .MuiButton-text[data-color='primary'] {
       color: Color.Blue300;
-      box-shadow: 0 0 0 0 Color.Blue100;
+      box-shadow: 0 0 0 0px Color.Transparent;
     }
 
     .MuiButton-text[data-color='white'] {
       color: Color.White;
-      box-shadow: 0 0 0 0 Color.White50;
+      box-shadow: 0 0 0 0px Color.Transparent;
     }
 
     .MuiButton-text[data-color='white'][aria-busy='true'] {
@@ -228,43 +228,43 @@ it('checks component css', () => {
 
     .MuiButton-outlined[data-color='error'] {
       color: Color.Red300;
-      box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 0 Color.Red100;
+      box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Transparent;
       background-color: Color.White;
     }
 
     .MuiButton-outlined[data-color='success'] {
       color: Color.Green300;
-      box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 0 Color.Green100;
+      box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Transparent;
       background-color: Color.White;
     }
 
     .MuiButton-outlined[data-color='primary'] {
       color: Color.Grey500;
-      box-shadow: inset 0 0 0 1px Color.Silver500, 0 0 0 0 Color.Blue100;
+      box-shadow: inset 0 0 0 1px Color.Silver500, 0 0 0 2px Color.Transparent;
       background-color: Color.White;
     }
 
     .MuiButton-outlined[data-color='white'] {
       color: Color.White;
-      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.Transparent;
       background-color: Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='white'][aria-busy='true'] {
       color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='white'].Mui-disabled:not([aria-busy='true']) {
       color: Color.White50;
-      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White40, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled):hover,
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled):active,
     .MuiButton-outlined[data-color='white']:not(.Mui-disabled)[aria-expanded='true'] {
       color: Color.White;
-      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 0 Color.White40;
+      box-shadow: inset 0 0 0 1px Color.White50, 0 0 0 2px Color.Transparent;
       background-color: Color.White10;
     }
 
@@ -274,19 +274,19 @@ it('checks component css', () => {
 
     .MuiButton-outlined[data-color='primary'][aria-busy='true'] {
       color: Color.Grey200;
-      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 0 Color.Blue100;
+      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='primary'].Mui-disabled:not([aria-busy='true']) {
       color: Color.Silver500;
-      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 0 Color.Blue100;
+      box-shadow: inset 0 0 0 1px Color.Silver400, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='primary']:not(.Mui-disabled):hover,
     .MuiButton-outlined[data-color='primary']:not(.Mui-disabled):active,
     .MuiButton-outlined[data-color='primary']:not(.Mui-disabled)[aria-expanded='true'] {
       color: Color.Blue300;
-      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 0 Color.Blue100;
+      box-shadow: inset 0 0 0 1px Color.Blue300, 0 0 0 2px Color.Transparent;
       background-color: Color.Blue50;
     }
 
@@ -296,19 +296,19 @@ it('checks component css', () => {
 
     .MuiButton-outlined[data-color='success'][aria-busy='true'] {
       color: Color.Green300;
-      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 0 Color.Green100;
+      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='success'].Mui-disabled:not([aria-busy='true']) {
       color: Color.Green100;
-      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 0 Color.Green100;
+      box-shadow: inset 0 0 0 1px Color.Green100, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='success']:not(.Mui-disabled):hover,
     .MuiButton-outlined[data-color='success']:not(.Mui-disabled):active,
     .MuiButton-outlined[data-color='success']:not(.Mui-disabled)[aria-expanded='true'] {
       color: Color.Green300;
-      box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 0 Color.Green100;
+      box-shadow: inset 0 0 0 1px Color.Green300, 0 0 0 2px Color.Transparent;
       background-color: Color.Green50;
     }
 
@@ -318,19 +318,19 @@ it('checks component css', () => {
 
     .MuiButton-outlined[data-color='error'][aria-busy='true'] {
       color: Color.Red300;
-      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 0 Color.Red100;
+      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='error'].Mui-disabled:not([aria-busy='true']) {
       color: Color.Red100;
-      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 0 Color.Red100;
+      box-shadow: inset 0 0 0 1px Color.Red100, 0 0 0 2px Color.Transparent;
     }
 
     .MuiButton-outlined[data-color='error']:not(.Mui-disabled):hover,
     .MuiButton-outlined[data-color='error']:not(.Mui-disabled):active,
     .MuiButton-outlined[data-color='error']:not(.Mui-disabled)[aria-expanded='true'] {
       color: Color.Red300;
-      box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 0 Color.Red100;
+      box-shadow: inset 0 0 0 1px Color.Red300, 0 0 0 2px Color.Transparent;
       background-color: Color.Red50;
     }
 
@@ -374,21 +374,25 @@ it('checks component css', () => {
 
     .MuiButton-contained[data-color='error'] {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Red300;
     }
 
     .MuiButton-contained[data-color='success'] {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Green300;
     }
 
     .MuiButton-contained[data-color='primary'] {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Blue300;
     }
 
     .MuiButton-contained[data-color='white'] {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.White20;
     }
 
