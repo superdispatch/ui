@@ -384,85 +384,88 @@ it('checks component css', () => {
       background-color: Color.Green300;
     }
 
-    .MuiButton-contained[data-color='primary'] {
-      color: Color.White;
-      box-shadow: 0 0 0 0px Color.Transparent;
-      background-color: Color.Blue300;
-    }
-
     .MuiButton-contained[data-color='white'] {
       color: Color.White;
       box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.White20;
     }
 
-    .MuiButton-contained[data-color='white'].Mui-disabled {
-      color: Color.White50;
-      background-color: Color.White08;
-    }
-
-    .MuiButton-contained[data-color='white']:not(.Mui-disabled):focus {
-      box-shadow: 0 0 0 3px Color.White40;
-    }
-
-    .MuiButton-contained[data-color='white']:not(.Mui-disabled):hover,
-    .MuiButton-contained[data-color='white']:not(.Mui-disabled):active,
-    .MuiButton-contained[data-color='white']:not(.Mui-disabled)[aria-expanded='true'] {
+    .MuiButton-contained[data-color='white']:hover {
       background-color: Color.White40;
     }
 
-    .MuiButton-contained[data-color='primary'].Mui-disabled {
-      color: Color.White;
-      background-color: Color.Blue100;
+    .MuiButton-contained[data-color='white'][aria-expanded='true'] {
+      background-color: Color.White40;
     }
 
-    .MuiButton-contained[data-color='primary']:not(.Mui-disabled):focus {
-      box-shadow: 0 0 0 3px Color.Blue100;
+    .MuiButton-contained[data-color='white']:focus {
+      box-shadow: 0 0 0 3px Color.White40;
     }
 
-    .MuiButton-contained[data-color='primary']:not(.Mui-disabled):hover,
-    .MuiButton-contained[data-color='primary']:not(.Mui-disabled):active,
-    .MuiButton-contained[data-color='primary']:not(.Mui-disabled)[aria-expanded='true'] {
-      background-color: Color.Blue500;
+    .MuiButton-contained[data-color='white'].Mui-disabled {
+      color: Color.White50;
+      box-shadow: 0 0 0 0px Color.Transparent;
+      background-color: Color.White08;
+    }
+
+    .MuiButton-contained[data-color='success']:hover {
+      background-color: Color.Green500;
+    }
+
+    .MuiButton-contained[data-color='success'][aria-expanded='true'] {
+      background-color: Color.Green500;
+    }
+
+    .MuiButton-contained[data-color='success']:focus {
+      box-shadow: 0 0 0 3px Color.Green100;
     }
 
     .MuiButton-contained[data-color='success'].Mui-disabled {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Green100;
     }
 
-    .MuiButton-contained[data-color='success']:not(.Mui-disabled):focus {
-      box-shadow: 0 0 0 3px Color.Green100;
+    .MuiButton-contained[data-color='error']:hover {
+      background-color: Color.Red500;
     }
 
-    .MuiButton-contained[data-color='success']:not(.Mui-disabled):hover,
-    .MuiButton-contained[data-color='success']:not(.Mui-disabled):active,
-    .MuiButton-contained[data-color='success']:not(.Mui-disabled)[aria-expanded='true'] {
-      background-color: Color.Green500;
+    .MuiButton-contained[data-color='error'][aria-expanded='true'] {
+      background-color: Color.Red500;
+    }
+
+    .MuiButton-contained[data-color='error']:focus {
+      box-shadow: 0 0 0 3px Color.Red100;
     }
 
     .MuiButton-contained[data-color='error'].Mui-disabled {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Red100;
-    }
-
-    .MuiButton-contained[data-color='error']:not(.Mui-disabled):focus {
-      box-shadow: 0 0 0 3px Color.Red100;
-    }
-
-    .MuiButton-contained[data-color='error']:not(.Mui-disabled):hover,
-    .MuiButton-contained[data-color='error']:not(.Mui-disabled):active,
-    .MuiButton-contained[data-color='error']:not(.Mui-disabled)[aria-expanded='true'] {
-      background-color: Color.Red500;
     }
 
     .MuiButton-containedPrimary {
       color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
       background-color: Color.Blue300;
     }
 
     .MuiButton-containedPrimary:hover {
-      background-color: rgb(0, 81, 178);
+      background-color: Color.Blue500;
+    }
+
+    .MuiButton-containedPrimary[aria-expanded='true'] {
+      background-color: Color.Blue500;
+    }
+
+    .MuiButton-containedPrimary:focus {
+      box-shadow: 0 0 0 3px Color.Blue100;
+    }
+
+    .MuiButton-containedPrimary.Mui-disabled {
+      color: Color.White;
+      box-shadow: 0 0 0 0px Color.Transparent;
+      background-color: Color.Blue100;
     }
 
     @media (hover: none) {
