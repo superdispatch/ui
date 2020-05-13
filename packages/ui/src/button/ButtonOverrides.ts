@@ -16,16 +16,29 @@ function textVariant(
   return {
     color: text,
     boxShadow: outlineShadow(),
-    '&[aria-busy="true"]': { color: progress },
-    '&$disabled:not([aria-busy="true"])': { color: outline },
-    '&:not($disabled)': {
-      '&:hover, &:active, &[aria-expanded="true"]': {
-        backgroundColor: background,
-      },
-      '&:focus': {
-        backgroundColor: background,
-        boxShadow: outlineShadow(2, outline),
-      },
+    backgroundColor: Color.Transparent,
+
+    '&:hover': {
+      backgroundColor: background,
+    },
+
+    '&[aria-expanded="true"]': {
+      backgroundColor: background,
+    },
+
+    '&:focus': {
+      backgroundColor: background,
+      boxShadow: outlineShadow(2, outline),
+    },
+
+    '&$disabled': {
+      color: outline,
+      boxShadow: outlineShadow(),
+      backgroundColor: Color.Transparent,
+    },
+
+    '&$disabled[aria-busy="true"]': {
+      color: progress,
     },
   };
 }
@@ -198,24 +211,21 @@ export function overrideButton(theme: SuperDispatchTheme) {
 
     text: {
       padding: undefined,
+
       '&[data-color="error"]': textVariant(
         Color.Red300,
         Color.Red100,
         Color.Red50,
         Color.Red200,
       ),
+
       '&[data-color="success"]': textVariant(
         Color.Green300,
         Color.Green100,
         Color.Green50,
         Color.Green200,
       ),
-      '&[data-color="primary"]': textVariant(
-        Color.Blue300,
-        Color.Blue100,
-        Color.Blue50,
-        Color.Blue200,
-      ),
+
       '&[data-color="white"]': textVariant(
         Color.White,
         Color.White50,
@@ -223,6 +233,14 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.White50,
       ),
     },
+
+    textPrimary: textVariant(
+      Color.Blue300,
+      Color.Blue100,
+      Color.Blue50,
+      Color.Blue200,
+    ),
+
     textSizeSmall: { padding: undefined, fontSize: undefined },
     textSizeLarge: { padding: undefined, fontSize: undefined },
 
