@@ -90,13 +90,22 @@ function containedVariant(
     backgroundColor,
     boxShadow: outlineShadow(),
 
-    '&$disabled': {
-      backgroundColor: disabledBackground,
-      color: disabledText,
+    '&:hover': {
+      backgroundColor: active,
     },
-    '&:not($disabled)': {
-      '&:focus': { boxShadow: outlineShadow(3, outline) },
-      '&:hover, &:active, &[aria-expanded="true"]': { backgroundColor: active },
+
+    '&[aria-expanded="true"]': {
+      backgroundColor: active,
+    },
+
+    '&:focus': {
+      boxShadow: outlineShadow(3, outline),
+    },
+
+    '&$disabled': {
+      color: disabledText,
+      boxShadow: outlineShadow(),
+      backgroundColor: disabledBackground,
     },
   };
 }
@@ -285,8 +294,15 @@ export function overrideButton(theme: SuperDispatchTheme) {
           backgroundColor: undefined,
         },
       },
-      '&:active': { boxShadow: undefined },
-      '&$focusVisible': { boxShadow: undefined },
+
+      '&:active': {
+        boxShadow: undefined,
+      },
+
+      '&$focusVisible': {
+        boxShadow: undefined,
+      },
+
       '&$disabled': {
         color: undefined,
         boxShadow: undefined,
@@ -301,6 +317,7 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.White,
         Color.Red100,
       ),
+
       '&[data-color="success"]': containedVariant(
         Color.White,
         Color.Green300,
@@ -309,14 +326,7 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.White,
         Color.Green100,
       ),
-      '&[data-color="primary"]': containedVariant(
-        Color.White,
-        Color.Blue300,
-        Color.Blue100,
-        Color.Blue500,
-        Color.White,
-        Color.Blue100,
-      ),
+
       '&[data-color="white"]': containedVariant(
         Color.White,
         Color.White20,
@@ -326,6 +336,15 @@ export function overrideButton(theme: SuperDispatchTheme) {
         Color.White08,
       ),
     },
+
+    containedPrimary: containedVariant(
+      Color.White,
+      Color.Blue300,
+      Color.Blue100,
+      Color.Blue500,
+      Color.White,
+      Color.Blue100,
+    ),
 
     containedSizeSmall: { padding: undefined, fontSize: undefined },
     containedSizeLarge: { padding: undefined, fontSize: undefined },
