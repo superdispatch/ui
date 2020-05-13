@@ -8,7 +8,9 @@ it('checks default props', () => {
 
   expect(props.MuiButton).toMatchInlineSnapshot(`
     Object {
+      "color": "primary",
       "disableFocusRipple": true,
+      "variant": "outlined",
     }
   `);
 });

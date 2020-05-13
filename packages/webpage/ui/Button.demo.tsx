@@ -5,7 +5,7 @@ import { boolean, select } from '@storybook/addon-knobs';
 import { Button, ButtonProps, Color, Inline, Stack } from '@superdispatch/ui';
 import React, { useEffect, useState } from 'react';
 
-type State = 'stale' | 'disabled' | 'active' | 'loading';
+type State = undefined | 'disabled' | 'active' | 'loading';
 
 const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
 const variants: Array<ButtonProps['variant']> = [
@@ -20,22 +20,17 @@ export default function ButtonDemo() {
   const state = select(
     'State',
     {
-      Stale: 'stale',
+      None: undefined,
       Disabled: 'disabled',
       Active: 'active',
       Loading: 'loading',
     },
-    'stale',
+    undefined,
   );
 
   const color = select(
     'Color',
-    {
-      Primary: 'primary',
-      Error: 'error',
-      Success: 'success',
-      White: 'white',
-    },
+    { Primary: 'primary', Error: 'error', Success: 'success', White: 'white' },
     'primary',
   );
 
