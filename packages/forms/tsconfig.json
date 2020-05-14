@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.build.json",
-  "exclude": ["**/pkg/**/*", "**/*.spec.*"],
+  "exclude": ["**/pkg/**/*", "**/__tests__/**/*", "**/__testutils__/**/*"],
   "references": [
     { "path": "../ui" },
     { "path": "../phones" },

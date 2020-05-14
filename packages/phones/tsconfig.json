@@ -1,6 +1,6 @@
 {
-  "exclude": ["**/pkg/**/*", "**/*.spec.*"],
   "extends": "../../tsconfig.build.json",
+  "exclude": ["**/pkg/**/*", "**/__tests__/**/*", "**/__testutils__/**/*"],
   "references": [{ "path": "../ui" }, { "path": "../__testutils__" }],
   "compilerOptions": {
     "composite": true,
