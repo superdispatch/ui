@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@superdispatch/ui';
-import { render } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 import MockDate from 'mockdate';
 import React, { ComponentType, ReactElement } from 'react';
 
@@ -15,7 +15,7 @@ export const STUB_DATE = Date.UTC(2019, 4, 24, 12, 13, 14, 15);
 export function renderDateComponent(
   ui: ReactElement,
   { timeZoneOffset = -300 }: RenderDateComponentOptions = {},
-) {
+): RenderResult & { dateUtils: DateUtils } {
   MockDate.set(STUB_DATE);
 
   const dateUtils = new DateUtils({ timeZoneOffset });
