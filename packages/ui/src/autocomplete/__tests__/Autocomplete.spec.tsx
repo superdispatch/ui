@@ -33,9 +33,14 @@ it('checks component css', () => {
       'MuiAutocomplete',
     ]),
   ).toMatchInlineSnapshot(`
-    .MuiAutocomplete-root:hover .MuiAutocomplete-clearIndicatorDirty,
     .MuiAutocomplete-root.Mui-focused .MuiAutocomplete-clearIndicatorDirty {
       visibility: visible;
+    }
+
+    @media (pointer: fine) {
+      .MuiAutocomplete-root:hover .MuiAutocomplete-clearIndicatorDirty {
+        visibility: visible;
+      }
     }
 
     .MuiAutocomplete-fullWidth {
@@ -269,7 +274,7 @@ it('checks component css', () => {
 
     .MuiAutocomplete-listbox {
       margin: 0;
-      padding: 8px 0px;
+      padding: 8px 0;
       overflow: auto;
       list-style: none;
       max-height: 40vh;
