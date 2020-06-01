@@ -32,49 +32,55 @@ it('checks component css', () => {
 
     .MuiTooltip-popperArrow[x-placement*='bottom'] .MuiTooltip-arrow {
       top: 0;
-      margin-top: -0.5em;
-      margin-left: 0.6em;
-      margin-right: 0.6em;
-      margin-bottom: 0.6em;
+      left: 0;
+      margin-top: -0.71em;
+      margin-left: 4px;
+      margin-right: 4px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='top'] .MuiTooltip-arrow {
+      left: 0;
       bottom: 0;
-      margin-top: 0.6em;
-      margin-left: 0.6em;
-      margin-right: 0.6em;
-      margin-bottom: -0.5em;
+      margin-left: 4px;
+      margin-right: 4px;
+      margin-bottom: -0.71em;
     }
 
     .MuiTooltip-popperArrow[x-placement*='right'] .MuiTooltip-arrow {
       left: 0;
-      margin-top: 0.6em;
-      margin-left: -0.5em;
-      margin-right: 0.6em;
-      margin-bottom: 0.6em;
+      width: 0.71em;
+      height: 1em;
+      margin-top: 4px;
+      margin-left: -0.71em;
+      margin-bottom: 4px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='left'] .MuiTooltip-arrow {
       right: 0;
-      margin-top: 0.6em;
-      margin-left: 0.6em;
-      margin-right: -0.5em;
-      margin-bottom: 0.6em;
+      width: 0.71em;
+      height: 1em;
+      margin-top: 4px;
+      margin-right: -0.71em;
+      margin-bottom: 4px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='left'] .MuiTooltip-arrow::before {
+      transform-origin: 0 0;
       border-top-right-radius: 2px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='right'] .MuiTooltip-arrow::before {
+      transform-origin: 100% 100%;
       border-bottom-left-radius: 2px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='top'] .MuiTooltip-arrow::before {
+      transform-origin: 100% 0;
       border-bottom-right-radius: 2px;
     }
 
     .MuiTooltip-popperArrow[x-placement*='bottom'] .MuiTooltip-arrow::before {
+      transform-origin: 0 100%;
       border-top-left-radius: 2px;
     }
 
@@ -105,17 +111,20 @@ it('checks component css', () => {
 
     .MuiTooltip-arrow {
       color: Color.Grey400;
+      width: 1em;
+      height: 0.71em;
+      overflow: hidden;
       position: absolute;
       font-size: 8px;
-      transform: rotate3d(0, 0, 1, 45deg);
     }
 
     .MuiTooltip-arrow::before {
-      width: 1em;
-      height: 1em;
+      width: 100%;
+      height: 100%;
       margin: auto;
       content: '';
       display: block;
+      transform: rotate(45deg);
       background-color: currentColor;
     }
 
