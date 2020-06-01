@@ -78,10 +78,9 @@ export function FormikPhoneField({
 }: FormikPhoneFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
-  const [field, { error, touched }, { setValue, setTouched }] = useField({
-    name,
-    validate,
-  });
+  const [field, { error, touched }, { setValue, setTouched }] = useField<
+    undefined | PhoneNumber
+  >({ name, validate });
   const errorText = touched && error;
 
   return (

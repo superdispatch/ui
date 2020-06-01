@@ -26,7 +26,11 @@ export type CalendarClassNames =
   | 'firstDayOfMonth'
   | 'lastDayOfMonth';
 
-const useStyles = makeStyles<Theme, {}, CalendarClassNames>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: Partial<ClassNameMap<keyof ClassNames>> },
+  CalendarClassNames
+>(
   (theme) => ({
     container: { display: 'inline-block' },
 

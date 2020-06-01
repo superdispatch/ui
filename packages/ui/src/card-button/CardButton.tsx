@@ -26,7 +26,11 @@ export type CardButtonClassKey =
   | 'startIcon'
   | 'endIcon';
 
-const useStyles = makeStyles<Theme, {}, CardButtonClassKey>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: Partial<ClassNameMap<CardButtonClassKey>> },
+  CardButtonClassKey
+>(
   (theme) => ({
     root: {
       width: '100%',
@@ -103,7 +107,7 @@ export interface CardButtonProps
   size?: 'small' | 'medium' | 'large';
 
   className?: string;
-  classes?: ClassNameMap<CardButtonClassKey>;
+  classes?: Partial<ClassNameMap<CardButtonClassKey>>;
 }
 
 export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef(

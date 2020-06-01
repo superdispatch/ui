@@ -75,7 +75,8 @@ function formatAST(sheet: Stylesheet): string {
       .stringify(sheet)
       .replace(
         /font-family: ([\S\s][^;]+);/gm,
-        (_, fonts) => `font-family: ${fonts.split(',').shift().trim()};`,
+        (_, fonts: string) =>
+          `font-family: ${fonts.split(',').shift()?.trim() as string};`,
       )
       .replace(colorRegExp, (color) => colors.get(color) as string),
     { parser: 'css', singleQuote: true },

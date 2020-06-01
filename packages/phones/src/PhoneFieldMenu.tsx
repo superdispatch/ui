@@ -12,7 +12,11 @@ import { PhoneRegionCode } from './data/PhoneNumber';
 import { phoneFieldCountries } from './internal/PhoneMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
-const useStyles = makeStyles<Theme, {}, MenuClassKey>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: MenuProps['classes'] },
+  MenuClassKey
+>(
   (theme) => ({
     list: {},
     paper: { maxHeight: theme.spacing(30) },

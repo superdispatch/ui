@@ -25,7 +25,11 @@ type SnackbarContentClassKey =
   | 'variantError'
   | 'variantSuccess';
 
-const useStyles = makeStyles<Theme, {}, SnackbarContentClassKey>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: Partial<ClassNameMap<SnackbarContentClassKey>> },
+  SnackbarContentClassKey
+>(
   (theme) => ({
     root: {
       color: Color.White,

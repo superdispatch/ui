@@ -9,11 +9,16 @@ module.exports = {
         'plugin:@superdispatch/react',
         'plugin:@superdispatch/typescript',
       ],
+      parserOptions: {
+        project: './tsconfig.json',
+      },
       settings: { react: { version: 'detect' } },
       rules: {
         'react/display-name': 'off',
-        'eslint-comments/no-use': 'off',
-        '@superdispatch/no-index-file': 'off',
+        'eslint-comments/no-use': [
+          'error',
+          { allow: ['eslint-disable-next-line'] },
+        ],
 
         'react-hooks/exhaustive-deps': [
           'error',
@@ -59,8 +64,11 @@ module.exports = {
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-namespace': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'import/no-anonymous-default-export': 'off',
         'import/no-extraneous-dependencies': 'off',

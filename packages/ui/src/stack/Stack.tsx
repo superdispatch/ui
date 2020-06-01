@@ -44,7 +44,11 @@ function alignVariant(align: HorizontalAlign): CSSProperties {
   };
 }
 
-const useStyles = makeStyles<SuperDispatchTheme, {}, StackClassKey>(
+const useStyles = makeStyles<
+  SuperDispatchTheme,
+  { classes?: Partial<ClassNameMap<StackClassKey>> },
+  StackClassKey
+>(
   (theme) => ({
     root: {
       '& > $item': {

@@ -49,7 +49,7 @@ export const RadioGroupField: ForwardRefExoticComponent<RadioGroupFieldProps> = 
         ref={ref}
         {...radioGroupProps}
         name={name}
-        value={value}
+        value={value as unknown}
         onChange={onChange}
       >
         {children}

@@ -4,6 +4,7 @@ import { fromPairs } from 'lodash';
 import { Match, match, MatchFunction } from 'path-to-regexp';
 
 export type MockEndpointParams = Record<string, string>;
+export type MockEndpointResponse = Response | Record<string, unknown>;
 
 export interface MockEndpointRequest {
   body: unknown;
@@ -17,7 +18,7 @@ interface MockEndpoint {
   method: string;
   headers: string[][];
   matchers: Array<MatchFunction<MockEndpointParams>>;
-  resolver: jest.Mock<object | Response, [MockEndpointRequest]>;
+  resolver: jest.Mock<MockEndpointResponse, [MockEndpointRequest]>;
 }
 
 const endpoints = new Map<string, MockEndpoint>();
@@ -26,7 +27,7 @@ let fetchMock: jest.SpyInstance;
 
 beforeEach(() => {
   fetchMock = jest.spyOn(window, 'fetch').mockImplementation(
-    async (input: RequestInfo, init?: RequestInit): Promise<Response> => {
+    (input: RequestInfo, init?: RequestInit): Promise<Response> => {
       const request = new Request(input, init);
       const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
 
@@ -37,18 +38,22 @@ beforeEach(() => {
           request.method,
           request.url,
         );
-        return new Response(null, { status: 404 });
+
+        return Promise.resolve(new Response(null, { status: 404 }));
       }
 
       let body: unknown;
 
-      const { _bodyText, _bodyFormData } = request as any;
+      const { _bodyText, _bodyFormData } = request as Request & {
+        _bodyText: string;
+        _bodyFormData?: FormData;
+      };
 
       if (_bodyFormData) {
         body = _bodyFormData;
       } else {
         try {
-          body = JSON.parse(_bodyText);
+          body = JSON.parse(_bodyText) as unknown;
         } catch {
           body = _bodyText;
         }
@@ -73,12 +78,14 @@ beforeEach(() => {
       });
 
       if (response instanceof Response) {
-        return response;
+        return Promise.resolve(response);
       }
 
-      return new Response(JSON.stringify(response), {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return Promise.resolve(
+        new Response(JSON.stringify(response), {
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      );
     },
   );
 });
@@ -133,21 +140,21 @@ export interface MockEndpointOptions {
   method: MockEndpoint['method'];
   headers?: HeadersInit;
   response:
-    | object
-    | Response
-    | ((request: MockEndpointRequest) => object | Response);
+    | MockEndpointResponse
+    | ((request: MockEndpointRequest) => MockEndpointResponse);
 }
 
 export function mockEndpoint(
   name: string,
   { response, matcher, headers, method }: MockEndpointOptions,
-): jest.Mock<object, [MockEndpointRequest]> {
+): jest.Mock<MockEndpointResponse, [MockEndpointRequest]> {
   if (endpoints.has(name)) {
     throw new Error(`MockEndpoint: "${name}" was already registered.`);
   }
 
-  const resolver = jest.fn<object, [MockEndpointRequest]>((arg) =>
-    typeof response === 'function' ? response(arg) : response,
+  const resolver = jest.fn<MockEndpointResponse, [MockEndpointRequest]>(
+    (request) =>
+      typeof response === 'function' ? response(request) : response,
   );
 
   const paths = !Array.isArray(matcher) ? [matcher] : matcher;

@@ -5,7 +5,7 @@ import React from 'react';
 import { FormsContext, FormsProvider } from '../FormsProvider';
 import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
-export async function renderProvider<TValues extends FormikValues, TResponse>(
+export function renderProvider<TValues extends FormikValues, TResponse>(
   defaultConfig: FormsContext,
   formConfig: FormikEnhancedConfig<TValues, TResponse>,
 ) {
@@ -13,6 +13,7 @@ export async function renderProvider<TValues extends FormikValues, TResponse>(
     const { handleSubmit, errors } = useFormikEnhanced<TValues, TResponse>(
       formConfig,
     );
+
     return (
       <div>
         {errors.name}

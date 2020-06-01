@@ -20,7 +20,7 @@ expect.addSnapshotSerializer({
         const decoded = defaultDecoder(str, defaultDecoder, charset);
 
         try {
-          return JSON.parse(decoded);
+          return JSON.parse(decoded) as unknown;
         } catch (e) {
           return decoded;
         }

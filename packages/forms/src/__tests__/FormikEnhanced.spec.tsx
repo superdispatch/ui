@@ -8,7 +8,7 @@ import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 describe('FormsProvider', () => {
   test('default configs', async () => {
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
-    const wrapper = await renderProvider(
+    const wrapper = renderProvider(
       { getFormErrors },
       {
         initialValues: { foo: '' },
@@ -40,7 +40,7 @@ describe('FormsProvider', () => {
       (errorResponse) => errorResponse.fieldErrors,
     );
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
-    const wrapper = await renderProvider(
+    const wrapper = renderProvider(
       { getFormErrors: defaultGetFormErrors },
       {
         initialValues: { foo: '' },
@@ -90,7 +90,7 @@ describe('useFormikEnhanced', () => {
 
     await act(() => result.current.setFieldValue('foo', 'baz'));
 
-    act(() => result.current.handleSubmit());
+    void act(() => result.current.handleSubmit());
 
     await waitForNextUpdate();
 
@@ -131,7 +131,7 @@ describe('useFormikEnhanced', () => {
 
     await act(() => result.current.setFieldValue('foo', 'baz'));
 
-    act(() => result.current.handleSubmit());
+    void act(() => result.current.handleSubmit());
 
     await waitForNextUpdate();
 
@@ -168,7 +168,7 @@ describe('useFormikEnhanced', () => {
   `);
   });
 
-  test('cancel handler when unmounted', async () => {
+  test('cancel handler when unmounted', () => {
     const handleSubmit = jest.fn(() =>
       Promise.resolve({
         meta: { status: 200 },
@@ -184,7 +184,7 @@ describe('useFormikEnhanced', () => {
       }),
     );
 
-    act(() => result.current.handleSubmit());
+    void act(() => result.current.handleSubmit());
 
     unmount();
 
@@ -201,9 +201,7 @@ describe('useFormikEnhanced', () => {
         }),
     );
 
-    await act(async () => {
-      await result.current.setFieldValue('foo', 'baz');
-    });
+    await act(() => result.current.setFieldValue('foo', 'baz'));
 
     expect(result.current.values).toMatchInlineSnapshot(`
 Object {

@@ -412,8 +412,10 @@ export class PhoneNumber {
       return 'is-possible';
     }
 
-    const possibility: PhonePossibility = PhoneNumber.toAPN(value)?.toJSON()
-      .possibility;
+    const apnJSON = PhoneNumber.toAPN(value)?.toJSON() as
+      | undefined
+      | { possibility?: PhonePossibility };
+    const possibility = apnJSON?.possibility;
 
     switch (possibility) {
       case undefined:

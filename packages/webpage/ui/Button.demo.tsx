@@ -7,8 +7,12 @@ import React, { useEffect, useState } from 'react';
 
 type State = undefined | 'disabled' | 'active' | 'loading';
 
-const sizes: Array<ButtonProps['size']> = ['small', 'medium', 'large'];
-const variants: Array<ButtonProps['variant']> = [
+const sizes: ReadonlyArray<NonNullable<ButtonProps['size']>> = [
+  'small',
+  'medium',
+  'large',
+];
+const variants: ReadonlyArray<NonNullable<ButtonProps['variant']>> = [
   'text',
   'outlined',
   'contained',

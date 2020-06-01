@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { CaptionElementProps } from 'react-day-picker';
+import { CaptionElementProps, LocaleUtils } from 'react-day-picker';
 
 export function CalendarCaption({
   date,
@@ -10,7 +10,7 @@ export function CalendarCaption({
 }: CaptionElementProps) {
   return (
     <Typography variant="h4" onClick={onClick} className={classNames.caption}>
-      {localeUtils.formatMonthTitle(date)}
+      {(localeUtils as LocaleUtils).formatMonthTitle(date)}
     </Typography>
   );
 }

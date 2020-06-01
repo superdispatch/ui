@@ -1,12 +1,12 @@
 import { MockEvent } from '@superdispatch/jestutils';
 import { render } from '@testing-library/react';
 import { Form, FormikProvider } from 'formik';
-import React, { PropsWithChildren, ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
 
 function getWrapper<T, R>(formProps: FormikEnhancedConfig<T, R>) {
-  return function Wrapper({ children }: PropsWithChildren<{}>) {
+  return function Wrapper({ children }: { children?: ReactNode }) {
     const formik = useFormikEnhanced(formProps);
 
     return <FormikProvider value={formik}>{children}</FormikProvider>;
