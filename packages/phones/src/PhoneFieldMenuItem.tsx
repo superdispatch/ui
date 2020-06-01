@@ -19,7 +19,11 @@ import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
 
-const useStyles = makeStyles<Theme, {}, PhoneFieldMenuItemClassKey>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: Partial<ClassNameMap<PhoneFieldMenuItemClassKey>> },
+  PhoneFieldMenuItemClassKey
+>(
   (theme) => ({
     dense: {},
     gutters: {},

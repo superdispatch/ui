@@ -30,7 +30,7 @@ export default function TooltipDemo() {
           title={title}
           placement={placement}
           open={isOpen || undefined}
-          key={`${title}-${isOpen}-${placement}`}
+          key={`${title}-${placement}-${String(isOpen)}`}
         >
           <Button>{startCase(placement)}</Button>
         </Tooltip>

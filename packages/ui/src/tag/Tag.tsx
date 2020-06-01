@@ -22,7 +22,11 @@ export type TagClassKey =
   | 'variantSubtle'
   | 'variantBold';
 
-const useStyles = makeStyles<Theme, {}, TagClassKey>(
+const useStyles = makeStyles<
+  Theme,
+  { classes?: Partial<ClassNameMap<TagClassKey>> },
+  TagClassKey
+>(
   (theme) => ({
     root: {
       maxWidth: '100%',
@@ -74,7 +78,7 @@ const useStyles = makeStyles<Theme, {}, TagClassKey>(
 export interface TagProps
   extends RefAttributes<unknown>,
     Omit<TypographyProps, 'ref' | 'classes' | 'color' | 'variant'> {
-  classes?: ClassNameMap<TagClassKey>;
+  classes?: Partial<ClassNameMap<TagClassKey>>;
   component?: ElementType;
 
   color: 'grey' | 'blue' | 'green' | 'purple' | 'red' | 'teal' | 'yellow';

@@ -25,7 +25,7 @@ test('should handle change', async () => {
   );
 
   const input = wrapper.getByLabelText('Name');
-  act(() => MockEvent.changeAndBlur(input, 'John'));
+  void act(() => MockEvent.changeAndBlur(input, 'John'));
 
   expect(handleChange).toHaveBeenCalledTimes(1);
   expect(handleBlur).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ test('should validate', async () => {
 
   expect(input).toBeValid();
 
-  act(() => MockEvent.change(input, ''));
+  void act(() => MockEvent.change(input, ''));
 
   wrapper.submitForm();
 
@@ -133,7 +133,7 @@ test('format and parse value', async () => {
 
   expect(input).toHaveValue('JOHN');
 
-  act(() => MockEvent.change(input, 'SMITH'));
+  void act(() => MockEvent.change(input, 'SMITH'));
 
   wrapper.submitForm();
 

@@ -55,7 +55,11 @@ function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
   };
 }
 
-const useStyles = makeStyles<SuperDispatchTheme, {}, InlineClassKey>(
+const useStyles = makeStyles<
+  SuperDispatchTheme,
+  { classes?: Partial<ClassNameMap<InlineClassKey>> },
+  InlineClassKey
+>(
   (theme) => ({
     root: {
       '&$space1': spaceVariant(theme, 1),

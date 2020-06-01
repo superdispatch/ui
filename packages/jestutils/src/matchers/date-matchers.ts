@@ -2,7 +2,7 @@ import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils';
 
 declare global {
   namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T> {
       toBeSameDate(expected: unknown): R;
     }
   }

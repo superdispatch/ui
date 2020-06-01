@@ -30,7 +30,7 @@ function formatUTC(offset: number): string {
   }
 
   if (offset !== 0) {
-    out += offset / 60;
+    out += String(offset / 60);
   }
 
   return out;

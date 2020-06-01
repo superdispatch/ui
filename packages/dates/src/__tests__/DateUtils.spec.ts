@@ -846,7 +846,7 @@ test.each`
       ...(args.map((arg, idx) => {
         const offset = offsets[idx];
 
-        return arg + (offset == null ? 0 : offset);
+        return arg + (offset == null ? 0 : (offset as number));
       }) as [number]),
     );
 
