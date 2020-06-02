@@ -10,6 +10,7 @@ it('exposes public api', () => {
       "FormikTextField": [Function],
       "FormsProvider": [Function],
       "useFormikEnhanced": [Function],
+      "useFormikEnhancedContext": [Function],
       "useFormsContext": [Function],
       "validatePhone": [Function],
     }

@@ -4,6 +4,7 @@ import {
   FormikErrors,
   FormikValues,
   useFormik,
+  useFormikContext,
 } from 'formik';
 import { useWhenValueChanges } from 'utility-hooks';
 
@@ -101,4 +102,15 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
   });
 
   return formik;
+}
+
+// TODO Remove after https://github.com/jaredpalmer/formik/pull/2323
+export function useFormikEnhancedContext<
+  TValues extends FormikValues,
+  TResponse
+>(): FormikContextTypeEnhanced<TValues, TResponse> {
+  return useFormikContext<TValues>() as FormikContextTypeEnhanced<
+    TValues,
+    TResponse
+  >;
 }
