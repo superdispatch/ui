@@ -62,7 +62,7 @@ export const InfoCard: ForwardRefExoticComponent<InfoCardProps> = forwardRef(
       >
         <CardContent
           {...cardContentProps}
-          className={clsx(cardContentProps?.className, contentClassName)}
+          className={clsx(cardContentProps.className, contentClassName)}
         >
           {children}
         </CardContent>

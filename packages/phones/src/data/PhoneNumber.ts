@@ -290,7 +290,7 @@ export class PhoneNumber {
       (typeof value === 'object' &&
         value != null &&
         'region' in value &&
-        typeof (value as PhoneNumber).region === 'string')
+        typeof (value as Partial<PhoneNumber>).region === 'string')
     );
   }
 
@@ -349,12 +349,12 @@ export class PhoneNumber {
       return undefined;
     }
 
-    const regionCode = apn.getRegionCode() as PhoneRegionCode;
+    const regionCode = apn.getRegionCode();
     const nationalNumber = apn.getNumber('national');
 
     return !regionCode || !nationalNumber
       ? undefined
-      : new PhoneNumber(regionCode, nationalNumber);
+      : new PhoneNumber(regionCode as PhoneRegionCode, nationalNumber);
   }
 
   static getCountryCode(regionCode: PhoneRegionCode): number {
