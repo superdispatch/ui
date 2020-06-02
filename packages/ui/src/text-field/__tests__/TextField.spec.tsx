@@ -265,6 +265,7 @@ it('checks component css', () => {
       text-overflow: ellipsis;
       animation-name: mui-auto-fill-cancel;
       letter-spacing: inherit;
+      animation-duration: 10ms;
       -webkit-tap-highlight-color: transparent;
     }
 

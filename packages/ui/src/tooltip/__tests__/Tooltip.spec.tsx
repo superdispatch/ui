@@ -116,6 +116,7 @@ it('checks component css', () => {
       overflow: hidden;
       position: absolute;
       font-size: 8px;
+      box-sizing: border-box;
     }
 
     .MuiTooltip-arrow::before {
