@@ -18,15 +18,15 @@ declare global {
 
 expect.extend({
   toHaveBeenLastCalledWithMatchingInlineSnapshot(received: unknown, ...args) {
-    const calls = (received as jest.Mock)?.mock?.calls;
-    const lastCall = calls?.[calls?.length - 1] as unknown;
+    const { calls } = (received as jest.Mock).mock;
+    const lastCall = calls[calls.length - 1] as unknown;
 
     return toMatchInlineSnapshot.call(this as any, lastCall, ...args);
   },
 
   toHaveLastReturnedWithMatchingInlineSnapshot(received: unknown, ...args) {
-    const results = (received as jest.Mock)?.mock?.results;
-    const lastResult = results?.[results?.length - 1]?.value as unknown;
+    const { results } = (received as jest.Mock).mock;
+    const lastResult = results[results.length - 1]?.value as unknown;
 
     return toMatchInlineSnapshot.call(this as any, lastResult, ...args);
   },
