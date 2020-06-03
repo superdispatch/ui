@@ -8,7 +8,6 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
   const sm = theme.breakpoints.up('sm');
 
   // TODO: Remove `Object.assign` after official release of `Autocomplete`.
-
   Object.assign(theme.props, {
     MuiAutocomplete: {
       disableClearable: true,
@@ -62,7 +61,7 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
 
           '& $input': {
             padding: theme.spacing(0.5),
-            minWidth: theme.spacing(12),
+            minWidth: theme.spacing(18),
           },
 
           '& $input:first-child': { paddingLeft: undefined },
