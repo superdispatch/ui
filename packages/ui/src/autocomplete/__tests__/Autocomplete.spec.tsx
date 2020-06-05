@@ -8,15 +8,6 @@ it('checks default props', () => {
   // FIXME Use proper type after after official release.
   expect((props as any).MuiAutocomplete).toMatchInlineSnapshot(`
     Object {
-      "closeIcon": <WithStyles(ForwardRef(SvgIcon))>
-        <path
-          clipRule="evenodd"
-          d="M13.239 12L17 8.239 15.761 7 12 10.761 8.239 7 7 8.239 10.761 12 7 15.761 8.239 17 12 13.239 15.761 17 17 15.761 13.239 12z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </WithStyles(ForwardRef(SvgIcon))>,
-      "disableClearable": true,
       "popupIcon": <WithStyles(ForwardRef(SvgIcon))>
         <path
           d="M12 16.5L6 9h12l-6 7.5z"
@@ -216,17 +207,6 @@ it('checks component css', () => {
       padding: 4px;
       visibility: hidden;
       margin-right: -2px;
-    }
-
-    .MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
-      color: Color.Grey100;
-      font-size: 24px;
-    }
-
-    @media (min-width: 600px) {
-      .MuiAutocomplete-clearIndicator .MuiSvgIcon-root {
-        font-size: 16px;
-      }
     }
 
     .MuiAutocomplete-popupIndicator {
