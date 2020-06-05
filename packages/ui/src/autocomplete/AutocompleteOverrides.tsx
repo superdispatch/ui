@@ -1,7 +1,6 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
-import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 export function overrideAutocomplete(theme: SuperDispatchTheme) {
@@ -10,20 +9,9 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
   // TODO: Remove `Object.assign` after official release of `Autocomplete`.
   Object.assign(theme.props, {
     MuiAutocomplete: {
-      disableClearable: true,
       popupIcon: (
         <SvgIcon>
           <path d="M12 16.5L6 9h12l-6 7.5z" fill="currentColor" />
-        </SvgIcon>
-      ),
-      closeIcon: (
-        <SvgIcon>
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            fill="currentColor"
-            d="M13.239 12L17 8.239 15.761 7 12 10.761 8.239 7 7 8.239 10.761 12 7 15.761 8.239 17 12 13.239 15.761 17 17 15.761 13.239 12z"
-          />
         </SvgIcon>
       ),
     },
@@ -44,13 +32,6 @@ export function overrideAutocomplete(theme: SuperDispatchTheme) {
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
-          fontSize: theme.spacing(3),
-          [sm]: { fontSize: theme.spacing(2) },
-        },
-      },
-      clearIndicator: {
-        '& .MuiSvgIcon-root': {
-          color: Color.Grey100,
           fontSize: theme.spacing(3),
           [sm]: { fontSize: theme.spacing(2) },
         },

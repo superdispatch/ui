@@ -113,7 +113,7 @@ const top100Films = [
 
 export default function AutocompleteDemo() {
   const disabled = boolean('Disabled', false);
-  const clearable = boolean('Clearable', false);
+  const clearable = boolean('Clearable', true);
   const hasLabel = boolean('Has Label', true);
   const hasPopup = boolean('Has Popup', true);
   const hasError = boolean('Has Error', false);
