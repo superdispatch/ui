@@ -1,6 +1,11 @@
-import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
-import { boolean } from '@storybook/addon-knobs';
+import {
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  TextField,
+} from '@material-ui/core';
+import { AccountCircle, Close } from '@material-ui/icons';
+import { boolean, select } from '@storybook/addon-knobs';
 import { Stack } from '@superdispatch/ui';
 import { startCase } from 'lodash';
 import React, { useState } from 'react';
@@ -14,8 +19,18 @@ export default function TextFieldDemo() {
   const isFullWidth = boolean('Full Width', false);
   const isMultiline = boolean('Multiline', false);
   const hasHelperText = boolean('Has Helper Text', false);
-  const hasStartIcon = boolean('Has Start Icon', false);
-  const hasEndIcon = boolean('Has End Icon', false);
+
+  const startIcon = select(
+    'Start Icon',
+    { None: 'none', Small: 'small', Default: 'default' },
+    'none',
+  );
+
+  const endIcon = select(
+    'End Icon',
+    { None: 'none', Small: 'small', Default: 'default' },
+    'none',
+  );
 
   const [text, setText] = useState('');
   const [subscriptionType, setSubscriptionType] = useState('');
@@ -39,14 +54,16 @@ export default function TextFieldDemo() {
             : 'Enter your email'
         }
         InputProps={{
-          startAdornment: hasStartIcon && (
+          startAdornment: startIcon !== 'none' && (
             <InputAdornment position="start">
-              <AccountCircle />
+              <AccountCircle color="action" fontSize={startIcon} />
             </InputAdornment>
           ),
-          endAdornment: hasEndIcon && (
+          endAdornment: endIcon !== 'none' && (
             <InputAdornment position="end">
-              <AccountCircle />
+              <IconButton size="small">
+                <Close color="action" fontSize={endIcon} />
+              </IconButton>
             </InputAdornment>
           ),
         }}
@@ -68,10 +85,10 @@ export default function TextFieldDemo() {
             ? 'Invalid subscription type'
             : 'Choose subscription type'
         }
-        InputProps={{
-          startAdornment: hasStartIcon && (
+        SelectProps={{
+          startAdornment: startIcon !== 'none' && (
             <InputAdornment position="start">
-              <AccountCircle />
+              <AccountCircle color="action" fontSize={startIcon} />
             </InputAdornment>
           ),
         }}

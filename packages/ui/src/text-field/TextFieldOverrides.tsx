@@ -110,7 +110,7 @@ export function overrideTextField(theme: SuperDispatchTheme) {
 
   theme.overrides.MuiInputAdornment = {
     root: {
-      '& .MuiSvgIcon-root': {
+      '& .MuiSvgIcon-root:not(.MuiSvgIcon-fontSizeSmall)': {
         fontSize: theme.spacing(3),
         [sm]: { fontSize: theme.spacing(2.5) },
       },

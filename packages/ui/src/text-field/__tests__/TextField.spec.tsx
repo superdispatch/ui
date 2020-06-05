@@ -156,7 +156,7 @@ it('checks component css', () => {
       white-space: nowrap;
     }
 
-    .MuiInputAdornment-root .MuiSvgIcon-root {
+    .MuiInputAdornment-root .MuiSvgIcon-root:not(.MuiSvgIcon-fontSizeSmall) {
       font-size: 24px;
     }
 
@@ -165,7 +165,7 @@ it('checks component css', () => {
     }
 
     @media (min-width: 600px) {
-      .MuiInputAdornment-root .MuiSvgIcon-root {
+      .MuiInputAdornment-root .MuiSvgIcon-root:not(.MuiSvgIcon-fontSizeSmall) {
         font-size: 20px;
       }
     }
