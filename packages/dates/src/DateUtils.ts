@@ -16,7 +16,10 @@ export type DateLike = number | Date;
 export type NullableDateLike = null | undefined | DateLike;
 export type DateRange = [Date?, Date?];
 export type DateRangeLike = [DateLike?, DateLike?];
-export type NullableDateRangeLike = null | undefined | DateRangeLike;
+export type NullableDateRangeLike =
+  | null
+  | undefined
+  | [NullableDateLike?, NullableDateLike?];
 
 export interface DateUtilsOptions {
   locale?: string;
@@ -58,6 +61,33 @@ export function isDateLike(value: unknown): value is DateLike {
 
 export function isValidDate(value: unknown): value is Date {
   return isDate(value) && Number.isFinite(value.getTime());
+}
+
+function checkRange(
+  range: unknown,
+  validator: (value: unknown) => boolean,
+): boolean {
+  if (!Array.isArray(range) || range.length > 2) {
+    return false;
+  }
+
+  const [start, finish] = range as unknown[];
+
+  return (
+    (start == null || validator(start)) && (finish == null || validator(finish))
+  );
+}
+
+export function isDateRange(range: unknown): range is DateRange {
+  return checkRange(range, isDate);
+}
+
+export function isDateRangeLike(range: unknown): range is DateRangeLike {
+  return checkRange(range, isDateLike);
+}
+
+export function isValidDateRange(range: unknown): range is DateRange {
+  return checkRange(range, isValidDate);
 }
 
 export function toDate(value: NullableDateLike): Date {
