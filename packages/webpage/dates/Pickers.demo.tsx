@@ -6,7 +6,7 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { boolean, select } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import {
   DateContextProvider,
   DateField,
@@ -58,6 +58,7 @@ export default function PickersDemo() {
   const hasClear = boolean('Clearable', false);
   const hasAdornment = boolean('With Adornment', false);
   const disableCloseOnSelect = boolean('Disable Close on Select', false);
+  const emptyText = text('Empty text', '');
 
   const [range, setRange] = useState<DateRange>([]);
   const utils = useMemo(() => new DateUtils({ timeZoneOffset }), [
@@ -73,6 +74,7 @@ export default function PickersDemo() {
           <DateField
             value={range[0]}
             disabled={disabled}
+            emptyText={emptyText}
             onChange={(value) => setRange(toDateRange([value, range[1]]))}
             hasClearButton={hasClear}
             disableCloseOnSelect={disableCloseOnSelect}
@@ -102,6 +104,7 @@ export default function PickersDemo() {
             disabled={disabled}
             onChange={(value) => setRange(toDateRange(value))}
             hasClearButton={hasClear}
+            emptyText={emptyText}
             disableCloseOnSelect={disableCloseOnSelect}
             fullWidth={isFullWidth}
             InputProps={{

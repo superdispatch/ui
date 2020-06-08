@@ -95,19 +95,16 @@ export function toDate(value: NullableDateLike): Date {
 }
 
 export function toDateRange(range: NullableDateRangeLike): DateRange {
-  if (range == null || !Array.isArray(range)) {
+  if (range == null || !isDateRangeLike(range)) {
     return [];
   }
 
-  const [start, end] = range
-    .filter(isDateLike)
-    .slice(0, 2)
-    .map(toDate)
+  return range
+    .filter((x) => x != null)
+    .map((x) => (x == null ? undefined : toDate(x)))
     .sort((a, b) =>
       !isValidDate(a) ? -1 : !isValidDate(b) ? 1 : a.valueOf() - b.valueOf(),
-    );
-
-  return [start, end];
+    ) as DateRange;
 }
 
 export function parseDate(value: unknown, format: DateFormat): Date {
@@ -332,25 +329,27 @@ export class DateUtils {
     );
   }
 
-  formatRange(range: DateRangeLike): string {
-    const [from, to] = toDateRange(range);
+  formatRange(value: NullableDateRangeLike, emptyText = ''): string {
+    const range = toDateRange(value);
 
-    if (!from) {
-      return '';
-    }
-
-    if (!isValidDate(from) || (isDate(to) && !isValidDate(to))) {
+    if (!isValidDateRange(range)) {
       return 'Invalid Date Range';
     }
 
-    const fromText = this.format(
-      from,
-      !this.isSameDate(from, to, 'year') ? 'date' : 'shortDate',
+    const [start, finish] = range;
+
+    if (!start) {
+      return emptyText;
+    }
+
+    const startText = this.format(
+      start,
+      !this.isSameDate(start, finish, 'year') ? 'date' : 'shortDate',
     );
 
-    const toText = !to ? '…' : this.format(to, 'date');
+    const finishText = !finish ? '…' : this.format(finish, 'date');
 
-    return `${fromText} - ${toText}`;
+    return `${startText} - ${finishText}`;
   }
 
   formatRelativeTime(

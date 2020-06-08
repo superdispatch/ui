@@ -35,6 +35,7 @@ export interface DateFieldProps
     > {
   hasClearButton?: boolean;
   disableCloseOnSelect?: boolean;
+  emptyText?: string;
   value?: DateLike;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -63,6 +64,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       value: valueProp,
       inputRef: inputRefProp,
       format = 'date',
+      emptyText = '',
       hasClearButton = false,
       disableCloseOnSelect = false,
       CalendarProps: { onDayClick, ...calendarProps } = {},
@@ -79,7 +81,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const value = useDate(valueProp, 'second');
     const formatted = useFormattedDate(value, format);
-    const textValue = !isValidDate(value) ? '' : formatted;
+    const textValue = isValidDate(value) ? formatted : emptyText;
 
     const isSelectedDay = useCallback<CalendarModifier>(
       (date, utils) => utils.isSameDate(date, value, 'day'),

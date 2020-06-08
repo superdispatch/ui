@@ -9,6 +9,7 @@ import {
   isDateRangeLike,
   isValidDate,
   isValidDateRange,
+  NullableDateLike,
   parseDate,
   stringifyDate,
   toDate,
@@ -827,24 +828,34 @@ test.each`
   },
 );
 
-test.each([
-  [undefined, undefined, ''],
-  [invalidDate(), undefined, 'Invalid Date Range'],
-  [invalidDate(), invalidDate(), 'Invalid Date Range'],
-  [mockDate(), invalidDate(), 'Invalid Date Range'],
-  [mockDate(), undefined, 'May 24, 2019 - …'],
-  [mockDate({ month: 5 }), mockDate({ month: 6 }), 'May 24 - Jun 24, 2019'],
+test.each<[NullableDateLike, NullableDateLike, string | undefined, string]>([
+  [undefined, undefined, undefined, ''],
+  [undefined, undefined, 'Empty Text', 'Empty Text'],
+  [invalidDate(), undefined, undefined, 'Invalid Date Range'],
+  [invalidDate(), invalidDate(), undefined, 'Invalid Date Range'],
+  [mockDate(), invalidDate(), undefined, 'Invalid Date Range'],
+  [mockDate(), undefined, undefined, 'May 24, 2019 - …'],
+  [
+    mockDate({ month: 5 }),
+    mockDate({ month: 6 }),
+    undefined,
+    'May 24 - Jun 24, 2019',
+  ],
   [
     mockDate({ year: 2020 }),
     mockDate({ year: 2019 }),
+    undefined,
     'May 24, 2019 - May 24, 2020',
   ],
-])('DateUtils#formatDateRange', (start, end, result) => {
-  const utils = new DateUtils();
+])(
+  'DateUtils#formatDateRange([%p, %p]) -> %p',
+  (start, end, emptyText, result) => {
+    const utils = new DateUtils();
 
-  expect(utils.formatRange([start, end])).toBe(result);
-  expect(utils.formatRange([end, start])).toBe(result);
-});
+    expect(utils.formatRange([start, end], emptyText)).toBe(result);
+    expect(utils.formatRange([end, start], emptyText)).toBe(result);
+  },
+);
 
 test.each`
   offsets                | narrow          | short           | long
