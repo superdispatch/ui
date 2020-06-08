@@ -186,6 +186,7 @@ it('exposes public api', () => {
       "ThemeProvider": [Function],
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
+      "renderChildren": [Function],
       "useSnackbarStack": [Function],
       "useUID": [Function],
       "useVisibilityObserver": [Function],

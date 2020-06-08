@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { renderChildren } from '@superdispatch/ui';
 
 import { useDateUtils } from './DateContext';
 import { DateLike, RelativeTimeFormatOptions } from './DateUtils';
@@ -22,7 +22,8 @@ export function FormattedRelativeTime({
   date,
   compare,
   ...options
-}: FormattedRelativeTimeProps): ReactElement {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{useFormattedRelativeTime(date, compare, options)}</>;
+}: FormattedRelativeTimeProps) {
+  const formatted = useFormattedRelativeTime(date, compare, options);
+
+  return renderChildren(formatted);
 }

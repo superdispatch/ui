@@ -1,4 +1,5 @@
-import { ReactElement, ReactNode, useMemo } from 'react';
+import { renderChildren } from '@superdispatch/ui';
+import { ReactNode, useMemo } from 'react';
 
 import { NullablePhoneNumberLike, PhoneNumber } from './data/PhoneNumber';
 
@@ -23,14 +24,11 @@ export interface PhoneTextProps {
   fallback?: ReactNode;
 }
 
-export function PhoneText({
-  phone,
-  fallback,
-}: PhoneTextProps): null | ReactElement {
+export function PhoneText({ phone, fallback }: PhoneTextProps) {
   const phoneNumber = usePhoneNumber(phone);
   const children = useMemo(() => PhoneNumber.toInternational(phoneNumber), [
     phoneNumber,
   ]);
 
-  return (children || fallback || phone || null) as ReactElement;
+  return renderChildren(children || fallback || phone);
 }

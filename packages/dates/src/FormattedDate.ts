@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { renderChildren } from '@superdispatch/ui';
 
 import { useDateUtils } from './DateContext';
 import { DateFormatVariant, DateLike } from './DateUtils';
@@ -17,10 +17,8 @@ export interface FormattedDateProps {
   variant: DateFormatVariant;
 }
 
-export function FormattedDate({
-  date,
-  variant,
-}: FormattedDateProps): ReactElement {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{useFormattedDate(date, variant)}</>;
+export function FormattedDate({ date, variant }: FormattedDateProps) {
+  const formatted = useFormattedDate(date, variant);
+
+  return renderChildren(formatted);
 }

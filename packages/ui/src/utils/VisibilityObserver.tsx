@@ -1,5 +1,7 @@
-import { ReactElement, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useIsomorphicLayoutEffect, useWhenValueChanges } from 'utility-hooks';
+
+import { renderChildren } from './renderChildren';
 
 export type ElementVisibility = 'undetermined' | 'visible' | 'invisible';
 
@@ -52,7 +54,7 @@ export interface VisibilityObserverRenderProps {
 }
 
 export interface VisibilityObserverProps extends VisibilityObserverOptions {
-  render: (props: VisibilityObserverRenderProps) => ReactElement;
+  render: (props: VisibilityObserverRenderProps) => ReactNode;
   onChange?: (visibility: ElementVisibility) => void;
 }
 
@@ -60,11 +62,12 @@ export function VisibilityObserver({
   render,
   onChange,
   ...options
-}: VisibilityObserverProps): ReactElement {
+}: VisibilityObserverProps) {
   const [node, setNode] = useState<null | HTMLElement>(null);
   const visibility = useVisibilityObserver(node, options);
+  const children = render({ ref: setNode, visibility });
 
   useWhenValueChanges(visibility, () => onChange?.(visibility));
 
-  return render({ ref: setNode, visibility });
+  return renderChildren(children);
 }
