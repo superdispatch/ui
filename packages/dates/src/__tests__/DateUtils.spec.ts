@@ -5,7 +5,10 @@ import {
   DateUtils,
   isDate,
   isDateLike,
+  isDateRange,
+  isDateRangeLike,
   isValidDate,
+  isValidDateRange,
   parseDate,
   stringifyDate,
   toDate,
@@ -89,6 +92,28 @@ test.each`
   expect(isDate(input)).toBe(date);
   expect(isDateLike(input)).toBe(dateLike);
   expect(isValidDate(input)).toBe(validDate);
+});
+
+test.each`
+  input                                                  | range    | rangeLike | validRange
+  ${null}                                                | ${false} | ${false}  | ${false}
+  ${undefined}                                           | ${false} | ${false}  | ${false}
+  ${{}}                                                  | ${false} | ${false}  | ${false}
+  ${''}                                                  | ${false} | ${false}  | ${false}
+  ${[]}                                                  | ${true}  | ${true}   | ${true}
+  ${[mockTimestamp()]}                                   | ${false} | ${true}   | ${false}
+  ${[mockTimestamp(), mockTimestamp()]}                  | ${false} | ${true}   | ${false}
+  ${[mockTimestamp(), mockTimestamp(), mockTimestamp()]} | ${false} | ${false}  | ${false}
+  ${[mockDate()]}                                        | ${true}  | ${true}   | ${true}
+  ${[mockDate(), mockDate()]}                            | ${true}  | ${true}   | ${true}
+  ${[mockDate(), mockDate(), mockDate()]}                | ${false} | ${false}  | ${false}
+  ${[invalidDate()]}                                     | ${true}  | ${true}   | ${false}
+  ${[invalidDate(), invalidDate()]}                      | ${true}  | ${true}   | ${false}
+  ${[invalidDate(), invalidDate(), invalidDate()]}       | ${false} | ${false}  | ${false}
+`('validates "$input" range', ({ input, range, rangeLike, validRange }) => {
+  expect(isDateRange(input)).toBe(range);
+  expect(isDateRangeLike(input)).toBe(rangeLike);
+  expect(isValidDateRange(input)).toBe(validRange);
 });
 
 test.each`
