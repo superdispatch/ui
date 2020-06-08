@@ -1,8 +1,8 @@
 import { Link, LinkProps } from '@material-ui/core';
+import { renderChildren } from '@superdispatch/ui';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  ReactElement,
   ReactNode,
   RefAttributes,
   useMemo,
@@ -32,7 +32,7 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   );
 
   return !linkProps.children ? (
-    ((fallback || phone || null) as ReactElement)
+    renderChildren(fallback || phone)
   ) : (
     <Link {...props} {...linkProps} ref={ref} />
   );

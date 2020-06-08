@@ -25,5 +25,6 @@ export * from './theme/ThemeProvider';
 export * from './theme/Color';
 export * from './theme/types';
 export * from './utils/mergeRefs';
+export * from './utils/renderChildren';
 export * from './utils/useUID';
 export * from './utils/VisibilityObserver';
