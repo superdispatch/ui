@@ -66,7 +66,7 @@ export interface DateRangeFieldProps
     Omit<StandardTextFieldProps, 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
   hasClearButton?: boolean;
   disableCloseOnSelect?: boolean;
-
+  emptyText?: string;
   value?: NullableDateRangeLike;
   onBlur?: () => void;
   onFocus?: () => void;
@@ -90,6 +90,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       renderQuickSelection,
       value: valueProp,
       inputRef: inputRefProp,
+      emptyText = '',
       hasClearButton = false,
       disableCloseOnSelect = false,
       CalendarProps: {
@@ -184,7 +185,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       change: handleChange,
     };
 
-    const textValue = dateUtils.formatRange(value);
+    const textValue = dateUtils.formatRange(value, emptyText);
 
     useWhenValueChanges(anchorEl, () => {
       if (!anchorEl) {
