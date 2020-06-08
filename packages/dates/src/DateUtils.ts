@@ -9,6 +9,8 @@ export type DateUnit =
   | 'minute'
   | 'second'
   | 'millisecond';
+export type DateDurationUnit = DateUnit | 'quarter' | 'week';
+
 export type DateObject = Record<DateUnit, number>;
 
 export type NullableDate = null | undefined | Date;
@@ -244,11 +246,11 @@ export class DateUtils {
     return this.update(date, { hour, minute, second, millisecond });
   }
 
-  startOf(value: DateLike, unit: DateUnit): Date {
+  startOf(value: DateLike, unit: DateDurationUnit): Date {
     return this.toDateTime(value).startOf(unit).toJSDate();
   }
 
-  endOf(value: DateLike, unit: DateUnit): Date {
+  endOf(value: DateLike, unit: DateDurationUnit): Date {
     return this.toDateTime(value).endOf(unit).toJSDate();
   }
 
