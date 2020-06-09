@@ -2,30 +2,27 @@
 
 const { join, relative } = require('path');
 
-function getDeployInfo() {
-  const { NETLIFY, BRANCH, REVIEW_ID } = process.env;
+const { GITHUB_REF } = process.env;
+const GITHUB_BRANCH = GITHUB_REF === 'refs/heads/master' ? 'master' : null;
 
-  return !NETLIFY ? null : { pr: REVIEW_ID, branch: BRANCH };
-}
+const DEMO_FILE_REGEXP = /\.demo\.tsx?$/;
 
 module.exports = ({ types }) => {
   return {
     visitor: {
       ExportDefaultDeclaration(path, { filename }) {
-        if (!filename.match(/\.demo\.tsx?$/)) {
+        if (!GITHUB_BRANCH) {
           return;
         }
 
-        const deployInfo = getDeployInfo();
-
-        if (!deployInfo) {
+        if (!DEMO_FILE_REGEXP.test(filename)) {
           return;
         }
 
         const { name } = path.node.declaration.id;
 
         const values = {
-          ...deployInfo,
+          branch: GITHUB_BRANCH,
           filename: relative(join(__dirname, '..'), filename),
         };
 
