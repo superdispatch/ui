@@ -1,19 +1,16 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
-  Children,
   forwardRef,
   ForwardRefExoticComponent,
   HTMLAttributes,
+  ReactNode,
   RefAttributes,
 } from 'react';
+import flattenChildren from 'react-keyed-flatten-children';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import {
-  CloneableReactNode,
-  HorizontalAlign,
-  VerticalAlign,
-} from '../theme/types';
+import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
 type InlineClassKey =
   | 'root'
@@ -116,7 +113,7 @@ export interface InlineProps
   space: InlineSpacing;
   verticalAlign?: VerticalAlign;
   horizontalAlign?: HorizontalAlign;
-  children?: CloneableReactNode;
+  children?: ReactNode;
   classes?: Partial<ClassNameMap<InlineClassKey>>;
 }
 
@@ -159,7 +156,7 @@ export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
         })}
       >
         <div className={styles.container}>
-          {Children.map(children, (child, idx) => (
+          {flattenChildren(children).map((child, idx) => (
             <div key={idx} className={styles.item}>
               {child}
             </div>
