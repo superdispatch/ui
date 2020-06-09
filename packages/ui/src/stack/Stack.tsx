@@ -1,15 +1,16 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
-  Children,
   forwardRef,
   ForwardRefExoticComponent,
   HTMLAttributes,
+  ReactNode,
   RefAttributes,
 } from 'react';
+import flattenChildren from 'react-keyed-flatten-children';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { CloneableReactNode, HorizontalAlign } from '../theme/types';
+import { HorizontalAlign } from '../theme/types';
 
 type StackClassKey =
   | 'root'
@@ -96,7 +97,7 @@ export interface StackProps
     RefAttributes<HTMLDivElement> {
   space: StackSpacing;
   align?: HorizontalAlign;
-  children?: CloneableReactNode;
+  children?: ReactNode;
   classes?: Partial<ClassNameMap<StackClassKey>>;
 }
 
@@ -124,7 +125,7 @@ export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
           [styles.alignCenter]: align === 'center',
         })}
       >
-        {Children.map(children, (child, idx) => (
+        {flattenChildren(children).map((child, idx) => (
           <div key={idx} className={clsx(styles.item)}>
             {child}
           </div>

@@ -1,7 +1,88 @@
-import { renderCSS } from '@superdispatch/ui-testutils';
-import React from 'react';
+import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
+import React, { Fragment } from 'react';
 
 import { Inline } from '../Inline';
+
+it('renders sentence', () => {
+  const { container } = renderComponent(<Inline space={1}>Hello There</Inline>);
+
+  expect(container).toMatchInlineSnapshot(`
+    <div>
+      <div
+        class="SuperDispatchInline-root SuperDispatchInline-space1"
+      >
+        <div
+          class="SuperDispatchInline-container"
+        >
+          <div
+            class="SuperDispatchInline-item"
+          >
+            Hello There
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+});
+
+it('flattens children', () => {
+  const { container } = renderComponent(
+    <Inline space={1}>
+      A{null}
+      {false}
+      {undefined}
+      <>
+        B{null}
+        {false}
+        {undefined}
+        {[
+          null,
+          false,
+          undefined,
+          'C',
+          <Fragment key="d">
+            D{null}
+            {false}
+            {undefined}
+          </Fragment>,
+        ]}
+      </>
+    </Inline>,
+  );
+
+  expect(container).toMatchInlineSnapshot(`
+    <div>
+      <div
+        class="SuperDispatchInline-root SuperDispatchInline-space1"
+      >
+        <div
+          class="SuperDispatchInline-container"
+        >
+          <div
+            class="SuperDispatchInline-item"
+          >
+            A
+          </div>
+          <div
+            class="SuperDispatchInline-item"
+          >
+            B
+          </div>
+          <div
+            class="SuperDispatchInline-item"
+          >
+            C
+          </div>
+          <div
+            class="SuperDispatchInline-item"
+          >
+            D
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+});
 
 it('checks component css', () => {
   expect(

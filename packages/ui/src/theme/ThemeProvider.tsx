@@ -116,7 +116,7 @@ function generateClassName(rule: Rule, sheet?: StyleSheet) {
 }
 
 export interface ThemeProviderProps {
-  children: ReactNode;
+  children?: ReactNode;
   modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
 
