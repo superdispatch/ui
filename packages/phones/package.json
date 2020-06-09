@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/phones",
-  "version": "0.3.12",
+  "version": "0.3.15",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",
-    "@superdispatch/ui": "^0.3.12",
+    "@superdispatch/ui": "^0.3.15",
     "awesome-phonenumber": "^2.33.0",
     "clsx": "^1.1.1",
     "utility-hooks": "^0.6.1"
