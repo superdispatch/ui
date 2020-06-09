@@ -18,6 +18,11 @@ export type DateLike = number | Date;
 export type NullableDateLike = null | undefined | DateLike;
 export type DateRange = [Date?, Date?];
 export type DateRangeLike = [DateLike?, DateLike?];
+export type NullableDateRange =
+  | null
+  | undefined
+  | [NullableDate?, NullableDate?];
+
 export type NullableDateRangeLike =
   | null
   | undefined
