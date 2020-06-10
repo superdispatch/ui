@@ -29,8 +29,43 @@ test('handles changes', async () => {
     fireEvent.blur(field);
   });
 
+  expect(field).not.toBeChecked();
   expect(handleChange).toHaveBeenCalledTimes(1);
   expect(handleBlur).toHaveBeenCalledTimes(1);
+
+  wrapper.submitForm();
+
+  await waitFor(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({ agree: false });
+});
+
+test('format and parse value', async () => {
+  const handleSubmit = jest.fn();
+
+  const wrapper = renderFormField(
+    <FormikCheckboxField
+      label="Agree"
+      name="agree"
+      format={(value) => !value}
+      parse={(event) => !event.target.value}
+    />,
+    {
+      initialValues: { agree: true },
+      onSubmit: handleSubmit,
+    },
+  );
+
+  const field = wrapper.getByLabelText('Agree');
+
+  MockEvent.click(field);
+  act(() => {
+    fireEvent.blur(field);
+  });
+
+  expect(field).toBeChecked();
 
   wrapper.submitForm();
 
