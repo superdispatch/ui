@@ -6,7 +6,7 @@ export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
   format?: (value?: boolean) => boolean | undefined;
-  parse?: (event: ChangeEvent<Record<string, unknown>>) => boolean;
+  parse?: (event: ChangeEvent<HTMLInputElement>) => boolean;
 }
 
 export function FormikCheckboxField({
@@ -47,7 +47,7 @@ export function FormikCheckboxField({
       onChange={(event, checked) => {
         onChange?.(event, checked);
         if (parse) {
-          setValue(parse(event));
+          setValue(parse(event as ChangeEvent<HTMLInputElement>));
         } else {
           field.onChange(event);
         }
