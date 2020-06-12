@@ -1,12 +1,12 @@
 import { CheckboxField, CheckboxFieldProps, useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
   format?: (value?: boolean) => boolean | undefined;
-  parse?: (event: ChangeEvent<HTMLInputElement>) => boolean;
+  parse?: (event: React.ChangeEvent<Record<string, unknown>>) => boolean;
 }
 
 export function FormikCheckboxField({
@@ -47,7 +47,7 @@ export function FormikCheckboxField({
       onChange={(event, checked) => {
         onChange?.(event, checked);
         if (parse) {
-          setValue(parse(event as ChangeEvent<HTMLInputElement>));
+          setValue(parse(event));
         } else {
           field.onChange(event);
         }
