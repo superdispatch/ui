@@ -10,7 +10,7 @@ export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
     checked: boolean | undefined,
   ) => boolean | undefined;
   parse?: (
-    event: React.ChangeEvent<Record<string, unknown>>,
+    event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean,
   ) => unknown;
 }
