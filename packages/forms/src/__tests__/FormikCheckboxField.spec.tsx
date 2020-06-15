@@ -117,6 +117,7 @@ test('format and parse value with enum', async () => {
     });
 
     expect(handleSubmit).toHaveBeenLastCalledWith({ status });
+    handleSubmit.mockClear();
   }
 });
 
