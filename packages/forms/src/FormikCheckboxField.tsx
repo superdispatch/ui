@@ -24,7 +24,7 @@ export function FormikCheckboxField({
 }: FormikCheckboxFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
-  const [field, { error, touched }, { setValue }] = useField<boolean>({
+  const [field, { error, touched }, { setValue }] = useField<unknown>({
     name,
     validate,
     type: 'checkbox',
