@@ -5,12 +5,22 @@ import React from 'react';
 export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
+  format?: (
+    value: unknown,
+    checked: boolean | undefined,
+  ) => boolean | undefined;
+  parse?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean,
+  ) => unknown;
 }
 
 export function FormikCheckboxField({
   id,
   name,
+  parse,
   validate,
+  format = (x) => !!x,
 
   onBlur,
   onChange,
@@ -20,7 +30,7 @@ export function FormikCheckboxField({
 }: FormikCheckboxFieldProps) {
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
-  const [field, { error, touched }] = useField({
+  const [field, { error, touched }, { setValue }] = useField<unknown>({
     name,
     validate,
     type: 'checkbox',
@@ -33,6 +43,7 @@ export function FormikCheckboxField({
       {...field}
       id={id || uid}
       error={!!errorText}
+      checked={format(field.value, field.checked)}
       disabled={disabled || isSubmitting}
       helperText={errorText || helperText}
       onBlur={(event) => {
@@ -41,7 +52,11 @@ export function FormikCheckboxField({
       }}
       onChange={(event, checked) => {
         onChange?.(event, checked);
-        field.onChange(event);
+        if (parse) {
+          setValue(parse(event, checked));
+        } else {
+          field.onChange(event);
+        }
       }}
     />
   );
