@@ -47,6 +47,42 @@ test('format and parse value', async () => {
 
   const wrapper = renderFormField(
     <FormikCheckboxField
+      label="Agree"
+      name="agree"
+      format={(_, checked) => !checked}
+      parse={(_, checked) => !checked}
+    />,
+    {
+      initialValues: { agree: true },
+      onSubmit: handleSubmit,
+    },
+  );
+
+  const field = wrapper.getByLabelText('Agree');
+
+  expect(field).not.toBeChecked();
+
+  MockEvent.click(field);
+  act(() => {
+    fireEvent.blur(field);
+  });
+
+  expect(field).toBeChecked();
+
+  wrapper.submitForm();
+
+  await waitFor(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({ agree: false });
+});
+
+test('format and parse value with enum', async () => {
+  const handleSubmit = jest.fn();
+
+  const wrapper = renderFormField(
+    <FormikCheckboxField
       name="status"
       label="Status"
       format={(value) => value === 'active'}
