@@ -19,6 +19,9 @@ export interface InlineGridProps
       | 'alignItems'
     > {}
 
+/**
+ * @deprecated in favor of `Inline` component.
+ */
 export const InlineGrid: ForwardRefExoticComponent<InlineGridProps> = forwardRef(
   (
     {
