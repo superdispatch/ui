@@ -610,6 +610,15 @@ it('checks component css', () => {
       }
     }
 
+    .MuiSelect-nativeInput {
+      left: 0;
+      width: 100%;
+      bottom: 0;
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
     .PrivateNotchedOutline-root-1 {
       top: -5px;
       left: 0;
