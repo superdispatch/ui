@@ -98,20 +98,26 @@ test('format and parse value with enum', async () => {
 
   expect(field).toBeChecked();
 
-  MockEvent.click(field);
-  act(() => {
-    fireEvent.blur(field);
-  });
+  for (const status of ['inactive', 'active']) {
+    MockEvent.click(field);
+    act(() => {
+      fireEvent.blur(field);
+    });
 
-  expect(field).not.toBeChecked();
+    if (status === 'active') {
+      expect(field).toBeChecked();
+    } else {
+      expect(field).not.toBeChecked();
+    }
 
-  wrapper.submitForm();
+    wrapper.submitForm();
 
-  await waitFor(() => {
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
-  });
+    await waitFor(() => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+    });
 
-  expect(handleSubmit).toHaveBeenLastCalledWith({ status: 'inactive' });
+    expect(handleSubmit).toHaveBeenLastCalledWith({ status });
+  }
 });
 
 test('validates field', async () => {
