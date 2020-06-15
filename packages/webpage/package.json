@@ -28,6 +28,6 @@
     "@superdispatch/tsconfig": "^0.1.13",
     "babel-loader": "^8.0.6",
     "babel-plugin-direct-import": "^0.6.2",
-    "typescript": "~3.9.3"
+    "typescript": "~3.9.5"
   }
 }
