@@ -6,7 +6,7 @@ export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
   validate?: FieldValidator;
   format?: (value?: boolean) => boolean | undefined;
-  parse?: (event: React.ChangeEvent<Record<string, unknown>>) => boolean;
+  parse?: (event: React.ChangeEvent<Record<string, unknown>>, checked: boolean) => unknown;
 }
 
 export function FormikCheckboxField({
