@@ -13,6 +13,9 @@ export interface GridStackProps
       'style' | 'className' | 'children' | 'spacing' | 'alignItems'
     > {}
 
+/**
+ * @deprecated in favor of `Stack`.
+ */
 export const GridStack: ForwardRefExoticComponent<GridStackProps> = forwardRef(
   ({ children, alignItems = 'stretch' as const, ...props }, ref) => {
     const items = Children.toArray(children);
