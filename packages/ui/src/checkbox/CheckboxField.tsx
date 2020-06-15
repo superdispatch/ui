@@ -9,8 +9,8 @@ import {
 import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 
 export interface CheckboxFieldProps
-  extends Omit<CheckboxProps, 'onBlur' | 'onChange'>,
-    Pick<FormControlLabelProps, 'label' | 'onBlur' | 'onChange'> {
+  extends CheckboxProps,
+    Pick<FormControlLabelProps, 'label'> {
   error?: boolean;
   helperText?: ReactNode;
   FormControlLabelProps?: Omit<
@@ -38,8 +38,8 @@ export const CheckboxField: ForwardRefExoticComponent<CheckboxFieldProps> = forw
         {...formControlLabelProps}
         label={label}
         checked={checked}
-        onBlur={onBlur}
-        onChange={onChange}
+        onBlur={onBlur as FormControlLabelProps['onBlur']}
+        onChange={onChange as FormControlLabelProps['onChange']}
         control={
           <Checkbox ref={ref} color="primary" disableRipple={true} {...props} />
         }
