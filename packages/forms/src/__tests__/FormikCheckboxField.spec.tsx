@@ -47,25 +47,27 @@ test('format and parse value', async () => {
 
   const wrapper = renderFormField(
     <FormikCheckboxField
-      label="Agree"
-      name="agree"
-      format={(value) => !value}
-      parse={(event) => !event.target.value}
+      name="status"
+      label="Status"
+      format={(value) => value === 'active'}
+      parse={(_, checked) => (checked ? 'active' : 'inactive')}
     />,
     {
-      initialValues: { agree: true },
+      initialValues: { status: 'active' },
       onSubmit: handleSubmit,
     },
   );
 
-  const field = wrapper.getByLabelText('Agree');
+  const field = wrapper.getByLabelText('Status');
+
+  expect(field).toBeChecked();
 
   MockEvent.click(field);
   act(() => {
     fireEvent.blur(field);
   });
 
-  expect(field).toBeChecked();
+  expect(field).not.toBeChecked();
 
   wrapper.submitForm();
 
@@ -73,7 +75,7 @@ test('format and parse value', async () => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
-  expect(handleSubmit).toHaveBeenLastCalledWith({ agree: false });
+  expect(handleSubmit).toHaveBeenLastCalledWith({ status: 'inactive' });
 });
 
 test('validates field', async () => {
