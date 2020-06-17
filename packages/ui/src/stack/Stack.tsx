@@ -90,12 +90,12 @@ const useStyles = makeStyles<
   { name: 'SuperDispatchStack' },
 );
 
-export type StackSpacing = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface StackProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  space: StackSpacing;
+  space: StackSpace;
   align?: HorizontalAlign;
   children?: ReactNode;
   classes?: Partial<ClassNameMap<StackClassKey>>;

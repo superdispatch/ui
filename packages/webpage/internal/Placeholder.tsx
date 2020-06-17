@@ -1,12 +1,14 @@
 import { Color } from '@superdispatch/ui';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 
 export interface PlaceholderProps {
+  text?: ReactNode;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
 }
 
 export function Placeholder({
+  text,
   width = 'auto',
   height = 'auto',
 }: PlaceholderProps) {
@@ -19,10 +21,35 @@ export function Placeholder({
         border: `2px solid ${Color.Silver500}`,
       }}
     >
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <line x2="100%" y2="100%" strokeWidth="2px" stroke={Color.Silver400} />
-        <line x1="100%" y2="100%" strokeWidth="2px" stroke={Color.Silver400} />
-      </svg>
+      {text ? (
+        <strong
+          style={{
+            color: Color.Grey100,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {text}
+        </strong>
+      ) : (
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <line
+            x2="100%"
+            y2="100%"
+            strokeWidth="2px"
+            stroke={Color.Silver400}
+          />
+          <line
+            x1="100%"
+            y2="100%"
+            strokeWidth="2px"
+            stroke={Color.Silver400}
+          />
+        </svg>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@material-ui/core';
 import { number, select } from '@storybook/addon-knobs';
-import { Color, Inline, InlineSpacing } from '@superdispatch/ui';
+import { Color, Inline, InlineSpace } from '@superdispatch/ui';
 import React from 'react';
 
 import { Placeholder } from '../internal/Placeholder';
@@ -11,7 +11,7 @@ export default function InlineDemo() {
     max: 10,
     step: 1,
     range: true,
-  }) as InlineSpacing;
+  }) as InlineSpace;
   const verticalAlign = select(
     'Vertical Align',
     { None: undefined, Top: 'top', Center: 'center', Bottom: 'bottom' },

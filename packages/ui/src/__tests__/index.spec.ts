@@ -97,6 +97,16 @@ it('exposes public api', () => {
         "Yellow500": "#DB7500",
         "Yellow75": "#FFF1C2",
       },
+      "Column": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Column",
+        "render": [Function],
+      },
+      "Columns": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Columns",
+        "render": [Function],
+      },
       "DescriptionList": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "DescriptionList",
