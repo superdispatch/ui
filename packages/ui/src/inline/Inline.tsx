@@ -105,12 +105,12 @@ const useStyles = makeStyles<
   { name: 'SuperDispatchInline' },
 );
 
-export type InlineSpacing = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface InlineProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  space: InlineSpacing;
+  space: InlineSpace;
   verticalAlign?: VerticalAlign;
   horizontalAlign?: HorizontalAlign;
   children?: ReactNode;
