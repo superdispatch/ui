@@ -1,4 +1,4 @@
-import { Tab, Tabs, Typography } from '@material-ui/core';
+import { Card, CardHeader, Tab, Tabs } from '@material-ui/core';
 import { Stack } from '@superdispatch/ui';
 import React from 'react';
 
@@ -14,25 +14,33 @@ export default function TabsDemo() {
 
   return (
     <Stack space={2}>
-      <Typography variant="h6">With Scroll Buttons</Typography>
+      <Card>
+        <CardHeader title="With Scroll Buttons" />
 
-      <Tabs
-        scrollButtons="on"
-        value={value}
-        onChange={(_, nextValue) => setValue(nextValue)}
-      >
-        {options.map((x) => (
-          <Tab key={x} label={x} />
-        ))}
-      </Tabs>
+        <Tabs
+          value={value}
+          scrollButtons="on"
+          onChange={(_, nextValue) => setValue(nextValue)}
+        >
+          {options.map((x) => (
+            <Tab key={x} label={x} />
+          ))}
+        </Tabs>
+      </Card>
 
-      <Typography variant="h6">Without Scroll Buttons</Typography>
+      <Card>
+        <CardHeader title="Without Scroll Buttons" />
 
-      <Tabs value={value} onChange={(_, nextValue) => setValue(nextValue)}>
-        {options.map((x) => (
-          <Tab key={x} label={x} />
-        ))}
-      </Tabs>
+        <Tabs
+          value={value}
+          scrollButtons="off"
+          onChange={(_, nextValue) => setValue(nextValue)}
+        >
+          {options.map((x) => (
+            <Tab key={x} label={x} />
+          ))}
+        </Tabs>
+      </Card>
     </Stack>
   );
 }
