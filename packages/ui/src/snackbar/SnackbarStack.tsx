@@ -73,7 +73,7 @@ export function SnackbarStackProvider({
       message,
       {
         onClose,
-        key = Math.random(),
+        key = typeof message === 'string' ? message : Math.random(),
         id = String(key),
         autoHideDuration = 5000,
         ...props
