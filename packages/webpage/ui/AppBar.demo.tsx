@@ -6,12 +6,19 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowBack, Close } from '@material-ui/icons';
+import { select } from '@storybook/addon-knobs';
 import React from 'react';
 
 export default function AppBarDemo() {
+  const variant = select(
+    'Variant',
+    { Dense: 'dense', Regular: 'regular' },
+    'regular',
+  );
+
   return (
     <AppBar>
-      <Toolbar>
+      <Toolbar variant={variant}>
         <Grid container={true} spacing={1} alignItems="center">
           <Grid item={true}>
             <IconButton edge="start" aria-label="back">
