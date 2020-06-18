@@ -20,6 +20,8 @@ export type CardButtonClassKey =
   | 'label'
   | 'hint'
   | 'error'
+  | 'primary'
+  | 'disabled'
   | 'sizeSmall'
   | 'sizeLarge'
   | 'icon'
@@ -51,46 +53,65 @@ const useStyles = makeStyles<
         'border-color',
         'background-color',
       ]),
+    },
 
-      '&$error': {
-        color: Color.Red300,
-        borderColor: Color.Red300,
-        backgroundColor: Color.Red50,
-        '&:focus': { backgroundColor: Color.Red75 },
-      },
+    disabled: {
+      color: Color.Grey200,
+      borderColor: Color.Silver500,
+      backgroundColor: Color.Silver100,
+    },
 
-      '&:not($error)': {
-        color: Color.Blue300,
-        borderColor: Color.Silver500,
-        '&:focus': { backgroundColor: Color.Blue50 },
-        '&:hover, &:active': {
-          borderColor: Color.Blue300,
-          backgroundColor: Color.Blue50,
-        },
+    error: {
+      color: Color.Red300,
+      borderColor: Color.Red300,
+      backgroundColor: Color.Red50,
+      '&:focus': { backgroundColor: Color.Red75 },
+    },
+
+    primary: {
+      color: Color.Blue300,
+      borderColor: Color.Silver500,
+      '&:focus': { backgroundColor: Color.Blue50 },
+      '&:hover, &:active': {
+        borderColor: Color.Blue300,
+        backgroundColor: Color.Blue50,
       },
     },
 
-    error: {},
+    sizeSmall: {
+      minHeight: theme.spacing(6),
+    },
 
-    sizeSmall: { minHeight: theme.spacing(6) },
-    sizeLarge: { minHeight: theme.spacing(17.5) },
+    sizeLarge: {
+      minHeight: theme.spacing(17.5),
+    },
 
-    label: { display: 'flex', alignItems: 'center' },
+    label: {
+      display: 'flex',
+      alignItems: 'center',
+    },
 
     icon: {
       display: 'flex',
-      '& .MuiSvgIcon-root': {
+      '& svg': {
         fontSize: theme.spacing(3),
         [theme.breakpoints.up('sm')]: { fontSize: theme.spacing(2.5) },
       },
     },
+
     startIcon: {
       marginRight: theme.spacing(1),
       marginLeft: theme.spacing(-0.5),
     },
-    endIcon: { marginLeft: theme.spacing(1), marginRight: theme.spacing(-0.5) },
 
-    hint: { marginTop: theme.spacing(0.5) },
+    endIcon: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(-0.5),
+    },
+
+    hint: {
+      marginTop: theme.spacing(0.5),
+    },
   }),
   { name: 'SuperDispatchCardButton' },
 );
@@ -121,7 +142,8 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
       children,
       endIcon,
       startIcon,
-      ...buttonProps
+      disabled,
+      ...props
     },
     ref,
   ) => {
@@ -129,12 +151,15 @@ export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef
 
     return (
       <ButtonBase
-        {...buttonProps}
+        {...props}
         ref={ref}
+        disabled={disabled}
         className={clsx(
           styles.root,
           {
-            [styles.error]: error,
+            [styles.disabled]: disabled,
+            [styles.error]: !disabled && error,
+            [styles.primary]: !disabled && !error,
             [styles.sizeSmall]: size === 'small',
             [styles.sizeLarge]: size === 'large',
           },

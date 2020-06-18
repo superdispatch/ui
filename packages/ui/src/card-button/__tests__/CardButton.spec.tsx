@@ -22,29 +22,35 @@ it('checks component css', () => {
       justify-content: center;
     }
 
-    .SuperDispatchCardButton-root.SuperDispatchCardButton-error {
+    .SuperDispatchCardButton-disabled {
+      color: Color.Grey200;
+      border-color: Color.Silver500;
+      background-color: Color.Silver100;
+    }
+
+    .SuperDispatchCardButton-error {
       color: Color.Red300;
       border-color: Color.Red300;
       background-color: Color.Red50;
     }
 
-    .SuperDispatchCardButton-root:not(.SuperDispatchCardButton-error) {
+    .SuperDispatchCardButton-error:focus {
+      background-color: Color.Red75;
+    }
+
+    .SuperDispatchCardButton-primary {
       color: Color.Blue300;
       border-color: Color.Silver500;
     }
 
-    .SuperDispatchCardButton-root:not(.SuperDispatchCardButton-error):focus {
+    .SuperDispatchCardButton-primary:focus {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchCardButton-root:not(.SuperDispatchCardButton-error):hover,
-    .SuperDispatchCardButton-root:not(.SuperDispatchCardButton-error):active {
+    .SuperDispatchCardButton-primary:hover,
+    .SuperDispatchCardButton-primary:active {
       border-color: Color.Blue300;
       background-color: Color.Blue50;
-    }
-
-    .SuperDispatchCardButton-root.SuperDispatchCardButton-error:focus {
-      background-color: Color.Red75;
     }
 
     .SuperDispatchCardButton-sizeSmall {
@@ -64,12 +70,12 @@ it('checks component css', () => {
       display: flex;
     }
 
-    .SuperDispatchCardButton-icon .MuiSvgIcon-root {
+    .SuperDispatchCardButton-icon svg {
       font-size: 24px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchCardButton-icon .MuiSvgIcon-root {
+      .SuperDispatchCardButton-icon svg {
         font-size: 20px;
       }
     }
