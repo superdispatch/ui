@@ -10,6 +10,7 @@ export default function CardButtonDemo() {
   const hasEndIcon = boolean('Has End Icon', false);
   const hasHint = boolean('Has Hint', true);
   const hasError = boolean('Has Error', false);
+  const disabled = boolean('Disabled', false);
 
   return (
     <Stack space={2}>
@@ -17,6 +18,7 @@ export default function CardButtonDemo() {
         <CardButton
           key={size}
           size={size}
+          disabled={disabled}
           hint={hasHint && 'or Drag & Drop files here'}
           error={hasError && 'Invalid file extension'}
           startIcon={hasStartIcon && <Add />}
