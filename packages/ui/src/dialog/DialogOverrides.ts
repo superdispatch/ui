@@ -3,6 +3,12 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 export function overrideDialog(theme: SuperDispatchTheme) {
   theme.props.MuiDialogTitle = { disableTypography: true };
 
+  theme.overrides.MuiDialog = {
+    paper: {
+      margin: theme.spacing(3),
+    },
+  };
+
   theme.overrides.MuiDialogTitle = {
     root: { ...theme.typography.h3 },
   };
