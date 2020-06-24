@@ -69,7 +69,7 @@ it('checks component css', () => {
     }
 
     .MuiDialog-paper {
-      margin: 32px;
+      margin: 24px;
       position: relative;
       overflow-y: auto;
     }
