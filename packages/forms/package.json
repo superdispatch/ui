@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/forms",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -12,9 +12,9 @@
     "build": "pika build"
   },
   "dependencies": {
-    "@superdispatch/dates": "^0.3.18",
-    "@superdispatch/phones": "^0.3.18",
-    "@superdispatch/ui": "^0.3.18",
+    "@superdispatch/dates": "^0.3.19",
+    "@superdispatch/phones": "^0.3.19",
+    "@superdispatch/ui": "^0.3.19",
     "utility-hooks": "^0.6.1"
   },
   "peerDependencies": {
