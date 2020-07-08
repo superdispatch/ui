@@ -19,9 +19,6 @@
     "qs": "^6.9.4",
     "whatwg-fetch": "^3.0.0"
   },
-  "peerDependencies": {
-    "@testing-library/react": "^9.5.0"
-  },
   "publishConfig": {
     "access": "public",
     "directory": "pkg"
