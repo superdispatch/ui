@@ -56,6 +56,7 @@ module.exports = {
         ],
       },
     },
+
     {
       files: [
         'setupTestGlobals.ts',
@@ -75,9 +76,13 @@ module.exports = {
         'testing-library/prefer-screen-queries': 'off',
       },
     },
+
     {
       files: ['**/packages/webpage/**.*'],
-      rules: { 'import/no-anonymous-default-export': 'off' },
+      rules: {
+        'import/no-internal-modules': 'off',
+        'import/no-anonymous-default-export': 'off',
+      },
     },
   ],
 };
