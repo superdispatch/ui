@@ -81,7 +81,7 @@ it('checks component css', () => {
     }
 
     .SuperDispatchDescriptionList-icon > .MuiSvgIcon-root {
-      color: Color.Grey200;
+      color: Color.Grey100;
       font-size: 24px;
     }
 
