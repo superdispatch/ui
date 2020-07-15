@@ -172,6 +172,7 @@ it('exposes public api', () => {
         "displayName": "RadioGroupField",
         "render": [Function],
       },
+      "ResponsiveContextProvider": [Function],
       "Snackbar": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "Snackbar",
@@ -197,6 +198,9 @@ it('exposes public api', () => {
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "renderChildren": [Function],
+      "useResponsiveContext": [Function],
+      "useResponsiveProp": [Function],
+      "useResponsiveValue": [Function],
       "useSnackbarStack": [Function],
       "useUID": [Function],
       "useVisibilityObserver": [Function],

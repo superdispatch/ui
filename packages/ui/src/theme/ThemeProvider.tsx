@@ -13,6 +13,7 @@ import { Rule, StyleSheet } from 'jss';
 import React, { ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
+import { ResponsiveContextProvider } from '..';
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
 import { overrideAvatar } from '../avatar/AvatarOverrides';
@@ -132,7 +133,9 @@ export function ThemeProvider({ modifier, children }: ThemeProviderProps) {
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 
-        <SnackbarStackProvider>{children}</SnackbarStackProvider>
+        <ResponsiveContextProvider>
+          <SnackbarStackProvider>{children}</SnackbarStackProvider>
+        </ResponsiveContextProvider>
       </MaterialThemeProvider>
     </StylesProvider>
   );
