@@ -2,12 +2,14 @@ import { Color } from '@superdispatch/ui';
 import React, { CSSProperties, ReactNode } from 'react';
 
 export interface PlaceholderProps {
+  code?: string;
   text?: ReactNode;
   width?: CSSProperties['width'];
   height?: CSSProperties['height'];
 }
 
 export function Placeholder({
+  code,
   text,
   width = 'auto',
   height = 'auto',
@@ -21,7 +23,19 @@ export function Placeholder({
         border: `2px solid ${Color.Silver500}`,
       }}
     >
-      {text ? (
+      {code ? (
+        <strong
+          style={{
+            color: Color.Grey100,
+            padding: '8px',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <pre style={{ margin: 0 }}>{code}</pre>
+        </strong>
+      ) : text ? (
         <strong
           style={{
             color: Color.Grey100,
