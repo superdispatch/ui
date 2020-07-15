@@ -7,7 +7,12 @@ import React, {
   RefAttributes,
 } from 'react';
 
-import { SuperDispatchTheme, VerticalAlign } from '..';
+import {
+  ResponsiveProp,
+  useResponsiveProp,
+} from '../responsive/ResponsiveProp';
+import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { VerticalAlign } from '../theme/types';
 
 type ColumnsClassKey =
   | 'root'
@@ -115,12 +120,13 @@ export type ColumnWidth =
 export interface ColumnProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  width?: ColumnWidth;
+  width?: ResponsiveProp<ColumnWidth>;
 }
 
 export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
-  ({ children, className, width = 'fluid', ...props }, ref) => {
+  ({ children, className, width: widthProp = 'fluid', ...props }, ref) => {
     const styles = useStyles({});
+    const width = useResponsiveProp(widthProp);
 
     return (
       <div
@@ -151,13 +157,18 @@ export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export interface ColumnsProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  space: ColumnsSpace;
-  align?: VerticalAlign;
+  space?: ResponsiveProp<ColumnsSpace>;
+  align?: ResponsiveProp<VerticalAlign>;
 }
 
 export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
-  ({ space, className, align, ...props }, ref) => {
+  (
+    { className, space: spaceProp = 0, align: alignProp = 'top', ...props },
+    ref,
+  ) => {
     const styles = useStyles({});
+    const align = useResponsiveProp(alignProp);
+    const space = useResponsiveProp(spaceProp);
 
     return (
       <div

@@ -1,13 +1,8 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
-import { number, select } from '@storybook/addon-knobs';
-import {
-  Column,
-  Columns,
-  ColumnsSpace,
-  ColumnWidth,
-  Stack,
-} from '@superdispatch/ui';
-import React from 'react';
+import { Card, CardContent, Link, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { Column, Columns, ColumnWidth, Stack } from '@superdispatch/ui';
+import { MaxWidthProperty } from 'csstype';
+import React, { ReactNode } from 'react';
 
 import { Placeholder } from '../internal/Placeholder';
 
@@ -24,45 +19,175 @@ const widths: ColumnWidth[] = [
   '4/5',
 ];
 
-export default function ColumnsDemo() {
-  const space = number('Spacing', 1, {
-    min: 0,
-    max: 10,
-    step: 1,
-    range: true,
-  }) as ColumnsSpace;
-  const align = select(
-    'Align',
-    { None: undefined, Top: 'top', Center: 'center', Bottom: 'bottom' },
-    undefined,
-  );
+interface DemoCardProps {
+  title: ReactNode;
+  children: ReactNode;
+  maxWidth?: MaxWidthProperty<string>;
+}
 
+function DemoCard({ title, children, maxWidth = '224px' }: DemoCardProps) {
   return (
-    <div>
-      <Typography>Align: {align}</Typography>
-      <Typography>Space: {space}</Typography>
+    <Card>
+      <CardContent>
+        <Stack space={2}>
+          <Typography variant="h3">{title}</Typography>
+          <div style={{ maxWidth }}>{children}</div>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
 
-      <Card>
-        <CardContent>
-          <Stack space={1}>
-            {widths.map((width) => (
-              <Columns key={width} space={space} align={align}>
-                <Column width={width}>
-                  <Placeholder
-                    height={48}
-                    width={width === 'content' ? 128 : 'auto'}
-                    text={width === 'content' ? 'Content' : width}
-                  />
-                </Column>
+export default function ColumnsDemo() {
+  return (
+    <Stack>
+      <Alert severity="info" icon={false}>
+        Heavily inspired by the{' '}
+        <Link
+          color="primary"
+          href="https://seek-oss.github.io/braid-design-system/components/Column"
+        >
+          Column
+        </Link>{' '}
+        and{' '}
+        <Link
+          color="primary"
+          href="https://seek-oss.github.io/braid-design-system/components/Columns"
+        >
+          Columns
+        </Link>{' '}
+        components from the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system">
+          BRAID Design System
+        </Link>
+        .
+      </Alert>
 
-                <Column>
-                  <Placeholder height={!align ? 48 : 64} text="Fluid" />
-                </Column>
-              </Columns>
-            ))}
-          </Stack>
-        </CardContent>
-      </Card>
-    </div>
+      <DemoCard title="No space">
+        <Columns>
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Custom space, e.g: <code>2</code>
+          </>
+        }
+      >
+        <Columns space={2}>
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive space, e.g: <code>{'{ xs: 1, sm: 2 }'}</code>
+          </>
+        }
+      >
+        <Columns space={{ xs: 1, sm: 2 }}>
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard title="Vertically align to center">
+        <Columns space={1} align="center">
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={64} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard title="Vertically align to bottom">
+        <Columns space={1} align="bottom">
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={64} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive alignment, e.g:{' '}
+            <code>{"{ xs: 'top', sm: 'center' }"}</code>
+          </>
+        }
+      >
+        <Columns space={1} align={{ xs: 'top', sm: 'center' }}>
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={64} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard title="Available widths" maxWidth="auto">
+        <Stack space={1}>
+          {widths.map((width) => (
+            <Columns key={width} space={1}>
+              <Column width={width}>
+                <Placeholder
+                  height={48}
+                  width={width === 'content' ? 128 : 'auto'}
+                  text={width === 'content' ? 'Content' : width}
+                />
+              </Column>
+
+              <Column>
+                <Placeholder height={48} text="Fluid" />
+              </Column>
+            </Columns>
+          ))}
+        </Stack>
+      </DemoCard>
+
+      <DemoCard title="Responsive width" maxWidth="auto">
+        <Columns space={1}>
+          <Column width={{ xs: '1/2', sm: '3/5' }}>
+            <Placeholder
+              height={112}
+              code={JSON.stringify({ xs: '1/2', sm: '3/5' }, null, 2)}
+            />
+          </Column>
+
+          <Column>
+            <Placeholder height={112} text="Fluid" />
+          </Column>
+        </Columns>
+      </DemoCard>
+    </Stack>
   );
 }
