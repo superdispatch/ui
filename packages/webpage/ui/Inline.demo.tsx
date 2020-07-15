@@ -25,7 +25,7 @@ function DemoCard({ title, children }: DemoCardProps) {
 
 export default function InlineDemo() {
   return (
-    <Stack space={1}>
+    <Stack>
       <Alert severity="info" icon={false}>
         Heavily inspired by the{' '}
         <Link
