@@ -9,6 +9,10 @@ import React, {
 } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import {
+  ResponsiveProp,
+  useResponsiveProp,
+} from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
@@ -110,27 +114,31 @@ export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export interface InlineProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  space: InlineSpace;
-  verticalAlign?: VerticalAlign;
-  horizontalAlign?: HorizontalAlign;
   children?: ReactNode;
   classes?: Partial<ClassNameMap<InlineClassKey>>;
+
+  space?: ResponsiveProp<InlineSpace>;
+  verticalAlign?: ResponsiveProp<VerticalAlign>;
+  horizontalAlign?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
   (
     {
-      space,
       classes,
       children,
       className,
-      verticalAlign,
-      horizontalAlign,
+      space: spaceProp = 1,
+      verticalAlign: verticalAlignProp = 'top',
+      horizontalAlign: horizontalAlignProp = 'left',
       ...props
     },
     ref,
   ) => {
     const styles = useStyles({ classes });
+    const space = useResponsiveProp(spaceProp);
+    const verticalAlign = useResponsiveProp(verticalAlignProp);
+    const horizontalAlign = useResponsiveProp(horizontalAlignProp);
 
     return (
       <div

@@ -1,51 +1,121 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
-import { number, select } from '@storybook/addon-knobs';
-import { Color, Inline, InlineSpace } from '@superdispatch/ui';
-import React from 'react';
+import { Card, CardContent, Link, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { Inline, Stack } from '@superdispatch/ui';
+import React, { ReactNode } from 'react';
 
 import { Placeholder } from '../internal/Placeholder';
 
-export default function InlineDemo() {
-  const space = number('Spacing', 1, {
-    min: 1,
-    max: 10,
-    step: 1,
-    range: true,
-  }) as InlineSpace;
-  const verticalAlign = select(
-    'Vertical Align',
-    { None: undefined, Top: 'top', Center: 'center', Bottom: 'bottom' },
-    undefined,
-  );
-  const horizontalAlign = select(
-    'Horizontal Align',
-    { None: undefined, Left: 'left', Center: 'center', Right: 'right' },
-    undefined,
-  );
+interface DemoCardProps {
+  title: ReactNode;
+  children: ReactNode;
+}
 
+function DemoCard({ title, children }: DemoCardProps) {
   return (
-    <div>
-      <Typography>Align: {horizontalAlign}</Typography>
-      <Typography>Space: {space}</Typography>
+    <Card>
+      <CardContent>
+        <Stack space={2}>
+          <Typography variant="h3">{title}</Typography>
+          <div style={{ maxWidth: '224px' }}>{children}</div>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
 
-      <Card>
-        <CardContent>
-          <Inline
-            space={space}
-            verticalAlign={verticalAlign}
-            horizontalAlign={horizontalAlign}
-            style={{ maxWidth: '224px', backgroundColor: Color.Grey100 }}
-          >
-            {!verticalAlign
-              ? Array.from({ length: 10 }, (_, idx) => (
-                  <Placeholder key={idx} width={48} height={48} />
-                ))
-              : Array.from({ length: 4 }, (_, idx) => (
-                  <Placeholder key={idx} width={48} height={48 + 24 * idx} />
-                ))}
-          </Inline>
-        </CardContent>
-      </Card>
-    </div>
+export default function InlineDemo() {
+  return (
+    <Stack space={1}>
+      <Alert severity="info" icon={false}>
+        Heavily inspired by the{' '}
+        <Link
+          color="primary"
+          href="https://seek-oss.github.io/braid-design-system/components/Inline"
+        >
+          Inline
+        </Link>{' '}
+        component from the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system">
+          BRAID Design System
+        </Link>
+        .
+      </Alert>
+
+      <DemoCard title="Basic">
+        <Inline>
+          {Array.from({ length: 10 }, (_, idx) => (
+            <Placeholder key={idx} width={48} height={48} />
+          ))}
+        </Inline>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive space, e.g: <code>{'{ xs: 1, sm: 2 }'}</code>
+          </>
+        }
+      >
+        <Inline space={{ xs: 1, sm: 2 }}>
+          {Array.from({ length: 10 }, (_, idx) => (
+            <Placeholder key={idx} width={48} height={48} />
+          ))}
+        </Inline>
+      </DemoCard>
+
+      <DemoCard title="Align horizontally to center">
+        <Inline horizontalAlign="center">
+          {Array.from({ length: 10 }, (_, idx) => (
+            <Placeholder key={idx} width={48} height={48} />
+          ))}
+        </Inline>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive horizontal alignment, e.g:{' '}
+            <code>{"{ xs: 'center', sm: 'left' }"}</code>
+          </>
+        }
+      >
+        <Inline horizontalAlign={{ xs: 'center', sm: 'left' }}>
+          {Array.from({ length: 10 }, (_, idx) => (
+            <Placeholder key={idx} width={48} height={48} />
+          ))}
+        </Inline>
+      </DemoCard>
+
+      <DemoCard title="Align vertically to center">
+        <Inline verticalAlign="center">
+          <Placeholder width={48} height={48} />
+          <Placeholder width={48} height={64} />
+          <Placeholder width={48} height={24} />
+        </Inline>
+      </DemoCard>
+
+      <DemoCard title="Align vertically to bottom">
+        <Inline verticalAlign="bottom">
+          <Placeholder width={48} height={48} />
+          <Placeholder width={48} height={64} />
+          <Placeholder width={48} height={24} />
+        </Inline>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive vertical alignment, e.g:{' '}
+            <code>{"{ xs: 'center', sm: 'top' }"}</code>
+          </>
+        }
+      >
+        <Inline verticalAlign={{ xs: 'center', sm: 'top' }}>
+          <Placeholder width={48} height={48} />
+          <Placeholder width={48} height={64} />
+          <Placeholder width={48} height={24} />
+        </Inline>
+      </DemoCard>
+    </Stack>
   );
 }
