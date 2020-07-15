@@ -1,41 +1,90 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
-import { number, select } from '@storybook/addon-knobs';
-import { Color, Stack, StackSpace } from '@superdispatch/ui';
-import React from 'react';
+import { Card, CardContent, Link, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { Stack } from '@superdispatch/ui';
+import React, { ReactNode } from 'react';
 
 import { Placeholder } from '../internal/Placeholder';
 
-export default function StackDemo() {
-  const space = number('Spacing', 1, {
-    min: 1,
-    max: 10,
-    step: 1,
-    range: true,
-  }) as StackSpace;
-  const align = select(
-    'Alignment',
-    { None: undefined, Left: 'left', Center: 'center', Right: 'right' },
-    undefined,
-  );
+interface DemoCardProps {
+  title: ReactNode;
+  children: ReactNode;
+}
 
+function DemoCard({ title, children }: DemoCardProps) {
   return (
-    <div>
-      <Typography>Align: {align}</Typography>
-      <Typography>Space: {space}</Typography>
+    <Card>
+      <CardContent>
+        <Stack space={2}>
+          <Typography variant="h3">{title}</Typography>
+          <div style={{ maxWidth: '224px' }}>{children}</div>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
 
-      <Card>
-        <CardContent>
-          <Stack
-            align={align}
-            space={space}
-            style={{ maxWidth: '224px', backgroundColor: Color.Grey100 }}
-          >
-            <Placeholder width={align ? 40 : undefined} height={40} />
-            <Placeholder width={align ? 60 : undefined} height={40} />
-            <Placeholder width={align ? 80 : undefined} height={40} />
-          </Stack>
-        </CardContent>
-      </Card>
-    </div>
+export default function StackDemo() {
+  return (
+    <Stack>
+      <Alert severity="info" icon={false}>
+        Heavily inspired by the{' '}
+        <Link
+          color="primary"
+          href="https://seek-oss.github.io/braid-design-system/components/Stack"
+        >
+          Stack
+        </Link>{' '}
+        component from the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system">
+          BRAID Design System
+        </Link>
+        .
+      </Alert>
+
+      <DemoCard title="Basic">
+        <Stack>
+          {Array.from({ length: 3 }, (_, idx) => (
+            <Placeholder key={idx} height={48} />
+          ))}
+        </Stack>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive space, e.g: <code>{'{ xs: 1, sm: 2 }'}</code>
+          </>
+        }
+      >
+        <Stack space={{ xs: 1, sm: 2 }}>
+          {Array.from({ length: 3 }, (_, idx) => (
+            <Placeholder key={idx} height={48} />
+          ))}
+        </Stack>
+      </DemoCard>
+
+      <DemoCard title="Align to center">
+        <Stack align="center">
+          <Placeholder height={48} width={48} />
+          <Placeholder height={48} width={64} />
+          <Placeholder height={48} width={128} />
+        </Stack>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive alignment, e.g:{' '}
+            <code>{"{ xs: 'center', sm: 'left' }"}</code>
+          </>
+        }
+      >
+        <Stack align={{ xs: 'center', sm: 'left' }}>
+          <Placeholder height={48} width={48} />
+          <Placeholder height={48} width={64} />
+          <Placeholder height={48} width={128} />
+        </Stack>
+      </DemoCard>
+    </Stack>
   );
 }

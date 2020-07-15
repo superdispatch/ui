@@ -9,6 +9,10 @@ import React, {
 } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import {
+  ResponsiveProp,
+  useResponsiveProp,
+} from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 import { HorizontalAlign } from '../theme/types';
 
@@ -95,15 +99,28 @@ export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export interface StackProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
-  space: StackSpace;
-  align?: HorizontalAlign;
   children?: ReactNode;
   classes?: Partial<ClassNameMap<StackClassKey>>;
+
+  space?: ResponsiveProp<StackSpace>;
+  align?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
-  ({ space, classes, children, align, className, ...props }, ref) => {
+  (
+    {
+      classes,
+      children,
+      className,
+      space: spaceProp = 1,
+      align: alignProp = 'left',
+      ...props
+    },
+    ref,
+  ) => {
     const styles = useStyles({ classes });
+    const align = useResponsiveProp(alignProp);
+    const space = useResponsiveProp(spaceProp);
 
     return (
       <div
