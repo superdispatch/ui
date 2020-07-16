@@ -66,29 +66,11 @@ export default function ColumnsDemo() {
       <DemoCard title="No space">
         <Columns>
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="First" />
           </Column>
 
           <Column>
-            <Placeholder height={48} />
-          </Column>
-        </Columns>
-      </DemoCard>
-
-      <DemoCard
-        title={
-          <>
-            Custom space, e.g: <code>2</code>
-          </>
-        }
-      >
-        <Columns space={2}>
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-
-          <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="Second" />
           </Column>
         </Columns>
       </DemoCard>
@@ -96,17 +78,35 @@ export default function ColumnsDemo() {
       <DemoCard
         title={
           <>
-            Responsive space, e.g: <code>{'{ xs: 1, sm: 2 }'}</code>
+            Custom space, e.g: <code>1</code>
           </>
         }
       >
-        <Columns space={{ xs: 1, sm: 2 }}>
+        <Columns space={1}>
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="First" />
           </Column>
 
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="Second" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Responsive space, e.g: <code>{'{ xs: 2, sm: 1 }'}</code>
+          </>
+        }
+      >
+        <Columns space={{ xs: 2, sm: 1 }}>
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
           </Column>
         </Columns>
       </DemoCard>
@@ -114,11 +114,11 @@ export default function ColumnsDemo() {
       <DemoCard title="Vertically align to center">
         <Columns space={1} align="center">
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="First" />
           </Column>
 
           <Column>
-            <Placeholder height={64} />
+            <Placeholder height={64} text="Second" />
           </Column>
         </Columns>
       </DemoCard>
@@ -126,11 +126,11 @@ export default function ColumnsDemo() {
       <DemoCard title="Vertically align to bottom">
         <Columns space={1} align="bottom">
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="First" />
           </Column>
 
           <Column>
-            <Placeholder height={64} />
+            <Placeholder height={64} text="Second" />
           </Column>
         </Columns>
       </DemoCard>
@@ -145,11 +145,111 @@ export default function ColumnsDemo() {
       >
         <Columns space={1} align={{ xs: 'top', sm: 'center' }}>
           <Column>
-            <Placeholder height={48} />
+            <Placeholder height={48} text="First" />
           </Column>
 
           <Column>
-            <Placeholder height={64} />
+            <Placeholder height={64} text="Second" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard title="Reverse">
+        <Columns space={1} reverse={true}>
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Third" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Reverse in mobile table, e.g:{' '}
+            <code>{'{ xs: true, sm: false }'}</code>
+          </>
+        }
+      >
+        <Columns space={1} reverse={{ xs: true, sm: false }}>
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Third" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Collapse below table, e.g: <code>collapseBelow=&quot;sm&quot;</code>
+          </>
+        }
+      >
+        <Columns space={1} collapseBelow="sm">
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Third" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Collapse below desktop, e.g:{' '}
+            <code>collapseBelow=&quot;md&quot;</code>
+          </>
+        }
+      >
+        <Columns space={1} collapseBelow="md">
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Third" />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard title="Reverse and collapse below tablet">
+        <Columns space={1} collapseBelow="sm" reverse={{ xs: true, sm: false }}>
+          <Column>
+            <Placeholder height={48} text="First" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Second" />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} text="Third" />
           </Column>
         </Columns>
       </DemoCard>
@@ -185,51 +285,6 @@ export default function ColumnsDemo() {
 
           <Column>
             <Placeholder height={112} text="Fluid" />
-          </Column>
-        </Columns>
-      </DemoCard>
-
-      <DemoCard
-        title={
-          <>
-            Collapse below table, e.g: <code>collapseBelow=&quot;sm&quot;</code>
-          </>
-        }
-      >
-        <Columns space={1} collapseBelow="sm">
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-        </Columns>
-      </DemoCard>
-
-      <DemoCard
-        title={
-          <>
-            Collapse below desktop, e.g:{' '}
-            <code>collapseBelow=&quot;md&quot;</code>
-          </>
-        }
-      >
-        <Columns space={1} collapseBelow="md">
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-
-          <Column>
-            <Placeholder height={48} />
-          </Column>
-
-          <Column>
-            <Placeholder height={48} />
           </Column>
         </Columns>
       </DemoCard>

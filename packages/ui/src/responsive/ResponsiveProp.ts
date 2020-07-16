@@ -8,11 +8,12 @@ export interface ResponsivePropInit<T> {
   xl?: T;
 }
 
-export type ResponsiveProp<T extends number | string> =
+export type ResponsivePropPrimitive = boolean | number | string;
+export type ResponsiveProp<T extends ResponsivePropPrimitive> =
   | T
   | ResponsivePropInit<T>;
 
-function normalizeResponsiveProp<T extends number | string>(
+function normalizeResponsiveProp<T extends ResponsivePropPrimitive>(
   prop: ResponsiveProp<T>,
 ): ResponsivePropInit<T> {
   if (typeof prop !== 'object') {
@@ -22,7 +23,7 @@ function normalizeResponsiveProp<T extends number | string>(
   return prop;
 }
 
-export function useResponsiveProp<T extends string | number>(
+export function useResponsiveProp<T extends ResponsivePropPrimitive>(
   prop: ResponsiveProp<T>,
 ): T {
   const { xs, sm = xs, md, lg, xl } = normalizeResponsiveProp<T>(prop);
