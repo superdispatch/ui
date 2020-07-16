@@ -67,7 +67,7 @@ const useStyles = makeStyles<
     variantError: {},
     variantSuccess: {},
   }),
-  { name: 'SuperDispatchSnackbarContent' },
+  { name: 'SD-SnackbarContent' },
 );
 export type SnackbarVariant = 'default' | 'error' | 'success';
 

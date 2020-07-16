@@ -4,43 +4,41 @@ import React from 'react';
 import { AvatarButton } from '../AvatarButton';
 
 it('checks component css', () => {
-  expect(renderCSS(<AvatarButton />, ['SuperDispatchAvatarButton']))
+  expect(renderCSS(<AvatarButton />, ['SD-AvatarButton']))
     .toMatchInlineSnapshot(`
-    .SuperDispatchAvatarButton-button {
+    .SD-AvatarButton-button {
       border-radius: 50%;
     }
 
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SuperDispatchAvatarButton-withIcon
-      > .SuperDispatchAvatarButton-overlay,
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SuperDispatchAvatarButton-withIcon
-      > .SuperDispatchAvatarButton-overlay {
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SD-AvatarButton-withIcon
+      > .SD-AvatarButton-overlay,
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SD-AvatarButton-withIcon
+      > .SD-AvatarButton-overlay {
       background-color: Color.Black50;
     }
 
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:hover:not(.SuperDispatchAvatarButton-withIcon)
-      > .SuperDispatchAvatarButton-overlay,
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:focus:not(.SuperDispatchAvatarButton-withIcon)
-      > .SuperDispatchAvatarButton-overlay {
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover:not(.SD-AvatarButton-withIcon)
+      > .SD-AvatarButton-overlay,
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus:not(.SD-AvatarButton-withIcon)
+      > .SD-AvatarButton-overlay {
       background-color: Color.Black20;
     }
 
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SuperDispatchAvatarButton-withIcon
-      > .SuperDispatchAvatarButton-overlay
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SD-AvatarButton-withIcon
+      > .SD-AvatarButton-overlay
       > svg,
-    .SuperDispatchAvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SuperDispatchAvatarButton-withIcon
-      > .SuperDispatchAvatarButton-overlay
+    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SD-AvatarButton-withIcon
+      > .SD-AvatarButton-overlay
       > svg {
       opacity: 1;
     }
 
-    .SuperDispatchAvatarButton-button[aria-disabled='true']
-      > .SuperDispatchAvatarButton-overlay,
-    .SuperDispatchAvatarButton-button[aria-busy='true']
-      > .SuperDispatchAvatarButton-overlay {
+    .SD-AvatarButton-button[aria-disabled='true'] > .SD-AvatarButton-overlay,
+    .SD-AvatarButton-button[aria-busy='true'] > .SD-AvatarButton-overlay {
       background-color: Color.White50;
     }
 
-    .SuperDispatchAvatarButton-overlay {
+    .SD-AvatarButton-overlay {
       top: 0;
       left: 0;
       right: 0;
@@ -54,7 +52,7 @@ it('checks component css', () => {
       background-color: Color.Transparent;
     }
 
-    .SuperDispatchAvatarButton-overlay > svg {
+    .SD-AvatarButton-overlay > svg {
       color: Color.White;
       opacity: 0;
       font-size: 24px;
@@ -62,12 +60,12 @@ it('checks component css', () => {
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchAvatarButton-overlay > svg {
+      .SD-AvatarButton-overlay > svg {
         font-size: 16px;
       }
     }
 
-    .SuperDispatchAvatarButton-progress {
+    .SD-AvatarButton-progress {
       top: 0;
       left: 0;
       position: absolute;
@@ -75,12 +73,12 @@ it('checks component css', () => {
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchAvatarButton-progress {
+      .SD-AvatarButton-progress {
         font-size: 32px;
       }
     }
 
-    .SuperDispatchAvatarButton-sizeLarge > .SuperDispatchAvatarButton-root {
+    .SD-AvatarButton-sizeLarge > .SD-AvatarButton-root {
       width: 56px;
       height: 56px;
       font-size: 24px;
@@ -89,43 +87,39 @@ it('checks component css', () => {
       line-height: 28px;
     }
 
-    .SuperDispatchAvatarButton-sizeLarge
-      > .SuperDispatchAvatarButton-overlay
-      > .SuperDispatchAvatarButton-progress {
+    .SD-AvatarButton-sizeLarge
+      > .SD-AvatarButton-overlay
+      > .SD-AvatarButton-progress {
       font-size: 56px;
     }
 
-    .SuperDispatchAvatarButton-sizeLarge
-      > .SuperDispatchAvatarButton-overlay
-      > svg {
+    .SD-AvatarButton-sizeLarge > .SD-AvatarButton-overlay > svg {
       font-size: 32px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchAvatarButton-sizeLarge
-        > .SuperDispatchAvatarButton-overlay
-        > svg {
+      .SD-AvatarButton-sizeLarge > .SD-AvatarButton-overlay > svg {
         font-size: 24px;
       }
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchAvatarButton-sizeLarge
-        > .SuperDispatchAvatarButton-overlay
-        > .SuperDispatchAvatarButton-progress {
+      .SD-AvatarButton-sizeLarge
+        > .SD-AvatarButton-overlay
+        > .SD-AvatarButton-progress {
         font-size: 64px;
       }
     }
 
     @media (min-width: 0px) and (max-width: 599.95px) {
-      .SuperDispatchAvatarButton-sizeLarge > .SuperDispatchAvatarButton-root {
+      .SD-AvatarButton-sizeLarge > .SD-AvatarButton-root {
         font-size: 22px;
         line-height: 26px;
       }
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchAvatarButton-sizeLarge > .SuperDispatchAvatarButton-root {
+      .SD-AvatarButton-sizeLarge > .SD-AvatarButton-root {
         width: 64px;
         height: 64px;
       }

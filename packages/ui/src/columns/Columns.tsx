@@ -137,7 +137,7 @@ const useStyles = makeStyles<
     width3of5: widthMixin(3 / 5),
     width4of5: widthMixin(4 / 5),
   }),
-  { name: 'SuperDispatchColumns' },
+  { name: 'SD-Columns' },
 );
 
 export type ColumnWidth =

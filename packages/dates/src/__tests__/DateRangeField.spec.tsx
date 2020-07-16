@@ -140,7 +140,7 @@ it('updates time of selected days', () => {
   MockEvent.click(wrapper.getByRole('textbox'));
 
   expect(wrapper.getByLabelText(/May 24 2019/)).not.toHaveClass(
-    'SuperDispatchCalendar-selected',
+    'SD-Calendar-selected',
   );
 
   expect(onChange).toHaveBeenCalledTimes(0);
@@ -180,29 +180,29 @@ it('updates time of selected days', () => {
 });
 
 it('checks component css', () => {
-  expect(renderCSS(<DateRangeField />, ['SuperDispatchDateRangeField']))
+  expect(renderCSS(<DateRangeField />, ['SD-DateRangeField']))
     .toMatchInlineSnapshot(`
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside).SuperDispatchDateRangeField-rangeStart:before {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside).SD-DateRangeField-rangeStart:before {
       left: 4px;
     }
 
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside).SuperDispatchDateRangeField-rangeEnd:before {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside).SD-DateRangeField-rangeEnd:before {
       right: 4px;
     }
 
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):after {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside):not(.SD-DateRangeField-rangeStart):not(.SD-DateRangeField-rangeEnd):after {
       background-color: Color.Transparent;
     }
 
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):not(.SuperDispatchDateRangeField-disabled) {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside):not(.SD-DateRangeField-rangeStart):not(.SD-DateRangeField-rangeEnd):not(.SD-DateRangeField-disabled) {
       color: Color.Blue500;
     }
 
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd):not(.SuperDispatchDateRangeField-disabled):before {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside):not(.SD-DateRangeField-rangeStart):not(.SD-DateRangeField-rangeEnd):not(.SD-DateRangeField-disabled):before {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchDateRangeField-day.SuperDispatchDateRangeField-selected:not(.SuperDispatchDateRangeField-outside):not(.SuperDispatchDateRangeField-rangeStart):not(.SuperDispatchDateRangeField-rangeEnd).SuperDispatchDateRangeField-disabled:before {
+    .SD-DateRangeField-day.SD-DateRangeField-selected:not(.SD-DateRangeField-outside):not(.SD-DateRangeField-rangeStart):not(.SD-DateRangeField-rangeEnd).SD-DateRangeField-disabled:before {
       background-color: Color.Silver100;
     }
   `);

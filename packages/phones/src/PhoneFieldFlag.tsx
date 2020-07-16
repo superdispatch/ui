@@ -9,7 +9,7 @@ const useStyles = makeStyles<Theme>(
   (theme) => ({
     root: { minHeight: theme.spacing(2), minWidth: theme.spacing(2.75) },
   }),
-  { name: 'SuperDispatchPhoneFieldFlag' },
+  { name: 'SD-PhoneFieldFlag' },
 );
 
 export interface PhoneFieldFlagProps

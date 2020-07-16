@@ -130,7 +130,7 @@ const useStyles = makeStyles(
       fallback: {},
     };
   },
-  { name: 'SuperDispatchAvatarButton' },
+  { name: 'SD-AvatarButton' },
 );
 
 export interface AvatarButtonProps

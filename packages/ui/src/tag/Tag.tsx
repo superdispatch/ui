@@ -72,7 +72,7 @@ const useStyles = makeStyles<
     colorTeal: {},
     colorYellow: {},
   }),
-  { name: 'SuperDispatchTag' },
+  { name: 'SD-Tag' },
 );
 
 export interface TagProps

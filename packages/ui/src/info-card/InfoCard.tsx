@@ -27,7 +27,7 @@ const useStyles = makeStyles(
       },
     },
   }),
-  { name: 'SuperDispatchInfoCard' },
+  { name: 'SD-InfoCard' },
 );
 
 export interface InfoCardProps extends CardProps {

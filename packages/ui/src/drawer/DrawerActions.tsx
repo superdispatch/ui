@@ -39,7 +39,7 @@ const useStyles = makeStyles<
       },
     },
   }),
-  { name: 'SuperDispatchDrawerActions' },
+  { name: 'SD-DrawerActions' },
 );
 
 export interface DrawerActionsProps

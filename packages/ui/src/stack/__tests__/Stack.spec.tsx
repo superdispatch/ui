@@ -31,25 +31,25 @@ it('flattens children', () => {
   expect(container).toMatchInlineSnapshot(`
     <div>
       <div
-        class="SuperDispatchStack-root SuperDispatchStack-space1"
+        class="SD-Stack-root SD-Stack-space1"
       >
         <div
-          class="SuperDispatchStack-item"
+          class="SD-Stack-item"
         >
           A
         </div>
         <div
-          class="SuperDispatchStack-item"
+          class="SD-Stack-item"
         >
           B
         </div>
         <div
-          class="SuperDispatchStack-item"
+          class="SD-Stack-item"
         >
           C
         </div>
         <div
-          class="SuperDispatchStack-item"
+          class="SD-Stack-item"
         >
           D
         </div>
@@ -65,64 +65,62 @@ it('checks component css', () => {
         <div />
         <div />
       </Stack>,
-      ['SuperDispatchStack'],
+      ['SD-Stack'],
     ),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchStack-root.SuperDispatchStack-space1 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space1 > .SD-Stack-item {
       padding-bottom: 8px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space2 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space2 > .SD-Stack-item {
       padding-bottom: 16px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space3 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space3 > .SD-Stack-item {
       padding-bottom: 24px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space4 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space4 > .SD-Stack-item {
       padding-bottom: 32px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space5 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space5 > .SD-Stack-item {
       padding-bottom: 40px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space6 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space6 > .SD-Stack-item {
       padding-bottom: 48px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space7 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space7 > .SD-Stack-item {
       padding-bottom: 56px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space8 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space8 > .SD-Stack-item {
       padding-bottom: 64px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space9 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space9 > .SD-Stack-item {
       padding-bottom: 72px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-space10 > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-space10 > .SD-Stack-item {
       padding-bottom: 80px;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-alignRight
-      > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-alignRight > .SD-Stack-item {
       display: flex;
       align-items: flex-end;
       flex-direction: column;
     }
 
-    .SuperDispatchStack-root.SuperDispatchStack-alignCenter
-      > .SuperDispatchStack-item {
+    .SD-Stack-root.SD-Stack-alignCenter > .SD-Stack-item {
       display: flex;
       align-items: center;
       flex-direction: column;
     }
 
-    .SuperDispatchStack-root > .SuperDispatchStack-item:last-child {
+    .SD-Stack-root > .SD-Stack-item:last-child {
       padding-bottom: 0;
     }
   `);

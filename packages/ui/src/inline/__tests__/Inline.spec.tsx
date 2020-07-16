@@ -9,13 +9,13 @@ it('renders sentence', () => {
   expect(container).toMatchInlineSnapshot(`
     <div>
       <div
-        class="SuperDispatchInline-root SuperDispatchInline-space1"
+        class="SD-Inline-root SD-Inline-space1"
       >
         <div
-          class="SuperDispatchInline-container"
+          class="SD-Inline-container"
         >
           <div
-            class="SuperDispatchInline-item"
+            class="SD-Inline-item"
           >
             Hello There
           </div>
@@ -53,28 +53,28 @@ it('flattens children', () => {
   expect(container).toMatchInlineSnapshot(`
     <div>
       <div
-        class="SuperDispatchInline-root SuperDispatchInline-space1"
+        class="SD-Inline-root SD-Inline-space1"
       >
         <div
-          class="SuperDispatchInline-container"
+          class="SD-Inline-container"
         >
           <div
-            class="SuperDispatchInline-item"
+            class="SD-Inline-item"
           >
             A
           </div>
           <div
-            class="SuperDispatchInline-item"
+            class="SD-Inline-item"
           >
             B
           </div>
           <div
-            class="SuperDispatchInline-item"
+            class="SD-Inline-item"
           >
             C
           </div>
           <div
-            class="SuperDispatchInline-item"
+            class="SD-Inline-item"
           >
             D
           </div>
@@ -91,238 +91,218 @@ it('checks component css', () => {
         <div />
         <div />
       </Inline>,
-      ['SuperDispatchInline'],
+      ['SD-Inline'],
     ),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchInline-container {
+    .SD-Inline-container {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
     }
 
-    .SuperDispatchInline-space1 {
+    .SD-Inline-space1 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space1:before {
+    .SD-Inline-space1:before {
       content: '';
       display: block;
       margin-top: -9px;
     }
 
-    .SuperDispatchInline-space1 > .SuperDispatchInline-container {
+    .SD-Inline-space1 > .SD-Inline-container {
       margin-left: -8px;
     }
 
-    .SuperDispatchInline-space1
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space1 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 8px;
       padding-left: 8px;
     }
 
-    .SuperDispatchInline-space2 {
+    .SD-Inline-space2 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space2:before {
+    .SD-Inline-space2:before {
       content: '';
       display: block;
       margin-top: -17px;
     }
 
-    .SuperDispatchInline-space2 > .SuperDispatchInline-container {
+    .SD-Inline-space2 > .SD-Inline-container {
       margin-left: -16px;
     }
 
-    .SuperDispatchInline-space2
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space2 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 16px;
       padding-left: 16px;
     }
 
-    .SuperDispatchInline-space3 {
+    .SD-Inline-space3 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space3:before {
+    .SD-Inline-space3:before {
       content: '';
       display: block;
       margin-top: -25px;
     }
 
-    .SuperDispatchInline-space3 > .SuperDispatchInline-container {
+    .SD-Inline-space3 > .SD-Inline-container {
       margin-left: -24px;
     }
 
-    .SuperDispatchInline-space3
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space3 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 24px;
       padding-left: 24px;
     }
 
-    .SuperDispatchInline-space4 {
+    .SD-Inline-space4 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space4:before {
+    .SD-Inline-space4:before {
       content: '';
       display: block;
       margin-top: -33px;
     }
 
-    .SuperDispatchInline-space4 > .SuperDispatchInline-container {
+    .SD-Inline-space4 > .SD-Inline-container {
       margin-left: -32px;
     }
 
-    .SuperDispatchInline-space4
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space4 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 32px;
       padding-left: 32px;
     }
 
-    .SuperDispatchInline-space5 {
+    .SD-Inline-space5 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space5:before {
+    .SD-Inline-space5:before {
       content: '';
       display: block;
       margin-top: -41px;
     }
 
-    .SuperDispatchInline-space5 > .SuperDispatchInline-container {
+    .SD-Inline-space5 > .SD-Inline-container {
       margin-left: -40px;
     }
 
-    .SuperDispatchInline-space5
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space5 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 40px;
       padding-left: 40px;
     }
 
-    .SuperDispatchInline-space6 {
+    .SD-Inline-space6 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space6:before {
+    .SD-Inline-space6:before {
       content: '';
       display: block;
       margin-top: -49px;
     }
 
-    .SuperDispatchInline-space6 > .SuperDispatchInline-container {
+    .SD-Inline-space6 > .SD-Inline-container {
       margin-left: -48px;
     }
 
-    .SuperDispatchInline-space6
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space6 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 48px;
       padding-left: 48px;
     }
 
-    .SuperDispatchInline-space7 {
+    .SD-Inline-space7 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space7:before {
+    .SD-Inline-space7:before {
       content: '';
       display: block;
       margin-top: -57px;
     }
 
-    .SuperDispatchInline-space7 > .SuperDispatchInline-container {
+    .SD-Inline-space7 > .SD-Inline-container {
       margin-left: -56px;
     }
 
-    .SuperDispatchInline-space7
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space7 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 56px;
       padding-left: 56px;
     }
 
-    .SuperDispatchInline-space8 {
+    .SD-Inline-space8 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space8:before {
+    .SD-Inline-space8:before {
       content: '';
       display: block;
       margin-top: -65px;
     }
 
-    .SuperDispatchInline-space8 > .SuperDispatchInline-container {
+    .SD-Inline-space8 > .SD-Inline-container {
       margin-left: -64px;
     }
 
-    .SuperDispatchInline-space8
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space8 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 64px;
       padding-left: 64px;
     }
 
-    .SuperDispatchInline-space9 {
+    .SD-Inline-space9 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space9:before {
+    .SD-Inline-space9:before {
       content: '';
       display: block;
       margin-top: -73px;
     }
 
-    .SuperDispatchInline-space9 > .SuperDispatchInline-container {
+    .SD-Inline-space9 > .SD-Inline-container {
       margin-left: -72px;
     }
 
-    .SuperDispatchInline-space9
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space9 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 72px;
       padding-left: 72px;
     }
 
-    .SuperDispatchInline-space10 {
+    .SD-Inline-space10 {
       padding-top: 1px;
     }
 
-    .SuperDispatchInline-space10:before {
+    .SD-Inline-space10:before {
       content: '';
       display: block;
       margin-top: -81px;
     }
 
-    .SuperDispatchInline-space10 > .SuperDispatchInline-container {
+    .SD-Inline-space10 > .SD-Inline-container {
       margin-left: -80px;
     }
 
-    .SuperDispatchInline-space10
-      > .SuperDispatchInline-container
-      > .SuperDispatchInline-item {
+    .SD-Inline-space10 > .SD-Inline-container > .SD-Inline-item {
       padding-top: 80px;
       padding-left: 80px;
     }
 
-    .SuperDispatchInline-verticalCenter > .SuperDispatchInline-container {
+    .SD-Inline-verticalCenter > .SD-Inline-container {
       align-items: center;
     }
 
-    .SuperDispatchInline-verticalBottom > .SuperDispatchInline-container {
+    .SD-Inline-verticalBottom > .SD-Inline-container {
       align-items: flex-end;
     }
 
-    .SuperDispatchInline-horizontalRight > .SuperDispatchInline-container {
+    .SD-Inline-horizontalRight > .SD-Inline-container {
       justify-content: flex-end;
     }
 
-    .SuperDispatchInline-horizontalCenter > .SuperDispatchInline-container {
+    .SD-Inline-horizontalCenter > .SD-Inline-container {
       justify-content: center;
     }
   `);

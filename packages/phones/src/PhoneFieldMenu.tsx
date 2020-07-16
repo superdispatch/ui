@@ -21,7 +21,7 @@ const useStyles = makeStyles<
     list: {},
     paper: { maxHeight: theme.spacing(30) },
   }),
-  { name: 'SuperDispatchPhoneFieldMenu' },
+  { name: 'SD-PhoneFieldMenu' },
 );
 
 export interface PhoneFieldMenuProps

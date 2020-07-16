@@ -13,80 +13,80 @@ it('checks component css', () => {
         <DescriptionListItem content={<div />} />
         <DescriptionListItem label={<div />} content={<div />} />
       </DescriptionList>,
-      ['SuperDispatchDescriptionList'],
+      ['SD-DescriptionList'],
     ),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchDescriptionList-list {
+    .SD-DescriptionList-list {
       margin: -8px 0px;
     }
 
-    .SuperDispatchDescriptionList-list > .SuperDispatchDescriptionList-item {
+    .SD-DescriptionList-list > .SD-DescriptionList-item {
       padding: 8px 0px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-list {
+      .SD-DescriptionList-list {
         margin: -4px 0px;
       }
 
-      .SuperDispatchDescriptionList-list > .SuperDispatchDescriptionList-item {
+      .SD-DescriptionList-list > .SD-DescriptionList-item {
         padding: 4px 0px;
       }
     }
 
-    .SuperDispatchDescriptionList-listSmall {
+    .SD-DescriptionList-listSmall {
       margin: -4px 0px;
     }
 
-    .SuperDispatchDescriptionList-listSmall > .SuperDispatchDescriptionList-item {
+    .SD-DescriptionList-listSmall > .SD-DescriptionList-item {
       padding: 4px 0px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-listSmall {
+      .SD-DescriptionList-listSmall {
         margin: -2px 0px;
       }
 
-      .SuperDispatchDescriptionList-listSmall > .SuperDispatchDescriptionList-item {
+      .SD-DescriptionList-listSmall > .SD-DescriptionList-item {
         padding: 2px 0px;
       }
     }
 
-    .SuperDispatchDescriptionList-listLarge {
+    .SD-DescriptionList-listLarge {
       margin: -12px 0px;
     }
 
-    .SuperDispatchDescriptionList-listLarge > .SuperDispatchDescriptionList-item {
+    .SD-DescriptionList-listLarge > .SD-DescriptionList-item {
       padding: 12px 0px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-listLarge {
+      .SD-DescriptionList-listLarge {
         margin: -8px 0px;
       }
 
-      .SuperDispatchDescriptionList-listLarge > .SuperDispatchDescriptionList-item {
+      .SD-DescriptionList-listLarge > .SD-DescriptionList-item {
         padding: 8px 0px;
       }
     }
 
-    .SuperDispatchDescriptionList-item {
+    .SD-DescriptionList-item {
       display: flex;
       align-items: center;
     }
 
-    .SuperDispatchDescriptionList-icon {
+    .SD-DescriptionList-icon {
       display: inline-flex;
       margin-right: 8px;
     }
 
-    .SuperDispatchDescriptionList-icon > .MuiSvgIcon-root {
+    .SD-DescriptionList-icon > .MuiSvgIcon-root {
       color: Color.Grey100;
       font-size: 24px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchDescriptionList-icon > .MuiSvgIcon-root {
+      .SD-DescriptionList-icon > .MuiSvgIcon-root {
         font-size: 16px;
       }
     }

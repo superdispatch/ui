@@ -4,9 +4,8 @@ import React from 'react';
 import { CardButton } from '../..';
 
 it('checks component css', () => {
-  expect(renderCSS(<CardButton />, ['SuperDispatchCardButton']))
-    .toMatchInlineSnapshot(`
-    .SuperDispatchCardButton-root {
+  expect(renderCSS(<CardButton />, ['SD-CardButton'])).toMatchInlineSnapshot(`
+    .SD-CardButton-root {
       width: 100%;
       border: 1px dashed;
       display: flex;
@@ -22,75 +21,75 @@ it('checks component css', () => {
       justify-content: center;
     }
 
-    .SuperDispatchCardButton-disabled {
+    .SD-CardButton-disabled {
       color: Color.Grey200;
       border-color: Color.Silver500;
       background-color: Color.Silver100;
     }
 
-    .SuperDispatchCardButton-error {
+    .SD-CardButton-error {
       color: Color.Red300;
       border-color: Color.Red300;
       background-color: Color.Red50;
     }
 
-    .SuperDispatchCardButton-error:focus {
+    .SD-CardButton-error:focus {
       background-color: Color.Red75;
     }
 
-    .SuperDispatchCardButton-primary {
+    .SD-CardButton-primary {
       color: Color.Blue300;
       border-color: Color.Silver500;
     }
 
-    .SuperDispatchCardButton-primary:focus {
+    .SD-CardButton-primary:focus {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchCardButton-primary:hover,
-    .SuperDispatchCardButton-primary:active {
+    .SD-CardButton-primary:hover,
+    .SD-CardButton-primary:active {
       border-color: Color.Blue300;
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchCardButton-sizeSmall {
+    .SD-CardButton-sizeSmall {
       min-height: 48px;
     }
 
-    .SuperDispatchCardButton-sizeLarge {
+    .SD-CardButton-sizeLarge {
       min-height: 140px;
     }
 
-    .SuperDispatchCardButton-label {
+    .SD-CardButton-label {
       display: flex;
       align-items: center;
     }
 
-    .SuperDispatchCardButton-icon {
+    .SD-CardButton-icon {
       display: flex;
     }
 
-    .SuperDispatchCardButton-icon svg {
+    .SD-CardButton-icon svg {
       font-size: 24px;
     }
 
     @media (min-width: 600px) {
-      .SuperDispatchCardButton-icon svg {
+      .SD-CardButton-icon svg {
         font-size: 20px;
       }
     }
 
-    .SuperDispatchCardButton-startIcon {
+    .SD-CardButton-startIcon {
       margin-left: -4px;
       margin-right: 8px;
     }
 
-    .SuperDispatchCardButton-endIcon {
+    .SD-CardButton-endIcon {
       margin-left: 8px;
       margin-right: -4px;
     }
 
-    .SuperDispatchCardButton-hint {
+    .SD-CardButton-hint {
       margin-top: 4px;
     }
   `);

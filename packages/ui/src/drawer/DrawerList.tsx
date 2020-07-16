@@ -32,7 +32,7 @@ const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
       },
     },
   }),
-  { name: 'SuperDispatchDrawerList' },
+  { name: 'SD-DrawerList' },
 );
 
 export interface DrawerListProps

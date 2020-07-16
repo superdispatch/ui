@@ -6,10 +6,10 @@ import { PhoneFieldMenuItem } from '../PhoneFieldMenuItem';
 it('checks component css', () => {
   expect(
     renderCSS(<PhoneFieldMenuItem regionCode="US" />, [
-      'SuperDispatchPhoneFieldMenuItem',
+      'SD-PhoneFieldMenuItem',
     ]),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchPhoneFieldMenuItem-flag {
+    .SD-PhoneFieldMenuItem-flag {
       margin-right: 8px;
     }
   `);
