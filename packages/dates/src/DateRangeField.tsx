@@ -52,7 +52,7 @@ const useStyles = makeStyles<Theme>(
       },
     },
   }),
-  { name: 'SuperDispatchDateRangeField' },
+  { name: 'SD-DateRangeField' },
 );
 
 interface DateRangeFieldAPI {

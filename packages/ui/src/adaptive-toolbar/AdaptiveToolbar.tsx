@@ -49,7 +49,7 @@ function useResizeObserver<T extends HTMLElement>(
 
 const useStyles = makeStyles(
   { actions: { overflow: 'hidden' } },
-  { name: 'SuperDispatchAdaptiveToolbar' },
+  { name: 'SD-AdaptiveToolbar' },
 );
 
 export interface AdaptiveToolbarItem {

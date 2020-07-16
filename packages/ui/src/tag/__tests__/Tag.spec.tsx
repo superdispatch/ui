@@ -4,9 +4,9 @@ import React from 'react';
 import { Tag } from '../..';
 
 it('checks component css', () => {
-  expect(renderCSS(<Tag color="blue" variant="bold" />, ['SuperDispatchTag']))
+  expect(renderCSS(<Tag color="blue" variant="bold" />, ['SD-Tag']))
     .toMatchInlineSnapshot(`
-    .SuperDispatchTag-root {
+    .SD-Tag-root {
       display: inline-flex;
       padding: 0px 4px;
       max-width: 100%;
@@ -14,70 +14,70 @@ it('checks component css', () => {
       border-radius: 4px;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorGrey {
+    .SD-Tag-variantSubtle.SD-Tag-colorGrey {
       color: Color.Grey300;
       background-color: Color.Silver200;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorBlue {
+    .SD-Tag-variantSubtle.SD-Tag-colorBlue {
       color: Color.Blue500;
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorGreen {
+    .SD-Tag-variantSubtle.SD-Tag-colorGreen {
       color: Color.Green500;
       background-color: Color.Green50;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorPurple {
+    .SD-Tag-variantSubtle.SD-Tag-colorPurple {
       color: Color.Purple500;
       background-color: Color.Purple50;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorRed {
+    .SD-Tag-variantSubtle.SD-Tag-colorRed {
       color: Color.Red500;
       background-color: Color.Red50;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorTeal {
+    .SD-Tag-variantSubtle.SD-Tag-colorTeal {
       color: Color.Teal500;
       background-color: Color.Teal50;
     }
 
-    .SuperDispatchTag-variantSubtle.SuperDispatchTag-colorYellow {
+    .SD-Tag-variantSubtle.SD-Tag-colorYellow {
       color: Color.Yellow500;
       background-color: Color.Yellow50;
     }
 
-    .SuperDispatchTag-variantBold {
+    .SD-Tag-variantBold {
       color: Color.White;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorGrey {
+    .SD-Tag-variantBold.SD-Tag-colorGrey {
       background-color: Color.Grey300;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorBlue {
+    .SD-Tag-variantBold.SD-Tag-colorBlue {
       background-color: Color.Blue500;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorGreen {
+    .SD-Tag-variantBold.SD-Tag-colorGreen {
       background-color: Color.Green500;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorPurple {
+    .SD-Tag-variantBold.SD-Tag-colorPurple {
       background-color: Color.Purple500;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorRed {
+    .SD-Tag-variantBold.SD-Tag-colorRed {
       background-color: Color.Red500;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorTeal {
+    .SD-Tag-variantBold.SD-Tag-colorTeal {
       background-color: Color.Teal500;
     }
 
-    .SuperDispatchTag-variantBold.SuperDispatchTag-colorYellow {
+    .SD-Tag-variantBold.SD-Tag-colorYellow {
       background-color: Color.Yellow500;
     }
   `);

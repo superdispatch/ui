@@ -39,7 +39,7 @@ const useStyles = makeStyles<
       display: 'inline-block',
     },
   }),
-  { name: 'SuperDispatchOverflowText' },
+  { name: 'SD-OverflowText' },
 );
 
 export interface OverflowTextProps extends Omit<TypographyProps, 'noWrap'> {

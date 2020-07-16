@@ -31,7 +31,7 @@ const useStyles = makeStyles<
     selected: {},
     flag: { marginRight: theme.spacing(1) },
   }),
-  { name: 'SuperDispatchPhoneFieldMenuItem' },
+  { name: 'SD-PhoneFieldMenuItem' },
 );
 
 export interface PhoneFieldMenuItemProps

@@ -32,7 +32,7 @@ const useStyles = makeStyles<Theme>(
       '&:hover, &:focus': { backgroundColor: Color.Blue50 },
     },
   }),
-  { name: 'SuperDispatchPhoneField' },
+  { name: 'SD-PhoneField' },
 );
 
 export interface PhoneFieldProps

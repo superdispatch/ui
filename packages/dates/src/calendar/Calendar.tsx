@@ -202,7 +202,7 @@ const useStyles = makeStyles<
 
     todayButton: {},
   }),
-  { name: 'SuperDispatchCalendar' },
+  { name: 'SD-Calendar' },
 );
 
 function toLocalDate(

@@ -113,7 +113,7 @@ const useStyles = makeStyles<
       marginTop: theme.spacing(0.5),
     },
   }),
-  { name: 'SuperDispatchCardButton' },
+  { name: 'SD-CardButton' },
 );
 
 export interface CardButtonProps

@@ -111,7 +111,7 @@ const generateMaterialClassName = createGenerateClassName();
 function generateClassName(rule: Rule, sheet?: StyleSheet) {
   const sheetMeta = sheet?.options.meta;
 
-  return rule.type === 'style' && sheetMeta?.startsWith('SuperDispatch')
+  return rule.type === 'style' && sheetMeta?.startsWith('SD-')
     ? `${sheetMeta}-${rule.key}`
     : generateMaterialClassName(rule, sheet);
 }

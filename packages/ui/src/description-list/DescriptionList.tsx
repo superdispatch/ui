@@ -60,7 +60,7 @@ const useStyles = makeStyles<
       },
     },
   }),
-  { name: 'SuperDispatchDescriptionList' },
+  { name: 'SD-DescriptionList' },
 );
 
 export interface DescriptionListProps

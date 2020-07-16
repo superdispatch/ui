@@ -15,7 +15,7 @@ it('checks component css', () => {
     renderCSS(<Snackbar open={true} />, [
       'MuiSnackbar',
       'MuiSnackbarContent',
-      'SuperDispatchSnackbarContent',
+      'SD-SnackbarContent',
     ]),
   ).toMatchInlineSnapshot(`
     .MuiSnackbar-root {
@@ -156,41 +156,41 @@ it('checks component css', () => {
       padding-left: 16px;
     }
 
-    .SuperDispatchSnackbarContent-root {
+    .SD-SnackbarContent-root {
       color: Color.White;
       background-color: Color.Grey500;
     }
 
-    .SuperDispatchSnackbarContent-root.SuperDispatchSnackbarContent-variantError {
+    .SD-SnackbarContent-root.SD-SnackbarContent-variantError {
       color: Color.White;
       background-color: Color.Red500;
     }
 
-    .SuperDispatchSnackbarContent-action {
+    .SD-SnackbarContent-action {
       padding-left: 8px;
     }
 
-    .SuperDispatchSnackbarContent-message {
+    .SD-SnackbarContent-message {
       align-items: center;
     }
 
     @media (max-width: 599.95px) {
-      .SuperDispatchSnackbarContent-message {
+      .SD-SnackbarContent-message {
         font-size: 16px;
       }
     }
 
-    .SuperDispatchSnackbarContent-icon {
+    .SD-SnackbarContent-icon {
       font-size: 24px;
       margin-right: 8px;
     }
 
-    .SuperDispatchSnackbarContent-closeButton {
+    .SD-SnackbarContent-closeButton {
       color: Color.White40;
     }
 
-    .SuperDispatchSnackbarContent-closeButton:hover,
-    .SuperDispatchSnackbarContent-closeButton:focus {
+    .SD-SnackbarContent-closeButton:hover,
+    .SD-SnackbarContent-closeButton:focus {
       color: Color.White40;
       background-color: Color.White08;
     }

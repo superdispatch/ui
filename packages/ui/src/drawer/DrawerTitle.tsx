@@ -58,7 +58,7 @@ const useStyles = makeStyles<
       },
     },
   }),
-  { name: 'SuperDispatchDrawerTitle' },
+  { name: 'SD-DrawerTitle' },
 );
 
 export interface DrawerTitleProps

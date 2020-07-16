@@ -202,13 +202,13 @@ it('selects days', () => {
   );
 
   expect(wrapper.getByLabelText(/May 23 2019/)).not.toHaveClass(
-    'SuperDispatchCalendar-selected',
+    'SD-Calendar-selected',
   );
 
   for (let day = 24; day <= 27; day++) {
     const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
 
-    expect(element).toHaveClass('SuperDispatchCalendar-selected');
+    expect(element).toHaveClass('SD-Calendar-selected');
 
     MockEvent.click(element);
 
@@ -222,7 +222,7 @@ it('selects days', () => {
   }
 
   expect(wrapper.getByLabelText(/May 28 2019/)).not.toHaveClass(
-    'SuperDispatchCalendar-selected',
+    'SD-Calendar-selected',
   );
 });
 
@@ -236,7 +236,7 @@ it('disables days', () => {
   );
 
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
-    'SuperDispatchCalendar-disabled',
+    'SD-Calendar-disabled',
   );
 
   MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
@@ -271,68 +271,67 @@ it('highlights days', () => {
 
     const day = wrapper.getByLabelText(/May 24 2019/);
 
-    expect(day).toHaveClass(`SuperDispatchCalendar-${highlight}`);
+    expect(day).toHaveClass(`SD-Calendar-${highlight}`);
   });
 });
 
 it('checks component css', () => {
-  expect(renderCSS(<Calendar />, ['SuperDispatchCalendar']))
-    .toMatchInlineSnapshot(`
-    .SuperDispatchCalendar-container {
+  expect(renderCSS(<Calendar />, ['SD-Calendar'])).toMatchInlineSnapshot(`
+    .SD-Calendar-container {
       display: inline-block;
     }
 
-    .SuperDispatchCalendar-wrapper {
+    .SD-Calendar-wrapper {
       position: relative;
       user-select: none;
       flex-direction: row;
       padding-bottom: 16px;
     }
 
-    .SuperDispatchCalendar-wrapper:focus {
+    .SD-Calendar-wrapper:focus {
       outline: none;
     }
 
-    .SuperDispatchCalendar-navButtonPrev {
+    .SD-Calendar-navButtonPrev {
       top: 12px;
       left: 12px;
       position: absolute;
     }
 
-    .SuperDispatchCalendar-navButtonNext {
+    .SD-Calendar-navButtonNext {
       top: 12px;
       right: 12px;
       position: absolute;
     }
 
-    .SuperDispatchCalendar-months {
+    .SD-Calendar-months {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
 
-    .SuperDispatchCalendar-month {
+    .SD-Calendar-month {
       margin: 16px 16px 0px 16px;
       user-select: none;
     }
 
-    .SuperDispatchCalendar-caption {
+    .SD-Calendar-caption {
       display: table-caption;
       padding: 0px 8px;
       text-align: center;
       margin-bottom: 8px;
     }
 
-    .SuperDispatchCalendar-weekdays {
+    .SD-Calendar-weekdays {
       display: table-header-group;
     }
 
-    .SuperDispatchCalendar-weekdaysRow {
+    .SD-Calendar-weekdaysRow {
       margin: 8px 0px;
       display: flex;
     }
 
-    .SuperDispatchCalendar-weekday {
+    .SD-Calendar-weekday {
       color: Color.Grey300;
       width: 40px;
       height: 40px;
@@ -343,16 +342,16 @@ it('checks component css', () => {
       text-decoration: none;
     }
 
-    .SuperDispatchCalendar-body {
+    .SD-Calendar-body {
       display: flex;
       flex-direction: column;
     }
 
-    .SuperDispatchCalendar-week {
+    .SD-Calendar-week {
       display: flex;
     }
 
-    .SuperDispatchCalendar-day {
+    .SD-Calendar-day {
       width: 40px;
       height: 40px;
       margin: 1px;
@@ -366,7 +365,7 @@ it('checks component css', () => {
       justify-content: center;
     }
 
-    .SuperDispatchCalendar-day:before {
+    .SD-Calendar-day:before {
       top: 0;
       left: -1px;
       right: -1px;
@@ -378,7 +377,7 @@ it('checks component css', () => {
       background-color: Color.Transparent;
     }
 
-    .SuperDispatchCalendar-day:after {
+    .SD-Calendar-day:after {
       top: 0;
       left: 0;
       right: 0;
@@ -391,102 +390,102 @@ it('checks component css', () => {
       background-color: Color.Transparent;
     }
 
-    .SuperDispatchCalendar-day:hover,
-    .SuperDispatchCalendar-day:focus {
+    .SD-Calendar-day:hover,
+    .SD-Calendar-day:focus {
       outline: none;
     }
 
-    .SuperDispatchCalendar-day.SuperDispatchCalendar-disabled {
+    .SD-Calendar-day.SD-Calendar-disabled {
       color: Color.Grey100;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled) {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled) {
       color: Color.Grey500;
       cursor: pointer;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):active,
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled).SuperDispatchCalendar-selected {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):active,
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled).SD-Calendar-selected {
       color: Color.White;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):active:after,
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled).SuperDispatchCalendar-selected:after {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):active:after,
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled).SD-Calendar-selected:after {
       background-color: Color.Blue300;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-today {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-today {
       color: Color.Blue300;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active):hover,
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active):focus {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active):hover,
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active):focus {
       background-color: Color.Silver100;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-blue {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-blue {
       color: Color.Blue500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-green {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-green {
       color: Color.Green500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-purple {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-purple {
       color: Color.Purple500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-red {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-red {
       color: Color.Red500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-teal {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-teal {
       color: Color.Teal500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-yellow {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-yellow {
       color: Color.Yellow500;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-yellow {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-yellow {
       background-color: Color.Yellow50;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-teal {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-teal {
       background-color: Color.Teal50;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-red {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-red {
       background-color: Color.Red50;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-purple {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-purple {
       background-color: Color.Purple50;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-green {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-green {
       background-color: Color.Green50;
     }
 
-    .SuperDispatchCalendar-day:not(.SuperDispatchCalendar-outside):not(.SuperDispatchCalendar-disabled):not(.SuperDispatchCalendar-selected):not(:active).SuperDispatchCalendar-blue {
+    .SD-Calendar-day:not(.SD-Calendar-outside):not(.SD-Calendar-disabled):not(.SD-Calendar-selected):not(:active).SD-Calendar-blue {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchCalendar-day.SuperDispatchCalendar-disabled.SuperDispatchCalendar-selected:not(.SuperDispatchCalendar-outside):after {
+    .SD-Calendar-day.SD-Calendar-disabled.SD-Calendar-selected:not(.SD-Calendar-outside):after {
       background-color: Color.Silver300;
     }
 
-    .SuperDispatchCalendar-day:last-child:before,
-    .SuperDispatchCalendar-day.SuperDispatchCalendar-lastDayOfMonth:before {
+    .SD-Calendar-day:last-child:before,
+    .SD-Calendar-day.SD-Calendar-lastDayOfMonth:before {
       border-radius: 0px 4px 4px 0px;
     }
 
-    .SuperDispatchCalendar-day:first-child:before,
-    .SuperDispatchCalendar-day.SuperDispatchCalendar-firstDayOfMonth:before {
+    .SD-Calendar-day:first-child:before,
+    .SD-Calendar-day.SD-Calendar-firstDayOfMonth:before {
       border-radius: 4px 0px 0px 4px;
     }
 
-    .SuperDispatchCalendar-footer {
+    .SD-Calendar-footer {
       padding: 16px;
     }
   `);

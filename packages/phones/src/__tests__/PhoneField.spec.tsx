@@ -6,33 +6,33 @@ import { PhoneField } from '../..';
 it('checks component css', () => {
   expect(
     renderCSS(<PhoneField />, [
-      'SuperDispatchPhoneField',
-      'SuperDispatchPhoneFieldFlag',
-      'SuperDispatchPhoneFieldMenu',
+      'SD-PhoneField',
+      'SD-PhoneFieldFlag',
+      'SD-PhoneFieldMenu',
     ]),
   ).toMatchInlineSnapshot(`
-    .SuperDispatchPhoneField-inputAdornedStart {
+    .SD-PhoneField-inputAdornedStart {
       margin-left: -8px;
       margin-right: 0;
     }
 
-    .SuperDispatchPhoneField-selectButton {
+    .SD-PhoneField-selectButton {
       color: Color.Blue300;
       padding: 4px 4px 4px 8px;
       border-radius: 4px 0px 0px 4px;
     }
 
-    .SuperDispatchPhoneField-selectButton:hover,
-    .SuperDispatchPhoneField-selectButton:focus {
+    .SD-PhoneField-selectButton:hover,
+    .SD-PhoneField-selectButton:focus {
       background-color: Color.Blue50;
     }
 
-    .SuperDispatchPhoneFieldFlag-root {
+    .SD-PhoneFieldFlag-root {
       min-width: 22px;
       min-height: 16px;
     }
 
-    .SuperDispatchPhoneFieldMenu-paper {
+    .SD-PhoneFieldMenu-paper {
       max-height: 240px;
     }
   `);
