@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-webpage",
-  "version": "0.3.20",
+  "version": "0.3.21",
   "private": true,
   "scripts": {
     "build": "build-storybook -o ../../docs",
@@ -12,9 +12,9 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@mdi/js": "^5.3.45",
     "@storybook/addon-actions": "^5.3.19",
-    "@superdispatch/dates": "^0.3.20",
-    "@superdispatch/phones": "^0.3.20",
-    "@superdispatch/ui": "^0.3.20",
+    "@superdispatch/dates": "^0.3.21",
+    "@superdispatch/phones": "^0.3.21",
+    "@superdispatch/ui": "^0.3.21",
     "lorem-ipsum": "^2.0.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
