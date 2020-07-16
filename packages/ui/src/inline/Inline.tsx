@@ -62,49 +62,49 @@ const useStyles = makeStyles<
   InlineClassKey
 >(
   (theme) => ({
-    root: {
-      '&$space1': spaceVariant(theme, 1),
-      '&$space2': spaceVariant(theme, 2),
-      '&$space3': spaceVariant(theme, 3),
-      '&$space4': spaceVariant(theme, 4),
-      '&$space5': spaceVariant(theme, 5),
-      '&$space6': spaceVariant(theme, 6),
-      '&$space7': spaceVariant(theme, 7),
-      '&$space8': spaceVariant(theme, 8),
-      '&$space9': spaceVariant(theme, 9),
-      '&$space10': spaceVariant(theme, 10),
-    },
+    root: {},
 
     container: {
       display: 'flex',
       flexWrap: 'wrap',
       flexDirection: 'row',
-
-      '$verticalBottom > &': { alignItems: 'flex-end' },
-      '$verticalCenter > &': { alignItems: 'center' },
-
-      '$horizontalRight > &': { justifyContent: 'flex-end' },
-      '$horizontalCenter > &': { justifyContent: 'center' },
     },
 
-    space1: {},
-    space2: {},
-    space3: {},
-    space4: {},
-    space5: {},
-    space6: {},
-    space7: {},
-    space8: {},
-    space9: {},
-    space10: {},
-
-    verticalBottom: {},
-    verticalCenter: {},
-
-    horizontalRight: {},
-    horizontalCenter: {},
-
     item: {},
+
+    space1: spaceVariant(theme, 1),
+    space2: spaceVariant(theme, 2),
+    space3: spaceVariant(theme, 3),
+    space4: spaceVariant(theme, 4),
+    space5: spaceVariant(theme, 5),
+    space6: spaceVariant(theme, 6),
+    space7: spaceVariant(theme, 7),
+    space8: spaceVariant(theme, 8),
+    space9: spaceVariant(theme, 9),
+    space10: spaceVariant(theme, 10),
+
+    verticalCenter: {
+      '& > $container': {
+        alignItems: 'center',
+      },
+    },
+    verticalBottom: {
+      '& > $container': {
+        alignItems: 'flex-end',
+      },
+    },
+
+    horizontalRight: {
+      '& > $container': {
+        justifyContent: 'flex-end',
+      },
+    },
+
+    horizontalCenter: {
+      '& > $container': {
+        justifyContent: 'center',
+      },
+    },
   }),
   { name: 'SuperDispatchInline' },
 );
