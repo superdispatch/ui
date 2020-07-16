@@ -25,7 +25,7 @@ function normalizeResponsiveProp<T extends number | string>(
 export function useResponsiveProp<T extends string | number>(
   prop: ResponsiveProp<T>,
 ): T {
-  const { xs, sm, md, lg, xl } = normalizeResponsiveProp(prop);
+  const { xs, sm = xs, md, lg, xl } = normalizeResponsiveProp<T>(prop);
 
   return useResponsiveValue(xs, sm, md, lg, xl);
 }
