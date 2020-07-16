@@ -22,7 +22,11 @@ type ColumnsClassKey =
   | 'root'
   | 'column'
   | 'columnContent'
-  | 'collapsed'
+  | 'layoutDefault'
+  | 'layoutCollapsed'
+  | 'directionDefault'
+  | 'directionReversed'
+  | 'space0'
   | 'space1'
   | 'space2'
   | 'space3'
@@ -47,26 +51,23 @@ type ColumnsClassKey =
   | 'width3of5'
   | 'width4of5';
 
-function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
+function spaceMixin(theme: SuperDispatchTheme, space: number): CSSProperties {
   const gap = theme.spacing(space);
 
   return {
-    '&$collapsed': {
-      '& $columnContent': { paddingBottom: gap },
-      '& $column:last-child $columnContent': { paddingBottom: 0 },
+    '&$layoutDefault': {
+      marginLeft: -gap,
+      '& > $column > $columnContent': { paddingLeft: gap },
     },
 
-    '&:not($collapsed)': {
-      '& $columnContent': { paddingRight: gap },
-      '& $column:last-child $columnContent': { paddingRight: 0 },
+    '&$layoutCollapsed > $column > $columnContent': {
+      paddingBottom: gap,
     },
   };
 }
 
-function widthVariant(scale: number): CSSProperties {
-  return {
-    flex: `0 0 ${scale * 100}%`,
-  };
+function widthMixin(scale: number): CSSProperties {
+  return { flex: `0 0 ${scale * 100}%` };
 }
 
 const useStyles = makeStyles<
@@ -75,23 +76,50 @@ const useStyles = makeStyles<
   ColumnsClassKey
 >(
   (theme) => ({
-    root: { display: 'flex', flexDirection: 'row' },
+    root: { display: 'flex' },
 
-    column: { minWidth: 0 },
+    column: {
+      minWidth: 0,
+    },
     columnContent: {},
 
-    collapsed: { flexDirection: 'column' },
+    layoutDefault: {
+      flexDirection: 'row',
+      '&$directionReversed': { flexDirection: 'row-reverse' },
+    },
 
-    space1: spaceVariant(theme, 1),
-    space2: spaceVariant(theme, 2),
-    space3: spaceVariant(theme, 3),
-    space4: spaceVariant(theme, 4),
-    space5: spaceVariant(theme, 5),
-    space6: spaceVariant(theme, 6),
-    space7: spaceVariant(theme, 7),
-    space8: spaceVariant(theme, 8),
-    space9: spaceVariant(theme, 9),
-    space10: spaceVariant(theme, 10),
+    layoutCollapsed: {
+      flexDirection: 'column',
+
+      '&$directionDefault': {
+        '& > $column:last-child > $columnContent': {
+          paddingBottom: 0,
+        },
+      },
+
+      '&$directionReversed': {
+        flexDirection: 'column-reverse',
+
+        '& > $column:first-child > $columnContent': {
+          paddingBottom: 0,
+        },
+      },
+    },
+
+    directionDefault: {},
+    directionReversed: {},
+
+    space0: {},
+    space1: spaceMixin(theme, 1),
+    space2: spaceMixin(theme, 2),
+    space3: spaceMixin(theme, 3),
+    space4: spaceMixin(theme, 4),
+    space5: spaceMixin(theme, 5),
+    space6: spaceMixin(theme, 6),
+    space7: spaceMixin(theme, 7),
+    space8: spaceMixin(theme, 8),
+    space9: spaceMixin(theme, 9),
+    space10: spaceMixin(theme, 10),
 
     alignCenter: { alignItems: 'center' },
     alignBottom: { alignItems: 'flex-end' },
@@ -99,15 +127,15 @@ const useStyles = makeStyles<
     widthFluid: { width: '100%' },
     widthContent: { flexShrink: 0 },
 
-    width1of2: widthVariant(1 / 2),
-    width1of3: widthVariant(1 / 3),
-    width2of3: widthVariant(2 / 3),
-    width1of4: widthVariant(1 / 4),
-    width3of4: widthVariant(3 / 4),
-    width1of5: widthVariant(1 / 5),
-    width2of5: widthVariant(2 / 5),
-    width3of5: widthVariant(3 / 5),
-    width4of5: widthVariant(4 / 5),
+    width1of2: widthMixin(1 / 2),
+    width1of3: widthMixin(1 / 3),
+    width2of3: widthMixin(2 / 3),
+    width1of4: widthMixin(1 / 4),
+    width3of4: widthMixin(3 / 4),
+    width1of5: widthMixin(1 / 5),
+    width2of5: widthMixin(2 / 5),
+    width3of5: widthMixin(3 / 5),
+    width4of5: widthMixin(4 / 5),
   }),
   { name: 'SuperDispatchColumns' },
 );
@@ -165,6 +193,7 @@ export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export interface ColumnsProps
   extends HTMLAttributes<HTMLDivElement>,
     RefAttributes<HTMLDivElement> {
+  reverse?: ResponsiveProp<boolean>;
   space?: ResponsiveProp<ColumnsSpace>;
   align?: ResponsiveProp<VerticalAlign>;
   collapseBelow?: CollapseBreakpoint;
@@ -177,6 +206,7 @@ export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
       collapseBelow,
       space: spaceProp = 0,
       align: alignProp = 'top',
+      reverse: reverseProp = false,
       ...props
     },
     ref,
@@ -184,6 +214,7 @@ export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
     const styles = useStyles({});
     const align = useResponsiveProp(alignProp);
     const space = useResponsiveProp(spaceProp);
+    const isReversed = useResponsiveProp(reverseProp);
     const isCollapsed = useCollapseBreakpoint(collapseBelow);
 
     return (
@@ -191,8 +222,12 @@ export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
         {...props}
         ref={ref}
         className={clsx(className, styles.root, {
-          [styles.collapsed]: isCollapsed,
+          [styles.layoutDefault]: !isCollapsed,
+          [styles.layoutCollapsed]: isCollapsed,
+          [styles.directionDefault]: !isReversed,
+          [styles.directionReversed]: isReversed,
 
+          [styles.space0]: space === 0,
           [styles.space1]: space === 1,
           [styles.space2]: space === 2,
           [styles.space3]: space === 3,
