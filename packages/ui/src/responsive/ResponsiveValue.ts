@@ -7,15 +7,8 @@ export function useResponsiveValue<T>(
   lg = md,
   xl = lg,
 ): T {
-  const { breakpoint } = useResponsiveContext();
+  const values = { xs, sm, md, lg, xl };
+  const { breakpoint = 'xs' } = useResponsiveContext();
 
-  return breakpoint === 'xl'
-    ? xl
-    : breakpoint === 'lg'
-    ? lg
-    : breakpoint === 'md'
-    ? md
-    : breakpoint === 'sm'
-    ? sm
-    : xs;
+  return values[breakpoint];
 }

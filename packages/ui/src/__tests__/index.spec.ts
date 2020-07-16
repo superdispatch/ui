@@ -198,6 +198,7 @@ it('exposes public api', () => {
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "renderChildren": [Function],
+      "useCollapseBreakpoint": [Function],
       "useResponsiveContext": [Function],
       "useResponsiveProp": [Function],
       "useResponsiveValue": [Function],

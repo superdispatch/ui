@@ -8,6 +8,10 @@ import React, {
 } from 'react';
 
 import {
+  CollapseBreakpoint,
+  useCollapseBreakpoint,
+} from '../responsive/CollapseBreakpoint';
+import {
   ResponsiveProp,
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
@@ -16,6 +20,9 @@ import { VerticalAlign } from '../theme/types';
 
 type ColumnsClassKey =
   | 'root'
+  | 'column'
+  | 'columnContent'
+  | 'collapsed'
   | 'space1'
   | 'space2'
   | 'space3'
@@ -28,8 +35,6 @@ type ColumnsClassKey =
   | 'space10'
   | 'alignCenter'
   | 'alignBottom'
-  | 'column'
-  | 'columnContent'
   | 'widthContent'
   | 'widthFluid'
   | 'width1of2'
@@ -46,10 +51,14 @@ function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
   const gap = theme.spacing(space);
 
   return {
-    marginLeft: -gap,
+    '&$collapsed': {
+      '& $columnContent': { paddingBottom: gap },
+      '& $column:last-child $columnContent': { paddingBottom: 0 },
+    },
 
-    '& > $column > $columnContent': {
-      paddingLeft: gap,
+    '&:not($collapsed)': {
+      '& $columnContent': { paddingRight: gap },
+      '& $column:last-child $columnContent': { paddingRight: 0 },
     },
   };
 }
@@ -66,10 +75,12 @@ const useStyles = makeStyles<
   ColumnsClassKey
 >(
   (theme) => ({
-    root: {
-      display: 'flex',
-      flexDirection: 'row',
-    },
+    root: { display: 'flex', flexDirection: 'row' },
+
+    column: { minWidth: 0 },
+    columnContent: {},
+
+    collapsed: { flexDirection: 'column' },
 
     space1: spaceVariant(theme, 1),
     space2: spaceVariant(theme, 2),
@@ -84,9 +95,6 @@ const useStyles = makeStyles<
 
     alignCenter: { alignItems: 'center' },
     alignBottom: { alignItems: 'flex-end' },
-
-    column: { minWidth: 0 },
-    columnContent: {},
 
     widthFluid: { width: '100%' },
     widthContent: { flexShrink: 0 },
@@ -159,22 +167,32 @@ export interface ColumnsProps
     RefAttributes<HTMLDivElement> {
   space?: ResponsiveProp<ColumnsSpace>;
   align?: ResponsiveProp<VerticalAlign>;
+  collapseBelow?: CollapseBreakpoint;
 }
 
 export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
   (
-    { className, space: spaceProp = 0, align: alignProp = 'top', ...props },
+    {
+      className,
+      collapseBelow,
+      space: spaceProp = 0,
+      align: alignProp = 'top',
+      ...props
+    },
     ref,
   ) => {
     const styles = useStyles({});
     const align = useResponsiveProp(alignProp);
     const space = useResponsiveProp(spaceProp);
+    const isCollapsed = useCollapseBreakpoint(collapseBelow);
 
     return (
       <div
         {...props}
         ref={ref}
         className={clsx(className, styles.root, {
+          [styles.collapsed]: isCollapsed,
+
           [styles.space1]: space === 1,
           [styles.space2]: space === 2,
           [styles.space3]: space === 3,

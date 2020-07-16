@@ -17,6 +17,7 @@ export * from './inline/Inline';
 export * from './overflow-text/OverflowText';
 export * from './radio/RadioField';
 export * from './radio/RadioGroupField';
+export * from './responsive/CollapseBreakpoint';
 export * from './responsive/ResponsiveContext';
 export * from './responsive/ResponsiveProp';
 export * from './responsive/ResponsiveValue';
