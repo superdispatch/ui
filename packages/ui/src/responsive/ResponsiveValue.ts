@@ -2,7 +2,7 @@ import { useResponsiveContext } from './ResponsiveContext';
 
 export function useResponsiveValue<T>(
   xs: T,
-  sm = xs,
+  sm: T,
   md = sm,
   lg = md,
   xl = lg,
