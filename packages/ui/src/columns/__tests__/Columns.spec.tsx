@@ -17,104 +17,232 @@ it('checks component css', () => {
       flex-direction: row;
     }
 
-    .SuperDispatchColumns-space1 {
-      margin-left: -8px;
+    .SuperDispatchColumns-column {
+      min-width: 0;
     }
 
-    .SuperDispatchColumns-space1
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 8px;
+    .SuperDispatchColumns-collapsed {
+      flex-direction: column;
     }
 
-    .SuperDispatchColumns-space2 {
-      margin-left: -16px;
+    .SuperDispatchColumns-space1:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 8px;
     }
 
-    .SuperDispatchColumns-space2
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 16px;
+    .SuperDispatchColumns-space1:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
     }
 
-    .SuperDispatchColumns-space3 {
-      margin-left: -24px;
+    .SuperDispatchColumns-space1.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 8px;
     }
 
-    .SuperDispatchColumns-space3
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 24px;
+    .SuperDispatchColumns-space1.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
     }
 
-    .SuperDispatchColumns-space4 {
-      margin-left: -32px;
+    .SuperDispatchColumns-space2:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 16px;
     }
 
-    .SuperDispatchColumns-space4
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 32px;
+    .SuperDispatchColumns-space2:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
     }
 
-    .SuperDispatchColumns-space5 {
-      margin-left: -40px;
+    .SuperDispatchColumns-space2.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 16px;
     }
 
-    .SuperDispatchColumns-space5
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 40px;
+    .SuperDispatchColumns-space2.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
     }
 
-    .SuperDispatchColumns-space6 {
-      margin-left: -48px;
+    .SuperDispatchColumns-space3:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 24px;
     }
 
-    .SuperDispatchColumns-space6
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 48px;
+    .SuperDispatchColumns-space3:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
     }
 
-    .SuperDispatchColumns-space7 {
-      margin-left: -56px;
+    .SuperDispatchColumns-space3.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 24px;
     }
 
-    .SuperDispatchColumns-space7
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 56px;
+    .SuperDispatchColumns-space3.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
     }
 
-    .SuperDispatchColumns-space8 {
-      margin-left: -64px;
+    .SuperDispatchColumns-space4:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 32px;
     }
 
-    .SuperDispatchColumns-space8
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 64px;
+    .SuperDispatchColumns-space4:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
     }
 
-    .SuperDispatchColumns-space9 {
-      margin-left: -72px;
+    .SuperDispatchColumns-space4.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 32px;
     }
 
-    .SuperDispatchColumns-space9
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 72px;
+    .SuperDispatchColumns-space4.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
     }
 
-    .SuperDispatchColumns-space10 {
-      margin-left: -80px;
+    .SuperDispatchColumns-space5:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 40px;
     }
 
-    .SuperDispatchColumns-space10
-      > .SuperDispatchColumns-column
-      > .SuperDispatchColumns-columnContent {
-      padding-left: 80px;
+    .SuperDispatchColumns-space5:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space5.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 40px;
+    }
+
+    .SuperDispatchColumns-space5.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
+    }
+
+    .SuperDispatchColumns-space6:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 48px;
+    }
+
+    .SuperDispatchColumns-space6:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space6.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 48px;
+    }
+
+    .SuperDispatchColumns-space6.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
+    }
+
+    .SuperDispatchColumns-space7:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 56px;
+    }
+
+    .SuperDispatchColumns-space7:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space7.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 56px;
+    }
+
+    .SuperDispatchColumns-space7.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
+    }
+
+    .SuperDispatchColumns-space8:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 64px;
+    }
+
+    .SuperDispatchColumns-space8:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space8.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 64px;
+    }
+
+    .SuperDispatchColumns-space8.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
+    }
+
+    .SuperDispatchColumns-space9:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 72px;
+    }
+
+    .SuperDispatchColumns-space9:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space9.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 72px;
+    }
+
+    .SuperDispatchColumns-space9.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
+    }
+
+    .SuperDispatchColumns-space10:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-columnContent {
+      padding-right: 80px;
+    }
+
+    .SuperDispatchColumns-space10:not(.SuperDispatchColumns-collapsed)
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-right: 0;
+    }
+
+    .SuperDispatchColumns-space10.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 80px;
+    }
+
+    .SuperDispatchColumns-space10.SuperDispatchColumns-collapsed
+      .SuperDispatchColumns-column:last-child
+      .SuperDispatchColumns-columnContent {
+      padding-bottom: 0;
     }
 
     .SuperDispatchColumns-alignCenter {
@@ -123,10 +251,6 @@ it('checks component css', () => {
 
     .SuperDispatchColumns-alignBottom {
       align-items: flex-end;
-    }
-
-    .SuperDispatchColumns-column {
-      min-width: 0;
     }
 
     .SuperDispatchColumns-widthFluid {

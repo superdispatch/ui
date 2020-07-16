@@ -188,6 +188,51 @@ export default function ColumnsDemo() {
           </Column>
         </Columns>
       </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Collapse below table, e.g: <code>collapseBelow=&quot;sm&quot;</code>
+          </>
+        }
+      >
+        <Columns space={1} collapseBelow="sm">
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+        </Columns>
+      </DemoCard>
+
+      <DemoCard
+        title={
+          <>
+            Collapse below desktop, e.g:{' '}
+            <code>collapseBelow=&quot;md&quot;</code>
+          </>
+        }
+      >
+        <Columns space={1} collapseBelow="md">
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+
+          <Column>
+            <Placeholder height={48} />
+          </Column>
+        </Columns>
+      </DemoCard>
     </Stack>
   );
 }
