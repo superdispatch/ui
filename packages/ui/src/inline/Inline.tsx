@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  HTMLAttributes,
   ReactNode,
   RefAttributes,
 } from 'react';
@@ -84,26 +83,18 @@ const useStyles = makeStyles<
     space10: spaceVariant(theme, 10),
 
     verticalCenter: {
-      '& > $container': {
-        alignItems: 'center',
-      },
+      '& > $container': { alignItems: 'center' },
     },
     verticalBottom: {
-      '& > $container': {
-        alignItems: 'flex-end',
-      },
+      '& > $container': { alignItems: 'flex-end' },
     },
 
     horizontalRight: {
-      '& > $container': {
-        justifyContent: 'flex-end',
-      },
+      '& > $container': { justifyContent: 'flex-end' },
     },
 
     horizontalCenter: {
-      '& > $container': {
-        justifyContent: 'center',
-      },
+      '& > $container': { justifyContent: 'center' },
     },
   }),
   { name: 'SD-Inline' },
@@ -111,12 +102,8 @@ const useStyles = makeStyles<
 
 export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface InlineProps
-  extends HTMLAttributes<HTMLDivElement>,
-    RefAttributes<HTMLDivElement> {
+export interface InlineProps extends RefAttributes<HTMLDivElement> {
   children?: ReactNode;
-  classes?: Partial<ClassNameMap<InlineClassKey>>;
-
   space?: ResponsiveProp<InlineSpace>;
   verticalAlign?: ResponsiveProp<VerticalAlign>;
   horizontalAlign?: ResponsiveProp<HorizontalAlign>;
@@ -125,9 +112,7 @@ export interface InlineProps
 export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
   (
     {
-      classes,
       children,
-      className,
       space: spaceProp = 1,
       verticalAlign: verticalAlignProp = 'top',
       horizontalAlign: horizontalAlignProp = 'left',
@@ -135,7 +120,7 @@ export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
     },
     ref,
   ) => {
-    const styles = useStyles({ classes });
+    const styles = useStyles({});
     const space = useResponsiveProp(spaceProp);
     const verticalAlign = useResponsiveProp(verticalAlignProp);
     const horizontalAlign = useResponsiveProp(horizontalAlignProp);
@@ -144,7 +129,7 @@ export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
       <div
         {...props}
         ref={ref}
-        className={clsx(className, styles.root, {
+        className={clsx(styles.root, {
           [styles.space1]: space === 1,
           [styles.space2]: space === 2,
           [styles.space3]: space === 3,
