@@ -77,6 +77,11 @@ module.exports = {
     },
 
     {
+      files: ['**/packages/playroom/**/**.*'],
+      rules: { 'import/no-internal-modules': 'off' },
+    },
+
+    {
       files: ['**/*.stories.{ts,tsx}'],
       rules: {
         'import/no-internal-modules': 'off',
