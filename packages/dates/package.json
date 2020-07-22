@@ -30,7 +30,9 @@
         "@pika/plugin-standard-pkg",
         {
           "exclude": [
-            "**/__tests__/**/*"
+            "**/*.stories.*",
+            "**/*.playroom.*",
+            "**/__tests__/**"
           ]
         }
       ],
