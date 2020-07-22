@@ -59,7 +59,10 @@ export function makePlayroomStory(
   Object.assign(Component, {
     story: {
       parameters: {
-        playroom: { code },
+        playroom: {
+          code,
+          disabled: false,
+        },
         info: {
           text: info,
           inline: true,
