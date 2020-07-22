@@ -80,5 +80,6 @@ test('validates field', async () => {
 
   wrapper.submitForm();
 
+  expect(handleSubmit).not.toHaveBeenCalled();
   await wrapper.findByText('Select gender Female');
 });

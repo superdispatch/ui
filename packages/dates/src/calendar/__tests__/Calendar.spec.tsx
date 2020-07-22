@@ -166,11 +166,6 @@ it('modifies date base on time zone offset and initial time', () => {
   }
 });
 
-// it.each([-540, -420, -300, 300, 420, 540])(
-//   'respects timezone offset (%p)',
-//   (timeZoneOffset) => {},
-// );
-
 it('sets start of date when `initialTime` not passed', () => {
   const onDayClick = jest.fn();
   const wrapper = renderDateComponent(<Calendar onDayClick={onDayClick} />);
