@@ -17,7 +17,7 @@
     "bump": "lerna version",
     "docs": "rimraf docs && run-p docs:*",
     "docs:playroom": "playroom build",
-    "docs:storybook": "build-storybook -o docs",
+    "docs:storybook": "build-storybook -o docs --quiet",
     "lint": "js-tools lint",
     "prestart": "yarn",
     "start": "run-p start:*",

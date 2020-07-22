@@ -61,7 +61,7 @@ jobs:
 
       - name: Build Docs
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: yarn docs --quiet
+        run: yarn docs
 
       - name: Deploy Docs
         if: ${{ github.ref == 'refs/heads/master' }}
