@@ -32,7 +32,9 @@ type StackClassKey =
   | 'space10';
 
 function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
-  return { paddingBottom: theme.spacing(space) };
+  return {
+    '&:not(:last-child)': { paddingBottom: theme.spacing(space) },
+  };
 }
 
 function alignVariant(align: HorizontalAlign): CSSProperties {
@@ -54,41 +56,22 @@ const useStyles = makeStyles<
   StackClassKey
 >(
   (theme) => ({
-    root: {
-      '& > $item': {
-        '&:last-child': { paddingBottom: 0 },
-      },
-
-      '&$space1 > $item': spaceVariant(theme, 1),
-      '&$space2 > $item': spaceVariant(theme, 2),
-      '&$space3 > $item': spaceVariant(theme, 3),
-      '&$space4 > $item': spaceVariant(theme, 4),
-      '&$space5 > $item': spaceVariant(theme, 5),
-      '&$space6 > $item': spaceVariant(theme, 6),
-      '&$space7 > $item': spaceVariant(theme, 7),
-      '&$space8 > $item': spaceVariant(theme, 8),
-      '&$space9 > $item': spaceVariant(theme, 9),
-      '&$space10 > $item': spaceVariant(theme, 10),
-
-      '&$alignRight > $item': alignVariant('right'),
-      '&$alignCenter > $item': alignVariant('center'),
-    },
-
-    space1: {},
-    space2: {},
-    space3: {},
-    space4: {},
-    space5: {},
-    space6: {},
-    space7: {},
-    space8: {},
-    space9: {},
-    space10: {},
-
-    alignRight: {},
-    alignCenter: {},
-
+    root: {},
     item: {},
+
+    space1: { '& > $item': spaceVariant(theme, 1) },
+    space2: { '& > $item': spaceVariant(theme, 2) },
+    space3: { '& > $item': spaceVariant(theme, 3) },
+    space4: { '& > $item': spaceVariant(theme, 4) },
+    space5: { '& > $item': spaceVariant(theme, 5) },
+    space6: { '& > $item': spaceVariant(theme, 6) },
+    space7: { '& > $item': spaceVariant(theme, 7) },
+    space8: { '& > $item': spaceVariant(theme, 8) },
+    space9: { '& > $item': spaceVariant(theme, 9) },
+    space10: { '& > $item': spaceVariant(theme, 10) },
+
+    alignRight: { '& > $item': alignVariant('right') },
+    alignCenter: { '& > $item': alignVariant('center') },
   }),
   { name: 'SD-Stack' },
 );
