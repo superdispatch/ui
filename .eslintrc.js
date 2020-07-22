@@ -77,7 +77,15 @@ module.exports = {
     },
 
     {
-      files: ['**/packages/webpage/**.*'],
+      files: ['**/*.stories.{ts,tsx}'],
+      rules: {
+        'import/no-internal-modules': 'off',
+        'import/no-anonymous-default-export': 'off',
+      },
+    },
+
+    {
+      files: ['**/packages/webpage/**/**.*'],
       rules: {
         'import/no-internal-modules': 'off',
         'import/no-anonymous-default-export': 'off',
