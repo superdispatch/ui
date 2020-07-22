@@ -20,6 +20,7 @@ function renderDateField<T, R>(
     formProps,
   );
 }
+
 beforeEach(() => {
   MockDate.set(Date.UTC(2019, 4, 24, 1, 2, 3, 45));
 });
@@ -99,6 +100,8 @@ test('handles errors', async () => {
 
   MockEvent.click(wrapper.getByLabelText('Date'));
   MockEvent.click(wrapper.getByLabelText(/May 20/));
+
+  expect(handleSubmit).not.toHaveBeenCalled();
 
   await wrapper.findByText('Invalid');
 });
