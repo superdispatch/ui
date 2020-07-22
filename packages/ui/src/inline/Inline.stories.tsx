@@ -1,12 +1,13 @@
 import { Box, Card, CardContent, Link } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { Inline } from '@superdispatch/ui';
 import {
   makePlayroomStory,
   PlayroomStoryWrapperProps,
 } from '@superdispatch/ui-playroom/makePlayroomStory';
 import { Placeholder } from '@superdispatch/ui-playroom/Placeholder';
 import React from 'react';
+
+import { Inline } from './Inline';
 
 export default {
   title: 'Layout/Inline',

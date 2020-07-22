@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  HTMLAttributes,
   ReactNode,
   RefAttributes,
 } from 'react';
@@ -96,29 +95,18 @@ const useStyles = makeStyles<
 
 export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface StackProps
-  extends HTMLAttributes<HTMLDivElement>,
-    RefAttributes<HTMLDivElement> {
+export interface StackProps extends RefAttributes<HTMLDivElement> {
   children?: ReactNode;
-  classes?: Partial<ClassNameMap<StackClassKey>>;
-
   space?: ResponsiveProp<StackSpace>;
   align?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
   (
-    {
-      classes,
-      children,
-      className,
-      space: spaceProp = 1,
-      align: alignProp = 'left',
-      ...props
-    },
+    { children, space: spaceProp = 1, align: alignProp = 'left', ...props },
     ref,
   ) => {
-    const styles = useStyles({ classes });
+    const styles = useStyles({});
     const align = useResponsiveProp(alignProp);
     const space = useResponsiveProp(spaceProp);
 
@@ -126,7 +114,7 @@ export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
       <div
         {...props}
         ref={ref}
-        className={clsx(className, styles.root, {
+        className={clsx(styles.root, {
           [styles.space1]: space === 1,
           [styles.space2]: space === 2,
           [styles.space3]: space === 3,
