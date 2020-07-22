@@ -52,6 +52,7 @@ export function makePlayroomStory(
   }
 
   const code = reactElementToJSXString(element, {
+    showFunctions: true,
     displayName: getDisplayName,
   });
 

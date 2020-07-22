@@ -1,6 +1,13 @@
 {
   "extends": "../../tsconfig.build.json",
-  "exclude": ["**/pkg/**/*", "**/__tests__/**/*", "**/__testutils__/**/*"],
+  "exclude": [
+    "pkg",
+    "playroom.ts",
+    "**/*.stories.*",
+    "**/*.playroom.*",
+    "**/__tests__/**",
+    "**/__testutils__/**"
+  ],
   "references": [{ "path": "../ui" }, { "path": "../__testutils__" }],
   "compilerOptions": {
     "composite": true,

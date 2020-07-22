@@ -13,7 +13,6 @@ import { Rule, StyleSheet } from 'jss';
 import React, { ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
-import { ResponsiveContextProvider } from '..';
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
 import { overrideAvatar } from '../avatar/AvatarOverrides';
@@ -29,6 +28,7 @@ import { overrideList } from '../list/ListOverrides';
 import { overrideMenu } from '../menu/MenuOverrides';
 import { overridePaper } from '../paper/PaperOverrides';
 import { overrideRadio } from '../radio/RadioOverrides';
+import { ResponsiveContextProvider } from '../responsive/ResponsiveContext';
 import { overrideSnackbar } from '../snackbar/SnackbarOverrides';
 import { SnackbarStackProvider } from '../snackbar/SnackbarStack';
 import { overrideSvgIcon } from '../svg-icon/SvgIconOverrides';
