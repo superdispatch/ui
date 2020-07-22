@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
-  HTMLAttributes,
+  ReactNode,
   RefAttributes,
 } from 'react';
 
@@ -153,14 +153,13 @@ export type ColumnWidth =
   | '3/5'
   | '4/5';
 
-export interface ColumnProps
-  extends HTMLAttributes<HTMLDivElement>,
-    RefAttributes<HTMLDivElement> {
+export interface ColumnProps extends RefAttributes<HTMLDivElement> {
+  children?: ReactNode;
   width?: ResponsiveProp<ColumnWidth>;
 }
 
 export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
-  ({ children, className, width: widthProp = 'fluid', ...props }, ref) => {
+  ({ children, width: widthProp = 'fluid', ...props }, ref) => {
     const styles = useStyles({});
     const width = useResponsiveProp(widthProp);
 
@@ -168,7 +167,7 @@ export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
       <div
         {...props}
         ref={ref}
-        className={clsx(className, styles.column, {
+        className={clsx(styles.column, {
           [styles.widthFluid]: width === 'fluid',
           [styles.widthContent]: width === 'content',
           [styles.width1of2]: width === '1/2',
@@ -190,9 +189,8 @@ export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
 
 export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface ColumnsProps
-  extends HTMLAttributes<HTMLDivElement>,
-    RefAttributes<HTMLDivElement> {
+export interface ColumnsProps extends RefAttributes<HTMLDivElement> {
+  children?: ReactNode;
   reverse?: ResponsiveProp<boolean>;
   space?: ResponsiveProp<ColumnsSpace>;
   align?: ResponsiveProp<VerticalAlign>;
@@ -202,7 +200,6 @@ export interface ColumnsProps
 export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
   (
     {
-      className,
       collapseBelow,
       space: spaceProp = 0,
       align: alignProp = 'top',
@@ -221,7 +218,7 @@ export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
       <div
         {...props}
         ref={ref}
-        className={clsx(className, styles.root, {
+        className={clsx(styles.root, {
           [styles.layoutDefault]: !isCollapsed,
           [styles.layoutCollapsed]: isCollapsed,
           [styles.directionDefault]: !isReversed,

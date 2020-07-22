@@ -40,13 +40,12 @@ export interface PlayroomStoryWrapperProps {
 }
 
 export interface PlayroomStoryOptions {
-  info?: string;
   wrapper?: ComponentType<PlayroomStoryWrapperProps>;
 }
 
 export function makePlayroomStory(
   element: ReactElement,
-  { info, wrapper: Wrapper = () => element }: PlayroomStoryOptions = {},
+  { wrapper: Wrapper = () => element }: PlayroomStoryOptions = {},
 ) {
   function Component() {
     return createElement(Wrapper, { children: element });
@@ -64,7 +63,6 @@ export function makePlayroomStory(
           disabled: false,
         },
         info: {
-          text: info,
           inline: true,
           header: false,
           source: false,
