@@ -3,7 +3,7 @@ export * from './calendar/CalendarQuickSelection';
 export * from './calendar/CalendarQuickSelectionItem';
 export * from './DateContext';
 export * from './date-field/DateField';
-export * from './DateRangeField';
+export * from './date-range-field/DateRangeField';
 export * from './DateTextField';
 export * from './DateUtils';
 export * from './FormattedDate';

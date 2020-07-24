@@ -1,16 +1,14 @@
 import {
-  InputAdornment,
   Table,
   TableBody,
   TableCell,
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import {
   DateContextProvider,
   DateRange,
-  DateRangeField,
   DateUtils,
   stringifyDate,
   TimeField,
@@ -54,10 +52,6 @@ export default function PickersDemo() {
   const hasError = boolean('Has Error', false);
   const isFullWidth = boolean('Has Full Width', false);
   const hasHelperText = boolean('Has Helper Text', false);
-  const hasClear = boolean('Clearable', false);
-  const hasAdornment = boolean('With Adornment', false);
-  const disableCloseOnSelect = boolean('Disable Close on Select', false);
-  const emptyText = text('Empty text', '');
 
   const [range, setRange] = useState<DateRange>([]);
   const utils = useMemo(() => new DateUtils({ timeZoneOffset }), [
@@ -67,34 +61,6 @@ export default function PickersDemo() {
   return (
     <DateContextProvider timeZoneOffset={timeZoneOffset}>
       <Stack space={2}>
-        <Stack space={1}>
-          <Typography variant="h3">Date Range Field</Typography>
-
-          <DateRangeField
-            value={range}
-            disabled={disabled}
-            onChange={(value) => setRange(toDateRange(value))}
-            hasClearButton={hasClear}
-            emptyText={emptyText}
-            disableCloseOnSelect={disableCloseOnSelect}
-            fullWidth={isFullWidth}
-            InputProps={{
-              startAdornment: hasAdornment && (
-                <InputAdornment position="start">Date:</InputAdornment>
-              ),
-            }}
-            error={hasError}
-            label={hasLabel && 'Date Range'}
-            helperText={
-              !hasHelperText
-                ? undefined
-                : hasError
-                ? 'Invalid Rate Range'
-                : 'Pick Date Range'
-            }
-          />
-        </Stack>
-
         <Stack space={1}>
           <Typography variant="h3">Time Field</Typography>
 
