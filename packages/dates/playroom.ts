@@ -2,7 +2,7 @@ export * from './src/calendar/Calendar.playroom';
 export * from './src/calendar/CalendarQuickSelection';
 export * from './src/calendar/CalendarQuickSelectionItem';
 export * from './src/DateContext';
-export * from './src/DateField';
+export * from './src/date-field/DateField.playroom';
 export * from './src/DateRangeField';
 export * from './src/DateTextField';
 export * from './src/DateUtils';
