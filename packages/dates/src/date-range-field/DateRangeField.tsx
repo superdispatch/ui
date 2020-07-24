@@ -18,16 +18,20 @@ import React, {
 } from 'react';
 import { useWhenValueChanges } from 'utility-hooks';
 
-import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
-import { useDateUtils } from './DateContext';
-import { useDatePickerPopoverState } from './DatePickerBase';
-import { DateTextField } from './DateTextField';
+import {
+  Calendar,
+  CalendarModifier,
+  CalendarProps,
+} from '../calendar/Calendar';
+import { useDateUtils } from '../DateContext';
+import { useDatePickerPopoverState } from '../DatePickerBase';
+import { DateTextField } from '../DateTextField';
 import {
   DateRange,
   isValidDate,
   NullableDateRangeLike,
   toDateRange,
-} from './DateUtils';
+} from '../DateUtils';
 
 const useStyles = makeStyles<Theme>(
   (theme) => ({
@@ -64,7 +68,7 @@ interface DateRangeFieldAPI {
 export interface DateRangeFieldProps
   extends RefAttributes<HTMLDivElement>,
     Omit<StandardTextFieldProps, 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
-  hasClearButton?: boolean;
+  enableClearable?: boolean;
   disableCloseOnSelect?: boolean;
   emptyText?: string;
   value?: NullableDateRangeLike;
@@ -91,7 +95,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       value: valueProp,
       inputRef: inputRefProp,
       emptyText = '',
-      hasClearButton = false,
+      enableClearable = false,
       disableCloseOnSelect = false,
       CalendarProps: {
         modifiers,
@@ -203,7 +207,7 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
           value={textValue}
           onOpen={onOpen}
           onClear={
-            !textValue || !hasClearButton
+            !enableClearable || !absoluteStartDate || !absoluteFinishDate
               ? undefined
               : () => onChange?.(undefined)
           }

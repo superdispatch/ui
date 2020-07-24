@@ -4,7 +4,7 @@ import { Matcher } from '@testing-library/react';
 import React from 'react';
 
 import { renderDateComponent } from '../__testutils__/renderDateComponent';
-import { DateRangeField } from '../DateRangeField';
+import { DateRangeField } from '../date-range-field/DateRangeField';
 import { DateObject } from '../DateUtils';
 
 it('merges time from current value or fallbacks to default', () => {
