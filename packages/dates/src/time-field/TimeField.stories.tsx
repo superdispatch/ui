@@ -5,13 +5,13 @@ import {
 } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
-import { DateRangeField } from './DateRangeField.playroom';
+import { TimeField } from './TimeField.playroom';
 
 export default {
-  title: 'Dates/DateRangeField',
+  title: 'Dates/TimeField',
   parameters: {
     info: {
-      propTables: [DateRangeField],
+      propTables: [TimeField],
     },
   },
 };
@@ -24,12 +24,10 @@ function Wrapper({ children }: PlayroomStoryWrapperProps) {
   );
 }
 
-export const Basic = makePlayroomStory(<DateRangeField />, {
-  wrapper: Wrapper,
-});
+export const Basic = makePlayroomStory(<TimeField />, { wrapper: Wrapper });
 
 export const Advanced = makePlayroomStory(
-  <DateRangeField
+  <TimeField
     label="Label"
     placeholder="Placeholder"
     helperText="Helper Text"
@@ -38,7 +36,7 @@ export const Advanced = makePlayroomStory(
 );
 
 export const ErrorState = makePlayroomStory(
-  <DateRangeField
+  <TimeField
     label="Label"
     error={true}
     placeholder="Placeholder"
@@ -48,7 +46,7 @@ export const ErrorState = makePlayroomStory(
 );
 
 export const Adornment = makePlayroomStory(
-  <DateRangeField
+  <TimeField
     InputProps={{
       startAdornment: (
         <InputAdornment position="start">Start Adornment:</InputAdornment>
@@ -58,28 +56,6 @@ export const Adornment = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const FullWidth = makePlayroomStory(
-  <DateRangeField fullWidth={true} />,
-  {
-    wrapper: Wrapper,
-  },
-);
-
-export const Disabled = makePlayroomStory(<DateRangeField disabled={true} />, {
+export const Disabled = makePlayroomStory(<TimeField disabled={true} />, {
   wrapper: Wrapper,
 });
-
-export const EnableClearable = makePlayroomStory(
-  <DateRangeField enableClearable={true} />,
-  { wrapper: Wrapper },
-);
-
-export const DisableCloseOnSelect = makePlayroomStory(
-  <DateRangeField disableCloseOnSelect={true} />,
-  { wrapper: Wrapper },
-);
-
-export const CustomEmptyText = makePlayroomStory(
-  <DateRangeField emptyText="Never" enableClearable={true} />,
-  { wrapper: Wrapper },
-);
