@@ -1,17 +1,17 @@
-import { BaseTextFieldProps, TextField } from '@material-ui/core';
+import { OutlinedTextFieldProps, TextField } from '@material-ui/core';
 import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime, FixedOffsetZone } from 'luxon';
 import React, { useEffect, useMemo } from 'react';
 
-import { useDateUtils } from './DateContext';
+import { useDateUtils } from '../DateContext';
 import {
   DateLike,
   DateUtils,
   isValidDate,
   NullableDateLike,
   toDate,
-} from './DateUtils';
-import { useDate } from './internal/useDate';
+} from '../DateUtils';
+import { useDate } from '../internal/useDate';
 
 const timeFormats = ['h:mm a', 'h:mma', 'H:mm', 'h:mm', 'hmm', 'Hmm', 'h', 'H'];
 
@@ -73,7 +73,7 @@ function filterOptions(
 }
 
 export interface TimeFieldProps
-  extends Omit<BaseTextFieldProps, 'type' | 'variant'> {
+  extends Omit<OutlinedTextFieldProps, 'type' | 'variant' | 'onChange'> {
   value?: DateLike;
   onChange?: (value: undefined | Date) => void;
 }
@@ -174,7 +174,12 @@ export function TimeField({
       }}
       onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}
       renderInput={(params) => (
-        <TextField variant="outlined" {...props} {...params} />
+        <TextField
+          variant="outlined"
+          {...props}
+          {...params}
+          InputProps={{ ...params.InputProps, ...props.InputProps }}
+        />
       )}
     />
   );

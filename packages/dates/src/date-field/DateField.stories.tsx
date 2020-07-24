@@ -45,11 +45,11 @@ export const ErrorState = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const Adorment = makePlayroomStory(
+export const Adornment = makePlayroomStory(
   <DateField
     InputProps={{
       startAdornment: (
-        <InputAdornment position="start">Start Adorment:</InputAdornment>
+        <InputAdornment position="start">Start Adornment:</InputAdornment>
       ),
     }}
   />,
