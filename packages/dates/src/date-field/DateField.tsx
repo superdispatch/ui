@@ -14,12 +14,16 @@ import React, {
 } from 'react';
 import { useWhenValueChanges } from 'utility-hooks';
 
-import { Calendar, CalendarModifier, CalendarProps } from './calendar/Calendar';
-import { useDatePickerPopoverState } from './DatePickerBase';
-import { DateTextField } from './DateTextField';
-import { DateFormatVariant, DateLike, isValidDate } from './DateUtils';
-import { useFormattedDate } from './FormattedDate';
-import { useDate } from './internal/useDate';
+import {
+  Calendar,
+  CalendarModifier,
+  CalendarProps,
+} from '../calendar/Calendar';
+import { useDatePickerPopoverState } from '../DatePickerBase';
+import { DateTextField } from '../DateTextField';
+import { DateFormatVariant, DateLike, isValidDate } from '../DateUtils';
+import { useFormattedDate } from '../FormattedDate';
+import { useDate } from '../internal/useDate';
 
 interface DateFieldAPI {
   close: () => void;
@@ -33,7 +37,7 @@ export interface DateFieldProps
       OutlinedTextFieldProps,
       'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
     > {
-  hasClearButton?: boolean;
+  enableClearable?: boolean;
   disableCloseOnSelect?: boolean;
   emptyText?: string;
   value?: DateLike;
@@ -65,7 +69,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       inputRef: inputRefProp,
       format = 'date',
       emptyText = '',
-      hasClearButton = false,
+      enableClearable = false,
       disableCloseOnSelect = false,
       CalendarProps: { onDayClick, ...calendarProps } = {},
       PopoverProps: {
@@ -81,7 +85,8 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
     const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
     const value = useDate(valueProp, 'second');
     const formatted = useFormattedDate(value, format);
-    const textValue = isValidDate(value) ? formatted : emptyText;
+    const isValidValue = isValidDate(value);
+    const textValue = isValidValue ? formatted : emptyText;
 
     const isSelectedDay = useCallback<CalendarModifier>(
       (date, utils) => utils.isSameDate(date, value, 'day'),
@@ -117,7 +122,7 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
           value={textValue}
           onOpen={onOpen}
           onClear={
-            !onChange || !textValue || !hasClearButton
+            !onChange || !isValidValue || !enableClearable
               ? undefined
               : () => {
                   onChange(undefined);

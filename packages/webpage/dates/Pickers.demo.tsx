@@ -9,7 +9,6 @@ import {
 import { boolean, select, text } from '@storybook/addon-knobs';
 import {
   DateContextProvider,
-  DateField,
   DateRange,
   DateRangeField,
   DateUtils,
@@ -68,34 +67,6 @@ export default function PickersDemo() {
   return (
     <DateContextProvider timeZoneOffset={timeZoneOffset}>
       <Stack space={2}>
-        <Stack space={1}>
-          <Typography variant="h3">Date Field</Typography>
-
-          <DateField
-            value={range[0]}
-            disabled={disabled}
-            emptyText={emptyText}
-            onChange={(value) => setRange(toDateRange([value, range[1]]))}
-            hasClearButton={hasClear}
-            disableCloseOnSelect={disableCloseOnSelect}
-            fullWidth={isFullWidth}
-            InputProps={{
-              startAdornment: hasAdornment && (
-                <InputAdornment position="start">Date:</InputAdornment>
-              ),
-            }}
-            error={hasError}
-            label={hasLabel && 'Date'}
-            helperText={
-              !hasHelperText
-                ? undefined
-                : hasError
-                ? 'Invalid Date'
-                : 'Pick Date'
-            }
-          />
-        </Stack>
-
         <Stack space={1}>
           <Typography variant="h3">Date Range Field</Typography>
 
