@@ -12,6 +12,7 @@ node_modules/
 *.tgz
 docs/
 packages/*/pkg/
+packages/*/generated/
 
 # logs
 logs

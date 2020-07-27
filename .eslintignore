@@ -3,3 +3,4 @@ docs/
 .netlify/
 coverage/
 node_modules/
+packages/*/generated/

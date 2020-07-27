@@ -1,5 +1,5 @@
 pkg/
 docs/
-.netlify/
 coverage/
 lerna.json
+packages/*/generated/
