@@ -63,13 +63,13 @@ export function makePlayroomStory(
           code,
           disabled: false,
         },
-        info: {
-          inline: true,
-          header: false,
-          source: false,
-          disable: false,
-          excludedPropTypes: ['key'],
-        },
+        // info: {
+        //   inline: true,
+        //   header: false,
+        //   source: false,
+        //   disable: false,
+        //   excludedPropTypes: ['key'],
+        // },
       },
     },
   });

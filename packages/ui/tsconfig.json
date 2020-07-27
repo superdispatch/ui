@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.build.json",
   "exclude": [
     "pkg",
+    "playroom.ts",
     "**/*.stories.*",
     "**/*.playroom.*",
     "**/__tests__/**",

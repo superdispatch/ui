@@ -6,6 +6,8 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { withPlayroom } from 'storybook-addon-playroom';
 import { withInfo } from '@storybook/addon-info';
 
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+
 addParameters({
   info: {
     disable: true,
@@ -19,6 +21,12 @@ addParameters({
       propTableHead: { margin: '8px 0 0 0' },
     },
   },
+
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  },
+
   playroom: {
     disabled: true,
     // Because Playroom is built inside Storybook on this example's deploy,
