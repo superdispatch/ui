@@ -1,6 +1,5 @@
 export default { title: 'Data Display' };
 
-export { default as Chip } from './ui/Chip.demo';
 export { default as DescriptionList } from './ui/DescriptionList.demo';
 export { default as OverflowText } from './ui/OverflowText.demo';
 export { default as SvgIcon } from './ui/SvgIcon.demo';
