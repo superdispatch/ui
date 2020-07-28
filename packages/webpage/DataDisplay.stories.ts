@@ -1,6 +1,5 @@
 export default { title: 'Data Display' };
 
-export { default as DescriptionList } from './ui/DescriptionList.demo';
 export { default as OverflowText } from './ui/OverflowText.demo';
 export { default as SvgIcon } from './ui/SvgIcon.demo';
 export { default as Tag } from './ui/Tag.demo';
