@@ -1,3 +1,3 @@
-export { PhoneField } from './src/PhoneField';
-export { PhoneLink } from './src/PhoneLink';
-export { PhoneText } from './src/PhoneText';
+export { PhoneField } from './src/phone-field/PhoneField.playroom';
+export { PhoneLink } from './src/phone-link/PhoneLink';
+export { PhoneText } from './src/phone-text/PhoneText';

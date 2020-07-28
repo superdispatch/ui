@@ -18,7 +18,7 @@ import React, {
   useState,
 } from 'react';
 
-import { PhoneNumber } from './data/PhoneNumber';
+import { PhoneNumber } from '../PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 

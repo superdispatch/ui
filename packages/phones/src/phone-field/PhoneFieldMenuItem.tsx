@@ -13,8 +13,8 @@ import React, {
   useMemo,
 } from 'react';
 
-import { PhoneNumber, PhoneRegionCode } from './data/PhoneNumber';
-import { phoneFieldCountries } from './internal/PhoneMetadata';
+import { phoneFieldCountries } from '../internal/PhoneMetadata';
+import { PhoneNumber, PhoneRegionCode } from '../PhoneNumber';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';

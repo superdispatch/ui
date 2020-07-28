@@ -1,5 +1,5 @@
-export * from './data/PhoneNumber';
+export * from './PhoneNumber';
 
-export * from './PhoneField';
-export * from './PhoneLink';
-export * from './PhoneText';
+export * from './phone-field/PhoneField';
+export * from './phone-link/PhoneLink';
+export * from './phone-text/PhoneText';
