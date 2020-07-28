@@ -18,10 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node v10
+      - name: Setup Node v12
         uses: actions/setup-node@v1
         with:
-          node-version: 10.x
+          node-version: 12.x
 
       - name: Obtain Yarn cache directory
         id: yarn-cache
