@@ -58,19 +58,7 @@ export function makePlayroomStory(
 
   Object.assign(Component, {
     story: {
-      parameters: {
-        playroom: {
-          code,
-          disabled: false,
-        },
-        // info: {
-        //   inline: true,
-        //   header: false,
-        //   source: false,
-        //   disable: false,
-        //   excludedPropTypes: ['key'],
-        // },
-      },
+      parameters: { playroom: { code, disabled: false } },
     },
   });
 
