@@ -8,8 +8,8 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import React, { forwardRef } from 'react';
 
-import { PhoneRegionCode } from './data/PhoneNumber';
-import { phoneFieldCountries } from './internal/PhoneMetadata';
+import { phoneFieldCountries } from '../internal/PhoneMetadata';
+import { PhoneRegionCode } from '../PhoneNumber';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 const useStyles = makeStyles<
