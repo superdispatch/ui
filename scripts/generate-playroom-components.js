@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 const PLAYROOM_DIR = path.join(__dirname, '..', 'packages', 'playroom');
+const PLAYROOM_GENERATED_DIR = path.join(PLAYROOM_DIR, 'generated');
 const PLAYROOM_COMPONENTS_FILE = path.join(
-  PLAYROOM_DIR,
-  'generated',
+  PLAYROOM_GENERATED_DIR,
   'components.ts',
 );
 
@@ -90,6 +90,7 @@ reexportModules('@material-ui/icons', {
   },
 });
 
+fs.mkdirSync(PLAYROOM_GENERATED_DIR, { recursive: true });
 fs.writeFileSync(PLAYROOM_COMPONENTS_FILE, lines.join('\n'), 'utf-8');
 
 //
