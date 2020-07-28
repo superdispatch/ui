@@ -50,7 +50,10 @@ function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
     '& > $container': {
       marginLeft: -gap,
 
-      '& > $item': { paddingTop: gap, paddingLeft: gap },
+      '& > $item': {
+        marginTop: gap,
+        marginLeft: gap,
+      },
     },
   };
 }
@@ -63,11 +66,7 @@ const useStyles = makeStyles<
   (theme) => ({
     root: {},
 
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      flexDirection: 'row',
-    },
+    container: { display: 'flex', flexWrap: 'wrap', flexDirection: 'row' },
 
     item: {},
 

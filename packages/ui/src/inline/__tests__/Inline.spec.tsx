@@ -115,8 +115,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space1 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 8px;
-      padding-left: 8px;
+      margin-top: 8px;
+      margin-left: 8px;
     }
 
     .SD-Inline-space2 {
@@ -134,8 +134,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space2 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 16px;
-      padding-left: 16px;
+      margin-top: 16px;
+      margin-left: 16px;
     }
 
     .SD-Inline-space3 {
@@ -153,8 +153,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space3 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 24px;
-      padding-left: 24px;
+      margin-top: 24px;
+      margin-left: 24px;
     }
 
     .SD-Inline-space4 {
@@ -172,8 +172,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space4 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 32px;
-      padding-left: 32px;
+      margin-top: 32px;
+      margin-left: 32px;
     }
 
     .SD-Inline-space5 {
@@ -191,8 +191,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space5 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 40px;
-      padding-left: 40px;
+      margin-top: 40px;
+      margin-left: 40px;
     }
 
     .SD-Inline-space6 {
@@ -210,8 +210,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space6 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 48px;
-      padding-left: 48px;
+      margin-top: 48px;
+      margin-left: 48px;
     }
 
     .SD-Inline-space7 {
@@ -229,8 +229,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space7 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 56px;
-      padding-left: 56px;
+      margin-top: 56px;
+      margin-left: 56px;
     }
 
     .SD-Inline-space8 {
@@ -248,8 +248,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space8 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 64px;
-      padding-left: 64px;
+      margin-top: 64px;
+      margin-left: 64px;
     }
 
     .SD-Inline-space9 {
@@ -267,8 +267,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space9 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 72px;
-      padding-left: 72px;
+      margin-top: 72px;
+      margin-left: 72px;
     }
 
     .SD-Inline-space10 {
@@ -286,8 +286,8 @@ it('checks component css', () => {
     }
 
     .SD-Inline-space10 > .SD-Inline-container > .SD-Inline-item {
-      padding-top: 80px;
-      padding-left: 80px;
+      margin-top: 80px;
+      margin-left: 80px;
     }
 
     .SD-Inline-verticalCenter > .SD-Inline-container {
