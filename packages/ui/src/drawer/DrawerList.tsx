@@ -1,11 +1,7 @@
 import { List, ListProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef } from 'react';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -35,11 +31,9 @@ const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   { name: 'SD-DrawerList' },
 );
 
-export interface DrawerListProps
-  extends RefAttributes<HTMLDivElement>,
-    Omit<ListProps<'div'>, 'component'> {}
+export type DrawerListProps = Omit<ListProps<'div'>, 'component'>;
 
-export const DrawerList: ForwardRefExoticComponent<DrawerListProps> = forwardRef(
+export const DrawerList = forwardRef<HTMLDivElement, DrawerListProps>(
   ({ className, ...props }, ref) => {
     const styles = useStyles();
 

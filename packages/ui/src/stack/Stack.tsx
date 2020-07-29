@@ -1,11 +1,6 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
 import {
@@ -78,13 +73,13 @@ const useStyles = makeStyles<
 
 export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface StackProps extends RefAttributes<HTMLDivElement> {
+export interface StackProps {
   children?: ReactNode;
   space?: ResponsiveProp<StackSpace>;
   align?: ResponsiveProp<HorizontalAlign>;
 }
 
-export const Stack: ForwardRefExoticComponent<StackProps> = forwardRef(
+export const Stack = forwardRef<HTMLDivElement, StackProps>(
   (
     { children, space: spaceProp = 1, align: alignProp = 'left', ...props },
     ref,

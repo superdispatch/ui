@@ -1,13 +1,7 @@
 import { Typography, TypographyProps } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  HTMLAttributes,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import { OverflowText } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
@@ -63,13 +57,11 @@ const useStyles = makeStyles<
   { name: 'SD-DescriptionList' },
 );
 
-export interface DescriptionListProps
-  extends RefAttributes<HTMLDivElement>,
-    HTMLAttributes<HTMLDivElement> {
+export interface DescriptionListProps extends HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large';
 }
 
-export const DescriptionList: ForwardRefExoticComponent<DescriptionListProps> = forwardRef(
+export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
   ({ size, className, ...props }, ref) => {
     const styles = useStyles();
 
@@ -88,8 +80,7 @@ export const DescriptionList: ForwardRefExoticComponent<DescriptionListProps> = 
 );
 
 export interface DescriptionListItemProps
-  extends RefAttributes<HTMLDivElement>,
-    Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   icon?: ReactNode;
   label?: ReactNode;
   labelTypographyProps?: Omit<
@@ -103,7 +94,10 @@ export interface DescriptionListItemProps
   >;
 }
 
-export const DescriptionListItem: ForwardRefExoticComponent<DescriptionListItemProps> = forwardRef(
+export const DescriptionListItem = forwardRef<
+  HTMLDivElement,
+  DescriptionListItemProps
+>(
   (
     {
       icon,

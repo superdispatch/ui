@@ -1,12 +1,7 @@
 import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
@@ -42,11 +37,9 @@ const useStyles = makeStyles<
   { name: 'SD-DrawerActions' },
 );
 
-export interface DrawerActionsProps
-  extends RefAttributes<HTMLDivElement>,
-    Omit<HTMLAttributes<HTMLDivElement>, 'color'> {}
+export type DrawerActionsProps = Omit<HTMLAttributes<HTMLDivElement>, 'color'>;
 
-export const DrawerActions: ForwardRefExoticComponent<DrawerActionsProps> = forwardRef(
+export const DrawerActions = forwardRef<HTMLDivElement, DrawerActionsProps>(
   ({ children, className, ...props }, appBarRef) => {
     const styles = useStyles();
 
