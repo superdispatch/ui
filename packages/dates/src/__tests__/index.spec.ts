@@ -3,7 +3,11 @@ import * as api from '..';
 it('exposes public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
-      "Calendar": [Function],
+      "Calendar": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Calendar",
+        "render": [Function],
+      },
       "CalendarQuickSelection": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "CalendarQuickSelection",
