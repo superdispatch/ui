@@ -22,3 +22,18 @@ addDecorator((story) => (
     <Box padding={2}>{story()}</Box>
   </ThemeProvider>
 ));
+
+injectDisplayNames(require('@material-ui/lab'));
+injectDisplayNames(require('@material-ui/core'));
+injectDisplayNames(require('@material-ui/icons'), { suffix: 'Icon' });
+
+function injectDisplayNames(module, { suffix = '' } = {}) {
+  for (const [key, value] of Object.entries(module)) {
+    if (
+      key[0] === key[0].toUpperCase() &&
+      (typeof value == 'object' || typeof value == 'function')
+    ) {
+      value.displayName = `${key}${suffix}`;
+    }
+  }
+}

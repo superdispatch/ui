@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { DateField as SDDateField, DateFieldProps } from './DateField';
 
-export function DateField({ value, onChange, ...props }: DateFieldProps) {
-  const [state, setState] = useState<Date>();
+export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
+  ({ value, onChange, ...props }, ref) => {
+    const [state, setState] = useState<Date>();
 
-  return (
-    <SDDateField
-      {...props}
-      value={value || state}
-      onChange={(date) => {
-        setState(date);
-        onChange?.(date);
-      }}
-    />
-  );
-}
+    return (
+      <SDDateField
+        {...props}
+        ref={ref}
+        value={value || state}
+        onChange={(date) => {
+          setState(date);
+          onChange?.(date);
+        }}
+      />
+    );
+  },
+);

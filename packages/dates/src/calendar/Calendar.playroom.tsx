@@ -1,19 +1,15 @@
-import { Paper } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { Calendar as SDCalendar, CalendarProps } from './Calendar';
 
-export function Calendar({
-  onDayClick,
-  selectedDays,
-  ...props
-}: CalendarProps) {
-  const [value, setValue] = useState<undefined | Date>();
+export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
+  ({ onDayClick, selectedDays, ...props }, ref) => {
+    const [value, setValue] = useState<undefined | Date>();
 
-  return (
-    <Paper style={{ display: 'inline-block' }}>
+    return (
       <SDCalendar
         {...props}
+        ref={ref}
         selectedDays={(date, utils) =>
           selectedDays?.(date, utils) ?? utils.isSameDate(date, value, 'day')
         }
@@ -29,6 +25,6 @@ export function Calendar({
           }
         }}
       />
-    </Paper>
-  );
-}
+    );
+  },
+);

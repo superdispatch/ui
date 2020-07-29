@@ -1,5 +1,5 @@
 import { Color } from '@superdispatch/ui';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, forwardRef, ReactNode } from 'react';
 
 export interface PlaceholderProps {
   code?: string;
@@ -8,14 +8,10 @@ export interface PlaceholderProps {
   height?: CSSProperties['height'];
 }
 
-export function Placeholder({
-  code,
-  text,
-  width = 'auto',
-  height = 'auto',
-}: PlaceholderProps) {
-  return (
+export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
+  ({ code, text, width = 'auto', height = 'auto' }, ref) => (
     <div
+      ref={ref}
       style={{
         width,
         height,
@@ -65,5 +61,5 @@ export function Placeholder({
         </svg>
       )}
     </div>
-  );
-}
+  ),
+);

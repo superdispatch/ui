@@ -1,7 +1,7 @@
 import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
-import React, { ReactNode, useMemo } from 'react';
+import React, { forwardRef, ReactNode, useMemo } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,
@@ -373,113 +373,121 @@ function isLastDayOfMonth(date: Date, utils: DateUtils): boolean {
   return utils.isSameDate(date, utils.endOf(date, 'month'), 'day');
 }
 
-export function Calendar({
-  footer,
-  classes,
-  direction,
-  quickSelection,
-  selectedDays,
-  disabledDays,
+export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
+  (
+    {
+      footer,
+      classes,
+      direction,
+      quickSelection,
+      selectedDays,
+      disabledDays,
 
-  onDayClick,
-  onDayKeyDown,
-  onDayMouseEnter,
-  onDayMouseLeave,
-  onDayMouseDown,
-  onDayMouseUp,
-  onDayTouchEnd,
-  onDayTouchStart,
+      onDayClick,
+      onDayKeyDown,
+      onDayMouseEnter,
+      onDayMouseLeave,
+      onDayMouseDown,
+      onDayMouseUp,
+      onDayTouchEnd,
+      onDayTouchStart,
 
-  modifiers = {},
-  highlightedDays = {},
+      modifiers = {},
+      highlightedDays = {},
 
-  initialTime: initialTimeProp,
-  initialMonth: initialMonthProp,
+      initialTime: initialTimeProp,
+      initialMonth: initialMonthProp,
 
-  ...props
-}: CalendarProps) {
-  const utils = useDateUtils();
-  const styles = useStyles({ classes });
-  const [initialTime, initialMonth] = useMemo(() => {
-    let time = toDate(initialTimeProp);
-    let month = toDate(initialMonthProp);
+      ...props
+    }: CalendarProps,
+    ref,
+  ) => {
+    const utils = useDateUtils();
+    const styles = useStyles({ classes });
+    const [initialTime, initialMonth] = useMemo(() => {
+      let time = toDate(initialTimeProp);
+      let month = toDate(initialMonthProp);
 
-    if (!isValidDate(month)) {
-      month = utils.startOf(Date.now(), 'month');
-    }
+      if (!isValidDate(month)) {
+        month = utils.startOf(Date.now(), 'month');
+      }
 
-    if (!isValidDate(time)) {
-      time = month;
-    }
+      if (!isValidDate(time)) {
+        time = month;
+      }
 
-    return [time, toLocalDate(utils, month)];
-  }, [utils, initialTimeProp, initialMonthProp]);
+      return [time, toLocalDate(utils, month)];
+    }, [utils, initialTimeProp, initialMonthProp]);
 
-  return (
-    <Grid container={true} direction={direction}>
-      {!!quickSelection && (
-        <>
-          <Grid item={true} xs={12} sm="auto">
-            {quickSelection}
-          </Grid>
-
-          <Hidden xsDown={true}>
-            <Grid item={true} sm="auto">
-              <Divider orientation="vertical" />
+    return (
+      <Grid ref={ref} container={true} direction={direction}>
+        {!!quickSelection && (
+          <>
+            <Grid item={true} xs={12} sm="auto">
+              {quickSelection}
             </Grid>
-          </Hidden>
 
-          <Hidden smUp={true}>
-            <Grid item={true} xs={12}>
-              <Divider orientation="horizontal" />
-            </Grid>
-          </Hidden>
-        </>
-      )}
+            <Hidden xsDown={true}>
+              <Grid item={true} sm="auto">
+                <Divider orientation="vertical" />
+              </Grid>
+            </Hidden>
 
-      <Grid item={true} xs={12} sm="auto">
-        <DayPicker
-          {...props}
-          classNames={styles}
-          navbarElement={CalendarNavbar}
-          captionElement={CalendarCaption}
-          weekdayElement={CalendarWeekDay}
-          initialMonth={initialMonth}
-          selectedDays={wrapModifier(utils, selectedDays)}
-          disabledDays={wrapModifier(utils, disabledDays)}
-          modifiers={{
-            ...Object.keys(modifiers).reduce<Partial<Modifiers>>((acc, key) => {
-              acc[key] = wrapModifier(utils, modifiers[key]);
+            <Hidden smUp={true}>
+              <Grid item={true} xs={12}>
+                <Divider orientation="horizontal" />
+              </Grid>
+            </Hidden>
+          </>
+        )}
 
-              return acc;
-            }, {}),
+        <Grid item={true} xs={12} sm="auto">
+          <DayPicker
+            {...props}
+            classNames={styles}
+            navbarElement={CalendarNavbar}
+            captionElement={CalendarCaption}
+            weekdayElement={CalendarWeekDay}
+            initialMonth={initialMonth}
+            selectedDays={wrapModifier(utils, selectedDays)}
+            disabledDays={wrapModifier(utils, disabledDays)}
+            modifiers={{
+              ...Object.keys(modifiers).reduce<Partial<Modifiers>>(
+                (acc, key) => {
+                  acc[key] = wrapModifier(utils, modifiers[key]);
 
-            [styles.firstDayOfMonth]: wrapModifier(utils, isFirstDayOfMonth),
-            [styles.lastDayOfMonth]: wrapModifier(utils, isLastDayOfMonth),
-            [styles.blue]: wrapModifier(utils, highlightedDays.blue),
-            [styles.green]: wrapModifier(utils, highlightedDays.green),
-            [styles.purple]: wrapModifier(utils, highlightedDays.purple),
-            [styles.red]: wrapModifier(utils, highlightedDays.red),
-            [styles.teal]: wrapModifier(utils, highlightedDays.teal),
-            [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
-          }}
-          {...wrapHandlers(
-            utils,
-            styles,
-            initialTime,
-            onDayClick,
-            onDayKeyDown,
-            onDayMouseEnter,
-            onDayMouseLeave,
-            onDayMouseDown,
-            onDayMouseUp,
-            onDayTouchEnd,
-            onDayTouchStart,
-          )}
-        />
+                  return acc;
+                },
+                {},
+              ),
 
-        {!!footer && <div className={styles.footer}>{footer}</div>}
+              [styles.firstDayOfMonth]: wrapModifier(utils, isFirstDayOfMonth),
+              [styles.lastDayOfMonth]: wrapModifier(utils, isLastDayOfMonth),
+              [styles.blue]: wrapModifier(utils, highlightedDays.blue),
+              [styles.green]: wrapModifier(utils, highlightedDays.green),
+              [styles.purple]: wrapModifier(utils, highlightedDays.purple),
+              [styles.red]: wrapModifier(utils, highlightedDays.red),
+              [styles.teal]: wrapModifier(utils, highlightedDays.teal),
+              [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
+            }}
+            {...wrapHandlers(
+              utils,
+              styles,
+              initialTime,
+              onDayClick,
+              onDayKeyDown,
+              onDayMouseEnter,
+              onDayMouseLeave,
+              onDayMouseDown,
+              onDayMouseUp,
+              onDayTouchEnd,
+              onDayTouchStart,
+            )}
+          />
+
+          {!!footer && <div className={styles.footer}>{footer}</div>}
+        </Grid>
       </Grid>
-    </Grid>
-  );
-}
+    );
+  },
+);
