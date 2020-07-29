@@ -20,7 +20,10 @@ module.exports = ({ docs = false } = {}) => ({
       },
     ],
 
-    require.resolve('../tools/babel-plugin-inject-display-name'),
+    [
+      require.resolve('../tools/babel-plugin-inject-display-name'),
+      { disableNodeEnvCheck: docs },
+    ],
 
     ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
   ].filter(Boolean),
