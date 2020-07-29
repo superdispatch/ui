@@ -1,11 +1,6 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 import {
   CollapseBreakpoint,
@@ -153,12 +148,12 @@ export type ColumnWidth =
   | '3/5'
   | '4/5';
 
-export interface ColumnProps extends RefAttributes<HTMLDivElement> {
+export interface ColumnProps {
   children?: ReactNode;
   width?: ResponsiveProp<ColumnWidth>;
 }
 
-export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
+export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width: widthProp = 'fluid', ...props }, ref) => {
     const styles = useStyles({});
     const width = useResponsiveProp(widthProp);
@@ -189,7 +184,7 @@ export const Column: ForwardRefExoticComponent<ColumnProps> = forwardRef(
 
 export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface ColumnsProps extends RefAttributes<HTMLDivElement> {
+export interface ColumnsProps {
   children?: ReactNode;
   reverse?: ResponsiveProp<boolean>;
   space?: ResponsiveProp<ColumnsSpace>;
@@ -197,7 +192,7 @@ export interface ColumnsProps extends RefAttributes<HTMLDivElement> {
   collapseBelow?: CollapseBreakpoint;
 }
 
-export const Columns: ForwardRefExoticComponent<ColumnsProps> = forwardRef(
+export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
   (
     {
       collapseBelow,

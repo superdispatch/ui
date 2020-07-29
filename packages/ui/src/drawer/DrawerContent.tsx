@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -16,11 +11,9 @@ const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   { name: 'SD-DrawerContent' },
 );
 
-export interface DrawerContentProps
-  extends RefAttributes<HTMLDivElement>,
-    HTMLAttributes<HTMLDivElement> {}
+export type DrawerContentProps = HTMLAttributes<HTMLDivElement>;
 
-export const DrawerContent: ForwardRefExoticComponent<DrawerContentProps> = forwardRef(
+export const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
   ({ className, ...props }, ref) => {
     const styles = useStyles();
 

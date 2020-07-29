@@ -1,11 +1,6 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
 import {
@@ -101,14 +96,14 @@ const useStyles = makeStyles<
 
 export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface InlineProps extends RefAttributes<HTMLDivElement> {
+export interface InlineProps {
   children?: ReactNode;
   space?: ResponsiveProp<InlineSpace>;
   verticalAlign?: ResponsiveProp<VerticalAlign>;
   horizontalAlign?: ResponsiveProp<HorizontalAlign>;
 }
 
-export const Inline: ForwardRefExoticComponent<InlineProps> = forwardRef(
+export const Inline = forwardRef<HTMLDivElement, InlineProps>(
   (
     {
       children,
