@@ -3,9 +3,18 @@ import React from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withPlayroom } from 'storybook-addon-playroom';
-import Box from '@material-ui/core/Box';
+
+injectDisplayNames(require('@material-ui/lab'));
+injectDisplayNames(require('@material-ui/core'));
+injectDisplayNames(require('@material-ui/icons'), { suffix: 'Icon' });
+
+addDecorator(withKnobs);
+addDecorator(withPlayroom);
+addDecorator((story) => <ThemeProvider>{story()}</ThemeProvider>);
 
 addParameters({
+  viewMode: 'docs',
+
   playroom: {
     disabled: true,
     // Because Playroom is built inside Storybook on this example's deploy,
@@ -14,18 +23,6 @@ addParameters({
     url: process.env.NODE_ENV === 'production' ? '/playroom/' : undefined,
   },
 });
-
-addDecorator(withKnobs);
-addDecorator(withPlayroom);
-addDecorator((story) => (
-  <ThemeProvider>
-    <Box padding={2}>{story()}</Box>
-  </ThemeProvider>
-));
-
-injectDisplayNames(require('@material-ui/lab'));
-injectDisplayNames(require('@material-ui/core'));
-injectDisplayNames(require('@material-ui/icons'), { suffix: 'Icon' });
 
 function injectDisplayNames(module, { suffix = '' } = {}) {
   for (const [key, value] of Object.entries(module)) {

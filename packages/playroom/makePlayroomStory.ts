@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core';
 import {
   ComponentType,
   createElement,
@@ -52,10 +51,10 @@ export function makePlayroomStory(
     return createElement(Wrapper, null, element);
   }
 
-  const code = reactElementToJSXString(
-    createElement(Box, { padding: 2 }, element),
-    { showFunctions: true, displayName: getDisplayName },
-  );
+  const code = reactElementToJSXString(element, {
+    showFunctions: true,
+    displayName: getDisplayName,
+  });
 
   Object.assign(Component, {
     story: {
