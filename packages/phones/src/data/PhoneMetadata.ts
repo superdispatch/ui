@@ -1,4 +1,4 @@
-import { PhoneRegionCode } from '..';
+import { PhoneRegionCode } from '../index';
 
 export const phoneFieldCountries = new Map<PhoneRegionCode, string>([
   ['US', 'United States'],
