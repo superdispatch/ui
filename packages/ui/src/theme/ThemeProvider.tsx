@@ -10,7 +10,7 @@ import {
   ThemeProvider as MaterialThemeProvider,
 } from '@material-ui/styles';
 import { Rule, StyleSheet } from 'jss';
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { useConstant } from 'utility-hooks';
 
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
@@ -121,7 +121,10 @@ export interface ThemeProviderProps {
   modifier?: (theme: SuperDispatchTheme) => SuperDispatchTheme;
 }
 
-export function ThemeProvider({ modifier, children }: ThemeProviderProps) {
+export function ThemeProvider({
+  modifier,
+  children,
+}: ThemeProviderProps): ReactElement {
   const theme = useConstant(() => {
     const nextTheme = createTheme();
 

@@ -77,6 +77,11 @@ module.exports = {
     },
 
     {
+      files: ['**/packages/__docs__/**/**.*'],
+      rules: { 'import/no-internal-modules': 'off' },
+    },
+
+    {
       files: ['**/packages/playroom/**/**.*'],
       rules: { 'import/no-internal-modules': 'off' },
     },

@@ -3,6 +3,7 @@ import React from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withPlayroom } from 'storybook-addon-playroom';
+import { DocsPage, DocsContainer } from '@superdispatch/ui-docs';
 
 injectDisplayNames(require('@material-ui/lab'));
 injectDisplayNames(require('@material-ui/core'));
@@ -14,14 +15,14 @@ addDecorator((story) => <ThemeProvider>{story()}</ThemeProvider>);
 
 addParameters({
   viewMode: 'docs',
-
   playroom: {
-    disabled: true,
     // Because Playroom is built inside Storybook on this example's deploy,
     // we must define the absolute path to it when NODE_ENV is production,
     // otherwise set undefined to use the default Playroom URL (localhost)
     url: process.env.NODE_ENV === 'production' ? '/playroom/' : undefined,
   },
+
+  docs: { page: DocsPage, container: DocsContainer },
 });
 
 function injectDisplayNames(module, { suffix = '' } = {}) {
