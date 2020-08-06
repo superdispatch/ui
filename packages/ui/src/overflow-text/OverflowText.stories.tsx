@@ -7,7 +7,7 @@ import React from 'react';
 
 import { OverflowText } from './OverflowText';
 
-export default { title: 'Data Display/OverflowText' };
+export default { title: 'Data Display/OverflowText', component: OverflowText };
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
   return (

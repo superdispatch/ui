@@ -6,21 +6,18 @@ import {
   getComponent,
   getComponentProps,
   getDescriptionProps,
-  getSourceProps,
   Story,
 } from '@storybook/addon-docs/dist/blocks';
+import { StoryData } from '@storybook/addon-docs/dist/blocks/shared';
 import {
   getComponentName,
   getDocsStories,
 } from '@storybook/addon-docs/dist/blocks/utils';
-import {
-  Description,
-  PropsTableProps,
-  Source,
-  SourceProps,
-} from '@storybook/components';
+import { Description, PropsTableProps } from '@storybook/components';
 import { Column, Columns, Stack } from '@superdispatch/ui';
 import React, { ComponentType, ReactNode, useContext, useMemo } from 'react';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { darcula as syntaxStyle } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { DocsPropsTable } from './DocsPropsTable';
 
@@ -30,9 +27,7 @@ interface DocsParameters {
 }
 
 function parseParameters(ctx: DocsContextProps): DocsParameters {
-  const parameters = ctx.parameters as undefined | Record<string, unknown>;
-
-  return parameters || {};
+  return (ctx.parameters || {}) as DocsParameters;
 }
 
 function parseTitle(ctx: DocsContextProps): ReactNode {
@@ -52,14 +47,17 @@ function parseComponents(ctx: DocsContextProps): Map<string, PropsTableProps> {
   const propsProps = { of: '.' };
   const main = getComponent(propsProps, ctx) as undefined | ComponentType;
 
+  const getProps = (component: ComponentType) =>
+    getComponentProps(component, propsProps, ctx);
+
   if (main) {
-    tabs.set(getComponentName(main), getComponentProps(main, propsProps, ctx));
+    tabs.set(getComponentName(main), getProps(main));
 
     const { subcomponents } = parseParameters(ctx);
 
     if (subcomponents) {
       for (const [label, component] of Object.entries(subcomponents)) {
-        tabs.set(label, getComponentProps(component, propsProps, ctx));
+        tabs.set(label, getProps(component));
       }
     }
   }
@@ -67,13 +65,21 @@ function parseComponents(ctx: DocsContextProps): Map<string, PropsTableProps> {
   return tabs;
 }
 
+interface StoryParameters {
+  playroom?: { code?: string };
+}
+
+function parseStoryParameters(story: StoryData): StoryParameters {
+  return (story.parameters || {}) as StoryParameters;
+}
+
 function parseStories(
   ctx: DocsContextProps,
-): Array<[string | undefined, string | undefined, SourceProps]> {
+): Array<[string | undefined, string | undefined, string | undefined]> {
   return getDocsStories(ctx).map((story) => [
     story.id,
     story.name,
-    getSourceProps({ id: story.id as string }, ctx),
+    parseStoryParameters(story).playroom?.code,
   ]);
 }
 
@@ -92,7 +98,7 @@ export function DocsPage() {
 
   return (
     <Box padding={2}>
-      <Stack space={2}>
+      <Stack space={3}>
         {!!title && (
           <Columns align="bottom" space={1}>
             <Column width="content">
@@ -109,33 +115,43 @@ export function DocsPage() {
           </Columns>
         )}
 
-        {!!description && (
-          <Card>
-            <CardContent>
-              <Description markdown={description} />
-            </CardContent>
-          </Card>
-        )}
+        <Stack space={2}>
+          {!!description && (
+            <Card>
+              <CardContent>
+                <Description markdown={description} />
+              </CardContent>
+            </Card>
+          )}
 
-        {stories.map(([id, name, source]) => (
-          <Card key={id}>
-            <CardContent>
-              <Stack>
-                <Typography variant="h3">{name}</Typography>
+          {stories.map(([id, name, code]) => (
+            <Card key={id}>
+              <CardContent>
+                <Stack>
+                  <Typography variant="h3">{name}</Typography>
 
-                <Story id={id} />
+                  <Story id={id} />
 
-                <Source {...source} dark={true} />
-              </Stack>
-            </CardContent>
-          </Card>
-        ))}
+                  {!!code && (
+                    <SyntaxHighlighter
+                      language="jsx"
+                      style={syntaxStyle as unknown}
+                      customStyle={{ borderRadius: '4px' }}
+                    >
+                      {code}
+                    </SyntaxHighlighter>
+                  )}
+                </Stack>
+              </CardContent>
+            </Card>
+          ))}
 
-        {!!components.size && (
-          <Card>
-            <DocsPropsTable components={components} />
-          </Card>
-        )}
+          {!!components.size && (
+            <Card>
+              <DocsPropsTable components={components} />
+            </Card>
+          )}
+        </Stack>
       </Stack>
     </Box>
   );

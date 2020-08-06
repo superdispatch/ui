@@ -52,14 +52,16 @@ export function makePlayroomStory(
   }
 
   const code = reactElementToJSXString(element, {
-    showFunctions: true,
     displayName: getDisplayName,
+
+    sortProps: false,
+    showFunctions: true,
+    useFragmentShortSyntax: true,
+    useBooleanShorthandSyntax: false,
   });
 
   Object.assign(Component, {
-    story: {
-      parameters: { playroom: { code, disabled: false } },
-    },
+    story: { parameters: { playroom: { code, disabled: false } } },
   });
 
   return Component;

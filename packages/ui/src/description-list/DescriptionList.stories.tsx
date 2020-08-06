@@ -10,7 +10,11 @@ import React from 'react';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
-export default { title: 'Data Display/DescriptionList' };
+export default {
+  title: 'Data Display/DescriptionList',
+  component: DescriptionList,
+  subcomponents: { DescriptionListItem },
+};
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
   return (

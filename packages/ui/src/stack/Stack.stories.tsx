@@ -1,5 +1,4 @@
-import { Box, Card, CardContent, Link } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Box, Link } from '@material-ui/core';
 import {
   makePlayroomStory,
   PlayroomStoryWrapperProps,
@@ -11,37 +10,26 @@ import { Stack } from './Stack';
 
 export default {
   title: 'Layout/Stack',
+  component: Stack,
   parameters: {
-    info: {
-      propTables: [Stack],
-      text: (
-        <Alert severity="info" icon={false}>
-          Heavily inspired by the{' '}
-          <Link
-            color="primary"
-            href="https://seek-oss.github.io/braid-design-system/components/Stack"
-          >
-            Stack
-          </Link>{' '}
-          component from the{' '}
-          <Link href="https://seek-oss.github.io/braid-design-system">
-            BRAID Design System
-          </Link>
-          .
-        </Alert>
-      ),
-    },
+    componentSubtitle: (
+      <>
+        Heavily inspired by the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system/components/Stack">
+          Stack
+        </Link>{' '}
+        component from the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system">
+          BRAID Design System
+        </Link>
+        .
+      </>
+    ),
   },
 };
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Box maxWidth={240}>
-      <Card>
-        <CardContent>{children}</CardContent>
-      </Card>
-    </Box>
-  );
+  return <Box maxWidth={240}>{children} </Box>;
 }
 
 export const Basic = makePlayroomStory(

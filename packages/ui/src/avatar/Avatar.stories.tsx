@@ -1,5 +1,6 @@
 import { Avatar } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
+import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 export default {
@@ -11,8 +12,8 @@ export default {
   },
 };
 
-export const basic = () => <Avatar />;
-export const text = () => <Avatar>A1</Avatar>;
-export const image = () => (
-  <Avatar src="https://source.unsplash.com/featured/?avatar" />
+export const basic = makePlayroomStory(<Avatar />);
+export const text = makePlayroomStory(<Avatar>A1</Avatar>);
+export const image = makePlayroomStory(
+  <Avatar src="https://source.unsplash.com/featured/?avatar" />,
 );

@@ -1,10 +1,18 @@
 import { Button, PopperPlacementType, Tooltip } from '@material-ui/core';
 import { Stack } from '@superdispatch/ui';
+import { PropsLink } from '@superdispatch/ui-docs';
 import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import { startCase } from 'lodash';
 import React from 'react';
 
-export default { title: 'Data Display/Tooltip' };
+export default {
+  title: 'Data Display/Tooltip',
+  parameters: {
+    componentSubtitle: (
+      <PropsLink url="https://material-ui.com/api/tooltip/#props" />
+    ),
+  },
+};
 
 const placements: PopperPlacementType[] = [
   'bottom',

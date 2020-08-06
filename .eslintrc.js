@@ -89,6 +89,7 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       rules: {
+        'no-alert': 'off',
         'import/no-internal-modules': 'off',
         'import/no-anonymous-default-export': 'off',
       },

@@ -63,7 +63,7 @@ export function DocsPropsTable({ components }: DocsPropsTableProps) {
 
   return (
     <>
-      {tabs.length > 0 && (
+      {tabs.length > 1 && (
         <Tabs
           value={currentTab}
           onChange={(_, nextTab) => {

@@ -1,5 +1,4 @@
 import { Box, Card, CardContent, Link } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import {
   makePlayroomStory,
   PlayroomStoryWrapperProps,
@@ -12,44 +11,31 @@ import { Column, Columns, ColumnWidth } from './Columns';
 
 export default {
   title: 'Layout/Columns',
+  component: Column,
+  subcomponents: { Columns },
   parameters: {
-    info: {
-      propTables: [Column, Columns],
-      text: (
-        <Alert severity="info" icon={false}>
-          Heavily inspired by the{' '}
-          <Link
-            color="primary"
-            href="https://seek-oss.github.io/braid-design-system/components/Column"
-          >
-            Column
-          </Link>{' '}
-          and{' '}
-          <Link
-            color="primary"
-            href="https://seek-oss.github.io/braid-design-system/components/Columns"
-          >
-            Columns
-          </Link>{' '}
-          components from the{' '}
-          <Link href="https://seek-oss.github.io/braid-design-system">
-            BRAID Design System
-          </Link>
-          .
-        </Alert>
-      ),
-    },
+    componentSubtitle: (
+      <>
+        Heavily inspired by the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system/components/Column">
+          Column
+        </Link>{' '}
+        and{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system/components/Columns">
+          Columns
+        </Link>{' '}
+        components from the{' '}
+        <Link href="https://seek-oss.github.io/braid-design-system">
+          BRAID Design System
+        </Link>
+        .
+      </>
+    ),
   },
 };
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Box maxWidth={320}>
-      <Card>
-        <CardContent>{children}</CardContent>
-      </Card>
-    </Box>
-  );
+  return <Box maxWidth={320}>{children}</Box>;
 }
 
 export const NoSpace = makePlayroomStory(
