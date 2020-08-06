@@ -1,4 +1,4 @@
-import { Box, Card, CardContent } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import {
   makePlayroomStory,
   PlayroomStoryWrapperProps,
@@ -10,13 +10,7 @@ import { OverflowText } from './OverflowText';
 export default { title: 'Data Display/OverflowText', component: OverflowText };
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Box maxWidth={200}>
-      <Card>
-        <CardContent>{children}</CardContent>
-      </Card>
-    </Box>
-  );
+  return <Box maxWidth={200}>{children}</Box>;
 }
 
 export const Basic = makePlayroomStory(

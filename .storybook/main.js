@@ -15,13 +15,6 @@ module.exports = {
 
   async webpackFinal(config) {
     config.module.rules.push({
-      enforce: 'pre',
-      test: /\.stories\.tsx?$/,
-      exclude: [/node_modules/],
-      loader: require.resolve('@storybook/source-loader'),
-    });
-
-    config.module.rules.push({
       test: /\.tsx?$/,
       exclude: [/node_modules/],
       use: [

@@ -75,10 +75,10 @@ function parseStoryParameters(story: StoryData): StoryParameters {
 
 function parseStories(
   ctx: DocsContextProps,
-): Array<[string | undefined, string | undefined, string | undefined]> {
+): Array<[string, string, string | undefined]> {
   return getDocsStories(ctx).map((story) => [
-    story.id,
-    story.name,
+    story.id as string,
+    story.name as string,
     parseStoryParameters(story).playroom?.code,
   ]);
 }
@@ -126,6 +126,8 @@ export function DocsPage() {
 
           {stories.map(([id, name, code]) => (
             <Card key={id}>
+              <a id={`story-anchor--${id}`} />
+
               <CardContent>
                 <Stack>
                   <Typography variant="h3">{name}</Typography>

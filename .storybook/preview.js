@@ -11,10 +11,11 @@ injectDisplayNames(require('@material-ui/icons'), { suffix: 'Icon' });
 
 addDecorator(withKnobs);
 addDecorator(withPlayroom);
-addDecorator((story) => <ThemeProvider>{story()}</ThemeProvider>);
+addDecorator((story) => (
+  <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+));
 
 addParameters({
-  viewMode: 'docs',
   playroom: {
     // Because Playroom is built inside Storybook on this example's deploy,
     // we must define the absolute path to it when NODE_ENV is production,
