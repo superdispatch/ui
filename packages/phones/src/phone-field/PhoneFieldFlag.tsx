@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
-import { PhoneRegionCode } from '../PhoneNumber';
+import { PhoneRegionCode } from '../data/PhoneNumber';
 
 const useStyles = makeStyles<Theme>(
   (theme) => ({

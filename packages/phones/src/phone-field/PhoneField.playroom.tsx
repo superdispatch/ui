@@ -1,6 +1,6 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 
-import { PhoneNumber } from '../PhoneNumber';
+import { PhoneNumber } from '../data/PhoneNumber';
 import { PhoneField as SdPhoneField, PhoneFieldProps } from './PhoneField';
 
 export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(

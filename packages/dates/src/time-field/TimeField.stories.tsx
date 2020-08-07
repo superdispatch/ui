@@ -1,51 +1,31 @@
-import { Card, CardContent, InputAdornment } from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { InputAdornment } from '@material-ui/core';
+import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { TimeField } from './TimeField.playroom';
 
-export default {
-  title: 'Dates/TimeField',
-  parameters: {
-    info: {
-      propTables: [TimeField],
-    },
-  },
-};
+export default { title: 'Dates/TimeField', component: TimeField };
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Card>
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-}
+export const basic = makePlayroomStory(<TimeField />);
 
-export const Basic = makePlayroomStory(<TimeField />, { wrapper: Wrapper });
-
-export const Advanced = makePlayroomStory(
+export const advanced = makePlayroomStory(
   <TimeField
     label="Label"
     placeholder="Placeholder"
     helperText="Helper Text"
   />,
-  { wrapper: Wrapper },
 );
 
-export const ErrorState = makePlayroomStory(
+export const errorState = makePlayroomStory(
   <TimeField
     label="Label"
     error={true}
     placeholder="Placeholder"
     helperText="Error Text"
   />,
-  { wrapper: Wrapper },
 );
 
-export const Adornment = makePlayroomStory(
+export const adornment = makePlayroomStory(
   <TimeField
     InputProps={{
       startAdornment: (
@@ -53,9 +33,6 @@ export const Adornment = makePlayroomStory(
       ),
     }}
   />,
-  { wrapper: Wrapper },
 );
 
-export const Disabled = makePlayroomStory(<TimeField disabled={true} />, {
-  wrapper: Wrapper,
-});
+export const disabled = makePlayroomStory(<TimeField disabled={true} />);

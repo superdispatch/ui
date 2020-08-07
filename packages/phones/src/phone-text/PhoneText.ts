@@ -1,7 +1,7 @@
 import { renderChildren } from '@superdispatch/ui';
 import { ReactNode, useMemo } from 'react';
 
-import { NullablePhoneNumberLike, PhoneNumber } from '../PhoneNumber';
+import { NullablePhoneNumberLike, PhoneNumber } from '../data/PhoneNumber';
 
 export function usePhoneNumber(
   phone: NullablePhoneNumberLike,

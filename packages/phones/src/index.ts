@@ -1,4 +1,4 @@
-export * from './PhoneNumber';
+export * from './data/PhoneNumber';
 
 export * from './phone-field/PhoneField';
 export * from './phone-link/PhoneLink';

@@ -3,9 +3,9 @@ import React from 'react';
 
 import { PhoneField } from './PhoneField.playroom';
 
-export default { title: 'Phones/PhoneField' };
+export default { title: 'Phones/PhoneField', component: PhoneField };
 
-export const Basic = makePlayroomStory(<PhoneField />);
-export const Validation = makePlayroomStory(
+export const basic = makePlayroomStory(<PhoneField />);
+export const validation = makePlayroomStory(
   <PhoneField value={{ region: 'US', nationalNumber: '201555123' }} />,
 );
