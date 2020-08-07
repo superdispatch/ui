@@ -1,0 +1,7 @@
+{
+  "name": "@superdispatch/ui-docs",
+  "version": "0.3.15",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts"
+}

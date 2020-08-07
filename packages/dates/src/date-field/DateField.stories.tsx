@@ -1,51 +1,31 @@
-import { Card, CardContent, InputAdornment } from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { InputAdornment } from '@material-ui/core';
+import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { DateField } from './DateField.playroom';
 
-export default {
-  title: 'Dates/DateField',
-  parameters: {
-    info: {
-      propTables: [DateField],
-    },
-  },
-};
+export default { title: 'Dates/DateField', component: DateField };
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Card>
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-}
+export const basic = makePlayroomStory(<DateField />);
 
-export const Basic = makePlayroomStory(<DateField />, { wrapper: Wrapper });
-
-export const Advanced = makePlayroomStory(
+export const advanced = makePlayroomStory(
   <DateField
     label="Label"
     placeholder="Placeholder"
     helperText="Helper Text"
   />,
-  { wrapper: Wrapper },
 );
 
-export const ErrorState = makePlayroomStory(
+export const errorState = makePlayroomStory(
   <DateField
     label="Label"
     error={true}
     placeholder="Placeholder"
     helperText="Error Text"
   />,
-  { wrapper: Wrapper },
 );
 
-export const Adornment = makePlayroomStory(
+export const adornment = makePlayroomStory(
   <DateField
     InputProps={{
       startAdornment: (
@@ -53,28 +33,20 @@ export const Adornment = makePlayroomStory(
       ),
     }}
   />,
-  { wrapper: Wrapper },
 );
 
-export const FullWidth = makePlayroomStory(<DateField fullWidth={true} />, {
-  wrapper: Wrapper,
-});
+export const fullWidth = makePlayroomStory(<DateField fullWidth={true} />);
 
-export const Disabled = makePlayroomStory(<DateField disabled={true} />, {
-  wrapper: Wrapper,
-});
+export const disabled = makePlayroomStory(<DateField disabled={true} />);
 
-export const EnableClearable = makePlayroomStory(
+export const enableClearable = makePlayroomStory(
   <DateField enableClearable={true} />,
-  { wrapper: Wrapper },
 );
 
-export const DisableCloseOnSelect = makePlayroomStory(
+export const disableCloseOnSelect = makePlayroomStory(
   <DateField disableCloseOnSelect={true} />,
-  { wrapper: Wrapper },
 );
 
-export const CustomEmptyText = makePlayroomStory(
+export const customEmptyText = makePlayroomStory(
   <DateField emptyText="Never" enableClearable={true} />,
-  { wrapper: Wrapper },
 );

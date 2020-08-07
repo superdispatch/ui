@@ -8,8 +8,8 @@ import React, {
   useMemo,
 } from 'react';
 
+import { NullablePhoneNumberLike, PhoneNumber } from '../data/PhoneNumber';
 import { usePhoneNumber } from '../phone-text/PhoneText';
-import { NullablePhoneNumberLike, PhoneNumber } from '../PhoneNumber';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,

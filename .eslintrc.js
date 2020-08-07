@@ -77,6 +77,11 @@ module.exports = {
     },
 
     {
+      files: ['**/packages/__docs__/**/**.*'],
+      rules: { 'import/no-internal-modules': 'off' },
+    },
+
+    {
       files: ['**/packages/playroom/**/**.*'],
       rules: { 'import/no-internal-modules': 'off' },
     },
@@ -84,6 +89,7 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       rules: {
+        'no-alert': 'off',
         'import/no-internal-modules': 'off',
         'import/no-anonymous-default-export': 'off',
       },

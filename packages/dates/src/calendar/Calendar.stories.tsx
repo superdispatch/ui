@@ -2,23 +2,21 @@ import { Typography } from '@material-ui/core';
 import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
-import { DateUtils } from '../DateUtils';
 import { Calendar } from './Calendar.playroom';
 import { CalendarQuickSelection } from './CalendarQuickSelection';
 import { CalendarQuickSelectionItem } from './CalendarQuickSelectionItem';
 
 export default {
   title: 'Dates/Calendar',
-  parameters: { info: { propTables: [Calendar] } },
+  component: Calendar,
+  subcomponents: { CalendarQuickSelection, CalendarQuickSelectionItem },
 };
 
-export const Basic = makePlayroomStory(<Calendar />);
-
-export const DisabledDays = makePlayroomStory(
+export const basic = makePlayroomStory(<Calendar />);
+export const disabledDays = makePlayroomStory(
   <Calendar disabledDays={(date) => date.getDate() % 2 === 0} />,
 );
-
-export const HighlightedDays = makePlayroomStory(
+export const highlightedDays = makePlayroomStory(
   <Calendar
     highlightedDays={{
       blue: (date) => date.getDay() === 0 || date.getDay() === 6,
@@ -30,28 +28,19 @@ export const HighlightedDays = makePlayroomStory(
     }}
   />,
 );
-
-export const WithFooter = makePlayroomStory(
+export const footer = makePlayroomStory(
   <Calendar
     footer={<Typography color="textSecondary">Footer helper text</Typography>}
   />,
 );
 
-const today = new Date();
-const dateUtils = new DateUtils();
-const quickSelectionDays = Array.from({ length: 7 }, (_, idx) =>
-  dateUtils.plus(today, { day: idx * 2 }),
-);
-
-export const WithQuickSelection = makePlayroomStory(
+export const quickSelection = makePlayroomStory(
   <Calendar
     quickSelection={
       <CalendarQuickSelection>
-        {quickSelectionDays.map((day, idx) => (
-          <CalendarQuickSelectionItem key={idx}>
-            {dateUtils.format(day, 'date')}
-          </CalendarQuickSelectionItem>
-        ))}
+        <CalendarQuickSelectionItem>Today</CalendarQuickSelectionItem>
+        <CalendarQuickSelectionItem>Tomorrow</CalendarQuickSelectionItem>
+        <CalendarQuickSelectionItem>Yesterday</CalendarQuickSelectionItem>
       </CalendarQuickSelection>
     }
   />,

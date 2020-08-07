@@ -1,27 +1,19 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  TypographyProps,
-} from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { Typography, TypographyProps } from '@material-ui/core';
+import { PropsLink } from '@superdispatch/ui-docs';
+import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import { startCase } from 'lodash';
 import React from 'react';
 
 import { Stack } from '..';
 
-export default { title: 'Data Display/Typography' };
-
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Card>
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-}
+export default {
+  title: 'Data Display/Typography',
+  parameters: {
+    componentSubtitle: (
+      <PropsLink url="https://material-ui.com/api/typography/#props" />
+    ),
+  },
+};
 
 const variants: Array<TypographyProps['variant']> = [
   'h1',
@@ -46,7 +38,6 @@ export const Basic = makePlayroomStory(
       ))}
     </Stack>
   </Stack>,
-  { wrapper: Wrapper },
 );
 
 export const Secondary = makePlayroomStory(
@@ -59,7 +50,6 @@ export const Secondary = makePlayroomStory(
       ))}
     </Stack>
   </Stack>,
-  { wrapper: Wrapper },
 );
 
 export const Primary = makePlayroomStory(
@@ -72,7 +62,6 @@ export const Primary = makePlayroomStory(
       ))}
     </Stack>
   </Stack>,
-  { wrapper: Wrapper },
 );
 
 export const Error = makePlayroomStory(
@@ -85,5 +74,4 @@ export const Error = makePlayroomStory(
       ))}
     </Stack>
   </Stack>,
-  { wrapper: Wrapper },
 );
