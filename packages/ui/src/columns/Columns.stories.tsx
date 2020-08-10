@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Link } from '@material-ui/core';
+import { Box, Link } from '@material-ui/core';
 import {
   makePlayroomStory,
   PlayroomStoryWrapperProps,
@@ -38,7 +38,7 @@ function Wrapper({ children }: PlayroomStoryWrapperProps) {
   return <Box maxWidth={320}>{children}</Box>;
 }
 
-export const NoSpace = makePlayroomStory(
+export const noSpace = makePlayroomStory(
   <Columns>
     <Column>
       <Placeholder height={48} text="First" />
@@ -51,7 +51,7 @@ export const NoSpace = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const CustomSpace = makePlayroomStory(
+export const customSpace = makePlayroomStory(
   <Columns space={1}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -64,7 +64,7 @@ export const CustomSpace = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const ResponsiveSpace = makePlayroomStory(
+export const responsiveSpace = makePlayroomStory(
   <Columns space={{ xs: 2, sm: 1 }}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -77,7 +77,7 @@ export const ResponsiveSpace = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const Alignment = makePlayroomStory(
+export const alignment = makePlayroomStory(
   <Columns space={1} align="center">
     <Column>
       <Placeholder height={48} text="First" />
@@ -90,7 +90,7 @@ export const Alignment = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const ResponsiveAlignment = makePlayroomStory(
+export const responsiveAlignment = makePlayroomStory(
   <Columns space={1} align={{ xs: 'top', sm: 'center' }}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -103,7 +103,7 @@ export const ResponsiveAlignment = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const Reverse = makePlayroomStory(
+export const reverse = makePlayroomStory(
   <Columns space={1} reverse={true}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -120,7 +120,7 @@ export const Reverse = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const ResponsiveReverse = makePlayroomStory(
+export const responsiveReverse = makePlayroomStory(
   <Columns space={1} reverse={{ xs: true, sm: false }}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -137,7 +137,7 @@ export const ResponsiveReverse = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const CollapseBelowTablet = makePlayroomStory(
+export const collapseBelowTablet = makePlayroomStory(
   <Columns space={1} collapseBelow="sm">
     <Column>
       <Placeholder height={48} text="First" />
@@ -154,7 +154,7 @@ export const CollapseBelowTablet = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const CollapseBelowDesktop = makePlayroomStory(
+export const collapseBelowDesktop = makePlayroomStory(
   <Columns space={1} collapseBelow="md">
     <Column>
       <Placeholder height={48} text="First" />
@@ -171,7 +171,7 @@ export const CollapseBelowDesktop = makePlayroomStory(
   { wrapper: Wrapper },
 );
 
-export const ReverseAndCollapseBelowTablet = makePlayroomStory(
+export const reverseAndCollapseBelowTablet = makePlayroomStory(
   <Columns space={1} collapseBelow="sm" reverse={{ xs: true, sm: false }}>
     <Column>
       <Placeholder height={48} text="First" />
@@ -201,15 +201,7 @@ const AVAILABLE_WIDTHS: ColumnWidth[] = [
   '4/5',
 ];
 
-function AvailableWidthsWrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Card>
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-}
-
-export const AvailableWidths = makePlayroomStory(
+export const availableWidths = makePlayroomStory(
   <Stack space={1}>
     {AVAILABLE_WIDTHS.map((width) => (
       <Columns key={width} space={1}>
@@ -227,10 +219,9 @@ export const AvailableWidths = makePlayroomStory(
       </Columns>
     ))}
   </Stack>,
-  { wrapper: AvailableWidthsWrapper },
 );
 
-export const ResponsiveWidths = makePlayroomStory(
+export const responsiveWidths = makePlayroomStory(
   <Columns space={1}>
     <Column width={{ xs: '1/2', sm: '3/5' }}>
       <Placeholder

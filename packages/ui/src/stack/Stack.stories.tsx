@@ -34,18 +34,18 @@ function Wrapper({ children }: PlayroomStoryWrapperProps) {
 
 export const Basic = makePlayroomStory(
   <Stack>
-    {Array.from({ length: 3 }, (_, idx) => (
-      <Placeholder key={idx} height={48} />
-    ))}
+    <Placeholder height={48} />
+    <Placeholder height={48} />
+    <Placeholder height={48} />
   </Stack>,
   { wrapper: Wrapper },
 );
 
 export const ResponsiveSpace = makePlayroomStory(
   <Stack space={{ xs: 1, sm: 2 }}>
-    {Array.from({ length: 3 }, (_, idx) => (
-      <Placeholder key={idx} height={48} />
-    ))}
+    <Placeholder height={48} />
+    <Placeholder height={48} />
+    <Placeholder height={48} />
   </Stack>,
   { wrapper: Wrapper },
 );

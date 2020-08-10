@@ -86,6 +86,7 @@
     "babel-plugin-direct-import": "^0.6.2",
     "babel-plugin-optimize-clsx": "^2.6.0",
     "css": "^3.0.0",
+    "dedent": "^0.7.0",
     "eslint": "^7.2.0",
     "execa": "^4.0.3",
     "formik": "^2.1.4",

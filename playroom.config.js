@@ -34,6 +34,8 @@ module.exports = {
           use: {
             loader: 'babel-loader',
             options: {
+              babelrc: false,
+              configFile: false,
               cacheDirectory: true,
               ...createBabelConfig({ docs: true }),
             },
