@@ -47,10 +47,6 @@ export function makePlayroomStory(
   element: ReactElement,
   { wrapper: Wrapper = () => element }: PlayroomStoryOptions = {},
 ) {
-  function Component() {
-    return createElement(Wrapper, null, element);
-  }
-
   const code = reactElementToJSXString(element, {
     displayName: getDisplayName,
 
@@ -59,10 +55,11 @@ export function makePlayroomStory(
     useFragmentShortSyntax: true,
     useBooleanShorthandSyntax: false,
   });
+  const storyFn = () => createElement(Wrapper, null, element);
 
-  Object.assign(Component, {
+  Object.assign(storyFn, {
     story: { parameters: { playroom: { code, disabled: false } } },
   });
 
-  return Component;
+  return storyFn;
 }
