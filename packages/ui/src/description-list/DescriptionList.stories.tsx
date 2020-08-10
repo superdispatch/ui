@@ -1,4 +1,4 @@
-import { Box, Card, CardContent } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import NotesIcon from '@material-ui/icons/Notes';
 import RoomIcon from '@material-ui/icons/Room';
@@ -17,13 +17,7 @@ export default {
 };
 
 function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return (
-    <Box maxWidth={200}>
-      <Card>
-        <CardContent>{children}</CardContent>
-      </Card>
-    </Box>
-  );
+  return <Box maxWidth={200}>{children}</Box>;
 }
 
 export const Small = makePlayroomStory(
