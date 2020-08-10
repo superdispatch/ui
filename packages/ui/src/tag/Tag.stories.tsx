@@ -1,33 +1,56 @@
 import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
-import { startCase } from 'lodash';
 import React from 'react';
 
-import { Inline, Stack } from '..';
-import { Tag, TagProps } from './Tag';
+import { Inline } from '../inline/Inline';
+import { Tag } from './Tag';
 
 export default { title: 'Data Display/Tag', component: Tag };
 
-const colors: Array<TagProps['color']> = [
-  'grey',
-  'blue',
-  'green',
-  'purple',
-  'red',
-  'teal',
-  'yellow',
-];
-const variants: Array<TagProps['variant']> = ['subtle', 'bold'];
+export const subtle = makePlayroomStory(
+  <Inline>
+    <Tag color="grey" variant="subtle">
+      Grey
+    </Tag>
+    <Tag color="blue" variant="subtle">
+      Blue
+    </Tag>
+    <Tag color="green" variant="subtle">
+      Green
+    </Tag>
+    <Tag color="purple" variant="subtle">
+      Purple
+    </Tag>
+    <Tag color="red" variant="subtle">
+      Red
+    </Tag>
+    <Tag color="teal" variant="subtle">
+      Teal
+    </Tag>
+  </Inline>,
+);
 
-export const Examples = makePlayroomStory(
-  <Stack space={2}>
-    {colors.map((color) => (
-      <Inline key={color} space={2}>
-        {variants.map((variant) => (
-          <Tag key={variant} color={color} variant={variant}>
-            {startCase(variant)} {startCase(color)}
-          </Tag>
-        ))}
-      </Inline>
-    ))}
-  </Stack>,
+export const bold = makePlayroomStory(
+  <Inline>
+    <Tag color="grey" variant="bold">
+      Grey
+    </Tag>
+    <Tag color="blue" variant="bold">
+      Blue
+    </Tag>
+    <Tag color="green" variant="bold">
+      Green
+    </Tag>
+    <Tag color="purple" variant="bold">
+      Purple
+    </Tag>
+    <Tag color="red" variant="bold">
+      Red
+    </Tag>
+    <Tag color="teal" variant="bold">
+      Teal
+    </Tag>
+    <Tag color="yellow" variant="bold">
+      Yellow
+    </Tag>
+  </Inline>,
 );
