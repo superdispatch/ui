@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, Divider, Typography } from '@material-ui/core';
 import {
   defaultTitleSlot,
   DocsContext,
@@ -15,7 +15,13 @@ import {
 } from '@storybook/addon-docs/dist/blocks/utils';
 import { Description, PropsTableProps } from '@storybook/components';
 import { Column, Columns, Stack } from '@superdispatch/ui';
-import React, { ComponentType, ReactNode, useContext, useMemo } from 'react';
+import React, {
+  ComponentType,
+  Fragment,
+  ReactNode,
+  useContext,
+  useMemo,
+} from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula as syntaxStyle } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -125,14 +131,20 @@ export function DocsPage() {
           )}
 
           {stories.map(([id, name, code]) => (
-            <Card key={id}>
-              <a id={`story-anchor--${id}`} />
+            <Fragment key={id}>
+              <Divider />
 
-              <CardContent>
+              <div>
+                <a id={`story-anchor--${id}`} />
+
                 <Stack>
                   <Typography variant="h3">{name}</Typography>
 
-                  <Story id={id} />
+                  <Card>
+                    <CardContent>
+                      <Story id={id} />
+                    </CardContent>
+                  </Card>
 
                   {!!code && (
                     <SyntaxHighlighter
@@ -144,8 +156,8 @@ export function DocsPage() {
                     </SyntaxHighlighter>
                   )}
                 </Stack>
-              </CardContent>
-            </Card>
+              </div>
+            </Fragment>
           ))}
 
           {!!components.size && (
