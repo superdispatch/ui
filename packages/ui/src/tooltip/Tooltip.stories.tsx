@@ -1,9 +1,12 @@
-import { Button, PopperPlacementType, Tooltip } from '@material-ui/core';
-import { Stack } from '@superdispatch/ui';
+import { Box, Button, Tooltip } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
-import { startCase } from 'lodash';
+import {
+  makePlayroomStory,
+  PlayroomStoryWrapperProps,
+} from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
+
+import { Inline } from '../inline/Inline';
 
 export default {
   title: 'Data Display/Tooltip',
@@ -14,27 +17,27 @@ export default {
   },
 };
 
-const placements: PopperPlacementType[] = [
-  'bottom',
-  'bottom-end',
-  'bottom-start',
-  'left',
-  'left-end',
-  'left-start',
-  'right',
-  'right-end',
-  'right-start',
-  'top',
-  'top-end',
-  'top-start',
-];
+function Wrapper({ children }: PlayroomStoryWrapperProps) {
+  return <Box>{children}</Box>;
+}
 
-export const Examples = makePlayroomStory(
-  <Stack space={2} align="center">
-    {placements.map((placement) => (
-      <Tooltip title="Tooltip" key={placement} placement={placement}>
-        <Button>{startCase(placement)}</Button>
-      </Tooltip>
-    ))}
-  </Stack>,
+export const basic = makePlayroomStory(
+  <Inline>
+    <Tooltip title="Default">
+      <Button>Default</Button>
+    </Tooltip>
+
+    <Tooltip title="Left" placement="left">
+      <Button>Left</Button>
+    </Tooltip>
+
+    <Tooltip title="Top" placement="top">
+      <Button>Top</Button>
+    </Tooltip>
+
+    <Tooltip title="Right" placement="right">
+      <Button>Right</Button>
+    </Tooltip>
+  </Inline>,
+  { wrapper: Wrapper },
 );
