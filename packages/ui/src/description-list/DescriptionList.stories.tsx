@@ -20,55 +20,49 @@ function Wrapper({ children }: PlayroomStoryWrapperProps) {
   return <Box maxWidth={200}>{children}</Box>;
 }
 
-export const Small = makePlayroomStory(
+export const small = makePlayroomStory(
   <DescriptionList size="small">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
       label="Posted on"
       content="Feb 03, 2020"
     />
-
     <DescriptionListItem
       icon={<RoomIcon />}
       content="167 Zosh Rd, Dallas, PA 18612"
     />
-
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
   </DescriptionList>,
   { wrapper: Wrapper },
 );
 
-export const Medium = makePlayroomStory(
+export const medium = makePlayroomStory(
   <DescriptionList size="medium">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
       label="Posted on"
       content="Feb 03, 2020"
     />
-
     <DescriptionListItem
       icon={<RoomIcon />}
       content="167 Zosh Rd, Dallas, PA 18612"
     />
-
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
   </DescriptionList>,
   { wrapper: Wrapper },
 );
 
-export const Large = makePlayroomStory(
+export const large = makePlayroomStory(
   <DescriptionList size="large">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
       label="Posted on"
       content="Feb 03, 2020"
     />
-
     <DescriptionListItem
       icon={<RoomIcon />}
       content="167 Zosh Rd, Dallas, PA 18612"
     />
-
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
   </DescriptionList>,
   { wrapper: Wrapper },
