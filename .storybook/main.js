@@ -21,6 +21,8 @@ module.exports = {
         {
           loader: require.resolve('babel-loader'),
           options: {
+            babelrc: false,
+            configFile: false,
             cacheDirectory: true,
             ...createBabelConfig({ docs: true }),
           },

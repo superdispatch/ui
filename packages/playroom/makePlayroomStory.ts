@@ -1,39 +1,4 @@
-import {
-  ComponentType,
-  createElement,
-  FunctionComponent,
-  isValidElement,
-  ReactElement,
-  ReactNode,
-} from 'react';
-import reactElementToJSXString from 'react-element-to-jsx-string';
-
-function getDisplayName(node: ReactNode): string {
-  if (!isValidElement(node)) {
-    return 'INVALID_ELEMENT';
-  }
-
-  const { type } = node as ReactElement<unknown, FunctionComponent>;
-  let displayName =
-    typeof type == 'string' ? type : type.displayName || type.name || 'UNKNOWN';
-
-  for (const regExp of [
-    // Remove `Styled(…)`, `ForwardRef(…)`, `WithStyles(…)`.
-    /Styled\((.+)\)/,
-    /WithStyles\((.+)\)/,
-    /ForwardRef\((.+)\)/,
-    // Remove `Mui` prefix.
-    /^Mui(.+)/,
-  ]) {
-    const match = regExp.exec(displayName);
-
-    if (match) {
-      displayName = match[1];
-    }
-  }
-
-  return displayName;
-}
+import { ComponentType, createElement, ReactElement } from 'react';
 
 export interface PlayroomStoryWrapperProps {
   children: ReactElement;
@@ -46,19 +11,16 @@ export interface PlayroomStoryOptions {
 export function makePlayroomStory(
   element: ReactElement,
   { wrapper: Wrapper = () => element }: PlayroomStoryOptions = {},
+  sourceCode?: string,
 ) {
-  const code = reactElementToJSXString(element, {
-    displayName: getDisplayName,
-
-    sortProps: false,
-    showFunctions: true,
-    useFragmentShortSyntax: true,
-    useBooleanShorthandSyntax: false,
-  });
   const storyFn = () => createElement(Wrapper, null, element);
 
   Object.assign(storyFn, {
-    story: { parameters: { playroom: { code, disabled: false } } },
+    story: {
+      parameters: {
+        playroom: { disabled: false, code: sourceCode },
+      },
+    },
   });
 
   return storyFn;

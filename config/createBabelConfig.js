@@ -20,6 +20,8 @@ module.exports = ({ docs = false } = {}) => ({
       },
     ],
 
+    docs && require.resolve('../tools/babel-plugin-inject-story-source'),
+
     [
       require.resolve('../tools/babel-plugin-inject-display-name'),
       { disableNodeEnvCheck: docs },

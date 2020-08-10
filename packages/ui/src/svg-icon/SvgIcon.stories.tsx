@@ -1,10 +1,9 @@
-import { SvgIconProps } from '@material-ui/core';
-import { Check } from '@material-ui/icons';
+import { Home as HomeIcon } from '@material-ui/icons';
 import { PropsLink } from '@superdispatch/ui-docs';
 import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
-import { Inline, Stack } from '..';
+import { Inline } from '../inline/Inline';
 
 export default {
   title: 'Data Display/SvgIcon',
@@ -15,28 +14,19 @@ export default {
   },
 };
 
-const colors: Array<SvgIconProps['color']> = [
-  'inherit',
-  'primary',
-  'action',
-  'disabled',
-  'error',
-];
+export const basic = makePlayroomStory(
+  <Inline>
+    <HomeIcon />
+    <HomeIcon color="primary" />
+    <HomeIcon color="action" />
+    <HomeIcon color="disabled" />
+  </Inline>,
+);
 
-const fontSizes: Array<SvgIconProps['fontSize']> = [
-  'small',
-  'default',
-  'large',
-];
-
-export const Examples = makePlayroomStory(
-  <Stack space={2}>
-    {colors.map((color) => (
-      <Inline key={color} space={2}>
-        {fontSizes.map((fontSize) => (
-          <Check key={fontSize} color={color} fontSize={fontSize} />
-        ))}
-      </Inline>
-    ))}
-  </Stack>,
+export const customSize = makePlayroomStory(
+  <Inline verticalAlign="bottom">
+    <HomeIcon fontSize="small" />
+    <HomeIcon />
+    <HomeIcon fontSize="large" />
+  </Inline>,
 );

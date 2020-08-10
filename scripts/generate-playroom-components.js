@@ -17,6 +17,7 @@ const lines = [];
 //
 
 lines.push("export * from '../Placeholder';");
+lines.push("export * from '../UseState';");
 
 //
 // SD Components
@@ -46,6 +47,10 @@ reexportModules('@material-ui/core', {
         'Button',
         'Snackbar',
         'SnackbarContent',
+
+        // Overridden for docs.
+
+        'Dialog',
 
         // Non UI components.
         'NoSsr',
