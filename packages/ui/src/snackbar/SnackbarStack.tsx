@@ -1,4 +1,5 @@
 import React, {
+  ConsumerProps,
   createContext,
   Key,
   ReactNode,
@@ -38,6 +39,12 @@ const Context = createContext<SnackbarStack>({
 
 export function useSnackbarStack(): SnackbarStack {
   return useContext(Context);
+}
+
+export function SnackbarStackConsumer({
+  children,
+}: ConsumerProps<SnackbarStack>) {
+  return <Context.Consumer>{children}</Context.Consumer>;
 }
 
 export interface SnackbarStackProviderProps {

@@ -22,7 +22,7 @@
     "playroom:build": "playroom build",
     "playroom:generate": "node scripts/generate-playroom-components.js",
     "preplayroom:start": "yarn playroom:generate",
-    "playroom:start": "playroom start",
+    "playroom:start": "playroom start --ci",
     "prestart": "yarn",
     "start": "run-p storybook:start playroom:start",
     "storybook:build": "build-storybook -o docs --quiet",
