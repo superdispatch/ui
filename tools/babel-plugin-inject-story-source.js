@@ -70,7 +70,11 @@ module.exports = ({ types }) => {
             continue;
           }
 
-          const { body } = init;
+          const { body, params } = init;
+
+          if (params.length > 0) {
+            continue;
+          }
 
           if (!types.isJSXElement(body)) {
             continue;
