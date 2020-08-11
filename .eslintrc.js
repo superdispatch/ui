@@ -92,6 +92,8 @@ module.exports = {
         'no-alert': 'off',
         'import/no-internal-modules': 'off',
         'import/no-anonymous-default-export': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
       },
     },
 

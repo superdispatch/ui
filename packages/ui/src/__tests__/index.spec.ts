@@ -183,6 +183,7 @@ it('exposes public api', () => {
         "displayName": "SnackbarContent",
         "render": [Function],
       },
+      "SnackbarStackConsumer": [Function],
       "SnackbarStackProvider": [Function],
       "Stack": Object {
         "$$typeof": Symbol(react.forward_ref),

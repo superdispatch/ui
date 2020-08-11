@@ -1,15 +1,19 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
 
-export interface UseStateProps<T> {
-  initialState: T | (() => T);
+export interface UseStateProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialState: any;
   render: (
-    state: T,
-    setState: Dispatch<SetStateAction<T>>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    state: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setState: Dispatch<SetStateAction<any>>,
   ) => null | ReactElement;
 }
 
-export function UseState<T>({ render, initialState }: UseStateProps<T>) {
-  const [state, setState] = useState<T>(initialState);
+export function UseState({ render, initialState }: UseStateProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [state, setState] = useState(initialState);
 
   return render(state, setState);
 }
