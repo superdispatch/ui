@@ -3,12 +3,18 @@ import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory'
 import { UseState } from '@superdispatch/ui-playroom/UseState';
 import React from 'react';
 
-import { Button, Inline, SnackbarStackConsumer } from '..';
-import { Snackbar } from './Snackbar';
+import {
+  Button,
+  Inline,
+  Snackbar,
+  SnackbarContent,
+  SnackbarStackConsumer,
+} from '..';
 
 export default {
   title: 'Feedback/Snackbar',
   component: Snackbar,
+  subcomponents: { SnackbarContent },
 };
 
 export const basic = makePlayroomStory(
