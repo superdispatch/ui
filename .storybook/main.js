@@ -1,43 +1,14 @@
 'use strict';
 
-const path = require('path');
 const createBabelConfig = require('../config/createBabelConfig');
 
 module.exports = {
   stories: ['../packages/**/*.stories.{ts,tsx}'],
+  addons: ['@storybook/addon-essentials', 'storybook-addon-playroom'],
 
-  addons: [
-    '@storybook/addon-docs',
-    'storybook-addon-playroom',
-    '@storybook/addon-knobs/register',
-    '@storybook/addon-actions/register',
-  ],
-
-  async webpackFinal(config) {
-    config.module.rules.push({
-      test: /\.tsx?$/,
-      exclude: [/node_modules/],
-      use: [
-        {
-          loader: require.resolve('babel-loader'),
-          options: {
-            babelrc: false,
-            configFile: false,
-            cacheDirectory: true,
-            ...createBabelConfig({ docs: true }),
-          },
-        },
-
-        {
-          loader: require.resolve('react-docgen-typescript-loader'),
-          options: {
-            tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
-          },
-        },
-      ],
-    });
-
-    config.resolve.extensions.push('.ts', '.tsx');
+  webpackFinal(config) {
+    const { plugins } = createBabelConfig({ docs: true });
+    config.module.rules[0].use[0].options.plugins.push(...plugins);
     config.resolve.mainFields = ['module', 'browser', 'main'];
 
     return config;

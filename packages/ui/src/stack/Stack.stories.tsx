@@ -1,8 +1,5 @@
 import { Box, Link } from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-playroom/Placeholder';
 import React from 'react';
 
@@ -11,6 +8,13 @@ import { Stack } from './Stack';
 export default {
   title: 'Layout/Stack',
   component: Stack,
+  decorators: [
+    (Story) => (
+      <Box maxWidth={240}>
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
     componentSubtitle: (
       <>
@@ -26,44 +30,36 @@ export default {
       </>
     ),
   },
-};
+} as Meta;
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return <Box maxWidth={240}>{children} </Box>;
-}
-
-export const Basic = makePlayroomStory(
+export const Basic = () => (
   <Stack>
     <Placeholder height={48} />
     <Placeholder height={48} />
     <Placeholder height={48} />
-  </Stack>,
-  { wrapper: Wrapper },
+  </Stack>
 );
 
-export const ResponsiveSpace = makePlayroomStory(
+export const ResponsiveSpace = () => (
   <Stack space={{ xs: 1, sm: 2 }}>
     <Placeholder height={48} />
     <Placeholder height={48} />
     <Placeholder height={48} />
-  </Stack>,
-  { wrapper: Wrapper },
+  </Stack>
 );
 
-export const Alignment = makePlayroomStory(
+export const Alignment = () => (
   <Stack align="center">
     <Placeholder height={48} width={48} />
     <Placeholder height={48} width={64} />
     <Placeholder height={48} width={128} />
-  </Stack>,
-  { wrapper: Wrapper },
+  </Stack>
 );
 
-export const ResponsiveAlignment = makePlayroomStory(
+export const ResponsiveAlignment = () => (
   <Stack align={{ xs: 'center', sm: 'left' }}>
     <Placeholder height={48} width={48} />
     <Placeholder height={48} width={64} />
     <Placeholder height={48} width={128} />
-  </Stack>,
-  { wrapper: Wrapper },
+  </Stack>
 );

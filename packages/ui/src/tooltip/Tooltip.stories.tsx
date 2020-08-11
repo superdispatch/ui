@@ -1,9 +1,5 @@
-import { Box, Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { Inline } from '../inline/Inline';
@@ -17,11 +13,7 @@ export default {
   },
 };
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return <Box>{children}</Box>;
-}
-
-export const basic = makePlayroomStory(
+export const basic = () => (
   <Inline>
     <Tooltip title="Default">
       <Button>Default</Button>
@@ -38,6 +30,5 @@ export const basic = makePlayroomStory(
     <Tooltip title="Right" placement="right">
       <Button>Right</Button>
     </Tooltip>
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );

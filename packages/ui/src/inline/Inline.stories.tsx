@@ -1,8 +1,5 @@
 import { Box, Link } from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-playroom/Placeholder';
 import React from 'react';
 
@@ -11,6 +8,13 @@ import { Inline } from './Inline';
 export default {
   title: 'Layout/Inline',
   component: Inline,
+  decorators: [
+    (Story) => (
+      <Box maxWidth={240}>
+        <Story />
+      </Box>
+    ),
+  ],
   parameters: {
     componentSubtitle: (
       <>
@@ -26,62 +30,52 @@ export default {
       </>
     ),
   },
-};
+} as Meta;
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return <Box maxWidth={240}>{children}</Box>;
-}
-
-export const Basic = makePlayroomStory(
+export const Basic = () => (
   <Inline>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
     ))}
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );
 
-export const ResponsiveSpace = makePlayroomStory(
+export const ResponsiveSpace = () => (
   <Inline space={{ xs: 1, sm: 2 }}>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
     ))}
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );
 
-export const HorizontalAlignment = makePlayroomStory(
+export const HorizontalAlignment = () => (
   <Inline horizontalAlign="center">
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
     ))}
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );
 
-export const ResponsiveHorizontalAlignment = makePlayroomStory(
+export const ResponsiveHorizontalAlignment = () => (
   <Inline horizontalAlign={{ xs: 'center', sm: 'left' }}>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
     ))}
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );
 
-export const VerticalAlignment = makePlayroomStory(
+export const VerticalAlignment = () => (
   <Inline verticalAlign="center">
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={64} />
     <Placeholder width={48} height={24} />
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );
 
-export const ResponsiveVerticalAlignment = makePlayroomStory(
+export const ResponsiveVerticalAlignment = () => (
   <Inline verticalAlign={{ xs: 'center', sm: 'bottom' }}>
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={64} />
     <Placeholder width={48} height={24} />
-  </Inline>,
-  { wrapper: Wrapper },
+  </Inline>
 );

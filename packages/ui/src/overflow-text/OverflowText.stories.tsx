@@ -1,26 +1,28 @@
 import { Box } from '@material-ui/core';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { OverflowText } from './OverflowText';
 
-export default { title: 'Data Display/OverflowText', component: OverflowText };
+export default {
+  title: 'Data Display/OverflowText',
+  component: OverflowText,
+  decorators: [
+    (Story) => (
+      <Box maxWidth={200}>
+        <Story />
+      </Box>
+    ),
+  ],
+} as Meta;
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return <Box maxWidth={200}>{children}</Box>;
-}
-
-export const Basic = makePlayroomStory(
+export const Basic = () => (
   <OverflowText>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </OverflowText>,
-  { wrapper: Wrapper },
+  </OverflowText>
 );
 
-export const CustomTooltip = makePlayroomStory(
+export const CustomTooltip = () => (
   <OverflowText
     TooltipProps={{
       title:
@@ -28,6 +30,5 @@ export const CustomTooltip = makePlayroomStory(
     }}
   >
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </OverflowText>,
-  { wrapper: Wrapper },
+  </OverflowText>
 );

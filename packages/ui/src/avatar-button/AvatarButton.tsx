@@ -1,18 +1,16 @@
 import {
   Avatar,
   AvatarClassKey,
-  AvatarProps,
+  AvatarTypeMap,
   ButtonBase,
-  ButtonBaseProps,
   CircularProgress,
 } from '@material-ui/core';
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
-  DOMAttributes,
+  ButtonHTMLAttributes,
   forwardRef,
   ForwardRefExoticComponent,
-  PropsWithoutRef,
   ReactNode,
   Ref,
   RefAttributes,
@@ -135,17 +133,20 @@ const useStyles = makeStyles(
 
 export interface AvatarButtonProps
   extends RefAttributes<HTMLButtonElement>,
-    Omit<
-      PropsWithoutRef<AvatarProps<'button'>>,
-      'classes' | 'component' | keyof DOMAttributes<unknown>
-    >,
-    Pick<ButtonBaseProps, keyof DOMAttributes<unknown>> {
+    ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'large';
   icon?: ReactNode;
   isLoading?: boolean;
 
   avatarRef?: Ref<HTMLDivElement>;
   classes?: Partial<ClassNameMap<AvatarButtonClassKey>>;
+
+  variant?: AvatarTypeMap['props']['variant'];
+  alt?: AvatarTypeMap['props']['alt'];
+  src?: AvatarTypeMap['props']['src'];
+  sizes?: AvatarTypeMap['props']['sizes'];
+  srcSet?: AvatarTypeMap['props']['srcSet'];
+  imgProps?: AvatarTypeMap['props']['imgProps'];
 }
 
 export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwardRef(
