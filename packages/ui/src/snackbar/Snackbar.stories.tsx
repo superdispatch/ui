@@ -43,38 +43,6 @@ export const closable = makePlayroomStory(
   />,
 );
 
-export const undoable = makePlayroomStory(
-  <UseState
-    initialState={{}}
-    render={({ open = false, undid = false }, setState) => (
-      <>
-        <Button onClick={() => setState({ open: true })}>Perform action</Button>
-
-        <Snackbar
-          open={open}
-          onClose={() => setState({})}
-          action={
-            <Button
-              size="small"
-              color="white"
-              variant="contained"
-              onClick={() => setState({ undid: true })}
-            >
-              Undo
-            </Button>
-          }
-        >
-          Action performed
-        </Snackbar>
-
-        <Snackbar open={undid} onClose={() => setState({})}>
-          Action undid
-        </Snackbar>
-      </>
-    )}
-  />,
-);
-
 export const variants = makePlayroomStory(
   <UseState
     initialState={{}}
@@ -164,5 +132,46 @@ export const stack = makePlayroomStory(
         </Inline>
       );
     }}
+  </SnackbarStackConsumer>,
+);
+
+export const undoable = makePlayroomStory(
+  <SnackbarStackConsumer>
+    {({ addSnackbar, clearStack }) => (
+      <Button
+        onClick={() => {
+          clearStack();
+
+          const trxID = Math.random().toString(32).slice(2, 8).toUpperCase();
+          const closeSnackbar = addSnackbar(
+            <span>
+              Transaction <strong>#{trxID}</strong> confirmed
+            </span>,
+            {
+              variant: 'success',
+              action: (
+                <Button
+                  size="small"
+                  color="white"
+                  variant="contained"
+                  onClick={() => {
+                    closeSnackbar();
+                    addSnackbar(
+                      <span>
+                        Transaction <strong>#{trxID}</strong> rejected
+                      </span>,
+                    );
+                  }}
+                >
+                  Reject
+                </Button>
+              ),
+            },
+          );
+        }}
+      >
+        Confirm transaction
+      </Button>
+    )}
   </SnackbarStackConsumer>,
 );
