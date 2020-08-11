@@ -32,7 +32,7 @@ export default {
   },
 } as Meta;
 
-export const Basic = () => (
+export const basic = () => (
   <Inline>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
@@ -40,7 +40,7 @@ export const Basic = () => (
   </Inline>
 );
 
-export const ResponsiveSpace = () => (
+export const responsiveSpace = () => (
   <Inline space={{ xs: 1, sm: 2 }}>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
@@ -48,7 +48,7 @@ export const ResponsiveSpace = () => (
   </Inline>
 );
 
-export const HorizontalAlignment = () => (
+export const horizontalAlignment = () => (
   <Inline horizontalAlign="center">
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
@@ -56,7 +56,7 @@ export const HorizontalAlignment = () => (
   </Inline>
 );
 
-export const ResponsiveHorizontalAlignment = () => (
+export const responsiveHorizontalAlignment = () => (
   <Inline horizontalAlign={{ xs: 'center', sm: 'left' }}>
     {Array.from({ length: 10 }, (_, idx) => (
       <Placeholder key={idx} width={48} height={48} />
@@ -64,7 +64,7 @@ export const ResponsiveHorizontalAlignment = () => (
   </Inline>
 );
 
-export const VerticalAlignment = () => (
+export const verticalAlignment = () => (
   <Inline verticalAlign="center">
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={64} />
@@ -72,7 +72,7 @@ export const VerticalAlignment = () => (
   </Inline>
 );
 
-export const ResponsiveVerticalAlignment = () => (
+export const responsiveVerticalAlignment = () => (
   <Inline verticalAlign={{ xs: 'center', sm: 'bottom' }}>
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={64} />

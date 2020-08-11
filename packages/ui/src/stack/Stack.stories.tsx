@@ -32,7 +32,7 @@ export default {
   },
 } as Meta;
 
-export const Basic = () => (
+export const basic = () => (
   <Stack>
     <Placeholder height={48} />
     <Placeholder height={48} />
@@ -40,7 +40,7 @@ export const Basic = () => (
   </Stack>
 );
 
-export const ResponsiveSpace = () => (
+export const responsiveSpace = () => (
   <Stack space={{ xs: 1, sm: 2 }}>
     <Placeholder height={48} />
     <Placeholder height={48} />
@@ -48,7 +48,7 @@ export const ResponsiveSpace = () => (
   </Stack>
 );
 
-export const Alignment = () => (
+export const alignment = () => (
   <Stack align="center">
     <Placeholder height={48} width={48} />
     <Placeholder height={48} width={64} />
@@ -56,7 +56,7 @@ export const Alignment = () => (
   </Stack>
 );
 
-export const ResponsiveAlignment = () => (
+export const responsiveAlignment = () => (
   <Stack align={{ xs: 'center', sm: 'left' }}>
     <Placeholder height={48} width={48} />
     <Placeholder height={48} width={64} />

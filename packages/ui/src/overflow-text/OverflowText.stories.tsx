@@ -16,13 +16,13 @@ export default {
   ],
 } as Meta;
 
-export const Basic = () => (
+export const basic = () => (
   <OverflowText>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   </OverflowText>
 );
 
-export const CustomTooltip = () => (
+export const customTooltip = () => (
   <OverflowText
     TooltipProps={{
       title:
