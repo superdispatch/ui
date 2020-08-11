@@ -3,6 +3,8 @@ import { PropsLink } from '@superdispatch/ui-docs';
 import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
+import { Inline } from '..';
+
 export default {
   title: 'Data Display/Chip',
   parameters: {
@@ -12,13 +14,11 @@ export default {
   },
 };
 
-export const Basic = makePlayroomStory(<Chip label="Chip" />);
-export const Disabled = makePlayroomStory(
-  <Chip label="Chip" disabled={true} />,
-);
-export const Clickable = makePlayroomStory(
-  <Chip label="Chip" clickable={true} />,
-);
-export const Deletable = makePlayroomStory(
-  <Chip label="Chip" onDelete={() => alert('Delete!')} />,
+export const examples = makePlayroomStory(
+  <Inline>
+    <Chip label="Basic" />
+    <Chip label="Disabled" disabled={true} />
+    <Chip label="Clickable" clickable={true} />
+    <Chip label="Deletable" onDelete={() => alert('Delete!')} />
+  </Inline>,
 );
