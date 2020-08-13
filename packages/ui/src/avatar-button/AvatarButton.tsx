@@ -35,13 +35,13 @@ const useStyles = makeStyles(
       button: {
         borderRadius: '50%',
 
-        '&[aria-disabled="true"], &[aria-busy="true"]': {
+        '&[disabled], &[aria-busy="true"]': {
           '& > $overlay': {
             backgroundColor: Color.White50,
           },
         },
 
-        '&[aria-busy="false"][aria-disabled="false"]': {
+        '&:not([disabled])[aria-busy="false"]': {
           '&:hover, &:focus': {
             '&$withIcon > $overlay': {
               backgroundColor: Color.Black50,
@@ -154,10 +154,10 @@ export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwar
     {
       size,
       icon,
-      isLoading,
+      isLoading = false,
 
       classes,
-      disabled,
+      disabled = false,
       avatarRef,
       className,
 
@@ -185,9 +185,9 @@ export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwar
       <ButtonBase
         {...props}
         ref={ref}
-        disabled={disabled}
-        aria-busy={!!isLoading}
-        aria-disabled={!!disabled}
+        aria-busy={isLoading}
+        aria-disabled={disabled}
+        disabled={disabled || isLoading}
         className={clsx(className, buttonClassName, {
           [withIconClassName]: !!icon,
           [sizeLargeClassName]: size === 'large',

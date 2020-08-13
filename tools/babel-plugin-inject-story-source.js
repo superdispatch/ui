@@ -84,7 +84,6 @@ module.exports = ({ types }) => {
           const code = format(file.code.slice(body.start, body.end), {
             semi: false,
             parser: 'babel',
-            printWidth: 120,
             trailingComma: 'none',
           })
             // Remove leading semi.
