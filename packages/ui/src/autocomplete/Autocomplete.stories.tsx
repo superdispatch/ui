@@ -1,9 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  InputAdornment,
-  TextField,
-} from '@material-ui/core';
+import { Box, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
@@ -27,8 +22,24 @@ export default {
 
 export const basic = () => (
   <Autocomplete
-    options={['John Doe', 'Richard Roe']}
-    renderInput={(params) => <TextField {...params} label="Name" />}
+    options={['Option 1', 'Option 2']}
+    renderInput={(params) => (
+      <TextField {...params} label="Label" helperText="Helper text" />
+    )}
+  />
+);
+
+export const error = () => (
+  <Autocomplete
+    options={['Option 1', 'Option 2']}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        error={true}
+        label="Label"
+        helperText="Error text"
+      />
+    )}
   />
 );
 
@@ -44,27 +55,14 @@ export const loading = () => (
   <Autocomplete
     loading={true}
     options={[]}
-    renderInput={(params) => (
-      <TextField
-        {...params}
-        InputProps={{
-          // We want to passthrough other `InputProps`
-          ...params.InputProps,
-          endAdornment: (
-            <InputAdornment position="end">
-              <CircularProgress color="inherit" size={20} />
-            </InputAdornment>
-          ),
-        }}
-      />
-    )}
+    renderInput={(params) => <TextField {...params} />}
   />
 );
 
 export const disableClearable = () => (
   <Autocomplete
     disableClearable={true}
-    options={['John Doe', 'Richard Roe']}
+    options={['Option 1', 'Option 2']}
     renderInput={(params) => <TextField {...params} />}
   />
 );

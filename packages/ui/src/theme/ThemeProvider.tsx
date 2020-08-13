@@ -111,9 +111,15 @@ const generateMaterialClassName = createGenerateClassName();
 function generateClassName(rule: Rule, sheet?: StyleSheet) {
   const sheetMeta = sheet?.options.meta;
 
-  return rule.type === 'style' && sheetMeta?.startsWith('SD-')
-    ? `${sheetMeta}-${rule.key}`
-    : generateMaterialClassName(rule, sheet);
+  if (
+    sheetMeta &&
+    rule.type === 'style' &&
+    (sheetMeta.startsWith('SD-') || sheetMeta.startsWith('Mui'))
+  ) {
+    return `${sheetMeta}-${rule.key}`;
+  }
+
+  return generateMaterialClassName(rule, sheet);
 }
 
 export interface ThemeProviderProps {

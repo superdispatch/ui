@@ -1,6 +1,5 @@
 export default { title: 'Inputs' };
 
-export { default as Autocomplete } from './ui/Autocomplete.demo';
 export { default as AvatarButton } from './ui/AvatarButton.demo';
 export { default as Button } from './ui/Button.demo';
 export { default as CardButton } from './ui/CardButton.demo';
