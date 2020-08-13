@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-docs",
-  "version": "0.3.15",
+  "version": "0.3.22",
   "private": true,
   "main": "index.ts",
   "types": "index.ts"
