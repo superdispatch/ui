@@ -10,30 +10,30 @@ it('checks component css', () => {
       border-radius: 50%;
     }
 
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SD-AvatarButton-withIcon
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:hover.SD-AvatarButton-withIcon
       > .SD-AvatarButton-overlay,
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SD-AvatarButton-withIcon
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:focus.SD-AvatarButton-withIcon
       > .SD-AvatarButton-overlay {
       background-color: Color.Black50;
     }
 
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover:not(.SD-AvatarButton-withIcon)
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:hover:not(.SD-AvatarButton-withIcon)
       > .SD-AvatarButton-overlay,
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus:not(.SD-AvatarButton-withIcon)
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:focus:not(.SD-AvatarButton-withIcon)
       > .SD-AvatarButton-overlay {
       background-color: Color.Black20;
     }
 
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:hover.SD-AvatarButton-withIcon
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:hover.SD-AvatarButton-withIcon
       > .SD-AvatarButton-overlay
       > svg,
-    .SD-AvatarButton-button[aria-busy='false'][aria-disabled='false']:focus.SD-AvatarButton-withIcon
+    .SD-AvatarButton-button:not([disabled])[aria-busy='false']:focus.SD-AvatarButton-withIcon
       > .SD-AvatarButton-overlay
       > svg {
       opacity: 1;
     }
 
-    .SD-AvatarButton-button[aria-disabled='true'] > .SD-AvatarButton-overlay,
+    .SD-AvatarButton-button[disabled] > .SD-AvatarButton-overlay,
     .SD-AvatarButton-button[aria-busy='true'] > .SD-AvatarButton-overlay {
       background-color: Color.White50;
     }

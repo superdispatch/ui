@@ -5,6 +5,7 @@ it('exposes public api', () => {
     Object {
       "FormikCheckboxField": [Function],
       "FormikDateField": [Function],
+      "FormikEnhanced": [Function],
       "FormikPhoneField": [Function],
       "FormikRadioGroupField": [Function],
       "FormikTextField": [Function],

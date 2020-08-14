@@ -109,11 +109,36 @@ function createTheme() {
 const generateMaterialClassName = createGenerateClassName();
 
 function generateClassName(rule: Rule, sheet?: StyleSheet) {
-  const sheetMeta = sheet?.options.meta;
+  const { meta, link } = sheet?.options || {};
 
-  return rule.type === 'style' && sheetMeta?.startsWith('SD-')
-    ? `${sheetMeta}-${rule.key}`
-    : generateMaterialClassName(rule, sheet);
+  if (meta && rule.type === 'style') {
+    if (meta.startsWith('SD-')) {
+      return `${meta}-${rule.key}`;
+    }
+
+    if (meta.startsWith('Mui')) {
+      const isPseudoClass = [
+        'checked',
+        'disabled',
+        'error',
+        'focused',
+        'focusVisible',
+        'required',
+        'expanded',
+        'selected',
+      ].includes(rule.key);
+
+      if (isPseudoClass) {
+        return `Mui-${rule.key}`;
+      }
+
+      if (!link) {
+        return `${meta}-${rule.key}`;
+      }
+    }
+  }
+
+  return generateMaterialClassName(rule, sheet);
 }
 
 export interface ThemeProviderProps {

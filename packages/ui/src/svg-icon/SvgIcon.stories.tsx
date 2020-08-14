@@ -1,6 +1,5 @@
 import { Home as HomeIcon } from '@material-ui/icons';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { Inline } from '../inline/Inline';
@@ -14,19 +13,19 @@ export default {
   },
 };
 
-export const basic = makePlayroomStory(
+export const basic = () => (
   <Inline>
     <HomeIcon />
     <HomeIcon color="primary" />
     <HomeIcon color="action" />
     <HomeIcon color="disabled" />
-  </Inline>,
+  </Inline>
 );
 
-export const customSize = makePlayroomStory(
+export const customSize = () => (
   <Inline verticalAlign="bottom">
     <HomeIcon fontSize="small" />
     <HomeIcon />
     <HomeIcon fontSize="large" />
-  </Inline>,
+  </Inline>
 );

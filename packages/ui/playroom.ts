@@ -1,3 +1,4 @@
+export { Color } from './src/theme/Color';
 export { AdaptiveToolbar } from './src/adaptive-toolbar/AdaptiveToolbar';
 export { AvatarButton } from './src/avatar-button/AvatarButton';
 export { Button } from './src/button/Button';

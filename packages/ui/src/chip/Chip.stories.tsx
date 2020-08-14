@@ -1,6 +1,5 @@
 import { Chip } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { Inline } from '..';
@@ -14,11 +13,11 @@ export default {
   },
 };
 
-export const examples = makePlayroomStory(
+export const examples = () => (
   <Inline>
     <Chip label="Basic" />
     <Chip label="Disabled" disabled={true} />
     <Chip label="Clickable" clickable={true} />
     <Chip label="Deletable" onDelete={() => alert('Delete!')} />
-  </Inline>,
+  </Inline>
 );
