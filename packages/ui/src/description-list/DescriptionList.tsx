@@ -3,7 +3,7 @@ import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
-import { OverflowText } from '../overflow-text/OverflowText';
+import { OverflowText, OverflowTextProps } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
@@ -89,8 +89,8 @@ export interface DescriptionListItemProps
   >;
   content?: ReactNode;
   contentTypographyProps?: Omit<
-    TypographyProps,
-    'noWrap' | 'variant' | 'component' | 'color'
+    OverflowTextProps,
+    'variant' | 'component' | 'color'
   >;
 }
 
@@ -105,7 +105,7 @@ export const DescriptionListItem = forwardRef<
       content,
       className,
       labelTypographyProps,
-      contentTypographyProps,
+      contentTypographyProps = {},
       ...props
     },
     rootRef,
@@ -121,7 +121,10 @@ export const DescriptionListItem = forwardRef<
             {...contentTypographyProps}
             variant="body2"
             component="span"
-            TooltipProps={{ title: content as string }}
+            TooltipProps={{
+              title: content as string,
+              ...contentTypographyProps.TooltipProps,
+            }}
           >
             {!!label && (
               <Typography

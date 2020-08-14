@@ -44,6 +44,7 @@ const useStyles = makeStyles<
 
 export interface OverflowTextProps extends Omit<TypographyProps, 'noWrap'> {
   component?: ElementType;
+  disableUnderline?: boolean;
   TooltipProps?: Omit<TooltipProps, 'open' | 'children'>;
 }
 
@@ -53,6 +54,7 @@ export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwar
       onClick,
       children,
       className,
+      disableUnderline,
       TooltipProps: {
         title = children,
         enterDelay = 1000,
@@ -89,7 +91,10 @@ export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwar
                 }}
                 className={clsx(
                   styles.root,
-                  { [styles.truncated]: visibility === 'invisible' },
+                  {
+                    [styles.truncated]:
+                      !disableUnderline && visibility === 'invisible',
+                  },
                   className,
                 )}
               >
