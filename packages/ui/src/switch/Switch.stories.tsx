@@ -1,8 +1,6 @@
 import {
-  FormControl,
   FormControlLabel,
   FormGroup,
-  FormLabel,
   Switch,
   TextField,
 } from '@material-ui/core';
