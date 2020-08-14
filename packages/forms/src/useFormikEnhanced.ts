@@ -25,7 +25,7 @@ export interface FormikEnhancedConfig<TValues extends FormikValues, TResponse>
   /**
    * Extracts errors from the submission error
    */
-  getFormErrors?: (error: unknown) => FormikErrors<TValues>;
+  getFormErrors?: (error: Error) => FormikErrors<TValues>;
   onSubmit: (values: TValues) => TResponse | PromiseLike<TResponse>;
   onSubmitSuccess?: (response: TResponse, values: TValues) => void;
   onSubmitFailure?: (error: Error, values: TValues) => void;
@@ -71,13 +71,13 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
       Promise.resolve(onSubmit(values))
         .then(
           (response) => ({ type: 'submitted', payload: response }),
-          (error) => ({ type: 'rejected', payload: error as Error }),
+          (error: Error) => ({ type: 'rejected', payload: error }),
         )
         .then((status) => {
           if (isMounted.current) {
             setStatus(status);
 
-            if (status.type === 'rejected' && getFormErrors) {
+            if (status.type === 'rejected') {
               setErrors(getFormErrors(status.payload));
             }
           }
