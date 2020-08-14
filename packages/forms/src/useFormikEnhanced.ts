@@ -70,14 +70,20 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
     onSubmit: (values, { setErrors, setStatus }) =>
       Promise.resolve(onSubmit(values))
         .then(
-          (response) => ({ type: 'submitted', payload: response }),
-          (error: Error) => ({ type: 'rejected', payload: error }),
+          (response): FormikEnhancedStatus<TResponse> => ({
+            type: 'submitted',
+            payload: response,
+          }),
+          (error: Error): FormikEnhancedStatus<TResponse> => ({
+            type: 'rejected',
+            payload: error,
+          }),
         )
         .then((status) => {
           if (isMounted.current) {
             setStatus(status);
 
-            if (status.type === 'rejected') {
+            if (status.type === 'rejected' && getFormErrors) {
               setErrors(getFormErrors(status.payload));
             }
           }
