@@ -1,10 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  IconButton,
-  InputAdornment,
-} from '@material-ui/core';
+import { Box, IconButton, InputAdornment } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
