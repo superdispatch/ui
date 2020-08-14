@@ -1,18 +1,16 @@
 import {
   Avatar,
   AvatarClassKey,
-  AvatarProps,
+  AvatarTypeMap,
   ButtonBase,
-  ButtonBaseProps,
   CircularProgress,
 } from '@material-ui/core';
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, {
-  DOMAttributes,
+  ButtonHTMLAttributes,
   forwardRef,
   ForwardRefExoticComponent,
-  PropsWithoutRef,
   ReactNode,
   Ref,
   RefAttributes,
@@ -37,13 +35,13 @@ const useStyles = makeStyles(
       button: {
         borderRadius: '50%',
 
-        '&[aria-disabled="true"], &[aria-busy="true"]': {
+        '&[disabled], &[aria-busy="true"]': {
           '& > $overlay': {
             backgroundColor: Color.White50,
           },
         },
 
-        '&[aria-busy="false"][aria-disabled="false"]': {
+        '&:not([disabled])[aria-busy="false"]': {
           '&:hover, &:focus': {
             '&$withIcon > $overlay': {
               backgroundColor: Color.Black50,
@@ -135,17 +133,20 @@ const useStyles = makeStyles(
 
 export interface AvatarButtonProps
   extends RefAttributes<HTMLButtonElement>,
-    Omit<
-      PropsWithoutRef<AvatarProps<'button'>>,
-      'classes' | 'component' | keyof DOMAttributes<unknown>
-    >,
-    Pick<ButtonBaseProps, keyof DOMAttributes<unknown>> {
+    ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'large';
   icon?: ReactNode;
   isLoading?: boolean;
 
   avatarRef?: Ref<HTMLDivElement>;
   classes?: Partial<ClassNameMap<AvatarButtonClassKey>>;
+
+  variant?: AvatarTypeMap['props']['variant'];
+  alt?: AvatarTypeMap['props']['alt'];
+  src?: AvatarTypeMap['props']['src'];
+  sizes?: AvatarTypeMap['props']['sizes'];
+  srcSet?: AvatarTypeMap['props']['srcSet'];
+  imgProps?: AvatarTypeMap['props']['imgProps'];
 }
 
 export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwardRef(
@@ -153,10 +154,10 @@ export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwar
     {
       size,
       icon,
-      isLoading,
+      isLoading = false,
 
       classes,
-      disabled,
+      disabled = false,
       avatarRef,
       className,
 
@@ -184,9 +185,9 @@ export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwar
       <ButtonBase
         {...props}
         ref={ref}
-        disabled={disabled}
-        aria-busy={!!isLoading}
-        aria-disabled={!!disabled}
+        aria-busy={isLoading}
+        aria-disabled={disabled}
+        disabled={disabled || isLoading}
         className={clsx(className, buttonClassName, {
           [withIconClassName]: !!icon,
           [sizeLargeClassName]: size === 'large',

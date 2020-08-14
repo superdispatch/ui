@@ -2,10 +2,7 @@ import { Box } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import NotesIcon from '@material-ui/icons/Notes';
 import RoomIcon from '@material-ui/icons/Room';
-import {
-  makePlayroomStory,
-  PlayroomStoryWrapperProps,
-} from '@superdispatch/ui-playroom/makePlayroomStory';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
@@ -14,13 +11,16 @@ export default {
   title: 'Data Display/DescriptionList',
   component: DescriptionList,
   subcomponents: { DescriptionListItem },
-};
+  decorators: [
+    (Story) => (
+      <Box maxWidth={200}>
+        <Story />
+      </Box>
+    ),
+  ],
+} as Meta;
 
-function Wrapper({ children }: PlayroomStoryWrapperProps) {
-  return <Box maxWidth={200}>{children}</Box>;
-}
-
-export const small = makePlayroomStory(
+export const small = () => (
   <DescriptionList size="small">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
@@ -32,11 +32,10 @@ export const small = makePlayroomStory(
       content="167 Zosh Rd, Dallas, PA 18612"
     />
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
-  </DescriptionList>,
-  { wrapper: Wrapper },
+  </DescriptionList>
 );
 
-export const medium = makePlayroomStory(
+export const medium = () => (
   <DescriptionList size="medium">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
@@ -48,11 +47,10 @@ export const medium = makePlayroomStory(
       content="167 Zosh Rd, Dallas, PA 18612"
     />
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
-  </DescriptionList>,
-  { wrapper: Wrapper },
+  </DescriptionList>
 );
 
-export const large = makePlayroomStory(
+export const large = () => (
   <DescriptionList size="large">
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
@@ -64,6 +62,5 @@ export const large = makePlayroomStory(
       content="167 Zosh Rd, Dallas, PA 18612"
     />
     <DescriptionListItem icon={<NotesIcon />} label="Notes" />
-  </DescriptionList>,
-  { wrapper: Wrapper },
+  </DescriptionList>
 );

@@ -1,5 +1,4 @@
 import { FormControlLabel, FormGroup, Switch } from '@material-ui/core';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import { UseState } from '@superdispatch/ui-playroom/UseState';
 import React from 'react';
 
@@ -17,7 +16,7 @@ export default {
   subcomponents: { SnackbarContent },
 };
 
-export const basic = makePlayroomStory(
+export const basic = () => (
   <UseState
     initialState={false}
     render={(open, setOpen) => (
@@ -29,10 +28,10 @@ export const basic = makePlayroomStory(
         <Snackbar open={open}>This is a basic snackbar</Snackbar>
       </>
     )}
-  />,
+  />
 );
 
-export const closable = makePlayroomStory(
+export const closable = () => (
   <UseState
     initialState={false}
     render={(open, setOpen) => (
@@ -46,10 +45,10 @@ export const closable = makePlayroomStory(
         </Snackbar>
       </>
     )}
-  />,
+  />
 );
 
-export const variants = makePlayroomStory(
+export const variants = () => (
   <UseState
     initialState={{}}
     render={(props, setProps) => (
@@ -98,10 +97,10 @@ export const variants = makePlayroomStory(
         <Snackbar {...props}>This is snackbar content</Snackbar>
       </>
     )}
-  />,
+  />
 );
 
-export const stack = makePlayroomStory(
+export const stack = () => (
   <SnackbarStackConsumer>
     {({ addSnackbar, clearStack }) => {
       const getTime = () => new Date().toISOString().slice(11, 23);
@@ -138,10 +137,10 @@ export const stack = makePlayroomStory(
         </Inline>
       );
     }}
-  </SnackbarStackConsumer>,
+  </SnackbarStackConsumer>
 );
 
-export const undoable = makePlayroomStory(
+export const undoable = () => (
   <SnackbarStackConsumer>
     {({ addSnackbar, clearStack }) => (
       <Button
@@ -179,5 +178,5 @@ export const undoable = makePlayroomStory(
         Confirm transaction
       </Button>
     )}
-  </SnackbarStackConsumer>,
+  </SnackbarStackConsumer>
 );

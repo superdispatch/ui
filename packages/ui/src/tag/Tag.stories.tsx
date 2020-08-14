@@ -1,4 +1,3 @@
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { Inline } from '../inline/Inline';
@@ -6,7 +5,7 @@ import { Tag } from './Tag';
 
 export default { title: 'Data Display/Tag', component: Tag };
 
-export const subtle = makePlayroomStory(
+export const subtle = () => (
   <Inline>
     <Tag color="grey" variant="subtle">
       Grey
@@ -26,10 +25,10 @@ export const subtle = makePlayroomStory(
     <Tag color="teal" variant="subtle">
       Teal
     </Tag>
-  </Inline>,
+  </Inline>
 );
 
-export const bold = makePlayroomStory(
+export const bold = () => (
   <Inline>
     <Tag color="grey" variant="bold">
       Grey
@@ -52,5 +51,5 @@ export const bold = makePlayroomStory(
     <Tag color="yellow" variant="bold">
       Yellow
     </Tag>
-  </Inline>,
+  </Inline>
 );

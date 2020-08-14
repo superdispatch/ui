@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import React from 'react';
 
 import { Stack } from '..';
@@ -14,7 +13,7 @@ export default {
   },
 };
 
-export const basic = makePlayroomStory(
+export const basic = () => (
   <Stack>
     <Typography variant="h1">h1</Typography>
     <Typography variant="h2">h2</Typography>
@@ -26,10 +25,10 @@ export const basic = makePlayroomStory(
     <Typography variant="subtitle2">subtitle2</Typography>
     <Typography variant="body1">body1</Typography>
     <Typography variant="body2">body2</Typography>
-  </Stack>,
+  </Stack>
 );
 
-export const secondary = makePlayroomStory(
+export const secondary = () => (
   <Stack>
     <Typography variant="h1" color="textSecondary">
       h1
@@ -61,10 +60,10 @@ export const secondary = makePlayroomStory(
     <Typography variant="body2" color="textSecondary">
       body2
     </Typography>
-  </Stack>,
+  </Stack>
 );
 
-export const primary = makePlayroomStory(
+export const primary = () => (
   <Stack>
     <Typography variant="h1" color="textPrimary">
       h1
@@ -96,10 +95,10 @@ export const primary = makePlayroomStory(
     <Typography variant="body2" color="textPrimary">
       body2
     </Typography>
-  </Stack>,
+  </Stack>
 );
 
-export const error = makePlayroomStory(
+export const error = () => (
   <Stack>
     <Typography variant="h1" color="error">
       h1
@@ -131,5 +130,5 @@ export const error = makePlayroomStory(
     <Typography variant="body2" color="error">
       body2
     </Typography>
-  </Stack>,
+  </Stack>
 );

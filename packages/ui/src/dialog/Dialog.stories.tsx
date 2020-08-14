@@ -1,6 +1,5 @@
 import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { makePlayroomStory } from '@superdispatch/ui-playroom/makePlayroomStory';
 import { UseState } from '@superdispatch/ui-playroom/UseState';
 import React from 'react';
 
@@ -16,7 +15,7 @@ export default {
   },
 };
 
-export const basic = makePlayroomStory(
+export const basic = () => (
   <UseState
     initialState={false}
     render={(open, setOpen) => (
@@ -38,5 +37,5 @@ export const basic = makePlayroomStory(
         </Dialog>
       </>
     )}
-  />,
+  />
 );
