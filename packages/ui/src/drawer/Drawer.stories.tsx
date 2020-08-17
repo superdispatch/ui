@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { ArrowBack, Delete } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
+import { PropsLink } from '@superdispatch/ui-docs';
 import { UseState } from '@superdispatch/ui-playroom/UseState';
 import React from 'react';
 
@@ -21,6 +22,11 @@ export default {
   title: 'Navigation/Drawer',
   component: DrawerTitle,
   subcomponents: { DrawerList },
+  parameters: {
+    componentSubtitle: (
+      <PropsLink url="https://material-ui.com/api/drawer/#props" />
+    ),
+  },
 } as Meta;
 
 export const basic = () => (
