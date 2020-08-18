@@ -71,11 +71,10 @@ const useStyles = makeStyles<
   ColumnsClassKey
 >(
   (theme) => ({
-    root: { display: 'flex' },
+    root: { width: '100%', display: 'flex' },
 
-    column: {
-      minWidth: 0,
-    },
+    column: { minWidth: 0 },
+
     columnContent: {},
 
     layoutDefault: {
