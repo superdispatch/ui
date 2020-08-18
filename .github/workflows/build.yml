@@ -60,7 +60,6 @@ jobs:
           yarn lerna publish from-package --yes
 
       - name: Build Docs
-        if: ${{ github.ref == 'refs/heads/master' }}
         run: yarn docs
 
       - name: Deploy Docs
@@ -70,3 +69,10 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs
+
+      - name: Deploy Docs Preview
+        if: ${{ github.ref != 'refs/heads/master' }}
+        run: yarn netlify deploy --dir docs --alias preview-${GITHUB_REF##*/}
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
