@@ -13,6 +13,7 @@ it('checks component css', () => {
     ),
   ).toMatchInlineSnapshot(`
     .SD-Columns-root {
+      width: 100%;
       display: flex;
     }
 
