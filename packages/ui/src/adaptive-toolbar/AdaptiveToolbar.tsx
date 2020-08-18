@@ -55,7 +55,7 @@ const useStyles = makeStyles(
 export interface AdaptiveToolbarItem {
   key: Key;
   label: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface AdaptiveToolbarProps
@@ -156,7 +156,7 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
                   <MenuItem
                     key={item.key}
                     onClick={() => {
-                      item.onClick();
+                      item.onClick?.();
                       setMenuButtonRef(undefined);
                     }}
                   >
