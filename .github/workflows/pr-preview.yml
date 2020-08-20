@@ -38,8 +38,11 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build Docs
-        run: yarn docs
+      - name: Build Storybook
+        run: yarn storybook:build
+
+      - name: Build Playroom
+        run: yarn playroom:build
 
       - name: Deploy Docs Preview
         id: preview
@@ -49,6 +52,9 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Debug
+        run: echo ${{ toJson(steps.preview.outputs) }}
 
       - name: Add Preview Comment
         uses: unsplash/comment-on-pr@master

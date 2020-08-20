@@ -16,7 +16,7 @@
     "prebump": "yarn && yarn lint && yarn docs && yarn test && yarn build",
     "bump": "lerna version",
     "predocs": "rimraf docs",
-    "docs": "run-s storybook:build playroom:build ",
+    "docs": "run-s storybook:build playroom:build",
     "lint": "js-tools lint",
     "preplayroom:build": "yarn playroom:generate",
     "playroom:build": "playroom build",
