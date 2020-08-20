@@ -48,5 +48,7 @@ jobs:
           check_for_duplicate_msg: false
           msg: >
             Preview is ready!
+
             Built with commit ${{ github.sha }}
+
             https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app/
