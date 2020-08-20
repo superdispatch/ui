@@ -46,4 +46,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           check_for_duplicate_msg: false
-          msg: ${{ format('Deploy preview ready!\n Built with commit {0}\n{1}', github.sha, steps.preview.outputs.NETLIFY_URL) }}
+          msg: ${{ format("Deploy preview ready!\n Built with commit {0}\n{1}", github.sha, steps.preview.outputs.NETLIFY_URL) }}
