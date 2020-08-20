@@ -52,7 +52,9 @@ jobs:
         run: yarn docs
 
       - name: Deploy Docs Preview
-        run: yarn netlify deploy --dir docs --alias preview-${{ github.event.number }}
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir docs --alias preview-${{ github.event.number }}
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
