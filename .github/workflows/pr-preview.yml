@@ -42,9 +42,19 @@ jobs:
         run: yarn docs
 
       - name: Deploy Docs Preview
+        id: preview
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir docs --alias preview-${{ github.event.number }}
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Add Preview Comment
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTPUT: 'Preview: ${{ steps.preview.outputs.NETLIFY_URL }}'
+        with:
+          msg: ${{ env.OUTPUT }}
+          check_for_duplicate_msg: false
