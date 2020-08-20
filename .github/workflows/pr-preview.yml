@@ -49,4 +49,4 @@ jobs:
           msg: >
             Preview is ready!
             Built with commit ${{ github.sha }}
-            ${{ steps.preview.outputs.NETLIFY_URL }}
+            https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app/
