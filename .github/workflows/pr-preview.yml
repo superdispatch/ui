@@ -10,42 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.4.0
+      - uses: styfle/cancel-workflow-action@0.4.0
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Setup Node v12
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12.x
 
-      - name: Obtain Yarn cache directory
-        id: yarn-cache
+      - id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
+      - uses: actions/cache@v1
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             yarn-
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build Storybook
-        run: yarn storybook:build
-
-      - name: Build Playroom
-        run: yarn playroom:build
-
-      - name: Deploy Docs Preview
-        id: preview
+      - run: yarn install --frozen-lockfile
+      - run: yarn storybook:build
+      - run: yarn playroom:build
+      - id: preview
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir docs --alias preview-${{ github.event.number }}
@@ -53,11 +41,9 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - name: Debug
-        run: echo ${{ toJson(steps.preview.outputs) }}
+      - run: echo ${{ toJson(steps.preview.outputs) }}
 
-      - name: Add Preview Comment
-        uses: unsplash/comment-on-pr@master
+      - uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
