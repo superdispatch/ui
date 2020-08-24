@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import { UseState } from '@superdispatch/ui-playroom/UseState';
+import { UseState } from '@superdispatch/ui-docs';
 import React from 'react';
 
 import { Inline, Stack } from '..';

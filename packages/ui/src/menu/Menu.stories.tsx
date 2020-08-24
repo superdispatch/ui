@@ -1,6 +1,6 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { UseState } from '@superdispatch/ui-playroom/UseState';
+import { UseState } from '@superdispatch/ui-docs';
 import React from 'react';
 
 export default { title: 'Navigation/Menu' } as Meta;
