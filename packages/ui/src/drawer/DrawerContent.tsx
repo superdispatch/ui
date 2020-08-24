@@ -6,7 +6,14 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   (theme) => ({
-    root: { padding: theme.spacing(2, 4), minWidth: theme.spacing(54) },
+    root: {
+      padding: theme.spacing(2, 4),
+
+      minWidth: '100%',
+      [theme.breakpoints.up('sm')]: {
+        minWidth: theme.spacing(54),
+      },
+    },
   }),
   { name: 'SD-DrawerContent' },
 );
