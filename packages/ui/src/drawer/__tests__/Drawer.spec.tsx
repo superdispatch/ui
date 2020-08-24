@@ -117,7 +117,13 @@ it('checks component css', () => {
 
     .SD-DrawerContent-root {
       padding: 16px 32px;
-      min-width: 432px;
+      min-width: 100%;
+    }
+
+    @media (min-width: 600px) {
+      .SD-DrawerContent-root {
+        min-width: 432px;
+      }
     }
 
     .SD-DrawerList-root {
