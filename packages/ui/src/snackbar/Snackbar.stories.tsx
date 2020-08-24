@@ -1,5 +1,5 @@
 import { FormControlLabel, FormGroup, Switch } from '@material-ui/core';
-import { UseState } from '@superdispatch/ui-playroom/UseState';
+import { UseState } from '@superdispatch/ui-docs';
 import React from 'react';
 
 import {

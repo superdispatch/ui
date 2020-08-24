@@ -1,6 +1,5 @@
 import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import { PropsLink } from '@superdispatch/ui-docs';
-import { UseState } from '@superdispatch/ui-playroom/UseState';
+import { PropsLink, UseState } from '@superdispatch/ui-docs';
 import React from 'react';
 
 import { Button } from '..';

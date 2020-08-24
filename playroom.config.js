@@ -16,8 +16,8 @@ module.exports = {
 
   baseUrl: '/playroom/',
   outputPath: './docs/playroom',
-  components: './packages/playroom/generated/components.ts',
-  frameComponent: './packages/playroom/FrameComponent.tsx',
+  components: './packages/__docs__/generated/components.ts',
+  frameComponent: './packages/__docs__/FrameComponent.tsx',
   iframeSandbox: 'allow-scripts',
 
   webpackConfig: () => ({
