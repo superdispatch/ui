@@ -5,25 +5,22 @@ import { DateLike, RelativeTimeFormatOptions } from './DateUtils';
 
 export function useFormattedRelativeTime(
   value: DateLike,
-  compare: DateLike,
-  { style }: RelativeTimeFormatOptions = {},
+  options?: RelativeTimeFormatOptions,
 ): string {
   const utils = useDateUtils();
 
-  return utils.formatRelativeTime(value, compare, { style });
+  return utils.formatRelativeTime(value, options);
 }
 
 export interface FormattedRelativeTimeProps extends RelativeTimeFormatOptions {
   date: DateLike;
-  compare: DateLike;
 }
 
 export function FormattedRelativeTime({
   date,
-  compare,
   ...options
 }: FormattedRelativeTimeProps) {
-  const formatted = useFormattedRelativeTime(date, compare, options);
+  const formatted = useFormattedRelativeTime(date, options);
 
   return renderChildren(formatted);
 }

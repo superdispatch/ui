@@ -42,6 +42,38 @@
     ]
   },
   "prettier": "@superdispatch/prettier-config",
+  "jest": {
+    "clearMocks": true,
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/__testutils__/",
+      "/node_modules/"
+    ],
+    "modulePathIgnorePatterns": [
+      ".+/pkg/.+"
+    ],
+    "resetMocks": true,
+    "roots": [
+      "<rootDir>/packages/dates/",
+      "<rootDir>/packages/phones/",
+      "<rootDir>/packages/ui/",
+      "<rootDir>/packages/testutils/",
+      "<rootDir>/packages/forms/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.ts"
+    ],
+    "snapshotSerializers": [
+      "snapshot-diff/serializer"
+    ],
+    "transform": {
+      "\\.tsx?$": "babel-jest"
+    },
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
   "devDependencies": {
     "@codemod/cli": "^2.2.1",
     "@material-ui/core": "^4.10.2",
@@ -115,5 +147,6 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  }
+  },
+  "resetMocks": true
 }
