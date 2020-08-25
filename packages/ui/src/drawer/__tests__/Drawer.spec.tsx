@@ -48,15 +48,10 @@ it('checks component css', () => {
       z-index: 1200;
       position: fixed;
       max-width: 100%;
+      min-width: 100%;
       overflow-y: auto;
       flex-direction: column;
       -webkit-overflow-scrolling: touch;
-    }
-
-    @media (min-width: 0px) and (max-width: 599.95px) {
-      .MuiDrawer-paper {
-        min-width: 100%;
-      }
     }
 
     @media (min-width: 600px) {
