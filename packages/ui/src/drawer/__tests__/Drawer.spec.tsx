@@ -110,41 +110,78 @@ it('checks component css', () => {
       border-top-color: Color.Transparent;
     }
 
-    .SD-DrawerActions-toolbar.SD-DrawerActions-toolbar {
-      padding-left: 32px;
-      padding-right: 32px;
+    .SD-DrawerActions-toolbar.MuiToolbar-gutters {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    @media (min-width: 960px) {
+      .SD-DrawerActions-toolbar.MuiToolbar-gutters {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
     }
 
     .SD-DrawerContent-root {
-      padding: 16px 32px;
+      padding: 16px 24px;
       min-width: 100%;
     }
 
-    @media (min-width: 600px) {
+    @media (min-width: 960px) {
       .SD-DrawerContent-root {
+        padding: 16px 32px;
         min-width: 432px;
       }
     }
 
     .SD-DrawerList-root {
-      min-width: 432px;
+      min-width: 100%;
     }
 
     .SD-DrawerList-root .MuiListItem-gutters {
-      padding-left: 32px;
-      padding-right: 32px;
+      padding-left: 24px;
+      padding-right: 24px;
     }
 
-    .SD-DrawerList-root .MuiListItemSecondaryAction-root {
-      right: 32px;
-    }
+    @media (min-width: 960px) {
+      .SD-DrawerList-root {
+        min-width: 432px;
+      }
 
-    .SD-DrawerList-root .MuiListItemSecondaryAction-root .MuiIconButton-edgeEnd {
-      margin-right: -16px;
+      .SD-DrawerList-root .MuiListItem-gutters {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+
+      .SD-DrawerList-root .MuiListItem-gutters.MuiListItem-secondaryAction {
+        padding-right: 64px;
+      }
+
+      .SD-DrawerList-root .MuiListItem-gutters .MuiListItemSecondaryAction-root {
+        right: 32px;
+      }
+
+      .SD-DrawerList-root
+        .MuiListItem-gutters
+        .MuiListItemSecondaryAction-root
+        .MuiIconButton-edgeEnd {
+        margin-right: -16px;
+      }
     }
 
     .SD-DrawerList-root .MuiListItem-gutters.MuiListItem-secondaryAction {
-      padding-right: 64px;
+      padding-right: 48px;
+    }
+
+    .SD-DrawerList-root .MuiListItem-gutters .MuiListItemSecondaryAction-root {
+      right: 24px;
+    }
+
+    .SD-DrawerList-root
+      .MuiListItem-gutters
+      .MuiListItemSecondaryAction-root
+      .MuiIconButton-edgeEnd {
+      margin-right: -12px;
     }
 
     .SD-DrawerTitle-appBar.SD-DrawerTitle-appBar {
@@ -158,9 +195,16 @@ it('checks component css', () => {
       border-bottom-color: Color.Transparent;
     }
 
-    .SD-DrawerTitle-toolbar.SD-DrawerTitle-toolbar {
-      padding-left: 32px;
-      padding-right: 32px;
+    .SD-DrawerTitle-toolbar.MuiToolbar-gutters {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    @media (min-width: 960px) {
+      .SD-DrawerTitle-toolbar.MuiToolbar-gutters {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
     }
 
     .SD-DrawerTitle-startAction {
