@@ -1,30 +1,42 @@
 import { List, ListProps } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
-const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
-  (theme) => ({
-    root: {
-      minWidth: theme.spacing(54),
+function listItemMixins(
+  theme: SuperDispatchTheme,
+  space: number,
+): CSSProperties {
+  return {
+    '& .MuiListItem-gutters': {
+      paddingLeft: theme.spacing(space),
+      paddingRight: theme.spacing(space),
 
-      '& .MuiListItem-gutters': {
-        paddingLeft: theme.spacing(4),
-        paddingRight: theme.spacing(4),
-
-        '&.MuiListItem-secondaryAction': {
-          paddingRight: theme.spacing(8),
-        },
+      '&.MuiListItem-secondaryAction': {
+        paddingRight: theme.spacing(space * 2),
       },
 
       '& .MuiListItemSecondaryAction-root': {
-        right: theme.spacing(4),
+        right: theme.spacing(space),
 
         '& .MuiIconButton-edgeEnd': {
-          marginRight: theme.spacing(-2),
+          marginRight: theme.spacing(-(space / 2)),
         },
+      },
+    },
+  };
+}
+
+const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
+  (theme) => ({
+    root: {
+      maxWidth: '100%',
+      ...listItemMixins(theme, 3),
+
+      [theme.breakpoints.up('md')]: {
+        ...listItemMixins(theme, 4),
       },
     },
   }),

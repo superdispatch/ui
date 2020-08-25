@@ -17,9 +17,8 @@ export default {
 };
 
 export const basic = () => (
-  <UseState
-    initialState={false}
-    render={(open, setOpen) => (
+  <UseState initialState={false}>
+    {(open, setOpen) => (
       <>
         <Button onClick={() => setOpen(!open)}>
           Toggle snackbar visibility
@@ -28,13 +27,12 @@ export const basic = () => (
         <Snackbar open={open}>This is a basic snackbar</Snackbar>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const closable = () => (
-  <UseState
-    initialState={false}
-    render={(open, setOpen) => (
+  <UseState initialState={false}>
+    {(open, setOpen) => (
       <>
         <Button onClick={() => setOpen(!open)}>
           Toggle snackbar visibility
@@ -45,13 +43,12 @@ export const closable = () => (
         </Snackbar>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const variants = () => (
-  <UseState
-    initialState={{}}
-    render={(props, setProps) => (
+  <UseState initialState={{}}>
+    {(props, setProps) => (
       <>
         <FormGroup row={true}>
           <FormControlLabel
@@ -97,7 +94,7 @@ export const variants = () => (
         <Snackbar {...props}>This is snackbar content</Snackbar>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const stack = () => (

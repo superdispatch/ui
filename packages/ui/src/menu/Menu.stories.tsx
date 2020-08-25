@@ -6,9 +6,8 @@ import React from 'react';
 export default { title: 'Navigation/Menu' } as Meta;
 
 export const basic = () => (
-  <UseState
-    initialState={null}
-    render={(state, setState) => (
+  <UseState initialState={null}>
+    {(state, setState) => (
       <>
         <Button
           color="primary"
@@ -25,5 +24,5 @@ export const basic = () => (
         </Menu>
       </>
     )}
-  />
+  </UseState>
 );

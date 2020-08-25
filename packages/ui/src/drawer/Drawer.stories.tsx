@@ -6,7 +6,10 @@ import {
   ListItemText,
   TextField,
 } from '@material-ui/core';
-import { ArrowBack, Delete } from '@material-ui/icons';
+import {
+  ArrowBack as ArrowBackIcon,
+  Delete as DeleteIcon,
+} from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { PropsLink, UseState } from '@superdispatch/ui-docs';
 import React from 'react';
@@ -29,9 +32,8 @@ export default {
 } as Meta;
 
 export const basic = () => (
-  <UseState
-    initialState={false}
-    render={(state, setState) => (
+  <UseState initialState={false}>
+    {(state, setState) => (
       <>
         <Button onClick={() => setState(true)}>Open Drawer</Button>
 
@@ -61,13 +63,12 @@ export const basic = () => (
         </Drawer>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const titleStartAction = () => (
-  <UseState
-    initialState={false}
-    render={(state, setState) => (
+  <UseState initialState={false}>
+    {(state, setState) => (
       <>
         <Button onClick={() => setState(true)}>Open Drawer</Button>
 
@@ -76,20 +77,19 @@ export const titleStartAction = () => (
             title="Title"
             startAction={
               <IconButton edge="start">
-                <ArrowBack />
+                <ArrowBackIcon />
               </IconButton>
             }
           />
         </Drawer>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const titleEndAction = () => (
-  <UseState
-    initialState={false}
-    render={(state, setState) => (
+  <UseState initialState={false}>
+    {(state, setState) => (
       <>
         <Button onClick={() => setState(true)}>Open Drawer</Button>
 
@@ -98,20 +98,19 @@ export const titleEndAction = () => (
             title="Title"
             startAction={
               <IconButton edge="start">
-                <ArrowBack />
+                <ArrowBackIcon />
               </IconButton>
             }
           />
         </Drawer>
       </>
     )}
-  />
+  </UseState>
 );
 
 export const drawerList = () => (
-  <UseState
-    initialState={false}
-    render={(state, setState) => (
+  <UseState initialState={false}>
+    {(state, setState) => (
       <>
         <Button onClick={() => setState(true)}>Open Drawer</Button>
 
@@ -128,7 +127,7 @@ export const drawerList = () => (
 
                 <ListItemSecondaryAction>
                   <IconButton edge="end">
-                    <Delete />
+                    <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
@@ -149,5 +148,5 @@ export const drawerList = () => (
         </Drawer>
       </>
     )}
-  />
+  </UseState>
 );
