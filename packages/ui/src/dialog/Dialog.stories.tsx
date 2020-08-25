@@ -15,9 +15,8 @@ export default {
 };
 
 export const basic = () => (
-  <UseState
-    initialState={false}
-    render={(open, setOpen) => (
+  <UseState initialState={false}>
+    {(open, setOpen) => (
       <>
         <Button onClick={() => setOpen(true)}>Open Dialog</Button>
 
@@ -36,5 +35,5 @@ export const basic = () => (
         </Dialog>
       </>
     )}
-  />
+  </UseState>
 );

@@ -1,33 +1,45 @@
 import { List, ListProps } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
-  (theme) => ({
-    root: {
-      minWidth: theme.spacing(54),
+  (theme) => {
+    const md = theme.breakpoints.up('md');
 
+    const listItemOverrides = (space: number): CSSProperties => ({
       '& .MuiListItem-gutters': {
-        paddingLeft: theme.spacing(4),
-        paddingRight: theme.spacing(4),
+        paddingLeft: theme.spacing(space),
+        paddingRight: theme.spacing(space),
 
         '&.MuiListItem-secondaryAction': {
-          paddingRight: theme.spacing(8),
+          paddingRight: theme.spacing(space * 2),
+        },
+
+        '& .MuiListItemSecondaryAction-root': {
+          right: theme.spacing(space),
+
+          '& .MuiIconButton-edgeEnd': {
+            marginRight: theme.spacing(-(space / 2)),
+          },
         },
       },
+    });
 
-      '& .MuiListItemSecondaryAction-root': {
-        right: theme.spacing(4),
+    return {
+      root: {
+        minWidth: '100%',
+        ...listItemOverrides(3),
 
-        '& .MuiIconButton-edgeEnd': {
-          marginRight: theme.spacing(-2),
+        [md]: {
+          ...listItemOverrides(4),
+          minWidth: theme.spacing(54),
         },
       },
-    },
-  }),
+    };
+  },
   { name: 'SD-DrawerList' },
 );
 
