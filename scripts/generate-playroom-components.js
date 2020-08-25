@@ -49,8 +49,8 @@ reexportModules('@material-ui/core', {
         'SnackbarContent',
 
         // Overridden for docs.
-
         'Dialog',
+        'Drawer',
 
         // Non UI components.
         'NoSsr',

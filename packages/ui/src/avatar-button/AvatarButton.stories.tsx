@@ -95,9 +95,8 @@ export const pictureLoading = () => (
 );
 
 export const interactive = () => (
-  <UseState
-    initialState={false}
-    render={(state, setState) => {
+  <UseState initialState={false}>
+    {(state, setState) => {
       const handleClick = () => {
         setState(true);
         setTimeout(() => setState(false), 500);
@@ -149,5 +148,5 @@ export const interactive = () => (
         </Stack>
       );
     }}
-  />
+  </UseState>
 );
