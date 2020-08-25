@@ -159,6 +159,7 @@ export type DateFormatOptions = Omit<
 export type RelativeTimeFormatStyle = 'narrow' | 'short' | 'long';
 export interface RelativeTimeFormatOptions {
   style?: RelativeTimeFormatStyle;
+  compare?: DateLike;
 }
 
 export class DateUtils {
@@ -361,8 +362,7 @@ export class DateUtils {
 
   formatRelativeTime(
     value: DateLike,
-    compare: DateLike,
-    { style = 'long' }: RelativeTimeFormatOptions = {},
+    { style = 'long', compare = Date.now() }: RelativeTimeFormatOptions = {},
   ): string {
     const valueDateTime = this.toDateTime(value);
     const compareDateTime = this.toDateTime(compare);

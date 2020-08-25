@@ -998,15 +998,20 @@ test.each`
       }) as [number]),
     );
 
-    expect(utils.formatRelativeTime(value, compare, { style: 'narrow' })).toBe(
+    expect(utils.formatRelativeTime(value, { compare, style: 'narrow' })).toBe(
       narrow,
     );
-    expect(utils.formatRelativeTime(value, compare, { style: 'short' })).toBe(
+    expect(utils.formatRelativeTime(value, { compare, style: 'short' })).toBe(
       short,
     );
-    expect(utils.formatRelativeTime(value, compare, { style: 'long' })).toBe(
+    expect(utils.formatRelativeTime(value, { compare, style: 'long' })).toBe(
       long,
     );
-    expect(utils.formatRelativeTime(value, compare)).toBe(long);
+    expect(utils.formatRelativeTime(value, { compare })).toBe(long);
+
+    jest.spyOn(Date, 'now').mockImplementation(() => compare.getTime());
+    expect(Date.now).toHaveBeenCalledTimes(0);
+    expect(utils.formatRelativeTime(value)).toBe(long);
+    expect(Date.now).toHaveBeenCalledTimes(1);
   },
 );
