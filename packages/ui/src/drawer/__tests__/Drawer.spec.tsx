@@ -53,6 +53,19 @@ it('checks component css', () => {
       -webkit-overflow-scrolling: touch;
     }
 
+    @media (min-width: 0px) and (max-width: 599.95px) {
+      .MuiDrawer-paper {
+        min-width: 100%;
+      }
+    }
+
+    @media (min-width: 600px) {
+      .MuiDrawer-paper {
+        max-width: 30%;
+        min-width: 432px;
+      }
+    }
+
     .MuiDrawer-paperAnchorLeft {
       left: 0;
       right: auto;
@@ -124,18 +137,17 @@ it('checks component css', () => {
 
     .SD-DrawerContent-root {
       padding: 16px 24px;
-      min-width: 100%;
+      max-width: 100%;
     }
 
     @media (min-width: 960px) {
       .SD-DrawerContent-root {
         padding: 16px 32px;
-        min-width: 432px;
       }
     }
 
     .SD-DrawerList-root {
-      min-width: 100%;
+      max-width: 100%;
     }
 
     .SD-DrawerList-root .MuiListItem-gutters {
@@ -144,10 +156,6 @@ it('checks component css', () => {
     }
 
     @media (min-width: 960px) {
-      .SD-DrawerList-root {
-        min-width: 432px;
-      }
-
       .SD-DrawerList-root .MuiListItem-gutters {
         padding-left: 32px;
         padding-right: 32px;

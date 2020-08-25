@@ -8,10 +8,7 @@ export function overrideDrawer(theme: SuperDispatchTheme) {
   theme.overrides.MuiDrawer = {
     paper: {
       maxWidth: '100%',
-
-      [theme.breakpoints.only('xs')]: {
-        minWidth: '100%',
-      },
+      minWidth: '100%',
 
       [theme.breakpoints.up('sm')]: {
         maxWidth: '30%',
