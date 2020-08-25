@@ -70,8 +70,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          check_for_duplicate_msg: false
+          check_for_duplicate_msg: true
           msg: >
-            Preview is ready!
-
-            https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app/
+            Preview is ready: https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app/
