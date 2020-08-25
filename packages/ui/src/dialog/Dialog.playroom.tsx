@@ -6,10 +6,19 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     {
       open = true,
       disableAutoFocus = true,
-      disableRestoreFocus = true,
       disableEnforceFocus = true,
+      disableRestoreFocus = true,
       ...props
     },
     ref,
-  ) => <MuiDialog {...props} ref={ref} open={open} />,
+  ) => (
+    <MuiDialog
+      {...props}
+      ref={ref}
+      open={open}
+      disableAutoFocus={disableAutoFocus}
+      disableEnforceFocus={disableEnforceFocus}
+      disableRestoreFocus={disableRestoreFocus}
+    />
+  ),
 );

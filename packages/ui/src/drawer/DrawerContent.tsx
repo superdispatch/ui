@@ -7,10 +7,10 @@ import { SuperDispatchTheme } from '../theme/ThemeProvider';
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   (theme) => ({
     root: {
-      minWidth: '100%',
+      maxWidth: '100%',
       padding: theme.spacing(2, 3),
+
       [theme.breakpoints.up('md')]: {
-        minWidth: theme.spacing(54),
         padding: theme.spacing(2, 4),
       },
     },

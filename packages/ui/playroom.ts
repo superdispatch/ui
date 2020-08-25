@@ -11,6 +11,7 @@ export {
   DescriptionListItem,
 } from './src/description-list/DescriptionList';
 export { Dialog } from './src/dialog/Dialog.playroom';
+export { Drawer } from './src/drawer/Drawer.playroom';
 export { DrawerActions } from './src/drawer/DrawerActions';
 export { DrawerList } from './src/drawer/DrawerList';
 export { DrawerContent } from './src/drawer/DrawerContent';
