@@ -1,6 +1,6 @@
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
 import {
@@ -73,7 +73,7 @@ const useStyles = makeStyles<
 
 export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface StackProps {
+export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   space?: ResponsiveProp<StackSpace>;
   align?: ResponsiveProp<HorizontalAlign>;
@@ -81,7 +81,13 @@ export interface StackProps {
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
   (
-    { children, space: spaceProp = 1, align: alignProp = 'left', ...props },
+    {
+      children,
+      className,
+      space: spaceProp = 1,
+      align: alignProp = 'left',
+      ...props
+    },
     ref,
   ) => {
     const styles = useStyles({});
@@ -92,7 +98,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
       <div
         {...props}
         ref={ref}
-        className={clsx(styles.root, {
+        className={clsx(className, styles.root, {
           [styles.space1]: space === 1,
           [styles.space2]: space === 2,
           [styles.space3]: space === 3,
