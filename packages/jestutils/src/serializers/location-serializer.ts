@@ -21,7 +21,7 @@ expect.addSnapshotSerializer({
 
         try {
           return JSON.parse(decoded) as unknown;
-        } catch (e) {
+        } catch {
           return decoded;
         }
       },
