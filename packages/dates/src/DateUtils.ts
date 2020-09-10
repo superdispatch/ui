@@ -140,11 +140,11 @@ export function stringifyDate(value: DateLike, format: DateFormat): string {
   }
 
   if (format === 'DateISO') {
-    return dateTime.toISODate() as string;
+    return dateTime.toISODate();
   }
 
   if (format === 'DateTimeISO') {
-    return dateTime.toISO() as string;
+    return dateTime.toISO();
   }
 
   return dateTime.toFormat(formats[format]);
@@ -315,7 +315,7 @@ export class DateUtils {
     return this.toDateTime(value).toLocaleString({
       ...options,
       locale: this.options.locale,
-    }) as string;
+    });
   }
 
   format(value: DateLike, variant: DateFormatVariant): string {
