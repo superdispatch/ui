@@ -16,57 +16,33 @@ it('checks component css', () => {
       ['SD-DescriptionList'],
     ),
   ).toMatchInlineSnapshot(`
-    .SD-DescriptionList-list {
-      margin: -8px 0px;
-    }
-
-    .SD-DescriptionList-list > .SD-DescriptionList-item {
-      padding: 8px 0px;
+    .SD-DescriptionList-list > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 16px;
     }
 
     @media (min-width: 600px) {
-      .SD-DescriptionList-list {
-        margin: -4px 0px;
-      }
-
-      .SD-DescriptionList-list > .SD-DescriptionList-item {
-        padding: 4px 0px;
+      .SD-DescriptionList-list > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 8px;
       }
     }
 
-    .SD-DescriptionList-listSmall {
-      margin: -4px 0px;
-    }
-
-    .SD-DescriptionList-listSmall > .SD-DescriptionList-item {
-      padding: 4px 0px;
+    .SD-DescriptionList-listSmall > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 8px;
     }
 
     @media (min-width: 600px) {
-      .SD-DescriptionList-listSmall {
-        margin: -2px 0px;
-      }
-
-      .SD-DescriptionList-listSmall > .SD-DescriptionList-item {
-        padding: 2px 0px;
+      .SD-DescriptionList-listSmall > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 4px;
       }
     }
 
-    .SD-DescriptionList-listLarge {
-      margin: -12px 0px;
-    }
-
-    .SD-DescriptionList-listLarge > .SD-DescriptionList-item {
-      padding: 12px 0px;
+    .SD-DescriptionList-listLarge > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 24px;
     }
 
     @media (min-width: 600px) {
-      .SD-DescriptionList-listLarge {
-        margin: -8px 0px;
-      }
-
-      .SD-DescriptionList-listLarge > .SD-DescriptionList-item {
-        padding: 8px 0px;
+      .SD-DescriptionList-listLarge > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 16px;
       }
     }
 

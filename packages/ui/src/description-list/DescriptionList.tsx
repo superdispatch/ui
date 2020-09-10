@@ -1,7 +1,7 @@
 import { Typography, TypographyProps } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 import { OverflowText, OverflowTextProps } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
@@ -13,17 +13,11 @@ function sizeVariant(
   desktopSpacing: number,
 ): CSSProperties {
   return {
-    margin: theme.spacing(-mobileSpacing / 2, 0),
+    '& > $item:not(:last-child)': {
+      paddingBottom: theme.spacing(mobileSpacing),
 
-    '& > $item': {
-      padding: theme.spacing(mobileSpacing / 2, 0),
-    },
-
-    [theme.breakpoints.up('sm')]: {
-      margin: theme.spacing(-desktopSpacing / 2, 0),
-
-      '& > $item': {
-        padding: theme.spacing(desktopSpacing / 2, 0),
+      [theme.breakpoints.up('sm')]: {
+        paddingBottom: theme.spacing(desktopSpacing),
       },
     },
   };
@@ -57,12 +51,13 @@ const useStyles = makeStyles<
   { name: 'SD-DescriptionList' },
 );
 
-export interface DescriptionListProps extends HTMLAttributes<HTMLDivElement> {
+export interface DescriptionListProps {
+  children?: ReactNode;
   size?: 'small' | 'medium' | 'large';
 }
 
 export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
-  ({ size, className, ...props }, ref) => {
+  ({ size, ...props }, ref) => {
     const styles = useStyles();
 
     return (
@@ -70,7 +65,7 @@ export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
         {...props}
         ref={ref}
         data-size={size}
-        className={clsx(styles.list, className, {
+        className={clsx(styles.list, {
           [styles.listSmall]: size === 'small',
           [styles.listLarge]: size === 'large',
         })}
@@ -79,8 +74,7 @@ export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
   },
 );
 
-export interface DescriptionListItemProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface DescriptionListItemProps {
   icon?: ReactNode;
   label?: ReactNode;
   labelTypographyProps?: Omit<
@@ -103,7 +97,6 @@ export const DescriptionListItem = forwardRef<
       icon,
       label,
       content,
-      className,
       labelTypographyProps,
       contentTypographyProps = {},
       ...props
@@ -113,7 +106,7 @@ export const DescriptionListItem = forwardRef<
     const styles = useStyles();
 
     return (
-      <div {...props} ref={rootRef} className={clsx(styles.item, className)}>
+      <div {...props} ref={rootRef} className={styles.item}>
         {!!icon && <div className={styles.icon}>{icon}</div>}
 
         {(!!label || !!content) && (
