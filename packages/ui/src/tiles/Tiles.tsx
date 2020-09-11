@@ -3,7 +3,10 @@ import clsx from 'clsx';
 import React, { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
-import { InlineSpace, ResponsiveProp, useResponsiveProp } from '..';
+import {
+  ResponsiveProp,
+  useResponsiveProp,
+} from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
 
 const PREVENT_COLLAPSE = 1;
@@ -112,7 +115,7 @@ const useStyles = makeStyles<
 
 export interface TilesProps {
   children?: ReactNode;
-  space?: ResponsiveProp<InlineSpace>;
+  space?: ResponsiveProp<TilesSpace>;
   columns?: ResponsiveProp<TilesColumns>;
 }
 
