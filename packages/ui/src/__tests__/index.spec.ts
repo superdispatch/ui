@@ -196,6 +196,11 @@ it('exposes public api', () => {
         "render": [Function],
       },
       "ThemeProvider": [Function],
+      "Tiles": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Tiles",
+        "render": [Function],
+      },
       "VisibilityObserver": [Function],
       "mergeRefs": [Function],
       "renderChildren": [Function],
