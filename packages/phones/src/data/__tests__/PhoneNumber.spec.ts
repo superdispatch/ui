@@ -1,4 +1,4 @@
-import { PhoneNumber } from '../data/PhoneNumber';
+import { PhoneNumber } from '../PhoneNumber';
 
 describe('.isPhoneNumberLike', () => {
   test.each`
