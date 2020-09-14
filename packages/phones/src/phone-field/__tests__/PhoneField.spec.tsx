@@ -1,7 +1,7 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
 import React from 'react';
 
-import { PhoneField } from '../..';
+import { PhoneField } from '../../index';
 
 it('checks component css', () => {
   expect(
