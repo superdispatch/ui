@@ -97,7 +97,6 @@ it('checks component css', () => {
     .SD-Inline-container {
       display: flex;
       flex-wrap: wrap;
-      flex-direction: row;
     }
 
     .SD-Inline-space1 {

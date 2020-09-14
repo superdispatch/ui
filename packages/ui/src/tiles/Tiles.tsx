@@ -8,11 +8,14 @@ import {
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/ThemeProvider';
-import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
-type InlineClassKey =
+const PREVENT_COLLAPSE = 1;
+
+type TilesClassKey =
   | 'root'
   | 'container'
+  | 'child'
+  | 'childContainer'
   | 'space1'
   | 'space2'
   | 'space3'
@@ -23,29 +26,30 @@ type InlineClassKey =
   | 'space8'
   | 'space9'
   | 'space10'
-  | 'verticalBottom'
-  | 'verticalCenter'
-  | 'horizontalRight'
-  | 'horizontalCenter'
-  | 'item';
+  | 'columns1'
+  | 'columns2'
+  | 'columns3'
+  | 'columns4'
+  | 'columns5'
+  | 'columns6';
+export type TilesSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+export type TilesColumns = 1 | 2 | 3 | 4 | 5 | 6;
 
-function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
-  const preventCollapse = 1;
+function spaceVariant(
+  theme: SuperDispatchTheme,
+  space: TilesSpace,
+): CSSProperties {
   const gap = theme.spacing(space);
 
   return {
-    paddingTop: preventCollapse,
-
     '&:before': {
-      content: '""',
-      display: 'block',
-      marginTop: -gap - preventCollapse,
+      marginTop: -gap - PREVENT_COLLAPSE,
     },
 
     '& > $container': {
       marginLeft: -gap,
 
-      '& > $item': {
+      '& > $child > $childContainer': {
         marginTop: gap,
         marginLeft: gap,
       },
@@ -53,20 +57,40 @@ function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
   };
 }
 
+function columnVariant(columns: TilesColumns): CSSProperties {
+  return {
+    flex: `0 0 ${100 / columns}%`,
+  };
+}
+
 const useStyles = makeStyles<
   SuperDispatchTheme,
-  { classes?: Partial<ClassNameMap<InlineClassKey>> },
-  InlineClassKey
+  { classes?: Partial<ClassNameMap<TilesClassKey>> },
+  TilesClassKey
 >(
   (theme) => ({
-    root: {},
+    root: {
+      paddingTop: PREVENT_COLLAPSE,
+
+      '&:before': {
+        content: '""',
+        display: 'block',
+        marginTop: -PREVENT_COLLAPSE,
+      },
+    },
 
     container: {
       display: 'flex',
       flexWrap: 'wrap',
     },
 
-    item: {},
+    child: {
+      minWidth: 0,
+    },
+
+    childContainer: {
+      height: '100%',
+    },
 
     space1: spaceVariant(theme, 1),
     space2: spaceVariant(theme, 2),
@@ -79,52 +103,30 @@ const useStyles = makeStyles<
     space9: spaceVariant(theme, 9),
     space10: spaceVariant(theme, 10),
 
-    verticalCenter: {
-      '& > $container': { alignItems: 'center' },
-    },
-    verticalBottom: {
-      '& > $container': { alignItems: 'flex-end' },
-    },
-
-    horizontalRight: {
-      '& > $container': { justifyContent: 'flex-end' },
-    },
-
-    horizontalCenter: {
-      '& > $container': { justifyContent: 'center' },
-    },
+    columns1: columnVariant(1),
+    columns2: columnVariant(2),
+    columns3: columnVariant(3),
+    columns4: columnVariant(4),
+    columns5: columnVariant(5),
+    columns6: columnVariant(6),
   }),
-  { name: 'SD-Inline' },
+  { name: 'SD-Tiles' },
 );
 
-export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-
-export interface InlineProps {
+export interface TilesProps {
   children?: ReactNode;
-  space?: ResponsiveProp<InlineSpace>;
-  verticalAlign?: ResponsiveProp<VerticalAlign>;
-  horizontalAlign?: ResponsiveProp<HorizontalAlign>;
+  space?: ResponsiveProp<TilesSpace>;
+  columns?: ResponsiveProp<TilesColumns>;
 }
 
-export const Inline = forwardRef<HTMLDivElement, InlineProps>(
-  (
-    {
-      children,
-      space: spaceProp = 1,
-      verticalAlign: verticalAlignProp = 'top',
-      horizontalAlign: horizontalAlignProp = 'left',
-      ...props
-    },
-    ref,
-  ) => {
+export const Tiles = forwardRef<HTMLDivElement, TilesProps>(
+  ({ children, space: spaceProp = 1, columns: columnsProp = 1 }, ref) => {
     const styles = useStyles({});
     const space = useResponsiveProp(spaceProp);
-    const verticalAlign = useResponsiveProp(verticalAlignProp);
-    const horizontalAlign = useResponsiveProp(horizontalAlignProp);
+    const columns = useResponsiveProp(columnsProp);
 
     return (
       <div
-        {...props}
         ref={ref}
         className={clsx(styles.root, {
           [styles.space1]: space === 1,
@@ -137,18 +139,22 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
           [styles.space8]: space === 8,
           [styles.space9]: space === 9,
           [styles.space10]: space === 10,
-
-          [styles.verticalBottom]: verticalAlign === 'bottom',
-          [styles.verticalCenter]: verticalAlign === 'center',
-
-          [styles.horizontalRight]: horizontalAlign === 'right',
-          [styles.horizontalCenter]: horizontalAlign === 'center',
         })}
       >
         <div className={styles.container}>
           {flattenChildren(children).map((child, idx) => (
-            <div key={idx} className={styles.item}>
-              {child}
+            <div
+              key={idx}
+              className={clsx(styles.child, {
+                [styles.columns1]: columns === 1,
+                [styles.columns2]: columns === 2,
+                [styles.columns3]: columns === 3,
+                [styles.columns4]: columns === 4,
+                [styles.columns5]: columns === 5,
+                [styles.columns6]: columns === 6,
+              })}
+            >
+              <div className={styles.childContainer}>{child}</div>
             </div>
           ))}
         </div>
