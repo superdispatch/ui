@@ -1,4 +1,4 @@
-import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, ReactNode } from 'react';
 
@@ -52,7 +52,10 @@ function spaceMixin(theme: SuperDispatchTheme, space: number): CSSProperties {
   return {
     '&$layoutDefault': {
       marginLeft: -gap,
-      '& > $column > $columnContent': { paddingLeft: gap },
+      width: `calc(100% + ${gap}px)`,
+      '& > $column > $columnContent': {
+        paddingLeft: gap,
+      },
     },
 
     '&$layoutCollapsed > $column > $columnContent': {
@@ -65,15 +68,16 @@ function widthMixin(scale: number): CSSProperties {
   return { flex: `0 0 ${scale * 100}%` };
 }
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  { classes?: Partial<ClassNameMap<ColumnsClassKey>> },
-  ColumnsClassKey
->(
+const useStyles = makeStyles<SuperDispatchTheme, ColumnsClassKey>(
   (theme) => ({
-    root: { width: '100%', display: 'flex' },
+    root: {
+      width: '100%',
+      display: 'flex',
+    },
 
-    column: { minWidth: 0 },
+    column: {
+      minWidth: 0,
+    },
 
     columnContent: {},
 
@@ -154,7 +158,7 @@ export interface ColumnProps {
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width: widthProp = 'fluid', ...props }, ref) => {
-    const styles = useStyles({});
+    const styles = useStyles();
     const width = useResponsiveProp(widthProp);
 
     return (

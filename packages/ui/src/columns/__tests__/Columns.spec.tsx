@@ -50,6 +50,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space1.SD-Columns-layoutDefault {
+      width: calc(100% + 8px);
       margin-left: -8px;
     }
 
@@ -66,6 +67,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space2.SD-Columns-layoutDefault {
+      width: calc(100% + 16px);
       margin-left: -16px;
     }
 
@@ -82,6 +84,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space3.SD-Columns-layoutDefault {
+      width: calc(100% + 24px);
       margin-left: -24px;
     }
 
@@ -98,6 +101,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space4.SD-Columns-layoutDefault {
+      width: calc(100% + 32px);
       margin-left: -32px;
     }
 
@@ -114,6 +118,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space5.SD-Columns-layoutDefault {
+      width: calc(100% + 40px);
       margin-left: -40px;
     }
 
@@ -130,6 +135,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space6.SD-Columns-layoutDefault {
+      width: calc(100% + 48px);
       margin-left: -48px;
     }
 
@@ -146,6 +152,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space7.SD-Columns-layoutDefault {
+      width: calc(100% + 56px);
       margin-left: -56px;
     }
 
@@ -162,6 +169,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space8.SD-Columns-layoutDefault {
+      width: calc(100% + 64px);
       margin-left: -64px;
     }
 
@@ -178,6 +186,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space9.SD-Columns-layoutDefault {
+      width: calc(100% + 72px);
       margin-left: -72px;
     }
 
@@ -194,6 +203,7 @@ it('checks component css', () => {
     }
 
     .SD-Columns-space10.SD-Columns-layoutDefault {
+      width: calc(100% + 80px);
       margin-left: -80px;
     }
 
