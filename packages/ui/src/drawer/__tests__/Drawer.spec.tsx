@@ -56,7 +56,7 @@ it('checks component css', () => {
 
     @media (min-width: 600px) {
       .MuiDrawer-paper {
-        max-width: 30%;
+        max-width: 600px;
         min-width: 432px;
       }
     }

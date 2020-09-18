@@ -11,8 +11,8 @@ export function overrideDrawer(theme: SuperDispatchTheme) {
       minWidth: '100%',
 
       [theme.breakpoints.up('sm')]: {
-        maxWidth: '30%',
         minWidth: theme.spacing(54),
+        maxWidth: theme.breakpoints.width('sm'),
       },
     },
   };
