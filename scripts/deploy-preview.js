@@ -22,7 +22,6 @@ async function deployPreview() {
   }
 
   const github = new Octokit({ auth: GITHUB_TOKEN });
-  const { data: user } = await github.users.getAuthenticated();
   const { data: comments } = await github.issues.listComments({
     repo,
     owner,
@@ -31,8 +30,8 @@ async function deployPreview() {
 
   for (const comment of comments) {
     if (
-      comment.user.login === user.login &&
-      comment.body.startsWith('Preview is ready!')
+      comment.body.startsWith('Preview is ready!') &&
+      comment.user.login === '"github-actions[bot]"'
     ) {
       await github.issues.deleteComment({
         owner,
