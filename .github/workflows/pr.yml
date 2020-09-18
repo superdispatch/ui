@@ -61,15 +61,9 @@ jobs:
       - run: yarn storybook:build
       - run: yarn playroom:build
       - id: preview
-        run: yarn netlify deploy --dir docs --alias preview-${{ github.event.number }}
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
-      - uses: unsplash/comment-on-pr@master
+        run: node scripts/deploy-preview.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          check_for_duplicate_msg: true
-          msg: >
-            Preview is ready: https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app/
+          GITHUB_PULL_REQUEST_NUMBER: ${{ github.event.number }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
