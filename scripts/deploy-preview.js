@@ -38,8 +38,8 @@ async function deployPreview() {
 
     for (const comment of comments) {
       if (
-        comment.body.startsWith('Preview is ready!') &&
-        comment.user.login === '"github-actions[bot]"'
+        comment.user.login === 'github-actions[bot]' &&
+        comment.body.startsWith('Preview is ready!')
       ) {
         console.log('Found comment %d, removing…', comment.id);
 
