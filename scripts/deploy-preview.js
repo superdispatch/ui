@@ -1,7 +1,7 @@
 'use strict';
 
 const execa = require('execa');
-const { Octokit } = require('@octokit/rest');
+const { request } = require('@octokit/request');
 
 deployPreview().catch((error) => {
   console.error(error);
@@ -21,22 +21,26 @@ async function deployPreview() {
     throw new Error('Please provide `GITHUB_PULL_REQUEST_NUMBER`.');
   }
 
-  const github = new Octokit({ auth: GITHUB_TOKEN });
-  const { data: comments } = await github.issues.listComments({
-    repo,
-    owner,
-    issue_number: GITHUB_PULL_REQUEST_NUMBER,
-  });
+  const { data: comments } = await request(
+    'GET /repos/{owner}/{repo}/issues/{issue_number}/comments',
+    {
+      repo,
+      owner,
+      issue_number: GITHUB_PULL_REQUEST_NUMBER,
+      headers: { authorization: `Token ${GITHUB_TOKEN}` },
+    },
+  );
 
   for (const comment of comments) {
     if (
       comment.body.startsWith('Preview is ready!') &&
       comment.user.login === '"github-actions[bot]"'
     ) {
-      await github.issues.deleteComment({
-        owner,
+      await request('DELETE /repos/:owner/:repo/issues/comments/:comment_id', {
         repo,
+        owner,
         comment_id: comment.id,
+        headers: { authorization: `Token ${GITHUB_TOKEN}` },
       });
     }
   }
@@ -50,15 +54,14 @@ async function deployPreview() {
       '--dir=docs',
       `--alias=preview-${GITHUB_PULL_REQUEST_NUMBER}`,
     ],
-    {
-      stdio: 'inherit',
-    },
+    { stdio: 'inherit' },
   );
 
-  await github.issues.createComment({
-    owner,
+  await request('POST /repos/:owner/:repo/issues/:issue_number/comments', {
     repo,
+    owner,
     issue_number: GITHUB_PULL_REQUEST_NUMBER,
+    headers: { authorization: `Token ${GITHUB_TOKEN}` },
     body: [
       'Preview is ready!',
       `Built with commit ${GITHUB_SHA}`,
