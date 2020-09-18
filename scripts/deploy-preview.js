@@ -15,17 +15,14 @@ async function deployPreview() {
     GITHUB_REPOSITORY,
     GITHUB_PULL_REQUEST_NUMBER,
   } = process.env;
+  const [owner, repo] = GITHUB_REPOSITORY.split('/');
 
   if (!GITHUB_PULL_REQUEST_NUMBER) {
     throw new Error('Please provide `GITHUB_PULL_REQUEST_NUMBER`.');
   }
 
   const github = new Octokit({ auth: GITHUB_TOKEN });
-
-  const [owner, repo] = GITHUB_REPOSITORY.split('/');
-
   const { data: user } = await github.users.getAuthenticated();
-
   const { data: comments } = await github.issues.listComments({
     repo,
     owner,
