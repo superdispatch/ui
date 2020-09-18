@@ -24,7 +24,7 @@ async function deployPreview() {
   console.log('Fetching the list of previous comments…');
 
   const { data: comments } = await request(
-    'GET /repos/{owner}/{repo}/issues/{issue_number}/comments',
+    'GET /repos/:owner/:repo/issues/:issue_number/comments',
     {
       repo,
       owner,
@@ -44,7 +44,7 @@ async function deployPreview() {
         console.log('Found comment %d, removing…', comment.id);
 
         await request(
-          'DELETE /repos/{owner}/{repo}/issues/comments/{comment_id}',
+          'DELETE /repos/:owner/:repo/issues/comments/:comment_id',
           {
             repo,
             owner,
