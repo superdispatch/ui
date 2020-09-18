@@ -21,8 +21,6 @@ async function deployPreview() {
     throw new Error('Please provide `GITHUB_PULL_REQUEST_NUMBER`.');
   }
 
-  console.log('Fetching the list of previous comments…');
-
   const { data: comments } = await request(
     'GET /repos/:owner/:repo/issues/:issue_number/comments',
     {
@@ -33,26 +31,19 @@ async function deployPreview() {
     },
   );
 
-  if (comments.length > 0) {
-    console.log('Looking for previous comments…');
+  for (const comment of comments) {
+    if (
+      comment.user.login === 'github-actions[bot]' &&
+      comment.body.startsWith('Preview is ready!')
+    ) {
+      console.log('Found comment %d, removing…', comment.id);
 
-    for (const comment of comments) {
-      if (
-        comment.user.login === 'github-actions[bot]' &&
-        comment.body.startsWith('Preview is ready!')
-      ) {
-        console.log('Found comment %d, removing…', comment.id);
-
-        await request(
-          'DELETE /repos/:owner/:repo/issues/comments/:comment_id',
-          {
-            repo,
-            owner,
-            comment_id: comment.id,
-            headers: { authorization: `Token ${GITHUB_TOKEN}` },
-          },
-        );
-      }
+      await request('DELETE /repos/:owner/:repo/issues/comments/:comment_id', {
+        repo,
+        owner,
+        comment_id: comment.id,
+        headers: { authorization: `Token ${GITHUB_TOKEN}` },
+      });
     }
   }
 
