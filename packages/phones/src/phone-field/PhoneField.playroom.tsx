@@ -1,17 +1,17 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 
-import { PhoneNumber } from '../data/PhoneNumber';
+import { validatePhoneNumber } from '../data/PhoneUtils';
 import { PhoneField as SdPhoneField, PhoneFieldProps } from './PhoneField';
 
 export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
   ({ value, onChange, error, helperText, ...props }, ref) => {
-    const [state, setState] = useState<PhoneNumber>();
+    const [state, setState] = useState('');
     const errorMessage = useMemo(() => {
       if (value == null) {
         return undefined;
       }
 
-      switch (PhoneNumber.validate(value)) {
+      switch (validatePhoneNumber(value)) {
         case 'invalid-country-code':
           return 'Invalid country code';
         case 'too-long':

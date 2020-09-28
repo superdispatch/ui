@@ -1,59 +1,50 @@
-import {
-  Divider,
-  Menu,
-  MenuClassKey,
-  MenuProps,
-  Theme,
-} from '@material-ui/core';
+import { Divider, Menu, MenuProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { SuperDispatchTheme } from '@superdispatch/ui';
 import React, { forwardRef } from 'react';
 
-import { phoneFieldCountries } from '../data/PhoneMetadata';
-import { PhoneRegionCode } from '../data/PhoneNumber';
+import { PHONE_FIELD_COUNTRIES } from '../data/PhoneMetadata';
+import { PhoneRegionCode } from '../data/PhoneRegionCode';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
-const useStyles = makeStyles<
-  Theme,
-  { classes?: MenuProps['classes'] },
-  MenuClassKey
->(
+const COUNTRIES: readonly PhoneRegionCode[] = Array.from(
+  PHONE_FIELD_COUNTRIES.keys(),
+);
+
+const useStyles = makeStyles<SuperDispatchTheme, 'paper'>(
   (theme) => ({
-    list: {},
-    paper: { maxHeight: theme.spacing(30) },
+    paper: {
+      maxHeight: theme.spacing(30),
+    },
   }),
   { name: 'SD-PhoneFieldMenu' },
 );
 
-export interface PhoneFieldMenuProps
-  extends Omit<MenuProps, 'open' | 'children' | 'onClose' | 'onSelect'> {
+export interface PhoneFieldMenuProps extends Pick<MenuProps, 'anchorEl'> {
   onClose: () => void;
-  selectedCountry: PhoneRegionCode;
-  onSelect: (country: PhoneRegionCode) => void;
+  value: PhoneRegionCode;
+  onChange: (region: PhoneRegionCode) => void;
 }
 
 export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
-  (
-    { anchorEl, classes, selectedCountry, onClose, onSelect, ...props },
-    ref,
-  ) => {
-    const styles = useStyles({ classes });
+  ({ anchorEl, value, onClose, onChange }, ref) => {
+    const styles = useStyles();
 
     return (
       <Menu
-        {...props}
         ref={ref}
-        classes={styles}
         open={!!anchorEl}
         onClose={onClose}
         anchorEl={anchorEl}
+        classes={{ paper: styles.paper }}
       >
-        {Array.from(phoneFieldCountries.keys(), (country) => [
+        {COUNTRIES.map((country) => [
           <PhoneFieldMenuItem
             key={country}
             regionCode={country}
-            selected={country === selectedCountry}
+            selected={country === value}
             onClick={() => {
-              onSelect(country);
+              onChange(country);
               onClose();
             }}
           />,

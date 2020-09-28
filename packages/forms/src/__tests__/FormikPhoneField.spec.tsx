@@ -1,35 +1,18 @@
-import { validatePhone } from '../FormikPhoneField';
+import { validatePhone, ValidatePhoneRules } from '../FormikPhoneField';
 
-const requiredMessage = 'This field is required';
-const invalidMessage = 'Invalid phone number';
-const tooLongMessage = 'Phone number is too long';
-const tooShortMessage = 'Phone number is too short';
-const typeMessage = 'Invalid Type';
+test.each<[unknown, undefined | ValidatePhoneRules, string | unknown]>([
+  [null, { required: true }, 'This field is required'],
+  [null, { required: true, requiredMessage: 'Required.' }, 'Required.'],
+  [undefined, { required: true }, 'This field is required'],
+  [undefined, { required: true, requiredMessage: 'Required.' }, 'Required.'],
 
-test.each<[any, string | undefined, boolean?]>([
-  [null, requiredMessage, true],
-  [undefined, requiredMessage, true],
-  [null, undefined],
-  [undefined, undefined],
-  [true, typeMessage],
-  [1, typeMessage],
-  [{}, typeMessage],
-  [{ nationalNumber: '6', region: 'AC' }, invalidMessage],
-  ['61', tooShortMessage],
-  ['615-994-33001', tooLongMessage],
+  ['615', undefined, 'Phone number is too short'],
+  ['615', { tooShortMessage: 'Too short.' }, 'Too short.'],
 
-  [{ region: 'US', nationalNumber: '(615) 994-3300' }, undefined],
-  ['615-994-3300', undefined],
-])('validates %p phone %s', (...args: any[]) => {
-  const [value, message, required] = args;
-  expect(
-    validatePhone(value, {
-      required,
-      typeMessage,
-      requiredMessage,
-      invalidMessage,
-      tooLongMessage,
-      tooShortMessage,
-    }),
-  ).toBe(message);
+  ['615-994-3300 00', undefined, 'Phone number is too long'],
+  ['615-994-3300 00', { tooLongMessage: 'Too long.' }, 'Too long.'],
+
+  ['615-994-3300', undefined, undefined],
+])('validatePhone(%p, %p): %p', (value, rules, expected) => {
+  expect(validatePhone(value, rules)).toBe(expected);
 });
