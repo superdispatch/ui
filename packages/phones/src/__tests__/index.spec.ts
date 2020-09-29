@@ -1,6 +1,6 @@
 import * as api from '..';
 
-it('exposes public api', () => {
+test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "PhoneField": Object {

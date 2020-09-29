@@ -3,7 +3,7 @@ import React from 'react';
 
 import { PhoneField } from '../PhoneField';
 
-it('checks component css', () => {
+test('css', () => {
   expect(
     renderCSS(<PhoneField />, [
       'SD-PhoneFieldFlag',
