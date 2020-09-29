@@ -58,9 +58,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
     const inputRef = useRef<HTMLInputElement>(null);
     const [menuAnchor, setMenuAnchor] = useState<null | HTMLDivElement>(null);
 
-    const value = useMemo(() => formatPhoneNumber(normalizeValue(valueProp)), [
-      valueProp,
-    ]);
+    const value = useMemo(() => normalizeValue(valueProp), [valueProp]);
     const [{ region, nationalNumber }, setValue] = useState(() =>
       createState(value),
     );
@@ -72,18 +70,15 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
 
     const handleChange = (
       fn: undefined | ((value: string) => void),
-      changedRegion: PhoneRegionCode,
+      nextRegion: PhoneRegionCode,
       nextNationalNumber: string,
     ) => {
       if (fn) {
-        const nextValue = formatPhoneNumber([
-          changedRegion,
-          nextNationalNumber,
-        ]);
+        const nextValue = formatPhoneNumber([nextRegion, nextNationalNumber]);
 
         setValue({
           value: nextValue,
-          region: changedRegion,
+          region: nextRegion,
           nationalNumber: nextNationalNumber,
         });
 
