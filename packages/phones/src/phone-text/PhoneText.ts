@@ -28,5 +28,5 @@ export function useFormattedPhoneNumber(
 export function PhoneText({ phone, fallback }: PhoneTextProps) {
   const children = useFormattedPhoneNumber(phone, 'international');
 
-  return renderChildren(children || fallback || phone);
+  return renderChildren(children || fallback);
 }
