@@ -18,6 +18,7 @@ it('exposes public api', () => {
       "getExamplePhoneNumber": [Function],
       "getPhoneCountryCode": [Function],
       "parsePhoneNumber": [Function],
+      "useFormattedPhoneNumber": [Function],
       "validatePhoneNumber": [Function],
     }
   `);
