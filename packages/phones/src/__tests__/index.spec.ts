@@ -1,6 +1,6 @@
 import * as api from '..';
 
-it('exposes public api', () => {
+test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "PhoneField": Object {
@@ -13,9 +13,13 @@ it('exposes public api', () => {
         "displayName": "PhoneLink",
         "render": [Function],
       },
-      "PhoneNumber": [Function],
       "PhoneText": [Function],
-      "usePhoneNumber": [Function],
+      "formatPhoneNumber": [Function],
+      "getExamplePhoneNumber": [Function],
+      "getPhoneCountryCode": [Function],
+      "parsePhoneNumber": [Function],
+      "useFormattedPhoneNumber": [Function],
+      "validatePhoneNumber": [Function],
     }
   `);
 });

@@ -1,14 +1,13 @@
 import {
   PhoneField,
   PhoneFieldProps,
-  PhoneNumber,
+  validatePhoneNumber,
 } from '@superdispatch/phones';
 import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
 
 export interface ValidatePhoneRules {
-  typeMessage?: string;
   required?: boolean;
   requiredMessage?: string;
   tooShortMessage?: string;
@@ -20,24 +19,15 @@ export function validatePhone(
   value: unknown,
   {
     required,
-    typeMessage = 'Invalid Type',
     requiredMessage = 'This field is required',
     invalidMessage = 'Invalid phone number',
     tooLongMessage = 'Phone number is too long',
     tooShortMessage = 'Phone number is too short',
   }: ValidatePhoneRules = {},
 ): string | undefined {
-  if (value != null && !PhoneNumber.isPhoneNumberLike(value)) {
-    return typeMessage;
-  }
+  const phoneNumber = typeof value === 'string' ? value : '';
 
-  const phone = !PhoneNumber.isPhoneNumberLike(value)
-    ? undefined
-    : typeof value === 'string'
-    ? PhoneNumber.fromInternational(value)
-    : value;
-
-  if (!phone || !phone.nationalNumber) {
+  if (!phoneNumber) {
     if (required) {
       return requiredMessage;
     }
@@ -45,16 +35,16 @@ export function validatePhone(
     return undefined;
   }
 
-  switch (PhoneNumber.validate(phone)) {
+  switch (validatePhoneNumber(phoneNumber)) {
     case 'is-possible':
       return undefined;
     case 'too-long':
       return tooLongMessage;
     case 'too-short':
       return tooShortMessage;
-    default:
-      return invalidMessage;
   }
+
+  return invalidMessage;
 }
 
 interface FormikPhoneFieldProps
@@ -79,7 +69,7 @@ export function FormikPhoneField({
   const uid = useUID();
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField<
-    undefined | PhoneNumber
+    null | undefined | string
   >({ name, validate });
   const errorText = touched && error;
 

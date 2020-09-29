@@ -5,16 +5,14 @@ import React, {
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
-  useMemo,
 } from 'react';
 
-import { NullablePhoneNumberLike, PhoneNumber } from '../data/PhoneNumber';
-import { usePhoneNumber } from '../phone-text/PhoneText';
+import { useFormattedPhoneNumber } from '..';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
     Omit<LinkProps, 'ref' | 'href' | 'children'> {
-  phone: NullablePhoneNumberLike;
+  phone: string;
   fallback?: ReactNode;
 }
 
@@ -22,18 +20,14 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   HTMLAnchorElement,
   PhoneLinkProps
 >(({ phone, fallback, ...props }, ref) => {
-  const phoneNumber = usePhoneNumber(phone);
-  const linkProps = useMemo<Pick<LinkProps, 'href' | 'children'>>(
-    () => ({
-      href: PhoneNumber.toRFC3966(phoneNumber),
-      children: PhoneNumber.toInternational(phoneNumber),
-    }),
-    [phoneNumber],
-  );
+  const href = useFormattedPhoneNumber(phone, 'rfc3966');
+  const children = useFormattedPhoneNumber(phone, 'international');
 
-  return !linkProps.children ? (
-    renderChildren(fallback || phone)
+  return !href ? (
+    renderChildren(fallback)
   ) : (
-    <Link {...props} {...linkProps} ref={ref} />
+    <Link {...props} ref={ref} href={href}>
+      {children}
+    </Link>
   );
 });

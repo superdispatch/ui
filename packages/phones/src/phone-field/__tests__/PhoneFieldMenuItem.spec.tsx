@@ -3,7 +3,7 @@ import React from 'react';
 
 import { PhoneFieldMenuItem } from '../PhoneFieldMenuItem';
 
-it('checks component css', () => {
+test('css', () => {
   expect(
     renderCSS(<PhoneFieldMenuItem regionCode="US" />, [
       'SD-PhoneFieldMenuItem',
