@@ -58,7 +58,9 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
     const inputRef = useRef<HTMLInputElement>(null);
     const [menuAnchor, setMenuAnchor] = useState<null | HTMLDivElement>(null);
 
-    const value = normalizeValue(valueProp);
+    const value = useMemo(() => formatPhoneNumber(normalizeValue(valueProp)), [
+      valueProp,
+    ]);
     const [{ region, nationalNumber }, setValue] = useState(() =>
       createState(value),
     );
@@ -73,7 +75,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
       changedRegion: PhoneRegionCode,
       nextNationalNumber: string,
     ) => {
-      if (fn != null) {
+      if (fn) {
         const nextValue = formatPhoneNumber([
           changedRegion,
           nextNationalNumber,
@@ -124,7 +126,9 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
 
         <TextField
           {...props}
+          type="tel"
           variant="outlined"
+          autoComplete="off"
           value={nationalNumber}
           placeholder={placeholder}
           ref={mergeRefs(ref, rootRef)}
@@ -142,7 +146,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
             startAdornment: (
               <PhoneFieldStartAdornment
                 region={region}
-                isOpened={!!menuAnchor}
+                isExpanded={!!menuAnchor}
                 onClick={() => {
                   // `FocusTrap` inside of `Menu` will restore focus to
                   // the last focused element. We want to manually focus input

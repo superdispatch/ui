@@ -13,13 +13,21 @@ test('basic', () => {
   `);
 });
 
-test('invalid', () => {
+test('possible', () => {
   const { container } = renderComponent(<PhoneText phone="123" />);
 
   expect(container).toMatchInlineSnapshot(`
     <div>
       +1 123
     </div>
+  `);
+});
+
+test('invalid', () => {
+  const { container } = renderComponent(<PhoneText phone="noop" />);
+
+  expect(container).toMatchInlineSnapshot(`
+    <div/>
   `);
 });
 

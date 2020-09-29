@@ -35,7 +35,7 @@ function createAPN(
   }
 
   if (regionCode == null) {
-    const apn = phone.startsWith('+')
+    const apn = isInternational
       ? new AwesomePhonenumber(phone)
       : new AwesomePhonenumber(phone, DEFAULT_REGION_CODE);
 
@@ -55,15 +55,35 @@ function createAPN(
 
 export type PhoneNumberPair = [region: PhoneRegionCode, natinalNumber: string];
 
+function parseNationalNumberSimple(
+  region: PhoneRegionCode,
+  nationalNumber: string,
+) {
+  const isInternational = nationalNumber.includes('+');
+
+  nationalNumber = extractDigits(nationalNumber);
+
+  if (isInternational) {
+    const countryCode = String(getPhoneCountryCode(region));
+
+    if (nationalNumber.startsWith(countryCode)) {
+      nationalNumber = nationalNumber.slice(countryCode.length);
+    }
+  }
+
+  return nationalNumber;
+}
+
 export function parsePhoneNumber(value: string): PhoneNumberPair {
   const apn = createAPN(value);
+  const region = apn.getRegionCode() as PhoneRegionCode;
   let nationalNumber = apn.getNumber('national');
 
   if (!nationalNumber) {
-    nationalNumber = extractDigits(value);
+    nationalNumber = parseNationalNumberSimple(region, value);
   }
 
-  return [apn.getRegionCode() as PhoneRegionCode, nationalNumber];
+  return [region, nationalNumber];
 }
 
 export function getExamplePhoneNumber(region: PhoneRegionCode): string {
@@ -78,7 +98,7 @@ function formatPhoneNumberSimple(
   format: PhoneNumberFormat,
 ): string {
   region = normalizeRegion(region);
-  nationalNumber = extractDigits(nationalNumber);
+  nationalNumber = parseNationalNumberSimple(region, nationalNumber);
 
   if (format === 'national') {
     return nationalNumber;

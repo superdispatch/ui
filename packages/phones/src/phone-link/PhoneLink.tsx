@@ -24,7 +24,7 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   const children = useFormattedPhoneNumber(phone, 'international');
 
   return !href ? (
-    renderChildren(fallback || phone)
+    renderChildren(fallback)
   ) : (
     <Link {...props} ref={ref} href={href}>
       {children}

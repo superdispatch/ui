@@ -38,7 +38,7 @@ test.each([
   ['1 (506) 234-5678 ', 'US', '(506) 234-5678'],
   ['1 (506) 234-5678 9', 'US', '50623456789'],
   ['1 (506) 234-5678 90', 'US', '506234567890'],
-  ['+1 (5', 'US', '15'],
+  ['+1 (5', 'US', '5'],
   ['+1 (50', 'US', '50'],
   ['+1 (506', 'US', '506'],
   ['+1 (506)', 'US', '506'],
@@ -63,6 +63,9 @@ test.each<[string | PhoneNumberPair, undefined | PhoneNumberFormat, string]>([
   ['(', undefined, '+1'],
   ['(5', undefined, '+15'],
   ['(50', undefined, '+150'],
+  ['+1', undefined, '+1'],
+  ['+1 (5', undefined, '+15'],
+  ['+1 (50', undefined, '+150'],
 
   // Uses `e164` by default
   [['CA', ''], undefined, '+1'],

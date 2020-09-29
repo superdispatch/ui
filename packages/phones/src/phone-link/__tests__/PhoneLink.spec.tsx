@@ -10,11 +10,17 @@ test('basic', () => {
   expect(getByRole('link')).toHaveAttribute('href', 'tel:+1-201-555-0123');
 });
 
-test('invalid', () => {
+test('possible', () => {
   const { getByRole } = renderComponent(<PhoneLink phone="123" />);
 
   expect(getByRole('link')).toHaveTextContent('+1 123');
   expect(getByRole('link')).toHaveAttribute('href', 'tel:+1-123');
+});
+
+test('invalid', () => {
+  const { container } = renderComponent(<PhoneLink phone="noop" />);
+
+  expect(container).toMatchInlineSnapshot(`<div />`);
 });
 
 test('fallback', () => {
