@@ -19,12 +19,12 @@ test('invalid', () => {
 
 test('fallback', () => {
   const { container } = renderComponent(
-    <PhoneLink phone="noop" fallback="Invalid Phone Number" />,
+    <PhoneLink phone="noop" fallback="Invalid." />,
   );
 
   expect(container).toMatchInlineSnapshot(`
     <div>
-      Invalid Phone Number
+      Invalid.
     </div>
   `);
 });
