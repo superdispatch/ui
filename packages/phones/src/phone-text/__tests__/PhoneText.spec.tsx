@@ -26,9 +26,7 @@ test('possible', () => {
 test('invalid', () => {
   const { container } = renderComponent(<PhoneText phone="noop" />);
 
-  expect(container).toMatchInlineSnapshot(`
-    <div/>
-  `);
+  expect(container).toMatchInlineSnapshot(`<div />`);
 });
 
 test('fallback', () => {

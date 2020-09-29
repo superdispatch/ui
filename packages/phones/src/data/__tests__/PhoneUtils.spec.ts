@@ -73,6 +73,11 @@ test.each<[string | PhoneNumberPair, undefined | PhoneNumberFormat, string]>([
   [['CA', '(5'], undefined, '+15'],
   [['CA', '(50'], undefined, '+150'],
 
+  // Normalizes national number
+  [['US', '!+@1#1$'], undefined, '+11'],
+  [['NZ', '!+@1#1$'], undefined, '+6411'],
+
+  // Normalizes the region
   [['??' as any, ''], undefined, '+1'],
   [['CACA' as any, ''], undefined, '+1'],
 
