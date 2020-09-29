@@ -1,34 +1,32 @@
 import { renderChildren } from '@superdispatch/ui';
 import { ReactNode, useMemo } from 'react';
 
-import { NullablePhoneNumberLike, PhoneNumber } from '../data/PhoneNumber';
-
-export function usePhoneNumber(
-  phone: NullablePhoneNumberLike,
-): undefined | PhoneNumber {
-  return useMemo(() => {
-    if (!PhoneNumber.isPhoneNumberLike(phone)) {
-      return undefined;
-    }
-
-    if (typeof phone === 'string') {
-      return PhoneNumber.fromInternational(phone);
-    }
-
-    return phone;
-  }, [phone]);
-}
+import {
+  formatPhoneNumber,
+  PhoneNumberFormat,
+  validatePhoneNumber,
+} from '../data/PhoneUtils';
 
 export interface PhoneTextProps {
-  phone: NullablePhoneNumberLike;
+  phone: string;
   fallback?: ReactNode;
 }
 
-export function PhoneText({ phone, fallback }: PhoneTextProps) {
-  const phoneNumber = usePhoneNumber(phone);
-  const children = useMemo(() => PhoneNumber.toInternational(phoneNumber), [
-    phoneNumber,
-  ]);
+export function useFormattedPhoneNumber(
+  phone: string,
+  format?: PhoneNumberFormat,
+): string {
+  return useMemo(() => {
+    if (validatePhoneNumber(phone) === 'unknown') {
+      return '';
+    }
 
-  return renderChildren(children || fallback || phone);
+    return formatPhoneNumber(phone, format);
+  }, [phone, format]);
+}
+
+export function PhoneText({ phone, fallback }: PhoneTextProps) {
+  const children = useFormattedPhoneNumber(phone, 'international');
+
+  return renderChildren(children || fallback);
 }

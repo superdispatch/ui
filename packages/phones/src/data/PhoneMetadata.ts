@@ -1,6 +1,9 @@
 import { PhoneRegionCode } from '../index';
 
-export const phoneFieldCountries = new Map<PhoneRegionCode, string>([
+export const PHONE_FIELD_COUNTRIES: ReadonlyMap<
+  PhoneRegionCode,
+  string
+> = new Map<PhoneRegionCode, string>([
   ['US', 'United States'],
   ['CA', 'Canada'],
   ['AU', 'Australia'],
