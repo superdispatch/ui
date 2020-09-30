@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "pkg/dist-types"
+    "outDir": "pkg/dist-types",
+    "tsBuildInfoFile": "pkg/dist-types/.tsbuildinfo"
   }
 }
