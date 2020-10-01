@@ -64,10 +64,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn storybook:build
       - run: yarn playroom:build
-      - id: preview
-        run: node scripts/deploy-preview.js
+      - run: yarn gh-scripts deploy-preview --dir docs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_PULL_REQUEST_NUMBER: ${{ github.event.number }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
