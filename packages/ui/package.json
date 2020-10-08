@@ -7,7 +7,8 @@
   },
   "license": "MIT",
   "main": "src/index.ts",
-  "module": "pkg/dist-web/index.js",
+  "module": "src/index.ts",
+  "browser": "pkg/dist-web/index.js",
   "types": "src/index.ts",
   "scripts": {
     "build": "pika build"
@@ -38,7 +39,8 @@
           "exclude": [
             "**/*.stories.*",
             "**/*.playroom.*",
-            "**/__tests__/**"
+            "**/__tests__/**",
+            "**/__testutils__/**"
           ]
         }
       ],
