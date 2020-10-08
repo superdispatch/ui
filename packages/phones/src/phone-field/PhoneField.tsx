@@ -44,6 +44,7 @@ export interface PhoneFieldProps
     | 'id'
     | 'label'
     | 'name'
+    | 'placeholder'
     | 'required'
   > {
   value?: null | string;
