@@ -28,7 +28,7 @@ export function FormikCheckboxField({
   helperText,
   ...props
 }: FormikCheckboxFieldProps) {
-  const uid = useUID();
+  const uid = useUID(id);
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue }] = useField<unknown>({
     name,
@@ -41,7 +41,7 @@ export function FormikCheckboxField({
     <CheckboxField
       {...props}
       {...field}
-      id={id || uid}
+      id={uid}
       error={!!errorText}
       checked={format(field.value, field.checked)}
       disabled={disabled || isSubmitting}
