@@ -1,33 +1,48 @@
-import { MockEvent } from '@superdispatch/jestutils';
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Form, FormikProvider } from 'formik';
-import React, { ReactElement, ReactNode } from 'react';
+import React, {
+  ComponentType,
+  createRef,
+  MutableRefObject,
+  ReactElement,
+} from 'react';
 
-import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
-
-function getWrapper<T, R>(formProps: FormikEnhancedConfig<T, R>) {
-  return function Wrapper({ children }: { children?: ReactNode }) {
-    const formik = useFormikEnhanced(formProps);
-
-    return <FormikProvider value={formik}>{children}</FormikProvider>;
-  };
-}
+import {
+  FormikContextTypeEnhanced,
+  FormikEnhancedConfig,
+  useFormikEnhanced,
+} from '../useFormikEnhanced';
 
 export function renderFormField<T, R>(
   element: ReactElement,
   formProps: FormikEnhancedConfig<T, R>,
 ) {
-  const wrapper = render(
-    <Form>
-      {element}
-      <button type="submit">Submit</button>
-    </Form>,
-    { wrapper: getWrapper(formProps) },
-  );
+  const formikRef = createRef() as MutableRefObject<
+    FormikContextTypeEnhanced<T, R>
+  >;
+  const Wrapper: ComponentType = ({ children }) => {
+    const formik = useFormikEnhanced(formProps);
+
+    formikRef.current = formik;
+
+    return (
+      <FormikProvider value={formik}>
+        <Form>
+          {children}
+          <button type="submit">Submit</button>
+        </Form>
+      </FormikProvider>
+    );
+  };
+
+  const wrapper = render(element, { wrapper: Wrapper });
+
   return {
     ...wrapper,
+    formik: formikRef,
     submitForm: () => {
-      MockEvent.click(wrapper.getByRole('button', { name: 'Submit' }));
+      userEvent.click(wrapper.getByRole('button', { name: 'Submit' }));
     },
   };
 }
