@@ -23,6 +23,7 @@ module.exports = {
   webpackConfig: () => ({
     resolve: {
       extensions: ['.js', '.ts', '.tsx'],
+      mainFields: ['module', 'browser', 'main'],
     },
 
     module: {
