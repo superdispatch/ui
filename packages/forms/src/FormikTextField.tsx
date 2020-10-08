@@ -26,7 +26,7 @@ export function FormikTextField<T>({
   helperText,
   ...props
 }: FormikTextFieldProps<T>) {
-  const uid = useUID();
+  const uid = useUID(id);
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue }] = useField<T>({
     name,
@@ -38,7 +38,7 @@ export function FormikTextField<T>({
     <TextField
       {...props}
       {...field}
-      id={id || uid}
+      id={uid}
       name={name}
       error={!!errorText}
       helperText={errorText || helperText}

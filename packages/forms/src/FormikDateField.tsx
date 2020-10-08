@@ -19,7 +19,7 @@ export function FormikDateField({
   helperText,
   ...props
 }: FormikDateFieldProps) {
-  const uid = useUID();
+  const uid = useUID(id);
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue, setTouched }] = useField<
     undefined | Date
@@ -30,7 +30,7 @@ export function FormikDateField({
     <DateField
       {...props}
       {...field}
-      id={id || uid}
+      id={uid}
       error={!!errorText}
       disabled={disabled || isSubmitting}
       helperText={errorText || helperText}
