@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
     "noEmit": false
   }
