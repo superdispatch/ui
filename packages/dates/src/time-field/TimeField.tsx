@@ -1,19 +1,33 @@
-import { OutlinedTextFieldProps, TextField } from '@material-ui/core';
-import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
-import { DateTime, FixedOffsetZone } from 'luxon';
-import React, { useEffect, useMemo } from 'react';
-
-import { useDateUtils } from '../DateContext';
 import {
-  DateLike,
-  DateUtils,
-  isValidDate,
-  NullableDateLike,
-  toDate,
-} from '../DateUtils';
-import { useDate } from '../internal/useDate';
+  BaseTextFieldProps,
+  InputBaseProps,
+  TextField,
+} from '@material-ui/core';
+import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
+import { DateTime } from 'luxon';
+import React, { forwardRef, useEffect, useMemo } from 'react';
 
-const timeFormats = ['h:mm a', 'h:mma', 'H:mm', 'h:mm', 'hmm', 'Hmm', 'h', 'H'];
+import { DateConfig, useDateConfig } from '../date-config/DateConfig';
+import {
+  DateFormat,
+  DatePayload,
+  formatDate,
+  NullableDateInput,
+  parseDate,
+  toDatePayload,
+  toPrimitiveDateInput,
+} from '../date-time-utils/DateTimeUtils';
+
+const TIME_MATCH_FORMATS = [
+  'h:mm a',
+  'h:mma',
+  'H:mm',
+  'h:mm',
+  'hmm',
+  'Hmm',
+  'h',
+  'H',
+];
 
 interface TimeFieldOption {
   value: number;
@@ -21,166 +35,189 @@ interface TimeFieldOption {
   pattern: RegExp;
 }
 
-function toTimeFieldOption(utils: DateUtils, value: Date): TimeFieldOption {
-  const dateTime = DateTime.fromJSDate(value).toUTC(utils.timeZoneOffset);
-
+function toTimeFieldOption(
+  date: DateTime,
+  config: DateConfig,
+): TimeFieldOption {
   return {
-    value: value.getTime(),
-    label: utils.format(value, 'time'),
+    value: date.valueOf(),
+    label: formatDate(date, { variant: 'Time' }, config),
     pattern: new RegExp(
-      `^(${timeFormats.map((format) => dateTime.toFormat(format)).join('|')})`,
+      `^(${TIME_MATCH_FORMATS.map((format) => date.toFormat(format)).join(
+        '|',
+      )})`,
       'i',
     ),
   };
-}
-
-function getOptions(utils: DateUtils, initialDate: Date): TimeFieldOption[] {
-  return Array.from<undefined, TimeFieldOption>({ length: 96 }, (_, idx) =>
-    toTimeFieldOption(
-      utils,
-      utils.update(initialDate, { hour: 0, minute: idx * 15 }),
-    ),
-  );
 }
 
 function normalizeInputValue(inputValue: string): string {
   return inputValue.replace(/[\s]/g, '').toLowerCase();
 }
 
-const optionsFilterCache = new Map<string, TimeFieldOption[]>();
-
-function filterOptions(
+function makeOptions(
+  config: DateConfig,
+): [
   options: TimeFieldOption[],
-  { inputValue }: FilterOptionsState<TimeFieldOption>,
-): TimeFieldOption[] {
-  const filter = normalizeInputValue(inputValue);
+  filterOptions: (
+    options: TimeFieldOption[],
+    state: FilterOptionsState<TimeFieldOption>,
+  ) => TimeFieldOption[],
+] {
+  const options: TimeFieldOption[] = [];
+  const now = DateTime.local().startOf('day');
 
-  if (!filter) {
-    return options;
+  for (let i = 0; i < 96; i++) {
+    options.push(toTimeFieldOption(now.set({ minute: i * 15 }), config));
   }
 
-  const cached = optionsFilterCache.get(inputValue);
+  const cache = new Map<string, TimeFieldOption[]>();
 
-  if (cached) {
-    return cached;
-  }
+  return [
+    options,
+    (_, { inputValue }) => {
+      const query = normalizeInputValue(inputValue);
 
-  const filtered = options.filter((option) => option.pattern.test(filter));
+      if (!query) {
+        return options;
+      }
 
-  optionsFilterCache.set(inputValue, filtered);
+      let filtered = cache.get(query);
 
-  return filtered;
+      if (!filtered) {
+        filtered = options.filter((option) => option.pattern.test(query));
+        cache.set(query, filtered);
+      }
+
+      return filtered;
+    },
+  ];
 }
 
 export interface TimeFieldProps
-  extends Omit<OutlinedTextFieldProps, 'type' | 'variant' | 'onChange'> {
-  value?: DateLike;
-  onChange?: (value: undefined | Date) => void;
+  extends Pick<
+    BaseTextFieldProps,
+    | 'disabled'
+    | 'error'
+    | 'fullWidth'
+    | 'helperText'
+    | 'id'
+    | 'label'
+    | 'name'
+    | 'placeholder'
+    | 'required'
+  > {
+  format?: DateFormat;
+  value?: NullableDateInput;
+  onChange?: (value: DatePayload) => void;
+
+  InputProps?: Pick<InputBaseProps, 'startAdornment'>;
 }
 
-export function TimeField({
-  disabled,
-  onChange,
-  value: valueProp,
-  ...props
-}: TimeFieldProps) {
-  const utils = useDateUtils();
-  const value = useDate(valueProp, 'second');
-  const initialDate = useMemo(
-    () => utils.startOf(isValidDate(value) ? value : Date.now(), 'day'),
-    [utils, value],
-  );
-  const selectedOption = useMemo(
-    () => (!isValidDate(value) ? null : toTimeFieldOption(utils, value)),
-    [utils, value],
-  );
-  const options = useMemo(() => getOptions(utils, initialDate), [
-    initialDate,
-    utils,
-  ]);
+export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
+  (
+    {
+      disabled,
+      onChange,
 
-  const [inputValue, setInputValue] = React.useState('');
+      value: valueProp,
+      format: formatProp,
+      ...props
+    },
+    ref,
+  ) => {
+    const primitiveInput = toPrimitiveDateInput(valueProp);
+    const config = useDateConfig({ format: formatProp });
+    const date = useMemo(() => parseDate(primitiveInput, config), [
+      config,
+      primitiveInput,
+    ]);
+    const selectedOption = useMemo(
+      () => (!date.isValid ? undefined : toTimeFieldOption(date, config)),
+      [date, config],
+    );
+    const [options, filterOptions] = useMemo(() => makeOptions(config), [
+      config,
+    ]);
 
-  const handleDateValue = (nextValue: NullableDateLike) => {
-    if (nextValue == null) {
-      onChange?.(undefined);
-    } else {
-      onChange?.(toDate(nextValue));
-    }
-  };
+    const [inputValue, setInputValue] = React.useState('');
 
-  const handleStringValue = (nextInputValue: string) => {
-    const nextFilter = normalizeInputValue(nextInputValue);
-
-    for (const timeFormat of timeFormats) {
-      const dateTime = DateTime.fromFormat(nextFilter, timeFormat, {
-        locale: utils.locale,
-        zone: FixedOffsetZone.instance(utils.timeZoneOffset),
-      });
-
-      if (dateTime.isValid) {
-        const nextDate = utils.update(initialDate, {
-          hour: dateTime.hour,
-          minute: dateTime.minute,
-          second: dateTime.second,
-          millisecond: dateTime.millisecond,
-        });
-
-        if (!utils.isSameDate(nextDate, value, 'minute')) {
-          onChange?.(nextDate);
-        }
-
-        return;
+    const handleChange = (nextValue: NullableDateInput) => {
+      if (onChange) {
+        onChange(toDatePayload(nextValue, config));
       }
-    }
+    };
 
-    if (selectedOption) {
-      setInputValue(selectedOption.label);
-    } else {
-      setInputValue('');
-    }
-  };
+    const handleType = (text: string) => {
+      text = normalizeInputValue(text);
 
-  useEffect(() => {
-    if (isValidDate(value)) {
-      setInputValue(utils.format(value, 'time'));
-    } else {
-      setInputValue('');
-    }
-  }, [utils, value]);
+      for (const timeFormat of TIME_MATCH_FORMATS) {
+        let nextDate = DateTime.fromFormat(text, timeFormat);
 
-  return (
-    <Autocomplete
-      disabled={disabled}
-      freeSolo={true}
-      autoComplete={true}
-      value={selectedOption}
-      inputValue={inputValue}
-      options={options}
-      includeInputInList={true}
-      filterOptions={filterOptions}
-      getOptionLabel={(option: string | TimeFieldOption) =>
-        typeof option === 'string' ? option : option.label
-      }
-      onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
-        handleStringValue(event.target.value);
-      }}
-      onChange={(_: unknown, nextValue: null | string | TimeFieldOption) => {
-        if (typeof nextValue === 'string') {
-          handleStringValue(nextValue);
-        } else {
-          handleDateValue(nextValue?.value);
+        if (nextDate.isValid) {
+          if (onChange) {
+            if (date.isValid) {
+              nextDate = nextDate.set({
+                year: date.year,
+                month: date.month,
+                day: date.day,
+              });
+            }
+
+            onChange(toDatePayload(nextDate, config));
+          }
+
+          return;
         }
-      }}
-      onInputChange={(_, nextInputValue) => setInputValue(nextInputValue)}
-      renderInput={(params) => (
-        <TextField
-          variant="outlined"
-          {...props}
-          {...params}
-          InputProps={{ ...params.InputProps, ...props.InputProps }}
-        />
-      )}
-    />
-  );
-}
+      }
+
+      setInputValue(selectedOption?.label || '');
+    };
+
+    useEffect(() => {
+      if (!date.isValid) {
+        setInputValue('');
+      } else {
+        setInputValue(formatDate(date, { variant: 'Time' }, config));
+      }
+    }, [date, config]);
+
+    return (
+      <Autocomplete
+        ref={ref}
+        disabled={disabled}
+        freeSolo={true}
+        autoComplete={true}
+        value={selectedOption}
+        inputValue={inputValue}
+        options={options}
+        includeInputInList={true}
+        filterOptions={filterOptions}
+        getOptionLabel={(option: string | TimeFieldOption) =>
+          typeof option === 'string' ? option : option.label
+        }
+        onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
+          handleType(event.target.value);
+        }}
+        onChange={(_: unknown, nextValue: null | string | TimeFieldOption) => {
+          if (typeof nextValue === 'string') {
+            handleType(nextValue);
+          } else {
+            handleChange(nextValue?.value);
+          }
+        }}
+        onInputChange={(_, nextInputValue) => {
+          setInputValue(nextInputValue);
+        }}
+        renderInput={(params) => (
+          <TextField
+            variant="outlined"
+            {...props}
+            {...params}
+            InputProps={params.InputProps}
+          />
+        )}
+      />
+    );
+  },
+);

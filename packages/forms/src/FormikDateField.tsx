@@ -1,28 +1,48 @@
-import { DateField, DateFieldProps } from '@superdispatch/dates';
-import { useUID } from '@superdispatch/ui';
+import {
+  DateField,
+  DateFieldProps,
+  DatePayload,
+  DateString,
+  parseDate,
+  stringifyDate,
+  useDateConfig,
+} from '@superdispatch/dates';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
 
 export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;
-  validate?: FieldValidator;
+  validate?: (info: DatePayload) => void | string;
 }
 
 export function FormikDateField({
-  id,
   name,
-  validate,
-
+  format,
   onBlur,
   onChange,
   disabled,
   helperText,
+  validate: validateProp,
   ...props
 }: FormikDateFieldProps) {
-  const uid = useUID(id);
+  const config = useDateConfig({ format });
   const { isSubmitting } = useFormikContext();
+  const validate: FieldValidator = (value) => {
+    if (!validateProp) {
+      return undefined;
+    }
+
+    const dateValue = parseDate(value, config);
+
+    return validateProp({
+      config,
+      dateValue,
+      stringValue: stringifyDate(dateValue, config),
+    });
+  };
+
   const [field, { error, touched }, { setValue, setTouched }] = useField<
-    undefined | Date
+    undefined | DateString
   >({ name, validate });
   const errorText = touched && error;
 
@@ -30,7 +50,7 @@ export function FormikDateField({
     <DateField
       {...props}
       {...field}
-      id={uid}
+      format={format}
       error={!!errorText}
       disabled={disabled || isSubmitting}
       helperText={errorText || helperText}
@@ -40,7 +60,7 @@ export function FormikDateField({
       }}
       onChange={(value) => {
         onChange?.(value);
-        setValue(value);
+        setValue(value.stringValue);
       }}
     />
   );

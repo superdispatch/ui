@@ -1,63 +1,70 @@
-import {
-  OutlinedTextFieldProps,
-  Popover,
-  PopoverProps,
-} from '@material-ui/core';
-import { mergeRefs } from '@superdispatch/ui';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-  useCallback,
-  useRef,
-} from 'react';
-import { useWhenValueChanges } from 'utility-hooks';
+import { BaseTextFieldProps, InputBaseProps } from '@material-ui/core';
+import React, { forwardRef, ReactNode, useMemo, useRef } from 'react';
 
 import {
-  Calendar,
-  CalendarModifier,
-  CalendarProps,
-} from '../calendar/Calendar';
-import { useDatePickerPopoverState } from '../DatePickerBase';
-import { DateTextField } from '../DateTextField';
-import { DateFormatVariant, DateLike, isValidDate } from '../DateUtils';
-import { useFormattedDate } from '../FormattedDate';
-import { useDate } from '../internal/useDate';
+  BaseDatePicker,
+  InternalBaseDateFieldAPI,
+} from '../base-date-picker/BaseDatePicker';
+import { Calendar, CalendarProps } from '../calendar/Calendar';
+import { useDateConfig } from '../date-config/DateConfig';
+import {
+  DateDisplayVariant,
+  DateFormat,
+  DatePayload,
+  formatDate,
+  NullableDateInput,
+  toDatePayload,
+  toPrimitiveDateInput,
+} from '../date-time-utils/DateTimeUtils';
 
-interface DateFieldAPI {
+export interface DateFieldAPI extends DatePayload {
   close: () => void;
-  value: undefined | Date;
-  change: (value: undefined | Date) => void;
+  change: (value: NullableDateInput) => void;
 }
 
 export interface DateFieldProps
-  extends RefAttributes<HTMLDivElement>,
-    Omit<
-      OutlinedTextFieldProps,
-      'variant' | 'value' | 'onBlur' | 'onFocus' | 'onChange'
-    > {
-  enableClearable?: boolean;
-  disableCloseOnSelect?: boolean;
-  emptyText?: string;
-  value?: DateLike;
+  extends Pick<
+    BaseTextFieldProps,
+    | 'disabled'
+    | 'error'
+    | 'fullWidth'
+    | 'helperText'
+    | 'id'
+    | 'label'
+    | 'name'
+    | 'onClick'
+    | 'onKeyDown'
+    | 'placeholder'
+    | 'required'
+  > {
+  format?: DateFormat;
+  value?: NullableDateInput;
+
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange?: (value: undefined | Date) => void;
-  format?: DateFormatVariant;
+  onChange?: (event: DatePayload) => void;
+
+  fallback?: string;
+  variant?: DateDisplayVariant;
+  enableClearable?: boolean;
+  disableCloseOnSelect?: boolean;
   renderFooter?: (api: DateFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
+
+  InputProps?: Pick<InputBaseProps, 'startAdornment'>;
   CalendarProps?: Omit<
     CalendarProps,
-    'footer' | 'selectedDays' | 'quickSelection'
+    | 'classes'
+    | 'footer'
+    | 'initialMonth'
+    | 'initialTime'
+    | 'numberOfMonths'
+    | 'quickSelection'
+    | 'selectedDays'
   >;
-  PopoverProps?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
-export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
-  HTMLDivElement,
-  DateFieldProps
->(
+export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
   (
     {
       onBlur,
@@ -65,94 +72,82 @@ export const DateField: ForwardRefExoticComponent<DateFieldProps> = forwardRef<
       onChange,
       renderFooter,
       renderQuickSelection,
+
       value: valueProp,
-      inputRef: inputRefProp,
-      format = 'date',
-      emptyText = '',
-      enableClearable = false,
-      disableCloseOnSelect = false,
+      format: formatProp,
+
+      fallback = '',
+      variant = 'Date',
+
+      enableClearable,
+      disableCloseOnSelect,
+
       CalendarProps: { onDayClick, ...calendarProps } = {},
-      PopoverProps: {
-        anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const,
-        transformOrigin = { vertical: 'top', horizontal: 'left' } as const,
-        ...popoverProps
-      } = {},
       ...textFieldProps
     },
     ref,
   ) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const value = useDate(valueProp, 'second');
-    const formatted = useFormattedDate(value, format);
-    const isValidValue = isValidDate(value);
-    const textValue = isValidValue ? formatted : emptyText;
+    const input = toPrimitiveDateInput(valueProp);
+    const config = useDateConfig({ format: formatProp });
+    const apiRef = useRef<InternalBaseDateFieldAPI>(null);
 
-    const isSelectedDay = useCallback<CalendarModifier>(
-      (date, utils) => utils.isSameDate(date, value, 'day'),
-      [value],
+    const { dateValue: date, stringValue: dateString } = useMemo(
+      () => toDatePayload(input, config),
+      [input, config],
+    );
+    const displayValue = useMemo(
+      () => formatDate(date, { variant, fallback }, config),
+      [date, config, variant, fallback],
     );
 
-    const handleChange = (nextValue: undefined | Date) => {
-      onChange?.(nextValue);
+    const handleClose = () => {
+      apiRef.current?.close();
+    };
+
+    const handleChange = (nextInput: NullableDateInput) => {
+      if (onChange) {
+        onChange(toDatePayload(nextInput, config));
+      }
 
       if (!disableCloseOnSelect) {
-        onClose();
+        handleClose();
       }
     };
 
     const api: DateFieldAPI = {
-      value,
-      close: onClose,
+      config,
+      dateValue: date,
+      stringValue: dateString,
+      close: handleClose,
       change: handleChange,
     };
 
-    useWhenValueChanges(anchorEl, () => {
-      if (onBlur && !anchorEl) {
-        onBlur();
-      }
-    });
-
     return (
-      <>
-        <DateTextField
-          {...textFieldProps}
-          ref={ref}
-          inputRef={mergeRefs(inputRef, inputRefProp)}
-          value={textValue}
-          onOpen={onOpen}
-          onClear={
-            !onChange || !isValidValue || !enableClearable
-              ? undefined
-              : () => {
-                  onChange(undefined);
-                }
-          }
+      <BaseDatePicker
+        {...textFieldProps}
+        ref={ref}
+        api={apiRef}
+        onClose={onBlur}
+        value={displayValue || fallback}
+        enableClearable={enableClearable && date.isValid}
+        onClear={() => {
+          handleChange(undefined);
+        }}
+      >
+        <Calendar
+          {...calendarProps}
+          initialMonth={date}
+          footer={renderFooter?.(api)}
+          quickSelection={renderQuickSelection?.(api)}
+          selectedDays={({ dateValue }) => date.hasSame(dateValue, 'day')}
+          onDayClick={(event) => {
+            onDayClick?.(event);
+            if (!event.disabled) {
+              handleChange(event.dateValue);
+            }
+          }}
         />
-
-        <Popover
-          {...popoverProps}
-          open={!!anchorEl}
-          onClose={onClose}
-          anchorEl={anchorEl}
-          anchorOrigin={anchorOrigin}
-          transformOrigin={transformOrigin}
-        >
-          <Calendar
-            {...calendarProps}
-            initialMonth={value}
-            selectedDays={isSelectedDay}
-            footer={renderFooter?.(api)}
-            quickSelection={renderQuickSelection?.(api)}
-            onDayClick={(day, modifiers) => {
-              onDayClick?.(day, modifiers);
-              if (!modifiers.disabled) {
-                handleChange(day);
-              }
-            }}
-          />
-        </Popover>
-      </>
+      </BaseDatePicker>
     );
   },
 );

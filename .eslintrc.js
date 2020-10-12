@@ -14,6 +14,7 @@ module.exports = {
       },
       settings: { react: { version: 'detect' } },
       rules: {
+        'no-undef-init': 'off',
         'react/display-name': 'off',
         'eslint-comments/no-use': [
           'error',
@@ -58,7 +59,11 @@ module.exports = {
 
     {
       files: [
-        '**/{__tests__,__testutils__,jestutils,testutils/src}/**/*.{ts,tsx}',
+        '**/*.spec.{ts,tsx}',
+        '**/jestutils/**/*.{ts,tsx}',
+        '**/testutils/**/*.{ts,tsx}',
+        '**/__tests__/**/*.{ts,tsx}',
+        '**/__testutils__/**/*.{ts,tsx}',
       ],
       extends: ['plugin:@superdispatch/jest'],
       rules: {

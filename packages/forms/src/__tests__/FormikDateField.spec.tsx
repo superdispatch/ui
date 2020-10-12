@@ -1,7 +1,9 @@
-import { DateContextProvider } from '@superdispatch/dates';
+import { DateConfigProvider, defaultDateConfig } from '@superdispatch/dates';
 import { MockEvent } from '@superdispatch/jestutils';
 import { ThemeProvider } from '@superdispatch/ui';
 import { waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { DateTime } from 'luxon';
 import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
@@ -15,7 +17,7 @@ function renderDateField<T, R>(
 ) {
   return renderFormField(
     <ThemeProvider>
-      <DateContextProvider timeZoneOffset={-300}>{element}</DateContextProvider>
+      <DateConfigProvider>{element}</DateConfigProvider>
     </ThemeProvider>,
     formProps,
   );
@@ -29,7 +31,7 @@ afterEach(() => {
   MockDate.reset();
 });
 
-test('handles changes', async () => {
+test('changes', async () => {
   const handleBlur = jest.fn();
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
@@ -37,55 +39,87 @@ test('handles changes', async () => {
     <FormikDateField
       name="date"
       label="Date"
-      onChange={handleChange}
       onBlur={handleBlur}
+      onChange={handleChange}
     />,
     {
-      initialValues: { date: new Date() },
       onSubmit: handleSubmit,
+      initialValues: { date: '2019-05-30T01:02:03.045-05:00' },
     },
   );
+
   const field = wrapper.getByLabelText('Date');
 
-  MockEvent.click(field);
-  MockEvent.click(wrapper.getByLabelText('Wed May 29 2019'));
+  userEvent.click(field);
+  userEvent.click(wrapper.getByLabelText('Wed May 29 2019'));
 
   expect(handleBlur).toHaveBeenCalledTimes(1);
   expect(handleChange).toHaveBeenCalledTimes(1);
-  expect(handleChange).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      2019-05-30T01:02:03.045Z,
-    ]
-  `);
+  expect(handleChange).toHaveBeenLastCalledWith({
+    config: defaultDateConfig,
+    dateValue: expect.any(DateTime),
+    stringValue: '2019-05-29T01:02:03.045-05:00',
+  });
 
   wrapper.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
-  expect(handleSubmit).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-Array [
-  Object {
-    "date": 2019-05-30T01:02:03.045Z,
-  },
-]
-`);
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({
+    date: '2019-05-29T01:02:03.045-05:00',
+  });
 });
 
-test('handles errors', async () => {
-  const handleChange = jest.fn();
+test('format', async () => {
   const handleSubmit = jest.fn();
   const wrapper = renderDateField(
+    <FormikDateField name="date" format="DateISO" />,
+    {
+      onSubmit: handleSubmit,
+      initialValues: { date: '2019-05-29T01:02:03.045-05:00' },
+    },
+  );
+
+  wrapper.submitForm();
+
+  await waitFor(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({
+    date: '2019-05-29T01:02:03.045-05:00',
+  });
+
+  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(wrapper.getByLabelText(/May 24/));
+
+  wrapper.submitForm();
+
+  await waitFor(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(handleSubmit).toHaveBeenLastCalledWith({
+    date: '2019-05-24',
+  });
+});
+
+test('errors', async () => {
+  const handleChange = jest.fn();
+  const handleSubmit = jest.fn();
+  const { formik, ...wrapper } = renderDateField(
     <FormikDateField
       name="date"
       label="Date"
       onChange={handleChange}
-      validate={(value) => {
-        if (!value) {
+      validate={({ dateValue }) => {
+        if (!dateValue.isValid) {
           return 'Required';
         }
 
-        if (value < new Date()) {
+        if (dateValue.valueOf() < Date.now()) {
           return 'Invalid';
         }
 

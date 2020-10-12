@@ -3,8 +3,10 @@ import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { Calendar } from './Calendar.playroom';
-import { CalendarQuickSelection } from './CalendarQuickSelection';
-import { CalendarQuickSelectionItem } from './CalendarQuickSelectionItem';
+import {
+  CalendarQuickSelection,
+  CalendarQuickSelectionItem,
+} from './CalendarQuickSelection';
 
 export default {
   title: 'Dates/Calendar',
@@ -15,18 +17,18 @@ export default {
 export const basic = () => <Calendar />;
 
 export const disabledDays = () => (
-  <Calendar disabledDays={(date) => date.getDate() % 2 === 0} />
+  <Calendar disabledDays={({ dateValue }) => dateValue.day % 2 === 0} />
 );
 
 export const highlightedDays = () => (
   <Calendar
     highlightedDays={{
-      blue: (date) => date.getDay() === 0 || date.getDay() === 6,
-      green: (date) => date.getDay() === 1,
-      purple: (date) => date.getDay() === 2,
-      red: (date) => date.getDay() === 3,
-      teal: (date) => date.getDay() === 4,
-      yellow: (date) => date.getDay() === 5,
+      blue: ({ dateValue }) => dateValue.day === 0 || dateValue.day === 6,
+      green: ({ dateValue }) => dateValue.day === 1,
+      purple: ({ dateValue }) => dateValue.day === 2,
+      red: ({ dateValue }) => dateValue.day === 3,
+      teal: ({ dateValue }) => dateValue.day === 4,
+      yellow: ({ dateValue }) => dateValue.day === 5,
     }}
   />
 );

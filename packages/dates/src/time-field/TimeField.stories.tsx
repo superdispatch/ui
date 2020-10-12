@@ -1,9 +1,13 @@
 import { InputAdornment } from '@material-ui/core';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { TimeField } from './TimeField.playroom';
 
-export default { title: 'Dates/TimeField', component: TimeField };
+export default {
+  title: 'Dates/TimeField',
+  component: TimeField,
+} as Meta;
 
 export const basic = () => <TimeField />;
 
