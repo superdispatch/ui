@@ -1,6 +1,4 @@
-import { FixedOffsetZone, LocalZone } from 'luxon';
-
-import { setDefaultZone } from '..';
+import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {
   DateObject,
   DateUtils,
@@ -57,7 +55,7 @@ function stubDate(values?: Partial<DateObject>): Date {
 }
 
 beforeEach(() => {
-  setDefaultZone(new LocalZone());
+  setDefaultTimeZone(undefined);
 });
 
 test.each`
@@ -149,7 +147,7 @@ test.each`
   ({ tz, date, shortDate, time, dateTime }) => {
     const utils = new DateUtils();
 
-    setDefaultZone(FixedOffsetZone.instance(tz));
+    setDefaultTimeZone(tz);
 
     expect(utils.format(stubDate(), 'date')).toBe(date);
     expect(utils.format(stubTimestamp(), 'date')).toBe(date);
@@ -189,7 +187,7 @@ test.each<[NullableDateLike, NullableDateLike, string | undefined, string]>([
   (start, end, emptyText, result) => {
     const utils = new DateUtils();
 
-    setDefaultZone(FixedOffsetZone.instance(0));
+    setDefaultTimeZone(0);
 
     expect(utils.formatRange([start, end], emptyText)).toBe(result);
     expect(utils.formatRange([end, start], emptyText)).toBe(result);

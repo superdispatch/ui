@@ -6,10 +6,10 @@ import {
 } from '@superdispatch/ui-testutils';
 import { EventType, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DateObjectUnits, DateTime, FixedOffsetZone, LocalZone } from 'luxon';
+import { DateObjectUnits, DateTime } from 'luxon';
 import React from 'react';
 
-import { setDefaultZone } from '..';
+import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {
   DateString,
   NullableDateString,
@@ -29,7 +29,7 @@ type MockCalendarDayEventHandler = jest.Mock<void, [CalendarDateEvent]>;
 
 beforeEach(() => {
   mockDate();
-  setDefaultZone(new LocalZone());
+  setDefaultTimeZone(undefined);
 });
 
 test('month', () => {
@@ -138,7 +138,7 @@ test.each<
   const wrapper = renderComponent(<Calendar />);
 
   for (const [offset, expectedString, expectedObject] of cases) {
-    setDefaultZone(FixedOffsetZone.instance(offset * 60));
+    setDefaultTimeZone(offset * 60);
 
     const handlers: Partial<Record<EventType, jest.Mock>> = {
       click: jest.fn(),

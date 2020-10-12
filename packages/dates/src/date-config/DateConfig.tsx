@@ -1,5 +1,12 @@
-import { Settings, Zone } from 'luxon';
-import React, { createContext, ReactNode, useContext, useMemo } from 'react';
+import { FixedOffsetZone, Settings, Zone } from 'luxon';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { DateFormat } from '../date-time-utils/DateTimeUtils';
 
@@ -9,6 +16,26 @@ export function setDefaultZone({ type, name }: Zone): void {
   } else {
     Settings.defaultZoneName = name;
   }
+}
+
+export function setDefaultTimeZone(offset: number | undefined): string {
+  if (offset == null) {
+    Settings.defaultZoneName = 'local';
+  } else {
+    Settings.defaultZoneName = FixedOffsetZone.instance(offset).name;
+  }
+
+  return Settings.defaultZoneName;
+}
+
+export function useDefaultTimeZone(offset: number | undefined): string {
+  const [name, setName] = useState(() => Settings.defaultZoneName);
+
+  useEffect(() => {
+    setName(setDefaultTimeZone(offset));
+  }, [offset]);
+
+  return name;
 }
 
 export interface DateConfig {

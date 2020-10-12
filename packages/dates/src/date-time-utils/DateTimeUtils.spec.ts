@@ -1,7 +1,7 @@
 import { mockDate } from '@superdispatch/ui-testutils';
-import { DateTime, FixedOffsetZone, LocalZone } from 'luxon';
+import { DateTime, FixedOffsetZone } from 'luxon';
 
-import { setDefaultZone } from '../date-config/DateConfig';
+import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {
   DateDisplayVariant,
   DateFormat,
@@ -25,7 +25,7 @@ const STUB_UTC = Date.UTC(2019, 4, 24, 1, 2, 3, 4);
 
 beforeEach(() => {
   mockDate();
-  setDefaultZone(new LocalZone());
+  setDefaultTimeZone(undefined);
 });
 
 test.each<[NullableDateInput, PrimitiveDateInput]>([
@@ -135,7 +135,7 @@ test.each<[NullableDateInput, Record<DateFormat, null | string>]>([
 ])('parseDate(%p)', (input, expectations) => {
   const results: Record<string, any> = {};
 
-  setDefaultZone(FixedOffsetZone.instance(120));
+  setDefaultTimeZone(120);
 
   for (const format of Object.keys(expectations) as DateFormat[]) {
     results[format] = parseDate(input, { format }).toJSON();
@@ -290,7 +290,7 @@ test.each<
     const results: Record<string, any> = {};
 
     for (const format of Object.keys(expectations) as DateFormat[]) {
-      setDefaultZone(FixedOffsetZone.instance(offset * 60));
+      setDefaultTimeZone(offset * 60);
 
       if (input == null) {
         results[format] = stringifyDate(input, { format });
@@ -405,7 +405,7 @@ test.each<
     const stringResults: Record<string, any> = {};
 
     for (const variant of Object.keys(expectations) as DateDisplayVariant[]) {
-      setDefaultZone(FixedOffsetZone.instance(offset * 60));
+      setDefaultTimeZone(offset * 60);
 
       dateResults[variant] = formatDate(DateTime.fromISO(input), {
         variant,

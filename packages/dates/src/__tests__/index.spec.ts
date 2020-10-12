@@ -51,6 +51,7 @@ it('exposes public api', () => {
       "isValidDateRange": [Function],
       "parseDate": [Function],
       "parseDateRange": [Function],
+      "setDefaultTimeZone": [Function],
       "setDefaultZone": [Function],
       "stringifyDate": [Function],
       "stringifyDateRange": [Function],
@@ -62,6 +63,7 @@ it('exposes public api', () => {
       "toPrimitiveDateRangeInput": [Function],
       "useDateConfig": [Function],
       "useDateUtils": [Function],
+      "useDefaultTimeZone": [Function],
       "useFormattedDate": [Function],
       "useFormattedRelativeTime": [Function],
     }
