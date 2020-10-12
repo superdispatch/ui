@@ -52,7 +52,6 @@ it('exposes public api', () => {
       "parseDate": [Function],
       "parseDateRange": [Function],
       "setDefaultTimeZone": [Function],
-      "setDefaultZone": [Function],
       "stringifyDate": [Function],
       "stringifyDateRange": [Function],
       "toDate": [Function],

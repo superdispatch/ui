@@ -1,4 +1,4 @@
-import { FixedOffsetZone, Settings, Zone } from 'luxon';
+import { FixedOffsetZone, Settings } from 'luxon';
 import React, {
   createContext,
   ReactNode,
@@ -9,14 +9,6 @@ import React, {
 } from 'react';
 
 import { DateFormat } from '../date-time-utils/DateTimeUtils';
-
-export function setDefaultZone({ type, name }: Zone): void {
-  if (type === 'local') {
-    Settings.defaultZoneName = type;
-  } else {
-    Settings.defaultZoneName = name;
-  }
-}
 
 export function setDefaultTimeZone(offset: number | undefined): string {
   if (offset == null) {
