@@ -5,7 +5,7 @@ import React, { forwardRef, ReactNode } from 'react';
 
 import { OverflowText, OverflowTextProps } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 function sizeVariant(
   theme: SuperDispatchTheme,

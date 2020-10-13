@@ -7,7 +7,7 @@ import {
   ResponsiveProp,
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
 type InlineClassKey =

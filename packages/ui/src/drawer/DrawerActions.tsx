@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import React, { forwardRef, HTMLAttributes } from 'react';
 
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { VisibilityObserver } from '../utils/VisibilityObserver';
 
 const useStyles = makeStyles<

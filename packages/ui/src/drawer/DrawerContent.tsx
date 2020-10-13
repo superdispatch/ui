@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, HTMLAttributes } from 'react';
 
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
   (theme) => ({

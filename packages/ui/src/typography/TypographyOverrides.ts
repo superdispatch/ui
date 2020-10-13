@@ -1,7 +1,7 @@
 import { Breakpoints } from '@material-ui/core/styles/createBreakpoints';
 import { TypographyOptions } from '@material-ui/core/styles/createTypography';
 
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 const FALLBACK_FONT_FAMILY =
   "-apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif";

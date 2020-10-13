@@ -3,7 +3,7 @@ import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 function listItemMixins(
   theme: SuperDispatchTheme,

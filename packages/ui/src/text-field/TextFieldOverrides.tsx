@@ -2,7 +2,7 @@ import { SvgIcon, SvgIconProps } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
   <SvgIcon ref={ref} {...props}>

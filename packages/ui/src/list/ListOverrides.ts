@@ -1,5 +1,5 @@
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function overrideList(theme: SuperDispatchTheme) {
   theme.overrides.MuiListItem = {

@@ -1,4 +1,4 @@
-import { PhoneRegionCode } from '../index';
+import { PhoneRegionCode } from '../data/PhoneRegionCode';
 
 export const PHONE_FIELD_COUNTRIES: ReadonlyMap<
   PhoneRegionCode,

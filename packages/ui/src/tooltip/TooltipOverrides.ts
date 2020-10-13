@@ -1,5 +1,5 @@
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function overrideTooltip(theme: SuperDispatchTheme) {
   theme.props.MuiTooltip = { arrow: true };
