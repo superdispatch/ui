@@ -11,9 +11,12 @@ import DayPicker, {
   Modifiers,
 } from 'react-day-picker';
 
-import { DateConfig, useDateConfig } from '../date-config/DateConfig';
 import {
+  DateConfig,
   DateFormat,
+  useDateConfig,
+} from '../date-config/DateConfig';
+import {
   DatePayload,
   NullableDateInput,
   parseDate,

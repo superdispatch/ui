@@ -8,8 +8,6 @@ import React, {
   useState,
 } from 'react';
 
-import { DateFormat } from '../date-time-utils/DateTimeUtils';
-
 export function setDefaultTimeZone(offset: number | undefined): string {
   if (offset == null) {
     Settings.defaultZoneName = 'local';
@@ -29,6 +27,8 @@ export function useDefaultTimeZone(offset: number | undefined): string {
 
   return name;
 }
+
+export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
 
 export interface DateConfig {
   readonly format: DateFormat;

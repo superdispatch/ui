@@ -12,9 +12,8 @@ import {
   CalendarClassNames,
   CalendarProps,
 } from '../calendar/Calendar';
-import { useDateConfig } from '../date-config/DateConfig';
+import { DateFormat, useDateConfig } from '../date-config/DateConfig';
 import {
-  DateFormat,
   DateRangePayload,
   formatDateRange,
   NullableDateRangeInput,

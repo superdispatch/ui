@@ -6,10 +6,9 @@ import {
   InternalBaseDateFieldAPI,
 } from '../base-date-picker/BaseDatePicker';
 import { Calendar, CalendarProps } from '../calendar/Calendar';
-import { useDateConfig } from '../date-config/DateConfig';
+import { DateFormat, useDateConfig } from '../date-config/DateConfig';
 import {
   DateDisplayVariant,
-  DateFormat,
   DatePayload,
   formatDate,
   NullableDateInput,

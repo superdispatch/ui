@@ -1,12 +1,15 @@
 import { DateTime, Settings, ToRelativeOptions } from 'luxon';
 
-import { DateConfig, defaultDateConfig } from '../date-config/DateConfig';
+import {
+  DateConfig,
+  DateFormat,
+  defaultDateConfig,
+} from '../date-config/DateConfig';
 
 //
 // Config
 //
 
-export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
 export type DateDisplayVariant = 'Date' | 'ShortDate' | 'Time' | 'DateTime';
 
 const DATE_FORMATS: Readonly<Record<DateFormat, string>> = {

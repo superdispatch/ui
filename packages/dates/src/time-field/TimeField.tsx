@@ -7,9 +7,12 @@ import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime } from 'luxon';
 import React, { forwardRef, useEffect, useMemo } from 'react';
 
-import { DateConfig, useDateConfig } from '../date-config/DateConfig';
 import {
+  DateConfig,
   DateFormat,
+  useDateConfig,
+} from '../date-config/DateConfig';
+import {
   DatePayload,
   formatDate,
   NullableDateInput,
