@@ -1,7 +1,7 @@
 import { SvgIcon } from '@material-ui/core';
 import React from 'react';
 
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function overrideAutocomplete(theme: SuperDispatchTheme) {
   const sm = theme.breakpoints.up('sm');

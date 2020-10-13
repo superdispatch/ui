@@ -2,7 +2,6 @@ import {
   createGenerateClassName,
   createMuiTheme,
   CssBaseline,
-  Theme,
 } from '@material-ui/core';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import {
@@ -42,8 +41,7 @@ import {
   overrideTypography,
 } from '../typography/TypographyOverrides';
 import { Color } from './Color';
-
-export type SuperDispatchTheme = Readonly<Required<Theme>>;
+import { SuperDispatchTheme } from './SuperDispatchTheme';
 
 function createTheme() {
   const breakpoints = createBreakpoints({});

@@ -1,7 +1,7 @@
 import { CSSProperties } from '@material-ui/styles';
 
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 function outlineShadow(size = 0, color: Color = Color.Transparent) {
   return `0 0 0 ${size}px ${color}`;

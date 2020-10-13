@@ -1,4 +1,4 @@
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function overrideAppBar(theme: SuperDispatchTheme) {
   theme.props.MuiAppBar = {

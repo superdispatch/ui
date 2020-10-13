@@ -1,5 +1,5 @@
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 function line(color: string) {
   return `linear-gradient(to right, ${color} 0%, ${color} 100%)`;

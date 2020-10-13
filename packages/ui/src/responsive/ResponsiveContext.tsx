@@ -2,7 +2,7 @@ import { useMediaQuery } from '@material-ui/core';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export interface ResponsiveContext {
   breakpoint?: Breakpoint;

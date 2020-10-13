@@ -2,7 +2,11 @@
 
 module.exports = {
   overrides: [
-    { files: '*.js', extends: 'plugin:@superdispatch/node' },
+    {
+      files: '*.js',
+      extends: 'plugin:@superdispatch/node',
+    },
+
     {
       files: '*.{ts,tsx}',
       extends: [
@@ -12,13 +16,28 @@ module.exports = {
       parserOptions: {
         project: './tsconfig.json',
       },
-      settings: { react: { version: 'detect' } },
+
+      settings: {
+        react: {
+          version: 'detect',
+        },
+      },
+
       rules: {
-        'react/display-name': 'off',
-        'eslint-comments/no-use': [
+        'no-restricted-imports': [
           'error',
-          { allow: ['eslint-disable-next-line'] },
+          {
+            paths: [
+              {
+                name: '@material-ui/core',
+                importNames: ['makeStyles'],
+                message: 'Import from "@material-ui/styles" instead.',
+              },
+            ],
+          },
         ],
+
+        'react/display-name': 'off',
 
         'react-hooks/exhaustive-deps': [
           'error',
@@ -27,6 +46,13 @@ module.exports = {
               '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
           },
         ],
+
+        'eslint-comments/no-use': [
+          'error',
+          { allow: ['eslint-disable-next-line'] },
+        ],
+
+        'import/no-cycle': 'error',
 
         'import/no-internal-modules': [
           'error',
@@ -40,25 +66,15 @@ module.exports = {
             ],
           },
         ],
-
-        'no-restricted-imports': [
-          'error',
-          {
-            paths: [
-              {
-                name: '@material-ui/core',
-                importNames: ['makeStyles'],
-                message: 'Import from "@material-ui/styles" instead.',
-              },
-            ],
-          },
-        ],
       },
     },
 
     {
       files: [
-        '**/{__tests__,__testutils__,jestutils,testutils/src}/**/*.{ts,tsx}',
+        '**/jestutils/**/*.{ts,tsx}',
+        '**/testutils/**/*.{ts,tsx}',
+        '**/__tests__/**/*.{ts,tsx}',
+        '**/__testutils__/**/*.{ts,tsx}',
       ],
       extends: ['plugin:@superdispatch/jest'],
       rules: {
@@ -77,11 +93,6 @@ module.exports = {
 
     {
       files: ['**/packages/__docs__/**/**.*'],
-      rules: { 'import/no-internal-modules': 'off' },
-    },
-
-    {
-      files: ['**/packages/playroom/**/**.*'],
       rules: { 'import/no-internal-modules': 'off' },
     },
 

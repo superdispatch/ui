@@ -7,7 +7,7 @@ import React, {
   RefAttributes,
 } from 'react';
 
-import { useFormattedPhoneNumber } from '..';
+import { useFormattedPhoneNumber } from '../formatted-phone-number/FormattedPhoneNumber';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
