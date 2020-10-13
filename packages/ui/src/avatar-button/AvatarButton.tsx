@@ -17,7 +17,7 @@ import React, {
 } from 'react';
 
 import { Color } from '../theme/Color';
-import { SuperDispatchTheme } from '../theme/ThemeProvider';
+import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export type AvatarButtonClassKey =
   | 'button'

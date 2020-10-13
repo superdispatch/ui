@@ -2,7 +2,11 @@
 
 module.exports = {
   overrides: [
-    { files: '*.js', extends: 'plugin:@superdispatch/node' },
+    {
+      files: '*.js',
+      extends: 'plugin:@superdispatch/node',
+    },
+
     {
       files: '*.{ts,tsx}',
       extends: [
@@ -12,14 +16,29 @@ module.exports = {
       parserOptions: {
         project: './tsconfig.json',
       },
-      settings: { react: { version: 'detect' } },
+
+      settings: {
+        react: {
+          version: 'detect',
+        },
+      },
+
       rules: {
         'no-undef-init': 'off',
-        'react/display-name': 'off',
-        'eslint-comments/no-use': [
+        'no-restricted-imports': [
           'error',
-          { allow: ['eslint-disable-next-line'] },
+          {
+            paths: [
+              {
+                name: '@material-ui/core',
+                importNames: ['makeStyles'],
+                message: 'Import from "@material-ui/styles" instead.',
+              },
+            ],
+          },
         ],
+
+        'react/display-name': 'off',
 
         'react-hooks/exhaustive-deps': [
           'error',
@@ -28,6 +47,13 @@ module.exports = {
               '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
           },
         ],
+
+        'eslint-comments/no-use': [
+          'error',
+          { allow: ['eslint-disable-next-line'] },
+        ],
+
+        'import/no-cycle': 'error',
 
         'import/no-internal-modules': [
           'error',
@@ -38,19 +64,6 @@ module.exports = {
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
               '@material-ui/core/styles/createBreakpoints',
-            ],
-          },
-        ],
-
-        'no-restricted-imports': [
-          'error',
-          {
-            paths: [
-              {
-                name: '@material-ui/core',
-                importNames: ['makeStyles'],
-                message: 'Import from "@material-ui/styles" instead.',
-              },
             ],
           },
         ],
@@ -82,11 +95,6 @@ module.exports = {
 
     {
       files: ['**/packages/__docs__/**/**.*'],
-      rules: { 'import/no-internal-modules': 'off' },
-    },
-
-    {
-      files: ['**/packages/playroom/**/**.*'],
       rules: { 'import/no-internal-modules': 'off' },
     },
 
