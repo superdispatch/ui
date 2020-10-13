@@ -2,6 +2,7 @@ import {
   BaseTextFieldProps,
   IconButton,
   InputAdornment,
+  InputProps,
   Popover,
   SvgIcon,
   TextField,
@@ -28,6 +29,7 @@ export interface BaseDatePickerProps
   onClear?: () => void;
   onClose?: () => void;
   enableClearable?: boolean;
+  InputProps?: Pick<InputProps, 'startAdornment'>;
 }
 
 export const BaseDatePicker = forwardRef<HTMLDivElement, BaseDatePickerProps>(
@@ -45,6 +47,8 @@ export const BaseDatePicker = forwardRef<HTMLDivElement, BaseDatePickerProps>(
       enableClearable,
 
       inputRef: inputRefProp,
+      InputProps: { startAdornment } = {},
+
       ...textFieldProps
     },
     ref,
@@ -114,6 +118,7 @@ export const BaseDatePicker = forwardRef<HTMLDivElement, BaseDatePickerProps>(
           }}
           inputProps={{ readOnly: true }}
           InputProps={{
+            startAdornment,
             endAdornment: (
               <InputAdornment position="end">
                 {enableClearable ? (
