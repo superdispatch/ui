@@ -105,7 +105,10 @@ export interface DateRangeFieldProps
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
 
-  InputProps?: Pick<InputBaseProps, 'startAdornment'>;
+  InputProps?: Pick<
+    InputBaseProps,
+    'aria-label' | 'aria-labelledby' | 'startAdornment'
+  >;
   CalendarProps?: Omit<
     CalendarProps,
     'footer' | 'classes' | 'selectedDays' | 'quickSelection' | 'numberOfMonths'

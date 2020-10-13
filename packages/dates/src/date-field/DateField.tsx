@@ -51,7 +51,10 @@ export interface DateFieldProps
   renderFooter?: (api: DateFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateFieldAPI) => ReactNode;
 
-  InputProps?: Pick<InputBaseProps, 'startAdornment'>;
+  InputProps?: Pick<
+    InputBaseProps,
+    'aria-label' | 'aria-labelledby' | 'startAdornment'
+  >;
   CalendarProps?: Omit<
     CalendarProps,
     | 'classes'

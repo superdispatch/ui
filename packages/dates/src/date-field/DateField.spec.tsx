@@ -1,3 +1,4 @@
+import { InputAdornment } from '@material-ui/core';
 import { mockDate, renderComponent } from '@superdispatch/ui-testutils';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -330,4 +331,33 @@ test('disableCloseOnSelect', () => {
 
   expect(wrapper.queryByRole('grid')).toBeNull();
   expect(onChange).toHaveBeenCalledTimes(3);
+});
+
+test('startAdornment', () => {
+  const wrapper = renderComponent(
+    <DateField
+      InputProps={{
+        'aria-labelledby': 'label',
+        startAdornment: (
+          <InputAdornment id="label" position="start">
+            Start Adornment
+          </InputAdornment>
+        ),
+      }}
+    />,
+  );
+
+  expect(wrapper.queryByRole('grid')).toBeNull();
+
+  userEvent.click(wrapper.getByLabelText('Start Adornment'));
+
+  expect(wrapper.getByRole('grid')).toBeInTheDocument();
+
+  fireEvent.keyDown(wrapper.getByRole('presentation'), { key: 'Escape' });
+
+  expect(wrapper.queryByRole('grid')).toBeNull();
+
+  userEvent.click(wrapper.getByText('Start Adornment'));
+
+  expect(wrapper.getByRole('grid')).toBeInTheDocument();
 });
