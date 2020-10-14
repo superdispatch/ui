@@ -14,8 +14,6 @@
   "scripts": {
     "build": "lerna run build --no-private",
     "build-size": "yarn build && size-limit",
-    "prebump": "yarn && yarn lint && yarn docs && yarn test && yarn build",
-    "bump": "lerna version",
     "predocs": "rimraf docs",
     "docs": "run-s storybook:build playroom:build",
     "lint": "js-tools lint",
@@ -25,6 +23,8 @@
     "playroom:generate": "node scripts/generate-playroom-components.js",
     "preplayroom:start": "yarn playroom:generate",
     "playroom:start": "playroom start",
+    "prerelease": "yarn install --frozen-lockfile && yarn tsc && yarn lint && yarn test && yarn build",
+    "release": "yarn lerna publish",
     "prestart": "yarn",
     "start": "run-p storybook:start playroom:start",
     "storybook:build": "build-storybook -o docs --quiet",
