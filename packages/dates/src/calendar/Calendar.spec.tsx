@@ -1,23 +1,39 @@
-import { MockEvent } from '@superdispatch/jestutils';
-import { renderCSS } from '@superdispatch/ui-testutils';
-import { fireEvent } from '@testing-library/react';
+import { Typography } from '@material-ui/core';
+import {
+  mockDate,
+  renderComponent,
+  renderCSS,
+} from '@superdispatch/ui-testutils';
+import { EventType, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { DateObjectUnits, DateTime } from 'luxon';
 import React from 'react';
 
+import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {
-  renderDateComponent,
-  STUB_DATE,
-} from '../../__testutils__/renderDateComponent';
+  DateString,
+  NullableDateString,
+} from '../date-time-utils/DateTimeUtils';
 import {
-  DateLike,
-  DateObject,
-  DateUtils,
-  NullableDateLike,
-} from '../../DateUtils';
-import { Calendar, CalendarDayHighlightColor } from '../Calendar';
+  Calendar,
+  CalendarDateEvent,
+  CalendarDayHighlightColor,
+  CalendarModifier,
+} from './Calendar';
+import {
+  CalendarQuickSelection,
+  CalendarQuickSelectionItem,
+} from './CalendarQuickSelection';
 
-it('renders month', () => {
-  const wrapper = renderDateComponent(<Calendar />);
+type MockCalendarDayEventHandler = jest.Mock<void, [CalendarDateEvent]>;
+
+beforeEach(() => {
+  mockDate();
+  setDefaultTimeZone(undefined);
+});
+
+test('month', () => {
+  const wrapper = renderComponent(<Calendar />);
 
   expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
 
@@ -30,8 +46,8 @@ it('renders month', () => {
   expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
 });
 
-it('renders weeks', () => {
-  const wrapper = renderDateComponent(<Calendar />);
+test('weeks', () => {
+  const wrapper = renderComponent(<Calendar />);
 
   const [weeksRow] = wrapper.getAllByRole('row');
 
@@ -46,67 +62,85 @@ it('renders weeks', () => {
   expect(weeksRow.childNodes[6]).toHaveTextContent('S');
 });
 
-it('renders days', () => {
-  const wrapper = renderDateComponent(<Calendar />);
+test('days', () => {
+  const wrapper = renderComponent(<Calendar />);
 
   expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
 });
 
-it('modifies date base on time zone offset and initial time', () => {
-  const variants: Array<[
-    number,
-    NullableDateLike,
-    DateLike,
-    Partial<DateObject>,
-  ]> = [
-    // Sets time to 00:00
-    [-7, undefined, Date.UTC(2019, 4, 24, 7), { hour: 0 }],
-    [-5, undefined, Date.UTC(2019, 4, 24, 5), { hour: 0 }],
-    [-3, undefined, Date.UTC(2019, 4, 24, 3), { hour: 0 }],
-    [7, undefined, Date.UTC(2019, 4, 23, 17), { hour: 0 }],
-    [5, undefined, Date.UTC(2019, 4, 23, 19), { hour: 0 }],
-    [3, undefined, Date.UTC(2019, 4, 23, 21), { hour: 0 }],
+test.each<
+  [
+    initialTime: NullableDateString,
+    ...cases: Array<
+      [
+        offset: number,
+        expectedString: DateString,
+        expectedObject: DateObjectUnits,
+      ]
+    >
+  ]
+>([
+  // Sets time to 00:00
+  [
+    undefined,
+    [-7, '2019-05-24T00:00:00.000-07:00', { hour: 0 }],
+    [-5, '2019-05-24T00:00:00.000-05:00', { hour: 0 }],
+    [-3, '2019-05-24T00:00:00.000-03:00', { hour: 0 }],
+    [7, '2019-05-24T00:00:00.000+07:00', { hour: 0 }],
+    [5, '2019-05-24T00:00:00.000+05:00', { hour: 0 }],
+    [3, '2019-05-24T00:00:00.000+03:00', { hour: 0 }],
+  ],
 
-    // Gets time from 00:00Z
-    [-7, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 17 }],
-    [-5, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 19 }],
-    [-3, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 25, 0), { hour: 21 }],
-    [3, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 3 }],
-    [5, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 5 }],
-    [7, Date.UTC(0, 0, 1, 0), Date.UTC(2019, 4, 24, 0), { hour: 7 }],
+  // Gets time from 00:00Z
+  [
+    '0000-01-01T00:00:00.000Z',
+    [-7, '2019-05-24T17:00:00.000-07:00', { hour: 17 }],
+    [-5, '2019-05-24T19:00:00.000-05:00', { hour: 19 }],
+    [-3, '2019-05-24T21:00:00.000-03:00', { hour: 21 }],
+    [3, '2019-05-24T03:00:00.000+03:00', { hour: 3 }],
+    [5, '2019-05-24T05:00:00.000+05:00', { hour: 5 }],
+    [7, '2019-05-24T07:00:00.000+07:00', { hour: 7 }],
+  ],
 
-    // Gets time from 5:00Z
-    [-7, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 25, 5), { hour: 22 }],
-    [-5, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 0 }],
-    [-3, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 2 }],
-    [3, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 8 }],
-    [5, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 10 }],
-    [7, Date.UTC(0, 0, 1, 5), Date.UTC(2019, 4, 24, 5), { hour: 12 }],
+  // Gets time from 5:00Z
+  [
+    '0000-01-01T05:00:00.000Z',
+    [-7, '2019-05-24T22:00:00.000-07:00', { hour: 22 }],
+    [-5, '2019-05-24T00:00:00.000-05:00', { hour: 0 }],
+    [-3, '2019-05-24T02:00:00.000-03:00', { hour: 2 }],
+    [3, '2019-05-24T08:00:00.000+03:00', { hour: 8 }],
+    [5, '2019-05-24T10:00:00.000+05:00', { hour: 10 }],
+    [7, '2019-05-24T12:00:00.000+07:00', { hour: 12 }],
+  ],
 
-    // Gets time from 15:00Z
-    [-7, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 8 }],
-    [-5, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 10 }],
-    [-3, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 12 }],
-    [3, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 18 }],
-    [5, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 20 }],
-    [7, Date.UTC(0, 0, 1, 15), Date.UTC(2019, 4, 24, 15), { hour: 22 }],
+  // Gets time from 15:00Z
+  [
+    '0000-01-01T15:00:00.000Z',
+    [-7, '2019-05-24T08:00:00.000-07:00', { hour: 8 }],
+    [-5, '2019-05-24T10:00:00.000-05:00', { hour: 10 }],
+    [-3, '2019-05-24T12:00:00.000-03:00', { hour: 12 }],
+    [3, '2019-05-24T18:00:00.000+03:00', { hour: 18 }],
+    [5, '2019-05-24T20:00:00.000+05:00', { hour: 20 }],
+    [7, '2019-05-24T22:00:00.000+07:00', { hour: 22 }],
+  ],
 
-    // Gets time from 20:00Z
-    [-7, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 13 }],
-    [-5, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 15 }],
-    [-3, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 17 }],
-    [3, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 24, 20), { hour: 23 }],
-    [5, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 23, 20), { hour: 1 }],
-    [7, Date.UTC(0, 0, 1, 20), Date.UTC(2019, 4, 23, 20), { hour: 3 }],
-  ];
+  // Gets time from 20:00Z
+  [
+    '0000-01-01T20:00:00.000Z',
+    [-7, '2019-05-24T13:00:00.000-07:00', { hour: 13 }],
+    [-5, '2019-05-24T15:00:00.000-05:00', { hour: 15 }],
+    [-3, '2019-05-24T17:00:00.000-03:00', { hour: 17 }],
+    [3, '2019-05-24T23:00:00.000+03:00', { hour: 23 }],
+    [5, '2019-05-24T01:00:00.000+05:00', { hour: 1 }],
+    [7, '2019-05-24T03:00:00.000+07:00', { hour: 3 }],
+  ],
+])('initialTime(%p)', (initialTime, ...cases) => {
+  const wrapper = renderComponent(<Calendar />);
 
-  for (const [
-    timeZoneOffset,
-    initialTime,
-    expectedDate,
-    expectedDateObject,
-  ] of variants) {
-    const handlers = {
+  for (const [offset, expectedString, expectedObject] of cases) {
+    setDefaultTimeZone(offset * 60);
+
+    const handlers: Partial<Record<EventType, jest.Mock>> = {
       click: jest.fn(),
       keyDown: jest.fn(),
       mouseEnter: jest.fn(),
@@ -115,10 +149,11 @@ it('modifies date base on time zone offset and initial time', () => {
       mouseUp: jest.fn(),
       touchEnd: jest.fn(),
       touchStart: jest.fn(),
-    } as const;
+    };
 
-    const wrapper = renderDateComponent(
+    wrapper.rerender(
       <Calendar
+        key={offset /* force rerender on offset change */}
         initialTime={initialTime}
         onDayClick={handlers.click}
         onDayKeyDown={handlers.keyDown}
@@ -129,70 +164,43 @@ it('modifies date base on time zone offset and initial time', () => {
         onDayTouchEnd={handlers.touchEnd}
         onDayTouchStart={handlers.touchStart}
       />,
-      { timeZoneOffset: timeZoneOffset * 60 },
     );
 
-    for (const event of [
-      'click',
-      'keyDown',
-      'mouseEnter',
-      'mouseLeave',
-      'mouseDown',
-      'mouseUp',
-      'touchEnd',
-      'touchStart',
-    ] as const) {
-      const { [event]: handler } = handlers;
-
+    for (const [event, handler] of Object.entries(handlers) as Array<
+      [EventType, MockCalendarDayEventHandler]
+    >) {
       expect(handler).not.toHaveBeenCalled();
       fireEvent[event](wrapper.getByLabelText(/May 24/));
       expect(handler).toHaveBeenCalledTimes(1);
-      expect(handler).toHaveBeenCalledWith(new Date(expectedDate), {
-        disabled: false,
-        selected: false,
+
+      const [call] = handler.mock.calls;
+
+      expect(call).toHaveLength(1);
+
+      const [info] = call;
+
+      expect(info.stringValue).toBe(expectedString);
+      expect(info.dateValue.toObject()).toEqual({
+        year: 2019,
+        month: 5,
+        day: 24,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        ...expectedObject,
       });
-
-      expect(new Date(expectedDate)).toEqual(
-        wrapper.dateUtils.fromObject({
-          year: 2019,
-          month: 5,
-          day: 24,
-          ...expectedDateObject,
-        }),
-      );
     }
-
-    wrapper.unmount();
   }
 });
 
-it('sets start of date when `initialTime` not passed', () => {
-  const onDayClick = jest.fn();
-  const wrapper = renderDateComponent(<Calendar onDayClick={onDayClick} />);
+test('onDayClick', () => {
+  const onDayClick: MockCalendarDayEventHandler = jest.fn();
 
-  expect(onDayClick).not.toHaveBeenCalled();
-  MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
-  expect(onDayClick).toHaveBeenCalledTimes(1);
-  expect(onDayClick).toHaveBeenCalledWith(
-    wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
-    { disabled: false, selected: false },
-  );
-});
-
-it('selects days', () => {
-  const onDayClick = jest.fn();
-  const wrapper = renderDateComponent(
+  const now = DateTime.local().startOf('day');
+  const wrapper = renderComponent(
     <Calendar
       onDayClick={onDayClick}
-      selectedDays={(date, utils) => {
-        const startDate = utils.fromObject({ year: 2019, month: 5, day: 24 });
-        const finishDate = utils.endOf(
-          utils.fromObject({ year: 2019, month: 5, day: 27 }),
-          'day',
-        );
-
-        return date >= startDate && date <= finishDate;
-      }}
+      selectedDays={({ dateValue }) => dateValue >= now}
     />,
   );
 
@@ -200,33 +208,37 @@ it('selects days', () => {
     'SD-Calendar-selected',
   );
 
-  for (let day = 24; day <= 27; day++) {
+  for (let idx = 1; idx < now.day; idx++) {
+    const day = String(idx).padStart(2, '0');
+    const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
+
+    expect(element).not.toHaveClass('SD-Calendar-selected');
+  }
+
+  for (let idx = now.day; idx <= now.daysInMonth; idx++) {
+    const day = String(idx).padStart(2, '0');
     const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
 
     expect(element).toHaveClass('SD-Calendar-selected');
 
-    MockEvent.click(element);
+    userEvent.click(element);
 
     expect(onDayClick).toHaveBeenCalledTimes(1);
-    expect(onDayClick).toHaveBeenCalledWith(
-      wrapper.dateUtils.fromObject({ year: 2019, month: 5, day }),
-      { disabled: false, selected: true },
-    );
+
+    const [[info]] = onDayClick.mock.calls;
+
+    expect(info.stringValue).toBe(`2019-05-${day}T00:00:00.000-05:00`);
 
     onDayClick.mockClear();
   }
-
-  expect(wrapper.getByLabelText(/May 28 2019/)).not.toHaveClass(
-    'SD-Calendar-selected',
-  );
 });
 
-it('disables days', () => {
-  const onDayClick = jest.fn();
-  const wrapper = renderDateComponent(
+test('disabledDays', () => {
+  const onDayClick: MockCalendarDayEventHandler = jest.fn();
+  const wrapper = renderComponent(
     <Calendar
       onDayClick={onDayClick}
-      disabledDays={(date, utils) => utils.isSameDate(date, STUB_DATE, 'day')}
+      disabledDays={({ dateValue }) => dateValue.day === 24}
     />,
   );
 
@@ -234,17 +246,19 @@ it('disables days', () => {
     'SD-Calendar-disabled',
   );
 
-  MockEvent.click(wrapper.getByLabelText(/May 24 2019/));
+  userEvent.click(wrapper.getByLabelText(/May 24 2019/));
 
   expect(onDayClick).toHaveBeenCalledTimes(1);
-  expect(onDayClick).toHaveBeenCalledWith(
-    wrapper.dateUtils.fromObject({ year: 2019, month: 5, day: 24 }),
-    { disabled: true, selected: false },
-  );
+
+  const [[info]] = onDayClick.mock.calls;
+
+  expect(info.disabled).toBe(true);
+  expect(info.selected).toBe(false);
+  expect(info.stringValue).toBe('2019-05-24T00:00:00.000-05:00');
 });
 
-it('highlights days', () => {
-  const wrapper = renderDateComponent(<div />);
+test('highlightedDays', () => {
+  const wrapper = renderComponent(<Calendar />);
   const highlights: CalendarDayHighlightColor[] = [
     'blue',
     'green',
@@ -254,23 +268,54 @@ it('highlights days', () => {
     'yellow',
   ];
 
-  highlights.forEach((highlight) => {
+  const modifier: CalendarModifier = ({ dateValue }) => dateValue.day === 24;
+
+  for (const currentHighlight of highlights) {
     wrapper.rerender(
-      <Calendar
-        highlightedDays={{
-          [highlight]: (value: Date, utils: DateUtils): boolean =>
-            utils.isSameDate(value, STUB_DATE, 'day'),
-        }}
-      />,
+      <Calendar highlightedDays={{ [currentHighlight]: modifier }} />,
     );
 
     const day = wrapper.getByLabelText(/May 24 2019/);
 
-    expect(day).toHaveClass(`SD-Calendar-${highlight}`);
-  });
+    for (const highlight of highlights) {
+      if (highlight === currentHighlight) {
+        expect(day).toHaveClass(`SD-Calendar-${highlight}`);
+      } else {
+        expect(day).not.toHaveClass(`SD-Calendar-${highlight}`);
+      }
+    }
+  }
 });
 
-it('checks component css', () => {
+test('footer', () => {
+  const wrapper = renderComponent(
+    <Calendar
+      footer={<Typography color="textSecondary">Footer helper text</Typography>}
+    />,
+  );
+
+  expect(wrapper.getByText('Footer helper text')).toBeInTheDocument();
+});
+
+test('quickSelection', () => {
+  const wrapper = renderComponent(
+    <Calendar
+      quickSelection={
+        <CalendarQuickSelection>
+          <CalendarQuickSelectionItem>Today</CalendarQuickSelectionItem>
+          <CalendarQuickSelectionItem>Tomorrow</CalendarQuickSelectionItem>
+          <CalendarQuickSelectionItem>Yesterday</CalendarQuickSelectionItem>
+        </CalendarQuickSelection>
+      }
+    />,
+  );
+
+  expect(wrapper.getByText('Today')).toBeInTheDocument();
+  expect(wrapper.getByText('Tomorrow')).toBeInTheDocument();
+  expect(wrapper.getByText('Yesterday')).toBeInTheDocument();
+});
+
+test('css', () => {
   expect(renderCSS(<Calendar />, ['SD-Calendar'])).toMatchInlineSnapshot(`
     .SD-Calendar-container {
       display: inline-block;
