@@ -24,7 +24,6 @@ module.exports = {
       },
 
       rules: {
-        'no-undef-init': 'off',
         'no-restricted-imports': [
           'error',
           {
@@ -81,6 +80,7 @@ module.exports = {
       extends: ['plugin:@superdispatch/jest'],
       rules: {
         quotes: 'off',
+        'jest/no-conditional-expect': 'off',
         '@typescript-eslint/no-namespace': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
