@@ -54,5 +54,6 @@
         "@pika/plugin-bundle-types"
       ]
     ]
-  }
+  },
+  "gitHead": "087381873d6f211566c75173e5e4d569a96e3f80"
 }
