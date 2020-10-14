@@ -1,9 +1,13 @@
 import { InputAdornment } from '@material-ui/core';
+import { Meta } from '@storybook/react';
 import React from 'react';
 
 import { DateField } from './DateField.playroom';
 
-export default { title: 'Dates/DateField', component: DateField };
+export default {
+  title: 'Dates/DateField',
+  component: DateField,
+} as Meta;
 
 export const basic = () => <DateField />;
 
@@ -41,5 +45,5 @@ export const disableCloseOnSelect = () => (
 );
 
 export const customEmptyText = () => (
-  <DateField emptyText="Never" enableClearable={true} />
+  <DateField fallback="Never" enableClearable={true} />
 );

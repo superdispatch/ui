@@ -1,6 +1,7 @@
-import { DateTime, FixedOffsetZone } from 'luxon';
+import { DateTime } from 'luxon';
+import { useMemo } from 'react';
 
-export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
+/** @deprecated */
 export type DateUnit =
   | 'year'
   | 'month'
@@ -9,67 +10,59 @@ export type DateUnit =
   | 'minute'
   | 'second'
   | 'millisecond';
+/** @deprecated */
 export type DateDurationUnit = DateUnit | 'quarter' | 'week';
 
+/** @deprecated */
 export type DateObject = Record<DateUnit, number>;
 
+/** @deprecated */
 export type NullableDate = null | undefined | Date;
+/** @deprecated */
 export type DateLike = number | Date;
+/** @deprecated */
 export type NullableDateLike = null | undefined | DateLike;
+/** @deprecated */
 export type DateRange = [Date?, Date?];
+/** @deprecated */
 export type DateRangeLike = [DateLike?, DateLike?];
+/** @deprecated */
 export type NullableDateRange =
   | null
   | undefined
   | [NullableDate?, NullableDate?];
 
+/** @deprecated */
 export type NullableDateRangeLike =
   | null
   | undefined
   | [NullableDateLike?, NullableDateLike?];
 
-export interface DateUtilsOptions {
-  locale?: string;
-  timeZoneOffset?: number;
+/** @deprecated */
+function toDateTime(value: DateLike): DateTime {
+  return typeof value === 'number'
+    ? DateTime.fromMillis(value)
+    : DateTime.fromJSDate(value);
 }
 
-const defaultDateUtilsOptions: Required<DateUtilsOptions> = {
-  locale: 'en-US',
-  timeZoneOffset: 0,
-};
-
-const formats: Record<DateFormat, string> = {
-  DateISO: '_',
-  DateTimeISO: '_',
-  JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
-};
-
-function toDateTime(
-  value: DateLike,
-  { timeZoneOffset }: Required<DateUtilsOptions> = defaultDateUtilsOptions,
-): DateTime {
-  const dateTime =
-    typeof value === 'number'
-      ? DateTime.fromMillis(value)
-      : DateTime.fromJSDate(value);
-
-  return dateTime.toUTC(timeZoneOffset);
-}
-
+/** @deprecated */
 export function isDate(value: unknown): value is Date {
   return value != null && value instanceof Date;
 }
 
+/** @deprecated */
 export function isDateLike(value: unknown): value is DateLike {
   return (
     isDate(value) || (typeof value === 'number' && Number.isInteger(value))
   );
 }
 
+/** @deprecated */
 export function isValidDate(value: unknown): value is Date {
   return isDate(value) && Number.isFinite(value.getTime());
 }
 
+/** @deprecated */
 function checkRange(
   range: unknown,
   validator: (value: unknown) => boolean,
@@ -85,22 +78,27 @@ function checkRange(
   );
 }
 
+/** @deprecated */
 export function isDateRange(range: unknown): range is DateRange {
   return checkRange(range, isDate);
 }
 
+/** @deprecated */
 export function isDateRangeLike(range: unknown): range is DateRangeLike {
   return checkRange(range, isDateLike);
 }
 
+/** @deprecated */
 export function isValidDateRange(range: unknown): range is DateRange {
   return checkRange(range, isValidDate);
 }
 
+/** @deprecated */
 export function toDate(value: NullableDateLike): Date {
   return !isDateLike(value) ? new Date(NaN) : new Date(value);
 }
 
+/** @deprecated */
 export function toDateRange(range: NullableDateRangeLike): DateRange {
   if (range == null || !isDateRangeLike(range)) {
     return [];
@@ -114,76 +112,25 @@ export function toDateRange(range: NullableDateRangeLike): DateRange {
     ) as DateRange;
 }
 
-export function parseDate(value: unknown, format: DateFormat): Date {
-  if (Object.prototype.hasOwnProperty.call(formats, format)) {
-    if (isDateLike(value)) {
-      return toDate(value);
-    }
-
-    if (typeof value === 'string') {
-      if (format === 'DateISO' || format === 'DateTimeISO') {
-        return DateTime.fromISO(value, { zone: 'UTC' }).toJSDate();
-      }
-
-      return DateTime.fromFormat(value, formats[format]).toJSDate();
-    }
-  }
-
-  return new Date(NaN);
-}
-
-export function stringifyDate(value: DateLike, format: DateFormat): string {
-  const dateTime = toDateTime(value);
-
-  if (!dateTime.isValid) {
-    return 'Invalid Date';
-  }
-
-  if (format === 'DateISO') {
-    return dateTime.toISODate();
-  }
-
-  if (format === 'DateTimeISO') {
-    return dateTime.toISO();
-  }
-
-  return dateTime.toFormat(formats[format]);
-}
-
+/** @deprecated */
 export type DateFormatVariant = 'date' | 'shortDate' | 'time' | 'dateTime';
+/** @deprecated */
 export type DateFormatOptions = Omit<
   Intl.DateTimeFormatOptions,
   'timeZone' | 'timeZoneName'
 >;
 
+/** @deprecated */
 export type RelativeTimeFormatStyle = 'narrow' | 'short' | 'long';
+/** @deprecated */
 export interface RelativeTimeFormatOptions {
   style?: RelativeTimeFormatStyle;
   compare?: DateLike;
 }
 
+/** @deprecated */
 export class DateUtils {
-  protected options: Required<DateUtilsOptions>;
-
-  constructor({
-    locale = defaultDateUtilsOptions.locale,
-    timeZoneOffset = defaultDateUtilsOptions.timeZoneOffset,
-  }: DateUtilsOptions = {}) {
-    this.options = { locale, timeZoneOffset };
-  }
-
-  get locale() {
-    return this.options.locale;
-  }
-
-  get timeZoneOffset() {
-    return this.options.timeZoneOffset;
-  }
-
-  protected toDateTime(value: DateLike): DateTime {
-    return toDateTime(value, this.options);
-  }
-
+  /** @deprecated */
   toObject(value: DateLike): DateObject {
     const {
       year = NaN,
@@ -193,13 +140,14 @@ export class DateUtils {
       minute = NaN,
       second = NaN,
       millisecond = NaN,
-    } = this.toDateTime(value).toObject({
+    } = toDateTime(value).toObject({
       includeConfig: false,
     });
 
     return { year, month, day, hour, minute, second, millisecond };
   }
 
+  /** @deprecated */
   fromObject({
     year = 0,
     month = 1,
@@ -229,14 +177,15 @@ export class DateUtils {
       minute,
       second,
       millisecond,
-      zone: FixedOffsetZone.instance(this.timeZoneOffset),
     }).toJSDate();
   }
 
+  /** @deprecated */
   update(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value).set(values).toJSDate();
+    return toDateTime(value).set(values).toJSDate();
   }
 
+  /** @deprecated */
   mergeDateAndTime(date: DateLike, time: DateLike): Date {
     const { hour, minute, second, millisecond } = this.toObject(time);
 
@@ -252,22 +201,27 @@ export class DateUtils {
     return this.update(date, { hour, minute, second, millisecond });
   }
 
+  /** @deprecated */
   startOf(value: DateLike, unit: DateDurationUnit): Date {
-    return this.toDateTime(value).startOf(unit).toJSDate();
+    return toDateTime(value).startOf(unit).toJSDate();
   }
 
+  /** @deprecated */
   endOf(value: DateLike, unit: DateDurationUnit): Date {
-    return this.toDateTime(value).endOf(unit).toJSDate();
+    return toDateTime(value).endOf(unit).toJSDate();
   }
 
+  /** @deprecated */
   plus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value).plus(values).toJSDate();
+    return toDateTime(value).plus(values).toJSDate();
   }
 
+  /** @deprecated */
   minus(value: DateLike, values: Partial<DateObject>): Date {
-    return this.toDateTime(value).minus(values).toJSDate();
+    return toDateTime(value).minus(values).toJSDate();
   }
 
+  /** @deprecated */
   isSameDate(
     value: NullableDateLike,
     compare: NullableDateLike,
@@ -281,8 +235,8 @@ export class DateUtils {
       return false;
     }
 
-    const dateTimeValue = this.toDateTime(value);
-    const dateTimeCompare = this.toDateTime(compare);
+    const dateTimeValue = toDateTime(value);
+    const dateTimeCompare = toDateTime(compare);
 
     return (
       dateTimeValue.isValid &&
@@ -291,6 +245,7 @@ export class DateUtils {
     );
   }
 
+  /** @deprecated */
   isSameDateRange(
     value: NullableDateRangeLike,
     compare: NullableDateRangeLike,
@@ -304,20 +259,20 @@ export class DateUtils {
     );
   }
 
+  /** @deprecated */
   diff(value: DateLike, compare: DateLike, unit: DateUnit): number {
-    const valueDateTime = this.toDateTime(value);
-    const compareDateTime = this.toDateTime(compare);
+    const valueDateTime = toDateTime(value);
+    const compareDateTime = toDateTime(compare);
 
     return valueDateTime.diff(compareDateTime, unit).as(unit);
   }
 
+  /** @deprecated */
   toLocaleString(value: DateLike, options?: DateFormatOptions): string {
-    return this.toDateTime(value).toLocaleString({
-      ...options,
-      locale: this.options.locale,
-    });
+    return toDateTime(value).toLocaleString(options);
   }
 
+  /** @deprecated */
   format(value: DateLike, variant: DateFormatVariant): string {
     return this.toLocaleString(
       value,
@@ -337,6 +292,7 @@ export class DateUtils {
     );
   }
 
+  /** @deprecated */
   formatRange(value: NullableDateRangeLike, emptyText = ''): string {
     const range = toDateRange(value);
 
@@ -360,17 +316,18 @@ export class DateUtils {
     return `${startText} - ${finishText}`;
   }
 
+  /** @deprecated */
   formatRelativeTime(
     value: DateLike,
     { style = 'long', compare = Date.now() }: RelativeTimeFormatOptions = {},
   ): string {
-    const valueDateTime = this.toDateTime(value);
-    const compareDateTime = this.toDateTime(compare);
+    const valueDateTime = toDateTime(value);
+    const compareDateTime = toDateTime(compare);
 
-    return valueDateTime.toRelative({
-      style,
-      locale: this.locale,
-      base: compareDateTime,
-    }) as string;
+    return valueDateTime.toRelative({ style, base: compareDateTime }) as string;
   }
+}
+
+export function useDateUtils(): DateUtils {
+  return useMemo(() => new DateUtils(), []);
 }

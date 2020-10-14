@@ -1,10 +1,11 @@
 import React, { forwardRef, useState } from 'react';
 
+import { DateString } from '../date-time-utils/DateTimeUtils';
 import { DateField as SDDateField, DateFieldProps } from './DateField';
 
 export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
   ({ value, onChange, ...props }, ref) => {
-    const [state, setState] = useState<Date>();
+    const [state, setState] = useState<DateString>();
 
     return (
       <SDDateField
@@ -12,8 +13,8 @@ export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
         ref={ref}
         value={value || state}
         onChange={(date) => {
-          setState(date);
           onChange?.(date);
+          setState(date.stringValue);
         }}
       />
     );

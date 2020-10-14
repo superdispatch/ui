@@ -1,12 +1,13 @@
 import '@testing-library/jest-dom';
 
 import { spyLogs } from '@superdispatch/jestutils';
-
-process.env.TZ = 'US/Arizona';
+import { resetMockDate } from '@superdispatch/ui-testutils';
 
 if (process.env.CI) {
   spyLogs({ warn: 'forbid', error: 'forbid' });
 }
+
+afterEach(resetMockDate);
 
 // Mock `getComputedStyle` to workaround `accessible-name-and-description`
 // selector of the `dom-accessibility-api`.

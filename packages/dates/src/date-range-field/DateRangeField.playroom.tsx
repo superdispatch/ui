@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 
-import { NullableDateRange } from '../DateUtils';
+import { DateStringRange } from '../date-time-utils/DateTimeUtils';
 import {
   DateRangeField as SDDateRangeField,
   DateRangeFieldProps,
@@ -8,7 +8,7 @@ import {
 
 export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
   ({ value, onChange, ...props }, ref) => {
-    const [state, setState] = useState<NullableDateRange>();
+    const [state, setState] = useState<DateStringRange>();
 
     return (
       <SDDateRangeField
@@ -16,8 +16,8 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
         ref={ref}
         value={value || state}
         onChange={(date) => {
-          setState(date);
           onChange?.(date);
+          setState(date.stringValue);
         }}
       />
     );

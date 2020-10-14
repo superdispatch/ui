@@ -1,6 +1,7 @@
 import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
+import { DateTime } from 'luxon';
 import React, { forwardRef, ReactNode, useMemo } from 'react';
 import DayPicker, {
   ClassNames,
@@ -10,36 +11,59 @@ import DayPicker, {
   Modifiers,
 } from 'react-day-picker';
 
-import { useDateUtils } from '../DateContext';
-import { DateUtils, isValidDate, NullableDateLike, toDate } from '../DateUtils';
-import { CalendarCaption } from './CalendarCaption';
-import { CalendarNavbar } from './CalendarNavbar';
-import { CalendarWeekDay } from './CalendarWeekDay';
+import {
+  DateConfig,
+  DateFormat,
+  useDateConfig,
+} from '../date-config/DateConfig';
+import {
+  DatePayload,
+  NullableDateInput,
+  parseDate,
+  stringifyDate,
+  toPrimitiveDateInput,
+} from '../date-time-utils/DateTimeUtils';
+import {
+  CalendarCaption,
+  CalendarNavbar,
+  CalendarWeekDay,
+} from './InternalCalendarComponents';
+
+//
+// Styles
+//
 
 export type CalendarDayHighlightColor = Exclude<
   ColorVariant,
   'grey' | 'silver'
 >;
+
 export type CalendarClassNames =
   | keyof ClassNames
   | CalendarDayHighlightColor
   | 'firstDayOfMonth'
   | 'lastDayOfMonth';
 
+export type CalendarClassNameMap = ClassNameMap<CalendarClassNames>;
+
 const useStyles = makeStyles<
   Theme,
-  { classes?: Partial<ClassNameMap<keyof ClassNames>> },
+  { classes?: Partial<CalendarClassNameMap> },
   CalendarClassNames
 >(
   (theme) => ({
-    container: { display: 'inline-block' },
+    container: {
+      display: 'inline-block',
+    },
 
     wrapper: {
       userSelect: 'none',
       position: 'relative',
       flexDirection: 'row',
       paddingBottom: theme.spacing(2),
-      '&:focus': { outline: 'none' },
+      '&:focus': {
+        outline: 'none',
+      },
     },
 
     interactionDisabled: {},
@@ -57,8 +81,16 @@ const useStyles = makeStyles<
     },
     navButtonInteractionDisabled: {},
 
-    months: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' },
-    month: { userSelect: 'none', margin: theme.spacing(2, 2, 0, 2) },
+    months: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+
+    month: {
+      userSelect: 'none',
+      margin: theme.spacing(2, 2, 0, 2),
+    },
 
     caption: {
       textAlign: 'center',
@@ -67,8 +99,13 @@ const useStyles = makeStyles<
       padding: theme.spacing(0, 1),
     },
 
-    weekdays: { display: 'table-header-group' },
-    weekdaysRow: { display: 'flex', margin: theme.spacing(1, 0) },
+    weekdays: {
+      display: 'table-header-group',
+    },
+    weekdaysRow: {
+      display: 'flex',
+      margin: theme.spacing(1, 0),
+    },
     weekday: {
       margin: '1px',
       display: 'flex',
@@ -83,8 +120,14 @@ const useStyles = makeStyles<
 
     weekNumber: {},
 
-    body: { display: 'flex', flexDirection: 'column' },
-    week: { display: 'flex' },
+    body: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+
+    week: {
+      display: 'flex',
+    },
 
     // Day modifiers.
     today: {},
@@ -129,11 +172,15 @@ const useStyles = makeStyles<
       },
 
       '&:first-child, &$firstDayOfMonth': {
-        '&:before': { borderRadius: theme.spacing(0.5, 0, 0, 0.5) },
+        '&:before': {
+          borderRadius: theme.spacing(0.5, 0, 0, 0.5),
+        },
       },
 
       '&:last-child, &$lastDayOfMonth': {
-        '&:before': { borderRadius: theme.spacing(0, 0.5, 0.5, 0) },
+        '&:before': {
+          borderRadius: theme.spacing(0, 0.5, 0.5, 0),
+        },
       },
 
       '&:after': {
@@ -150,11 +197,15 @@ const useStyles = makeStyles<
         transition: theme.transitions.create('background-color'),
       },
 
-      '&:hover, &:focus': { outline: 'none' },
+      '&:hover, &:focus': {
+        outline: 'none',
+      },
 
       '&$disabled': {
         color: Color.Grey100,
-        '&$selected:not($outside):after': { backgroundColor: Color.Silver300 },
+        '&$selected:not($outside):after': {
+          backgroundColor: Color.Silver300,
+        },
       },
 
       '&:not($outside):not($disabled)': {
@@ -162,215 +213,184 @@ const useStyles = makeStyles<
         color: Color.Grey500,
 
         '&:not($selected):not(:active)': {
-          '&$today': { color: Color.Blue300 },
-          '&:hover, &:focus': { backgroundColor: Color.Silver100 },
+          '&$today': {
+            color: Color.Blue300,
+          },
+
+          '&:hover, &:focus': {
+            backgroundColor: Color.Silver100,
+          },
 
           '&$blue': {
             color: Color.Blue500,
-            '&': { backgroundColor: Color.Blue50 },
+            '&': {
+              backgroundColor: Color.Blue50,
+            },
           },
           '&$green': {
             color: Color.Green500,
-            '&': { backgroundColor: Color.Green50 },
+            '&': {
+              backgroundColor: Color.Green50,
+            },
           },
           '&$purple': {
             color: Color.Purple500,
-            '&': { backgroundColor: Color.Purple50 },
+            '&': {
+              backgroundColor: Color.Purple50,
+            },
           },
           '&$red': {
             color: Color.Red500,
-            '&': { backgroundColor: Color.Red50 },
+            '&': {
+              backgroundColor: Color.Red50,
+            },
           },
           '&$teal': {
             color: Color.Teal500,
-            '&': { backgroundColor: Color.Teal50 },
+            '&': {
+              backgroundColor: Color.Teal50,
+            },
           },
           '&$yellow': {
             color: Color.Yellow500,
-            '&': { backgroundColor: Color.Yellow50 },
+            '&': {
+              backgroundColor: Color.Yellow50,
+            },
           },
         },
 
         '&:active, &$selected': {
           color: Color.White,
-          '&:after': { backgroundColor: Color.Blue300 },
+          '&:after': {
+            backgroundColor: Color.Blue300,
+          },
         },
       },
     },
 
-    footer: { padding: theme.spacing(2) },
+    footer: {
+      padding: theme.spacing(2),
+    },
 
     todayButton: {},
   }),
   { name: 'SD-Calendar' },
 );
 
-function toLocalDate(
-  utils: DateUtils,
-  value: NullableDateLike,
-): undefined | Date {
-  const date = toDate(value);
+//
+// Utility Types
+//
 
-  if (!isValidDate(date)) {
-    return undefined;
-  }
+export type CalendarModifier = (info: DatePayload) => boolean;
 
-  const object = utils.toObject(date);
-
-  return new Date(
-    object.year,
-    object.month - 1,
-    object.day,
-    object.hour,
-    object.minute,
-    object.second,
-    object.millisecond,
-  );
-}
-
-function fromLocalDate(utils: DateUtils, date: Date): Date {
-  return utils.fromObject({
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-    hour: date.getHours(),
-    minute: date.getMinutes(),
-    second: date.getSeconds(),
-    millisecond: date.getMilliseconds(),
-  });
-}
-
-export interface CalendarDayModifiers {
+export interface CalendarDateEvent extends DatePayload {
   disabled: boolean;
   selected: boolean;
 }
 
-type CalendarDayEventHandlerName =
-  | 'onDayClick'
-  | 'onDayKeyDown'
-  | 'onDayMouseEnter'
-  | 'onDayMouseLeave'
-  | 'onDayMouseDown'
-  | 'onDayMouseUp'
-  | 'onDayTouchEnd'
-  | 'onDayTouchStart';
+export type CalendarDayEventHandler = (event: CalendarDateEvent) => void;
 
-export type CalendarDayEventHandler = (
-  date: Date,
-  modifiers: CalendarDayModifiers,
-) => void;
-
-type CalendarDayEventProps = Partial<
-  Record<CalendarDayEventHandlerName, CalendarDayEventHandler>
->;
-
-type ReactDayPickerDayEventHandler = (
-  day: Date,
-  modifiers: DayModifiers,
-) => void;
-
-function wrapHandlers(
-  utils: DateUtils,
-  styles: ClassNameMap<keyof ClassNames>,
-  initialTime: Date,
-  onDayClick: undefined | CalendarDayEventHandler,
-  onDayKeyDown: undefined | CalendarDayEventHandler,
-  onDayMouseEnter: undefined | CalendarDayEventHandler,
-  onDayMouseLeave: undefined | CalendarDayEventHandler,
-  onDayMouseDown: undefined | CalendarDayEventHandler,
-  onDayMouseUp: undefined | CalendarDayEventHandler,
-  onDayTouchEnd: undefined | CalendarDayEventHandler,
-  onDayTouchStart: undefined | CalendarDayEventHandler,
-): Partial<Record<CalendarDayEventHandlerName, ReactDayPickerDayEventHandler>> {
-  const wrap = (
-    fn: undefined | CalendarDayEventHandler,
-  ): undefined | ReactDayPickerDayEventHandler =>
-    fn &&
-    ((localDate, modifiers) => {
-      const { hour, minute, second, millisecond } = utils.toObject(initialTime);
-      const date = utils.fromObject({
-        year: localDate.getFullYear(),
-        month: localDate.getMonth() + 1,
-        day: localDate.getDate(),
-        hour,
-        minute,
-        second,
-        millisecond,
-      });
-
-      return fn(date, {
-        disabled: !!modifiers[styles.disabled],
-        selected: !!modifiers[styles.selected],
-      });
-    });
-
-  return {
-    onDayClick: wrap(onDayClick),
-    onDayKeyDown: wrap(onDayKeyDown),
-    onDayMouseEnter: wrap(onDayMouseEnter),
-    onDayMouseLeave: wrap(onDayMouseLeave),
-    onDayMouseDown: wrap(onDayMouseDown),
-    onDayMouseUp: wrap(onDayMouseUp),
-    onDayTouchEnd: wrap(onDayTouchEnd),
-    onDayTouchStart: wrap(onDayTouchStart),
-  };
-}
-
-function wrapModifier(
-  utils: DateUtils,
-  modifier: undefined | CalendarModifier,
-): undefined | FunctionModifier {
-  return modifier && ((date) => modifier(fromLocalDate(utils, date), utils));
-}
-
-export type CalendarModifier = (date: Date, utils: DateUtils) => boolean;
 export interface CalendarModifiers {
   today?: CalendarModifier;
   outside?: CalendarModifier;
   [other: string]: undefined | CalendarModifier;
 }
 
-export interface CalendarProps
-  extends CalendarDayEventProps,
-    Omit<
-      DayPickerProps,
-      | 'month'
-      | 'months'
-      | 'modifiers'
-      | 'initialMonth'
-      | 'selectedDays'
-      | 'disabledDays'
-      | 'classNames'
-      | 'navbarElement'
-      | 'captionElement'
-      | 'weekdayElement'
-      | 'weekdaysLong'
-      | 'weekdaysShort'
-      | CalendarDayEventHandlerName
-    > {
+export type CalendarHighlightedDays = Partial<
+  Record<CalendarDayHighlightColor, CalendarModifier>
+>;
+
+//
+// Internal Utils
+//
+
+function toDayPickerModifier(
+  config: DateConfig,
+  modifier: undefined | CalendarModifier,
+): undefined | FunctionModifier {
+  if (!modifier) {
+    return undefined;
+  }
+
+  return (localDate) => {
+    const dateValue = DateTime.fromObject({
+      year: localDate.getFullYear(),
+      month: localDate.getMonth() + 1,
+      day: localDate.getDate(),
+      hour: localDate.getHours(),
+      minute: localDate.getMinutes(),
+      second: localDate.getSeconds(),
+      millisecond: localDate.getMilliseconds(),
+    });
+
+    return modifier({
+      config,
+      dateValue,
+      stringValue: stringifyDate(dateValue, config),
+    });
+  };
+}
+
+function toDayPickerHandler(
+  config: DateConfig,
+  classes: CalendarClassNameMap,
+  initialTime: DateTime,
+  handler: undefined | CalendarDayEventHandler,
+) {
+  if (!handler) {
+    return undefined;
+  }
+
+  return (localDate: Date, modifiers: DayModifiers) => {
+    const dateValue = DateTime.fromObject({
+      year: localDate.getFullYear(),
+      month: localDate.getMonth() + 1,
+      day: localDate.getDate(),
+      hour: initialTime.hour,
+      minute: initialTime.minute,
+      second: initialTime.second,
+      millisecond: initialTime.millisecond,
+    });
+
+    return handler({
+      disabled: !!modifiers[classes.disabled],
+      selected: !!modifiers[classes.selected],
+
+      config,
+      dateValue,
+      stringValue: stringifyDate(dateValue, config),
+    });
+  };
+}
+
+//
+// Calendar
+//
+
+export interface CalendarProps extends Pick<DayPickerProps, 'numberOfMonths'> {
   direction?: GridDirection;
-  classes?: Partial<ClassNameMap<keyof ClassNames>>;
+  classes?: Partial<CalendarClassNameMap>;
 
   footer?: ReactNode;
   quickSelection?: ReactNode;
 
-  initialTime?: NullableDateLike;
-  initialMonth?: NullableDateLike;
+  format?: DateFormat;
+  initialTime?: NullableDateInput;
+  initialMonth?: NullableDateInput;
 
   modifiers?: CalendarModifiers;
   selectedDays?: CalendarModifier;
   disabledDays?: CalendarModifier;
-  highlightedDays?: Partial<
-    Record<CalendarDayHighlightColor, CalendarModifier>
-  >;
-}
+  highlightedDays?: CalendarHighlightedDays;
 
-function isFirstDayOfMonth(date: Date, utils: DateUtils): boolean {
-  return utils.isSameDate(date, utils.startOf(date, 'month'), 'day');
-}
-
-function isLastDayOfMonth(date: Date, utils: DateUtils): boolean {
-  return utils.isSameDate(date, utils.endOf(date, 'month'), 'day');
+  onDayClick?: CalendarDayEventHandler;
+  onDayKeyDown?: CalendarDayEventHandler;
+  onDayMouseEnter?: CalendarDayEventHandler;
+  onDayMouseLeave?: CalendarDayEventHandler;
+  onDayMouseDown?: CalendarDayEventHandler;
+  onDayMouseUp?: CalendarDayEventHandler;
+  onDayTouchEnd?: CalendarDayEventHandler;
+  onDayTouchStart?: CalendarDayEventHandler;
 }
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
@@ -392,32 +412,78 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       onDayTouchEnd,
       onDayTouchStart,
 
-      modifiers = {},
-      highlightedDays = {},
+      modifiers,
+      highlightedDays,
 
-      initialTime: initialTimeProp,
-      initialMonth: initialMonthProp,
+      format: formatProp,
+      initialTime: initialTimeInputProp,
+      initialMonth: initialMonthInputProp,
 
-      ...props
-    }: CalendarProps,
+      ...dayPickerProps
+    },
     ref,
   ) => {
-    const utils = useDateUtils();
     const styles = useStyles({ classes });
-    const [initialTime, initialMonth] = useMemo(() => {
-      let time = toDate(initialTimeProp);
-      let month = toDate(initialMonthProp);
+    const config = useDateConfig({ format: formatProp });
 
-      if (!isValidDate(month)) {
-        month = utils.startOf(Date.now(), 'month');
+    const initialTimeInput = toPrimitiveDateInput(initialTimeInputProp);
+    const initialMonthInput = toPrimitiveDateInput(initialMonthInputProp);
+    const [initialTime, initialMonth] = useMemo(() => {
+      let time = parseDate(initialTimeInput, config);
+      let month = parseDate(initialMonthInput, config);
+
+      if (!month.isValid) {
+        month = DateTime.local().startOf('month');
       }
 
-      if (!isValidDate(time)) {
+      if (!time.isValid) {
         time = month;
       }
 
-      return [time, toLocalDate(utils, month)];
-    }, [utils, initialTimeProp, initialMonthProp]);
+      return [
+        time,
+        new Date(
+          month.year,
+          month.month - 1,
+          month.day,
+          month.hour,
+          month.minute,
+          month.second,
+          month.millisecond,
+        ),
+      ];
+    }, [config, initialTimeInput, initialMonthInput]);
+
+    const wrapModifier = toDayPickerModifier.bind(null, config);
+    const wrapHandler = toDayPickerHandler.bind(
+      null,
+      config,
+      styles,
+      initialTime,
+    );
+
+    const dayPickerModifiers: Partial<Modifiers> = {
+      [styles.firstDayOfMonth]: wrapModifier(
+        ({ dateValue }) => dateValue.day === 1,
+      ),
+      [styles.lastDayOfMonth]: wrapModifier(
+        ({ dateValue }) => dateValue.day === dateValue.daysInMonth,
+      ),
+    };
+
+    if (modifiers) {
+      for (const [key, modifier] of Object.entries(modifiers)) {
+        dayPickerModifiers[key] = wrapModifier(modifier);
+      }
+    }
+
+    if (highlightedDays) {
+      for (const [key, modifier] of Object.entries(highlightedDays) as Array<
+        [CalendarDayHighlightColor, CalendarModifier]
+      >) {
+        dayPickerModifiers[styles[key]] = wrapModifier(modifier);
+      }
+    }
 
     return (
       <Grid ref={ref} container={true} direction={direction}>
@@ -443,46 +509,23 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
 
         <Grid item={true} xs={12} sm="auto">
           <DayPicker
-            {...props}
+            {...dayPickerProps}
             classNames={styles}
             navbarElement={CalendarNavbar}
             captionElement={CalendarCaption}
             weekdayElement={CalendarWeekDay}
             initialMonth={initialMonth}
-            selectedDays={wrapModifier(utils, selectedDays)}
-            disabledDays={wrapModifier(utils, disabledDays)}
-            modifiers={{
-              ...Object.keys(modifiers).reduce<Partial<Modifiers>>(
-                (acc, key) => {
-                  acc[key] = wrapModifier(utils, modifiers[key]);
-
-                  return acc;
-                },
-                {},
-              ),
-
-              [styles.firstDayOfMonth]: wrapModifier(utils, isFirstDayOfMonth),
-              [styles.lastDayOfMonth]: wrapModifier(utils, isLastDayOfMonth),
-              [styles.blue]: wrapModifier(utils, highlightedDays.blue),
-              [styles.green]: wrapModifier(utils, highlightedDays.green),
-              [styles.purple]: wrapModifier(utils, highlightedDays.purple),
-              [styles.red]: wrapModifier(utils, highlightedDays.red),
-              [styles.teal]: wrapModifier(utils, highlightedDays.teal),
-              [styles.yellow]: wrapModifier(utils, highlightedDays.yellow),
-            }}
-            {...wrapHandlers(
-              utils,
-              styles,
-              initialTime,
-              onDayClick,
-              onDayKeyDown,
-              onDayMouseEnter,
-              onDayMouseLeave,
-              onDayMouseDown,
-              onDayMouseUp,
-              onDayTouchEnd,
-              onDayTouchStart,
-            )}
+            modifiers={dayPickerModifiers}
+            selectedDays={wrapModifier(selectedDays)}
+            disabledDays={wrapModifier(disabledDays)}
+            onDayClick={wrapHandler(onDayClick)}
+            onDayKeyDown={wrapHandler(onDayKeyDown)}
+            onDayMouseEnter={wrapHandler(onDayMouseEnter)}
+            onDayMouseLeave={wrapHandler(onDayMouseLeave)}
+            onDayMouseDown={wrapHandler(onDayMouseDown)}
+            onDayMouseUp={wrapHandler(onDayMouseUp)}
+            onDayTouchEnd={wrapHandler(onDayTouchEnd)}
+            onDayTouchStart={wrapHandler(onDayTouchStart)}
           />
 
           {!!footer && <div className={styles.footer}>{footer}</div>}

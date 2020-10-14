@@ -1,24 +1,23 @@
 import React, { forwardRef, useState } from 'react';
 
+import { DateString } from '../date-time-utils/DateTimeUtils';
 import { Calendar as SDCalendar, CalendarProps } from './Calendar';
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
   ({ onDayClick, selectedDays, ...props }, ref) => {
-    const [value, setValue] = useState<undefined | Date>();
+    const [value, setValue] = useState<DateString>();
 
     return (
       <SDCalendar
         {...props}
         ref={ref}
-        selectedDays={(date, utils) =>
-          selectedDays?.(date, utils) ?? utils.isSameDate(date, value, 'day')
-        }
-        onDayClick={(date, modifiers) => {
-          onDayClick?.(date, modifiers);
+        selectedDays={selectedDays || ((event) => value === event.stringValue)}
+        onDayClick={(event) => {
+          onDayClick?.(event);
 
-          if (!modifiers.disabled) {
-            if (!modifiers.selected) {
-              setValue(date);
+          if (!event.disabled) {
+            if (!event.selected) {
+              setValue(event.stringValue);
             } else {
               setValue(undefined);
             }

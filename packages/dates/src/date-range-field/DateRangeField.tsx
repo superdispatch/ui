@@ -1,56 +1,69 @@
-import {
-  Popover,
-  PopoverProps,
-  StandardTextFieldProps,
-  Theme,
-} from '@material-ui/core';
+import { BaseTextFieldProps, InputBaseProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Color, mergeRefs } from '@superdispatch/ui';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { useWhenValueChanges } from 'utility-hooks';
+import { Color, SuperDispatchTheme } from '@superdispatch/ui';
+import React, { forwardRef, ReactNode, useMemo, useRef, useState } from 'react';
 
+import {
+  BaseDatePicker,
+  InternalBaseDateFieldAPI,
+} from '../base-date-picker/BaseDatePicker';
 import {
   Calendar,
-  CalendarModifier,
+  CalendarClassNames,
   CalendarProps,
 } from '../calendar/Calendar';
-import { useDateUtils } from '../DateContext';
-import { useDatePickerPopoverState } from '../DatePickerBase';
-import { DateTextField } from '../DateTextField';
+import { DateFormat, useDateConfig } from '../date-config/DateConfig';
 import {
-  DateRange,
-  isValidDate,
-  NullableDateRangeLike,
-  toDateRange,
-} from '../DateUtils';
+  DateRangePayload,
+  formatDateRange,
+  NullableDateRangeInput,
+  parseDateRange,
+  toDateRangePayload,
+  toPrimitiveDateRangeInput,
+} from '../date-time-utils/DateTimeUtils';
 
-const useStyles = makeStyles<Theme>(
+const useStyles = makeStyles<
+  SuperDispatchTheme,
+  CalendarProps,
+  | 'rangeStart'
+  | 'rangeFinish'
+  | Extract<CalendarClassNames, 'outside' | 'disabled' | 'selected' | 'day'>
+>(
   (theme) => ({
+    rangeStart: {},
+    rangeFinish: {},
+
     outside: {},
     disabled: {},
     selected: {},
-    rangeStart: {},
-    rangeEnd: {},
 
     day: {
       '&$selected:not($outside)': {
-        '&$rangeStart:before': { left: theme.spacing(0.5) },
-        '&$rangeEnd:before': { right: theme.spacing(0.5) },
-        '&:not($rangeStart):not($rangeEnd)': {
-          '&:after': { backgroundColor: Color.Transparent },
-          '&$disabled': { '&:before': { backgroundColor: Color.Silver100 } },
+        '&$rangeStart:before': {
+          left: theme.spacing(0.5),
+        },
+
+        '&$rangeFinish:before': {
+          right: theme.spacing(0.5),
+        },
+
+        '&:not($rangeStart):not($rangeFinish)': {
+          '&:after': {
+            backgroundColor: Color.Transparent,
+          },
+
+          '&$disabled': {
+            '&:before': {
+              backgroundColor: Color.Silver100,
+            },
+          },
+
           '&:not($disabled)': {
             color: Color.Blue500,
-            '&:before': { backgroundColor: Color.Blue50 },
+
+            '&:before': {
+              backgroundColor: Color.Blue50,
+            },
           },
         },
       },
@@ -59,32 +72,49 @@ const useStyles = makeStyles<Theme>(
   { name: 'SD-DateRangeField' },
 );
 
-interface DateRangeFieldAPI {
-  value: DateRange;
+interface DateRangeFieldAPI extends DateRangePayload {
   close: () => void;
-  change: (value: undefined | DateRange) => void;
+  change: (value: NullableDateRangeInput) => void;
 }
 
 export interface DateRangeFieldProps
-  extends RefAttributes<HTMLDivElement>,
-    Omit<StandardTextFieldProps, 'value' | 'onBlur' | 'onFocus' | 'onChange'> {
+  extends Pick<
+    BaseTextFieldProps,
+    | 'disabled'
+    | 'error'
+    | 'fullWidth'
+    | 'helperText'
+    | 'id'
+    | 'label'
+    | 'name'
+    | 'required'
+    | 'placeholder'
+  > {
+  fallback?: string;
   enableClearable?: boolean;
   disableCloseOnSelect?: boolean;
-  emptyText?: string;
-  value?: NullableDateRangeLike;
+
+  format?: DateFormat;
+  value?: NullableDateRangeInput;
+
   onBlur?: () => void;
   onFocus?: () => void;
-  onChange?: (value: undefined | DateRange) => void;
+  onChange?: (value: DateRangePayload) => void;
+
   renderFooter?: (api: DateRangeFieldAPI) => ReactNode;
   renderQuickSelection?: (api: DateRangeFieldAPI) => ReactNode;
+
+  InputProps?: Pick<
+    InputBaseProps,
+    'aria-label' | 'aria-labelledby' | 'startAdornment'
+  >;
   CalendarProps?: Omit<
     CalendarProps,
-    'footer' | 'selectedDays' | 'quickSelection'
+    'footer' | 'classes' | 'selectedDays' | 'quickSelection' | 'numberOfMonths'
   >;
-  PopoverProps?: Omit<PopoverProps, 'open' | 'anchorEl' | 'onClose'>;
 }
 
-export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = forwardRef(
+export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
   (
     {
       onBlur,
@@ -92,166 +122,163 @@ export const DateRangeField: ForwardRefExoticComponent<DateRangeFieldProps> = fo
       onChange,
       renderFooter,
       renderQuickSelection,
+
       value: valueProp,
-      inputRef: inputRefProp,
-      emptyText = '',
-      enableClearable = false,
-      disableCloseOnSelect = false,
+      format: formatProp,
+
+      fallback = '',
+
+      enableClearable,
+      disableCloseOnSelect,
+
       CalendarProps: {
         modifiers,
         onDayClick,
         onDayMouseEnter,
-        classes: calendarClasses,
         ...calendarProps
       } = {} as const,
-      PopoverProps: {
-        anchorOrigin = { vertical: 'bottom', horizontal: 'left' } as const,
-        transformOrigin = { vertical: 'top', horizontal: 'left' } as const,
-        ...popoverProps
-      } = {},
+
       ...textFieldProps
     },
     ref,
   ) => {
-    const dateUtils = useDateUtils();
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { anchorEl, onOpen, onClose } = useDatePickerPopoverState(inputRef);
-    const { rangeStart, rangeEnd, ...styles } = useStyles({
-      classes: calendarClasses,
-    });
-    const value = toDateRange(valueProp);
-    const [startDate, finishDateProp] = value;
+    const { rangeStart, rangeFinish, ...styles } = useStyles({});
 
-    const [hoveredDate, setHoveredDate] = useState<Date | undefined>(undefined);
-    const finishDate = finishDateProp || hoveredDate;
-
-    const absoluteStartDate = useMemo(
-      () =>
-        !isValidDate(startDate)
-          ? undefined
-          : dateUtils.startOf(startDate, 'day'),
-      [dateUtils, startDate],
+    const config = useDateConfig({ format: formatProp });
+    const apiRef = useRef<InternalBaseDateFieldAPI>(null);
+    const [inputStartDate, inputFinishDate] = toPrimitiveDateRangeInput(
+      valueProp,
     );
 
-    const absoluteFinishDate = useMemo(
-      () =>
-        !isValidDate(finishDate)
-          ? undefined
-          : dateUtils.endOf(finishDate, 'day'),
-      [dateUtils, finishDate],
+    const {
+      dateValue: [startDate, finishDate],
+      stringValue: [startDateString, finishDateString],
+    } = useMemo(
+      () => toDateRangePayload([inputStartDate, inputFinishDate], config),
+      [config, inputStartDate, inputFinishDate],
     );
 
-    const isSelectedDate = useCallback<CalendarModifier>(
-      (date, utils) => {
-        if (absoluteStartDate && absoluteFinishDate) {
-          return date >= absoluteStartDate && date <= absoluteFinishDate;
+    const displayValue = useMemo(
+      () => formatDateRange([startDate, finishDate], { fallback }, config),
+      [config, fallback, startDate, finishDate],
+    );
+
+    const [hoveredDate, setHoveredDate] = useState<number>();
+    const [calendarStartDate, calendarFinishDate] = useMemo(() => {
+      const [nextCalendarStartDate, nextCalendarFinishDate] = parseDateRange(
+        [startDate, finishDate || hoveredDate],
+        config,
+      );
+
+      return [
+        nextCalendarStartDate?.startOf('day'),
+        nextCalendarFinishDate?.endOf('day'),
+      ];
+    }, [config, startDate, finishDate, hoveredDate]);
+
+    const handleClose = () => {
+      apiRef.current?.close();
+    };
+
+    const handleChange = (nextValue: NullableDateRangeInput) => {
+      let [nextStartDate, nextFinishDate] = parseDateRange(nextValue, config);
+
+      if (onChange) {
+        if (nextStartDate) {
+          if (startDate) {
+            nextStartDate = nextStartDate.set({
+              hour: startDate.hour,
+              minute: startDate.minute,
+              second: startDate.second,
+              millisecond: startDate.millisecond,
+            });
+          } else {
+            nextStartDate = nextStartDate.startOf('day');
+          }
         }
 
-        if (absoluteStartDate && !absoluteFinishDate) {
-          return utils.isSameDate(date, absoluteStartDate, 'day');
+        if (nextFinishDate) {
+          nextFinishDate = nextFinishDate.endOf('day');
         }
 
-        return false;
-      },
-      [absoluteFinishDate, absoluteStartDate],
-    );
-    const isStartDate = useCallback<CalendarModifier>(
-      (date, utils) => utils.isSameDate(startDate, date, 'day'),
-      [startDate],
-    );
-    const isFinishDate = useCallback<CalendarModifier>(
-      (date, utils) => utils.isSameDate(finishDate, date, 'day'),
-      [finishDate],
-    );
+        onChange(toDateRangePayload([nextStartDate, nextFinishDate], config));
+      }
 
-    const handleChange = (nextValue: undefined | DateRange) => {
-      const [nextStartValue, nextFinishValue] = toDateRange(nextValue);
-
-      onChange?.([
-        !isValidDate(nextStartValue)
-          ? undefined
-          : isValidDate(startDate)
-          ? dateUtils.mergeDateAndTime(nextStartValue, startDate)
-          : dateUtils.startOf(nextStartValue, 'day'),
-        !isValidDate(nextFinishValue)
-          ? undefined
-          : dateUtils.endOf(nextFinishValue, 'day'),
-      ]);
-
-      if (!disableCloseOnSelect && isValidDate(nextFinishValue)) {
-        onClose();
+      if (!disableCloseOnSelect && nextFinishDate?.isValid) {
+        handleClose();
       }
     };
 
     const api: DateRangeFieldAPI = {
-      value,
-      close: onClose,
+      config,
+      close: handleClose,
       change: handleChange,
+      dateValue: [startDate, finishDate],
+      stringValue: [startDateString, finishDateString],
     };
 
-    const textValue = dateUtils.formatRange(value, emptyText);
-
-    useWhenValueChanges(anchorEl, () => {
-      if (!anchorEl) {
-        onBlur?.();
-        setHoveredDate(undefined);
-      }
-    });
-
     return (
-      <>
-        <DateTextField
-          {...textFieldProps}
-          ref={ref}
-          inputRef={mergeRefs(inputRef, inputRefProp)}
-          value={textValue}
-          onOpen={onOpen}
-          onClear={
-            !enableClearable || !absoluteStartDate || !absoluteFinishDate
-              ? undefined
-              : () => onChange?.(undefined)
-          }
-        />
-
-        <Popover
-          {...popoverProps}
-          open={!!anchorEl}
-          onClose={onClose}
-          anchorEl={anchorEl}
-          anchorOrigin={anchorOrigin}
-          transformOrigin={transformOrigin}
-        >
-          <Calendar
-            numberOfMonths={2}
-            {...calendarProps}
-            classes={styles}
-            initialMonth={startDate}
-            selectedDays={isSelectedDate}
-            modifiers={{
-              ...modifiers,
-              [rangeStart]: isStartDate,
-              [rangeEnd]: isFinishDate,
-            }}
-            footer={renderFooter?.(api)}
-            quickSelection={renderQuickSelection?.(api)}
-            onDayMouseEnter={(date, dateModifiers) => {
-              onDayMouseEnter?.(date, dateModifiers);
-              setHoveredDate(!dateModifiers.disabled ? date : undefined);
-            }}
-            onDayClick={(date, dateModifiers) => {
-              onDayClick?.(date, dateModifiers);
-
-              if (!dateModifiers.disabled) {
-                if (startDate && !finishDateProp) {
-                  handleChange([startDate, date]);
-                } else {
-                  handleChange([date]);
-                }
+      <BaseDatePicker
+        {...textFieldProps}
+        ref={ref}
+        api={apiRef}
+        value={displayValue || fallback}
+        enableClearable={enableClearable && !!startDate && !!finishDate}
+        onClear={() => {
+          handleChange([undefined, undefined]);
+        }}
+        onClose={() => {
+          onBlur?.();
+          setHoveredDate(undefined);
+        }}
+      >
+        <Calendar
+          numberOfMonths={2}
+          {...calendarProps}
+          classes={styles}
+          initialMonth={startDateString}
+          modifiers={{
+            ...modifiers,
+            [rangeStart]: ({ dateValue }) =>
+              !!calendarStartDate?.hasSame(dateValue, 'day'),
+            [rangeFinish]: ({ dateValue }) =>
+              !!calendarFinishDate?.hasSame(dateValue, 'day'),
+          }}
+          selectedDays={({ dateValue }) => {
+            if (calendarStartDate) {
+              if (!calendarFinishDate) {
+                return calendarStartDate.hasSame(dateValue, 'day');
               }
-            }}
-          />
-        </Popover>
-      </>
+
+              return (
+                calendarStartDate <= dateValue &&
+                dateValue <= calendarFinishDate
+              );
+            }
+
+            return false;
+          }}
+          footer={renderFooter?.(api)}
+          quickSelection={renderQuickSelection?.(api)}
+          onDayMouseEnter={(event) => {
+            onDayMouseEnter?.(event);
+            setHoveredDate(
+              !event.disabled ? event.dateValue.valueOf() : undefined,
+            );
+          }}
+          onDayClick={(event) => {
+            onDayClick?.(event);
+
+            if (!event.disabled) {
+              if (startDate && !finishDate) {
+                handleChange([startDateString, event.stringValue]);
+              } else {
+                handleChange([event.stringValue, undefined]);
+              }
+            }
+          }}
+        />
+      </BaseDatePicker>
     );
   },
 );

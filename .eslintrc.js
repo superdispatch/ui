@@ -24,6 +24,7 @@ module.exports = {
       },
 
       rules: {
+        'no-undef-init': 'off',
         'no-restricted-imports': [
           'error',
           {
@@ -71,6 +72,7 @@ module.exports = {
 
     {
       files: [
+        '**/*.spec.{ts,tsx}',
         '**/jestutils/**/*.{ts,tsx}',
         '**/testutils/**/*.{ts,tsx}',
         '**/__tests__/**/*.{ts,tsx}',
