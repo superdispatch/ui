@@ -23,7 +23,6 @@
     "playroom:generate": "node scripts/generate-playroom-components.js",
     "preplayroom:start": "yarn playroom:generate",
     "playroom:start": "playroom start",
-    "prerelease": "yarn install --frozen-lockfile && yarn tsc && yarn lint && yarn test && yarn build",
     "release": "yarn lerna publish",
     "prestart": "yarn",
     "start": "run-p storybook:start playroom:start",
@@ -32,7 +31,9 @@
     "tdd": "jest --watch",
     "test": "jest --coverage",
     "test-branch": "yarn test --changedSince origin/master",
-    "test-changed": "yarn test --onlyChanged"
+    "test-changed": "yarn test --onlyChanged",
+    "preversion": "yarn install --frozen-lockfile && yarn tsc && yarn lint && yarn test",
+    "version": "yarn build"
   },
   "husky": {
     "hooks": {
