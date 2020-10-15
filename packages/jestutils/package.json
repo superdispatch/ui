@@ -9,7 +9,7 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "build": "pika build"
+    "version": "pika build"
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",

@@ -11,7 +11,7 @@
   "browser": "pkg/dist-web/index.js",
   "types": "src/index.ts",
   "scripts": {
-    "build": "pika build"
+    "version": "pika build"
   },
   "dependencies": {
     "@superdispatch/dates": "^0.5.0",
@@ -54,6 +54,5 @@
         "@pika/plugin-bundle-types"
       ]
     ]
-  },
-  "gitHead": "087381873d6f211566c75173e5e4d569a96e3f80"
+  }
 }
