@@ -59,7 +59,6 @@ export interface DateFieldProps
     | 'classes'
     | 'footer'
     | 'initialMonth'
-    | 'initialTime'
     | 'numberOfMonths'
     | 'quickSelection'
     | 'selectedDays'
