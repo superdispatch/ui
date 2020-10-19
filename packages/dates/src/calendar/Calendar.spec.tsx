@@ -29,7 +29,7 @@ type MockCalendarDayEventHandler = jest.Mock<void, [CalendarDateEvent]>;
 
 beforeEach(() => {
   mockDate();
-  setDefaultTimeZone(undefined);
+  setDefaultTimeZone('local');
 });
 
 test('month', () => {

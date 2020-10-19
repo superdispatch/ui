@@ -24,7 +24,7 @@ const STUB_UTC = Date.UTC(2019, 4, 24, 1, 2, 3, 4);
 
 beforeEach(() => {
   mockDate();
-  setDefaultTimeZone(undefined);
+  setDefaultTimeZone('local');
 });
 
 test.each<[NullableDateInput, PrimitiveDateInput]>([
