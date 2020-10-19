@@ -55,7 +55,7 @@ function stubDate(values?: Partial<DateObject>): Date {
 }
 
 beforeEach(() => {
-  setDefaultTimeZone(undefined);
+  setDefaultTimeZone('local');
 });
 
 test.each`
