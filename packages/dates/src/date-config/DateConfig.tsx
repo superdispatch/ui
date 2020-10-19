@@ -1,31 +1,22 @@
 import { FixedOffsetZone, Settings } from 'luxon';
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 
-export function setDefaultTimeZone(offset: number | undefined): string {
-  if (offset == null) {
-    Settings.defaultZoneName = 'local';
+export function setDefaultTimeZone(offset: number | 'local'): string {
+  if (offset === 'local') {
+    Settings.defaultZoneName = offset;
   } else {
-    Settings.defaultZoneName = FixedOffsetZone.instance(offset).name;
+    const zone = FixedOffsetZone.instance(offset);
+
+    if (zone.isValid) {
+      Settings.defaultZoneName = zone.name;
+    }
   }
 
   return Settings.defaultZoneName;
 }
 
-export function useDefaultTimeZone(offset: number | undefined): string {
-  const [name, setName] = useState(() => Settings.defaultZoneName);
-
-  useEffect(() => {
-    setName(setDefaultTimeZone(offset));
-  }, [offset]);
-
-  return name;
+export function useDefaultTimeZone(offset: number | 'local'): string {
+  return useMemo(() => setDefaultTimeZone(offset), [offset]);
 }
 
 export type DateFormat = 'DateISO' | 'DateTimeISO' | 'JodaISO';
