@@ -14,7 +14,6 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
     "dequal": "^2.0.2"
   },
   "publishConfig": {
