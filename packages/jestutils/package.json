@@ -12,7 +12,7 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.8.0",
     "lodash": "^4.17.15",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.9.4",

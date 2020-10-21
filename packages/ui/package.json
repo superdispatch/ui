@@ -14,7 +14,7 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.8.0",
     "@juggle/resize-observer": "^3.2.0",
     "@superdispatch/hooks": "^0.5.2",
     "clsx": "^1.1.1",

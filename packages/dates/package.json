@@ -14,7 +14,7 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.8.0",
     "@superdispatch/ui": "^0.5.2",
     "luxon": "^1.24.1",
     "react-day-picker": "7.4.0"
