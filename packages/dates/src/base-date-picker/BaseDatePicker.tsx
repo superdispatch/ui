@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import { mdiCalendarMonth } from '@mdi/js';
+import { useValueObserver } from '@superdispatch/hooks';
 import { mergeRefs, useUID } from '@superdispatch/ui';
 import React, {
   forwardRef,
@@ -17,7 +18,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useWhenValueChanges } from 'utility-hooks';
 
 export interface InternalBaseDateFieldAPI {
   close: () => void;
@@ -76,7 +76,7 @@ export const BaseDatePicker = forwardRef<HTMLDivElement, BaseDatePickerProps>(
     useImperativeHandle(api, () => ({ close: handleClose }));
 
     // We want to trigger close event only when UI will be ready after updates.
-    useWhenValueChanges(popoverAnchor, () => {
+    useValueObserver(popoverAnchor, () => {
       if (!popoverAnchor) {
         onClose?.();
       }

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "exclude": ["pkg", "**/__tests__/**", "**/__testutils__/**"],
+  "references": [{ "path": "../__testutils__" }],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg/dist-types",
+    "tsBuildInfoFile": "pkg/dist-types/.tsbuildinfo"
+  }
+}

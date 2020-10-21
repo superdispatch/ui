@@ -1,5 +1,5 @@
-import { ReactNode, useState } from 'react';
-import { useIsomorphicLayoutEffect, useWhenValueChanges } from 'utility-hooks';
+import { useValueObserver } from '@superdispatch/hooks';
+import { ReactNode, useLayoutEffect, useState } from 'react';
 
 import { renderChildren } from './renderChildren';
 
@@ -26,7 +26,7 @@ export function useVisibilityObserver<T extends Element>(
   const [state, setState] = useState<ElementVisibility>('undetermined');
   const rootMargin = `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!node || !('IntersectionObserver' in window)) {
       return setState('undetermined');
     }
@@ -67,7 +67,9 @@ export function VisibilityObserver({
   const visibility = useVisibilityObserver(node, options);
   const children = render({ ref: setNode, visibility });
 
-  useWhenValueChanges(visibility, () => onChange?.(visibility));
+  useValueObserver(visibility, () => {
+    onChange?.(visibility);
+  });
 
   return renderChildren(children);
 }
