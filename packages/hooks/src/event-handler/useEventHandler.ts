@@ -9,12 +9,15 @@ export function useEventHandler<T>(
   const callbackRef = useRef(handler);
 
   const { current: wrapper } = useRef<EventHandler<T>>((event) => {
-    if (!mountRef.current && process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.error(
-        '[useEventHandler]: "handler" was called during the render. ' +
-          'This can lead to stale closure problems.',
-      );
+    /* istanbul ignore next */
+    if (process.env.NODE_ENV !== 'production') {
+      if (!mountRef.current) {
+        // eslint-disable-next-line no-console
+        console.error(
+          '[useEventHandler]: "handler" was called during the render. ' +
+            'This can lead to stale closure problems.',
+        );
+      }
     }
 
     callbackRef.current?.(event);

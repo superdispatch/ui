@@ -5,6 +5,7 @@ import { useDeepEqualValue } from '../deep-equal-value/useDeepEqualValue';
 export function useDeepEqualDeps(deps: DependencyList): DependencyList {
   const { current: initialDeps } = useRef(deps);
 
+  /* istanbul ignore next */
   if (process.env.NODE_ENV !== 'production') {
     if (initialDeps.length !== deps.length) {
       // eslint-disable-next-line no-console
