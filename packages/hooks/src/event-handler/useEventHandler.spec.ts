@@ -70,4 +70,6 @@ test('warning', () => {
   expect(consoleError).toHaveBeenLastCalledWith(
     '[useEventHandler]: "handler" was called during the render. This can lead to stale closure problems.',
   );
+
+  consoleError.mockReset();
 });

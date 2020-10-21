@@ -42,4 +42,6 @@ test('warning', () => {
   expect(consoleError).toHaveBeenLastCalledWith(
     '[useDeepEqualDeps] size of the "deps" argument has changed between renders. The order and size of this array must remain constant.',
   );
+
+  consoleError.mockReset();
 });
