@@ -157,6 +157,9 @@
   "resetMocks": true,
   "size-limit": [
     {
+      "path": "packages/hooks/pkg/dist-web/index.js"
+    },
+    {
       "ignore": [
         "react",
         "react-is",
