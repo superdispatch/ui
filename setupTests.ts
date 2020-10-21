@@ -3,9 +3,7 @@ import '@testing-library/jest-dom';
 import { spyLogs } from '@superdispatch/jestutils';
 import { resetMockDate } from '@superdispatch/ui-testutils';
 
-if (process.env.CI) {
-  spyLogs({ warn: 'forbid', error: 'forbid' });
-}
+spyLogs({ warn: 'forbid', error: 'forbid' });
 
 afterEach(resetMockDate);
 
