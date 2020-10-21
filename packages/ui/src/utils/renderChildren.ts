@@ -1,8 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
 
-/**
- * Workaround for
- * */
 export function renderChildren(node: ReactNode): null | ReactElement {
   if (node == null) {
     return null;
