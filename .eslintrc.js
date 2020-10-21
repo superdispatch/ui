@@ -29,6 +29,11 @@ module.exports = {
           {
             paths: [
               {
+                name: 'dequal',
+                message: 'Use "dequal/lite" instead.',
+              },
+
+              {
                 name: '@material-ui/core',
                 importNames: ['makeStyles'],
                 message: 'Import from "@material-ui/styles" instead.',
@@ -59,7 +64,7 @@ module.exports = {
           {
             allow: [
               '**/packages/*/src/**',
-              '**/packages/webpage/internal/**',
+              'dequal/lite',
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
               '@material-ui/core/styles/createBreakpoints',

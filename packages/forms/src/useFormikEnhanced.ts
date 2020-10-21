@@ -1,3 +1,4 @@
+import { useIsMounted, useValueObserver } from '@superdispatch/hooks';
 import {
   FormikConfig,
   FormikContextType,
@@ -5,10 +6,8 @@ import {
   FormikValues,
   useFormik,
 } from 'formik';
-import { useWhenValueChanges } from 'utility-hooks';
 
 import { useFormsContext } from './FormsProvider';
-import { useIsMounted } from './internal/useIsMounted';
 
 export interface FormikEnhancedConfig<TValues extends FormikValues, TResponse>
   extends Omit<FormikConfig<TValues>, 'onSubmit'> {
@@ -59,8 +58,9 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
   TValues,
   TResponse
 > {
-  const isMounted = useIsMounted();
   const ctx = useFormsContext();
+  const isMounted = useIsMounted();
+
   const getFormErrors = getFormErrorsOption || ctx.getFormErrors;
 
   const formik = useFormik<TValues>({
@@ -80,7 +80,7 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
           }),
         )
         .then((status) => {
-          if (isMounted.current) {
+          if (isMounted()) {
             setStatus(status);
 
             if (status.type === 'rejected' && getFormErrors) {
@@ -90,13 +90,13 @@ export function useFormikEnhanced<TValues extends FormikValues, TResponse>({
         }),
   }) as FormikContextTypeEnhanced<TValues, TResponse>;
 
-  useWhenValueChanges(key, () => {
+  useValueObserver(key, () => {
     if (formik.dirty) {
       formik.resetForm();
     }
   });
 
-  useWhenValueChanges(formik.status, () => {
+  useValueObserver(formik.status, () => {
     if (formik.status.type === 'submitted') {
       onSubmitSuccess?.(formik.status.payload, formik.values);
     }

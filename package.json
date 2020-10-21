@@ -61,10 +61,11 @@
     "resetMocks": true,
     "roots": [
       "<rootDir>/packages/dates/",
+      "<rootDir>/packages/forms/",
+      "<rootDir>/packages/hooks/",
       "<rootDir>/packages/phones/",
-      "<rootDir>/packages/ui/",
       "<rootDir>/packages/testutils/",
-      "<rootDir>/packages/forms/"
+      "<rootDir>/packages/ui/"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/setupTests.ts"

@@ -2,9 +2,10 @@
   "extends": "../../tsconfig.build.json",
   "exclude": ["**/pkg/**/*", "**/__tests__/**/*", "**/__testutils__/**/*"],
   "references": [
-    { "path": "../ui" },
+    { "path": "../dates" },
     { "path": "../phones" },
-    { "path": "../dates" }
+    { "path": "../hooks" },
+    { "path": "../ui" }
   ],
   "compilerOptions": {
     "outDir": "pkg/dist-types",
