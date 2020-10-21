@@ -9,42 +9,43 @@ import {
 } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
+import { useEventHandler } from '@superdispatch/hooks';
 import React, {
   forwardRef,
   ForwardRefExoticComponent,
   Key,
   ReactNode,
   RefAttributes,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import { useEventCallback, useIsomorphicLayoutEffect } from 'utility-hooks';
 
 import { Button } from '../button/Button';
 
 function useResizeObserver<T extends HTMLElement>(
   node: null | undefined | T,
-  callback: (node: T) => void,
+  observer: (node: T) => void,
 ): void {
-  const cb = useEventCallback(callback);
+  const handler = useEventHandler(observer);
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!node) {
       return;
     }
 
     const resizeObserver = new ResizeObserver(() => {
-      cb(node);
+      handler(node);
     });
 
     resizeObserver.observe(node);
 
-    cb(node);
+    handler(node);
 
     return () => {
       resizeObserver.disconnect();
     };
-  }, [cb, node]);
+  }, [node, handler]);
 }
 
 const useStyles = makeStyles(
@@ -77,8 +78,8 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
 
     const [rootNode, setRootNode] = useState<null | HTMLDivElement>(null);
 
-    useResizeObserver(rootNode, () => {
-      const rootRect = (rootNode as HTMLElement).getBoundingClientRect();
+    useResizeObserver(rootNode, (node) => {
+      const rootRect = node.getBoundingClientRect();
       const rootWidth = rootRect.left + rootRect.width;
 
       const optionsButtonRect = optionsButtonRef.current?.getBoundingClientRect();

@@ -1,5 +1,5 @@
 {
-  "name": "@superdispatch/phones",
+  "name": "@superdispatch/hooks",
   "version": "0.5.2",
   "repository": {
     "type": "git",
@@ -15,14 +15,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",
-    "@superdispatch/ui": "^0.5.2",
-    "awesome-phonenumber": "^2.40.0",
-    "clsx": "^1.1.1"
-  },
-  "peerDependencies": {
-    "@material-ui/core": "^4.7.2",
-    "@material-ui/icons": "^4.5.1",
-    "react": "^16.8.0"
+    "dequal": "^2.0.2"
   },
   "publishConfig": {
     "access": "public",
@@ -34,8 +27,6 @@
         "@pika/plugin-standard-pkg",
         {
           "exclude": [
-            "**/*.stories.*",
-            "**/*.playroom.*",
             "**/__tests__/**",
             "**/__testutils__/**"
           ]
