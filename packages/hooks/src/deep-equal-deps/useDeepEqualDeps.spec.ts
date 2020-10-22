@@ -28,17 +28,14 @@ test('warning', () => {
   const consoleError = jest.spyOn(console, 'error').mockImplementation();
 
   const { rerender } = renderHook(({ deps }) => useDeepEqualDeps(deps), {
-    initialProps: { deps: [] as number[] },
+    initialProps: { deps: [1, 2, 3] },
   });
 
+  expect(consoleError).toHaveBeenCalledTimes(0);
+
+  rerender({ deps: [1, 2, 3, 4] });
+
   expect(consoleError).toHaveBeenCalledTimes(1);
-  expect(consoleError).toHaveBeenLastCalledWith(
-    '[useDeepEqualDeps] "deps" argument should not be empty.',
-  );
-
-  rerender({ deps: [1] });
-
-  expect(consoleError).toHaveBeenCalledTimes(2);
   expect(consoleError).toHaveBeenLastCalledWith(
     '[useDeepEqualDeps] size of the "deps" argument has changed between renders. The order and size of this array must remain constant.',
   );
