@@ -13,9 +13,6 @@ export function useDeepEqualDeps(deps: DependencyList): DependencyList {
         '[useDeepEqualDeps] size of the "deps" argument has changed between renders. ' +
           'The order and size of this array must remain constant.',
       );
-    } else if (initialDeps.length === 0) {
-      // eslint-disable-next-line no-console
-      console.error('[useDeepEqualDeps] "deps" argument should not be empty.');
     }
   }
 
