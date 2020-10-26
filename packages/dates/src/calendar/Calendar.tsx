@@ -19,10 +19,9 @@ import {
 import {
   DatePayload,
   NullableDateInput,
-  parseDate,
   stringifyDate,
-  toPrimitiveDateInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useDateTime } from '../use-date-time/useDateTime';
 import {
   CalendarCaption,
   CalendarNavbar,
@@ -426,11 +425,12 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     const styles = useStyles({ classes });
     const config = useDateConfig({ format: formatProp });
 
-    const initialTimeInput = toPrimitiveDateInput(initialTimeInputProp);
-    const initialMonthInput = toPrimitiveDateInput(initialMonthInputProp);
+    const initialTimeInput = useDateTime(initialTimeInputProp, config);
+    const initialMonthInput = useDateTime(initialMonthInputProp, config);
+
     const [initialTime, initialMonth] = useMemo(() => {
-      let time = parseDate(initialTimeInput, config);
-      let month = parseDate(initialMonthInput, config);
+      let time = initialTimeInput;
+      let month = initialMonthInput;
 
       if (!month.isValid) {
         month = DateTime.local().startOf('month');
@@ -452,7 +452,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
           month.millisecond,
         ),
       ];
-    }, [config, initialTimeInput, initialMonthInput]);
+    }, [initialTimeInput, initialMonthInput]);
 
     const wrapModifier = toDayPickerModifier.bind(null, config);
     const wrapHandler = toDayPickerHandler.bind(

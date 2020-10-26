@@ -18,9 +18,10 @@ import {
   formatDateRange,
   NullableDateRangeInput,
   parseDateRange,
+  stringifyDateRange,
   toDateRangePayload,
-  toPrimitiveDateRangeInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useDateTimeRange } from '../use-date-time-range/useDateTimeRange';
 
 const useStyles = makeStyles<
   SuperDispatchTheme,
@@ -142,22 +143,15 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
     },
     ref,
   ) => {
+    const apiRef = useRef<InternalBaseDateFieldAPI>(null);
     const { rangeStart, rangeFinish, ...styles } = useStyles({});
 
     const config = useDateConfig({ format: formatProp });
-    const apiRef = useRef<InternalBaseDateFieldAPI>(null);
-    const [inputStartDate, inputFinishDate] = toPrimitiveDateRangeInput(
-      valueProp,
+    const [startDate, finishDate] = useDateTimeRange(valueProp, config);
+    const [startDateString, finishDateString] = useMemo(
+      () => stringifyDateRange([startDate, finishDate], config),
+      [config, startDate, finishDate],
     );
-
-    const {
-      dateValue: [startDate, finishDate],
-      stringValue: [startDateString, finishDateString],
-    } = useMemo(
-      () => toDateRangePayload([inputStartDate, inputFinishDate], config),
-      [config, inputStartDate, inputFinishDate],
-    );
-
     const displayValue = useMemo(
       () => formatDateRange([startDate, finishDate], { fallback }, config),
       [config, fallback, startDate, finishDate],

@@ -16,10 +16,9 @@ import {
   DatePayload,
   formatDate,
   NullableDateInput,
-  parseDate,
   toDatePayload,
-  toPrimitiveDateInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useDateTime } from '../use-date-time/useDateTime';
 
 const TIME_MATCH_FORMATS = [
   'h:mm a',
@@ -129,12 +128,8 @@ export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
     },
     ref,
   ) => {
-    const primitiveInput = toPrimitiveDateInput(valueProp);
     const config = useDateConfig({ format: formatProp });
-    const date = useMemo(() => parseDate(primitiveInput, config), [
-      config,
-      primitiveInput,
-    ]);
+    const date = useDateTime(valueProp, config);
     const selectedOption = useMemo(
       () => (!date.isValid ? undefined : toTimeFieldOption(date, config)),
       [date, config],

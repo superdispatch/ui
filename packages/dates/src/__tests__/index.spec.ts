@@ -61,6 +61,8 @@ it('exposes public api', () => {
       "toPrimitiveDateInput": [Function],
       "toPrimitiveDateRangeInput": [Function],
       "useDateConfig": [Function],
+      "useDateTime": [Function],
+      "useDateTimeRange": [Function],
       "useDateUtils": [Function],
       "useDefaultTimeZone": [Function],
       "useFormattedDate": [Function],

@@ -9,9 +9,12 @@ import {
   DateConfigProvider,
   DateFormat,
   defaultDateConfig,
+} from '../date-config/DateConfig';
+import {
+  DatePayload,
+  DateString,
   NullableDateString,
-} from '..';
-import { DatePayload, DateString } from '../date-time-utils/DateTimeUtils';
+} from '../date-time-utils/DateTimeUtils';
 import { DateField, DateFieldProps } from './DateField';
 
 beforeEach(() => {
@@ -79,17 +82,8 @@ test.each<
   [
     'JodaISO',
     undefined,
-    '2019-05-20',
-    '',
-    'JodaISO',
-    '2019-05-24T00:00:00.000-0500',
-  ],
-
-  [
-    'JodaISO',
-    undefined,
-    '2019-05-24T00:00:00.000-05:00',
-    '',
+    '2019-05-20T00:00:00.000-0500',
+    'May 20, 2019',
     'JodaISO',
     '2019-05-24T00:00:00.000-0500',
   ],
