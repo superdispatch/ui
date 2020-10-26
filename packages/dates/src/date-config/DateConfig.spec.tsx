@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import React, { ComponentType } from 'react';
 
-import { DateConfigProvider, useDateConfig } from '..';
+import { DateConfigProvider, useDateConfig } from './DateConfig';
 
 test('basic', () => {
   const { result } = renderHook(useDateConfig);

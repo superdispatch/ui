@@ -8,3 +8,5 @@ export * from './date-utils/DateUtils';
 export * from './formatted-date/FormattedDate';
 export * from './formatted-relative-time/FormattedRelativeTime';
 export * from './time-field/TimeField';
+export * from './use-date-time-range/useDateTimeRange';
+export * from './use-date-time/useDateTime';

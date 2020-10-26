@@ -10,11 +10,12 @@ import { DateFormat, useDateConfig } from '../date-config/DateConfig';
 import {
   DateDisplayVariant,
   DatePayload,
-  formatDate,
   NullableDateInput,
+  stringifyDate,
   toDatePayload,
-  toPrimitiveDateInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useFormattedDate } from '../formatted-date/FormattedDate';
+import { useDateTime } from '../use-date-time/useDateTime';
 
 export interface DateFieldAPI extends DatePayload {
   close: () => void;
@@ -88,18 +89,19 @@ export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
     },
     ref,
   ) => {
-    const input = toPrimitiveDateInput(valueProp);
     const config = useDateConfig({ format: formatProp });
     const apiRef = useRef<InternalBaseDateFieldAPI>(null);
 
-    const { dateValue: date, stringValue: dateString } = useMemo(
-      () => toDatePayload(input, config),
-      [input, config],
-    );
-    const displayValue = useMemo(
-      () => formatDate(date, { variant, fallback }, config),
-      [date, config, variant, fallback],
-    );
+    const date = useDateTime(valueProp, config);
+    const displayValue = useFormattedDate(date, {
+      variant,
+      fallback,
+      ...config,
+    });
+    const dateString = useMemo(() => stringifyDate(date, config), [
+      date,
+      config,
+    ]);
 
     const handleClose = () => {
       apiRef.current?.close();
