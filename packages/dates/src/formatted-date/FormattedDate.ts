@@ -6,8 +6,8 @@ import {
   formatDate,
   FormatDateConfig,
   NullableDateInput,
-  toPrimitiveDateInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useDateTime } from '../use-date-time/useDateTime';
 
 export interface FormattedDateConfig
   extends Partial<DateConfig>,
@@ -18,12 +18,14 @@ export function useFormattedDate(
   { variant, fallback, ...dateConfig }: FormattedDateConfig,
 ): string {
   const config = useDateConfig(dateConfig);
-  const primitiveInput = toPrimitiveDateInput(input);
+  const date = useDateTime(input, config);
 
-  return useMemo(
-    () => formatDate(primitiveInput, { variant, fallback }, config),
-    [config, variant, fallback, primitiveInput],
-  );
+  return useMemo(() => formatDate(date, { variant, fallback }, config), [
+    date,
+    config,
+    variant,
+    fallback,
+  ]);
 }
 
 export interface FormattedDateProps

@@ -6,8 +6,8 @@ import {
   formatRelativeTime,
   FormatRelativeTimeOptions,
   NullableDateInput,
-  toPrimitiveDateInput,
 } from '../date-time-utils/DateTimeUtils';
+import { useDateTime } from '../use-date-time/useDateTime';
 
 export interface FormattedRelativeTimeOptions
   extends Partial<DateConfig>,
@@ -27,27 +27,18 @@ export function useFormattedRelativeTime(
   }: FormattedRelativeTimeOptions = {},
 ): string {
   const config = useDateConfig(dateConfig);
-  const primitiveInput = toPrimitiveDateInput(input);
-  const primitiveBase =
-    baseOption == null ? undefined : toPrimitiveDateInput(baseOption);
+  const date = useDateTime(input, config);
+  const baseOptionDate = useDateTime(baseOption, config);
+  const base = baseOption == null ? undefined : baseOptionDate;
 
   return useMemo(
     () =>
       formatRelativeTime(
-        primitiveInput,
-        { unit, style, round, padding, fallback, base: primitiveBase },
+        date,
+        { base, unit, style, round, padding, fallback },
         config,
       ),
-    [
-      unit,
-      style,
-      round,
-      config,
-      padding,
-      fallback,
-      primitiveBase,
-      primitiveInput,
-    ],
+    [base, date, unit, style, round, config, padding, fallback],
   );
 }
 
