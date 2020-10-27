@@ -1,5 +1,5 @@
 import { useValueObserver } from '@superdispatch/hooks';
-import { ReactNode, useLayoutEffect, useState } from 'react';
+import { ReactElement, ReactNode, useLayoutEffect, useState } from 'react';
 
 import { renderChildren } from './renderChildren';
 
@@ -62,7 +62,7 @@ export function VisibilityObserver({
   render,
   onChange,
   ...options
-}: VisibilityObserverProps) {
+}: VisibilityObserverProps): null | ReactElement {
   const [node, setNode] = useState<null | HTMLElement>(null);
   const visibility = useVisibilityObserver(node, options);
   const children = render({ ref: setNode, visibility });
