@@ -77,5 +77,5 @@ jobs:
       - uses: superdispatch/actions/deploy-preview@v1
         with:
           dir: docs
-          netlify-token: ${{ secrets.NETLIFY_SITE_ID }}
+          netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
