@@ -100,7 +100,6 @@
     "@storybook/source-loader": "^6.0.27",
     "@superdispatch/babel-preset": "^0.2.1",
     "@superdispatch/eslint-plugin": "^0.2.8",
-    "@superdispatch/gh-scripts": "^0.2.6",
     "@superdispatch/js-tools": "^0.2.5",
     "@superdispatch/prettier-config": "^0.2.1",
     "@superdispatch/tsconfig": "^0.2.4",
