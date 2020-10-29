@@ -74,8 +74,8 @@ jobs:
 
       - run: yarn storybook:build
       - run: yarn playroom:build
-      - run: yarn gh-scripts deploy-preview --dir docs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      - uses: superdispatch/actions/deploy-preview@v1
+        with:
+          dir: docs
+          netlify-token: ${{ secrets.NETLIFY_SITE_ID }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
