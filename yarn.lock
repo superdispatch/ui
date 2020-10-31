@@ -60,7 +60,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.11.6", "@babel/core@^7.2.2", "@babel/core@^7.7.5", "@babel/core@^7.8.3", "@babel/core@^7.9.0":
+"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.11.6", "@babel/core@^7.2.2", "@babel/core@^7.7.5", "@babel/core@^7.7.7", "@babel/core@^7.8.3", "@babel/core@^7.9.0":
   version "7.12.3"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.12.3.tgz#1b436884e1e3bff6fb1328dc02b208759de92ad8"
   integrity sha512-0qXcZYKZp3/6N2jKYVxZv0aNCsxTSVCiK72DTiTYZAu7sjg73W0/aynWjMbiGd87EQL4WyA8reiJVh92AVla9g==
@@ -1095,7 +1095,7 @@
     globals "^11.1.0"
     lodash "^4.17.19"
 
-"@babel/types@^7.0.0", "@babel/types@^7.10.4", "@babel/types@^7.10.5", "@babel/types@^7.11.0", "@babel/types@^7.11.5", "@babel/types@^7.12.1", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4", "@babel/types@^7.6.1", "@babel/types@^7.9.0", "@babel/types@^7.9.5":
+"@babel/types@^7.0.0", "@babel/types@^7.10.4", "@babel/types@^7.10.5", "@babel/types@^7.11.0", "@babel/types@^7.11.5", "@babel/types@^7.12.1", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4", "@babel/types@^7.6.1", "@babel/types@^7.7.4", "@babel/types@^7.9.0", "@babel/types@^7.9.5":
   version "7.12.1"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.12.1.tgz#e109d9ab99a8de735be287ee3d6a9947a190c4ae"
   integrity sha512-BzSY3NJBKM4kyatSOWh3D/JJ2O3CVzBybHWxtgxnggaxEuaSTTDqeiSb/xk9lrkw2Tbqyivw5ZU4rT+EfznQsA==
@@ -5014,6 +5014,14 @@ babel-plugin-named-asset-import@^0.3.1:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/babel-plugin-named-asset-import/-/babel-plugin-named-asset-import-0.3.6.tgz#c9750a1b38d85112c9e166bf3ef7c5dbc605f4be"
   integrity sha512-1aGDUfL1qOOIoqk9QKGIo2lANk+C7ko/fqH0uIyC71x3PEGz0uVP8ISgfEsFuG+FKmjHTvFK/nNM8dowpmUxLA==
+
+babel-plugin-object-to-json-parse@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-object-to-json-parse/-/babel-plugin-object-to-json-parse-0.2.1.tgz#c03aaa2808e83d05dd2488cf957660d2c261ad51"
+  integrity sha512-dxDar/rzwC18D7MWUdiTIZ6HQ0v5anvqa0FxLw+X+QxsKvgUBNPm3Hq1R1gr5WZOU6P1PYPnRhm9cXDNqwjbUA==
+  dependencies:
+    "@babel/core" "^7.7.7"
+    "@babel/types" "^7.7.4"
 
 babel-plugin-optimize-clsx@^2.6.0:
   version "2.6.1"

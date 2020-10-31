@@ -53,8 +53,8 @@ test.each([
   ['+1 (506) 234-5678 ', 'CA', '(506) 234-5678'],
   ['+1 (506) 234-5678 9', 'US', '50623456789'],
   ['+1 (506) 234-5678 90', 'US', '506234567890'],
-])('parsePhoneNumber(%p): [%p, %p]', (input, region, nationalNumber) => {
-  expect(parsePhoneNumber(input)).toEqual([region, nationalNumber]);
+])('parsePhoneNumber(%p): [%p, %p]', (input, country, nationalNumber) => {
+  expect(parsePhoneNumber(input)).toEqual([country, nationalNumber]);
 });
 
 test.each<[string | PhoneNumberPair, undefined | PhoneNumberFormat, string]>([
@@ -77,7 +77,7 @@ test.each<[string | PhoneNumberPair, undefined | PhoneNumberFormat, string]>([
   [['US', '!+@1#1$'], undefined, '+11'],
   [['NZ', '!+@1#1$'], undefined, '+6411'],
 
-  // Normalizes the region
+  // Normalizes the country
   [['??' as any, ''], undefined, '+1'],
   [['CACA' as any, ''], undefined, '+1'],
 

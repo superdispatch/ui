@@ -9,9 +9,11 @@ import { makeStyles } from '@material-ui/styles';
 import { Color } from '@superdispatch/ui';
 import React, { forwardRef, useMemo } from 'react';
 
-import { PHONE_FIELD_COUNTRIES } from '../data/PhoneMetadata';
-import { PhoneRegionCode } from '../data/PhoneRegionCode';
-import { getPhoneCountryCode } from '../data/PhoneUtils';
+import {
+  CountryISO,
+  formatCountry,
+  getCountryCode,
+} from '../data/CountryCodeMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 const useStyles = makeStyles<Theme>(
@@ -35,20 +37,19 @@ const useStyles = makeStyles<Theme>(
 export interface PhoneFieldProps {
   onClick?: () => void;
   isExpanded?: boolean;
-  region: PhoneRegionCode;
+  country: CountryISO;
 }
 
 export const PhoneFieldStartAdornment = forwardRef<
   HTMLDivElement,
   PhoneFieldProps
->(({ region, onClick, isExpanded }, ref) => {
+>(({ country, onClick, isExpanded }, ref) => {
   const styles = useStyles();
   const [title, countryCode] = useMemo(() => {
-    const code = `+${getPhoneCountryCode(region)}`;
-    const country = PHONE_FIELD_COUNTRIES.get(region) as string;
+    const code = `+${getCountryCode(country)}`;
 
-    return [`${country}: ${code}`, code];
-  }, [region]);
+    return [`${formatCountry(country)}: ${code}`, code];
+  }, [country]);
 
   return (
     <InputAdornment ref={ref} position="start" className={styles.root}>
@@ -58,7 +59,7 @@ export const PhoneFieldStartAdornment = forwardRef<
         className={styles.button}
         aria-expanded={isExpanded}
       >
-        <PhoneFieldFlag code={region} />
+        <PhoneFieldFlag country={country} />
 
         {isExpanded ? (
           <ArrowDropUp htmlColor={Color.Grey200} />
