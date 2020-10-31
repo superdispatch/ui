@@ -27,6 +27,7 @@ module.exports = ({ docs = false } = {}) => ({
       { disableNodeEnvCheck: docs },
     ],
 
+    'babel-plugin-object-to-json-parse',
     ['babel-plugin-optimize-clsx', { libraries: ['clsx'] }],
   ].filter(Boolean),
 });

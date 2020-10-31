@@ -3,13 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 import { SuperDispatchTheme } from '@superdispatch/ui';
 import React, { forwardRef } from 'react';
 
-import { PHONE_FIELD_COUNTRIES } from '../data/PhoneMetadata';
-import { PhoneRegionCode } from '../data/PhoneRegionCode';
+import { CountryISO, listCountries } from '../data/CountryCodeMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
-
-const COUNTRIES: readonly PhoneRegionCode[] = Array.from(
-  PHONE_FIELD_COUNTRIES.keys(),
-);
 
 const useStyles = makeStyles<SuperDispatchTheme, 'paper'>(
   (theme) => ({
@@ -22,8 +17,8 @@ const useStyles = makeStyles<SuperDispatchTheme, 'paper'>(
 
 export interface PhoneFieldMenuProps extends Pick<MenuProps, 'anchorEl'> {
   onClose: () => void;
-  value: PhoneRegionCode;
-  onChange: (region: PhoneRegionCode) => void;
+  value: CountryISO;
+  onChange: (country: CountryISO) => void;
 }
 
 export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
@@ -38,10 +33,10 @@ export const PhoneFieldMenu = forwardRef<unknown, PhoneFieldMenuProps>(
         anchorEl={anchorEl}
         classes={{ paper: styles.paper }}
       >
-        {COUNTRIES.map((country) => [
+        {listCountries().map((country) => [
           <PhoneFieldMenuItem
             key={country}
-            regionCode={country}
+            country={country}
             selected={country === value}
             onClick={() => {
               onChange(country);

@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 
-import { PhoneRegionCode } from '../data/PhoneRegionCode';
+import { CountryISO } from '../data/CountryCodeMetadata';
 import {
   formatPhoneNumber,
   getExamplePhoneNumber,
@@ -25,13 +25,13 @@ function normalizeValue(value: unknown): string {
 interface State {
   value: string;
   nationalNumber: string;
-  region: PhoneRegionCode;
+  country: CountryISO;
 }
 
 function createState(value: string): State {
-  const [region, nationalNumber] = parsePhoneNumber(value);
+  const [country, nationalNumber] = parsePhoneNumber(value);
 
-  return { value, region, nationalNumber };
+  return { value, country, nationalNumber };
 }
 
 export interface PhoneFieldProps
@@ -60,18 +60,18 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
     const [menuAnchor, setMenuAnchor] = useState<null | HTMLDivElement>(null);
 
     const value = useMemo(() => normalizeValue(valueProp), [valueProp]);
-    const [{ region, nationalNumber }, setValue] = useState(() =>
+    const [{ country, nationalNumber }, setValue] = useState(() =>
       createState(value),
     );
 
     const placeholder = useMemo(
-      () => formatPhoneNumber(getExamplePhoneNumber(region), 'national'),
-      [region],
+      () => formatPhoneNumber(getExamplePhoneNumber(country), 'national'),
+      [country],
     );
 
     const handleChange = (
       fn: undefined | ((value: string) => void),
-      nextRegion: PhoneRegionCode,
+      nextRegion: CountryISO,
       nextNationalNumber: string,
     ) => {
       if (fn) {
@@ -79,7 +79,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
 
         setValue({
           value: nextValue,
-          region: nextRegion,
+          country: nextRegion,
           nationalNumber: nextNationalNumber,
         });
 
@@ -94,8 +94,8 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
       if (fn) {
         handleChange(
           fn,
-          region,
-          formatPhoneNumber([region, event.target.value], 'national'),
+          country,
+          formatPhoneNumber([country, event.target.value], 'national'),
         );
       }
     };
@@ -110,7 +110,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
     return (
       <>
         <PhoneFieldMenu
-          value={region}
+          value={country}
           anchorEl={menuAnchor}
           onClose={() => {
             setMenuAnchor(null);
@@ -141,7 +141,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
           InputProps={{
             startAdornment: (
               <PhoneFieldStartAdornment
-                region={region}
+                country={country}
                 isExpanded={!!menuAnchor}
                 onClick={() => {
                   // `FocusTrap` inside of `Menu` will restore focus to

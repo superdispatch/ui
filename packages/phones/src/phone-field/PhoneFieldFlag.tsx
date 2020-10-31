@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
-import { PhoneRegionCode } from '../data/PhoneRegionCode';
+import { CountryISO } from '../data/CountryCodeMetadata';
 
 const useStyles = makeStyles<Theme>(
   (theme) => ({
@@ -14,14 +14,19 @@ const useStyles = makeStyles<Theme>(
 
 export interface PhoneFieldFlagProps
   extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
-  code: PhoneRegionCode;
+  country: CountryISO;
 }
 
 export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
-  ({ code, alt = code, className, ...props }, ref) => {
+  ({ country, alt = country, className, ...props }, ref) => {
     const styles = useStyles();
 
-    if (code === 'AC' || code === 'BQ' || code === 'EH' || code === 'TA') {
+    if (
+      country === 'AC' ||
+      country === 'BQ' ||
+      country === 'EH' ||
+      country === 'TA'
+    ) {
       return (
         <Typography
           ref={ref}
@@ -31,7 +36,7 @@ export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
           color="textSecondary"
           className={clsx(styles.root, className)}
         >
-          {code}
+          {country}
         </Typography>
       );
     }
@@ -42,7 +47,7 @@ export const PhoneFieldFlag = forwardRef<HTMLElement, PhoneFieldFlagProps>(
         alt={alt}
         ref={ref as Ref<HTMLImageElement>}
         className={clsx(styles.root, className)}
-        src={`https://cdn.jsdelivr.net/gh/madebybowtie/FlagKit@2.2/Assets/SVG/${code}.svg`}
+        src={`https://cdn.jsdelivr.net/gh/madebybowtie/FlagKit@2.2/Assets/SVG/${country}.svg`}
       />
     );
   },

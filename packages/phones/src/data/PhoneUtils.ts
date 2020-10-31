@@ -1,31 +1,18 @@
 import AwesomePhonenumber from 'awesome-phonenumber';
 
-import { PhoneRegionCode } from './PhoneRegionCode';
+import {
+  CountryISO,
+  getCountryCode,
+  toCountryISO,
+} from './CountryCodeMetadata';
 
-const DEFAULT_REGION_CODE: PhoneRegionCode = 'US';
-
-export function getPhoneCountryCode(region: PhoneRegionCode): number {
-  return AwesomePhonenumber.getCountryCodeForRegionCode(region);
-}
-
-function normalizeRegion(value: string): PhoneRegionCode {
-  const countryCode = getPhoneCountryCode(value as PhoneRegionCode);
-
-  if (!countryCode) {
-    return DEFAULT_REGION_CODE;
-  }
-
-  return value as PhoneRegionCode;
-}
+const DEFAULT_REGION_CODE: CountryISO = 'US';
 
 function extractDigits(value: string): string {
   return value.replace(/\D+/g, '');
 }
 
-function createAPN(
-  phone: string,
-  regionCode?: PhoneRegionCode,
-): AwesomePhonenumber {
+function createAPN(phone: string, country?: CountryISO): AwesomePhonenumber {
   const isInternational = phone.includes('+');
 
   phone = extractDigits(phone);
@@ -34,7 +21,7 @@ function createAPN(
     phone = `+${phone}`;
   }
 
-  if (regionCode == null) {
+  if (country == null) {
     const apn = isInternational
       ? new AwesomePhonenumber(phone)
       : new AwesomePhonenumber(phone, DEFAULT_REGION_CODE);
@@ -42,21 +29,19 @@ function createAPN(
     if (apn.getNumber('national')) {
       return apn;
     }
-
-    regionCode = DEFAULT_REGION_CODE;
   }
 
-  const ayt = AwesomePhonenumber.getAsYouType(normalizeRegion(regionCode));
+  const ayt = AwesomePhonenumber.getAsYouType(toCountryISO(country));
 
   ayt.reset(phone);
 
   return ayt.getPhoneNumber();
 }
 
-export type PhoneNumberPair = [region: PhoneRegionCode, natinalNumber: string];
+export type PhoneNumberPair = [country: CountryISO, natinalNumber: string];
 
 function parseNationalNumberSimple(
-  region: PhoneRegionCode,
+  country: CountryISO,
   nationalNumber: string,
 ) {
   const isInternational = nationalNumber.includes('+');
@@ -64,7 +49,7 @@ function parseNationalNumberSimple(
   nationalNumber = extractDigits(nationalNumber);
 
   if (isInternational) {
-    const countryCode = String(getPhoneCountryCode(region));
+    const countryCode = String(getCountryCode(country));
 
     if (nationalNumber.startsWith(countryCode)) {
       nationalNumber = nationalNumber.slice(countryCode.length);
@@ -76,29 +61,27 @@ function parseNationalNumberSimple(
 
 export function parsePhoneNumber(value: string): PhoneNumberPair {
   const apn = createAPN(value);
-  const region = apn.getRegionCode() as PhoneRegionCode;
+  const country = apn.getRegionCode() as CountryISO;
   let nationalNumber = apn.getNumber('national');
 
   if (!nationalNumber) {
-    nationalNumber = parseNationalNumberSimple(region, value);
+    nationalNumber = parseNationalNumberSimple(country, value);
   }
 
-  return [region, nationalNumber];
+  return [country, nationalNumber];
 }
 
-export function getExamplePhoneNumber(region: PhoneRegionCode): string {
-  region = normalizeRegion(region);
-
-  return AwesomePhonenumber.getExample(region).getNumber('e164');
+export function getExamplePhoneNumber(country: CountryISO): string {
+  return AwesomePhonenumber.getExample(toCountryISO(country)).getNumber('e164');
 }
 
 function formatPhoneNumberSimple(
   nationalNumber: string,
-  region: PhoneRegionCode = DEFAULT_REGION_CODE,
+  country: undefined | CountryISO,
   format: PhoneNumberFormat,
 ): string {
-  region = normalizeRegion(region);
-  nationalNumber = parseNationalNumberSimple(region, nationalNumber);
+  country = toCountryISO(country);
+  nationalNumber = parseNationalNumberSimple(country, nationalNumber);
 
   if (format === 'national') {
     return nationalNumber;
@@ -116,7 +99,7 @@ function formatPhoneNumberSimple(
     separator = ' ';
   }
 
-  let formatted = prefix + String(getPhoneCountryCode(region));
+  let formatted = prefix + String(getCountryCode(country));
 
   if (nationalNumber) {
     formatted += separator + nationalNumber;
@@ -135,16 +118,16 @@ export function formatPhoneNumber(
   input: string | PhoneNumberPair,
   format: PhoneNumberFormat = 'e164',
 ): string {
-  const [region, nationalNumber] =
+  const [country, nationalNumber] =
     typeof input === 'string' ? [undefined, input] : input;
-  const apn = createAPN(nationalNumber, region);
+  const apn = createAPN(nationalNumber, country);
   const formatted = apn.getNumber(format);
 
   if (formatted) {
     return formatted;
   }
 
-  return formatPhoneNumberSimple(nationalNumber, region, format);
+  return formatPhoneNumberSimple(nationalNumber, country, format);
 }
 
 export type PhonePossibility =
