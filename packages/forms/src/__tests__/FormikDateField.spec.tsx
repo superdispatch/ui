@@ -1,6 +1,5 @@
 import { DateConfigProvider, defaultDateConfig } from '@superdispatch/dates';
 import { MockEvent } from '@superdispatch/jestutils';
-import { ThemeProvider } from '@superdispatch/ui';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
