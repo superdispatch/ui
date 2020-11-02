@@ -31,16 +31,10 @@ function normalize(input: unknown): string {
 
 function normalizeNational(country: CountryISO, input: unknown): string {
   const phone = normalize(input);
+  const prefix = getPrefix(country);
 
   if (phone.startsWith(PLUS_SIGN)) {
-    const prefix = getPrefix(country);
-
-    if (phone.startsWith(prefix)) {
-      return phone.slice(prefix.length);
-    }
-
-    // Remove leading `+`.
-    return phone.slice(1);
+    return phone.slice(prefix.length);
   }
 
   return phone;
