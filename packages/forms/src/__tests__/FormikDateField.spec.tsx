@@ -16,9 +16,7 @@ function renderDateField<T, R>(
   formProps: FormikEnhancedConfig<T, R>,
 ) {
   return renderFormField(
-    <ThemeProvider>
-      <DateConfigProvider>{element}</DateConfigProvider>
-    </ThemeProvider>,
+    <DateConfigProvider>{element}</DateConfigProvider>,
     formProps,
   );
 }

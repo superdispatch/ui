@@ -1,4 +1,9 @@
-import { PhoneField, PhoneFieldProps } from '@superdispatch/phones';
+import {
+  PhoneField,
+  PhoneFieldProps,
+  PhoneService,
+  usePhoneService,
+} from '@superdispatch/phones';
 import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
 import React from 'react';
@@ -6,7 +11,10 @@ import React from 'react';
 interface FormikPhoneFieldProps
   extends Omit<PhoneFieldProps, 'error' | 'value'> {
   name: string;
-  validate?: FieldValidator;
+  validate?: (
+    value: unknown,
+    service: PhoneService,
+  ) => string | void | Promise<string | void>;
 }
 
 export function FormikPhoneField({
@@ -18,12 +26,20 @@ export function FormikPhoneField({
   disabled,
   helperText,
 
-  validate,
+  validate: validateProp,
 
   ...props
 }: FormikPhoneFieldProps) {
   const uid = useUID(id);
+  const phoneService = usePhoneService();
   const { isSubmitting } = useFormikContext();
+  const validate: FieldValidator = (value) => {
+    if (!validateProp) {
+      return undefined;
+    }
+
+    return validateProp(value, phoneService);
+  };
   const [field, { error, touched }, { setValue, setTouched }] = useField<
     null | undefined | string
   >({ name, validate });
@@ -44,7 +60,6 @@ export function FormikPhoneField({
       }}
       onChange={(value) => {
         onChange?.(value);
-
         setValue(value);
       }}
     />
