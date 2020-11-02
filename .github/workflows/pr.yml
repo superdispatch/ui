@@ -43,10 +43,8 @@ jobs:
             yarn-
       - run: yarn install --frozen-lockfile
 
-      - run: yarn build
       - uses: andresz1/size-limit-action@v1
         with:
-          skip_step: build
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   preview:
