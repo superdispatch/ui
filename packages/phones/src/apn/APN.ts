@@ -7,15 +7,13 @@ export type AYTType = ReturnType<APNStatic['getAsYouType']>;
 let loadedAPN: undefined | APNStatic;
 
 export function loadAPN(): Promise<APNStatic> {
-  return import(
-    /* webpackMode: "lazy" */
-    /* webpackChunkName: "apn" */
-    'awesome-phonenumber'
-  ).then((apn) => {
-    loadedAPN = apn.default;
+  return import(/* webpackChunkName: "apn" */ 'awesome-phonenumber').then(
+    (apn) => {
+      loadedAPN = apn.default;
 
-    return loadedAPN;
-  });
+      return loadedAPN;
+    },
+  );
 }
 
 export function getAPN(): APNStatic {
