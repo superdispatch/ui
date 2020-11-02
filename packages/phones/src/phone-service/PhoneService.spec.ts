@@ -243,7 +243,10 @@ test.each<
     expected: string | undefined,
   ]
 >([
+  ['', undefined, undefined],
   [null, undefined, undefined],
+  [undefined, undefined, undefined],
+  ['615-994-3300', undefined, undefined],
 
   [null, { required: true }, 'This field is required'],
   [null, { required: true, requiredMessage: 'Required.' }, 'Required.'],
@@ -258,8 +261,6 @@ test.each<
 
   ['615-994-3300 00', undefined, 'Phone number is too long'],
   ['615-994-3300 00', { tooLongMessage: 'Too long.' }, 'Too long.'],
-
-  ['615-994-3300', undefined, undefined],
 ])('#validate(%p, %j): %p', (input, rules, expected) => {
   expect(new PhoneService(AwesomePhoneNumber).validate(input, rules)).toBe(
     expected,
