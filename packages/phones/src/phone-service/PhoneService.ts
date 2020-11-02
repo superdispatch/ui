@@ -11,10 +11,6 @@ const PLUS_SIGN = '+';
 const NON_PHONE_SYMBOLS_PATTERN = /[^+\d]/g;
 const PHONE_PATTERN = /^\+?\d+/g;
 
-export function getPhonePrefix(country: CountryISO): string {
-  return PLUS_SIGN + String(getCountryCode(toCountryISO(country)));
-}
-
 export type PhoneNumberPossibility =
   | 'is-possible'
   | 'invalid-country-code'

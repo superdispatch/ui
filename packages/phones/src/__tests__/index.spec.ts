@@ -18,7 +18,6 @@ test('api', () => {
       "PhoneText": [Function],
       "formatCountry": [Function],
       "getCountryCode": [Function],
-      "getPhonePrefix": [Function],
       "isCountryISO": [Function],
       "listCountries": [Function],
       "toCountryISO": [Function],
