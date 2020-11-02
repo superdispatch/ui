@@ -11,6 +11,41 @@ const PLUS_SIGN = '+';
 const NON_PHONE_SYMBOLS_PATTERN = /[^+\d]/g;
 const PHONE_PATTERN = /^\+?\d+/g;
 
+function getPrefix(country: CountryISO): string {
+  return PLUS_SIGN + String(getCountryCode(toCountryISO(country)));
+}
+
+function normalize(input: unknown): string {
+  if (typeof input == 'string') {
+    const matches = input
+      .replace(NON_PHONE_SYMBOLS_PATTERN, '')
+      .match(PHONE_PATTERN);
+
+    if (matches) {
+      return matches[0];
+    }
+  }
+
+  return '';
+}
+
+function normalizeNational(country: CountryISO, input: unknown): string {
+  const phone = normalize(input);
+
+  if (phone.startsWith(PLUS_SIGN)) {
+    const prefix = getPrefix(country);
+
+    if (phone.startsWith(prefix)) {
+      return phone.slice(prefix.length);
+    }
+
+    // Remove leading `+`.
+    return phone.slice(1);
+  }
+
+  return phone;
+}
+
 export type PhoneNumberPossibility =
   | 'is-possible'
   | 'invalid-country-code'
@@ -56,44 +91,6 @@ export interface PhoneFormatOptions {
 }
 
 export class PhoneService {
-  protected static getPrefix(country: CountryISO): string {
-    return PLUS_SIGN + String(getCountryCode(toCountryISO(country)));
-  }
-
-  protected static normalize(input: unknown): string {
-    if (typeof input == 'string') {
-      const matches = input
-        .replace(NON_PHONE_SYMBOLS_PATTERN, '')
-        .match(PHONE_PATTERN);
-
-      if (matches) {
-        return matches[0];
-      }
-    }
-
-    return '';
-  }
-
-  protected static normalizeNational(
-    country: CountryISO,
-    input: unknown,
-  ): string {
-    const phone = this.normalize(input);
-
-    if (phone.startsWith(PLUS_SIGN)) {
-      const prefix = this.getPrefix(country);
-
-      if (phone.startsWith(prefix)) {
-        return phone.slice(prefix.length);
-      }
-
-      // Remove leading `+`.
-      return phone.slice(1);
-    }
-
-    return phone;
-  }
-
   readonly APN;
 
   constructor(APN: APNStatic) {
@@ -103,7 +100,7 @@ export class PhoneService {
   createAPN(phone: string, country?: CountryISO): APNType {
     const asYouType = this.APN.getAsYouType(toCountryISO(country));
 
-    asYouType.reset(PhoneService.normalize(phone));
+    asYouType.reset(normalize(phone));
 
     return asYouType.getPhoneNumber();
   }
@@ -139,7 +136,7 @@ export class PhoneService {
       tooShortMessage = 'Phone number is too short',
     }: PhoneValidationRules = {},
   ) {
-    const phone = PhoneService.normalize(input);
+    const phone = normalize(input);
 
     if (!phone) {
       if (required) {
@@ -164,26 +161,23 @@ export class PhoneService {
   getInfo(phone: string): PhoneNumberInfo {
     let {
       regionCode,
-      number: { input, national },
+      number: { input, national: nationalNumber },
     } = this.getJSON(phone);
 
     const country = toCountryISO(regionCode);
 
-    if (!national) {
-      national = PhoneService.normalizeNational(country, input);
+    if (!nationalNumber) {
+      nationalNumber = normalizeNational(country, input);
     }
 
-    return {
-      country,
-      nationalNumber: national,
-    };
+    return { country, nationalNumber };
   }
 
   format(
     input: unknown,
     { country, format = 'e164', fallback = '' }: PhoneFormatOptions = {},
   ) {
-    const phone = PhoneService.normalize(input);
+    const phone = normalize(input);
 
     if (!phone) {
       return fallback;
@@ -195,7 +189,7 @@ export class PhoneService {
     if (!formatted) {
       country = toCountryISO(apn.getRegionCode());
 
-      const nationalNumber = PhoneService.normalizeNational(country, phone);
+      const nationalNumber = normalizeNational(country, phone);
 
       if (format === 'national') {
         return nationalNumber;
@@ -213,7 +207,7 @@ export class PhoneService {
         separator = ' ';
       }
 
-      formatted = prefix + PhoneService.getPrefix(country);
+      formatted = prefix + getPrefix(country);
 
       if (nationalNumber) {
         formatted += separator + nationalNumber;
