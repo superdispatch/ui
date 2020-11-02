@@ -243,10 +243,15 @@ test.each<
     expected: string | undefined,
   ]
 >([
+  [null, undefined, undefined],
+
   [null, { required: true }, 'This field is required'],
   [null, { required: true, requiredMessage: 'Required.' }, 'Required.'],
   [undefined, { required: true }, 'This field is required'],
   [undefined, { required: true, requiredMessage: 'Required.' }, 'Required.'],
+
+  ['+1', undefined, 'Invalid phone number'],
+  ['+1', { invalidMessage: 'Invalid.' }, 'Invalid.'],
 
   ['615', undefined, 'Phone number is too short'],
   ['615', { tooShortMessage: 'Too short.' }, 'Too short.'],
