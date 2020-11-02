@@ -7,21 +7,25 @@ import React, {
   RefAttributes,
 } from 'react';
 
+import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 import { useFormattedPhoneNumber } from '../formatted-phone-number/FormattedPhoneNumber';
+import { PhoneNumberFormat } from '../phone-service/PhoneService';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
     Omit<LinkProps, 'ref' | 'href' | 'children'> {
-  phone: string;
+  phone: unknown;
+  country?: CountryISO;
+  format?: PhoneNumberFormat;
   fallback?: ReactNode;
 }
 
 export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
   HTMLAnchorElement,
   PhoneLinkProps
->(({ phone, fallback, ...props }, ref) => {
-  const href = useFormattedPhoneNumber(phone, 'rfc3966');
-  const children = useFormattedPhoneNumber(phone, 'international');
+>(({ phone, country, fallback, format = 'international', ...props }, ref) => {
+  const href = useFormattedPhoneNumber(phone, { country, format: 'rfc3966' });
+  const children = useFormattedPhoneNumber(phone, { country, format });
 
   return !href ? (
     renderChildren(fallback)

@@ -12,7 +12,6 @@ it('exposes public api', () => {
       "FormsProvider": [Function],
       "useFormikEnhanced": [Function],
       "useFormsContext": [Function],
-      "validatePhone": [Function],
     }
   `);
 });

@@ -1,7 +1,7 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
 import React from 'react';
 
-import { PhoneFieldMenuItem } from '../PhoneFieldMenuItem';
+import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 test('css', () => {
   expect(

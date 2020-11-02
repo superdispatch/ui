@@ -3,6 +3,7 @@ import * as api from '..';
 test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
+      "DEFAULT_COUNTRY": "US",
       "PhoneField": Object {
         "$$typeof": Symbol(react.forward_ref),
         "displayName": "PhoneField",
@@ -13,17 +14,16 @@ test('api', () => {
         "displayName": "PhoneLink",
         "render": [Function],
       },
+      "PhoneService": [Function],
       "PhoneText": [Function],
       "formatCountry": [Function],
-      "formatPhoneNumber": [Function],
       "getCountryCode": [Function],
-      "getExamplePhoneNumber": [Function],
+      "getPhonePrefix": [Function],
       "isCountryISO": [Function],
       "listCountries": [Function],
-      "parsePhoneNumber": [Function],
       "toCountryISO": [Function],
       "useFormattedPhoneNumber": [Function],
-      "validatePhoneNumber": [Function],
+      "usePhoneService": [Function],
     }
   `);
 });

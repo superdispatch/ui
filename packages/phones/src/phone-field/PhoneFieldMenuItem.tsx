@@ -17,7 +17,7 @@ import {
   CountryISO,
   formatCountry,
   getCountryCode,
-} from '../data/CountryCodeMetadata';
+} from '../country-code-metadata/CountryCodeMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 export type PhoneFieldMenuItemClassKey = MenuItemClassKey | 'flag';
