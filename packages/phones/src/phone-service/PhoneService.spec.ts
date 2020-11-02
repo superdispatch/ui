@@ -189,7 +189,10 @@ test.each<
   ['+1506234567890', 'international', undefined, '+1 506234567890'],
 ])('formatPhoneNumber(%p, %p): %p', (input, format, country, phone) => {
   expect(
-    new PhoneService(AwesomePhoneNumber).format(input, { format, country }),
+    new PhoneService(AwesomePhoneNumber).format(
+      input,
+      !format && !country ? undefined : { format, country },
+    ),
   ).toBe(phone);
 });
 

@@ -56,11 +56,11 @@ export interface PhoneFormatOptions {
 }
 
 export class PhoneService {
-  static getPrefix(country: CountryISO): string {
+  protected static getPrefix(country: CountryISO): string {
     return PLUS_SIGN + String(getCountryCode(toCountryISO(country)));
   }
 
-  static normalize(input: unknown): string {
+  protected static normalize(input: unknown): string {
     if (typeof input == 'string') {
       const matches = input
         .replace(NON_PHONE_SYMBOLS_PATTERN, '')
@@ -74,7 +74,10 @@ export class PhoneService {
     return '';
   }
 
-  static normalizeNational(country: CountryISO, input: unknown): string {
+  protected static normalizeNational(
+    country: CountryISO,
+    input: unknown,
+  ): string {
     const phone = this.normalize(input);
 
     if (phone.startsWith(PLUS_SIGN)) {
