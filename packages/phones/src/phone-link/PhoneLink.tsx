@@ -20,18 +20,17 @@ export interface PhoneLinkProps
   fallback?: ReactNode;
 }
 
-export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef<
-  HTMLAnchorElement,
-  PhoneLinkProps
->(({ phone, country, fallback, format = 'international', ...props }, ref) => {
-  const href = useFormattedPhoneNumber(phone, { country, format: 'rfc3966' });
-  const children = useFormattedPhoneNumber(phone, { country, format });
+export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef(
+  ({ phone, country, fallback, format = 'international', ...props }, ref) => {
+    const href = useFormattedPhoneNumber(phone, { country, format: 'rfc3966' });
+    const children = useFormattedPhoneNumber(phone, { country, format });
 
-  return !href ? (
-    renderChildren(fallback)
-  ) : (
-    <Link {...props} ref={ref} href={href}>
-      {children}
-    </Link>
-  );
-});
+    return !href ? (
+      renderChildren(fallback)
+    ) : (
+      <Link {...props} ref={ref} href={href}>
+        {children}
+      </Link>
+    );
+  },
+);
