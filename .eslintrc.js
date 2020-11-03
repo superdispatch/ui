@@ -76,6 +76,7 @@ module.exports = {
 
     {
       files: [
+        '**/setupTests.ts',
         '**/*.spec.{ts,tsx}',
         '**/jestutils/**/*.{ts,tsx}',
         '**/testutils/**/*.{ts,tsx}',
@@ -92,6 +93,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
         'import/no-anonymous-default-export': 'off',
         'import/no-extraneous-dependencies': 'off',
         'testing-library/prefer-screen-queries': 'off',
