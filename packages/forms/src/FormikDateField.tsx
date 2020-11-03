@@ -18,7 +18,6 @@ export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
 export function FormikDateField({
   name,
   format,
-  onBlur,
   onChange,
   disabled,
   helperText,
@@ -41,7 +40,7 @@ export function FormikDateField({
     });
   };
 
-  const [field, { error, touched }, { setValue, setTouched }] = useField<
+  const [{ value }, { error, touched }, { setValue, setTouched }] = useField<
     undefined | DateString
   >({ name, validate });
   const errorText = touched && error;
@@ -49,18 +48,16 @@ export function FormikDateField({
   return (
     <DateField
       {...props}
-      {...field}
+      name={name}
+      value={value}
       format={format}
       error={!!errorText}
       disabled={disabled || isSubmitting}
       helperText={errorText || helperText}
-      onBlur={() => {
-        onBlur?.();
-      }}
-      onChange={(value) => {
-        onChange?.(value);
+      onChange={(nextValue) => {
+        onChange?.(nextValue);
         setTouched(true, false);
-        setValue(value.stringValue);
+        setValue(nextValue.stringValue);
       }}
     />
   );
