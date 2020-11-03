@@ -56,10 +56,10 @@ export function FormikDateField({
       helperText={errorText || helperText}
       onBlur={() => {
         onBlur?.();
-        setTouched(true);
       }}
       onChange={(value) => {
         onChange?.(value);
+        setTouched(true, false);
         setValue(value.stringValue);
       }}
     />

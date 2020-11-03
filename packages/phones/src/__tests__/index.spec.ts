@@ -3,16 +3,8 @@ import * as api from '..';
 test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
-      "PhoneField": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "PhoneField",
-        "render": [Function],
-      },
-      "PhoneLink": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "PhoneLink",
-        "render": [Function],
-      },
+      "PhoneField": React.forwardRef(PhoneField),
+      "PhoneLink": React.forwardRef(PhoneLink),
       "PhoneText": [Function],
       "formatCountry": [Function],
       "formatPhoneNumber": [Function],
