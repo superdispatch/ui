@@ -31,7 +31,7 @@
     "storybook:build": "build-storybook -o docs --quiet",
     "storybook:start": "start-storybook -p 5000 --ci",
     "tdd": "jest --watch",
-    "test": "jest --coverage",
+    "test": "jest --coverage --forceExit",
     "test-branch": "yarn test --changedSince origin/main",
     "test-changed": "yarn test --onlyChanged"
   },
