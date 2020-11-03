@@ -3223,10 +3223,10 @@
     resolve-from "^5.0.0"
     store2 "^2.7.1"
 
-"@superdispatch/babel-preset@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@superdispatch/babel-preset/-/babel-preset-0.2.12.tgz#dd049fbe966d283f9deb91ac338befc2d4bcec77"
-  integrity sha512-EJYs2VNDvnea3yduLsZ2L1FMCk9GJEJk25vvZ5eD12nxJ+sX+4JOjBYEiyrq3qOeuYnpqZt1Y3JLALdQBtP++A==
+"@superdispatch/babel-preset@^0.2.13":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@superdispatch/babel-preset/-/babel-preset-0.2.13.tgz#367a78777e03203245b19885f406e64accaa04b4"
+  integrity sha512-RbICH5Kfmqp/BvStH6vaDecmTnSXFuoLFFafHXLObG0NowLBoN1CAveCDkyNIA7i9dbRL/kkr0F8SQxpiKcZgA==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.12.1"
     "@babel/plugin-proposal-decorators" "^7.12.1"

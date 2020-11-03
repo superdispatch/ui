@@ -98,7 +98,7 @@
     "@storybook/addon-essentials": "^6.0.28",
     "@storybook/react": "^6.0.28",
     "@storybook/source-loader": "^6.0.28",
-    "@superdispatch/babel-preset": "^0.2.12",
+    "@superdispatch/babel-preset": "^0.2.13",
     "@superdispatch/eslint-plugin": "^0.2.12",
     "@superdispatch/js-tools": "^0.2.12",
     "@superdispatch/prettier-config": "^0.2.1",
