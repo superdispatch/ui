@@ -5,8 +5,8 @@ module.exports = ({ docs = false } = {}) => ({
     [
       '@superdispatch/babel-preset',
       {
+        jsx: 'runtime',
         targets: 'esmodules',
-        jsx: 'automatic-runtime',
         optimize: { pureCalls: true },
       },
     ],
