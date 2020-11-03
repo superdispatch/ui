@@ -19,11 +19,7 @@ it('checks default props', () => {
   `);
   expect(props.MuiSelect).toMatchInlineSnapshot(`
     Object {
-      "IconComponent": Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "SelectIcon",
-        "render": [Function],
-      },
+      "IconComponent": React.forwardRef(SelectIcon),
     }
   `);
   expect(props.MuiFormHelperText).toMatchInlineSnapshot(`undefined`);

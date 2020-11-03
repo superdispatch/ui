@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { spyLogs } from '@superdispatch/jestutils';
 import { resetMockDate } from '@superdispatch/ui-testutils';
+import { ForwardRef } from 'react-is';
 
 spyLogs({ warn: 'forbid', error: 'forbid' });
 
@@ -14,4 +15,9 @@ Object.defineProperty(window, 'getComputedStyle', {
   enumerable: false,
   configurable: false,
   value: () => ({ getPropertyValue: () => '' }),
+});
+
+expect.addSnapshotSerializer({
+  test: (value) => value?.$$typeof === ForwardRef,
+  serialize: (value) => `React.forwardRef(${value.displayName || 'unknown'})`,
 });
