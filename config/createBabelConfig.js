@@ -4,7 +4,11 @@ module.exports = ({ docs = false } = {}) => ({
   presets: [
     [
       '@superdispatch/babel-preset',
-      { targets: 'esmodules', optimize: { pureCalls: true } },
+      {
+        jsx: 'runtime',
+        targets: 'esmodules',
+        optimize: { pureCalls: true },
+      },
     ],
   ],
   plugins: [

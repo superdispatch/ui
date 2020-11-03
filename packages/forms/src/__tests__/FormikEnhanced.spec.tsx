@@ -1,9 +1,32 @@
-import { MockEvent } from '@superdispatch/jestutils';
-import { waitFor } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
+import userEvent from '@testing-library/user-event';
 
 import { renderProvider } from '../__testutils__/renderProvider';
 import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
+
+interface Deferred<T> {
+  promise: Promise<T>;
+  resolve: (value: T) => Promise<T>;
+  reject: (error: Error) => Promise<T>;
+}
+
+function deferred<T>(): Deferred<T> {
+  const result: Partial<Deferred<T>> = {};
+  result.promise = new Promise<T>((resolve, reject) => {
+    result.resolve = (value) => {
+      resolve(value);
+
+      return result.promise as Promise<T>;
+    };
+    result.reject = (error) => {
+      reject(error);
+
+      return result.promise as Promise<T>;
+    };
+  });
+
+  return result as Deferred<T>;
+}
 
 describe('FormsProvider', () => {
   test('default configs', async () => {
@@ -17,22 +40,14 @@ describe('FormsProvider', () => {
       },
     );
 
-    MockEvent.click(wrapper.getByText('Submit'));
+    userEvent.click(wrapper.getByText('Submit'));
 
-    await waitFor(() => {
-      expect(wrapper.getByText('Name is Required.')).toBeInTheDocument();
-    });
+    await wrapper.findByText('Name is Required.');
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
-    expect(getFormErrors).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "fieldErrors": Object {
-          "name": "Name is Required.",
-        },
-      },
-    ]
-  `);
+    expect(getFormErrors).toHaveBeenLastCalledWith({
+      fieldErrors: { name: 'Name is Required.' },
+    });
   });
 
   test('form config overrides default config', async () => {
@@ -50,33 +65,23 @@ describe('FormsProvider', () => {
       },
     );
 
-    MockEvent.click(wrapper.getByText('Submit'));
+    userEvent.click(wrapper.getByText('Submit'));
 
-    await waitFor(() => {
-      expect(wrapper.getByText('Name is Required.')).toBeInTheDocument();
-    });
+    await wrapper.findByText('Name is Required.');
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
     expect(defaultGetFormErrors).toHaveBeenCalledTimes(0);
 
-    expect(getFormErrors).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "fieldErrors": Object {
-          "name": "Name is Required.",
-        },
-      },
-    ]
-  `);
+    expect(getFormErrors).toHaveBeenLastCalledWith({
+      fieldErrors: { name: 'Name is Required.' },
+    });
   });
 });
 
 describe('useFormikEnhanced', () => {
   test('handle success action', async () => {
     const handleSubmit = jest.fn(() =>
-      Promise.resolve({
-        meta: { status: 200 },
-      }),
+      Promise.resolve({ meta: { status: 200 } }),
     );
     const handleSuccess = jest.fn();
 
@@ -88,111 +93,115 @@ describe('useFormikEnhanced', () => {
       }),
     );
 
-    await act(() => result.current.setFieldValue('foo', 'baz'));
+    void act(() => {
+      result.current.setFieldValue('foo', 'baz');
+    });
 
-    void act(() => result.current.handleSubmit());
+    void act(() => {
+      result.current.handleSubmit();
+    });
 
     await waitForNextUpdate();
 
     expect(handleSubmit).toHaveBeenCalledTimes(1);
     expect(handleSuccess).toHaveBeenCalledTimes(1);
-    expect(handleSuccess).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "meta": Object {
-          "status": 200,
-        },
-      },
-      Object {
-        "foo": "baz",
-      },
-    ]
-  `);
+    expect(handleSuccess).toHaveBeenLastCalledWith(
+      { meta: { status: 200 } },
+      { foo: 'baz' },
+    );
   });
 
-  test('handle failure action', async () => {
+  test('onSubmitFailure', async () => {
     const getFormErrors = jest.fn(() => ({ foo: 'Failed' }));
-    const handleSubmit = jest.fn(() =>
-      Promise.reject({
-        meta: { status: 500 },
-      }),
-    );
-    const handleFailure = jest.fn();
+    const onSubmit = jest.fn(() => Promise.reject({ meta: { status: 500 } }));
+    const onSubmitFailure = jest.fn();
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useFormikEnhanced({
         initialValues: { foo: 'bar' },
         getFormErrors,
-        onSubmit: handleSubmit,
-        onSubmitFailure: handleFailure,
+        onSubmit,
+        onSubmitFailure,
       }),
     );
-    expect(result.current.errors).toMatchInlineSnapshot(`Object {}`);
 
-    await act(() => result.current.setFieldValue('foo', 'baz'));
+    expect(result.current.errors).toEqual({});
 
-    void act(() => result.current.handleSubmit());
+    void act(() => {
+      result.current.setFieldValue('foo', 'baz');
+    });
+
+    void act(() => {
+      result.current.handleSubmit();
+    });
 
     await waitForNextUpdate();
 
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
-    expect(handleFailure).toHaveBeenCalledTimes(1);
-    expect(handleFailure).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "meta": Object {
-          "status": 500,
-        },
-      },
-      Object {
-        "foo": "baz",
-      },
-    ]
-  `);
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(onSubmitFailure).toHaveBeenCalledTimes(1);
+    expect(onSubmitFailure).toHaveBeenLastCalledWith(
+      { meta: { status: 500 } },
+      { foo: 'baz' },
+    );
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
-    expect(getFormErrors).toHaveBeenLastCalledWithMatchingInlineSnapshot(`
-    Array [
-      Object {
-        "meta": Object {
-          "status": 500,
-        },
-      },
-    ]
-  `);
+    expect(getFormErrors).toHaveBeenLastCalledWith({ meta: { status: 500 } });
 
-    expect(result.current.errors).toMatchInlineSnapshot(`
-    Object {
-      "foo": "Failed",
-    }
-  `);
+    expect(result.current.errors).toEqual({ foo: 'Failed' });
   });
 
-  test('cancel handler when unmounted', () => {
-    const handleSubmit = jest.fn(() =>
-      Promise.resolve({
-        meta: { status: 200 },
-      }),
-    );
-    const handleSuccess = jest.fn();
+  test('onSubmitSuccess', async () => {
+    let response = deferred();
+    const onSubmit = jest.fn(() => response.promise);
+    const onSubmitSuccess = jest.fn();
 
-    const { result, unmount } = renderHook(() =>
+    const { result, unmount, waitFor } = renderHook(() =>
       useFormikEnhanced({
+        onSubmit,
+        onSubmitSuccess,
         initialValues: { foo: 'bar' },
-        onSubmit: handleSubmit,
-        onSubmitSuccess: handleSuccess,
       }),
     );
 
-    void act(() => result.current.handleSubmit());
+    void act(() => {
+      result.current.handleSubmit();
+    });
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+    });
+
+    await act(async () => {
+      await response.resolve({ meta: { code: 200 } });
+    });
+
+    expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
+    expect(result.current.status).toEqual({
+      type: 'submitted',
+      payload: { meta: { code: 200 } },
+    });
+
+    response = deferred();
+
+    void act(() => {
+      result.current.handleSubmit();
+    });
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(2);
+    });
 
     unmount();
 
-    expect(handleSuccess).toHaveBeenCalledTimes(0);
+    await act(async () => {
+      await response.resolve({ meta: { code: 200 } });
+    });
+
+    expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
   });
 
-  test('reset form when key changes', async () => {
-    const { result, rerender } = renderHook(
+  test('key', () => {
+    const { result, rerender, unmount } = renderHook(
       (props: Partial<FormikEnhancedConfig<{ foo: string }, void>>) =>
         useFormikEnhanced({
           initialValues: { foo: 'bar' },
@@ -201,20 +210,18 @@ describe('useFormikEnhanced', () => {
         }),
     );
 
-    await act(() => result.current.setFieldValue('foo', 'baz'));
+    void act(() => {
+      result.current.setFieldValue('foo', 'baz');
+    });
 
-    expect(result.current.values).toMatchInlineSnapshot(`
-Object {
-  "foo": "baz",
-}
-`);
+    expect(result.current.dirty).toBe(true);
+    expect(result.current.values).toEqual({ foo: 'baz' });
 
-    rerender({ key: 'rerender' });
+    rerender({ key: Math.random() });
 
-    expect(result.current.values).toMatchInlineSnapshot(`
-Object {
-  "foo": "bar",
-}
-`);
+    expect(result.current.dirty).toBe(false);
+    expect(result.current.values).toEqual({ foo: 'bar' });
+
+    unmount();
   });
 });

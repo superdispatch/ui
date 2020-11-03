@@ -1,5 +1,4 @@
 import { DateConfigProvider, defaultDateConfig } from '@superdispatch/dates';
-import { MockEvent } from '@superdispatch/jestutils';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
@@ -129,8 +128,8 @@ test('errors', async () => {
     },
   );
 
-  MockEvent.click(wrapper.getByLabelText('Date'));
-  MockEvent.click(wrapper.getByLabelText(/May 20/));
+  userEvent.click(wrapper.getByLabelText('Date'));
+  userEvent.click(wrapper.getByLabelText(/May 20/));
 
   expect(handleSubmit).not.toHaveBeenCalled();
 
