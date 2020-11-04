@@ -14,7 +14,7 @@ import {
   FormikContextTypeEnhanced,
   FormikEnhancedConfig,
   useFormikEnhanced,
-} from '../useFormikEnhanced';
+} from '../enhanced/useFormikEnhanced';
 
 export function renderFormField<T, R>(
   element: ReactElement,
@@ -23,6 +23,7 @@ export function renderFormField<T, R>(
   const formikRef = createRef() as MutableRefObject<
     FormikContextTypeEnhanced<T, R>
   >;
+  const childrenRef = createRef<HTMLDivElement>();
 
   const Wrapper: ComponentType = ({ children }) => {
     const formik = useFormikEnhanced(formProps);
@@ -34,7 +35,7 @@ export function renderFormField<T, R>(
         <FormikProvider value={formik}>
           <Suspense fallback="Suspended…">
             <Form>
-              {children}
+              <div ref={childrenRef}>{children}</div>
               <button type="submit">Submit</button>
             </Form>
           </Suspense>
@@ -47,6 +48,7 @@ export function renderFormField<T, R>(
 
   return {
     ...wrapper,
+    childrenRef,
     formik: formikRef,
     submitForm: () => {
       userEvent.click(wrapper.getByRole('button', { name: 'Submit' }));

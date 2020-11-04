@@ -1,32 +1,9 @@
+import { Deferred } from '@superdispatch/ui-testutils';
 import { act, renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 
 import { renderProvider } from '../__testutils__/renderProvider';
-import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
-
-interface Deferred<T> {
-  promise: Promise<T>;
-  resolve: (value: T) => Promise<T>;
-  reject: (error: Error) => Promise<T>;
-}
-
-function deferred<T>(): Deferred<T> {
-  const result: Partial<Deferred<T>> = {};
-  result.promise = new Promise<T>((resolve, reject) => {
-    result.resolve = (value) => {
-      resolve(value);
-
-      return result.promise as Promise<T>;
-    };
-    result.reject = (error) => {
-      reject(error);
-
-      return result.promise as Promise<T>;
-    };
-  });
-
-  return result as Deferred<T>;
-}
+import { FormikEnhancedConfig, useFormikEnhanced } from './useFormikEnhanced';
 
 describe('FormsProvider', () => {
   test('default configs', async () => {
@@ -151,8 +128,8 @@ describe('useFormikEnhanced', () => {
   });
 
   test('onSubmitSuccess', async () => {
-    let response = deferred();
-    const onSubmit = jest.fn(() => response.promise);
+    const deferred = new Deferred();
+    const onSubmit = jest.fn(() => deferred.promise);
     const onSubmitSuccess = jest.fn();
 
     const { result, unmount, waitFor } = renderHook(() =>
@@ -172,7 +149,7 @@ describe('useFormikEnhanced', () => {
     });
 
     await act(async () => {
-      await response.resolve({ meta: { code: 200 } });
+      await deferred.resolve({ meta: { code: 200 } });
     });
 
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
@@ -181,7 +158,7 @@ describe('useFormikEnhanced', () => {
       payload: { meta: { code: 200 } },
     });
 
-    response = deferred();
+    deferred.reset();
 
     void act(() => {
       result.current.handleSubmit();
@@ -194,7 +171,7 @@ describe('useFormikEnhanced', () => {
     unmount();
 
     await act(async () => {
-      await response.resolve({ meta: { code: 200 } });
+      await deferred.resolve({ meta: { code: 200 } });
     });
 
     expect(onSubmitSuccess).toHaveBeenCalledTimes(1);

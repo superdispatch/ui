@@ -2,7 +2,7 @@ import { act, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
-import { FormikPhoneField } from '../FormikPhoneField';
+import { FormikPhoneField } from './FormikPhoneField';
 
 test('basic', async () => {
   const handleBlur = jest.fn();

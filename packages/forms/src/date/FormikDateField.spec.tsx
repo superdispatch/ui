@@ -6,8 +6,8 @@ import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
-import { FormikDateField } from '../FormikDateField';
-import { FormikEnhancedConfig } from '../useFormikEnhanced';
+import { FormikEnhancedConfig } from '../enhanced/useFormikEnhanced';
+import { FormikDateField } from './FormikDateField';
 
 function renderDateField<T, R>(
   element: ReactElement,

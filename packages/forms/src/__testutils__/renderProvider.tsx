@@ -2,8 +2,11 @@ import { render } from '@testing-library/react';
 import { FormikValues } from 'formik';
 import React from 'react';
 
-import { FormsContext, FormsProvider } from '../FormsProvider';
-import { FormikEnhancedConfig, useFormikEnhanced } from '../useFormikEnhanced';
+import { FormsContext, FormsProvider } from '../enhanced/FormsProvider';
+import {
+  FormikEnhancedConfig,
+  useFormikEnhanced,
+} from '../enhanced/useFormikEnhanced';
 
 export function renderProvider<TValues extends FormikValues, TResponse>(
   defaultConfig: FormsContext,

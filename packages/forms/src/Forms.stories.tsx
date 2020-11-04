@@ -11,16 +11,14 @@ import React, { useRef } from 'react';
 
 import {
   FormikDateField,
-  FormikPhoneField,
   FormikTextField,
+  SuspendedFormikPhoneField,
   useFormikEnhanced,
 } from '.';
 
 export default {
   title: 'Recipes/Forms',
-  parameters: {
-    playroom: { disable: true },
-  },
+  parameters: { playroom: { disable: true } },
 } as Meta;
 
 export function SignUp() {
@@ -155,9 +153,9 @@ export function SignUp() {
               }
             />
 
-            <FormikPhoneField
-              fullWidth={true}
+            <SuspendedFormikPhoneField
               name="phone"
+              fullWidth={true}
               label="Phone Number"
               validate={(value, phoneService) =>
                 phoneService.validate(value, { required: true })

@@ -14,7 +14,7 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.0",
+    "@babel/runtime": "^7.12.5",
     "@superdispatch/ui": "^0.5.6",
     "awesome-phonenumber": "^2.40.0",
     "clsx": "^1.1.1"
