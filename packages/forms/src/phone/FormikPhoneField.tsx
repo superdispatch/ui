@@ -7,7 +7,7 @@ import {
 } from '@superdispatch/phones';
 import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React, { forwardRef, Suspense } from 'react';
+import React, { forwardRef, ReactNode, Suspense } from 'react';
 
 interface FormikPhoneFieldProps
   extends Omit<PhoneFieldProps, 'error' | 'value'> {
@@ -76,33 +76,40 @@ export const FormikPhoneField = forwardRef<
   },
 );
 
+export interface SuspendedFormikPhoneFieldProps extends FormikPhoneFieldProps {
+  suspenseFallback?: ReactNode;
+}
+
 export const SuspendedFormikPhoneField = forwardRef<
   HTMLDivElement,
-  FormikPhoneFieldProps
->(({ id, label, fullWidth, helperText, ...props }, ref) => {
-  const uid = useUID(id);
-
-  return (
-    <Suspense
-      fallback={
+  SuspendedFormikPhoneFieldProps
+>(
+  (
+    {
+      label,
+      fullWidth,
+      helperText,
+      suspenseFallback = (
         <TextField
-          id={uid}
           disabled={true}
           label={label}
           fullWidth={fullWidth}
           helperText={helperText}
           placeholder="Loading…"
         />
-      }
-    >
+      ),
+      ...props
+    },
+    ref,
+  ) => (
+    <Suspense fallback={suspenseFallback}>
       <FormikPhoneField
         {...props}
-        id={uid}
         ref={ref}
         label={label}
         fullWidth={fullWidth}
         helperText={helperText}
       />
     </Suspense>
-  );
-});
+  ),
+);

@@ -3,6 +3,8 @@ import { mergeRefs } from '@superdispatch/ui';
 import React, {
   ChangeEvent,
   forwardRef,
+  ReactNode,
+  Suspense,
   useCallback,
   useEffect,
   useMemo,
@@ -158,4 +160,42 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
       </>
     );
   },
+);
+
+export interface SuspendedPhoneFieldProps extends PhoneFieldProps {
+  suspenseFallback?: ReactNode;
+}
+
+export const SuspendedPhoneField = forwardRef<
+  HTMLDivElement,
+  SuspendedPhoneFieldProps
+>(
+  (
+    {
+      label,
+      fullWidth,
+      helperText,
+      suspenseFallback = (
+        <TextField
+          disabled={true}
+          label={label}
+          fullWidth={fullWidth}
+          helperText={helperText}
+          placeholder="Loading…"
+        />
+      ),
+      ...props
+    },
+    ref,
+  ) => (
+    <Suspense fallback={suspenseFallback}>
+      <PhoneField
+        {...props}
+        ref={ref}
+        label={label}
+        fullWidth={fullWidth}
+        helperText={helperText}
+      />
+    </Suspense>
+  ),
 );

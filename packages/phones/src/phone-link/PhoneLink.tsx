@@ -5,6 +5,7 @@ import React, {
   ForwardRefExoticComponent,
   ReactNode,
   RefAttributes,
+  Suspense,
 } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
@@ -33,4 +34,16 @@ export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef(
       </Link>
     );
   },
+);
+
+export interface SuspendedPhoneLinkProps extends PhoneLinkProps {
+  suspenseFallback?: ReactNode;
+}
+
+export const SuspendedPhoneLink: ForwardRefExoticComponent<SuspendedPhoneLinkProps> = forwardRef(
+  ({ suspenseFallback = null, ...props }, ref) => (
+    <Suspense fallback={suspenseFallback}>
+      <PhoneLink {...props} ref={ref} />
+    </Suspense>
+  ),
 );
