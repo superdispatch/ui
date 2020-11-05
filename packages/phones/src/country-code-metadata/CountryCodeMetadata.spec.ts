@@ -4,7 +4,7 @@ import {
   isCountryISO,
   listCountries,
   toCountryISO,
-} from '../CountryCodeMetadata';
+} from './CountryCodeMetadata';
 
 test('metadata', () => {
   expect(

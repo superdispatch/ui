@@ -1,9 +1,9 @@
-import { MockEvent } from '@superdispatch/jestutils';
 import { act, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
-import { FormikCheckboxField } from '../FormikCheckboxField';
+import { FormikCheckboxField } from './FormikCheckboxField';
 
 test('handles changes', async () => {
   const handleSubmit = jest.fn();
@@ -24,7 +24,10 @@ test('handles changes', async () => {
 
   const field = wrapper.getByLabelText('Agree');
 
-  MockEvent.click(field);
+  act(() => {
+    userEvent.click(field);
+  });
+
   act(() => {
     fireEvent.blur(field);
   });
@@ -62,7 +65,10 @@ test('format and parse value', async () => {
 
   expect(field).not.toBeChecked();
 
-  MockEvent.click(field);
+  act(() => {
+    userEvent.click(field);
+  });
+
   act(() => {
     fireEvent.blur(field);
   });
@@ -99,7 +105,10 @@ test('format and parse value with enum', async () => {
   expect(field).toBeChecked();
 
   for (const status of ['inactive', 'active']) {
-    MockEvent.click(field);
+    act(() => {
+      userEvent.click(field);
+    });
+
     act(() => {
       fireEvent.blur(field);
     });
@@ -145,7 +154,10 @@ test('validates field', async () => {
 
   expect(field).toBeValid();
 
-  MockEvent.click(field);
+  act(() => {
+    userEvent.click(field);
+  });
+
   act(() => {
     fireEvent.blur(field);
   });

@@ -3,6 +3,7 @@
   "exclude": [
     "pkg",
     "playroom.ts",
+    "**/*.spec.*",
     "**/*.stories.*",
     "**/*.playroom.*",
     "**/__tests__/**",

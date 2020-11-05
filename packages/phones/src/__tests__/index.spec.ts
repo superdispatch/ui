@@ -3,19 +3,21 @@ import * as api from '..';
 test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
+      "DEFAULT_COUNTRY": "US",
       "PhoneField": React.forwardRef(PhoneField),
       "PhoneLink": React.forwardRef(PhoneLink),
+      "PhoneService": [Function],
       "PhoneText": [Function],
+      "SuspendedPhoneField": React.forwardRef(SuspendedPhoneField),
+      "SuspendedPhoneLink": React.forwardRef(SuspendedPhoneLink),
+      "SuspendedPhoneText": [Function],
       "formatCountry": [Function],
-      "formatPhoneNumber": [Function],
       "getCountryCode": [Function],
-      "getExamplePhoneNumber": [Function],
       "isCountryISO": [Function],
       "listCountries": [Function],
-      "parsePhoneNumber": [Function],
       "toCountryISO": [Function],
       "useFormattedPhoneNumber": [Function],
-      "validatePhoneNumber": [Function],
+      "usePhoneService": [Function],
     }
   `);
 });
