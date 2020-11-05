@@ -6,13 +6,13 @@ it('exposes public api', () => {
       "FormikCheckboxField": [Function],
       "FormikDateField": [Function],
       "FormikEnhanced": [Function],
-      "FormikPhoneField": [Function],
+      "FormikPhoneField": React.forwardRef(FormikPhoneField),
       "FormikRadioGroupField": [Function],
       "FormikTextField": [Function],
       "FormsProvider": [Function],
+      "SuspendedFormikPhoneField": React.forwardRef(SuspendedFormikPhoneField),
       "useFormikEnhanced": [Function],
       "useFormsContext": [Function],
-      "validatePhone": [Function],
     }
   `);
 });

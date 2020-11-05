@@ -1,5 +1,5 @@
 import { addDecorator, addParameters } from '@storybook/react';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
 import { withPlayroom } from 'storybook-addon-playroom';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
@@ -21,7 +21,9 @@ function injectDisplayNames(module, { suffix = '' } = {}) {
 
 addDecorator(withPlayroom);
 addDecorator((story) => (
-  <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+  <Suspense fallback="Loading…">
+    <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+  </Suspense>
 ));
 
 function SuperDispatchDocsContainer(props) {

@@ -1,20 +1,18 @@
 import { useMemo } from 'react';
 
 import {
-  formatPhoneNumber,
-  PhoneNumberFormat,
-  validatePhoneNumber,
-} from '../data/PhoneUtils';
+  PhoneFormatOptions,
+  usePhoneService,
+} from '../phone-service/PhoneService';
 
 export function useFormattedPhoneNumber(
-  phone: string,
-  format?: PhoneNumberFormat,
+  input: unknown,
+  { format, country, fallback }: PhoneFormatOptions = {},
 ): string {
-  return useMemo(() => {
-    if (validatePhoneNumber(phone) === 'unknown') {
-      return '';
-    }
+  const phoneService = usePhoneService();
 
-    return formatPhoneNumber(phone, format);
-  }, [phone, format]);
+  return useMemo(
+    () => phoneService.format(input, { format, country, fallback }),
+    [phoneService, input, format, country, fallback],
+  );
 }

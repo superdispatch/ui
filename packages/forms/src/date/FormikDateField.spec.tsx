@@ -1,5 +1,4 @@
 import { DateConfigProvider, defaultDateConfig } from '@superdispatch/dates';
-import { ThemeProvider } from '@superdispatch/ui';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
@@ -7,17 +6,15 @@ import MockDate from 'mockdate';
 import React, { ReactElement } from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
-import { FormikDateField } from '../FormikDateField';
-import { FormikEnhancedConfig } from '../useFormikEnhanced';
+import { FormikEnhancedConfig } from '../enhanced/useFormikEnhanced';
+import { FormikDateField } from './FormikDateField';
 
 function renderDateField<T, R>(
   element: ReactElement,
   formProps: FormikEnhancedConfig<T, R>,
 ) {
   return renderFormField(
-    <ThemeProvider>
-      <DateConfigProvider>{element}</DateConfigProvider>
-    </ThemeProvider>,
+    <DateConfigProvider>{element}</DateConfigProvider>,
     formProps,
   );
 }

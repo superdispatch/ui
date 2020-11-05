@@ -13,7 +13,7 @@ import {
   CountryISO,
   formatCountry,
   getCountryCode,
-} from '../data/CountryCodeMetadata';
+} from '../country-code-metadata/CountryCodeMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
 const useStyles = makeStyles<Theme>(

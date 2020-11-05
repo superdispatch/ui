@@ -9,13 +9,16 @@ import { Button, Inline, Stack, useSnackbarStack } from '@superdispatch/ui';
 import { Form, FormikProvider } from 'formik';
 import React, { useRef } from 'react';
 
-import { FormikDateField, FormikTextField, useFormikEnhanced } from '.';
+import {
+  FormikDateField,
+  FormikTextField,
+  SuspendedFormikPhoneField,
+  useFormikEnhanced,
+} from '.';
 
 export default {
   title: 'Recipes/Forms',
-  parameters: {
-    playroom: { disable: true },
-  },
+  parameters: { playroom: { disable: true } },
 } as Meta;
 
 export function SignUp() {
@@ -28,6 +31,7 @@ export function SignUp() {
       password: string;
       $showPassword: boolean;
       dateOfBirth: undefined | string;
+      phone: string;
     },
     Record<string, unknown>
   >({
@@ -36,6 +40,7 @@ export function SignUp() {
       password: '',
       $showPassword: false,
       dateOfBirth: undefined,
+      phone: '',
     },
     onSubmit(values) {
       return new Promise((resolve, reject) => {
@@ -145,6 +150,15 @@ export function SignUp() {
                   : dateValue.valueOf() > Date.now()
                   ? 'Invalid Date of birth'
                   : undefined
+              }
+            />
+
+            <SuspendedFormikPhoneField
+              name="phone"
+              fullWidth={true}
+              label="Phone Number"
+              validate={(value, phoneService) =>
+                phoneService.validate(value, { required: true })
               }
             />
 

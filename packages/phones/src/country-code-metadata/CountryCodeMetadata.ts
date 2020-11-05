@@ -248,7 +248,7 @@ const COUNTRY_CODE_METADATA = [
 
 export type CountryISO = typeof COUNTRY_CODE_METADATA[number][0];
 
-const DEFAULT_COUNTRY: CountryISO = 'US';
+export const DEFAULT_COUNTRY: CountryISO = 'US';
 
 const COUNTRIES: CountryISO[] = [];
 const COUNTRY_CODE_MAP = new Map<CountryISO, number>();

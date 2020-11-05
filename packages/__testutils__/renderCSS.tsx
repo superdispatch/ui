@@ -88,13 +88,17 @@ expect.addSnapshotSerializer({
   print: (value) => String(value),
 });
 
-export function renderCSS(ui: ReactElement, components: string[]): string {
-  render(<ThemeProvider>{ui}</ThemeProvider>);
-
+export function extractCSS(components: string[]): string {
   const targetSheet = parseStyleSheet(components);
   const formatted = formatAST(targetSheet);
 
   renderedCSS.add(formatted);
 
   return formatted;
+}
+
+export function renderCSS(ui: ReactElement, components: string[]): string {
+  render(<ThemeProvider>{ui}</ThemeProvider>);
+
+  return extractCSS(components);
 }

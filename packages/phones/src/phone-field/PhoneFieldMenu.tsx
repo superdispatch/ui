@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/styles';
 import { SuperDispatchTheme } from '@superdispatch/ui';
 import React, { forwardRef } from 'react';
 
-import { CountryISO, listCountries } from '../data/CountryCodeMetadata';
+import {
+  CountryISO,
+  listCountries,
+} from '../country-code-metadata/CountryCodeMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 const useStyles = makeStyles<SuperDispatchTheme, 'paper'>(

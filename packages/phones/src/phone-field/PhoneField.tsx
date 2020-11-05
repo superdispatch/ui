@@ -3,18 +3,17 @@ import { mergeRefs } from '@superdispatch/ui';
 import React, {
   ChangeEvent,
   forwardRef,
+  ReactNode,
+  Suspense,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { CountryISO } from '../data/CountryCodeMetadata';
-import {
-  formatPhoneNumber,
-  getExamplePhoneNumber,
-  parsePhoneNumber,
-} from '../data/PhoneUtils';
+import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
+import { usePhoneService } from '../phone-service/PhoneService';
 import { PhoneFieldMenu } from './PhoneFieldMenu';
 import { PhoneFieldStartAdornment } from './PhoneFieldStartAdornment';
 
@@ -26,12 +25,6 @@ interface State {
   value: string;
   nationalNumber: string;
   country: CountryISO;
-}
-
-function createState(value: string): State {
-  const [country, nationalNumber] = parsePhoneNumber(value);
-
-  return { value, country, nationalNumber };
 }
 
 export interface PhoneFieldProps
@@ -59,27 +52,35 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
     const inputRef = useRef<HTMLInputElement>(null);
     const [menuAnchor, setMenuAnchor] = useState<null | HTMLDivElement>(null);
 
+    const phoneService = usePhoneService();
+    const createState = useCallback(
+      (value: string): State => ({ value, ...phoneService.getInfo(value) }),
+      [phoneService],
+    );
+
     const value = useMemo(() => normalizeValue(valueProp), [valueProp]);
     const [{ country, nationalNumber }, setValue] = useState(() =>
       createState(value),
     );
 
     const placeholder = useMemo(
-      () => formatPhoneNumber(getExamplePhoneNumber(country), 'national'),
-      [country],
+      () => phoneService.APN.getExample(country).getNumber('national'),
+      [country, phoneService.APN],
     );
 
     const handleChange = (
       fn: undefined | ((value: string) => void),
-      nextRegion: CountryISO,
+      nextCountry: CountryISO,
       nextNationalNumber: string,
     ) => {
       if (fn) {
-        const nextValue = formatPhoneNumber([nextRegion, nextNationalNumber]);
+        const nextValue = phoneService.format(nextNationalNumber, {
+          country: nextCountry,
+        });
 
         setValue({
           value: nextValue,
-          country: nextRegion,
+          country: nextCountry,
           nationalNumber: nextNationalNumber,
         });
 
@@ -89,13 +90,15 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
 
     const handleChangeEvent = (
       fn: undefined | ((value: string) => void),
-      event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      {
+        target: { value: nextValue },
+      }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
       if (fn) {
         handleChange(
           fn,
           country,
-          formatPhoneNumber([country, event.target.value], 'national'),
+          phoneService.format(nextValue, { country, format: 'national' }),
         );
       }
     };
@@ -105,7 +108,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
         // Ignore `props.value` changes when they were performed from inside.
         prev.value === value ? prev : createState(value),
       );
-    }, [value]);
+    }, [value, createState]);
 
     return (
       <>
@@ -157,4 +160,42 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
       </>
     );
   },
+);
+
+export interface SuspendedPhoneFieldProps extends PhoneFieldProps {
+  suspenseFallback?: ReactNode;
+}
+
+export const SuspendedPhoneField = forwardRef<
+  HTMLDivElement,
+  SuspendedPhoneFieldProps
+>(
+  (
+    {
+      label,
+      fullWidth,
+      helperText,
+      suspenseFallback = (
+        <TextField
+          disabled={true}
+          label={label}
+          fullWidth={fullWidth}
+          helperText={helperText}
+          placeholder="Loading…"
+        />
+      ),
+      ...props
+    },
+    ref,
+  ) => (
+    <Suspense fallback={suspenseFallback}>
+      <PhoneField
+        {...props}
+        ref={ref}
+        label={label}
+        fullWidth={fullWidth}
+        helperText={helperText}
+      />
+    </Suspense>
+  ),
 );
