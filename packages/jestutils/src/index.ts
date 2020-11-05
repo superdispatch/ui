@@ -2,7 +2,6 @@ import './serializers/blob-serializer';
 import './serializers/form-data-serializer';
 import './serializers/location-serializer';
 
-export * from './MockEvent';
 export * from './matchers/date-matchers';
 export * from './mockEndpoint';
 export * from './mockEndpoints';
