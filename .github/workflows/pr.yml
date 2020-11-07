@@ -1,9 +1,6 @@
 name: PR
 
-on:
-  pull_request:
-    branches:
-      - '**'
+on: pull_request
 
 jobs:
   checks:
@@ -41,11 +38,11 @@ jobs:
           key: yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             yarn-
-      - run: yarn install --frozen-lockfile
 
-      - uses: andresz1/size-limit-action@v1
+      - uses: superdispatch/actions/build-size/limit@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          install_command: 'yarn install'
+          build_command: 'yarn build'
 
   preview:
     runs-on: ubuntu-latest
