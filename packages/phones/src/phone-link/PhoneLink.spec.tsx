@@ -34,16 +34,10 @@ test('country', async () => {
   expect(link).toHaveAttribute('href', 'tel:+64-20-1555-0123');
 });
 
-test('possible', async () => {
-  const wrapper = renderComponent(<PhoneLink phone="123" />);
-  const link = await wrapper.findByRole('link');
-
-  expect(link).toHaveTextContent('+1 123');
-  expect(link).toHaveAttribute('href', 'tel:+1-123');
-});
-
 test('invalid', async () => {
-  const wrapper = renderComponent(<PhoneLink phone="noop" />);
+  const wrapper = renderComponent(
+    <PhoneLink phone="Phone: (585) 617-1234 (Home) | (585) 489-1234 (Cell)" />,
+  );
 
   await waitFor(() => {
     expect(wrapper.queryByText('Suspended…')).toBeNull();
@@ -54,14 +48,19 @@ test('invalid', async () => {
 
 test('fallback', async () => {
   const wrapper = renderComponent(
-    <PhoneLink phone="noop" fallback="Invalid." />,
+    <PhoneLink
+      phone="Phone: (585) 617-1234 (Home) | (585) 489-1234 (Cell)"
+      fallback="Phone: (585) 617-1234 (Home) | (585) 489-1234 (Cell)"
+    />,
   );
 
-  await wrapper.findByText('Invalid.');
+  await waitFor(() => {
+    expect(wrapper.queryByText('Suspended…')).toBeNull();
+  });
 
   expect(wrapper.container).toMatchInlineSnapshot(`
     <div>
-      Invalid.
+      Phone: (585) 617-1234 (Home) | (585) 489-1234 (Cell)
     </div>
   `);
 });

@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { APNStatic, APNType, getAPN } from '../apn/APN';
+import { APNStatic, APNType, getAPN, loadAPN } from '../apn/APN';
 import {
   CountryISO,
+  DEFAULT_COUNTRY,
   getCountryCode,
   toCountryISO,
 } from '../country-code-metadata/CountryCodeMetadata';
@@ -13,6 +14,10 @@ const PHONE_PATTERN = /^\+?\d+/g;
 
 function getPrefix(country: CountryISO): string {
   return PLUS_SIGN + String(getCountryCode(toCountryISO(country)));
+}
+
+function trim(input: unknown): string | undefined {
+  return typeof input == 'string' ? input.trim() : undefined;
 }
 
 function normalize(input: unknown): string {
@@ -85,6 +90,25 @@ export interface PhoneFormatOptions {
 }
 
 export class PhoneService {
+  static load(): Promise<PhoneService> {
+    return loadAPN().then((APN) => new PhoneService(APN));
+  }
+
+  static checkPossibility(input: unknown): Promise<PhoneNumberPossibility> {
+    return this.load().then((phoneService) =>
+      phoneService.checkPossibility(input),
+    );
+  }
+
+  static validate(
+    input: unknown,
+    rules?: PhoneValidationRules,
+  ): Promise<string | undefined> {
+    return this.load().then((phoneService) =>
+      phoneService.validate(input, rules),
+    );
+  }
+
   readonly APN;
 
   constructor(APN: APNStatic) {
@@ -103,7 +127,16 @@ export class PhoneService {
     return this.createAPN(phone, country).toJSON() as PhoneNumberJSON;
   }
 
-  protected getAPNPossibility(apn: APNType): PhoneNumberPossibility {
+  checkPossibility(input: unknown): PhoneNumberPossibility {
+    const phone = trim(input);
+
+    if (!phone) {
+      return 'unknown';
+    }
+
+    const apn = phone.startsWith(PLUS_SIGN)
+      ? new this.APN(phone)
+      : new this.APN(phone, DEFAULT_COUNTRY);
     const { valid, possible, possibility } = apn.toJSON() as PhoneNumberJSON;
 
     // Avoid false positive short phone numbers.
@@ -112,12 +145,6 @@ export class PhoneService {
     }
 
     return possibility;
-  }
-
-  checkPossibility(phone: string): PhoneNumberPossibility {
-    const apn = this.createAPN(phone);
-
-    return this.getAPNPossibility(apn);
   }
 
   validate(
@@ -130,7 +157,7 @@ export class PhoneService {
       tooShortMessage = 'Phone number is too short',
     }: PhoneValidationRules = {},
   ) {
-    const phone = normalize(input);
+    const phone = trim(input);
 
     if (!phone) {
       if (required) {

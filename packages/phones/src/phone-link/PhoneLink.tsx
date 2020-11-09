@@ -6,11 +6,14 @@ import React, {
   ReactNode,
   RefAttributes,
   Suspense,
+  useMemo,
 } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
-import { useFormattedPhoneNumber } from '../formatted-phone-number/FormattedPhoneNumber';
-import { PhoneNumberFormat } from '../phone-service/PhoneService';
+import {
+  PhoneNumberFormat,
+  usePhoneService,
+} from '../phone-service/PhoneService';
 
 export interface PhoneLinkProps
   extends RefAttributes<HTMLAnchorElement>,
@@ -23,14 +26,23 @@ export interface PhoneLinkProps
 
 export const PhoneLink: ForwardRefExoticComponent<PhoneLinkProps> = forwardRef(
   ({ phone, country, fallback, format = 'international', ...props }, ref) => {
-    const href = useFormattedPhoneNumber(phone, { country, format: 'rfc3966' });
-    const children = useFormattedPhoneNumber(phone, { country, format });
+    const service = usePhoneService();
+    const [text, href] = useMemo(() => {
+      if (service.checkPossibility(phone) !== 'is-possible') {
+        return [undefined, undefined];
+      }
+
+      return [
+        service.format(phone, { country, format }),
+        service.format(phone, { country, format: 'rfc3966' }),
+      ];
+    }, [phone, country, format, service]);
 
     return !href ? (
       renderChildren(fallback)
     ) : (
       <Link {...props} ref={ref} href={href}>
-        {children}
+        {text}
       </Link>
     );
   },
