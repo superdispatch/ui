@@ -210,7 +210,7 @@ test.each([
   ['615-994-330', 'too-short'],
   ['615-994-3300', 'is-possible'],
   ['615-994-33001', 'too-long'],
-  ['1 6', 'too-short'],
+  ['1 6', 'unknown'],
   ['1 61', 'too-short'],
   ['1 615-9', 'too-short'],
   ['1 615-99', 'too-short'],
@@ -240,27 +240,36 @@ test.each<
   [
     input: unknown,
     rules: undefined | PhoneValidationRules,
-    expected: string | undefined,
+    expectedMessage: string | undefined,
   ]
 >([
-  ['', undefined, undefined],
+  [' ', undefined, undefined],
   [null, undefined, undefined],
   [undefined, undefined, undefined],
-  ['615-994-3300', undefined, undefined],
 
+  ['615-994-3300', undefined, undefined],
+  ['+1 615-994-3300', undefined, undefined],
+
+  [' ', { required: true }, 'This field is required'],
   [null, { required: true }, 'This field is required'],
-  [null, { required: true, requiredMessage: 'Required.' }, 'Required.'],
   [undefined, { required: true }, 'This field is required'],
   [undefined, { required: true, requiredMessage: 'Required.' }, 'Required.'],
 
+  [
+    'Phone: (585) 617-4124 (Home) | (585) 489-6693 (Cell)',
+    undefined,
+    'Invalid phone number',
+  ],
   ['+1', undefined, 'Invalid phone number'],
   ['+1', { invalidMessage: 'Invalid.' }, 'Invalid.'],
 
   ['615', undefined, 'Phone number is too short'],
-  ['615', { tooShortMessage: 'Too short.' }, 'Too short.'],
+  ['+1 615', undefined, 'Phone number is too short'],
+  ['+1 615', { tooShortMessage: 'Too short.' }, 'Too short.'],
 
   ['615-994-3300 00', undefined, 'Phone number is too long'],
-  ['615-994-3300 00', { tooLongMessage: 'Too long.' }, 'Too long.'],
+  ['+1 615-994-3300 00', undefined, 'Phone number is too long'],
+  ['+1 615-994-3300 00', { tooLongMessage: 'Too long.' }, 'Too long.'],
 ])('#validate(%p, %j): %p', (input, rules, expected) => {
   expect(new PhoneService(AwesomePhoneNumber).validate(input, rules)).toBe(
     expected,

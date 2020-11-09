@@ -44,18 +44,6 @@ test('country', async () => {
   `);
 });
 
-test('possible', async () => {
-  const wrapper = renderComponent(<PhoneText phone="201" />);
-
-  await wrapper.findByText(/201/);
-
-  expect(wrapper.container).toMatchInlineSnapshot(`
-    <div>
-      +1 201
-    </div>
-  `);
-});
-
 test('invalid', async () => {
   const wrapper = renderComponent(<PhoneText phone="noop" />);
 
@@ -71,7 +59,9 @@ test('fallback', async () => {
     <PhoneText phone="noop" fallback="Invalid." />,
   );
 
-  await wrapper.findByText('Invalid.');
+  await waitFor(() => {
+    expect(wrapper.queryByText('Suspended…')).toBeNull();
+  });
 
   expect(wrapper.container).toMatchInlineSnapshot(`
     <div>
