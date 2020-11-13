@@ -235,6 +235,10 @@ it('checks component css', () => {
       flex-shrink: 0;
     }
 
+    .SD-Columns-widthAdaptive {
+      flex-shrink: 1;
+    }
+
     .SD-Columns-width1of2 {
       flex: 0 0 50%;
     }
