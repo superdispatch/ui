@@ -45,7 +45,7 @@ const useStyles = makeStyles<
 export interface OverflowTextProps extends Omit<TypographyProps, 'noWrap'> {
   component?: ElementType;
   disableUnderline?: boolean;
-  TooltipProps?: Omit<TooltipProps, 'open' | 'children'>;
+  TooltipProps?: Omit<Partial<TooltipProps>, 'open' | 'children'>;
 }
 
 export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwardRef(
