@@ -1,4 +1,4 @@
-import { Typography, TypographyProps } from '@material-ui/core';
+import { SvgIcon, Typography, TypographyProps } from '@material-ui/core';
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { forwardRef, ReactNode } from 'react';
@@ -32,7 +32,10 @@ const useStyles = makeStyles<
     listSmall: sizeVariant(theme, 1, 0.5),
     listLarge: sizeVariant(theme, 3, 2),
 
-    item: { display: 'flex', alignItems: 'center' },
+    item: {
+      display: 'flex',
+      alignItems: 'center',
+    },
 
     icon: {
       display: 'inline-flex',
@@ -76,16 +79,16 @@ export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
 
 export interface DescriptionListItemProps {
   icon?: ReactNode;
+  inset?: boolean;
+
   label?: ReactNode;
   labelTypographyProps?: Omit<
     TypographyProps,
     'noWrap' | 'variant' | 'component' | 'color'
   >;
+
   content?: ReactNode;
-  contentTypographyProps?: Omit<
-    OverflowTextProps,
-    'variant' | 'component' | 'color'
-  >;
+  contentTypographyProps?: Omit<OverflowTextProps, 'component' | 'color'>;
 }
 
 export const DescriptionListItem = forwardRef<
@@ -94,28 +97,29 @@ export const DescriptionListItem = forwardRef<
 >(
   (
     {
-      icon,
+      inset,
+      icon = inset ? <SvgIcon /> : null,
+
       label,
+      labelTypographyProps = {},
+
       content,
-      labelTypographyProps,
       contentTypographyProps = {},
-      ...props
     },
     rootRef,
   ) => {
     const styles = useStyles();
 
     return (
-      <div {...props} ref={rootRef} className={styles.item}>
+      <div ref={rootRef} className={styles.item}>
         {!!icon && <div className={styles.icon}>{icon}</div>}
 
         {(!!label || !!content) && (
           <OverflowText
             {...contentTypographyProps}
-            variant="body2"
             component="span"
             TooltipProps={{
-              title: content as string,
+              title: content != null ? content : undefined,
               ...contentTypographyProps.TooltipProps,
             }}
           >
