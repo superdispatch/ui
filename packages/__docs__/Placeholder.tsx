@@ -35,9 +35,11 @@ export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
         <strong
           style={{
             color: Color.Grey100,
+            padding: '8px',
             width: '100%',
             height: '100%',
             display: 'flex',
+            textAlign: 'center',
             alignItems: 'center',
             justifyContent: 'center',
           }}

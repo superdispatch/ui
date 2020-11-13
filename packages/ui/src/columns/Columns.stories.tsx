@@ -1,10 +1,11 @@
-import { Box, Link } from '@material-ui/core';
+import { Box, IconButton, Link } from '@material-ui/core';
+import { Edit as EditIcon, Room as RoomIcon } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
 import React from 'react';
 
-import { Stack } from '..';
-import { Column, Columns, ColumnWidth } from './Columns';
+import { OverflowText, Stack } from '..';
+import { Column, Columns } from './Columns';
 
 export default {
   title: 'Layout/Columns',
@@ -178,36 +179,189 @@ export const reverseAndCollapseBelowTablet = () => (
   </Columns>
 );
 
-const AVAILABLE_WIDTHS: ColumnWidth[] = [
-  'content',
-  '1/2',
-  '1/3',
-  '2/3',
-  '1/4',
-  '3/4',
-  '1/5',
-  '2/5',
-  '3/5',
-  '4/5',
-];
-
 export const availableWidths = () => (
   <Stack space={1}>
-    {AVAILABLE_WIDTHS.map((width) => (
-      <Columns key={width} space={1}>
-        <Column width={width}>
-          <Placeholder
-            height={48}
-            width={width === 'content' ? 128 : 'auto'}
-            text={width === 'content' ? 'Content' : width}
-          />
-        </Column>
+    <Columns space={1}>
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
 
-        <Column>
-          <Placeholder height={48} text="Fluid" />
-        </Column>
-      </Columns>
-    ))}
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+
+      <Column width="adaptive">
+        <Placeholder height={48} text="Adaptive" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+
+      <Column width="content">
+        <Placeholder height={48} text="Content" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="1/2">
+        <Placeholder height={48} text="1/2" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="1/3">
+        <Placeholder height={48} text="1/3" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="2/3">
+        <Placeholder height={48} text="2/3" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="1/4">
+        <Placeholder height={48} text="1/4" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="3/4">
+        <Placeholder height={48} text="3/4" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="1/5">
+        <Placeholder height={48} text="1/5" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="2/5">
+        <Placeholder height={48} text="2/5" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="3/5">
+        <Placeholder height={48} text="3/5" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
+
+    <Columns space={1}>
+      <Column width="4/5">
+        <Placeholder height={48} text="4/5" />
+      </Column>
+
+      <Column>
+        <Placeholder height={48} text="Fluid" />
+      </Column>
+    </Columns>
   </Stack>
 );
 
@@ -224,4 +378,42 @@ export const responsiveWidths = () => (
       <Placeholder height={112} text="Fluid" />
     </Column>
   </Columns>
+);
+
+export const overflowText = () => (
+  <Stack>
+    <Columns space={1} align="center">
+      <Column width="content">
+        <RoomIcon color="action" />
+      </Column>
+
+      <Column width="adaptive">
+        <OverflowText>1617 Main St Fl 3</OverflowText>
+      </Column>
+
+      <Column width="content">
+        <IconButton size="small">
+          <EditIcon />
+        </IconButton>
+      </Column>
+    </Columns>
+
+    <Columns space={1} align="center">
+      <Column width="content">
+        <RoomIcon color="action" />
+      </Column>
+
+      <Column width="adaptive">
+        <OverflowText>
+          1617 Main St Fl 3 Kansas City, MO 64108-1326
+        </OverflowText>
+      </Column>
+
+      <Column width="content">
+        <IconButton size="small">
+          <EditIcon />
+        </IconButton>
+      </Column>
+    </Columns>
+  </Stack>
 );

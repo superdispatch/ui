@@ -36,6 +36,7 @@ type ColumnsClassKey =
   | 'alignBottom'
   | 'widthContent'
   | 'widthFluid'
+  | 'widthAdaptive'
   | 'width1of2'
   | 'width1of3'
   | 'width2of3'
@@ -124,6 +125,7 @@ const useStyles = makeStyles<SuperDispatchTheme, ColumnsClassKey>(
 
     widthFluid: { width: '100%' },
     widthContent: { flexShrink: 0 },
+    widthAdaptive: { flexShrink: 1 },
 
     width1of2: widthMixin(1 / 2),
     width1of3: widthMixin(1 / 3),
@@ -139,6 +141,7 @@ const useStyles = makeStyles<SuperDispatchTheme, ColumnsClassKey>(
 );
 
 export type ColumnWidth =
+  | 'adaptive'
   | 'content'
   | 'fluid'
   | '1/2'
@@ -166,8 +169,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         {...props}
         ref={ref}
         className={clsx(styles.column, {
-          [styles.widthFluid]: width === 'fluid',
+          [styles.widthAdaptive]: width === 'adaptive',
           [styles.widthContent]: width === 'content',
+          [styles.widthFluid]: width === 'fluid',
           [styles.width1of2]: width === '1/2',
           [styles.width1of3]: width === '1/3',
           [styles.width2of3]: width === '2/3',
@@ -206,7 +210,7 @@ export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
     },
     ref,
   ) => {
-    const styles = useStyles({});
+    const styles = useStyles();
     const align = useResponsiveProp(alignProp);
     const space = useResponsiveProp(spaceProp);
     const isReversed = useResponsiveProp(reverseProp);
