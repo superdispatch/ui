@@ -12,8 +12,10 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
     "faker": "^5.1.0"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.0.0"
   },
   "publishConfig": {
     "access": "public",

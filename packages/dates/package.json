@@ -14,12 +14,12 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
     "@superdispatch/ui": "^0.6.4",
     "luxon": "^1.24.1",
     "react-day-picker": "7.4.0"
   },
   "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
     "@material-ui/lab": "^4.0.0-alpha.40"
   },
   "publishConfig": {

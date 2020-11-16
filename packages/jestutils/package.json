@@ -12,13 +12,13 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
     "lodash": "^4.17.15",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.9.4",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.5.0"
   },
   "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
     "@testing-library/react": "^9.5.0"
   },
   "publishConfig": {

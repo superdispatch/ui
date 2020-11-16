@@ -14,12 +14,12 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
     "@superdispatch/ui": "^0.6.4",
     "awesome-phonenumber": "^2.40.0",
     "clsx": "^1.1.1"
   },
   "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
     "@material-ui/core": "^4.7.2",
     "@material-ui/icons": "^4.5.1",
     "react": "^16.8.0"
