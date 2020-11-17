@@ -15,6 +15,7 @@
     "@superdispatch/dates": "packages/dates/pkg",
     "@superdispatch/phones": "packages/phones/pkg",
     "@superdispatch/jestutils": "packages/jestutils/pkg",
+    "@superdispatch/testutils": "packages/testutils/pkg",
     "@superdispatch/eslint-plugin-ui": "packages/eslint-plugin"
   }
 }
