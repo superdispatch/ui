@@ -4,7 +4,7 @@ it('exposes public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "FormikCheckboxField": [Function],
-      "FormikDateField": [Function],
+      "FormikDateField": React.forwardRef(FormikDateField),
       "FormikEnhanced": [Function],
       "FormikPhoneField": React.forwardRef(FormikPhoneField),
       "FormikRadioGroupField": React.forwardRef(FormikRadioGroupField),
