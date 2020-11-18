@@ -7,6 +7,7 @@ import { OverflowText, OverflowTextProps } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { isEmptyReactNode } from '../utils/isEmptyReactNode';
+import { useUID } from '../utils/useUID';
 
 function sizeVariant(
   theme: SuperDispatchTheme,
@@ -112,19 +113,28 @@ export const DescriptionListItem = forwardRef<
       icon = inset ? <SvgIcon /> : null,
 
       label,
-      labelTypographyProps,
+      labelTypographyProps: {
+        id: labelIDProp,
+        ...labelTypographyProps
+      } = {} as const,
 
       content,
-      contentTypographyProps = {},
+      contentTypographyProps: {
+        TooltipProps: {
+          title: contentTooltipTitle,
+          ...contentTooltipProps
+        } = {} as const,
+        ...contentTypographyProps
+      } = {} as const,
 
       fallback,
     },
     ref,
   ) => {
     const styles = useStyles();
-    const isEmptyLabel = isEmptyReactNode(label);
-    const isEmptyContent = isEmptyReactNode(content);
-    const isEmptyFallback = isEmptyReactNode(fallback);
+    const labelID = useUID(labelIDProp);
+
+    const shouldRenderFallback = isEmptyReactNode(content);
 
     return (
       <div ref={ref} className={styles.item}>
@@ -134,16 +144,25 @@ export const DescriptionListItem = forwardRef<
           {...contentTypographyProps}
           component="span"
           color={
-            isEmptyLabel && isEmptyContent ? 'textSecondary' : 'textPrimary'
+            shouldRenderFallback && label != null
+              ? 'textSecondary'
+              : 'textPrimary'
           }
           TooltipProps={{
-            title: content != null ? content : undefined,
-            ...contentTypographyProps.TooltipProps,
+            ...contentTooltipProps,
+            title:
+              contentTooltipTitle != null
+                ? contentTooltipTitle
+                : content != null
+                ? content
+                : undefined,
+            'aria-labelledby': label != null ? labelID : undefined,
           }}
         >
-          {!isEmptyLabel && (
+          {label != null && (
             <Typography
               {...labelTypographyProps}
+              id={labelID}
               variant="body2"
               component="span"
               color="textSecondary"
@@ -152,9 +171,8 @@ export const DescriptionListItem = forwardRef<
             </Typography>
           )}
 
-          {!isEmptyLabel && ' '}
-
-          {!isEmptyContent ? content : !isEmptyFallback ? fallback : null}
+          {label != null && ' '}
+          {!shouldRenderFallback ? content : fallback}
         </OverflowText>
       </div>
     );
