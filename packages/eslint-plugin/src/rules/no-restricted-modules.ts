@@ -3,11 +3,6 @@ import { TSESTree } from '@typescript-eslint/types';
 
 import { createRule } from '../utils/createRule';
 
-type SchemaTypeSpec = [source: string, specifier: string];
-type SchemaTypes = Record<string, SchemaTypeSpec>;
-
-export type Options = [{ types?: SchemaTypes }];
-
 const messages = {
   forbid:
     'Usage of `{{name}}` is restricted, use alternative from the `@superdispatch/ui`',
