@@ -128,6 +128,7 @@
     "css": "^3.0.0",
     "dedent": "^0.7.0",
     "eslint": "^7.13.0",
+    "eslint-plugin-eslint-config": "^1.0.4",
     "execa": "^4.1.0",
     "formik": "2.2.5",
     "husky": "^4.2.3",
