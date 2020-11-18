@@ -6,7 +6,8 @@
     "packages/dates",
     "packages/phones",
     "packages/jestutils",
-    "packages/testutils"
+    "packages/testutils",
+    "packages/eslint-plugin"
   ],
   "publishDirectory": {
     "@superdispatch/ui": "packages/ui/pkg",
@@ -14,6 +15,7 @@
     "@superdispatch/dates": "packages/dates/pkg",
     "@superdispatch/phones": "packages/phones/pkg",
     "@superdispatch/jestutils": "packages/jestutils/pkg",
-    "@superdispatch/testutils": "packages/testutils/pkg"
+    "@superdispatch/testutils": "packages/testutils/pkg",
+    "@superdispatch/eslint-plugin-ui": "packages/eslint-plugin"
   }
 }

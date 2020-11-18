@@ -1,0 +1,13 @@
+{
+  "include": ["src"],
+  "extends": "../../tsconfig.build",
+  "exclude": ["**/*.spec.*", "**/__tests__/**", "**/__testutils__/**"],
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg",
+    "tsBuildInfoFile": "pkg/.tsbuildinfo"
+  }
+}
