@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,8 +31,9 @@ jobs:
       - run: yarn lint
       - run: yarn test
       - uses: codecov/codecov-action@v1
+      - run: yarn build
 
-  build:
+  docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -49,7 +50,6 @@ jobs:
             yarn-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn build
       - run: yarn docs
       - uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
