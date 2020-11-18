@@ -1,7 +1,7 @@
-import { renderComponent } from '@superdispatch/ui-testutils';
+import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
 import React from 'react';
 
-import { DescriptionListItem } from './DescriptionList';
+import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
 test('label id', () => {
   const { getByLabelText } = renderComponent(
@@ -64,5 +64,77 @@ test('dynamic label id', () => {
         />
       </span>
     </div>
+  `);
+});
+
+test('css', () => {
+  expect(
+    renderCSS(
+      <DescriptionList>
+        <DescriptionListItem />
+        <DescriptionListItem icon={<div />} />
+        <DescriptionListItem label={<div />} />
+        <DescriptionListItem content={<div />} />
+        <DescriptionListItem label={<div />} content={<div />} />
+      </DescriptionList>,
+      ['SD-DescriptionList'],
+    ),
+  ).toMatchInlineSnapshot(`
+    .SD-DescriptionList-list > .SD-DescriptionList-list:not(:last-child),
+    .SD-DescriptionList-list > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .SD-DescriptionList-list > .SD-DescriptionList-list:not(:last-child),
+      .SD-DescriptionList-list > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 8px;
+      }
+    }
+
+    .SD-DescriptionList-listSmall > .SD-DescriptionList-list:not(:last-child),
+    .SD-DescriptionList-listSmall > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 8px;
+    }
+
+    @media (min-width: 600px) {
+      .SD-DescriptionList-listSmall > .SD-DescriptionList-list:not(:last-child),
+      .SD-DescriptionList-listSmall > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 4px;
+      }
+    }
+
+    .SD-DescriptionList-listLarge > .SD-DescriptionList-list:not(:last-child),
+    .SD-DescriptionList-listLarge > .SD-DescriptionList-item:not(:last-child) {
+      padding-bottom: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .SD-DescriptionList-listLarge > .SD-DescriptionList-list:not(:last-child),
+      .SD-DescriptionList-listLarge > .SD-DescriptionList-item:not(:last-child) {
+        padding-bottom: 16px;
+      }
+    }
+
+    .SD-DescriptionList-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .SD-DescriptionList-icon {
+      display: inline-flex;
+      margin-right: 8px;
+    }
+
+    .SD-DescriptionList-icon > .MuiSvgIcon-root {
+      color: Color.Grey100;
+      font-size: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .SD-DescriptionList-icon > .MuiSvgIcon-root {
+        font-size: 16px;
+      }
+    }
   `);
 });
