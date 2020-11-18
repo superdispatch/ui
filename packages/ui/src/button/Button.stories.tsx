@@ -6,9 +6,8 @@ import React from 'react';
 import { Color } from '..';
 import { Button, ButtonProps } from './Button';
 
-function formatUnionType(types: readonly unknown[]): string {
-  return types.map((x) => JSON.stringify(x)).join(' | ');
-}
+const formatUnionType = (types: readonly unknown[]): string =>
+  types.map((x) => JSON.stringify(x)).join(' | ');
 
 const sizes: ReadonlyArray<NonNullable<ButtonProps['size']>> = [
   'small',

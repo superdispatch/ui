@@ -11,6 +11,7 @@ import React from 'react';
 
 import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {
+  DatePayload,
   DateString,
   NullableDateString,
 } from '../date-time-utils/DateTimeUtils';
@@ -18,7 +19,6 @@ import {
   Calendar,
   CalendarDateEvent,
   CalendarDayHighlightColor,
-  CalendarModifier,
 } from './Calendar';
 import {
   CalendarQuickSelection,
@@ -268,7 +268,9 @@ test('highlightedDays', () => {
     'yellow',
   ];
 
-  const modifier: CalendarModifier = ({ dateValue }) => dateValue.day === 24;
+  function modifier({ dateValue }: DatePayload): boolean {
+    return dateValue.day === 24;
+  }
 
   for (const currentHighlight of highlights) {
     wrapper.rerender(

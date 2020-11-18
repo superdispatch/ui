@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = ({ types }) => {
-  const makeParameters = (id, code) => {
+  function makeParameters(id, code) {
     const parametersExpression = types.memberExpression(
       id,
       types.identifier('parameters'),
@@ -44,7 +44,7 @@ module.exports = ({ types }) => {
         ),
       ),
     ]);
-  };
+  }
 
   return {
     visitor: {

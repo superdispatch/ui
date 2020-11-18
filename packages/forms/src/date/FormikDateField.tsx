@@ -3,11 +3,12 @@ import {
   DateFieldProps,
   DatePayload,
   DateString,
+  NullableDateInput,
   parseDate,
   stringifyDate,
   useDateConfig,
 } from '@superdispatch/dates';
-import { FieldValidator, useField, useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import React, { ReactElement } from 'react';
 
 export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
@@ -26,19 +27,17 @@ export function FormikDateField({
 }: FormikDateFieldProps): ReactElement {
   const config = useDateConfig({ format });
   const { isSubmitting } = useFormikContext();
-  const validate: FieldValidator = (value) => {
-    if (!validateProp) {
-      return undefined;
-    }
 
-    const dateValue = parseDate(value, config);
+  function validate(value: unknown): void | string {
+    if (!validateProp) return;
 
+    const dateValue = parseDate(value as NullableDateInput, config);
     return validateProp({
       config,
       dateValue,
       stringValue: stringifyDate(dateValue, config),
     });
-  };
+  }
 
   const [{ value }, { error, touched }, { setValue, setTouched }] = useField<
     undefined | DateString

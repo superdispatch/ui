@@ -6,7 +6,7 @@ import {
   usePhoneService,
 } from '@superdispatch/phones';
 import { useUID } from '@superdispatch/ui';
-import { FieldValidator, useField, useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import React, { forwardRef, ReactNode, Suspense } from 'react';
 
 interface FormikPhoneFieldProps
@@ -41,13 +41,14 @@ export const FormikPhoneField = forwardRef<
     const uid = useUID(id);
     const phoneService = usePhoneService();
     const { isSubmitting } = useFormikContext();
-    const validate: FieldValidator = (value) => {
-      if (!validateProp) {
-        return undefined;
-      }
 
+    function validate(
+      value: undefined,
+    ): string | void | Promise<string | void> {
+      if (!validateProp) return;
       return validateProp(value, phoneService);
-    };
+    }
+
     const [field, { error, touched }, { setValue, setTouched }] = useField<
       null | undefined | string
     >({ name, validate });

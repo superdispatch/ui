@@ -21,7 +21,7 @@ export default {
   parameters: { playroom: { disable: true } },
 } as Meta;
 
-export function SignUp() {
+export const SignUp = () => {
   const { addSnackbar } = useSnackbarStack();
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -190,4 +190,4 @@ export function SignUp() {
       </Form>
     </FormikProvider>
   );
-}
+};

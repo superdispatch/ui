@@ -1,7 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
-import React, { ComponentType } from 'react';
+import React, { ReactElement } from 'react';
 
-import { DateConfigProvider, useDateConfig } from './DateConfig';
+import {
+  DateConfigProvider,
+  DateConfigProviderProps,
+  useDateConfig,
+} from './DateConfig';
 
 test('basic', () => {
   const { result } = renderHook(useDateConfig);
@@ -10,9 +14,9 @@ test('basic', () => {
 });
 
 test('format overrides', () => {
-  const Wrapper: ComponentType = (props) => (
-    <DateConfigProvider {...props} format="JodaISO" />
-  );
+  function Wrapper(props: DateConfigProviderProps): ReactElement {
+    return <DateConfigProvider {...props} format="JodaISO" />;
+  }
 
   const { result } = renderHook(useDateConfig, { wrapper: Wrapper });
 
