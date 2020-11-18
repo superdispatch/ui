@@ -1,10 +1,12 @@
 import { Box, Link } from '@material-ui/core';
-import { Person as PersonIcon } from '@material-ui/icons';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import ChatIcon from '@material-ui/icons/Chat';
 import NotesIcon from '@material-ui/icons/Notes';
+import PersonIcon from '@material-ui/icons/Person';
+import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
-import { PhoneLink } from '@superdispatch/phones';
+import { PhoneLink, PhoneText } from '@superdispatch/phones';
 import React from 'react';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
@@ -114,6 +116,34 @@ export const inset = () => (
           title: 'dustin.russel@example.com',
         },
       }}
+    />
+  </DescriptionList>
+);
+
+export const nested = () => (
+  <DescriptionList>
+    <DescriptionListItem
+      icon={<RoomIcon />}
+      content="NISSAN WAY, CANTON, MS 39046"
+    />
+    <DescriptionListItem
+      icon={<PhoneIcon />}
+      content=""
+      fallback="No pickup date"
+    />
+
+    <DescriptionList size="small">
+      <DescriptionListItem icon={<PersonIcon />} content="MGR MGR" />
+      <DescriptionListItem
+        inset={true}
+        content={<PhoneText phone="6018550402" format="national" />}
+      />
+    </DescriptionList>
+
+    <DescriptionListItem
+      icon={<ChatIcon />}
+      content=""
+      fallback="No pickup notes"
     />
   </DescriptionList>
 );
