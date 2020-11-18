@@ -7,7 +7,7 @@ it('exposes public api', () => {
       "FormikDateField": [Function],
       "FormikEnhanced": [Function],
       "FormikPhoneField": React.forwardRef(FormikPhoneField),
-      "FormikRadioGroupField": [Function],
+      "FormikRadioGroupField": React.forwardRef(FormikRadioGroupField),
       "FormikTextField": React.forwardRef(FormikTextField),
       "FormsProvider": [Function],
       "SuspendedFormikPhoneField": React.forwardRef(SuspendedFormikPhoneField),
