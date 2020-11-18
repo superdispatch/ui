@@ -15,11 +15,13 @@ function sizeVariant(
   desktopSpacing: number,
 ): CSSProperties {
   return {
-    '& > $item:not(:last-child)': {
-      paddingBottom: theme.spacing(mobileSpacing),
+    '& > &, $item': {
+      '&:not(:last-child)': {
+        paddingBottom: theme.spacing(mobileSpacing),
 
-      [theme.breakpoints.up('sm')]: {
-        paddingBottom: theme.spacing(desktopSpacing),
+        [theme.breakpoints.up('sm')]: {
+          paddingBottom: theme.spacing(desktopSpacing),
+        },
       },
     },
   };
