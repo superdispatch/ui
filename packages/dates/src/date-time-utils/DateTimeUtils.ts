@@ -166,7 +166,7 @@ export function formatRelativeTime(
     fallback = 'Invalid Date',
   }: FormatRelativeTimeOptions = {},
   config: DateConfig = defaultDateConfig,
-): string | undefined {
+): string {
   const date = parseDate(input, config);
   const base = baseOption == null ? undefined : parseDate(baseOption, config);
 
