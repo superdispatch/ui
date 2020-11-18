@@ -6,6 +6,7 @@ import React, { forwardRef, ReactNode } from 'react';
 import { OverflowText, OverflowTextProps } from '../overflow-text/OverflowText';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
+import { isEmptyReactNode } from '../utils/isEmptyReactNode';
 
 function sizeVariant(
   theme: SuperDispatchTheme,
@@ -54,6 +55,10 @@ const useStyles = makeStyles<
   { name: 'SD-DescriptionList' },
 );
 
+//
+// DescriptionList
+//
+
 export interface DescriptionListProps {
   children?: ReactNode;
   size?: 'small' | 'medium' | 'large';
@@ -77,6 +82,10 @@ export const DescriptionList = forwardRef<HTMLDivElement, DescriptionListProps>(
   },
 );
 
+//
+// DescriptionListItem
+//
+
 export interface DescriptionListItemProps {
   icon?: ReactNode;
   inset?: boolean;
@@ -89,6 +98,8 @@ export interface DescriptionListItemProps {
 
   content?: ReactNode;
   contentTypographyProps?: Omit<OverflowTextProps, 'component' | 'color'>;
+
+  fallback?: ReactNode;
 }
 
 export const DescriptionListItem = forwardRef<
@@ -101,44 +112,50 @@ export const DescriptionListItem = forwardRef<
       icon = inset ? <SvgIcon /> : null,
 
       label,
-      labelTypographyProps = {},
+      labelTypographyProps,
 
       content,
       contentTypographyProps = {},
+
+      fallback,
     },
-    rootRef,
+    ref,
   ) => {
     const styles = useStyles();
+    const isEmptyLabel = isEmptyReactNode(label);
+    const isEmptyContent = isEmptyReactNode(content);
+    const isEmptyFallback = isEmptyReactNode(fallback);
 
     return (
-      <div ref={rootRef} className={styles.item}>
+      <div ref={ref} className={styles.item}>
         {!!icon && <div className={styles.icon}>{icon}</div>}
 
-        {(!!label || !!content) && (
-          <OverflowText
-            {...contentTypographyProps}
-            component="span"
-            TooltipProps={{
-              title: content != null ? content : undefined,
-              ...contentTypographyProps.TooltipProps,
-            }}
-          >
-            {!!label && (
-              <Typography
-                {...labelTypographyProps}
-                variant="body2"
-                component="span"
-                color="textSecondary"
-              >
-                {label}
-              </Typography>
-            )}
+        <OverflowText
+          {...contentTypographyProps}
+          component="span"
+          color={
+            isEmptyLabel && isEmptyContent ? 'textSecondary' : 'textPrimary'
+          }
+          TooltipProps={{
+            title: content != null ? content : undefined,
+            ...contentTypographyProps.TooltipProps,
+          }}
+        >
+          {!isEmptyLabel && (
+            <Typography
+              {...labelTypographyProps}
+              variant="body2"
+              component="span"
+              color="textSecondary"
+            >
+              {label}
+            </Typography>
+          )}
 
-            {!!label && !!content && ' '}
+          {!isEmptyLabel && ' '}
 
-            {content}
-          </OverflowText>
-        )}
+          {!isEmptyContent ? content : !isEmptyFallback ? fallback : null}
+        </OverflowText>
       </div>
     );
   },
