@@ -7,6 +7,14 @@ module.exports = {
 
   overrides: [
     {
+      files: '.eslintrc.js',
+      plugins: ['eslint-config'],
+      rules: {
+        'eslint-config/sort-rules': 'error',
+      },
+    },
+
+    {
       files: '*.js',
       extends: 'plugin:@superdispatch/node',
     },
@@ -32,34 +40,6 @@ module.exports = {
       },
 
       rules: {
-        'no-restricted-imports': [
-          'error',
-          {
-            paths: [
-              {
-                name: 'dequal',
-                message: 'Use "dequal/lite" instead.',
-              },
-
-              {
-                name: '@material-ui/core',
-                importNames: ['makeStyles'],
-                message: 'Import from "@material-ui/styles" instead.',
-              },
-            ],
-          },
-        ],
-
-        'react/display-name': 'off',
-
-        'react-hooks/exhaustive-deps': [
-          'error',
-          {
-            additionalHooks:
-              '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
-          },
-        ],
-
         'eslint-comments/no-use': [
           'error',
           { allow: ['eslint-disable-next-line'] },
@@ -76,6 +56,34 @@ module.exports = {
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
               '@material-ui/core/styles/createBreakpoints',
+            ],
+          },
+        ],
+
+        'react-hooks/exhaustive-deps': [
+          'error',
+          {
+            additionalHooks:
+              '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
+          },
+        ],
+
+        'react/display-name': 'off',
+
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'dequal',
+                message: 'Use "dequal/lite" instead.',
+              },
+
+              {
+                name: '@material-ui/core',
+                importNames: ['makeStyles'],
+                message: 'Import from "@material-ui/styles" instead.',
+              },
             ],
           },
         ],
@@ -114,11 +122,11 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       rules: {
-        'no-alert': 'off',
-        'import/no-internal-modules': 'off',
-        'import/no-anonymous-default-export': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
+        'import/no-anonymous-default-export': 'off',
+        'import/no-internal-modules': 'off',
+        'no-alert': 'off',
       },
     },
   ],
