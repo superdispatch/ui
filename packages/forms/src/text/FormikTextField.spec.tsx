@@ -27,9 +27,8 @@ test('changes', async () => {
 
   const input = wrapper.getByLabelText('Name');
 
-  await act(async () => {
-    await userEvent.type(input, 'John');
-
+  void act(() => {
+    userEvent.type(input, 'John');
     userEvent.tab();
   });
 

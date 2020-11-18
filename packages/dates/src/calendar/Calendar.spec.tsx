@@ -279,8 +279,10 @@ test('highlightedDays', () => {
 
     for (const highlight of highlights) {
       if (highlight === currentHighlight) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(day).toHaveClass(`SD-Calendar-${highlight}`);
       } else {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(day).not.toHaveClass(`SD-Calendar-${highlight}`);
       }
     }
