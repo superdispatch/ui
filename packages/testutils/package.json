@@ -27,6 +27,7 @@
         "@pika/plugin-standard-pkg",
         {
           "exclude": [
+            "**/*.spec.*",
             "**/__tests__/**/*"
           ]
         }
