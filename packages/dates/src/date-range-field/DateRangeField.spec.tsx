@@ -115,16 +115,23 @@ test('selected days', () => {
     expect(startDays[0]).toHaveTextContent(String(startDay));
 
     if (finishDay == null) {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(selected).toHaveLength(1);
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(startDate).toBe(finishDate);
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(finishDays).toHaveLength(0);
     } else {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(selected).toHaveLength(finishDay - startDay + 1);
 
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(finishDays).toHaveLength(1);
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(finishDays[0]).toHaveTextContent(String(finishDay));
 
       for (let i = 0; i < selected.length; i++) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(selected[i]).toHaveTextContent(String(startDay + i));
       }
     }

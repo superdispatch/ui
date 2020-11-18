@@ -114,8 +114,10 @@ test('format and parse value with enum', async () => {
     });
 
     if (status === 'active') {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(field).toBeChecked();
     } else {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(field).not.toBeChecked();
     }
 

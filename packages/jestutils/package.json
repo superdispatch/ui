@@ -25,6 +25,9 @@
     "access": "public",
     "directory": "pkg"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "@pika/pack": {
     "pipeline": [
       [

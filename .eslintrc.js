@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+  parserOptions: {
+    project: './tsconfig.json',
+  },
+
   overrides: [
     {
       files: '*.js',
@@ -8,14 +12,18 @@ module.exports = {
     },
 
     {
-      files: '*.{ts,tsx}',
+      files: [
+        '**/packages/__docs__/**/*.{ts,tsx}',
+        '**/packages/dates/**/*.{ts,tsx}',
+        '**/packages/forms/**/*.{ts,tsx}',
+        '**/packages/hooks/**/*.{ts,tsx}',
+        '**/packages/phones/**/*.{ts,tsx}',
+        '**/packages/ui/**/*.{ts,tsx}',
+      ],
       extends: [
         'plugin:@superdispatch/react',
         'plugin:@superdispatch/typescript',
       ],
-      parserOptions: {
-        project: './tsconfig.json',
-      },
 
       settings: {
         react: {
@@ -75,34 +83,32 @@ module.exports = {
     },
 
     {
+      files: ['**/packages/eslint-plugin/**/*.ts'],
+      extends: ['plugin:@superdispatch/ts-node'],
+    },
+
+    {
       files: [
         '**/setupTests.ts',
+        '**/globalSetup.ts',
         '**/*.spec.{ts,tsx}',
-        '**/jestutils/**/*.{ts,tsx}',
-        '**/testutils/**/*.{ts,tsx}',
+        '**/jestutils/**/*.ts',
+        '**/testutils/**/*.ts',
         '**/__tests__/**/*.{ts,tsx}',
         '**/__testutils__/**/*.{ts,tsx}',
       ],
-      extends: ['plugin:@superdispatch/jest'],
+      extends: ['plugin:@superdispatch/ts-jest'],
       rules: {
-        quotes: 'off',
-        'jest/no-conditional-expect': 'off',
         '@typescript-eslint/no-namespace': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-unsafe-return': 'off',
-        '@typescript-eslint/no-unsafe-assignment': 'off',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/restrict-template-expressions': 'off',
         'import/no-anonymous-default-export': 'off',
-        'import/no-extraneous-dependencies': 'off',
-        'testing-library/prefer-screen-queries': 'off',
       },
     },
 
     {
       files: ['**/packages/__docs__/**/**.*'],
-      rules: { 'import/no-internal-modules': 'off' },
+      rules: {
+        'import/no-internal-modules': 'off',
+      },
     },
 
     {
@@ -113,14 +119,6 @@ module.exports = {
         'import/no-anonymous-default-export': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
-      },
-    },
-
-    {
-      files: ['**/packages/webpage/**/**.*'],
-      rules: {
-        'import/no-internal-modules': 'off',
-        'import/no-anonymous-default-export': 'off',
       },
     },
   ],

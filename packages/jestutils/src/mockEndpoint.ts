@@ -32,7 +32,6 @@ beforeEach(() => {
       const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
 
       if (!endpoint || !endpointMatch) {
-        // eslint-disable-next-line no-console
         console.warn(
           "Unmatched '%s' request to '%s'",
           request.method,

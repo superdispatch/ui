@@ -39,7 +39,7 @@ test('controlled', async () => {
   expect(getByRole('textbox')).toHaveValue('23');
   expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
 
-  await userEvent.type(getByRole('textbox'), '123123');
+  userEvent.type(getByRole('textbox'), '123123');
 
   expect(getByRole('textbox')).toHaveValue('23');
   expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
@@ -65,7 +65,7 @@ test('interactive', async () => {
   expect(getByRole('textbox')).toHaveValue('');
   expect(getByRole('button')).toHaveAttribute('title', 'Australia: +61');
 
-  await userEvent.type(getByRole('textbox'), '123');
+  userEvent.type(getByRole('textbox'), '123');
 
   expect(getByRole('textbox')).toHaveValue('123');
   expect(getByRole('button')).toHaveAttribute('title', 'Australia: +61');
@@ -81,7 +81,7 @@ test('local state sync with the props', async () => {
   expect(getByRole('textbox')).toHaveValue('');
   expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
 
-  await userEvent.type(getByRole('textbox'), '!5@0#6$ %2^3&4* (5)6-7_8=');
+  userEvent.type(getByRole('textbox'), '!5@0#6$ %2^3&4* (5)6-7_8=');
 
   expect(getByRole('textbox')).toHaveValue('(506) 234-5678');
   expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
