@@ -1,6 +1,6 @@
 import { CheckboxField, CheckboxFieldProps, useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
@@ -27,7 +27,7 @@ export function FormikCheckboxField({
   disabled,
   helperText,
   ...props
-}: FormikCheckboxFieldProps) {
+}: FormikCheckboxFieldProps): ReactElement {
   const uid = useUID(id);
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue }] = useField<unknown>({

@@ -2,6 +2,7 @@ import { FormikErrors } from 'formik';
 import React, {
   createContext,
   PropsWithChildren,
+  ReactElement,
   useContext,
   useMemo,
 } from 'react';
@@ -19,7 +20,7 @@ export function useFormsContext(): FormsContext {
 export function FormsProvider({
   children,
   getFormErrors,
-}: PropsWithChildren<FormsContext>) {
+}: PropsWithChildren<FormsContext>): ReactElement {
   const ctx = useMemo(
     () => ({
       getFormErrors,

@@ -1,5 +1,11 @@
 import { FixedOffsetZone, Settings } from 'luxon';
-import React, { createContext, ReactNode, useContext, useMemo } from 'react';
+import React, {
+  createContext,
+  ReactElement,
+  ReactNode,
+  useContext,
+  useMemo,
+} from 'react';
 
 export function setDefaultTimeZone(offset: number | 'local'): string {
   if (offset === 'local') {
@@ -43,7 +49,7 @@ export interface DateConfigProviderProps extends Partial<DateConfig> {
 export function DateConfigProvider({
   format,
   children,
-}: DateConfigProviderProps) {
+}: DateConfigProviderProps): ReactElement {
   const prev = useDateConfig();
   const ctx = useMemo((): DateConfig => ({ format: format || prev.format }), [
     format,

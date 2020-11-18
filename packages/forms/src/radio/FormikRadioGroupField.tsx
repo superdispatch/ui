@@ -1,6 +1,6 @@
 import { RadioGroupField, RadioGroupFieldProps } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface FormikRadioGroupFieldProps
   extends Omit<RadioGroupFieldProps, 'error' | 'value'> {
@@ -17,7 +17,7 @@ export function FormikRadioGroupField({
   disabled,
   helperText,
   ...props
-}: FormikRadioGroupFieldProps) {
+}: FormikRadioGroupFieldProps): ReactElement {
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }] = useField({
     name,

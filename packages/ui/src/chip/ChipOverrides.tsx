@@ -4,7 +4,7 @@ import React from 'react';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideChip(theme: SuperDispatchTheme) {
+export function overrideChip(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiChip = {

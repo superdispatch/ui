@@ -10,7 +10,7 @@ const SelectIcon = forwardRef<SVGSVGElement, SvgIconProps>((props, ref) => (
   </SvgIcon>
 ));
 
-export function overrideTextField(theme: SuperDispatchTheme) {
+export function overrideTextField(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiTextField = { rows: 4, rowsMax: 4, variant: 'outlined' };

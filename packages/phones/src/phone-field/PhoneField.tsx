@@ -68,11 +68,11 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
       [country, phoneService.APN],
     );
 
-    const handleChange = (
+    function handleChange(
       fn: undefined | ((value: string) => void),
       nextCountry: CountryISO,
       nextNationalNumber: string,
-    ) => {
+    ): void {
       if (fn) {
         const nextValue = phoneService.format(nextNationalNumber, {
           country: nextCountry,
@@ -86,14 +86,14 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
 
         fn(nextValue);
       }
-    };
+    }
 
-    const handleChangeEvent = (
+    function handleChangeEvent(
       fn: undefined | ((value: string) => void),
       {
         target: { value: nextValue },
       }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
+    ): void {
       if (fn) {
         handleChange(
           fn,
@@ -101,7 +101,7 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
           phoneService.format(nextValue, { country, format: 'national' }),
         );
       }
-    };
+    }
 
     useEffect(() => {
       setValue((prev) =>

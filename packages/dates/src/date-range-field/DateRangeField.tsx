@@ -170,11 +170,11 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
       ];
     }, [config, startDate, finishDate, hoveredDate]);
 
-    const handleClose = () => {
+    function handleClose(): void {
       apiRef.current?.close();
-    };
+    }
 
-    const handleChange = (nextValue: NullableDateRangeInput) => {
+    function handleChange(nextValue: NullableDateRangeInput): void {
       let [nextStartDate, nextFinishDate] = parseDateRange(nextValue, config);
 
       if (onChange) {
@@ -201,7 +201,7 @@ export const DateRangeField = forwardRef<HTMLDivElement, DateRangeFieldProps>(
       if (!disableCloseOnSelect && nextFinishDate?.isValid) {
         handleClose();
       }
-    };
+    }
 
     const api: DateRangeFieldAPI = {
       config,

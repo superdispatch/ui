@@ -110,7 +110,7 @@ export function parseDate(
 export function stringifyDate(
   input: NullableDateInput,
   config: DateConfig = defaultDateConfig,
-) {
+): string | undefined {
   const date = parseDate(input, config);
 
   if (date.isValid) {
@@ -166,7 +166,7 @@ export function formatRelativeTime(
     fallback = 'Invalid Date',
   }: FormatRelativeTimeOptions = {},
   config: DateConfig = defaultDateConfig,
-) {
+): string | undefined {
   const date = parseDate(input, config);
   const base = baseOption == null ? undefined : parseDate(baseOption, config);
 

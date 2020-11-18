@@ -1,13 +1,13 @@
 import { Link } from '@material-ui/core';
 import { Launch } from '@material-ui/icons';
 import { Inline } from '@superdispatch/ui';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface PropsLinkProps {
   url: string;
 }
 
-export function PropsLink({ url }: PropsLinkProps) {
+export function PropsLink({ url }: PropsLinkProps): ReactElement {
   return (
     <Link
       href={url}

@@ -4,7 +4,7 @@ import React from 'react';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideCheckbox(theme: SuperDispatchTheme) {
+export function overrideCheckbox(theme: SuperDispatchTheme): void {
   theme.props.MuiCheckbox = {
     color: 'primary',
     icon: (

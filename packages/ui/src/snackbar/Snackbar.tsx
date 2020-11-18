@@ -6,11 +6,16 @@ import {
   SnackbarProps as MaterialSnackbarProps,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
-import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
+import React, {
+  forwardRef,
+  ForwardRefExoticComponent,
+  ReactElement,
+  ReactNode,
+} from 'react';
 
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 
-function SlideTransition(props: TransitionProps) {
+function SlideTransition(props: TransitionProps): ReactElement {
   return <Slide {...props} direction="up" />;
 }
 
@@ -39,13 +44,13 @@ export const Snackbar: ForwardRefExoticComponent<SnackbarProps> = forwardRef(
     },
     ref,
   ) => {
-    const handleClose = (
+    function handleClose(
       reason: SnackbarCloseReason | MaterialSnackbarCloseReason,
-    ) => {
+    ): void {
       if (reason !== 'clickaway') {
         onClose?.(reason === 'timeout' ? 'timeout' : 'explicit');
       }
-    };
+    }
 
     return (
       <Portal>

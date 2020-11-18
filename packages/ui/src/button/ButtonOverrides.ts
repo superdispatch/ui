@@ -3,7 +3,7 @@ import { CSSProperties } from '@material-ui/styles';
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-function outlineShadow(size = 0, color: Color = Color.Transparent) {
+function outlineShadow(size = 0, color: Color = Color.Transparent): string {
   return `0 0 0 ${size}px ${color}`;
 }
 
@@ -46,7 +46,7 @@ function textVariant(
 function outlinedBorder(
   borderColor: Color,
   outlineColor: Color = Color.Transparent,
-) {
+): string {
   return `inset 0 0 0 1px ${borderColor}, 0 0 0 2px ${outlineColor}`;
 }
 
@@ -130,7 +130,7 @@ function containedVariant(
   };
 }
 
-export function overrideButton(theme: SuperDispatchTheme) {
+export function overrideButton(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiButton = {
