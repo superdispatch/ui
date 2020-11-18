@@ -5,6 +5,10 @@ module.exports = {
     project: './tsconfig.json',
   },
 
+  rules: {
+    'func-style': ['error', 'declaration'],
+  },
+
   overrides: [
     {
       files: '.eslintrc.js',
@@ -132,6 +136,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
         'import/no-anonymous-default-export': 'off',
         'import/no-internal-modules': 'off',
+        'func-style': ['error', 'expression'],
         'no-alert': 'off',
       },
     },

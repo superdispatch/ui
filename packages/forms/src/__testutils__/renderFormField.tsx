@@ -1,9 +1,8 @@
-import { ThemeProvider } from '@superdispatch/ui';
+import { ThemeProvider, ThemeProviderProps } from '@superdispatch/ui';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, FormikProvider } from 'formik';
 import React, {
-  ComponentType,
   createRef,
   MutableRefObject,
   ReactElement,
@@ -25,7 +24,7 @@ export function renderFormField<T, R>(
   >;
   const childrenRef = createRef<HTMLDivElement>();
 
-  const Wrapper: ComponentType = ({ children }) => {
+  function Wrapper({ children }: ThemeProviderProps): ReactElement {
     const formik = useFormikEnhanced(formProps);
 
     formikRef.current = formik;
@@ -42,7 +41,7 @@ export function renderFormField<T, R>(
         </FormikProvider>
       </ThemeProvider>
     );
-  };
+  }
 
   const wrapper = render(element, { wrapper: Wrapper });
 
