@@ -72,10 +72,19 @@ export const fallback = () => (
     <DescriptionListItem
       icon={<CalendarTodayIcon />}
       label="Posted on"
+      content={null}
       fallback="N/A"
     />
-    <DescriptionListItem icon={<RoomIcon />} fallback="No address available" />
-    <DescriptionListItem icon={<NotesIcon />} fallback="No delivery notes" />
+    <DescriptionListItem
+      icon={<RoomIcon />}
+      content=""
+      fallback="No address available"
+    />
+    <DescriptionListItem
+      icon={<NotesIcon />}
+      content={false}
+      fallback="No delivery notes"
+    />
   </DescriptionList>
 );
 
