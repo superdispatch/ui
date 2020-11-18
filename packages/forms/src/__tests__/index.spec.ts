@@ -3,7 +3,7 @@ import * as api from '..';
 it('exposes public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
-      "FormikCheckboxField": [Function],
+      "FormikCheckboxField": React.forwardRef(FormikCheckboxField),
       "FormikDateField": React.forwardRef(FormikDateField),
       "FormikEnhanced": [Function],
       "FormikPhoneField": React.forwardRef(FormikPhoneField),
