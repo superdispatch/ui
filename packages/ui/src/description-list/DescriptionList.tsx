@@ -139,7 +139,7 @@ export const DescriptionListItem = forwardRef<
           {...contentTypographyProps}
           component="span"
           color={
-            shouldRenderFallback && label != null
+            shouldRenderFallback && label == null
               ? 'textSecondary'
               : 'textPrimary'
           }
