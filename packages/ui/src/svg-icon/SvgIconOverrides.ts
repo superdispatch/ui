@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideSvgIcon(theme: SuperDispatchTheme) {
+export function overrideSvgIcon(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   theme.overrides.MuiSvgIcon = {

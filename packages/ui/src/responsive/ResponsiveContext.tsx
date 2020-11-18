@@ -1,6 +1,12 @@
 import { useMediaQuery } from '@material-ui/core';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import React, { createContext, ReactNode, useContext, useMemo } from 'react';
+import React, {
+  createContext,
+  ReactElement,
+  ReactNode,
+  useContext,
+  useMemo,
+} from 'react';
 
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
@@ -10,7 +16,7 @@ export interface ResponsiveContext {
 
 const Context = createContext<ResponsiveContext>({});
 
-function useBreakpoint(breakpoint: Breakpoint) {
+function useBreakpoint(breakpoint: Breakpoint): boolean {
   return useMediaQuery<SuperDispatchTheme>((theme) =>
     theme.breakpoints.only(breakpoint),
   );
@@ -24,7 +30,7 @@ export interface ResponsiveContextProviderProps {
 export function ResponsiveContextProvider({
   children,
   defaultBreakpoint,
-}: ResponsiveContextProviderProps) {
+}: ResponsiveContextProviderProps): ReactElement {
   const isXS = useBreakpoint('xs');
   const isSM = useBreakpoint('sm');
   const isMD = useBreakpoint('md');

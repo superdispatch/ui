@@ -1,7 +1,7 @@
 import { StandardTextFieldProps, TextField } from '@material-ui/core';
 import { useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ChangeEvent, ReactElement, ReactNode } from 'react';
 
 export interface FormikTextFieldProps<T>
   extends Omit<StandardTextFieldProps, 'error'> {
@@ -25,7 +25,7 @@ export function FormikTextField<T>({
   disabled,
   helperText,
   ...props
-}: FormikTextFieldProps<T>) {
+}: FormikTextFieldProps<T>): ReactElement {
   const uid = useUID(id);
   const { isSubmitting } = useFormikContext();
   const [field, { error, touched }, { setValue }] = useField<T>({

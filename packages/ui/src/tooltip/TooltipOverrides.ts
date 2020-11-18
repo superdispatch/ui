@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideTooltip(theme: SuperDispatchTheme) {
+export function overrideTooltip(theme: SuperDispatchTheme): void {
   theme.props.MuiTooltip = { arrow: true };
 
   theme.overrides.MuiTooltip = {

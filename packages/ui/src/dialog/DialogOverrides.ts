@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideDialog(theme: SuperDispatchTheme) {
+export function overrideDialog(theme: SuperDispatchTheme): void {
   theme.props.MuiDialogTitle = { disableTypography: true };
 
   theme.overrides.MuiDialog = {

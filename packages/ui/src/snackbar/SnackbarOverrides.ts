@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideSnackbar(theme: SuperDispatchTheme) {
+export function overrideSnackbar(theme: SuperDispatchTheme): void {
   theme.overrides.MuiSnackbar = {
     anchorOriginBottomCenter: { left: 0, right: 0, bottom: 0 },
   };

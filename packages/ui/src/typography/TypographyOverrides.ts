@@ -100,6 +100,6 @@ export function createTypographyOptions(
   };
 }
 
-export function overrideTypography(theme: SuperDispatchTheme) {
+export function overrideTypography(theme: SuperDispatchTheme): void {
   theme.props.MuiTypography = { variant: 'body2' };
 }

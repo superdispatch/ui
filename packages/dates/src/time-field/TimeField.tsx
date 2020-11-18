@@ -140,13 +140,13 @@ export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
 
     const [inputValue, setInputValue] = React.useState('');
 
-    const handleChange = (nextValue: NullableDateInput) => {
+    function handleChange(nextValue: NullableDateInput): void {
       if (onChange) {
         onChange(toDatePayload(nextValue, config));
       }
-    };
+    }
 
-    const handleType = (text: string) => {
+    function handleType(text: string): void {
       text = normalizeInputValue(text);
 
       for (const timeFormat of TIME_MATCH_FORMATS) {
@@ -170,7 +170,7 @@ export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
       }
 
       setInputValue(selectedOption?.label || '');
-    };
+    }
 
     useEffect(() => {
       if (!date.isValid) {

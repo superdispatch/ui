@@ -40,6 +40,11 @@ module.exports = {
       },
 
       rules: {
+        '@typescript-eslint/explicit-function-return-type': [
+          'error',
+          { allowExpressions: true },
+        ],
+
         'eslint-comments/no-use': [
           'error',
           { allow: ['eslint-disable-next-line'] },
@@ -122,6 +127,7 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         'import/no-anonymous-default-export': 'off',

@@ -103,11 +103,11 @@ export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
       config,
     ]);
 
-    const handleClose = () => {
+    function handleClose(): void {
       apiRef.current?.close();
-    };
+    }
 
-    const handleChange = (nextInput: NullableDateInput) => {
+    function handleChange(nextInput: NullableDateInput): void {
       if (onChange) {
         onChange(toDatePayload(nextInput, config));
       }
@@ -115,7 +115,7 @@ export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
       if (!disableCloseOnSelect) {
         handleClose();
       }
-    };
+    }
 
     const api: DateFieldAPI = {
       config,

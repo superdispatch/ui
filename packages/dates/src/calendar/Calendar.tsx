@@ -335,7 +335,7 @@ function toDayPickerHandler(
   classes: CalendarClassNameMap,
   initialTime: DateTime,
   handler: undefined | CalendarDayEventHandler,
-) {
+): undefined | ((localDate: Date, modifiers: DayModifiers) => void) {
   if (!handler) {
     return undefined;
   }
@@ -351,7 +351,7 @@ function toDayPickerHandler(
       millisecond: initialTime.millisecond,
     });
 
-    return handler({
+    handler({
       disabled: !!modifiers[classes.disabled],
       selected: !!modifiers[classes.selected],
 

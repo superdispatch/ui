@@ -1,6 +1,6 @@
 import { IconButton, Typography } from '@material-ui/core';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   CaptionElementProps,
   LocaleUtils,
@@ -13,7 +13,7 @@ export function CalendarCaption({
   localeUtils,
   classNames,
   onClick,
-}: CaptionElementProps) {
+}: CaptionElementProps): ReactElement {
   return (
     <Typography variant="h4" onClick={onClick} className={classNames.caption}>
       {(localeUtils as LocaleUtils).formatMonthTitle(date)}
@@ -28,7 +28,7 @@ export function CalendarNavbar({
   onPreviousClick,
   showNextButton,
   showPreviousButton,
-}: NavbarElementProps) {
+}: NavbarElementProps): ReactElement {
   return (
     <>
       <IconButton
@@ -62,7 +62,7 @@ export function CalendarWeekDay({
   weekday,
   className,
   localeUtils,
-}: WeekdayElementProps) {
+}: WeekdayElementProps): ReactElement {
   return (
     <Typography
       variant="h5"

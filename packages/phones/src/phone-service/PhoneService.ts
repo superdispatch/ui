@@ -156,7 +156,7 @@ export class PhoneService {
       tooLongMessage = 'Phone number is too long',
       tooShortMessage = 'Phone number is too short',
     }: PhoneValidationRules = {},
-  ) {
+  ): string | undefined {
     const phone = trim(input);
 
     if (!phone) {
@@ -197,7 +197,7 @@ export class PhoneService {
   format(
     input: unknown,
     { country, format = 'e164', fallback = '' }: PhoneFormatOptions = {},
-  ) {
+  ): string {
     const phone = normalize(input);
 
     if (!phone) {
@@ -239,7 +239,7 @@ export class PhoneService {
   }
 }
 
-export function usePhoneService() {
+export function usePhoneService(): PhoneService {
   const APN = getAPN();
 
   return useMemo(() => new PhoneService(APN), [APN]);

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideAutocomplete(theme: SuperDispatchTheme) {
+export function overrideAutocomplete(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   // TODO: Remove `Object.assign` after official release of `Autocomplete`.

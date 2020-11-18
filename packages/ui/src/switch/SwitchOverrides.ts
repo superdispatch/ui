@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideSwitch(theme: SuperDispatchTheme) {
+export function overrideSwitch(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
   theme.props.MuiSwitch = {

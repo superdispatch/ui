@@ -11,6 +11,7 @@
     "version": "rimraf pkg && tsc -b"
   },
   "dependencies": {
+    "@superdispatch/ui": "^0.6.5",
     "@typescript-eslint/experimental-utils": "^4.8.1",
     "@typescript-eslint/types": "^4.8.1"
   },

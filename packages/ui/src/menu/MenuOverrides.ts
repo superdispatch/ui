@@ -1,6 +1,6 @@
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideMenu(theme: SuperDispatchTheme) {
+export function overrideMenu(theme: SuperDispatchTheme): void {
   theme.props.MuiMenu = {
     getContentAnchorEl: null,
     anchorOrigin: { vertical: 'bottom', horizontal: 'left' },

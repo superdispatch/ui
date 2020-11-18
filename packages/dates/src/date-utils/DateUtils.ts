@@ -226,7 +226,7 @@ export class DateUtils {
     value: NullableDateLike,
     compare: NullableDateLike,
     unit: DateUnit = 'millisecond',
-  ) {
+  ): boolean {
     if (value == null && compare == null) {
       return true;
     }
@@ -250,7 +250,7 @@ export class DateUtils {
     value: NullableDateRangeLike,
     compare: NullableDateRangeLike,
     unit?: DateUnit,
-  ) {
+  ): boolean {
     const range1 = toDateRange(value);
     const range2 = toDateRange(compare);
 

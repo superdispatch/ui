@@ -2,6 +2,7 @@ import React, {
   ConsumerProps,
   createContext,
   Key,
+  ReactElement,
   ReactNode,
   useCallback,
   useContext,
@@ -24,9 +25,10 @@ export interface SnackbarStack {
   ) => () => void;
 }
 
-const warnContext = () =>
+function warnContext(): void {
   // eslint-disable-next-line no-console
   console.log('`useSnackbarStack` is used outside of `SnackbarStackProvider`.');
+}
 
 const Context = createContext<SnackbarStack>({
   clearStack: warnContext,
@@ -43,7 +45,7 @@ export function useSnackbarStack(): SnackbarStack {
 
 export function SnackbarStackConsumer({
   children,
-}: ConsumerProps<SnackbarStack>) {
+}: ConsumerProps<SnackbarStack>): ReactElement {
   return <Context.Consumer>{children}</Context.Consumer>;
 }
 
@@ -53,7 +55,7 @@ export interface SnackbarStackProviderProps {
 
 export function SnackbarStackProvider({
   children,
-}: SnackbarStackProviderProps) {
+}: SnackbarStackProviderProps): ReactElement {
   const [stack, setStack] = useState(new Map<Key, SnackbarProps>());
 
   const clearStack = useCallback<SnackbarStack['clearStack']>(

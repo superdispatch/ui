@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideIconButton(theme: SuperDispatchTheme) {
+export function overrideIconButton(theme: SuperDispatchTheme): void {
   theme.overrides.MuiIconButton = {
     root: {
       color: Color.Grey100,

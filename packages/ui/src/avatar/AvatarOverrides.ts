@@ -1,7 +1,7 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-export function overrideAvatar(theme: SuperDispatchTheme) {
+export function overrideAvatar(theme: SuperDispatchTheme): void {
   theme.overrides.MuiAvatar = {
     root: {
       ...theme.typography.h5,

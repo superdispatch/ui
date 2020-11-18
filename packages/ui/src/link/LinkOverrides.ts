@@ -1,11 +1,11 @@
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-function line(color: string) {
+function line(color: string): string {
   return `linear-gradient(to right, ${color} 0%, ${color} 100%)`;
 }
 
-export function overrideLink(theme: SuperDispatchTheme) {
+export function overrideLink(theme: SuperDispatchTheme): void {
   theme.props.MuiLink = { underline: 'none', color: 'textPrimary' };
 
   theme.overrides.MuiLink = {

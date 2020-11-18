@@ -43,7 +43,7 @@ import {
 import { Color } from './Color';
 import { SuperDispatchTheme } from './SuperDispatchTheme';
 
-function createTheme() {
+function createTheme(): SuperDispatchTheme {
   const breakpoints = createBreakpoints({});
   const theme = createMuiTheme({
     breakpoints,
@@ -106,7 +106,7 @@ function createTheme() {
 
 const generateMaterialClassName = createGenerateClassName();
 
-function generateClassName(rule: Rule, sheet?: StyleSheet) {
+function generateClassName(rule: Rule, sheet?: StyleSheet): string {
   const { meta, link } = sheet?.options || {};
 
   if (meta && rule.type === 'style') {

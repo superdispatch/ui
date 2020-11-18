@@ -8,7 +8,7 @@ import {
   useDateConfig,
 } from '@superdispatch/dates';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;
@@ -23,7 +23,7 @@ export function FormikDateField({
   helperText,
   validate: validateProp,
   ...props
-}: FormikDateFieldProps) {
+}: FormikDateFieldProps): ReactElement {
   const config = useDateConfig({ format });
   const { isSubmitting } = useFormikContext();
   const validate: FieldValidator = (value) => {
