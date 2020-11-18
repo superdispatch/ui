@@ -1,3 +1,4 @@
+import { MenuItem } from '@material-ui/core';
 import { Deferred } from '@superdispatch/ui-testutils';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { act } from '@testing-library/react-hooks';
@@ -118,32 +119,34 @@ test('submitting', async () => {
 });
 
 test('format and parse', async () => {
-  const onChange = jest.fn();
   const onSubmit = jest.fn();
 
   const wrapper = renderFormField(
     <FormikTextField
-      name="name"
-      label="Name"
-      onChange={onChange}
-      format={(value) => String(value).toUpperCase()}
-      parse={(event) => String(event.target.value).toLowerCase()}
-    />,
+      select={true}
+      label="Status"
+      name="isActive"
+      format={(value: boolean) => (value ? 'active' : 'inactive')}
+      parse={(event): boolean => event.target.value === 'active'}
+    >
+      <MenuItem value="active">Active</MenuItem>
+      <MenuItem value="inactive">Inactive</MenuItem>
+    </FormikTextField>,
     {
       onSubmit,
-      initialValues: { name: 'John' },
+      initialValues: { isActive: true },
     },
   );
 
-  const input = wrapper.getByLabelText('Name');
+  expect(wrapper.getByLabelText('Status')).toHaveTextContent(/Active/);
 
-  expect(input).toHaveValue('JOHN');
+  userEvent.click(wrapper.getByLabelText('Status'));
 
-  void act(() => {
-    fireEvent.change(input, { target: { value: 'Smith' } });
+  userEvent.click(await wrapper.findByRole('option', { name: 'Inactive' }));
+
+  await waitFor(() => {
+    expect(wrapper.getByLabelText('Status')).toHaveTextContent(/Inactive/);
   });
-
-  expect(input).toHaveValue('SMITH');
 
   wrapper.submitForm();
 
@@ -151,5 +154,5 @@ test('format and parse', async () => {
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmit).toHaveBeenLastCalledWith({ name: 'smith' });
+  expect(onSubmit).toHaveBeenLastCalledWith({ isActive: false });
 });
