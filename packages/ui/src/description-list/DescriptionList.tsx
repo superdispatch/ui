@@ -113,26 +113,17 @@ export const DescriptionListItem = forwardRef<
       icon = inset ? <SvgIcon /> : null,
 
       label,
-      labelTypographyProps: {
-        id: labelIDProp,
-        ...labelTypographyProps
-      } = {} as const,
+      labelTypographyProps,
 
       content,
-      contentTypographyProps: {
-        TooltipProps: {
-          title: contentTooltipTitle,
-          ...contentTooltipProps
-        } = {} as const,
-        ...contentTypographyProps
-      } = {} as const,
+      contentTypographyProps,
 
       fallback,
     },
     ref,
   ) => {
     const styles = useStyles();
-    const labelID = useUID(labelIDProp);
+    const labelID = useUID(labelTypographyProps?.id);
 
     const shouldRenderFallback = isEmptyReactNode(content);
 
@@ -153,13 +144,11 @@ export const DescriptionListItem = forwardRef<
               : 'textPrimary'
           }
           TooltipProps={{
-            ...contentTooltipProps,
+            ...contentTypographyProps?.TooltipProps,
             title:
-              contentTooltipTitle != null
-                ? contentTooltipTitle
-                : content != null
-                ? content
-                : undefined,
+              contentTypographyProps?.TooltipProps?.title ??
+              content ??
+              undefined,
           }}
         >
           {label != null && (
