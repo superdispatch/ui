@@ -1,0 +1,20 @@
+{
+  "name": "@superdispatch/eslint-plugin-ui",
+  "version": "0.6.5",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superdispatch/ui.git"
+  },
+  "license": "MIT",
+  "main": "pkg/index.js",
+  "scripts": {
+    "version": "rimraf pkg && tsc -b"
+  },
+  "dependencies": {
+    "@typescript-eslint/experimental-utils": "^4.8.1",
+    "@typescript-eslint/types": "^4.8.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

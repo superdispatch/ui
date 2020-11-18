@@ -61,6 +61,7 @@
     "resetMocks": true,
     "roots": [
       "<rootDir>/packages/dates/",
+      "<rootDir>/packages/eslint-plugin/",
       "<rootDir>/packages/forms/",
       "<rootDir>/packages/hooks/",
       "<rootDir>/packages/phones/",
