@@ -32,6 +32,7 @@ export * from './theme/ThemeProvider';
 export * from './theme/types';
 export * from './tiles/Tiles';
 export * from './utils/VisibilityObserver';
+export * from './utils/isEmptyReactNode';
 export * from './utils/mergeRefs';
 export * from './utils/renderChildren';
 export * from './utils/useUID';

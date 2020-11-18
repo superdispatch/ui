@@ -67,6 +67,18 @@ export const large = () => (
   </DescriptionList>
 );
 
+export const fallback = () => (
+  <DescriptionList>
+    <DescriptionListItem
+      icon={<CalendarTodayIcon />}
+      label="Posted on"
+      fallback="N/A"
+    />
+    <DescriptionListItem icon={<RoomIcon />} fallback="No address available" />
+    <DescriptionListItem icon={<NotesIcon />} fallback="No delivery notes" />
+  </DescriptionList>
+);
+
 export const inset = () => (
   <Box padding={2}>
     <DescriptionList size="small">

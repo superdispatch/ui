@@ -98,6 +98,7 @@ it('exposes public api', () => {
       "ThemeProvider": [Function],
       "Tiles": React.forwardRef(Tiles),
       "VisibilityObserver": [Function],
+      "isEmptyReactNode": [Function],
       "mergeRefs": [Function],
       "renderChildren": [Function],
       "useCollapseBreakpoint": [Function],
