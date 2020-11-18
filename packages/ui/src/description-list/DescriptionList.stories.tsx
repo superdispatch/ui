@@ -80,33 +80,31 @@ export const fallback = () => (
 );
 
 export const inset = () => (
-  <Box padding={2}>
-    <DescriptionList size="small">
-      <DescriptionListItem
-        icon={<PersonIcon />}
-        content={<b>Antony Hoffman</b>}
-      />
+  <DescriptionList size="small">
+    <DescriptionListItem
+      icon={<PersonIcon />}
+      content={<b>Antony Hoffman</b>}
+    />
 
-      <DescriptionListItem
-        inset={true}
-        content={<PhoneLink phone="303 555 0105" format="national" />}
-      />
+    <DescriptionListItem
+      inset={true}
+      content={<PhoneLink phone="303 555 0105" format="national" />}
+    />
 
-      <DescriptionListItem
-        inset={true}
-        content={
-          <Link href="mailto:dustin.russel@example.com">
-            dustin.russel@example.com
-          </Link>
-        }
-        contentTypographyProps={{
-          disableUnderline: true,
-          TooltipProps: {
-            interactive: true,
-            title: 'dustin.russel@example.com',
-          },
-        }}
-      />
-    </DescriptionList>
-  </Box>
+    <DescriptionListItem
+      inset={true}
+      content={
+        <Link href="mailto:dustin.russel@example.com">
+          dustin.russel@example.com
+        </Link>
+      }
+      contentTypographyProps={{
+        disableUnderline: true,
+        TooltipProps: {
+          interactive: true,
+          title: 'dustin.russel@example.com',
+        },
+      }}
+    />
+  </DescriptionList>
 );
