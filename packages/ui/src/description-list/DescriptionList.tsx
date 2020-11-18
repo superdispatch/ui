@@ -137,7 +137,11 @@ export const DescriptionListItem = forwardRef<
     const shouldRenderFallback = isEmptyReactNode(content);
 
     return (
-      <div ref={ref} className={styles.item}>
+      <div
+        ref={ref}
+        className={styles.item}
+        aria-labelledby={label != null ? labelID : undefined}
+      >
         {!!icon && <div className={styles.icon}>{icon}</div>}
 
         <OverflowText
@@ -156,7 +160,6 @@ export const DescriptionListItem = forwardRef<
                 : content != null
                 ? content
                 : undefined,
-            'aria-labelledby': label != null ? labelID : undefined,
           }}
         >
           {label != null && (

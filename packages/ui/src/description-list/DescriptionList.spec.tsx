@@ -13,23 +13,27 @@ test('label id', () => {
   );
 
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
-    <span
+    <div
       aria-labelledby="label-id"
-      class="MuiTypography-root SD-OverflowText-root MuiTypography-body2 MuiTypography-colorTextPrimary MuiTypography-noWrap"
-      title="Text"
+      class="SD-DescriptionList-item"
     >
       <span
-        class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
-        id="label-id"
+        class="MuiTypography-root SD-OverflowText-root MuiTypography-body2 MuiTypography-colorTextPrimary MuiTypography-noWrap"
+        title="Text"
       >
-        Label
+        <span
+          class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
+          id="label-id"
+        >
+          Label
+        </span>
+         
+        Text
+        <span
+          class="SD-OverflowText-sentinel"
+        />
       </span>
-       
-      Text
-      <span
-        class="SD-OverflowText-sentinel"
-      />
-    </span>
+    </div>
   `);
 });
 
@@ -39,22 +43,26 @@ test('dynamic label id', () => {
   );
 
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
-    <span
+    <div
       aria-labelledby="uid_2"
-      class="MuiTypography-root SD-OverflowText-root MuiTypography-body2 MuiTypography-colorTextPrimary MuiTypography-noWrap"
-      title="Text"
+      class="SD-DescriptionList-item"
     >
       <span
-        class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
-        id="uid_2"
+        class="MuiTypography-root SD-OverflowText-root MuiTypography-body2 MuiTypography-colorTextPrimary MuiTypography-noWrap"
+        title="Text"
       >
-        Label
+        <span
+          class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary"
+          id="uid_2"
+        >
+          Label
+        </span>
+         
+        Text
+        <span
+          class="SD-OverflowText-sentinel"
+        />
       </span>
-       
-      Text
-      <span
-        class="SD-OverflowText-sentinel"
-      />
-    </span>
+    </div>
   `);
 });
