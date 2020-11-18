@@ -15,7 +15,7 @@ function sizeVariant(
   desktopSpacing: number,
 ): CSSProperties {
   return {
-    '& > &, $item': {
+    '& > $list, & > $item': {
       '&:not(:last-child)': {
         paddingBottom: theme.spacing(mobileSpacing),
 
