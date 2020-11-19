@@ -1,0 +1,57 @@
+{
+  "name": "@superdispatch/ui-lab",
+  "version": "0.6.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superdispatch/ui.git"
+  },
+  "license": "MIT",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "browser": "pkg/dist-web/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "version": "pika build"
+  },
+  "dependencies": {
+    "@superdispatch/ui": "^0.6.6",
+    "@superdispatch/hooks": "^0.6.6"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
+    "react": "^16.8.0",
+    "styled-components": "^5.2.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "pkg"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "**/*.spec.*",
+            "**/*.stories.*",
+            "**/*.playroom.*",
+            "**/__tests__/**",
+            "**/__testutils__/**"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ],
+      [
+        "@pika/plugin-bundle-types"
+      ]
+    ]
+  }
+}

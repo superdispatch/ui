@@ -25,6 +25,7 @@ lines.push("export * from '../UseState';");
 
 lines.push(
   "export * from '@superdispatch/ui/playroom';",
+  "export * from '@superdispatch/ui-lab/playroom';",
   "export * from '@superdispatch/dates/playroom';",
   "export * from '@superdispatch/phones/playroom';",
 );
@@ -44,6 +45,7 @@ reexportModules('@material-ui/core', {
       !name.startsWith('Unstable_') &&
       ![
         // Overridden components.
+        'Box',
         'Button',
         'Snackbar',
         'SnackbarContent',

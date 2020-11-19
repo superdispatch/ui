@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.build",
+  "exclude": [
+    "pkg",
+    "playroom.ts",
+    "**/*.spec.*",
+    "**/*.stories.*",
+    "**/*.playroom.*",
+    "**/__tests__/**",
+    "**/__testutils__/**"
+  ],
+  "references": [{ "path": "../hooks" }, { "path": "../__testutils__" }],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "pkg/dist-types",
+    "tsBuildInfoFile": "pkg/dist-types/.tsbuildinfo"
+  }
+}
