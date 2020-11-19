@@ -48,6 +48,7 @@ function normalizeNational(country: CountryISO, input: unknown): string {
 export type PhoneNumberPossibility =
   | 'is-possible'
   | 'invalid-country-code'
+  | 'invalid-number'
   | 'too-long'
   | 'too-short'
   | 'unknown';
@@ -141,7 +142,7 @@ export class PhoneService {
 
     // Avoid false positive short phone numbers.
     if (!valid && possible) {
-      return 'too-short';
+      return 'invalid-number';
     }
 
     return possibility;
