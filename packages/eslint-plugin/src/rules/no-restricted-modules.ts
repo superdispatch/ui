@@ -4,17 +4,27 @@ import { TSESTree } from '@typescript-eslint/types';
 import { createRule } from '../utils/createRule';
 
 const messages = {
-  forbid:
-    'Usage of `{{name}}` is restricted, use alternative from the `@superdispatch/ui`',
+  restrict:
+    'Usage of `{{restrictedName}}` from `{{restrictedModule}}` is restricted, use `{{suggestedName}}` from the `{{suggestedModule}}`',
 } as const;
 
 export type MessageIds = keyof typeof messages;
 
-const RESTRICTED_MODULES: ReadonlySet<string> = new Set([
-  'Box',
-  'Button',
-  'Snackbar',
-]);
+type Restrictions = {
+  readonly [TPackage in string]?: {
+    readonly [TModule in string]?: [name: string, source: string];
+  };
+};
+
+const RESTRICTIONS: Restrictions = {
+  '@material-ui/core': {
+    Grid: ['Columns', '@superdispatch/ui'],
+    Box: ['Box', '@superdispatch/ui-lab'],
+    Button: ['Button', '@superdispatch/ui'],
+    Snackbar: ['Snackbar', '@superdispatch/ui'],
+    SnackbarContent: ['SnackbarContent', '@superdispatch/ui'],
+  },
+};
 
 export const rule = createRule<[], MessageIds>({
   name: 'no-restricted-modules',
@@ -33,19 +43,33 @@ export const rule = createRule<[], MessageIds>({
   create(context) {
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration): void {
-        if (node.source.value !== '@material-ui/core') return;
+        const { value: restrictedModule } = node.source;
+
+        if (typeof restrictedModule != 'string') return;
+
+        const packageRestrictions = RESTRICTIONS[restrictedModule];
+
+        if (!packageRestrictions) return;
 
         for (const specifier of node.specifiers) {
           if (specifier.type !== AST_NODE_TYPES.ImportSpecifier) continue;
 
-          const { name } = specifier.imported;
+          const { name: restrictedName } = specifier.imported;
+          const moduleRestrictions = packageRestrictions[restrictedName];
 
-          if (!RESTRICTED_MODULES.has(name)) continue;
+          if (!moduleRestrictions) continue;
+
+          const [suggestedName, suggestedModule] = moduleRestrictions;
 
           context.report({
             node: specifier,
-            data: { name },
-            messageId: 'forbid',
+            data: {
+              restrictedName,
+              restrictedModule,
+              suggestedName,
+              suggestedModule,
+            },
+            messageId: 'restrict',
           });
         }
       },
