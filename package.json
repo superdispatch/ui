@@ -24,7 +24,7 @@
     "playroom:generate": "node scripts/generate-playroom-components.js",
     "preplayroom:start": "yarn playroom:generate",
     "playroom:start": "playroom start",
-    "prerelease": "yarn install --frozen-lockfile && yarn tsc && yarn lint && yarn test && yarn build-size",
+    "prerelease": "yarn --force && yarn lint && yarn test",
     "release": "yarn lerna publish",
     "prestart": "yarn",
     "start": "run-p storybook:start playroom:start",
