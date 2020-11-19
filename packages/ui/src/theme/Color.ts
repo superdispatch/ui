@@ -93,3 +93,11 @@ export enum Color {
   Yellow400 = '#FFA91F',
   Yellow500 = '#DB7500',
 }
+
+export type ColorProp = keyof typeof Color;
+
+export function isColorProp(name: unknown): name is ColorProp {
+  return (
+    typeof name == 'string' && Object.prototype.hasOwnProperty.call(Color, name)
+  );
+}

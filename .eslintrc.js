@@ -24,13 +24,11 @@ module.exports = {
     },
 
     {
-      files: [
-        '**/packages/__docs__/**/*.{ts,tsx}',
-        '**/packages/dates/**/*.{ts,tsx}',
-        '**/packages/forms/**/*.{ts,tsx}',
-        '**/packages/hooks/**/*.{ts,tsx}',
-        '**/packages/phones/**/*.{ts,tsx}',
-        '**/packages/ui/**/*.{ts,tsx}',
+      files: ['**/packages/**/*.{ts,tsx}'],
+      excludedFiles: [
+        '**/packages/jestutils/**/*.ts',
+        '**/packages/testutils/**/*.ts',
+        '**/packages/eslint-plugin/**/*.ts',
       ],
       extends: [
         'plugin:@superdispatch/react',
@@ -109,10 +107,10 @@ module.exports = {
         '**/setupTests.ts',
         '**/globalSetup.ts',
         '**/*.spec.{ts,tsx}',
-        '**/jestutils/**/*.ts',
-        '**/testutils/**/*.ts',
         '**/__tests__/**/*.{ts,tsx}',
         '**/__testutils__/**/*.{ts,tsx}',
+        '**/packages/jestutils/**/*.ts',
+        '**/packages/testutils/**/*.ts',
       ],
       extends: ['plugin:@superdispatch/ts-jest'],
       rules: {
