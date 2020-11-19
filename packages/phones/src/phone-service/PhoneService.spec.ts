@@ -205,7 +205,7 @@ test.each([
   ['615-9', 'too-short'],
   ['615-99', 'too-short'],
   ['615-994', 'too-short'],
-  ['615-994-3', 'too-short'],
+  ['615-994-3', 'invalid-number'],
   ['615-994-33', 'too-short'],
   ['615-994-330', 'too-short'],
   ['615-994-3300', 'is-possible'],
@@ -214,10 +214,10 @@ test.each([
   ['1 61', 'too-short'],
   ['1 615-9', 'too-short'],
   ['1 615-99', 'too-short'],
-  ['1 615-994', 'too-short'],
+  ['1 615-994', 'invalid-number'],
   ['1 615-994-3', 'too-short'],
   ['1 615-994-33', 'too-short'],
-  ['1 615-994-330', 'too-short'],
+  ['1 615-994-330', 'invalid-number'],
   ['1 615-994-3300', 'is-possible'],
   ['1 615-994-33001', 'too-long'],
   ['+1 6', 'unknown'],
@@ -225,11 +225,13 @@ test.each([
   ['+1 615-9', 'too-short'],
   ['+1 615-99', 'too-short'],
   ['+1 615-994', 'too-short'],
-  ['+1 615-994-3', 'too-short'],
+  ['+1 615-994-3', 'invalid-number'],
   ['+1 615-994-33', 'too-short'],
   ['+1 615-994-330', 'too-short'],
   ['+1 615-994-3300', 'is-possible'],
   ['+1 615-994-33001', 'too-long'],
+
+  ['3242225555', 'invalid-number'],
 ])('#checkPossibility(%p): %p', (input, expected) => {
   expect(new PhoneService(AwesomePhoneNumber).checkPossibility(input)).toBe(
     expected,
@@ -256,7 +258,7 @@ test.each<
   [undefined, { required: true, requiredMessage: 'Required.' }, 'Required.'],
 
   [
-    'Phone: (585) 617-4124 (Home) | (585) 489-6693 (Cell)',
+    'Phone: (585) 617-5555 (Home) | (585) 489-6666 (Cell)',
     undefined,
     'Invalid phone number',
   ],
@@ -270,6 +272,8 @@ test.each<
   ['615-994-3300 00', undefined, 'Phone number is too long'],
   ['+1 615-994-3300 00', undefined, 'Phone number is too long'],
   ['+1 615-994-3300 00', { tooLongMessage: 'Too long.' }, 'Too long.'],
+
+  ['3242225555', undefined, 'Invalid phone number'],
 ])('#validate(%p, %j): %p', (input, rules, expected) => {
   expect(new PhoneService(AwesomePhoneNumber).validate(input, rules)).toBe(
     expected,
