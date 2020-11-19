@@ -48,40 +48,76 @@ test('changes', async () => {
 });
 
 test('errors', async () => {
-  const onChange = jest.fn();
-  const onSubmit = jest.fn();
-  const formatError = jest.fn((error) => error);
-
   const wrapper = renderFormField(
     <FormikTextField
+      id="name"
       name="name"
-      label="Name"
-      onChange={onChange}
-      formatError={formatError}
-      validate={(value) => (!value ? 'Name is Required' : undefined)}
+      validate={(value) => (value === 'john' ? 'Invalid Name' : undefined)}
     />,
-    {
-      onSubmit,
-      initialValues: { name: '' },
-    },
+    { initialValues: { name: '' } },
   );
 
-  const input = wrapper.getByLabelText('Name');
-
-  expect(input).toBeValid();
+  expect(wrapper.getByRole('textbox')).toBeValid();
 
   void act(() => {
-    fireEvent.blur(input);
+    userEvent.type(wrapper.getByRole('textbox'), 'john');
+  });
+
+  expect(wrapper.getByRole('textbox')).toBeValid();
+
+  void act(() => {
+    fireEvent.blur(wrapper.getByRole('textbox'));
   });
 
   await waitFor(() => {
-    expect(input).toBeInvalid();
+    expect(wrapper.getByRole('textbox')).toBeInvalid();
   });
 
-  const error = wrapper.getByText('Name is Required');
+  const errorID = wrapper.getByRole('textbox').getAttribute('aria-describedby');
 
-  expect(input).toHaveAttribute('aria-describedby', error.id);
-  expect(formatError).toHaveBeenCalled();
+  expect(document.getElementById(errorID!)).toMatchInlineSnapshot(`
+    <p
+      class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled"
+      id="name-helper-text"
+    >
+      Invalid Name
+    </p>
+  `);
+});
+
+test('formatErrors', async () => {
+  const wrapper = renderFormField(
+    <FormikTextField
+      id="name"
+      name="name"
+      formatError={(error) => <strong>{error}</strong>}
+      validate={(value) => (!value ? 'Name is required' : undefined)}
+    />,
+    { initialValues: { name: '' } },
+  );
+
+  expect(wrapper.getByRole('textbox')).toBeValid();
+
+  void act(() => {
+    fireEvent.blur(wrapper.getByRole('textbox'));
+  });
+
+  await waitFor(() => {
+    expect(wrapper.getByRole('textbox')).toBeInvalid();
+  });
+
+  const errorID = wrapper.getByRole('textbox').getAttribute('aria-describedby');
+
+  expect(document.getElementById(errorID!)).toMatchInlineSnapshot(`
+    <p
+      class="MuiFormHelperText-root MuiFormHelperText-contained Mui-error"
+      id="name-helper-text"
+    >
+      <strong>
+        Name is required
+      </strong>
+    </p>
+  `);
 });
 
 test('submitting', async () => {
