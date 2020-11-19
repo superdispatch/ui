@@ -171,8 +171,7 @@
       "ignore": [
         "react",
         "react-is",
-        "prop-types",
-        "@material-ui/core"
+        "prop-types"
       ],
       "path": "packages/ui/pkg/dist-web/index.js"
     },
@@ -180,9 +179,15 @@
       "ignore": [
         "react",
         "react-is",
-        "prop-types",
-        "@material-ui/core",
-        "react-keyed-flatten-children"
+        "prop-types"
+      ],
+      "path": "packages/lab/pkg/dist-web/index.js"
+    },
+    {
+      "ignore": [
+        "react",
+        "react-is",
+        "prop-types"
       ],
       "path": "packages/dates/pkg/dist-web/index.js"
     },
@@ -190,9 +195,7 @@
       "ignore": [
         "react",
         "react-is",
-        "prop-types",
-        "@material-ui/core",
-        "react-keyed-flatten-children"
+        "prop-types"
       ],
       "path": "packages/phones/pkg/dist-web/index.js"
     },
@@ -200,13 +203,7 @@
       "ignore": [
         "react",
         "react-is",
-        "prop-types",
-        "@material-ui/core",
-        "luxon",
-        "formik",
-        "react-day-picker",
-        "awesome-phonenumber",
-        "react-keyed-flatten-children"
+        "prop-types"
       ],
       "path": "packages/forms/pkg/dist-web/index.js"
     }
