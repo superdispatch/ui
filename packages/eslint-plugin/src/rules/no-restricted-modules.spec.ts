@@ -17,8 +17,13 @@ ruleTester.run('no-restricted-modules', rule, {
           endLine: 1,
           column: 10,
           endColumn: 13,
-          messageId: 'forbid',
-          data: { name: 'Box' },
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'Box',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'Box',
+            suggestedModule: '@superdispatch/ui-lab',
+          },
         },
       ],
     },
@@ -31,8 +36,59 @@ ruleTester.run('no-restricted-modules', rule, {
           endLine: 1,
           column: 10,
           endColumn: 20,
-          messageId: 'forbid',
-          data: { name: 'Box' },
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'Box',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'Box',
+            suggestedModule: '@superdispatch/ui-lab',
+          },
+        },
+      ],
+    },
+
+    {
+      code:
+        'import { Avatar, Button, Card, Grid, Snackbar, SnackbarContent } from "@material-ui/core"',
+      errors: [
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'Button',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'Button',
+            suggestedModule: '@superdispatch/ui',
+          },
+        },
+
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'Grid',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'Columns',
+            suggestedModule: '@superdispatch/ui',
+          },
+        },
+
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'Snackbar',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'Snackbar',
+            suggestedModule: '@superdispatch/ui',
+          },
+        },
+
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'SnackbarContent',
+            restrictedModule: '@material-ui/core',
+            suggestedName: 'SnackbarContent',
+            suggestedModule: '@superdispatch/ui',
+          },
         },
       ],
     },
