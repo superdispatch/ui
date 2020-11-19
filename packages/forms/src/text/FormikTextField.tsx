@@ -45,8 +45,8 @@ export const FormikTextField: ForwardRefExoticComponent<FormikTextFieldProps> = 
       name,
       validate,
     });
-    const errorText =
-      touched && error && formatError ? formatError(error) : error;
+    const errorText: ReactNode =
+      touched && (error && formatError ? formatError(error) : error);
 
     return (
       <TextField

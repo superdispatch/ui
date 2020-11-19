@@ -15,17 +15,21 @@ import {
   useFormikEnhanced,
 } from '../enhanced/useFormikEnhanced';
 
-export function renderFormField<T, R>(
+export function renderFormField<TValues, TResponse>(
   element: ReactElement,
-  formProps: FormikEnhancedConfig<T, R>,
+  {
+    initialValues = {} as TValues,
+    onSubmit = jest.fn(),
+    ...formProps
+  }: Partial<FormikEnhancedConfig<TValues, TResponse>>,
 ) {
   const formikRef = createRef() as MutableRefObject<
-    FormikContextTypeEnhanced<T, R>
+    FormikContextTypeEnhanced<TValues, TResponse>
   >;
   const childrenRef = createRef<HTMLDivElement>();
 
   function Wrapper({ children }: ThemeProviderProps): ReactElement {
-    const formik = useFormikEnhanced(formProps);
+    const formik = useFormikEnhanced({ ...formProps, onSubmit, initialValues });
 
     formikRef.current = formik;
 
@@ -48,6 +52,7 @@ export function renderFormField<T, R>(
   return {
     ...wrapper,
     childrenRef,
+    onSubmit,
     formik: formikRef,
     submitForm: () => {
       userEvent.click(wrapper.getByRole('button', { name: 'Submit' }));
