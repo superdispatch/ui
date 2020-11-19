@@ -1,21 +1,23 @@
 {
   "buildCommand": "build",
   "packages": [
-    "packages/ui",
-    "packages/forms",
     "packages/dates",
-    "packages/phones",
+    "packages/eslint-plugin",
+    "packages/forms",
     "packages/jestutils",
+    "packages/lab",
+    "packages/phones",
     "packages/testutils",
-    "packages/eslint-plugin"
+    "packages/ui"
   ],
   "publishDirectory": {
-    "@superdispatch/ui": "packages/ui/pkg",
-    "@superdispatch/forms": "packages/forms/pkg",
     "@superdispatch/dates": "packages/dates/pkg",
-    "@superdispatch/phones": "packages/phones/pkg",
+    "@superdispatch/eslint-plugin-ui": "packages/eslint-plugin",
+    "@superdispatch/forms": "packages/forms/pkg",
     "@superdispatch/jestutils": "packages/jestutils/pkg",
+    "@superdispatch/phones": "packages/phones/pkg",
     "@superdispatch/testutils": "packages/testutils/pkg",
-    "@superdispatch/eslint-plugin-ui": "packages/eslint-plugin"
+    "@superdispatch/ui": "packages/ui/pkg",
+    "@superdispatch/ui-lab": "packages/lab/pkg"
   }
 }

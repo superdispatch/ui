@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
 import { withPlayroom } from 'storybook-addon-playroom';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
+import { LabProvider } from '@superdispatch/ui-lab';
 
 injectDisplayNames(require('@material-ui/lab'));
 injectDisplayNames(require('@material-ui/core'));
@@ -22,14 +23,18 @@ function injectDisplayNames(module, { suffix = '' } = {}) {
 addDecorator(withPlayroom);
 addDecorator((story) => (
   <Suspense fallback="Loading…">
-    <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+    <ThemeProvider injectFirst={false}>
+      <LabProvider>{story()}</LabProvider>
+    </ThemeProvider>
   </Suspense>
 ));
 
 function SuperDispatchDocsContainer(props) {
   return (
     <ThemeProvider injectFirst={false}>
-      <DocsContainer {...props} />
+      <LabProvider>
+        <DocsContainer {...props} />
+      </LabProvider>
     </ThemeProvider>
   );
 }
