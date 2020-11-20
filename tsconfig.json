@@ -1,5 +1,11 @@
 {
-  "include": ["packages", "scripts", "types"],
+  "include": [
+    "types",
+    "scripts",
+    "packages",
+    "setupTests.ts",
+    "globalSetup.ts"
+  ],
   "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
