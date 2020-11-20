@@ -64,6 +64,7 @@
       "<rootDir>/packages/eslint-plugin/",
       "<rootDir>/packages/forms/",
       "<rootDir>/packages/hooks/",
+      "<rootDir>/packages/lab/",
       "<rootDir>/packages/phones/",
       "<rootDir>/packages/testutils/",
       "<rootDir>/packages/ui/"

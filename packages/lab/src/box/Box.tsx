@@ -4,7 +4,7 @@ import {
   isColorProp,
   SuperDispatchTheme,
 } from '@superdispatch/ui';
-import { FC, Ref } from 'react';
+import { ForwardRefExoticComponent, Ref, ReactNode } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
 import { injectRules } from '../utils/injectRules';
@@ -152,6 +152,7 @@ const normalizers: RuleNormalizerRecord = {
 
 export interface BoxProps extends BoxRules {
   ref?: Ref<unknown>;
+  children?: ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }
 
@@ -159,7 +160,7 @@ interface StyledBoxProps extends BoxRules {
   theme: SuperDispatchTheme;
 }
 
-export const Box: FC<BoxProps> = styled.div<BoxProps>(
+export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
   (props: StyledBoxProps): CSSObject => {
     const styles: CSSObject = {
       borderWidth: '0',

@@ -1,5 +1,5 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
-import { FC, Ref } from 'react';
+import { Ref, ReactNode, ForwardRefExoticComponent } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
 import { injectRule } from '../utils/injectRules';
@@ -148,6 +148,7 @@ interface TextLineRules {
 export interface TextLineProps extends TextLineRules {
   id?: string;
   ref?: Ref<unknown>;
+  children?: ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }
 
@@ -163,9 +164,9 @@ function normalizeProps({
   return { as, variant, ...props };
 }
 
-export const TextBox: FC<TextLineProps> = styled.span.attrs<TextLineProps>(
-  normalizeProps,
-)(
+export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<
+  TextLineProps
+>(normalizeProps)(
   ({
     theme,
     noWrap,
