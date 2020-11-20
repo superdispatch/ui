@@ -40,6 +40,8 @@ function SuperDispatchDocsContainer(props) {
 }
 
 addParameters({
+  loki: { skip: true },
+
   docs: { container: SuperDispatchDocsContainer },
 
   playroom: {
