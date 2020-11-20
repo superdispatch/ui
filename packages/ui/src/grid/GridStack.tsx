@@ -1,5 +1,5 @@
 import { Grid, GridProps } from '@material-ui/core';
-import React, {
+import {
   Children,
   forwardRef,
   ForwardRefExoticComponent,

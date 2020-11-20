@@ -1,5 +1,4 @@
 import { SvgIcon } from '@material-ui/core';
-import React from 'react';
 
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 

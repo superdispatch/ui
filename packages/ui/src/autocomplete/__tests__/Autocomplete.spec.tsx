@@ -1,6 +1,5 @@
 import { Autocomplete } from '@material-ui/lab';
 import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 it('checks default props', () => {
   const { props } = renderTheme();

@@ -5,7 +5,6 @@ import {
   ThemeProviderProps,
 } from '@superdispatch/ui';
 import { renderHook } from '@testing-library/react-hooks';
-import React from 'react';
 
 export function renderTheme(
   modifier?: ThemeProviderProps['modifier'],

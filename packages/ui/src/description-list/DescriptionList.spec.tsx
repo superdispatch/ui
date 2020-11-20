@@ -1,5 +1,4 @@
 import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 

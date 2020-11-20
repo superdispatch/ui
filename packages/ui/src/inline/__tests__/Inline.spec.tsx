@@ -1,5 +1,5 @@
 import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import { Inline } from '../Inline';
 

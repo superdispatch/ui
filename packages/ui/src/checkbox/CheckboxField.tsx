@@ -6,7 +6,7 @@ import {
   FormControlLabelProps,
   FormHelperText,
 } from '@material-ui/core';
-import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
+import { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 
 export interface CheckboxFieldProps
   extends CheckboxProps,

@@ -7,7 +7,7 @@ import {
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { Color } from '@superdispatch/ui';
-import React, { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import {
   CountryISO,

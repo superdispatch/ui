@@ -1,6 +1,6 @@
 import { extractCSS, renderComponent } from '@superdispatch/ui-testutils';
 import userEvent from '@testing-library/user-event';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PhoneField, PhoneFieldProps } from './PhoneField';
 

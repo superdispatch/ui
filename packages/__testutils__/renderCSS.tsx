@@ -2,7 +2,7 @@ import { Color, ThemeProvider } from '@superdispatch/ui';
 import { render } from '@testing-library/react';
 import css, { Stylesheet } from 'css';
 import { format } from 'prettier';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 const colors = new Map<string, string>(
   Object.entries(Color).map(([k, v]) => [v, `Color.${k}`]),

@@ -1,6 +1,5 @@
 import { Drawer } from '@material-ui/core';
 import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 import { DrawerActions } from '../DrawerActions';
 import { DrawerContent } from '../DrawerContent';

@@ -1,6 +1,5 @@
 import { Home as HomeIcon } from '@material-ui/icons';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { Inline } from '../inline/Inline';
 

@@ -1,6 +1,5 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikCheckboxField } from './FormikCheckboxField';

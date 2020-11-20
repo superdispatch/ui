@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import {
   DateConfigProvider,

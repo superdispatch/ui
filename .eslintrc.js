@@ -24,7 +24,7 @@ module.exports = {
     },
 
     {
-      files: ['**/packages/**/*.{ts,tsx}'],
+      files: ['types/*.d.ts', '**/packages/**/*.{ts,tsx}'],
       excludedFiles: [
         '**/packages/jestutils/**/*.ts',
         '**/packages/testutils/**/*.ts',
@@ -76,6 +76,7 @@ module.exports = {
         ],
 
         'react/display-name': 'off',
+        'react/react-in-jsx-scope': 'off',
 
         'no-restricted-imports': [
           'error',

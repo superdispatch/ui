@@ -1,4 +1,4 @@
-import React, {
+import {
   ConsumerProps,
   createContext,
   Key,

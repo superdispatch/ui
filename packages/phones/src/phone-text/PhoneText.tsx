@@ -1,5 +1,5 @@
 import { renderChildren } from '@superdispatch/ui';
-import React, { ReactElement, ReactNode, Suspense } from 'react';
+import { ReactElement, ReactNode, Suspense } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 import { useFormattedPhoneNumber } from '../formatted-phone-number/FormattedPhoneNumber';
