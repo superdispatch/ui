@@ -164,9 +164,9 @@ function normalizeProps({
   return { as, variant, ...props };
 }
 
-export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<
-  TextLineProps
->(normalizeProps)(
+export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<TextLineProps>(
+  normalizeProps,
+)(
   ({
     theme,
     noWrap,
