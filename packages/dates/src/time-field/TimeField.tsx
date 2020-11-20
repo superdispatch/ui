@@ -5,8 +5,7 @@ import {
 } from '@material-ui/core';
 import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime } from 'luxon';
-import { forwardRef, useEffect, useMemo } from 'react';
-import * as React from 'react';
+import { forwardRef, useEffect, useMemo, useState } from 'react';
 
 import {
   DateConfig,
@@ -139,7 +138,7 @@ export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
       config,
     ]);
 
-    const [inputValue, setInputValue] = React.useState('');
+    const [inputValue, setInputValue] = useState('');
 
     function handleChange(nextValue: NullableDateInput): void {
       if (onChange) {
