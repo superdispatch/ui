@@ -84,12 +84,7 @@ test('validation', async () => {
 test('submitting', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn(
-    () =>
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 200);
-      }),
+    () => new Promise((resolve) => setTimeout(resolve, 200)),
   );
 
   const wrapper = renderFormField(

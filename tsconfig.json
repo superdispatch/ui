@@ -1,4 +1,5 @@
 {
+  "include": ["packages", "scripts", "types"],
   "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
