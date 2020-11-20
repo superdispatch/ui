@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Inline } from '../inline/Inline';
 import { Tag } from './Tag';
 

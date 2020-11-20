@@ -1,7 +1,6 @@
 import { IconButton } from '@material-ui/core';
 import { Save as SaveIcon } from '@material-ui/icons';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { Inline } from '..';
 

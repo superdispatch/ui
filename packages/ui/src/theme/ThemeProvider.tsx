@@ -10,7 +10,7 @@ import {
 } from '@material-ui/styles';
 import { useConstant } from '@superdispatch/hooks';
 import { Rule, StyleSheet } from 'jss';
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';

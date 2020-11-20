@@ -1,6 +1,5 @@
 import { Box, Link, Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { Stack } from '..';
 

@@ -1,7 +1,7 @@
 import { Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, { forwardRef, ImgHTMLAttributes, Ref } from 'react';
+import { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 

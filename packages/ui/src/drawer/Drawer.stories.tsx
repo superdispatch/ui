@@ -12,7 +12,6 @@ import {
 } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { PropsLink, UseState } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { Button, Inline, Stack } from '..';
 import { DrawerActions } from './DrawerActions';

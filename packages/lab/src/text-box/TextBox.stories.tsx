@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import { Column, Columns, Inline, Stack } from '@superdispatch/ui';
-import React from 'react';
 
 import { Box } from '..';
 import { TextBox } from './TextBox';

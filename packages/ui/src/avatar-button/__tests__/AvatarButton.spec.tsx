@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 import { AvatarButton } from '../AvatarButton';
 

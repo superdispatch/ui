@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import MockDate from 'mockdate';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikEnhancedConfig } from '../enhanced/useFormikEnhanced';

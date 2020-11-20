@@ -7,7 +7,6 @@ import {
 import { EventType, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateObjectUnits, DateTime } from 'luxon';
-import React from 'react';
 
 import { setDefaultTimeZone } from '../date-config/DateConfig';
 import {

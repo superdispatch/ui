@@ -1,7 +1,7 @@
 import { Theme, Typography, TypographyProps } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import cx from 'clsx';
-import React, {
+import {
   ElementType,
   forwardRef,
   ForwardRefExoticComponent,

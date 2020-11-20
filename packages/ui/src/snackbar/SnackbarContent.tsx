@@ -9,7 +9,7 @@ import {
 import { CheckCircle, Close, Warning } from '@material-ui/icons';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
+import {
   forwardRef,
   ForwardRefExoticComponent,
   ReactNode,

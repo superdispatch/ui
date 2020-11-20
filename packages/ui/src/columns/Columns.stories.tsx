@@ -2,7 +2,6 @@ import { Box, IconButton, Link } from '@material-ui/core';
 import { Edit as EditIcon, Room as RoomIcon } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { OverflowText, Stack } from '..';
 import { Column, Columns } from './Columns';

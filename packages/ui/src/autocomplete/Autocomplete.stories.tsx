@@ -2,7 +2,6 @@ import { Box, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 export default {
   title: 'Inputs/Autocomplete',

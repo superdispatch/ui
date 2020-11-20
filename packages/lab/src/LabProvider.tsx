@@ -1,5 +1,5 @@
 import { useTheme } from '@material-ui/core';
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 export interface LabProviderProps {

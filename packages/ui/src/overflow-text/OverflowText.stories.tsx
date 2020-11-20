@@ -1,6 +1,5 @@
 import { Box } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { OverflowText } from './OverflowText';
 

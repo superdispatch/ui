@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { PhoneField } from './PhoneField.playroom';
 
 export default { title: 'Phones/PhoneField', component: PhoneField };

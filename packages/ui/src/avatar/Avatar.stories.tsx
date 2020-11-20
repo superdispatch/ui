@@ -1,6 +1,5 @@
 import { Avatar } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 export default {
   title: 'Data Display/Avatar',

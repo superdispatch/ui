@@ -1,6 +1,6 @@
 import { IconButton, Typography } from '@material-ui/core';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import {
   CaptionElementProps,
   LocaleUtils,

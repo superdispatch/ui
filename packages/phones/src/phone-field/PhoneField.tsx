@@ -1,6 +1,6 @@
 import { BaseTextFieldProps, TextField } from '@material-ui/core';
 import { mergeRefs } from '@superdispatch/ui';
-import React, {
+import {
   ChangeEvent,
   forwardRef,
   ReactNode,

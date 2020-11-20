@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@superdispatch/ui';
 import { LabProvider } from '@superdispatch/ui-lab';
-import React, { ReactElement, ReactNode, Suspense } from 'react';
+import { ReactElement, ReactNode, Suspense } from 'react';
 
 interface FrameComponentProps {
   children?: ReactNode;

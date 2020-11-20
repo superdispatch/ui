@@ -6,7 +6,7 @@ import {
 import { fireEvent, Matcher } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { defaultDateConfig } from '../date-config/DateConfig';
 import {
@@ -245,11 +245,13 @@ test('enableClearable', () => {
 test('time normalization', () => {
   const wrapper = renderComponent(<DateRangeField />);
 
-  const variants: Array<[
-    input: undefined | DateStringRange,
-    matcher: Matcher,
-    result: DateStringRange,
-  ]> = [
+  const variants: Array<
+    [
+      input: undefined | DateStringRange,
+      matcher: Matcher,
+      result: DateStringRange,
+    ]
+  > = [
     [undefined, /May 24/, ['2019-05-24T00:00:00.000-05:00', undefined]],
 
     [

@@ -18,10 +18,9 @@ const DATE_FORMATS: Readonly<Record<DateFormat, string>> = {
   JodaISO: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ",
 };
 
-const DATE_DISPLAY_VARIANTS: Readonly<Record<
-  DateDisplayVariant,
-  Intl.DateTimeFormatOptions
->> = {
+const DATE_DISPLAY_VARIANTS: Readonly<
+  Record<DateDisplayVariant, Intl.DateTimeFormatOptions>
+> = {
   Date: {
     day: '2-digit',
     month: 'short',

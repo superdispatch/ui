@@ -1,7 +1,6 @@
 import { Box } from '@material-ui/core';
 import { CloudUpload, MoreHoriz, Save } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
-import React from 'react';
 
 import { Color } from '..';
 import { Button, ButtonProps } from './Button';

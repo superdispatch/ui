@@ -4,7 +4,6 @@ import {
   Switch,
   TextField,
 } from '@material-ui/core';
-import React from 'react';
 
 import { RadioField } from '..';
 import { CheckboxField } from './CheckboxField';

@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 it('checks component css', () => {
   expect(renderCSS(<div />, ['MuiCssBaseline'])).toMatchInlineSnapshot(`

@@ -7,7 +7,7 @@ import {
 } from '@superdispatch/phones';
 import { useUID } from '@superdispatch/ui';
 import { useField, useFormikContext } from 'formik';
-import React, { forwardRef, ReactNode, Suspense } from 'react';
+import { forwardRef, ReactNode, Suspense } from 'react';
 
 interface FormikPhoneFieldProps
   extends Omit<PhoneFieldProps, 'error' | 'value'> {

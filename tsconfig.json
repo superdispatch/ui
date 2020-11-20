@@ -1,7 +1,15 @@
 {
+  "include": [
+    "types",
+    "scripts",
+    "packages",
+    "setupTests.ts",
+    "globalSetup.ts"
+  ],
   "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo"
   }
 }

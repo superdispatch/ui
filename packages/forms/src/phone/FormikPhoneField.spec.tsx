@@ -1,5 +1,4 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
-import React from 'react';
 
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikPhoneField } from './FormikPhoneField';
@@ -85,12 +84,7 @@ test('validation', async () => {
 test('submitting', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn(
-    () =>
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 200);
-      }),
+    () => new Promise((resolve) => setTimeout(resolve, 200)),
   );
 
   const wrapper = renderFormField(

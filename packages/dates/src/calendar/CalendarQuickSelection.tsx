@@ -1,5 +1,5 @@
 import { List, ListItem, Typography } from '@material-ui/core';
-import React, { forwardRef, ReactNode } from 'react';
+import { forwardRef, ReactNode } from 'react';
 
 export interface CalendarQuickSelectionItemProps {
   children?: ReactNode;
