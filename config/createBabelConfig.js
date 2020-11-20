@@ -12,17 +12,17 @@ module.exports = ({ docs = false } = {}) => ({
     ],
   ],
   plugins: [
-    'babel-plugin-styled-components',
+    [
+      'babel-plugin-styled-components',
+      {
+        pure: true,
+        fileName: false,
+        namespace: 'sd',
+      },
+    ],
 
     docs && [
-      [
-        'babel-plugin-direct-import',
-        {
-          pure: true,
-          fileName: false,
-          namespace: 'sd',
-        },
-      ],
+      'babel-plugin-direct-import',
       {
         modules: [
           '@material-ui/lab',

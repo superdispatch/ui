@@ -1,5 +1,5 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
-import { Ref, ReactNode, ForwardRefExoticComponent } from 'react';
+import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
 import { injectRule } from '../utils/injectRules';

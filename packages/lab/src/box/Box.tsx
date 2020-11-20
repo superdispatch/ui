@@ -4,7 +4,7 @@ import {
   isColorProp,
   SuperDispatchTheme,
 } from '@superdispatch/ui';
-import { ForwardRefExoticComponent, Ref, ReactNode } from 'react';
+import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
 import { injectRules } from '../utils/injectRules';
