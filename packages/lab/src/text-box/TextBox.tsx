@@ -163,7 +163,7 @@ function normalizeProps({
   return { as, variant, ...props };
 }
 
-export const TextLine: FC<TextLineProps> = styled.span.attrs<TextLineProps>(
+export const TextBox: FC<TextLineProps> = styled.span.attrs<TextLineProps>(
   normalizeProps,
 )(
   ({
