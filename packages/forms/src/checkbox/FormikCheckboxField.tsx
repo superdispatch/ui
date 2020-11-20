@@ -1,7 +1,6 @@
 import { CheckboxField, CheckboxFieldProps, useUID } from '@superdispatch/ui';
 import { FieldValidator, useField, useFormikContext } from 'formik';
-import { forwardRef, ForwardRefExoticComponent } from 'react';
-import * as React from 'react';
+import { ChangeEvent, forwardRef, ForwardRefExoticComponent } from 'react';
 
 export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
   name: string;
@@ -10,10 +9,7 @@ export interface FormikCheckboxFieldProps extends CheckboxFieldProps {
     value: unknown,
     checked: boolean | undefined,
   ) => boolean | undefined;
-  parse?: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean,
-  ) => unknown;
+  parse?: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => unknown;
 }
 
 export const FormikCheckboxField: ForwardRefExoticComponent<FormikCheckboxFieldProps> = forwardRef(
