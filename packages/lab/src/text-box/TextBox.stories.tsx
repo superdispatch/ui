@@ -3,46 +3,45 @@ import { Column, Columns, Inline, Stack } from '@superdispatch/ui';
 import React from 'react';
 
 import { Box } from '..';
-import { TextLine } from './TextLine';
+import { TextBox } from './TextBox';
 
 export default {
-  title: 'Lab/TextLine',
-  component: TextLine,
-  parameters: { loki: { skip: false } },
+  title: 'Lab/TextBox',
+  component: TextBox,
 } as Meta;
 
 export const basic = () => (
-  <TextLine>
+  <TextBox>
     Hello{' '}
     <span role="img" aria-label="waving hand">
       👋
     </span>
-  </TextLine>
+  </TextBox>
 );
 
 export const alignment = () => (
   <Columns space={1}>
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextLine as="p" align="right">
+        <TextBox as="p" align="right">
           Align Right
-        </TextLine>
+        </TextBox>
       </Box>
     </Column>
 
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextLine as="p" align="center">
+        <TextBox as="p" align="center">
           Align Center
-        </TextLine>
+        </TextBox>
       </Box>
     </Column>
 
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextLine as="p" align="left">
+        <TextBox as="p" align="left">
           Align Left
-        </TextLine>
+        </TextBox>
       </Box>
     </Column>
   </Columns>
@@ -51,55 +50,55 @@ export const alignment = () => (
 export const colors = () => (
   <Box backgroundColor="Silver300" borderRadius="small" padding="xsmall">
     <Inline>
-      <TextLine color="primary">Primary</TextLine>
-      <TextLine color="secondary">Secondary</TextLine>
-      <TextLine color="white">White</TextLine>
-      <TextLine color="blue">Blue</TextLine>
-      <TextLine color="green">Green</TextLine>
-      <TextLine color="purple">Purple</TextLine>
-      <TextLine color="red">Red</TextLine>
-      <TextLine color="teal">Teal</TextLine>
-      <TextLine color="yellow">Yellow</TextLine>
+      <TextBox color="primary">Primary</TextBox>
+      <TextBox color="secondary">Secondary</TextBox>
+      <TextBox color="white">White</TextBox>
+      <TextBox color="blue">Blue</TextBox>
+      <TextBox color="green">Green</TextBox>
+      <TextBox color="purple">Purple</TextBox>
+      <TextBox color="red">Red</TextBox>
+      <TextBox color="teal">Teal</TextBox>
+      <TextBox color="yellow">Yellow</TextBox>
     </Inline>
   </Box>
 );
 
 export const variants = () => (
   <Stack>
-    <TextLine variant="heading-1">h1. Heading</TextLine>
-    <TextLine variant="heading-2">h2. Heading</TextLine>
-    <TextLine variant="heading-3">h3. Heading</TextLine>
-    <TextLine variant="heading-4">h4. Heading</TextLine>
-    <TextLine variant="heading-5">h5. Heading</TextLine>
-    <TextLine variant="heading-6">h6. Heading</TextLine>
-    <TextLine variant="body">
+    <TextBox variant="heading-1">h1. Heading</TextBox>
+    <TextBox variant="heading-2">h2. Heading</TextBox>
+    <TextBox variant="heading-3">h3. Heading</TextBox>
+    <TextBox variant="heading-4">h4. Heading</TextBox>
+    <TextBox variant="heading-5">h5. Heading</TextBox>
+    <TextBox variant="heading-6">h6. Heading</TextBox>
+    <TextBox variant="body">
       body. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
       blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
       neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-    </TextLine>
-    <TextLine variant="body-block">
+    </TextBox>
+    <TextBox variant="body-block">
       body-block. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
       blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
       neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-    </TextLine>
-    <TextLine variant="body-semibold">
+    </TextBox>
+    <TextBox variant="body-semibold">
       body-semibold. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
       consectetur, neque doloribus, cupiditate numquam dignissimos laborum
       fugiat deleniti?
-    </TextLine>
-    <TextLine variant="caption">
+    </TextBox>
+    <TextBox variant="caption">
       caption. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
       blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
       neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-    </TextLine>
+    </TextBox>
   </Stack>
 );
 
 export const noWrap = () => (
   <Box width="128px">
-    <TextLine noWrap={true}>
+    <TextBox noWrap={true}>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    </TextLine>
+    </TextBox>
   </Box>
 );

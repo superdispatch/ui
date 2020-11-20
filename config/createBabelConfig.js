@@ -12,6 +12,15 @@ module.exports = ({ docs = false } = {}) => ({
     ],
   ],
   plugins: [
+    [
+      'babel-plugin-styled-components',
+      {
+        pure: true,
+        fileName: false,
+        namespace: 'sd',
+      },
+    ],
+
     docs && [
       'babel-plugin-direct-import',
       {
