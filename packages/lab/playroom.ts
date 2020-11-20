@@ -1,2 +1,2 @@
 export { Box } from './src';
-export { TextLine } from './src';
+export { TextBox } from './src';
