@@ -1,3 +1,4 @@
 export * from './box/Box';
-export * from './responsive/ResponsiveProp';
+export * from './text-line/TextLine';
+export * from './utils/ResponsiveProp';
 export * from './LabProvider';
