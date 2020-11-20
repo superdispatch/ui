@@ -1,7 +1,7 @@
 import { Link } from '@material-ui/core';
 import { Launch } from '@material-ui/icons';
 import { Inline } from '@superdispatch/ui';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 export interface PropsLinkProps {
   url: string;

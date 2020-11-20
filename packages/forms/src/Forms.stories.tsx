@@ -7,7 +7,7 @@ import { Alert } from '@material-ui/lab';
 import { Meta } from '@storybook/react';
 import { Button, Inline, Stack, useSnackbarStack } from '@superdispatch/ui';
 import { Form, FormikProvider } from 'formik';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import {
   FormikDateField,

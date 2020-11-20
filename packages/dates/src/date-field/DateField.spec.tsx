@@ -3,7 +3,7 @@ import { mockDate, renderComponent } from '@superdispatch/ui-testutils';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   DateConfigProvider,

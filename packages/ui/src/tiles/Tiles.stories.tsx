@@ -1,7 +1,6 @@
 import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { Tiles } from './Tiles';
 

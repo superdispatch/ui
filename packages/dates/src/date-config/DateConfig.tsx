@@ -1,5 +1,5 @@
 import { FixedOffsetZone, Settings } from 'luxon';
-import React, {
+import {
   createContext,
   ReactElement,
   ReactNode,

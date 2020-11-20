@@ -2,7 +2,6 @@ import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { ArrowBack, Close } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 import { Column, Columns } from '..';
 

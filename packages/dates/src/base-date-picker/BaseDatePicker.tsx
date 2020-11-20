@@ -11,13 +11,7 @@ import { Clear } from '@material-ui/icons';
 import { mdiCalendarMonth } from '@mdi/js';
 import { useValueObserver } from '@superdispatch/hooks';
 import { mergeRefs, useUID } from '@superdispatch/ui';
-import React, {
-  forwardRef,
-  Ref,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, Ref, useImperativeHandle, useRef, useState } from 'react';
 
 export interface InternalBaseDateFieldAPI {
   close: () => void;

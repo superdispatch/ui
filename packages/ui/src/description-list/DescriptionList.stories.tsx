@@ -7,7 +7,6 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { PhoneLink, PhoneText } from '@superdispatch/phones';
-import React from 'react';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 

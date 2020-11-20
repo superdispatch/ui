@@ -2,12 +2,7 @@ import { ThemeProvider, ThemeProviderProps } from '@superdispatch/ui';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, FormikProvider } from 'formik';
-import React, {
-  createRef,
-  MutableRefObject,
-  ReactElement,
-  Suspense,
-} from 'react';
+import { createRef, MutableRefObject, ReactElement, Suspense } from 'react';
 
 import {
   FormikContextTypeEnhanced,

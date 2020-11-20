@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
-import React, {
+import {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,

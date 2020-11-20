@@ -1,7 +1,6 @@
 import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 export default {
   title: 'Inputs/TextField',

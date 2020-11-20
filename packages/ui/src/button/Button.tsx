@@ -3,11 +3,7 @@ import {
   ButtonProps as MuiButtonProps,
   CircularProgress,
 } from '@material-ui/core';
-import React, {
-  forwardRef,
-  ForwardRefExoticComponent,
-  RefAttributes,
-} from 'react';
+import { forwardRef, ForwardRefExoticComponent, RefAttributes } from 'react';
 
 export interface ButtonProps
   extends RefAttributes<HTMLButtonElement>,

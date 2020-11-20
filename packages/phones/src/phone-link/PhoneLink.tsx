@@ -1,6 +1,6 @@
 import { Link, LinkProps } from '@material-ui/core';
 import { renderChildren } from '@superdispatch/ui';
-import React, {
+import {
   forwardRef,
   ForwardRefExoticComponent,
   ReactNode,

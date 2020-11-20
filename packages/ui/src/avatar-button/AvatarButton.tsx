@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import React, {
+import {
   ButtonHTMLAttributes,
   forwardRef,
   ForwardRefExoticComponent,

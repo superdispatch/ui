@@ -9,7 +9,7 @@ import {
   useDateConfig,
 } from '@superdispatch/dates';
 import { useField, useFormikContext } from 'formik';
-import React, { forwardRef, ReactElement } from 'react';
+import { forwardRef, ReactElement } from 'react';
 
 export interface FormikDateFieldProps extends Omit<DateFieldProps, 'error'> {
   name: string;

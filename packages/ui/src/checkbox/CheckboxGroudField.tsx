@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormLabelProps,
 } from '@material-ui/core';
-import React, { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
+import { forwardRef, ForwardRefExoticComponent, ReactNode } from 'react';
 
 export interface CheckboxGroupFieldProps
   extends Omit<FormControlProps, 'hiddenLabel' | 'onChange'> {

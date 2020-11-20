@@ -5,7 +5,8 @@ import {
 } from '@material-ui/core';
 import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime } from 'luxon';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import { forwardRef, useEffect, useMemo } from 'react';
+import * as React from 'react';
 
 import {
   DateConfig,

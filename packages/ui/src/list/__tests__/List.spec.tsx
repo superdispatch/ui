@@ -7,7 +7,6 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
-import React from 'react';
 
 it('checks default props', () => {
   const { props } = renderTheme();

@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@material-ui/core';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import React, {
+import {
   createContext,
   ReactElement,
   ReactNode,

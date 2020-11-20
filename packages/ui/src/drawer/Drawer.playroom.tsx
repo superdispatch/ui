@@ -1,5 +1,5 @@
 import { Drawer as MuiDrawer, DrawerProps } from '@material-ui/core';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
   (

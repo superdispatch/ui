@@ -1,5 +1,5 @@
 import { FormikProvider, FormikValues } from 'formik';
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import {
   FormikContextTypeEnhanced,

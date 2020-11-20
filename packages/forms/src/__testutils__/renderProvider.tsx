@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
 import { FormikValues } from 'formik';
-import React from 'react';
 
 import { FormsContext, FormsProvider } from '../enhanced/FormsProvider';
 import {

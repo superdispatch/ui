@@ -1,5 +1,5 @@
 import { Color } from '@superdispatch/ui';
-import React, { CSSProperties, forwardRef, ReactNode } from 'react';
+import { CSSProperties, forwardRef, ReactNode } from 'react';
 
 export interface PlaceholderProps {
   code?: string;

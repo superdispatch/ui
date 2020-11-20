@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
-import React from 'react';
 
 export default {
   title: 'Surfaces/Card',

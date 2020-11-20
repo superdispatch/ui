@@ -2,7 +2,7 @@ import { Divider, Grid, GridDirection, Hidden, Theme } from '@material-ui/core';
 import { ClassNameMap, makeStyles } from '@material-ui/styles';
 import { Color, ColorVariant } from '@superdispatch/ui';
 import { DateTime } from 'luxon';
-import React, { forwardRef, ReactNode, useMemo } from 'react';
+import { forwardRef, ReactNode, useMemo } from 'react';
 import DayPicker, {
   ClassNames,
   DayModifiers,

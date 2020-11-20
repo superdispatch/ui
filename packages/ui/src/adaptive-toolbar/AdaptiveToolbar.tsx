@@ -10,7 +10,7 @@ import {
 import { MoreHoriz } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { useEventHandler } from '@superdispatch/hooks';
-import React, {
+import {
   forwardRef,
   ForwardRefExoticComponent,
   Key,
