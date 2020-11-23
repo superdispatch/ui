@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-lab",
-  "version": "0.6.8",
+  "version": "0.7.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -14,8 +14,8 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@superdispatch/hooks": "^0.6.6",
-    "@superdispatch/ui": "^0.6.8"
+    "@superdispatch/hooks": "^0.7.0",
+    "@superdispatch/ui": "^0.7.0"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
