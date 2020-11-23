@@ -1,3 +1,8 @@
+import 'fontsource-inter/400.css';
+import 'fontsource-inter/500.css';
+import 'fontsource-inter/600.css';
+import 'fontsource-inter/700.css';
+
 import { addDecorator, addParameters } from '@storybook/react';
 import React, { Suspense } from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
