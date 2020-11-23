@@ -23,7 +23,7 @@ it('checks component css', () => {
       color: Color.Grey500;
       margin: 0;
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
       background-color: #fafafa;

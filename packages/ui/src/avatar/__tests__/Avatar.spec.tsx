@@ -18,7 +18,7 @@ it('checks component css', () => {
       font-size: 14px;
       align-items: center;
       flex-shrink: 0;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       line-height: 20px;
       user-select: none;
