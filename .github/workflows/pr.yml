@@ -66,3 +66,10 @@ jobs:
           netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
       - run: yarn loki:ci
+      - if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: loki
+          path: |
+            ./.loki/current
+            ./.loki/difference
