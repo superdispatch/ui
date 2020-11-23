@@ -32,7 +32,7 @@ it('checks component css', () => {
         border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
         box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
         background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       line-height: 20px;
       border-radius: 4px;

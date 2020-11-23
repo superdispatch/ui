@@ -19,7 +19,7 @@ it('checks component css', () => {
 
     .MuiTypography-body2 {
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
     }
@@ -33,7 +33,7 @@ it('checks component css', () => {
 
     .MuiTypography-body1 {
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       line-height: 20px;
     }
@@ -47,7 +47,7 @@ it('checks component css', () => {
 
     .MuiTypography-caption {
       font-size: 12px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 16px;
     }
@@ -61,7 +61,7 @@ it('checks component css', () => {
 
     .MuiTypography-button {
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       line-height: 20px;
     }
@@ -75,7 +75,7 @@ it('checks component css', () => {
 
     .MuiTypography-h1 {
       font-size: 32px;
-      font-family: SF Pro Display;
+      font-family: 'Inter', sans-serif;
       font-weight: 700;
       line-height: 40px;
     }
@@ -89,7 +89,7 @@ it('checks component css', () => {
 
     .MuiTypography-h2 {
       font-size: 24px;
-      font-family: SF Pro Display;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
       line-height: 28px;
     }
@@ -103,7 +103,7 @@ it('checks component css', () => {
 
     .MuiTypography-h3 {
       font-size: 20px;
-      font-family: SF Pro Display;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
       line-height: 28px;
     }
@@ -117,7 +117,7 @@ it('checks component css', () => {
 
     .MuiTypography-h4 {
       font-size: 16px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
       line-height: 24px;
     }
@@ -131,7 +131,7 @@ it('checks component css', () => {
 
     .MuiTypography-h5 {
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       line-height: 20px;
     }
@@ -145,7 +145,7 @@ it('checks component css', () => {
 
     .MuiTypography-h6 {
       font-size: 12px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 700;
       line-height: 16px;
       letter-spacing: 0.1em;
@@ -161,21 +161,21 @@ it('checks component css', () => {
 
     .MuiTypography-subtitle1 {
       font-size: 1rem;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 1.75;
     }
 
     .MuiTypography-subtitle2 {
       font-size: 0.875rem;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
       line-height: 1.57;
     }
 
     .MuiTypography-overline {
       font-size: 0.75rem;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 2.66;
       text-transform: uppercase;

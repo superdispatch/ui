@@ -3,12 +3,6 @@ import { TypographyOptions } from '@material-ui/core/styles/createTypography';
 
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-const FALLBACK_FONT_FAMILY =
-  "-apple-system, BlinkMacSystemFont, 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Ubuntu', 'Arial', sans-serif";
-
-const CONTENT_FONT_FAMILY = `SF Pro Text, ${FALLBACK_FONT_FAMILY}`;
-const HEADING_FONT_FAMILY = `SF Pro Display, ${FALLBACK_FONT_FAMILY}`;
-
 export function createTypographyOptions(
   breakpoints: Breakpoints,
 ): TypographyOptions {
@@ -20,13 +14,12 @@ export function createTypographyOptions(
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
-    fontFamily: CONTENT_FONT_FAMILY,
+    fontFamily: '"Inter", sans-serif',
 
     h1: {
       fontSize: '32px',
       lineHeight: '40px',
       fontWeight: 700,
-      fontFamily: HEADING_FONT_FAMILY,
       [xsOnly]: {
         fontSize: '28px',
         lineHeight: '36px',
@@ -37,7 +30,6 @@ export function createTypographyOptions(
       fontSize: '24px',
       lineHeight: '28px',
       fontWeight: 500,
-      fontFamily: HEADING_FONT_FAMILY,
       [xsOnly]: {
         fontSize: '22px',
         lineHeight: '26px',
@@ -48,7 +40,6 @@ export function createTypographyOptions(
       fontSize: '20px',
       lineHeight: '28px',
       fontWeight: 500,
-      fontFamily: HEADING_FONT_FAMILY,
       [xsOnly]: {
         fontSize: '20px',
         lineHeight: '26px',
