@@ -239,7 +239,7 @@ it('checks component css', () => {
       margin: 4px 0;
       overflow: hidden;
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
     }

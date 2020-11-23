@@ -95,7 +95,7 @@ it('checks component css', () => {
       font-size: 14px;
       margin-top: 4px;
       text-align: left;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
     }
@@ -123,7 +123,7 @@ it('checks component css', () => {
       color: Color.Grey400;
       padding: 0;
       font-size: 14px;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
     }
@@ -215,7 +215,7 @@ it('checks component css', () => {
       font-size: 14px;
       box-sizing: border-box;
       align-items: center;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
     }
