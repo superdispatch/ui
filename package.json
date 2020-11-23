@@ -12,8 +12,6 @@
     ]
   },
   "scripts": {
-    "csb:install": "npx node@12 scripts/csb/install.js",
-    "csb:build": "npx node@12 scripts/csb/build.js",
     "postinstall": "ts-node scripts/postinstall.ts",
     "build": "lerna run version --no-private",
     "build-size": "yarn build && size-limit",
