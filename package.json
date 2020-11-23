@@ -12,6 +12,8 @@
     ]
   },
   "scripts": {
+    "csb:install": "npx node@12 scripts/csb/install.js",
+    "csb:build": "npx node@12 scripts/csb/build.js",
     "build": "lerna run version --no-private",
     "build-size": "yarn build && size-limit",
     "clean": "git clean -fxd -e '.idea' -e '.vscode'",
@@ -161,7 +163,7 @@
     "typescript": "~4.1.2"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "resetMocks": true,
   "size-limit": [
