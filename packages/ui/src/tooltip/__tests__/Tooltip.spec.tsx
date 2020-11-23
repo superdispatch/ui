@@ -89,7 +89,7 @@ it('checks component css', () => {
       font-size: 14px;
       max-width: 300px;
       word-wrap: break-word;
-      font-family: SF Pro Text;
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
       line-height: 20px;
       border-radius: 4px;

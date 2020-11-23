@@ -81,7 +81,7 @@ it('checks component css', () => {
       width: 56px;
       height: 56px;
       font-size: 24px;
-      font-family: SF Pro Display;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
       line-height: 28px;
     }
