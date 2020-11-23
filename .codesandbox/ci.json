@@ -1,5 +1,6 @@
 {
-  "buildCommand": "build",
+  "installCommand": "csb:install",
+  "buildCommand": "csb:build",
   "packages": [
     "packages/dates",
     "packages/eslint-plugin",

@@ -99,7 +99,7 @@ module.exports = {
     },
 
     {
-      files: ['**/packages/eslint-plugin/**/*.ts'],
+      files: ['**/scripts/**/*.ts', '**/packages/eslint-plugin/**/*.ts'],
       extends: ['plugin:@superdispatch/ts-node'],
     },
 
@@ -135,6 +135,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
         'import/no-anonymous-default-export': 'off',
         'import/no-internal-modules': 'off',
+        'jsx-a11y/accessible-emoji': 'off',
         'func-style': ['error', 'expression'],
         'no-alert': 'off',
       },

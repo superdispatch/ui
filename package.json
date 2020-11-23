@@ -12,6 +12,9 @@
     ]
   },
   "scripts": {
+    "csb:install": "npx node@12 scripts/csb/install.js",
+    "csb:build": "npx node@12 scripts/csb/build.js",
+    "postinstall": "ts-node scripts/postinstall.ts",
     "build": "lerna run version --no-private",
     "build-size": "yarn build && size-limit",
     "clean": "git clean -fxd -e '.idea' -e '.vscode'",
@@ -33,13 +36,9 @@
     "tdd": "jest --watch",
     "test": "jest --coverage --forceExit",
     "test-branch": "yarn test --changedSince origin/main",
-    "test-changed": "yarn test --onlyChanged"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "tsc"
-    }
+    "test-changed": "yarn test --onlyChanged",
+    "loki:update": "loki update --reactPort 5000",
+    "loki:ci": "loki --requireReference --reactUri file:./docs"
   },
   "lint-staged": {
     "*": [
@@ -134,7 +133,6 @@
     "eslint-plugin-eslint-config": "^1.0.4",
     "execa": "^4.1.0",
     "formik": "2.2.5",
-    "husky": "^4.3.0",
     "jest": "^26.6.3",
     "jest-watch-typeahead": "^0.6.0",
     "lerna": "^3.22.1",
@@ -143,6 +141,7 @@
     "loki": "^0.25.1",
     "lorem-ipsum": "^2.0.3",
     "mockdate": "^3.0.2",
+    "node": "12",
     "npm-run-all": "^4.1.5",
     "playroom": "^0.22.3",
     "prettier": "^2.2.0",
@@ -157,10 +156,11 @@
     "snapshot-diff": "^0.8.0",
     "storybook-addon-playroom": "^2.0.0",
     "styled-components": "^5.2.1",
+    "ts-node": "^9.0.0",
     "typescript": "~4.1.2"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "resetMocks": true,
   "size-limit": [

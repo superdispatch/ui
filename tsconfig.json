@@ -2,6 +2,7 @@
   "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
+    "module": "CommonJS",
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo"
   }
 }
