@@ -1,5 +1,5 @@
 'use strict';
 
-const execa = require('execa');
+const { execSync } = require('child_process');
 
-execa.sync('yarn', ['build'], { stdio: 'inherit' });
+execSync('yarn build', { stdio: 'inherit' });
