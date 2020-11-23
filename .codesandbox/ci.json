@@ -1,6 +1,6 @@
 {
-  "installCommand": "npx node@12 scripts/cbs/install.js",
-  "buildCommand": "npx node@12 scripts/cbs/build.js",
+  "installCommand": "--ignore-engines csb:install",
+  "buildCommand": "--ignore-engines csb:build",
   "packages": [
     "packages/dates",
     "packages/eslint-plugin",
