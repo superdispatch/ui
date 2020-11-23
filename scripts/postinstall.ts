@@ -1,5 +1,6 @@
 'use strict';
 
+import { ExecaError } from 'execa';
 import { promises as fs } from 'fs';
 import path = require('path');
 import execa = require('execa');
@@ -16,16 +17,25 @@ async function main() {
     stdio: 'inherit',
   });
 
-  for (const hook of await fs.readdir(hooksDir)) {
-    if (path.extname(hook) === '.js') {
-      const hookPath = path.join(hooksDir, hook);
+  await execa('git', ['lfs', 'install'], {
+    stdio: 'inherit',
+  });
 
-      await fs.chmod(hookPath, 777);
-    }
+  for (const hook of await fs.readdir(hooksDir)) {
+    await fs.chmod(path.join(hooksDir, hook), 0o777);
   }
 }
 
-main().catch((error) => {
-  console.error(error);
+main().catch((error: unknown) => {
   process.exitCode = 1;
+
+  if (error instanceof Error) {
+    const { exitCode } = error as Partial<ExecaError>;
+
+    if (exitCode != null) {
+      process.exitCode = exitCode;
+    }
+  } else {
+    console.error(error);
+  }
 });
