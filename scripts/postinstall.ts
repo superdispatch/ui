@@ -17,10 +17,6 @@ async function main() {
     stdio: 'inherit',
   });
 
-  await execa('git', ['lfs', 'install'], {
-    stdio: 'inherit',
-  });
-
   for (const hook of await fs.readdir(hooksDir)) {
     await fs.chmod(path.join(hooksDir, hook), 0o777);
   }
