@@ -1,6 +1,6 @@
 {
-  "installCommand": "csb:install",
-  "buildCommand": "csb:build",
+  "installCommand": "csb:install --ignore-engines",
+  "buildCommand": "csb:build --ignore-engines",
   "packages": [
     "packages/dates",
     "packages/eslint-plugin",
