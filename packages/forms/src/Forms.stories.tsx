@@ -46,14 +46,12 @@ export const SignUp = () => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           if (values.username !== 'john_doe') {
-            return reject(new Error('Invalid username (try "john_doe")'));
+            reject(new Error('Invalid username (try "john_doe")'));
+          } else if (values.password !== '123') {
+            reject(new Error('Invalid password (try "123")'));
+          } else {
+            resolve(values);
           }
-
-          if (values.password !== '123') {
-            return reject(new Error('Invalid password (try "123")'));
-          }
-
-          resolve(values);
         }, 1000);
       });
     },

@@ -19,7 +19,7 @@ test('basic', () => {
   expect(handler2).not.toHaveBeenCalled();
   expect(handler3).not.toHaveBeenCalled();
 
-  expect(proxy(123)).toBeUndefined();
+  proxy(123);
 
   expect(handler1).toHaveBeenCalledTimes(1);
   expect(handler1).toHaveBeenLastCalledWith(123);
@@ -34,7 +34,7 @@ test('basic', () => {
   expect(handler2).not.toHaveBeenCalled();
   expect(handler3).not.toHaveBeenCalled();
 
-  expect(proxy(234)).toBeUndefined();
+  proxy(234);
 
   expect(handler1).toHaveBeenCalledTimes(1);
   expect(handler2).toHaveBeenCalledTimes(1);
@@ -49,7 +49,7 @@ test('basic', () => {
   expect(handler2).toHaveBeenCalledTimes(1);
   expect(handler3).not.toHaveBeenCalled();
 
-  expect(proxy(345)).toBeUndefined();
+  proxy(345);
 
   expect(handler1).toHaveBeenCalledTimes(1);
   expect(handler2).toHaveBeenCalledTimes(1);

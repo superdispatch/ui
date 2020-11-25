@@ -17,6 +17,11 @@ export const examples = () => (
     <Chip label="Basic" />
     <Chip label="Disabled" disabled={true} />
     <Chip label="Clickable" clickable={true} />
-    <Chip label="Deletable" onDelete={() => alert('Delete!')} />
+    <Chip
+      label="Deletable"
+      onDelete={() => {
+        alert('Delete!');
+      }}
+    />
   </Inline>
 );

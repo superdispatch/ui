@@ -25,7 +25,7 @@ export type AvatarButtonClassKey =
   | 'progress'
   | 'withIcon'
   | 'sizeLarge'
-  | AvatarClassKey;
+  | Exclude<AvatarClassKey, 'circle'>;
 
 const useStyles = makeStyles(
   (theme: SuperDispatchTheme): Record<AvatarButtonClassKey, CSSProperties> => {
@@ -121,7 +121,7 @@ const useStyles = makeStyles(
       root: {},
 
       colorDefault: {},
-      circle: {},
+      circular: {},
       rounded: {},
       square: {},
       img: {},

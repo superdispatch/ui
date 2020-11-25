@@ -19,7 +19,11 @@ export const basic = () => (
   <UseState initialState={false}>
     {(open, setOpen) => (
       <>
-        <Button onClick={() => setOpen(!open)}>
+        <Button
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
           Toggle snackbar visibility
         </Button>
 
@@ -33,11 +37,20 @@ export const closable = () => (
   <UseState initialState={false}>
     {(open, setOpen) => (
       <>
-        <Button onClick={() => setOpen(!open)}>
+        <Button
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
           Toggle snackbar visibility
         </Button>
 
-        <Snackbar open={open} onClose={() => setOpen(false)}>
+        <Snackbar
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+        >
           This snackbar has a close button
         </Snackbar>
       </>
@@ -54,39 +67,39 @@ export const variants = () => (
             label="Default"
             control={<Switch />}
             checked={!!props.open && !props.variant}
-            onChange={(_, checked) =>
+            onChange={(_, checked) => {
               setProps({
                 ...props,
                 open: checked,
                 variant: undefined,
-              })
-            }
+              });
+            }}
           />
 
           <FormControlLabel
             label="Success"
             control={<Switch />}
             checked={props.variant === 'success'}
-            onChange={(_, checked) =>
+            onChange={(_, checked) => {
               setProps({
                 ...props,
                 open: checked,
                 variant: checked ? 'success' : undefined,
-              })
-            }
+              });
+            }}
           />
 
           <FormControlLabel
             label="Error"
             control={<Switch />}
             checked={props.variant === 'error'}
-            onChange={(_, checked) =>
+            onChange={(_, checked) => {
               setProps({
                 ...props,
                 open: checked,
                 variant: checked ? 'error' : undefined,
-              })
-            }
+              });
+            }}
           />
         </FormGroup>
 
@@ -129,7 +142,13 @@ export const stack = () => (
             Add error snackbar
           </Button>
 
-          <Button onClick={() => clearStack()}>Clear stack</Button>
+          <Button
+            onClick={() => {
+              clearStack();
+            }}
+          >
+            Clear stack
+          </Button>
         </Inline>
       );
     }}

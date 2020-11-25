@@ -4,7 +4,7 @@ import {
   Typography,
   TypographyProps,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import {
   ElementType,
@@ -17,11 +17,10 @@ import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { VisibilityObserver } from '../utils/VisibilityObserver';
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  'root' | 'truncated' | 'sentinel'
->(
-  (theme) => ({
+const useStyles = makeStyles(
+  (
+    theme: SuperDispatchTheme,
+  ): Record<'root' | 'truncated' | 'sentinel', CSSProperties> => ({
     root: {
       marginBottom: -1,
       borderBottom: '1px dashed transparent',
@@ -78,8 +77,12 @@ export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwar
               title={title || ''}
               disableFocusListener={true}
               open={isOpen && isTooltipEnabled}
-              onOpen={() => setIsOpen(true)}
-              onClose={() => setIsOpen(false)}
+              onOpen={() => {
+                setIsOpen(true);
+              }}
+              onClose={() => {
+                setIsOpen(false);
+              }}
             >
               <Typography
                 {...props}

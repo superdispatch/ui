@@ -27,11 +27,8 @@ function sizeVariant(
   };
 }
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  'list' | 'listSmall' | 'listLarge' | 'item' | 'icon'
->(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     list: sizeVariant(theme, 2, 1),
     listSmall: sizeVariant(theme, 1, 0.5),
     listLarge: sizeVariant(theme, 3, 2),

@@ -34,9 +34,20 @@ export const basic = () => (
   <UseState initialState={false}>
     {(state, setState) => (
       <>
-        <Button onClick={() => setState(true)}>Open Drawer</Button>
+        <Button
+          onClick={() => {
+            setState(true);
+          }}
+        >
+          Open Drawer
+        </Button>
 
-        <Drawer open={state} onClose={() => setState(false)}>
+        <Drawer
+          open={state}
+          onClose={() => {
+            setState(false);
+          }}
+        >
           <DrawerTitle title="Title" subtitle="Subtitle" />
 
           <DrawerContent>
@@ -69,9 +80,20 @@ export const titleStartAction = () => (
   <UseState initialState={false}>
     {(state, setState) => (
       <>
-        <Button onClick={() => setState(true)}>Open Drawer</Button>
+        <Button
+          onClick={() => {
+            setState(true);
+          }}
+        >
+          Open Drawer
+        </Button>
 
-        <Drawer open={state} onClose={() => setState(false)}>
+        <Drawer
+          open={state}
+          onClose={() => {
+            setState(false);
+          }}
+        >
           <DrawerTitle
             title="Title"
             startAction={
@@ -90,9 +112,20 @@ export const titleEndAction = () => (
   <UseState initialState={false}>
     {(state, setState) => (
       <>
-        <Button onClick={() => setState(true)}>Open Drawer</Button>
+        <Button
+          onClick={() => {
+            setState(true);
+          }}
+        >
+          Open Drawer
+        </Button>
 
-        <Drawer open={state} onClose={() => setState(false)}>
+        <Drawer
+          open={state}
+          onClose={() => {
+            setState(false);
+          }}
+        >
           <DrawerTitle
             title="Title"
             startAction={
@@ -111,9 +144,20 @@ export const drawerList = () => (
   <UseState initialState={false}>
     {(state, setState) => (
       <>
-        <Button onClick={() => setState(true)}>Open Drawer</Button>
+        <Button
+          onClick={() => {
+            setState(true);
+          }}
+        >
+          Open Drawer
+        </Button>
 
-        <Drawer open={state} onClose={() => setState(false)}>
+        <Drawer
+          open={state}
+          onClose={() => {
+            setState(false);
+          }}
+        >
           <DrawerTitle title="Title" />
 
           <DrawerList>

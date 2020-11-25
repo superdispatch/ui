@@ -28,7 +28,8 @@ export function useVisibilityObserver<T extends Element>(
 
   useLayoutEffect(() => {
     if (!node || !('IntersectionObserver' in window)) {
-      return setState('undetermined');
+      setState('undetermined');
+      return;
     }
 
     const observer = new IntersectionObserver(

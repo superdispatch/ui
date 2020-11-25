@@ -29,8 +29,8 @@ function listItemMixins(
   };
 }
 
-const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     root: {
       maxWidth: '100%',
       ...listItemMixins(theme, 3),

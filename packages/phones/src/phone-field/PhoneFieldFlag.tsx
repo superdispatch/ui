@@ -1,12 +1,13 @@
-import { Theme, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
+import { SuperDispatchTheme } from '@superdispatch/ui';
 
-const useStyles = makeStyles<Theme>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     root: { minHeight: theme.spacing(2), minWidth: theme.spacing(2.75) },
   }),
   { name: 'SD-PhoneFieldFlag' },

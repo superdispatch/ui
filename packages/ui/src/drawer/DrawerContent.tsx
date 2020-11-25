@@ -4,8 +4,8 @@ import { forwardRef, HTMLAttributes } from 'react';
 
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
-const useStyles = makeStyles<SuperDispatchTheme, 'root'>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     root: {
       maxWidth: '100%',
       padding: theme.spacing(2, 3),
