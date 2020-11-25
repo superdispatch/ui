@@ -1,12 +1,7 @@
-import {
-  ButtonBase,
-  InputAdornment,
-  Theme,
-  Typography,
-} from '@material-ui/core';
+import { ButtonBase, InputAdornment, Typography } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
-import { Color } from '@superdispatch/ui';
+import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { forwardRef, useMemo } from 'react';
 
 import {
@@ -16,8 +11,8 @@ import {
 } from '../country-code-metadata/CountryCodeMetadata';
 import { PhoneFieldFlag } from './PhoneFieldFlag';
 
-const useStyles = makeStyles<Theme>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     root: {
       marginLeft: theme.spacing(-1),
       marginRight: 0,

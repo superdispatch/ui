@@ -7,11 +7,8 @@ import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { VisibilityObserver } from '../utils/VisibilityObserver';
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  'appBar' | 'appBarSticky' | 'toolbar'
->(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     appBar: {
       '&&': {
         bottom: 0,

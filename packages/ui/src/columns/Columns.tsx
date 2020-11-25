@@ -69,8 +69,8 @@ function widthMixin(scale: number): CSSProperties {
   return { flex: `0 0 ${scale * 100}%` };
 }
 
-const useStyles = makeStyles<SuperDispatchTheme, ColumnsClassKey>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme): Record<ColumnsClassKey, CSSProperties> => ({
     root: {
       width: '100%',
       display: 'flex',

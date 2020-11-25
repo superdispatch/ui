@@ -9,8 +9,8 @@ import {
 } from '../country-code-metadata/CountryCodeMetadata';
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
-const useStyles = makeStyles<SuperDispatchTheme, 'paper'>(
-  (theme) => ({
+const useStyles = makeStyles(
+  (theme: SuperDispatchTheme) => ({
     paper: {
       maxHeight: theme.spacing(30),
     },

@@ -98,7 +98,9 @@ export const interactive = () => (
     {(state, setState) => {
       const handleClick = () => {
         setState(true);
-        setTimeout(() => setState(false), 500);
+        setTimeout(() => {
+          setState(false);
+        }, 500);
       };
 
       return (

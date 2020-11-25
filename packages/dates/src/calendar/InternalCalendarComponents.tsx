@@ -35,7 +35,9 @@ export function CalendarNavbar({
         size="small"
         color="primary"
         disabled={!showPreviousButton}
-        onClick={() => onPreviousClick()}
+        onClick={() => {
+          onPreviousClick();
+        }}
         aria-label={labels.previousMonth}
         className={classNames.navButtonPrev}
       >
@@ -46,7 +48,9 @@ export function CalendarNavbar({
         size="small"
         color="primary"
         disabled={!showNextButton}
-        onClick={() => onNextClick()}
+        onClick={() => {
+          onNextClick();
+        }}
         aria-label={labels.nextMonth}
         className={classNames.navButtonNext}
       >

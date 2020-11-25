@@ -26,7 +26,9 @@ function UncontrolledDateRangeField(props: DateRangeFieldProps) {
     <DateRangeField
       {...props}
       value={value}
-      onChange={({ dateValue }) => setValue(dateValue)}
+      onChange={({ dateValue }) => {
+        setValue(dateValue);
+      }}
     />
   );
 }

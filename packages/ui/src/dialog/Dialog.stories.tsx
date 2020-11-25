@@ -17,17 +17,40 @@ export const basic = () => (
   <UseState initialState={false}>
     {(open, setOpen) => (
       <>
-        <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Open Dialog
+        </Button>
 
-        <Dialog open={open} disablePortal={true} onClose={() => setOpen(false)}>
+        <Dialog
+          open={open}
+          disablePortal={true}
+          onClose={() => {
+            setOpen(false);
+          }}
+        >
           <DialogTitle>Use Google’s location service?</DialogTitle>
           <DialogContent>
             Let Google help apps determine location. This means sending
             anonymous location data to Google, even when no apps are running.
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)}>Disagree</Button>
-            <Button onClick={() => setOpen(false)} variant="contained">
+            <Button
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              Disagree
+            </Button>
+            <Button
+              onClick={() => {
+                setOpen(false);
+              }}
+              variant="contained"
+            >
               Agree
             </Button>
           </DialogActions>

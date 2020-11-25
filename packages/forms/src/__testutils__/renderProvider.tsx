@@ -19,7 +19,12 @@ export function renderProvider<TValues extends FormikValues, TResponse>(
     return (
       <div>
         {errors.name}
-        <button type="submit" onClick={() => handleSubmit()}>
+        <button
+          type="submit"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Submit
         </button>
       </div>

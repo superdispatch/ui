@@ -58,10 +58,9 @@ export function SnackbarStackProvider({
 }: SnackbarStackProviderProps): ReactElement {
   const [stack, setStack] = useState(new Map<Key, SnackbarProps>());
 
-  const clearStack = useCallback<SnackbarStack['clearStack']>(
-    () => setStack((x) => (x.size === 0 ? x : new Map())),
-    [],
-  );
+  const clearStack = useCallback<SnackbarStack['clearStack']>(() => {
+    setStack((x) => (x.size === 0 ? x : new Map()));
+  }, []);
 
   const removeSnackbar = useCallback((key: Key) => {
     setStack((prev) => {

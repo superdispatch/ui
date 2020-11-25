@@ -11,12 +11,20 @@ export const basic = () => (
         <Button
           color="primary"
           variant="contained"
-          onClick={(event) => setState(event.currentTarget)}
+          onClick={(event) => {
+            setState(event.currentTarget);
+          }}
         >
           Menu
         </Button>
 
-        <Menu open={!!state} anchorEl={state} onClose={() => setState(false)}>
+        <Menu
+          open={!!state}
+          anchorEl={state}
+          onClose={() => {
+            setState(false);
+          }}
+        >
           <MenuItem>Option 1</MenuItem>
           <MenuItem>Option 2</MenuItem>
           <MenuItem>Option 3</MenuItem>

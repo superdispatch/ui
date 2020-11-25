@@ -6,7 +6,9 @@ test('basic', () => {
   const observer = jest.fn();
 
   const { rerender } = renderHook(
-    ({ value }) => useValueObserver(value, observer),
+    ({ value }) => {
+      useValueObserver(value, observer);
+    },
     { initialProps: { value: 'foo' } },
   );
 
