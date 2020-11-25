@@ -1,10 +1,10 @@
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { SuperDispatchTheme } from '@superdispatch/ui';
 import clsx from 'clsx';
 import { forwardRef, ImgHTMLAttributes, Ref } from 'react';
 
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
-import { SuperDispatchTheme } from '@superdispatch/ui';
 
 const useStyles = makeStyles(
   (theme: SuperDispatchTheme) => ({
