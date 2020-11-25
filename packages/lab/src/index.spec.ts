@@ -3,9 +3,9 @@ import * as api from '.';
 test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
-      "Box": React.forwardRef(styled.div),
+      "Box": React.forwardRef(Box),
       "LabProvider": [Function],
-      "TextBox": React.forwardRef(styled.span),
+      "TextBox": React.forwardRef(TextBox),
       "css": [Function],
       "styled": [Function],
       "toResponsivePropTuple": [Function],
