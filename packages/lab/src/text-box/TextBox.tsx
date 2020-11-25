@@ -1,7 +1,8 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
-import styled, { CSSObject } from 'styled-components';
+import { CSSObject } from 'styled-components';
 
+import { styled } from '../styled';
 import { injectRule } from '../utils/injectRules';
 import { mergeStyles } from '../utils/mergeStyles';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
@@ -152,10 +153,6 @@ export interface TextLineProps extends TextLineRules {
   as?: keyof JSX.IntrinsicElements;
 }
 
-interface StyledTextLineProps extends TextLineProps {
-  theme: SuperDispatchTheme;
-}
-
 function normalizeProps({
   variant,
   as = variant == null ? undefined : VARIANT_TYPE_MAPPING[variant],
@@ -166,14 +163,8 @@ function normalizeProps({
 
 export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<TextLineProps>(
   normalizeProps,
-)(
-  ({
-    theme,
-    noWrap,
-    align = 'left',
-    color = 'primary',
-    variant = 'body',
-  }: StyledTextLineProps) => {
+)<TextLineProps>(
+  ({ theme, noWrap, align = 'left', color = 'primary', variant = 'body' }) => {
     const styles: CSSObject = {
       margin: 0,
       fontFamily: theme.typography.fontFamily,

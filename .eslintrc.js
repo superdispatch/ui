@@ -92,6 +92,12 @@ module.exports = {
                 importNames: ['makeStyles'],
                 message: 'Import from "@material-ui/styles" instead.',
               },
+
+              {
+                name: 'styled-components',
+                importNames: ['default', 'css'],
+                message: 'Import from "@superdispatch/ui-lab" instead.',
+              },
             ],
           },
         ],

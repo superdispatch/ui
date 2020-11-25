@@ -1,12 +1,8 @@
-import {
-  Color,
-  ColorProp,
-  isColorProp,
-  SuperDispatchTheme,
-} from '@superdispatch/ui';
+import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
-import styled, { CSSObject } from 'styled-components';
+import { CSSObject } from 'styled-components';
 
+import { styled } from '../styled';
 import { injectRules } from '../utils/injectRules';
 import { ResponsiveProp } from '../utils/ResponsiveProp';
 import {
@@ -156,12 +152,8 @@ export interface BoxProps extends BoxRules {
   as?: keyof JSX.IntrinsicElements;
 }
 
-interface StyledBoxProps extends BoxRules {
-  theme: SuperDispatchTheme;
-}
-
 export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
-  (props: StyledBoxProps): CSSObject => {
+  (props) => {
     const styles: CSSObject = {
       borderWidth: '0',
       borderStyle: 'solid',

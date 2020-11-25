@@ -24,6 +24,10 @@ const RESTRICTIONS: Restrictions = {
     Snackbar: ['Snackbar', '@superdispatch/ui'],
     SnackbarContent: ['SnackbarContent', '@superdispatch/ui'],
   },
+  'styled-components': {
+    default: ['styled', '@superdispatch/ui-lab'],
+    css: ['css', '@superdispatch/ui-lab'],
+  },
 };
 
 export const rule = createRule<[], MessageIds>({
@@ -52,9 +56,14 @@ export const rule = createRule<[], MessageIds>({
         if (!packageRestrictions) return;
 
         for (const specifier of node.specifiers) {
-          if (specifier.type !== AST_NODE_TYPES.ImportSpecifier) continue;
+          if (specifier.type === AST_NODE_TYPES.ImportNamespaceSpecifier) {
+            continue;
+          }
 
-          const { name: restrictedName } = specifier.imported;
+          const restrictedName =
+            specifier.type === AST_NODE_TYPES.ImportDefaultSpecifier
+              ? 'default'
+              : specifier.imported.name;
           const moduleRestrictions = packageRestrictions[restrictedName];
 
           if (!moduleRestrictions) continue;
