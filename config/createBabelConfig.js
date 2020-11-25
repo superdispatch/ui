@@ -18,6 +18,11 @@ module.exports = ({ docs = false } = {}) => ({
         pure: true,
         fileName: false,
         namespace: 'sd',
+        topLevelImportPaths: [
+          // For the `lab` components.
+          '../styled',
+          '@superdispatch/ui-lab',
+        ],
       },
     ],
 

@@ -92,5 +92,29 @@ ruleTester.run('no-restricted-modules', rule, {
         },
       ],
     },
+
+    {
+      code: 'import styled, { css } from "styled-components"',
+      errors: [
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'default',
+            restrictedModule: 'styled-components',
+            suggestedName: 'styled',
+            suggestedModule: '@superdispatch/ui-lab',
+          },
+        },
+        {
+          messageId: 'restrict',
+          data: {
+            restrictedName: 'css',
+            restrictedModule: 'styled-components',
+            suggestedName: 'css',
+            suggestedModule: '@superdispatch/ui-lab',
+          },
+        },
+      ],
+    },
   ],
 });
