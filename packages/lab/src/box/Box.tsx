@@ -1,12 +1,17 @@
-import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
+import {
+  Color,
+  ColorProp,
+  isColorProp,
+  SuperDispatchTheme,
+} from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { injectRules } from '../utils/injectRules';
-import { ResponsiveProp } from '../utils/ResponsiveProp';
+import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import {
   createRuleNormalizer,
+  RuleNormalizer,
   RuleNormalizerRecord,
 } from '../utils/RuleNormalizer';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
@@ -118,6 +123,58 @@ const normalizers: RuleNormalizerRecord = {
   minHeight: undefined,
 };
 
+export function injectRule(
+  styles: CSSObject,
+  key: string,
+  breakpoint: string,
+  value: unknown,
+  normalizer?: RuleNormalizer,
+): void {
+  if (normalizer != null) {
+    value = normalizer(value);
+  }
+
+  if (value != null) {
+    let rules = styles[breakpoint];
+
+    if (typeof rules != 'object') {
+      rules = {};
+      styles[breakpoint] = rules;
+    }
+
+    rules[key] = String(value);
+  }
+}
+
+export function injectRules(
+  theme: SuperDispatchTheme,
+  styles: CSSObject,
+  props: BoxRules,
+): void {
+  const { breakpoints } = theme;
+  const xs = breakpoints.only('xs');
+  const sm = breakpoints.only('sm');
+  const md = breakpoints.up('md');
+
+  for (const key in props) {
+    if (Object.prototype.hasOwnProperty.call(props, key)) {
+      const prop = props[key as keyof BoxRules];
+
+      if (prop == null || !(key in normalizers)) {
+        continue;
+      }
+
+      const [mobile, tablet, desktop] = toResponsivePropTuple(prop);
+
+      const normalizer = normalizers[key];
+
+      injectRule(styles, key, xs, mobile, normalizer);
+      injectRule(styles, key, sm, tablet, normalizer);
+      injectRule(styles, key, md, desktop, normalizer);
+    }
+  }
+}
+
 //
 // Box
 //
@@ -131,11 +188,13 @@ export interface BoxProps extends BoxRules {
 export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
   (props) => {
     const styles: CSSObject = {
-      borderWidth: '0',
+      margin: 0,
+      padding: 0,
+      borderWidth: 0,
       borderStyle: 'solid',
     };
 
-    injectRules(props.theme, styles, props, normalizers);
+    injectRules(props.theme, styles, props);
 
     return styles;
   },
