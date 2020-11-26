@@ -121,10 +121,6 @@ const ColumnContent = styled.div<ColumnsContext>(
   },
 );
 
-//
-// Column
-//
-
 export interface ColumnProps {
   children?: ReactNode;
   width?: ResponsiveProp<ColumnWidth>;
