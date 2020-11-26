@@ -40,6 +40,7 @@ const useStyles = makeStyles<
       alignItems: 'center',
       flexDirection: 'column',
       justifyContent: 'center',
+      backgroundColor: Color.White,
 
       border: '1px dashed',
       borderRadius: theme.spacing(0.5),
