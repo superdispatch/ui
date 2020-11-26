@@ -67,7 +67,7 @@ ruleTester.run('no-restricted-modules', rule, {
             restrictedName: 'Grid',
             restrictedModule: '@material-ui/core',
             suggestedName: 'Columns',
-            suggestedModule: '@superdispatch/ui',
+            suggestedModule: '@superdispatch/ui-lab',
           },
         },
 

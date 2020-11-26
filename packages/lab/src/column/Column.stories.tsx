@@ -1,18 +1,21 @@
-import { Box, IconButton, Link } from '@material-ui/core';
-import { Edit as EditIcon, Room as RoomIcon } from '@material-ui/icons';
+import { IconButton, Link } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
+import { OverflowText, Stack } from '@superdispatch/ui';
 import { Placeholder } from '@superdispatch/ui-docs';
 
-import { OverflowText, Stack } from '..';
-import { Column, Columns } from './Columns';
+import { Box } from '../box/Box';
+import { Column } from './Column';
+import { Columns } from './Columns';
 
 export default {
-  title: 'Layout/Columns',
-  component: Column,
-  subcomponents: { Columns },
+  title: 'Lab/Columns',
+  component: Columns,
+  subcomponents: { Column },
   decorators: [
     (Story) => (
-      <Box maxWidth={320}>
+      <Box maxWidth="320px">
         <Story />
       </Box>
     ),
@@ -51,7 +54,7 @@ export const noSpace = () => (
 );
 
 export const customSpace = () => (
-  <Columns space={1}>
+  <Columns space="xsmall">
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -63,7 +66,7 @@ export const customSpace = () => (
 );
 
 export const responsiveSpace = () => (
-  <Columns space={{ xs: 2, sm: 1 }}>
+  <Columns space={['small', 'xsmall']}>
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -75,7 +78,7 @@ export const responsiveSpace = () => (
 );
 
 export const alignment = () => (
-  <Columns space={1} align="center">
+  <Columns space="xsmall" align="center">
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -87,7 +90,7 @@ export const alignment = () => (
 );
 
 export const responsiveAlignment = () => (
-  <Columns space={1} align={{ xs: 'top', sm: 'center' }}>
+  <Columns space="xsmall" align={['top', 'center']}>
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -99,7 +102,7 @@ export const responsiveAlignment = () => (
 );
 
 export const reverse = () => (
-  <Columns space={1} reverse={true}>
+  <Columns space="xsmall" reverse={true}>
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -115,7 +118,7 @@ export const reverse = () => (
 );
 
 export const responsiveReverse = () => (
-  <Columns space={1} reverse={{ xs: true, sm: false }}>
+  <Columns space="xsmall" reverse={[true, false]}>
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -131,7 +134,7 @@ export const responsiveReverse = () => (
 );
 
 export const collapseBelowTablet = () => (
-  <Columns space={1} collapseBelow="sm">
+  <Columns space="xsmall" collapseBelow="tablet">
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -147,7 +150,7 @@ export const collapseBelowTablet = () => (
 );
 
 export const collapseBelowDesktop = () => (
-  <Columns space={1} collapseBelow="md">
+  <Columns space="xsmall" collapseBelow="desktop">
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -163,7 +166,7 @@ export const collapseBelowDesktop = () => (
 );
 
 export const reverseAndCollapseBelowTablet = () => (
-  <Columns space={1} collapseBelow="sm" reverse={{ xs: true, sm: false }}>
+  <Columns space="xsmall" collapseBelow="tablet" reverse={[true, false]}>
     <Column>
       <Placeholder height={48} text="First" />
     </Column>
@@ -180,7 +183,7 @@ export const reverseAndCollapseBelowTablet = () => (
 
 export const availableWidths = () => (
   <Stack space={1}>
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="adaptive">
         <Placeholder height={48} text="Adaptive" />
       </Column>
@@ -190,7 +193,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="content">
         <Placeholder height={48} text="Content" />
       </Column>
@@ -200,7 +203,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="adaptive">
         <Placeholder height={48} text="Adaptive" />
       </Column>
@@ -214,7 +217,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="adaptive">
         <Placeholder height={48} text="Adaptive" />
       </Column>
@@ -232,7 +235,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="adaptive">
         <Placeholder height={48} text="Adaptive" />
       </Column>
@@ -254,7 +257,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="content">
         <Placeholder height={48} text="Content" />
       </Column>
@@ -272,7 +275,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="1/2">
         <Placeholder height={48} text="1/2" />
       </Column>
@@ -282,7 +285,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="1/3">
         <Placeholder height={48} text="1/3" />
       </Column>
@@ -292,7 +295,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="2/3">
         <Placeholder height={48} text="2/3" />
       </Column>
@@ -302,7 +305,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="1/4">
         <Placeholder height={48} text="1/4" />
       </Column>
@@ -312,7 +315,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="3/4">
         <Placeholder height={48} text="3/4" />
       </Column>
@@ -322,7 +325,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="1/5">
         <Placeholder height={48} text="1/5" />
       </Column>
@@ -332,7 +335,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="2/5">
         <Placeholder height={48} text="2/5" />
       </Column>
@@ -342,7 +345,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="3/5">
         <Placeholder height={48} text="3/5" />
       </Column>
@@ -352,7 +355,7 @@ export const availableWidths = () => (
       </Column>
     </Columns>
 
-    <Columns space={1}>
+    <Columns space="xsmall">
       <Column width="4/5">
         <Placeholder height={48} text="4/5" />
       </Column>
@@ -365,11 +368,11 @@ export const availableWidths = () => (
 );
 
 export const responsiveWidths = () => (
-  <Columns space={1}>
-    <Column width={{ xs: '1/2', sm: '3/5' }}>
+  <Columns space="xsmall">
+    <Column width={['1/2', '3/5']}>
       <Placeholder
         height={112}
-        code={JSON.stringify({ xs: '1/2', sm: '3/5' }, null, 2)}
+        code={JSON.stringify(['1/2', '3/5'], null, 2)}
       />
     </Column>
 
@@ -381,7 +384,7 @@ export const responsiveWidths = () => (
 
 export const overflowText = () => (
   <Stack>
-    <Columns space={1} align="center">
+    <Columns space="xsmall" align="center">
       <Column width="content">
         <RoomIcon color="action" />
       </Column>
@@ -397,7 +400,7 @@ export const overflowText = () => (
       </Column>
     </Columns>
 
-    <Columns space={1} align="center">
+    <Columns space="xsmall" align="center">
       <Column width="content">
         <RoomIcon color="action" />
       </Column>

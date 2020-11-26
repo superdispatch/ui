@@ -18,11 +18,15 @@ type Restrictions = {
 
 const RESTRICTIONS: Restrictions = {
   '@material-ui/core': {
-    Grid: ['Columns', '@superdispatch/ui'],
+    Grid: ['Columns', '@superdispatch/ui-lab'],
     Box: ['Box', '@superdispatch/ui-lab'],
     Button: ['Button', '@superdispatch/ui'],
     Snackbar: ['Snackbar', '@superdispatch/ui'],
     SnackbarContent: ['SnackbarContent', '@superdispatch/ui'],
+  },
+  '@superdispatch/ui': {
+    Column: ['Column', '@superdispatch/ui-lab'],
+    Columns: ['Columns', '@superdispatch/ui-lab'],
   },
   'styled-components': {
     default: ['styled', '@superdispatch/ui-lab'],
