@@ -2,7 +2,7 @@ import { forwardRef, ReactNode } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { injectResponsiveStyles, injectStyles } from '../utils/injectStyles';
+import { injectResponsiveStyles } from '../utils/injectStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -33,7 +33,7 @@ function widthScaleMixin(scale: number): CSSObject {
   return { flex: `0 0 ${scale * 100}%` };
 }
 
-function columnRootMixin(width: ColumnWidth): CSSObject {
+function columnRootMixin(width: ColumnWidth): undefined | CSSObject {
   switch (width) {
     case 'adaptive':
       return { flexShrink: 1 };
@@ -61,15 +61,11 @@ function columnRootMixin(width: ColumnWidth): CSSObject {
       return widthScaleMixin(4 / 5);
   }
 
-  return {};
+  return undefined;
 }
 
 const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) => {
   const styles: CSSObject = { minWidth: 0 };
-
-  injectStyles(styles, theme.breakpoints.up('xs'), columnRootMixin(width[0]));
-  injectStyles(styles, theme.breakpoints.up('sm'), columnRootMixin(width[1]));
-  injectStyles(styles, theme.breakpoints.up('lg'), columnRootMixin(width[2]));
 
   injectResponsiveStyles(
     theme,
