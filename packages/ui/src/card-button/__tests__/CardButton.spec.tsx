@@ -18,6 +18,7 @@ it('checks component css', () => {
       border-radius: 4px;
       flex-direction: column;
       justify-content: center;
+      background-color: Color.White;
     }
 
     .SD-CardButton-disabled {
