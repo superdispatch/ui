@@ -3,30 +3,34 @@ import { CSSObject } from 'styled-components';
 
 import { mergeStyles } from './mergeStyles';
 
-export function injectStyles(
+function injectStyles(
   styles: CSSObject,
   breakpoint: string,
   rules: undefined | CSSObject,
-): void {
-  if (rules == null) return;
+): CSSObject {
+  if (rules != null) {
+    const currentRules = styles[breakpoint];
 
-  const currentRules = styles[breakpoint];
-
-  if (typeof currentRules != 'object') {
-    styles[breakpoint] = rules;
-  } else {
-    mergeStyles(currentRules, rules);
+    if (typeof currentRules != 'object') {
+      styles[breakpoint] = rules;
+    } else {
+      mergeStyles(currentRules, rules);
+    }
   }
+
+  return styles;
 }
 
 export function injectResponsiveStyles(
-  theme: SuperDispatchTheme,
   styles: CSSObject,
+  theme: SuperDispatchTheme,
   mobile: undefined | CSSObject,
   tablet: undefined | CSSObject,
   desktop: undefined | CSSObject,
-): void {
+): CSSObject {
   injectStyles(styles, theme.breakpoints.up('xs'), mobile);
   injectStyles(styles, theme.breakpoints.up('sm'), tablet);
   injectStyles(styles, theme.breakpoints.up('lg'), desktop);
+
+  return styles;
 }

@@ -3,8 +3,8 @@ import { forwardRef, ReactNode } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { CollapseProp } from '../utils/CollapseProp';
-import { injectStyles } from '../utils/injectStyles';
+import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
+import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import {
   ResponsiveProp,
   useResponsivePropTuple,
@@ -40,33 +40,15 @@ function columnsRootMixin(
 
 const ColumnsRoot = styled.div<ColumnsContext>(
   ({ theme, collapseBelow, align, reverse, space }) => {
-    const styles: CSSObject = {
-      width: '100%',
-      display: 'flex',
-    };
+    const collapsed = isCollapsedBelow(collapseBelow);
 
-    injectStyles(
-      styles,
-      theme.breakpoints.up('xs'),
-      columnsRootMixin(align[0], space[0], reverse[0], collapseBelow != null),
+    return injectResponsiveStyles(
+      { width: '100%', display: 'flex' },
+      theme,
+      columnsRootMixin(align[0], space[0], reverse[0], collapsed[0]),
+      columnsRootMixin(align[1], space[1], reverse[1], collapsed[1]),
+      columnsRootMixin(align[2], space[2], reverse[2], collapsed[2]),
     );
-    injectStyles(
-      styles,
-      theme.breakpoints.up('sm'),
-      columnsRootMixin(
-        align[1],
-        space[1],
-        reverse[1],
-        collapseBelow === 'desktop',
-      ),
-    );
-    injectStyles(
-      styles,
-      theme.breakpoints.up('md'),
-      columnsRootMixin(align[2], space[2], reverse[2], false),
-    );
-
-    return styles;
   },
 );
 

@@ -2,7 +2,8 @@ import { forwardRef, ReactNode } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { injectResponsiveStyles } from '../utils/injectStyles';
+import { isCollapsedBelow } from '../utils/CollapseProp';
+import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -64,19 +65,15 @@ function columnRootMixin(width: ColumnWidth): undefined | CSSObject {
   return undefined;
 }
 
-const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) => {
-  const styles: CSSObject = { minWidth: 0 };
-
+const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) =>
   injectResponsiveStyles(
+    {},
     theme,
-    styles,
     columnRootMixin(width[0]),
     columnRootMixin(width[1]),
     columnRootMixin(width[2]),
-  );
-
-  return styles;
-});
+  ),
+);
 
 function columnContentMixin(
   space: SpaceProp,
@@ -107,17 +104,15 @@ function columnContentMixin(
 
 const ColumnContent = styled.div<ColumnsContext>(
   ({ theme, space, reverse, collapseBelow }) => {
-    const styles: CSSObject = {};
+    const collapsed = isCollapsedBelow(collapseBelow);
 
-    injectResponsiveStyles(
+    return injectResponsiveStyles(
+      {},
       theme,
-      styles,
-      columnContentMixin(space[0], reverse[0], collapseBelow != null),
-      columnContentMixin(space[1], reverse[1], collapseBelow === 'desktop'),
-      columnContentMixin(space[2], reverse[2], false),
+      columnContentMixin(space[0], reverse[0], collapsed[0]),
+      columnContentMixin(space[1], reverse[1], collapsed[1]),
+      columnContentMixin(space[2], reverse[2], collapsed[2]),
     );
-
-    return styles;
   },
 );
 
@@ -128,8 +123,8 @@ export interface ColumnProps {
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width: widthProp = 'fluid' }: ColumnProps, ref) => {
-    const width = useResponsivePropTuple(widthProp);
     const ctx = useColumnsContext();
+    const width = useResponsivePropTuple(widthProp);
 
     return (
       <ColumnRoot {...ctx} ref={ref} width={width}>
