@@ -3,7 +3,7 @@ import { CSSObject } from 'styled-components';
 
 import { mergeStyles } from './mergeStyles';
 
-function injectStyles(
+export function injectStyles(
   styles: CSSObject,
   breakpoint: string,
   rules: undefined | CSSObject,
@@ -11,10 +11,10 @@ function injectStyles(
   if (rules != null) {
     const currentRules = styles[breakpoint];
 
-    if (typeof currentRules != 'object') {
-      styles[breakpoint] = rules;
-    } else {
+    if (typeof currentRules == 'object') {
       mergeStyles(currentRules, rules);
+    } else {
+      styles[breakpoint] = rules;
     }
   }
 

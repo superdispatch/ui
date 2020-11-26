@@ -4,7 +4,7 @@ import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { injectResponsiveStyles } from '../utils/injectStyles';
 import {
   ResponsiveProp,
   useResponsivePropTuple,

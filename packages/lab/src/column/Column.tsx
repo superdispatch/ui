@@ -3,7 +3,7 @@ import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
 import { isCollapsedBelow } from '../utils/CollapseProp';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { injectResponsiveStyles } from '../utils/injectStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
