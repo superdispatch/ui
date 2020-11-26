@@ -3,7 +3,7 @@ import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { injectResponsiveStyles } from '../utils/injectStyles';
+import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import { mergeStyles } from '../utils/mergeStyles';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';

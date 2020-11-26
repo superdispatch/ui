@@ -3,7 +3,7 @@ import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
 import { isCollapsedBelow } from '../utils/CollapseProp';
-import { injectResponsiveStyles } from '../utils/injectStyles';
+import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -34,7 +34,7 @@ function widthScaleMixin(scale: number): CSSObject {
   return { flex: `0 0 ${scale * 100}%` };
 }
 
-function columnRootMixin(width: ColumnWidth): undefined | CSSObject {
+function columnRootMixin(width: ColumnWidth): CSSObject {
   switch (width) {
     case 'adaptive':
       return { flexShrink: 1 };
@@ -62,7 +62,7 @@ function columnRootMixin(width: ColumnWidth): undefined | CSSObject {
       return widthScaleMixin(4 / 5);
   }
 
-  return undefined;
+  return {};
 }
 
 const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) =>
