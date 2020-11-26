@@ -5,7 +5,6 @@ export { Button } from './src/button/Button';
 export { CardButton } from './src/card-button/CardButton';
 export { CheckboxField } from './src/checkbox/CheckboxField';
 export { CheckboxGroupField } from './src/checkbox/CheckboxGroudField';
-export { Column, Columns } from './src/columns/Columns';
 export {
   DescriptionList,
   DescriptionListItem,
