@@ -1,19 +1,10 @@
-import {
-  Color,
-  ColorProp,
-  isColorProp,
-  SuperDispatchTheme,
-} from '@superdispatch/ui';
+import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
-import {
-  createRuleNormalizer,
-  RuleNormalizer,
-  RuleNormalizerRecord,
-} from '../utils/RuleNormalizer';
+import { createRuleNormalizer, RuleNormalizer } from '../utils/RuleNormalizer';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 //
@@ -84,7 +75,7 @@ interface BoxRules {
   minHeight?: string;
 }
 
-const normalizers: RuleNormalizerRecord = {
+const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   color: normalizeColor,
   backgroundColor: normalizeColor,
 
@@ -123,12 +114,12 @@ const normalizers: RuleNormalizerRecord = {
   minHeight: undefined,
 };
 
-export function injectRule(
+function injectRule(
   styles: CSSObject,
   key: string,
   breakpoint: string,
   value: unknown,
-  normalizer?: RuleNormalizer,
+  normalizer: undefined | RuleNormalizer,
 ): void {
   if (normalizer != null) {
     value = normalizer(value);
@@ -146,35 +137,6 @@ export function injectRule(
   }
 }
 
-export function injectRules(
-  theme: SuperDispatchTheme,
-  styles: CSSObject,
-  props: BoxRules,
-): void {
-  const { breakpoints } = theme;
-  const xs = breakpoints.only('xs');
-  const sm = breakpoints.only('sm');
-  const md = breakpoints.up('md');
-
-  for (const key in props) {
-    if (Object.prototype.hasOwnProperty.call(props, key)) {
-      const prop = props[key as keyof BoxRules];
-
-      if (prop == null || !(key in normalizers)) {
-        continue;
-      }
-
-      const [mobile, tablet, desktop] = toResponsivePropTuple(prop);
-
-      const normalizer = normalizers[key];
-
-      injectRule(styles, key, xs, mobile, normalizer);
-      injectRule(styles, key, sm, tablet, normalizer);
-      injectRule(styles, key, md, desktop, normalizer);
-    }
-  }
-}
-
 //
 // Box
 //
@@ -187,6 +149,11 @@ export interface BoxProps extends BoxRules {
 
 export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
   (props) => {
+    const { breakpoints } = props.theme;
+    const xs = breakpoints.up('xs');
+    const sm = breakpoints.up('sm');
+    const md = breakpoints.up('md');
+
     const styles: CSSObject = {
       margin: 0,
       padding: 0,
@@ -194,7 +161,22 @@ export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
       borderStyle: 'solid',
     };
 
-    injectRules(props.theme, styles, props);
+    for (const k in props) {
+      if (Object.prototype.hasOwnProperty.call(props, k)) {
+        const key = k as keyof BoxRules;
+        const prop = props[key];
+
+        if (prop != null && key in normalizers) {
+          const [mobile, tablet, desktop] = toResponsivePropTuple(prop);
+
+          const normalizer = normalizers[key];
+
+          injectRule(styles, key, xs, mobile, normalizer);
+          injectRule(styles, key, sm, tablet, normalizer);
+          injectRule(styles, key, md, desktop, normalizer);
+        }
+      }
+    }
 
     return styles;
   },
