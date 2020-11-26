@@ -1,5 +1,7 @@
 export * from './LabProvider';
 export * from './box/Box';
+export * from './column/Column';
+export * from './column/Columns';
 export * from './styled';
 export * from './text-box/TextBox';
 export * from './utils/CollapseProp';
