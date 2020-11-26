@@ -108,13 +108,13 @@ function textBoxMixin(
       textAlign: align,
       color: normalizeTextColor(color),
     },
-    variantMixin(theme, variant),
     noWrap && {
       display: 'block',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
     },
+    variantMixin(theme, variant),
   );
 }
 

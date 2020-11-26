@@ -5,7 +5,7 @@ export function mergeStyles(
   ...sources: Array<null | false | undefined | CSSObject>
 ): CSSObject {
   for (const source of sources) {
-    if (typeof source != 'object' || source == null) continue;
+    if (!source) continue;
     for (const key in source) {
       if (!Object.prototype.hasOwnProperty.call(source, key)) continue;
 
