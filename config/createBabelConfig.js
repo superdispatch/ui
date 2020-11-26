@@ -21,6 +21,8 @@ module.exports = ({ docs = false } = {}) => ({
         topLevelImportPaths: [
           // For the `lab` components.
           '../styled',
+          '../styled.js',
+
           '@superdispatch/ui-lab',
         ],
       },
