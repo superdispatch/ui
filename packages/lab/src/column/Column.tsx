@@ -67,7 +67,7 @@ function columnRootMixin(width: ColumnWidth): CSSObject {
 
 const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) =>
   injectResponsiveStyles(
-    {},
+    { minWidth: 0 },
     theme,
     columnRootMixin(width[0]),
     columnRootMixin(width[1]),
