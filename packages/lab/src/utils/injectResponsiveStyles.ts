@@ -28,8 +28,8 @@ export function injectResponsiveStyles(
   tablet: CSSObject,
   desktop: CSSObject,
 ): CSSObject {
-  injectStyles(styles, theme.breakpoints.only('xs'), mobile);
-  injectStyles(styles, theme.breakpoints.only('sm'), tablet);
+  injectStyles(styles, theme.breakpoints.up('xs'), mobile);
+  injectStyles(styles, theme.breakpoints.up('sm'), tablet);
   injectStyles(styles, theme.breakpoints.up('lg'), desktop);
 
   return styles;
