@@ -30,7 +30,7 @@ export function injectResponsiveStyles(
 ): CSSObject {
   injectStyles(styles, theme.breakpoints.up('xs'), mobile);
   injectStyles(styles, theme.breakpoints.up('sm'), tablet);
-  injectStyles(styles, theme.breakpoints.up('lg'), desktop);
+  injectStyles(styles, theme.breakpoints.up('md'), desktop);
 
   return styles;
 }
