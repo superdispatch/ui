@@ -1,6 +1,9 @@
 import { useDeepEqualMemo } from '@superdispatch/hooks';
 
 export type ResponsivePropPrimitive = boolean | number | string;
+export type ResponsivePropTupleInit<
+  T extends ResponsivePropPrimitive
+> = readonly [mobile: T, tablet?: T, desktop?: T];
 export type ResponsivePropTuple<T extends ResponsivePropPrimitive> = readonly [
   mobile: T,
   tablet: T,
@@ -9,7 +12,7 @@ export type ResponsivePropTuple<T extends ResponsivePropPrimitive> = readonly [
 
 export type ResponsiveProp<T extends ResponsivePropPrimitive> =
   | T
-  | readonly [mobile: T, tablet?: T, desktop?: T];
+  | ResponsivePropTupleInit<T>;
 
 export function toResponsivePropTuple<T extends ResponsivePropPrimitive>(
   prop: ResponsiveProp<T>,
