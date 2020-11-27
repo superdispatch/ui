@@ -3,29 +3,13 @@ import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import { CSSObject } from 'styled-components';
 
 import { styled } from '../styled';
-import { injectRule } from '../utils/injectRules';
+import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import { mergeStyles } from '../utils/mergeStyles';
+import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
 
-//
-// Align
-//
-
-export type TextAlign = 'left' | 'right' | 'center';
-
-function injectAlign(
-  styles: CSSObject,
-  breakpoint: string,
-  align: TextAlign,
-): void {
-  injectRule(styles, 'textAlign', breakpoint, align);
-}
-
-//
-// Color
-//
-
-export type TextColor =
+export type TextAlignProp = 'left' | 'right' | 'center';
+export type TextColorProp =
   | 'primary'
   | 'secondary'
   | 'white'
@@ -36,7 +20,7 @@ export type TextColor =
   | 'teal'
   | 'yellow';
 
-const normalizeTextColor = createRuleNormalizer<TextColor>({
+const normalizeTextColor = createRuleNormalizer<TextColorProp>({
   primary: Color.Grey500,
   secondary: Color.Grey200,
 
@@ -49,19 +33,7 @@ const normalizeTextColor = createRuleNormalizer<TextColor>({
   yellow: Color.Yellow300,
 });
 
-function injectColor(
-  styles: CSSObject,
-  breakpoint: string,
-  color: TextColor,
-): void {
-  injectRule(styles, 'color', breakpoint, color, normalizeTextColor);
-}
-
-//
-// Variant
-//
-
-export type TextVariant =
+export type TextVariantProp =
   | 'heading-1'
   | 'heading-2'
   | 'heading-3'
@@ -74,7 +46,7 @@ export type TextVariant =
   | 'caption';
 
 const VARIANT_TYPE_MAPPING: Record<
-  TextVariant,
+  TextVariantProp,
   undefined | keyof JSX.IntrinsicElements
 > = {
   'heading-1': 'h1',
@@ -90,99 +62,112 @@ const VARIANT_TYPE_MAPPING: Record<
   caption: 'span',
 };
 
-function injectVariant(
+function variantMixin(
   { typography, breakpoints }: SuperDispatchTheme,
-  styles: CSSObject,
-  variant: TextVariant,
-): void {
-  const xsOnly = breakpoints.only('xs');
-
+  variant: TextVariantProp,
+): undefined | CSSObject {
   switch (variant) {
     case 'heading-1':
-      mergeStyles(styles, typography.h1 as CSSObject);
-      break;
+      return typography.h1 as CSSObject;
     case 'heading-2':
-      mergeStyles(styles, typography.h2 as CSSObject);
-      break;
+      return typography.h2 as CSSObject;
     case 'heading-3':
-      mergeStyles(styles, typography.h3 as CSSObject);
-      break;
+      return typography.h3 as CSSObject;
     case 'heading-4':
-      mergeStyles(styles, typography.h4 as CSSObject);
-      break;
+      return typography.h4 as CSSObject;
     case 'heading-5':
-      mergeStyles(styles, typography.h5 as CSSObject);
-      break;
+      return typography.h5 as CSSObject;
     case 'heading-6':
-      mergeStyles(styles, typography.h6 as CSSObject);
-      break;
+      return typography.h6 as CSSObject;
     case 'body':
-      mergeStyles(styles, typography.body2 as CSSObject);
-      break;
-    case 'body-block':
-      mergeStyles(styles, typography.body2 as CSSObject);
-      mergeStyles(styles, {
+      return typography.body2 as CSSObject;
+    case 'body-block': {
+      return mergeStyles({}, typography.body2 as CSSObject, {
         lineHeight: '24px',
-        [xsOnly]: { lineHeight: '28px' },
+        [breakpoints.only('xs')]: { lineHeight: '28px' },
       });
-      break;
+    }
     case 'body-semibold':
-      mergeStyles(styles, typography.body1 as CSSObject);
-      break;
+      return typography.body1 as CSSObject;
     case 'caption':
-      mergeStyles(styles, typography.caption as CSSObject);
-      break;
+      return typography.caption as CSSObject;
   }
+
+  return undefined;
 }
 
-//
-// TextLine
-//
-
-interface TextLineRules {
-  noWrap?: boolean;
-  align?: TextAlign;
-  color?: TextColor;
-  variant?: TextVariant;
+function textBoxMixin(
+  theme: SuperDispatchTheme,
+  align: TextAlignProp,
+  color: TextColorProp,
+  variant: TextVariantProp,
+  noWrap: boolean,
+): CSSObject {
+  return mergeStyles(
+    {
+      textAlign: align,
+      color: normalizeTextColor(color),
+    },
+    noWrap && {
+      display: 'block',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
+    variantMixin(theme, variant),
+  );
 }
 
-export interface TextLineProps extends TextLineRules {
-  id?: string;
+export interface TextLineProps {
   ref?: Ref<unknown>;
   children?: ReactNode;
   as?: keyof JSX.IntrinsicElements;
+
+  id?: string;
+  noWrap?: ResponsiveProp<boolean>;
+  align?: ResponsiveProp<TextAlignProp>;
+  color?: ResponsiveProp<TextColorProp>;
+  variant?: ResponsiveProp<TextVariantProp>;
 }
 
 function normalizeProps({
+  as,
   variant,
-  as = variant == null ? undefined : VARIANT_TYPE_MAPPING[variant],
   ...props
 }: TextLineProps): TextLineProps {
+  if (as == null && typeof variant == 'string') {
+    as = VARIANT_TYPE_MAPPING[variant];
+  }
+
   return { as, variant, ...props };
 }
 
 export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<TextLineProps>(
   normalizeProps,
 )<TextLineProps>(
-  ({ theme, noWrap, align = 'left', color = 'primary', variant = 'body' }) => {
+  ({
+    theme,
+    align: alignProp = 'left',
+    color: colorProp = 'primary',
+    noWrap: noWrapProp = false,
+    variant: variantProp = 'body',
+  }) => {
     const styles: CSSObject = {
       margin: 0,
       fontFamily: theme.typography.fontFamily,
     };
 
-    const xs = theme.breakpoints.up('xs');
+    const align = toResponsivePropTuple(alignProp);
+    const color = toResponsivePropTuple(colorProp);
+    const variant = toResponsivePropTuple(variantProp);
+    const noWrap = toResponsivePropTuple(noWrapProp);
 
-    if (noWrap) {
-      styles.display = 'block';
-      styles.overflow = 'hidden';
-      styles.whiteSpace = 'nowrap';
-      styles.textOverflow = 'ellipsis';
-    }
-
-    injectAlign(styles, xs, align);
-    injectColor(styles, xs, color);
-    injectVariant(theme, styles, variant);
-
-    return styles;
+    return injectResponsiveStyles(
+      styles,
+      theme,
+      textBoxMixin(theme, align[0], color[0], variant[0], noWrap[0]),
+      textBoxMixin(theme, align[1], color[1], variant[1], noWrap[1]),
+      textBoxMixin(theme, align[2], color[2], variant[2], noWrap[2]),
+    );
   },
 );

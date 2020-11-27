@@ -4,6 +4,7 @@ import { CSSObject } from 'styled-components';
 import { styled } from '../styled';
 import { isCollapsedBelow } from '../utils/CollapseProp';
 import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { mergeStyles } from '../utils/mergeStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -31,43 +32,33 @@ interface ColumnRootProps extends ColumnsContext {
 }
 
 function widthScaleMixin(scale: number): CSSObject {
-  return { flex: `0 0 ${scale * 100}%` };
+  return { flexBasis: `${scale * 100}%` };
 }
 
-function columnRootMixin(width: ColumnWidth): undefined | CSSObject {
-  switch (width) {
-    case 'adaptive':
-      return { flexShrink: 1 };
-    case 'content':
-      return { flexShrink: 0 };
-    case 'fluid':
-      return { width: '100%' };
-    case '1/2':
-      return widthScaleMixin(1 / 2);
-    case '1/3':
-      return widthScaleMixin(1 / 3);
-    case '2/3':
-      return widthScaleMixin(2 / 3);
-    case '1/4':
-      return widthScaleMixin(1 / 4);
-    case '3/4':
-      return widthScaleMixin(3 / 4);
-    case '1/5':
-      return widthScaleMixin(1 / 5);
-    case '2/5':
-      return widthScaleMixin(2 / 5);
-    case '3/5':
-      return widthScaleMixin(3 / 5);
-    case '4/5':
-      return widthScaleMixin(4 / 5);
-  }
-
-  return undefined;
+function columnRootMixin(width: ColumnWidth): CSSObject {
+  return mergeStyles(
+    {
+      flexGrow: 0,
+      flexShrink: 1,
+      flexBasis: 'auto',
+    },
+    width === 'fluid' && { width: '100%' },
+    width === 'content' && { flexShrink: 0 },
+    width === '1/2' && widthScaleMixin(1 / 2),
+    width === '1/3' && widthScaleMixin(1 / 3),
+    width === '2/3' && widthScaleMixin(2 / 3),
+    width === '1/4' && widthScaleMixin(1 / 4),
+    width === '3/4' && widthScaleMixin(3 / 4),
+    width === '1/5' && widthScaleMixin(1 / 5),
+    width === '2/5' && widthScaleMixin(2 / 5),
+    width === '3/5' && widthScaleMixin(3 / 5),
+    width === '4/5' && widthScaleMixin(4 / 5),
+  );
 }
 
 const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) =>
   injectResponsiveStyles(
-    {},
+    { minWidth: 0 },
     theme,
     columnRootMixin(width[0]),
     columnRootMixin(width[1]),
@@ -80,26 +71,18 @@ function columnContentMixin(
   isReversed: boolean,
   isCollapsed: boolean,
 ): CSSObject {
-  const styles: CSSObject = {};
   const gap = normalizeSpace(space) as string;
 
-  if (!isCollapsed) {
-    styles.paddingLeft = gap;
-  } else {
-    styles.paddingBottom = gap;
+  return {
+    paddingLeft: !isCollapsed ? gap : 0,
+    paddingTop: isCollapsed && isReversed ? gap : 0,
+    paddingBottom: isCollapsed && !isReversed ? gap : 0,
 
-    if (!isReversed) {
-      styles[`${ColumnRoot}:last-child > &`] = {
-        paddingBottom: 0,
-      };
-    } else {
-      styles[`${ColumnRoot}:first-child > &`] = {
-        paddingBottom: 0,
-      };
-    }
-  }
-
-  return styles;
+    [`${ColumnRoot}:last-child > &`]: {
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+  };
 }
 
 const ColumnContent = styled.div<ColumnsContext>(

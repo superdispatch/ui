@@ -11,10 +11,10 @@ function injectStyles(
   if (rules != null) {
     const currentRules = styles[breakpoint];
 
-    if (typeof currentRules != 'object') {
-      styles[breakpoint] = rules;
-    } else {
+    if (typeof currentRules == 'object') {
       mergeStyles(currentRules, rules);
+    } else {
+      styles[breakpoint] = rules;
     }
   }
 
@@ -24,13 +24,13 @@ function injectStyles(
 export function injectResponsiveStyles(
   styles: CSSObject,
   theme: SuperDispatchTheme,
-  mobile: undefined | CSSObject,
-  tablet: undefined | CSSObject,
-  desktop: undefined | CSSObject,
+  mobile: CSSObject,
+  tablet: CSSObject,
+  desktop: CSSObject,
 ): CSSObject {
   injectStyles(styles, theme.breakpoints.up('xs'), mobile);
   injectStyles(styles, theme.breakpoints.up('sm'), tablet);
-  injectStyles(styles, theme.breakpoints.up('lg'), desktop);
+  injectStyles(styles, theme.breakpoints.up('md'), desktop);
 
   return styles;
 }
