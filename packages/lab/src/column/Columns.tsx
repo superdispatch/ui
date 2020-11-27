@@ -5,6 +5,7 @@ import { CSSObject } from 'styled-components';
 import { styled } from '../styled';
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
 import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { mergeStyles } from '../utils/mergeStyles';
 import {
   ResponsiveProp,
   useResponsivePropTuple,
@@ -19,23 +20,25 @@ function columnsRootMixin(
   isCollapsed: boolean,
 ): CSSObject {
   const gap = normalizeSpace(space) as string;
-  const styles: CSSObject = {};
 
-  if (align === 'center') {
-    styles.alignItems = 'center';
-  } else if (align === 'bottom') {
-    styles.alignItems = 'flex-end';
-  }
-
-  if (!isCollapsed) {
-    styles.marginLeft = `-${gap}`;
-    styles.width = `calc(100% - ${gap}px)`;
-    styles.flexDirection = !isReversed ? 'row' : 'row-reverse';
-  } else {
-    styles.flexDirection = !isReversed ? 'column' : 'column-reverse';
-  }
-
-  return styles;
+  return mergeStyles(
+    {
+      marginLeft: `-${gap}`,
+      width: `calc(100% + ${gap})`,
+      flexDirection: !isReversed ? 'row' : 'row-reverse',
+      alignItems:
+        align === 'top'
+          ? 'flex-start'
+          : align === 'bottom'
+          ? 'flex-end'
+          : 'center',
+    },
+    isCollapsed && {
+      width: '100%',
+      marginLeft: 0,
+      flexDirection: !isReversed ? 'column' : 'column-reverse',
+    },
+  );
 }
 
 const ColumnsRoot = styled.div<ColumnsContext>(

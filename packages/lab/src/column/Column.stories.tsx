@@ -15,7 +15,12 @@ export default {
   subcomponents: { Column },
   decorators: [
     (Story) => (
-      <Box maxWidth="320px">
+      <Box
+        maxWidth="320px"
+        padding="xxsmall"
+        borderRadius="small"
+        backgroundColor="Silver100"
+      >
         <Story />
       </Box>
     ),
