@@ -1,15 +1,16 @@
-import { Box, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
 
+import { Box } from '../box/Box';
 import { Stack } from './Stack';
 
 export default {
-  title: 'Layout/Stack',
+  title: 'Lab/Stack',
   component: Stack,
   decorators: [
     (Story) => (
-      <Box maxWidth={240}>
+      <Box maxWidth="240px">
         <Story />
       </Box>
     ),
@@ -40,7 +41,7 @@ export const basic = () => (
 );
 
 export const responsiveSpace = () => (
-  <Stack space={{ xs: 1, sm: 2 }}>
+  <Stack space={['small', 'xsmall', 'xxsmall']}>
     <Placeholder height={48} />
     <Placeholder height={48} />
     <Placeholder height={48} />
@@ -56,7 +57,7 @@ export const alignment = () => (
 );
 
 export const responsiveAlignment = () => (
-  <Stack align={{ xs: 'center', sm: 'left' }}>
+  <Stack align={['center', 'left']}>
     <Placeholder height={48} width={48} />
     <Placeholder height={48} width={64} />
     <Placeholder height={48} width={128} />

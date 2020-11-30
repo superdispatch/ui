@@ -27,6 +27,8 @@ const RESTRICTIONS: Restrictions = {
   '@superdispatch/ui': {
     Column: ['Column', '@superdispatch/ui-lab'],
     Columns: ['Columns', '@superdispatch/ui-lab'],
+    Stack: ['Stack', '@superdispatch/ui-lab'],
+    GridStack: ['Stack', '@superdispatch/ui-lab'],
   },
   'styled-components': {
     default: ['styled', '@superdispatch/ui-lab'],

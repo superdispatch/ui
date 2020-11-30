@@ -64,7 +64,7 @@ interface BoxRules {
   marginRight?: ResponsiveProp<SpaceProp>;
   marginBottom?: ResponsiveProp<SpaceProp>;
 
-  borderRadius?: ResponsiveProp<SpaceProp>;
+  borderRadius?: ResponsiveProp<BorderRadiusProp>;
 
   width?: string;
   maxWidth?: string;

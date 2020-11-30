@@ -1,6 +1,7 @@
-import { Box, Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
+import { Box } from '@superdispatch/ui-lab';
 
 export default {
   title: 'Surfaces/Card',
@@ -12,7 +13,7 @@ export default {
 } as Meta;
 
 export const basic = () => (
-  <Box maxWidth={280}>
+  <Box maxWidth="280px">
     <Card>
       <CardContent>
         <Typography color="textSecondary" gutterBottom={true}>

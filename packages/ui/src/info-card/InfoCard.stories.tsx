@@ -1,14 +1,15 @@
 import { Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
+import { Stack } from '@superdispatch/ui-lab';
 
-import { Button, Stack } from '..';
+import { Button } from '../button/Button';
 import { InfoCard } from './InfoCard';
 
 export default { title: 'Surfaces/InfoCard', component: InfoCard } as Meta;
 
 export const basic = () => (
   <InfoCard>
-    <Stack space={2}>
+    <Stack space="small">
       <Typography variant="h3">Title</Typography>
       <Typography>Content</Typography>
 
@@ -19,7 +20,7 @@ export const basic = () => (
 
 export const large = () => (
   <InfoCard size="large">
-    <Stack space={2}>
+    <Stack space="small">
       <Typography variant="h3">Title</Typography>
       <Typography>Content</Typography>
 

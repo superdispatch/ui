@@ -1,13 +1,14 @@
-import { Box, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Meta } from '@storybook/react';
 import { PropsLink } from '@superdispatch/ui-docs';
+import { Box } from '@superdispatch/ui-lab';
 
 export default {
   title: 'Inputs/Autocomplete',
   decorators: [
     (Story) => (
-      <Box maxWidth={240}>
+      <Box maxWidth="240px">
         <Story />
       </Box>
     ),

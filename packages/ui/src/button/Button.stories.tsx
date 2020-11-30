@@ -1,8 +1,7 @@
-import { Box } from '@material-ui/core';
 import { CloudUpload, MoreHoriz, Save } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
+import { Box } from '@superdispatch/ui-lab';
 
-import { Color } from '..';
 import { Button, ButtonProps } from './Button';
 
 const formatUnionType = (types: readonly unknown[]): string =>
@@ -125,7 +124,7 @@ export const basic = ({
 
   if (color === 'white') {
     return (
-      <Box bgcolor={Color.Grey300} padding={2} borderRadius={4}>
+      <Box padding="small" borderRadius="small" backgroundColor="Grey300">
         {button}
       </Box>
     );

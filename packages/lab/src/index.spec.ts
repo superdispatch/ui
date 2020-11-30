@@ -7,6 +7,7 @@ test('api', () => {
       "Column": React.forwardRef(Column),
       "Columns": React.forwardRef(Columns),
       "LabProvider": [Function],
+      "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
       "css": [Function],
       "isCollapsedBelow": [Function],
