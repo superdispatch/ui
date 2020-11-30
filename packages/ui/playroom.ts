@@ -16,7 +16,6 @@ export { DrawerList } from './src/drawer/DrawerList';
 export { DrawerContent } from './src/drawer/DrawerContent';
 export { DrawerTitle } from './src/drawer/DrawerTitle';
 export { InfoCard } from './src/info-card/InfoCard';
-export { Inline } from './src/inline/Inline';
 export { OverflowText } from './src/overflow-text/OverflowText';
 export { RadioField } from './src/radio/RadioField';
 export { RadioGroupField } from './src/radio/RadioGroupField';

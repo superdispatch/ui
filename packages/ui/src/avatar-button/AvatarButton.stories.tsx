@@ -1,8 +1,7 @@
 import { Meta } from '@storybook/react';
 import { UseState } from '@superdispatch/ui-docs';
-import { Stack } from '@superdispatch/ui-lab';
+import { Inline, Stack } from '@superdispatch/ui-lab';
 
-import { Inline } from '..';
 import { AvatarButton } from './AvatarButton';
 
 export default {
@@ -11,35 +10,35 @@ export default {
 } as Meta;
 
 export const basic = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton />
     <AvatarButton size="large" />
   </Inline>
 );
 
 export const disabled = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton disabled={true} />
     <AvatarButton size="large" disabled={true} />
   </Inline>
 );
 
 export const loading = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton isLoading={true} />
     <AvatarButton size="large" isLoading={true} />
   </Inline>
 );
 
 export const textBasic = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton>AB</AvatarButton>
     <AvatarButton size="large">AB</AvatarButton>
   </Inline>
 );
 
 export const textDisabled = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton disabled={true}>AB</AvatarButton>
     <AvatarButton size="large" disabled={true}>
       AB
@@ -48,7 +47,7 @@ export const textDisabled = () => (
 );
 
 export const textLoading = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton isLoading={true}>AB</AvatarButton>
     <AvatarButton size="large" isLoading={true}>
       AB
@@ -57,7 +56,7 @@ export const textLoading = () => (
 );
 
 export const pictureBasic = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton src="https://source.unsplash.com/featured/256x256/?avatar" />
     <AvatarButton
       size="large"
@@ -67,7 +66,7 @@ export const pictureBasic = () => (
 );
 
 export const pictureDisabled = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton
       disabled={true}
       src="https://source.unsplash.com/featured/256x256/?avatar"
@@ -81,7 +80,7 @@ export const pictureDisabled = () => (
 );
 
 export const pictureLoading = () => (
-  <Inline space={2} verticalAlign="center">
+  <Inline space="small" verticalAlign="center">
     <AvatarButton
       isLoading={true}
       src="https://source.unsplash.com/featured/256x256/?avatar"
@@ -106,7 +105,7 @@ export const interactive = () => (
 
       return (
         <Stack space="small">
-          <Inline space={2} verticalAlign="center">
+          <Inline space="small" verticalAlign="center">
             <AvatarButton disabled={state} onClick={handleClick}>
               SM
             </AvatarButton>
@@ -122,7 +121,7 @@ export const interactive = () => (
             </AvatarButton>
           </Inline>
 
-          <Inline space={2} verticalAlign="center">
+          <Inline space="small" verticalAlign="center">
             <AvatarButton
               disabled={state}
               onClick={handleClick}
