@@ -1,9 +1,8 @@
 import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
-import { CSSObject } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 
-import { styled } from '../styled';
 import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import {
   ResponsiveProp,
