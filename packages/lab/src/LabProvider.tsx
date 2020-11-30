@@ -1,4 +1,5 @@
 import { useTheme } from '@material-ui/core';
+import { SuperDispatchTheme } from '@superdispatch/ui';
 import { ReactElement, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 
@@ -7,7 +8,7 @@ export interface LabProviderProps {
 }
 
 export function LabProvider({ children }: LabProviderProps): ReactElement {
-  const theme = useTheme();
+  const theme = useTheme<SuperDispatchTheme>();
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
