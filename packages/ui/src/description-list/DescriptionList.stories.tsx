@@ -1,4 +1,4 @@
-import { Box, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ChatIcon from '@material-ui/icons/Chat';
 import NotesIcon from '@material-ui/icons/Notes';
@@ -7,6 +7,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { PhoneLink, PhoneText } from '@superdispatch/phones';
+import { Box } from '@superdispatch/ui-lab';
 
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
@@ -16,7 +17,7 @@ export default {
   subcomponents: { DescriptionListItem },
   decorators: [
     (Story) => (
-      <Box maxWidth={200}>
+      <Box maxWidth="200px">
         <Story />
       </Box>
     ),

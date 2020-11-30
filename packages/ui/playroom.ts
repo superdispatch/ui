@@ -22,7 +22,6 @@ export { RadioField } from './src/radio/RadioField';
 export { RadioGroupField } from './src/radio/RadioGroupField';
 export { Snackbar } from './src/snackbar/Snackbar';
 export { SnackbarContent } from './src/snackbar/SnackbarContent';
-export { Stack } from './src/stack/Stack';
 export { Tag } from './src/tag/Tag';
 export { Tiles } from './src/tiles/Tiles';
 export { VisibilityObserver } from './src/utils/VisibilityObserver';

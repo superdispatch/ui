@@ -2,10 +2,11 @@ import { IconButton, Link } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
-import { OverflowText, Stack } from '@superdispatch/ui';
+import { OverflowText } from '@superdispatch/ui';
 import { Placeholder } from '@superdispatch/ui-docs';
 
 import { Box } from '../box/Box';
+import { Stack } from '../stack/Stack';
 import { Column } from './Column';
 import { Columns } from './Columns';
 
@@ -187,7 +188,7 @@ export const reverseAndCollapseBelowTablet = () => (
 );
 
 export const availableWidths = () => (
-  <Stack space={1}>
+  <Stack space="xsmall">
     <Columns space="xsmall">
       <Column width="adaptive">
         <Placeholder height={48} text="Adaptive" />

@@ -1,7 +1,6 @@
-import { Box, Link, Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-
-import { Stack } from '..';
+import { Box, Stack } from '@superdispatch/ui-lab';
 
 export default { title: 'Navigation/Link' } as Meta;
 
@@ -16,7 +15,7 @@ export const basic = () => (
 );
 
 export const multiline = () => (
-  <Box maxWidth={64}>
+  <Box maxWidth="64px">
     <Link href="#" target="_blank">
       This is multi-line link
     </Link>
@@ -24,7 +23,7 @@ export const multiline = () => (
 );
 
 export const multilineButton = () => (
-  <Box maxWidth={64}>
+  <Box maxWidth="64px">
     <Link component="button">This is multi-line button link</Link>
   </Box>
 );
