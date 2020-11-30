@@ -6,6 +6,7 @@ test('api', () => {
       "Box": React.forwardRef(Box),
       "Column": React.forwardRef(Column),
       "Columns": React.forwardRef(Columns),
+      "Inline": React.forwardRef(Inline),
       "LabProvider": [Function],
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
