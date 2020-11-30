@@ -109,7 +109,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
         })}
       >
         {flattenChildren(children).map((child, idx) => (
-          <div key={idx} className={clsx(styles.item)}>
+          <div key={idx} className={styles.item}>
             {child}
           </div>
         ))}
