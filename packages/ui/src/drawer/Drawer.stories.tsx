@@ -12,8 +12,9 @@ import {
 } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { PropsLink, UseState } from '@superdispatch/ui-docs';
+import { Inline, Stack } from '@superdispatch/ui-lab';
 
-import { Button, Inline, Stack } from '..';
+import { Button } from '..';
 import { DrawerActions } from './DrawerActions';
 import { DrawerContent } from './DrawerContent';
 import { DrawerList } from './DrawerList';
@@ -60,7 +61,7 @@ export const basic = () => (
           </DrawerContent>
 
           <DrawerActions>
-            <Inline space={2}>
+            <Inline space="small">
               <Button color="primary" variant="contained">
                 Primary
               </Button>
@@ -178,7 +179,7 @@ export const drawerList = () => (
           </DrawerList>
 
           <DrawerActions>
-            <Inline space={2}>
+            <Inline space="small">
               <Button color="primary" variant="contained">
                 Primary
               </Button>
