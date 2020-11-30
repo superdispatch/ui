@@ -1,5 +1,5 @@
-import { Box } from '@material-ui/core';
 import { Meta } from '@storybook/react';
+import { Box } from '@superdispatch/ui-lab';
 
 import { OverflowText } from './OverflowText';
 
@@ -8,7 +8,7 @@ export default {
   component: OverflowText,
   decorators: [
     (Story) => (
-      <Box maxWidth={200}>
+      <Box maxWidth="200px">
         <Story />
       </Box>
     ),
