@@ -32,10 +32,6 @@ const RESTRICTIONS: Restrictions = {
     Inline: ['Inline', '@superdispatch/ui-lab'],
     InlineGrid: ['Inline', '@superdispatch/ui-lab'],
   },
-  'styled-components': {
-    default: ['styled', '@superdispatch/ui-lab'],
-    css: ['css', '@superdispatch/ui-lab'],
-  },
 };
 
 export const rule = createRule<[], MessageIds>({

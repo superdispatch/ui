@@ -4,7 +4,6 @@ export * from './column/Column';
 export * from './column/Columns';
 export * from './inline/Inline';
 export * from './stack/Stack';
-export * from './styled';
 export * from './text-box/TextBox';
 export * from './utils/CollapseProp';
 export * from './utils/ResponsiveProp';

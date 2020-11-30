@@ -1,8 +1,7 @@
 import { VerticalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
-import { CSSObject } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 
-import { styled } from '../styled';
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
 import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import { mergeStyles } from '../utils/mergeStyles';

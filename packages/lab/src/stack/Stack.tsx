@@ -1,10 +1,9 @@
 import { HorizontalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
-import { CSSObject } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { styled } from '../styled';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { normalizeHorizontalAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -12,39 +11,40 @@ import {
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
-function stackItemMixin(
-  index: number,
-  space: SpaceProp,
-  align: HorizontalAlign,
-): CSSObject {
-  return {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems:
-      align === 'left'
-        ? 'flex-start'
-        : align === 'right'
-        ? 'flex-end'
-        : 'center',
-    paddingTop: index === 0 ? 0 : normalizeSpace(space),
-  };
-}
+const StackRoot = styled.div<StackItemProps>(
+  ({ theme, space, align }) =>
+    css`
+      --stack-space: ${normalizeSpace(space[0])};
+      --stack-align: ${normalizeHorizontalAlignProp(align[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        --stack-space: ${normalizeSpace(space[1])};
+        --stack-align: ${normalizeHorizontalAlignProp(align[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        --stack-space: ${normalizeSpace(space[2])};
+        --stack-align: ${normalizeHorizontalAlignProp(align[2])};
+      }
+    `,
+);
 
 interface StackItemProps {
-  index: number;
   space: ResponsivePropTuple<SpaceProp>;
   align: ResponsivePropTuple<HorizontalAlign>;
 }
 
-const StackItem = styled.div<StackItemProps>(({ theme, align, space, index }) =>
-  injectResponsiveStyles(
-    {},
-    theme,
-    stackItemMixin(index, space[0], align[0]),
-    stackItemMixin(index, space[1], align[1]),
-    stackItemMixin(index, space[2], align[2]),
-  ),
-);
+const StackItem = styled.div<StackItemProps>`
+  display: flex;
+  flex-direction: column;
+
+  padding-top: var(--stack-space);
+  align-items: var(--stack-align);
+
+  &:first-child {
+    padding-top: 0;
+  }
+`;
 
 export interface StackProps {
   children?: ReactNode;
@@ -61,13 +61,13 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     const space = useResponsivePropTuple(spaceProp);
 
     return (
-      <div ref={ref}>
+      <StackRoot ref={ref} align={align} space={space}>
         {flattenChildren(children).map((child, idx) => (
-          <StackItem key={idx} index={idx} align={align} space={space}>
+          <StackItem key={idx} align={align} space={space}>
             {child}
           </StackItem>
         ))}
-      </div>
+      </StackRoot>
     );
   },
 );
