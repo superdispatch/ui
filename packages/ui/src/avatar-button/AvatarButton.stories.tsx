@@ -1,7 +1,8 @@
 import { Meta } from '@storybook/react';
 import { UseState } from '@superdispatch/ui-docs';
+import { Stack } from '@superdispatch/ui-lab';
 
-import { Inline, Stack } from '..';
+import { Inline } from '..';
 import { AvatarButton } from './AvatarButton';
 
 export default {
@@ -104,7 +105,7 @@ export const interactive = () => (
       };
 
       return (
-        <Stack space={2}>
+        <Stack space="small">
           <Inline space={2} verticalAlign="center">
             <AvatarButton disabled={state} onClick={handleClick}>
               SM

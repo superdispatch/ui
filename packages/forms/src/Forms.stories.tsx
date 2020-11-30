@@ -1,11 +1,12 @@
-import { Box, IconButton, InputAdornment } from '@material-ui/core';
+import { IconButton, InputAdornment } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Meta } from '@storybook/react';
-import { Button, Inline, Stack, useSnackbarStack } from '@superdispatch/ui';
+import { Button, Inline, useSnackbarStack } from '@superdispatch/ui';
+import { Box, Stack } from '@superdispatch/ui-lab';
 import { Form, FormikProvider } from 'formik';
 import { useRef } from 'react';
 
@@ -93,7 +94,7 @@ export const SignUp = () => {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <Box maxWidth={320}>
+        <Box maxWidth="320px">
           <Stack>
             <FormikTextField
               name="username"
