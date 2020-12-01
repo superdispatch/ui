@@ -43,21 +43,21 @@ const InlineRoot = styled.div<InlineRootProps>(
         display: block;
         margin-top: calc(-1 * var(--inline-space) - 1px);
       }
+
+      & > div {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: calc(-1 * var(--inline-space));
+        align-items: var(--inline-vertical-align);
+        justify-content: var(--inline-horizontal-align);
+
+        & > div {
+          margin-top: var(--inline-space);
+          margin-left: var(--inline-space);
+        }
+      }
     `,
 );
-
-const InlineContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: calc(-1 * var(--inline-space));
-  align-items: var(--inline-vertical-align);
-  justify-content: var(--inline-horizontal-align);
-`;
-
-const InlineItem = styled.div`
-  margin-top: var(--inline-space);
-  margin-left: var(--inline-space);
-`;
 
 export interface InlineProps {
   children?: ReactNode;
@@ -87,11 +87,11 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
         verticalAlign={verticalAlign}
         horizontalAlign={horizontalAlign}
       >
-        <InlineContainer>
+        <div>
           {flattenChildren(children).map((child, idx) => (
-            <InlineItem key={idx}>{child}</InlineItem>
+            <div key={idx}>{child}</div>
           ))}
-        </InlineContainer>
+        </div>
       </InlineRoot>
     );
   },
