@@ -1,14 +1,10 @@
 import { VerticalAlign } from '@superdispatch/ui';
-import { forwardRef, ReactNode } from 'react';
+import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
 import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
-import {
-  ResponsiveProp,
-  ResponsivePropTuple,
-  useResponsivePropTuple,
-} from '../utils/ResponsiveProp';
+import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function columnsRootMixin(
@@ -37,15 +33,27 @@ function columnsRootMixin(
   `;
 }
 
-export interface ColumnsRootProps {
-  collapseBelow: undefined | CollapseProp;
-  align: ResponsivePropTuple<VerticalAlign>;
-  space: ResponsivePropTuple<SpaceProp>;
-  reverse: ResponsivePropTuple<boolean>;
+export interface ColumnsProps {
+  children?: ReactNode;
+  ref?: Ref<HTMLDivElement>;
+
+  reverse?: ResponsiveProp<boolean>;
+  space?: ResponsiveProp<SpaceProp>;
+  align?: ResponsiveProp<VerticalAlign>;
+  collapseBelow?: CollapseProp;
 }
 
-const ColumnsRoot = styled.div<ColumnsRootProps>(
-  ({ theme, collapseBelow, align, reverse, space }) => {
+export const Columns: ForwardRefExoticComponent<ColumnsProps> = styled.div<ColumnsProps>(
+  ({
+    theme,
+    collapseBelow,
+    align: alignProp = 'top',
+    space: spaceProp = 'none',
+    reverse: reverseProp = false,
+  }) => {
+    const align = toResponsivePropTuple(alignProp);
+    const space = toResponsivePropTuple(spaceProp);
+    const reverse = toResponsivePropTuple(reverseProp);
     const collapsed = isCollapsedBelow(collapseBelow);
 
     return css`
@@ -62,42 +70,5 @@ const ColumnsRoot = styled.div<ColumnsRootProps>(
         ${columnsRootMixin(align[2], space[2], reverse[2], collapsed[2])};
       }
     `;
-  },
-);
-
-export interface ColumnsProps {
-  children?: ReactNode;
-  reverse?: ResponsiveProp<boolean>;
-  space?: ResponsiveProp<SpaceProp>;
-  align?: ResponsiveProp<VerticalAlign>;
-  collapseBelow?: CollapseProp;
-}
-
-export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
-  (
-    {
-      children,
-      collapseBelow,
-      align: alignProp = 'top',
-      space: spaceProp = 'none',
-      reverse: reverseProp = false,
-    },
-    ref,
-  ) => {
-    const align = useResponsivePropTuple(alignProp);
-    const space = useResponsivePropTuple(spaceProp);
-    const reverse = useResponsivePropTuple(reverseProp);
-
-    return (
-      <ColumnsRoot
-        ref={ref}
-        align={align}
-        space={space}
-        reverse={reverse}
-        collapseBelow={collapseBelow}
-      >
-        {children}
-      </ColumnsRoot>
-    );
   },
 );
