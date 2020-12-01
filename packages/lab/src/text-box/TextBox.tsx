@@ -128,9 +128,13 @@ function normalizeProps({
   return { as, variant, ...props };
 }
 
-export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.attrs<TextLineProps>(
-  normalizeProps,
-)<TextLineProps>(
+export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span
+  .attrs<TextLineProps>(normalizeProps)
+  .withConfig<TextLineProps>({
+    displayName: 'TextBox',
+    shouldForwardProp: (prop, defaultValidatorFn) =>
+      defaultValidatorFn(prop) && prop !== 'color' && prop !== 'align',
+  })(
   ({
     theme,
     align: alignProp = 'left',

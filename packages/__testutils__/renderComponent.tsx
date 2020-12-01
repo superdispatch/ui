@@ -1,11 +1,14 @@
 import { ThemeProvider, ThemeProviderProps } from '@superdispatch/ui';
+import { LabProvider } from '@superdispatch/ui-lab';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { ReactElement, Suspense } from 'react';
 
-function Wrapper(props: ThemeProviderProps): ReactElement {
+function Wrapper({ children }: ThemeProviderProps): ReactElement {
   return (
     <Suspense fallback="Suspended…">
-      <ThemeProvider {...props} />
+      <ThemeProvider>
+        <LabProvider>{children}</LabProvider>
+      </ThemeProvider>
     </Suspense>
   );
 }
