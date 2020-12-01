@@ -143,6 +143,11 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.att
     const noWrap = toResponsivePropTuple(noWrapProp);
 
     return css`
+      margin: 0;
+      padding: 0;
+      text-overflow: ellipsis;
+
+      ${variantMixin(theme, variant)};
       ${textBoxMixin(align[0], color[0], noWrap[0])};
 
       ${theme.breakpoints.up('sm')} {
@@ -152,12 +157,6 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.att
       ${theme.breakpoints.up('md')} {
         ${textBoxMixin(align[2], color[2], noWrap[2])};
       }
-
-      margin: 0;
-      padding: 0;
-      text-overflow: ellipsis;
-
-      ${variantMixin(theme, variant)};
     `;
   },
 );
