@@ -6,10 +6,10 @@ import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
 import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
+  ResponsivePropTuple,
   useResponsivePropTuple,
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
-import { ColumnsContext, ColumnsContextProvider } from './ColumnContext';
 
 function columnsRootMixin(
   align: VerticalAlign,
@@ -37,7 +37,14 @@ function columnsRootMixin(
   `;
 }
 
-const ColumnsRoot = styled.div<ColumnsContext>(
+export interface ColumnsRootProps {
+  collapseBelow: undefined | CollapseProp;
+  align: ResponsivePropTuple<VerticalAlign>;
+  space: ResponsivePropTuple<SpaceProp>;
+  reverse: ResponsivePropTuple<boolean>;
+}
+
+const ColumnsRoot = styled.div<ColumnsRootProps>(
   ({ theme, collapseBelow, align, reverse, space }) => {
     const collapsed = isCollapsedBelow(collapseBelow);
 
@@ -89,14 +96,7 @@ export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
         reverse={reverse}
         collapseBelow={collapseBelow}
       >
-        <ColumnsContextProvider
-          align={align}
-          space={space}
-          reverse={reverse}
-          collapseBelow={collapseBelow}
-        >
-          {children}
-        </ColumnsContextProvider>
+        {children}
       </ColumnsRoot>
     );
   },
