@@ -1,10 +1,9 @@
 import { VerticalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
-import styled, { CSSObject } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
-import { mergeStyles } from '../utils/mergeStyles';
+import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
   useResponsivePropTuple,
@@ -17,40 +16,45 @@ function columnsRootMixin(
   space: SpaceProp,
   isReversed: boolean,
   isCollapsed: boolean,
-): CSSObject {
+): readonly SimpleInterpolation[] {
   const gap = normalizeSpace(space) as string;
 
-  return mergeStyles(
-    {
-      marginLeft: `-${gap}`,
-      width: `calc(100% + ${gap})`,
-      flexDirection: !isReversed ? 'row' : 'row-reverse',
-      alignItems:
-        align === 'top'
-          ? 'flex-start'
-          : align === 'bottom'
-          ? 'flex-end'
-          : 'center',
-    },
-    isCollapsed && {
-      width: '100%',
-      marginLeft: 0,
-      flexDirection: !isReversed ? 'column' : 'column-reverse',
-    },
-  );
+  return css`
+    --column-space-left: ${isCollapsed ? 0 : gap};
+    --column-space-top: ${isCollapsed && isReversed ? gap : 0};
+    --column-space-bottom: ${isCollapsed && !isReversed ? gap : 0};
+
+    align-items: ${normalizeAlignProp(align)};
+    margin-left: ${isCollapsed ? 0 : `-${gap}`};
+    width: ${isCollapsed ? '100%' : `calc(100% + ${gap})`};
+    flex-direction: ${isCollapsed
+      ? !isReversed
+        ? 'column'
+        : 'column-reverse'
+      : !isReversed
+      ? 'row'
+      : 'row-reverse'};
+  `;
 }
 
 const ColumnsRoot = styled.div<ColumnsContext>(
   ({ theme, collapseBelow, align, reverse, space }) => {
     const collapsed = isCollapsedBelow(collapseBelow);
 
-    return injectResponsiveStyles(
-      { width: '100%', display: 'flex' },
-      theme,
-      columnsRootMixin(align[0], space[0], reverse[0], collapsed[0]),
-      columnsRootMixin(align[1], space[1], reverse[1], collapsed[1]),
-      columnsRootMixin(align[2], space[2], reverse[2], collapsed[2]),
-    );
+    return css`
+      width: 100%;
+      display: flex;
+
+      ${columnsRootMixin(align[0], space[0], reverse[0], collapsed[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        ${columnsRootMixin(align[1], space[1], reverse[1], collapsed[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${columnsRootMixin(align[2], space[2], reverse[2], collapsed[2])};
+      }
+    `;
   },
 );
 
