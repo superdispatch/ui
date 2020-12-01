@@ -3,7 +3,7 @@ import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css } from 'styled-components';
 
-import { normalizeHorizontalAlignProp } from '../utils/HorizontalAlignProp';
+import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
@@ -15,16 +15,16 @@ const StackRoot = styled.div<StackItemProps>(
   ({ theme, space, align }) =>
     css`
       --stack-space: ${normalizeSpace(space[0])};
-      --stack-align: ${normalizeHorizontalAlignProp(align[0])};
+      --stack-align: ${normalizeAlignProp(align[0])};
 
       ${theme.breakpoints.up('sm')} {
         --stack-space: ${normalizeSpace(space[1])};
-        --stack-align: ${normalizeHorizontalAlignProp(align[1])};
+        --stack-align: ${normalizeAlignProp(align[1])};
       }
 
       ${theme.breakpoints.up('md')} {
         --stack-space: ${normalizeSpace(space[2])};
-        --stack-align: ${normalizeHorizontalAlignProp(align[2])};
+        --stack-align: ${normalizeAlignProp(align[2])};
       }
     `,
 );

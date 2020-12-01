@@ -1,10 +1,11 @@
-import { HorizontalAlign } from '@superdispatch/ui';
+import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { Property } from 'csstype';
 
-export function normalizeHorizontalAlignProp(
-  align: HorizontalAlign,
+export function normalizeAlignProp(
+  align: VerticalAlign | HorizontalAlign,
 ): Property.AlignItems {
   switch (align) {
+    case 'top':
     case 'left':
       return 'flex-start';
 
@@ -12,6 +13,7 @@ export function normalizeHorizontalAlignProp(
       return 'center';
 
     case 'right':
+    case 'bottom':
       return 'flex-end';
   }
 }
