@@ -94,24 +94,16 @@ function variantMixin(
 }
 
 function textBoxMixin(
-  theme: SuperDispatchTheme,
   align: TextAlignProp,
   color: TextColorProp,
-  variant: TextVariantProp,
   noWrap: boolean,
 ): readonly SimpleInterpolation[] {
   return css`
-    --text-box-align: ${align};
-    --text-box-color: ${normalizeTextColor(color)};
-
-    ${css(variantMixin(theme, variant))}
-    ${noWrap &&
-    css`
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    `}
+    text-align: ${align};
+    color: ${normalizeTextColor(color)};
+    display: ${noWrap ? 'block' : 'initial'};
+    overflow: ${noWrap ? 'hidden' : 'visible'};
+    white-space: ${noWrap ? 'nowrap' : 'normal'};
   `;
 }
 
@@ -121,21 +113,18 @@ export interface TextLineProps {
   as?: keyof JSX.IntrinsicElements;
 
   id?: string;
+  variant?: TextVariantProp;
+
   noWrap?: ResponsiveProp<boolean>;
   align?: ResponsiveProp<TextAlignProp>;
   color?: ResponsiveProp<TextColorProp>;
-  variant?: ResponsiveProp<TextVariantProp>;
 }
 
 function normalizeProps({
-  as,
   variant,
+  as = variant == null ? 'span' : VARIANT_TYPE_MAPPING[variant],
   ...props
 }: TextLineProps): TextLineProps {
-  if (as == null && typeof variant == 'string') {
-    as = VARIANT_TYPE_MAPPING[variant];
-  }
-
   return { as, variant, ...props };
 }
 
@@ -147,30 +136,28 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.att
     align: alignProp = 'left',
     color: colorProp = 'primary',
     noWrap: noWrapProp = false,
-    variant: variantProp = 'body',
+    variant = 'body',
   }) => {
     const align = toResponsivePropTuple(alignProp);
     const color = toResponsivePropTuple(colorProp);
-    const variant = toResponsivePropTuple(variantProp);
     const noWrap = toResponsivePropTuple(noWrapProp);
 
     return css`
-      ${textBoxMixin(theme, align[0], color[0], variant[0], noWrap[0])};
+      ${textBoxMixin(align[0], color[0], noWrap[0])};
 
       ${theme.breakpoints.up('sm')} {
-        ${textBoxMixin(theme, align[1], color[1], variant[1], noWrap[1])};
+        ${textBoxMixin(align[1], color[1], noWrap[1])};
       }
 
       ${theme.breakpoints.up('md')} {
-        ${textBoxMixin(theme, align[2], color[2], variant[2], noWrap[2])};
+        ${textBoxMixin(align[2], color[2], noWrap[2])};
       }
 
       margin: 0;
       padding: 0;
-      font-family: ${theme.typography.fontFamily};
+      text-overflow: ellipsis;
 
-      color: var(--text-box-color);
-      text-align: var(--text-box-align);
+      ${variantMixin(theme, variant)};
     `;
   },
 );
