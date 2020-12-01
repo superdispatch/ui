@@ -1,65 +1,15 @@
 import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
-import { CSSObject } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { styled } from '../styled';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
+import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
   useResponsivePropTuple,
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
-
-const PREVENT_COLLAPSE = 1;
-
-const InlineItem = styled.div`
-  margin-top: 0;
-  margin-left: 0;
-`;
-
-const InlineContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-function inlineRootMixin(
-  space: SpaceProp,
-  verticalAlign: VerticalAlign,
-  horizontalAlign: HorizontalAlign,
-): CSSObject {
-  const gap = normalizeSpace(space) as string;
-
-  return {
-    '&:before': {
-      marginTop: `calc(-${gap} - ${PREVENT_COLLAPSE}px)`,
-    },
-
-    [`& > ${InlineContainer}`]: {
-      marginLeft: `-${gap}`,
-
-      alignItems:
-        verticalAlign === 'top'
-          ? 'flex-start'
-          : verticalAlign === 'bottom'
-          ? 'flex-end'
-          : 'center',
-
-      justifyContent:
-        horizontalAlign === 'left'
-          ? 'flex-start'
-          : horizontalAlign === 'right'
-          ? 'flex-end'
-          : 'center',
-
-      [`& > ${InlineItem}`]: {
-        marginTop: gap,
-        marginLeft: gap,
-      },
-    },
-  };
-}
 
 interface InlineRootProps {
   space: ResponsivePropTuple<SpaceProp>;
@@ -69,22 +19,44 @@ interface InlineRootProps {
 
 const InlineRoot = styled.div<InlineRootProps>(
   ({ theme, space, verticalAlign, horizontalAlign }) =>
-    injectResponsiveStyles(
-      {
-        display: 'flex',
-        flexWrap: 'wrap',
-        paddingTop: PREVENT_COLLAPSE,
+    css`
+      --inline-space: ${normalizeSpace(space[0])};
+      --inline-vertical-align: ${normalizeAlignProp(verticalAlign[0])};
+      --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[0])};
 
-        '&:before': {
-          content: '""',
-          display: 'block',
-        },
-      },
-      theme,
-      inlineRootMixin(space[0], verticalAlign[0], horizontalAlign[0]),
-      inlineRootMixin(space[1], verticalAlign[1], horizontalAlign[1]),
-      inlineRootMixin(space[2], verticalAlign[2], horizontalAlign[2]),
-    ),
+      ${theme.breakpoints.up('sm')} {
+        --inline-space: ${normalizeSpace(space[1])};
+        --inline-vertical-align: ${normalizeAlignProp(verticalAlign[1])};
+        --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        --inline-space: ${normalizeSpace(space[2])};
+        --inline-vertical-align: ${normalizeAlignProp(verticalAlign[2])};
+        --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[2])};
+      }
+
+      padding-top: 1px;
+
+      &:before {
+        content: '';
+        display: block;
+        margin-top: calc(-1 * var(--inline-space) - 1px);
+      }
+
+      & > div {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: calc(-1 * var(--inline-space));
+        align-items: var(--inline-vertical-align);
+        justify-content: var(--inline-horizontal-align);
+
+        & > div {
+          margin-top: var(--inline-space);
+          margin-left: var(--inline-space);
+        }
+      }
+    `,
 );
 
 export interface InlineProps {
@@ -115,11 +87,11 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
         verticalAlign={verticalAlign}
         horizontalAlign={horizontalAlign}
       >
-        <InlineContainer>
+        <div>
           {flattenChildren(children).map((child, idx) => (
-            <InlineItem key={idx}>{child}</InlineItem>
+            <div key={idx}>{child}</div>
           ))}
-        </InlineContainer>
+        </div>
       </InlineRoot>
     );
   },

@@ -1,8 +1,7 @@
 import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
-import { CSSObject } from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 
-import { styled } from '../styled';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer, RuleNormalizer } from '../utils/RuleNormalizer';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';

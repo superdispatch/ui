@@ -1,17 +1,11 @@
 import { forwardRef, ReactNode } from 'react';
-import { CSSObject } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { styled } from '../styled';
-import { isCollapsedBelow } from '../utils/CollapseProp';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
-import { mergeStyles } from '../utils/mergeStyles';
 import {
   ResponsiveProp,
   ResponsivePropTuple,
   useResponsivePropTuple,
 } from '../utils/ResponsiveProp';
-import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
-import { ColumnsContext, useColumnsContext } from './ColumnContext';
 
 export type ColumnWidth =
   | 'adaptive'
@@ -27,76 +21,78 @@ export type ColumnWidth =
   | '3/5'
   | '4/5';
 
-interface ColumnRootProps extends ColumnsContext {
+interface ColumnRootProps {
   width: ResponsivePropTuple<ColumnWidth>;
 }
 
-function widthScaleMixin(scale: number): CSSObject {
-  return { flexBasis: `${scale * 100}%` };
+function computeFlexBasis(scale: number): string {
+  return `${scale * 100}%`;
 }
 
-function columnRootMixin(width: ColumnWidth): CSSObject {
-  return mergeStyles(
-    {
-      flexGrow: 0,
-      flexShrink: 1,
-      flexBasis: 'auto',
-    },
-    width === 'fluid' && { width: '100%' },
-    width === 'content' && { flexShrink: 0 },
-    width === '1/2' && widthScaleMixin(1 / 2),
-    width === '1/3' && widthScaleMixin(1 / 3),
-    width === '2/3' && widthScaleMixin(2 / 3),
-    width === '1/4' && widthScaleMixin(1 / 4),
-    width === '3/4' && widthScaleMixin(3 / 4),
-    width === '1/5' && widthScaleMixin(1 / 5),
-    width === '2/5' && widthScaleMixin(2 / 5),
-    width === '3/5' && widthScaleMixin(3 / 5),
-    width === '4/5' && widthScaleMixin(4 / 5),
-  );
+function flexBasisMixin(width: ColumnWidth): string {
+  switch (width) {
+    case '1/2':
+      return computeFlexBasis(1 / 2);
+    case '1/3':
+      return computeFlexBasis(1 / 3);
+    case '2/3':
+      return computeFlexBasis(2 / 3);
+    case '1/4':
+      return computeFlexBasis(1 / 4);
+    case '3/4':
+      return computeFlexBasis(3 / 4);
+    case '1/5':
+      return computeFlexBasis(1 / 5);
+    case '2/5':
+      return computeFlexBasis(2 / 5);
+    case '3/5':
+      return computeFlexBasis(3 / 5);
+    case '4/5':
+      return computeFlexBasis(4 / 5);
+  }
+
+  return 'auto';
 }
 
-const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) =>
-  injectResponsiveStyles(
-    { minWidth: 0 },
-    theme,
-    columnRootMixin(width[0]),
-    columnRootMixin(width[1]),
-    columnRootMixin(width[2]),
-  ),
-);
-
-function columnContentMixin(
-  space: SpaceProp,
-  isReversed: boolean,
-  isCollapsed: boolean,
-): CSSObject {
-  const gap = normalizeSpace(space) as string;
-
-  return {
-    paddingLeft: !isCollapsed ? gap : 0,
-    paddingTop: isCollapsed && isReversed ? gap : 0,
-    paddingBottom: isCollapsed && !isReversed ? gap : 0,
-
-    [`${ColumnRoot}:last-child > &`]: {
-      paddingTop: 0,
-      paddingBottom: 0,
-    },
-  };
+function columnRootMixin(width: ColumnWidth): readonly SimpleInterpolation[] {
+  return css`
+    flex-grow: 0;
+    flex-basis: ${flexBasisMixin(width)};
+    width: ${width === 'fluid' ? '100%' : 'auto'};
+    flex-shrink: ${width === 'fluid' || width === 'adaptive' ? 1 : 0};
+  `;
 }
 
-const ColumnContent = styled.div<ColumnsContext>(
-  ({ theme, space, reverse, collapseBelow }) => {
-    const collapsed = isCollapsedBelow(collapseBelow);
+const ColumnRoot = styled.div.withConfig<ColumnRootProps>({
+  displayName: 'ColumnRoot',
+  shouldForwardProp: (prop, defaultValidatorFn) =>
+    defaultValidatorFn(prop) && prop !== 'width',
+})<ColumnRootProps>(
+  ({ theme, width }) =>
+    css`
+      min-width: 0;
 
-    return injectResponsiveStyles(
-      {},
-      theme,
-      columnContentMixin(space[0], reverse[0], collapsed[0]),
-      columnContentMixin(space[1], reverse[1], collapsed[1]),
-      columnContentMixin(space[2], reverse[2], collapsed[2]),
-    );
-  },
+      ${columnRootMixin(width[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        ${columnRootMixin(width[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${columnRootMixin(width[2])};
+      }
+
+      & > div {
+        padding-top: var(--column-space-top);
+        padding-left: var(--column-space-left);
+        padding-bottom: var(--column-space-bottom);
+      }
+
+      &:last-child > div {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    `,
 );
 
 export interface ColumnProps {
@@ -106,12 +102,11 @@ export interface ColumnProps {
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width: widthProp = 'fluid' }: ColumnProps, ref) => {
-    const ctx = useColumnsContext();
     const width = useResponsivePropTuple(widthProp);
 
     return (
-      <ColumnRoot {...ctx} ref={ref} width={width}>
-        <ColumnContent {...ctx}>{children}</ColumnContent>
+      <ColumnRoot ref={ref} width={width}>
+        <div>{children}</div>
       </ColumnRoot>
     );
   },

@@ -1,9 +1,7 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
-import { CSSObject } from 'styled-components';
+import styled, { css, CSSObject, SimpleInterpolation } from 'styled-components';
 
-import { styled } from '../styled';
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import { mergeStyles } from '../utils/mergeStyles';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
@@ -65,7 +63,7 @@ const VARIANT_TYPE_MAPPING: Record<
 function variantMixin(
   { typography, breakpoints }: SuperDispatchTheme,
   variant: TextVariantProp,
-): undefined | CSSObject {
+): CSSObject {
   switch (variant) {
     case 'heading-1':
       return typography.h1 as CSSObject;
@@ -80,6 +78,7 @@ function variantMixin(
     case 'heading-6':
       return typography.h6 as CSSObject;
     case 'body':
+    default:
       return typography.body2 as CSSObject;
     case 'body-block': {
       return mergeStyles({}, typography.body2 as CSSObject, {
@@ -92,30 +91,20 @@ function variantMixin(
     case 'caption':
       return typography.caption as CSSObject;
   }
-
-  return undefined;
 }
 
 function textBoxMixin(
-  theme: SuperDispatchTheme,
   align: TextAlignProp,
   color: TextColorProp,
-  variant: TextVariantProp,
   noWrap: boolean,
-): CSSObject {
-  return mergeStyles(
-    {
-      textAlign: align,
-      color: normalizeTextColor(color),
-    },
-    noWrap && {
-      display: 'block',
-      overflow: 'hidden',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-    },
-    variantMixin(theme, variant),
-  );
+): readonly SimpleInterpolation[] {
+  return css`
+    text-align: ${align};
+    color: ${normalizeTextColor(color)};
+    display: ${noWrap ? 'block' : 'initial'};
+    overflow: ${noWrap ? 'hidden' : 'visible'};
+    white-space: ${noWrap ? 'nowrap' : 'normal'};
+  `;
 }
 
 export interface TextLineProps {
@@ -124,21 +113,18 @@ export interface TextLineProps {
   as?: keyof JSX.IntrinsicElements;
 
   id?: string;
+  variant?: TextVariantProp;
+
   noWrap?: ResponsiveProp<boolean>;
   align?: ResponsiveProp<TextAlignProp>;
   color?: ResponsiveProp<TextColorProp>;
-  variant?: ResponsiveProp<TextVariantProp>;
 }
 
 function normalizeProps({
-  as,
   variant,
+  as = variant == null ? 'span' : VARIANT_TYPE_MAPPING[variant],
   ...props
 }: TextLineProps): TextLineProps {
-  if (as == null && typeof variant == 'string') {
-    as = VARIANT_TYPE_MAPPING[variant];
-  }
-
   return { as, variant, ...props };
 }
 
@@ -150,24 +136,27 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.att
     align: alignProp = 'left',
     color: colorProp = 'primary',
     noWrap: noWrapProp = false,
-    variant: variantProp = 'body',
+    variant = 'body',
   }) => {
-    const styles: CSSObject = {
-      margin: 0,
-      fontFamily: theme.typography.fontFamily,
-    };
-
     const align = toResponsivePropTuple(alignProp);
     const color = toResponsivePropTuple(colorProp);
-    const variant = toResponsivePropTuple(variantProp);
     const noWrap = toResponsivePropTuple(noWrapProp);
 
-    return injectResponsiveStyles(
-      styles,
-      theme,
-      textBoxMixin(theme, align[0], color[0], variant[0], noWrap[0]),
-      textBoxMixin(theme, align[1], color[1], variant[1], noWrap[1]),
-      textBoxMixin(theme, align[2], color[2], variant[2], noWrap[2]),
-    );
+    return css`
+      margin: 0;
+      padding: 0;
+      text-overflow: ellipsis;
+
+      ${variantMixin(theme, variant)};
+      ${textBoxMixin(align[0], color[0], noWrap[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        ${textBoxMixin(align[1], color[1], noWrap[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${textBoxMixin(align[2], color[2], noWrap[2])};
+      }
+    `;
   },
 );

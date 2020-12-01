@@ -10,10 +10,8 @@ test('api', () => {
       "LabProvider": [Function],
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
-      "css": [Function],
       "isCollapsedBelow": [Function],
       "normalizeSpace": [Function],
-      "styled": [Function],
       "toResponsivePropTuple": [Function],
       "useResponsivePropTuple": [Function],
     }
