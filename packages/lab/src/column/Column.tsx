@@ -63,32 +63,37 @@ function columnRootMixin(width: ColumnWidth): readonly SimpleInterpolation[] {
   `;
 }
 
-const ColumnRoot = styled.div<ColumnRootProps>(({ theme, width }) => {
-  return css`
-    min-width: 0;
+const ColumnRoot = styled.div.withConfig<ColumnRootProps>({
+  displayName: 'ColumnRoot',
+  shouldForwardProp: (prop, defaultValidatorFn) =>
+    defaultValidatorFn(prop) && prop !== 'width',
+})<ColumnRootProps>(
+  ({ theme, width }) =>
+    css`
+      min-width: 0;
 
-    ${columnRootMixin(width[0])};
+      ${columnRootMixin(width[0])};
 
-    ${theme.breakpoints.up('sm')} {
-      ${columnRootMixin(width[1])};
-    }
+      ${theme.breakpoints.up('sm')} {
+        ${columnRootMixin(width[1])};
+      }
 
-    ${theme.breakpoints.up('md')} {
-      ${columnRootMixin(width[2])};
-    }
+      ${theme.breakpoints.up('md')} {
+        ${columnRootMixin(width[2])};
+      }
 
-    & > div {
-      padding-top: var(--column-space-top);
-      padding-left: var(--column-space-left);
-      padding-bottom: var(--column-space-bottom);
-    }
+      & > div {
+        padding-top: var(--column-space-top);
+        padding-left: var(--column-space-left);
+        padding-bottom: var(--column-space-bottom);
+      }
 
-    &:last-child > div {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  `;
-});
+      &:last-child > div {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    `,
+);
 
 export interface ColumnProps {
   children?: ReactNode;
