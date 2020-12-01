@@ -99,12 +99,6 @@ module.exports = {
                 message:
                   'Use alternative from the "@superdispatch/ui-lab" instead.',
               },
-
-              {
-                name: 'styled-components',
-                importNames: ['default', 'css'],
-                message: 'Import from "@superdispatch/ui-lab" instead.',
-              },
             ],
           },
         ],

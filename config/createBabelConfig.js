@@ -12,21 +12,7 @@ module.exports = ({ docs = false } = {}) => ({
     ],
   ],
   plugins: [
-    [
-      'babel-plugin-styled-components',
-      {
-        pure: true,
-        fileName: false,
-        namespace: 'sd',
-        topLevelImportPaths: [
-          // For the `lab` components.
-          '../styled',
-          '../styled.js',
-
-          '@superdispatch/ui-lab',
-        ],
-      },
-    ],
+    ['babel-plugin-styled-components', { namespace: 'SD' }],
 
     docs && [
       'babel-plugin-direct-import',
