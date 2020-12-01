@@ -1,8 +1,7 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
-import styled, { CSSObject } from 'styled-components';
+import styled, { css, CSSObject, SimpleInterpolation } from 'styled-components';
 
-import { injectResponsiveStyles } from '../utils/injectResponsiveStyles';
 import { mergeStyles } from '../utils/mergeStyles';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
@@ -64,7 +63,7 @@ const VARIANT_TYPE_MAPPING: Record<
 function variantMixin(
   { typography, breakpoints }: SuperDispatchTheme,
   variant: TextVariantProp,
-): undefined | CSSObject {
+): CSSObject {
   switch (variant) {
     case 'heading-1':
       return typography.h1 as CSSObject;
@@ -79,6 +78,7 @@ function variantMixin(
     case 'heading-6':
       return typography.h6 as CSSObject;
     case 'body':
+    default:
       return typography.body2 as CSSObject;
     case 'body-block': {
       return mergeStyles({}, typography.body2 as CSSObject, {
@@ -91,8 +91,6 @@ function variantMixin(
     case 'caption':
       return typography.caption as CSSObject;
   }
-
-  return undefined;
 }
 
 function textBoxMixin(
@@ -101,20 +99,20 @@ function textBoxMixin(
   color: TextColorProp,
   variant: TextVariantProp,
   noWrap: boolean,
-): CSSObject {
-  return mergeStyles(
-    {
-      textAlign: align,
-      color: normalizeTextColor(color),
-    },
-    noWrap && {
-      display: 'block',
-      overflow: 'hidden',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-    },
-    variantMixin(theme, variant),
-  );
+): readonly SimpleInterpolation[] {
+  return css`
+    --text-box-align: ${align};
+    --text-box-color: ${normalizeTextColor(color)};
+
+    ${css(variantMixin(theme, variant))}
+    ${noWrap &&
+    css`
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    `}
+  `;
 }
 
 export interface TextLineProps {
@@ -151,22 +149,28 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span.att
     noWrap: noWrapProp = false,
     variant: variantProp = 'body',
   }) => {
-    const styles: CSSObject = {
-      margin: 0,
-      fontFamily: theme.typography.fontFamily,
-    };
-
     const align = toResponsivePropTuple(alignProp);
     const color = toResponsivePropTuple(colorProp);
     const variant = toResponsivePropTuple(variantProp);
     const noWrap = toResponsivePropTuple(noWrapProp);
 
-    return injectResponsiveStyles(
-      styles,
-      theme,
-      textBoxMixin(theme, align[0], color[0], variant[0], noWrap[0]),
-      textBoxMixin(theme, align[1], color[1], variant[1], noWrap[1]),
-      textBoxMixin(theme, align[2], color[2], variant[2], noWrap[2]),
-    );
+    return css`
+      ${textBoxMixin(theme, align[0], color[0], variant[0], noWrap[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        ${textBoxMixin(theme, align[1], color[1], variant[1], noWrap[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${textBoxMixin(theme, align[2], color[2], variant[2], noWrap[2])};
+      }
+
+      margin: 0;
+      padding: 0;
+      font-family: ${theme.typography.fontFamily};
+
+      color: var(--text-box-color);
+      text-align: var(--text-box-align);
+    `;
   },
 );
