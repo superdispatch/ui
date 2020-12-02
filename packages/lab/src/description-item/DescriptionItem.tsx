@@ -25,6 +25,8 @@ const IconContainer = styled.div(
 
 export interface DescriptionItemProps {
   id?: string;
+  'aria-label'?: string;
+
   wrap?: boolean;
   inset?: boolean;
   icon?: ReactNode;
@@ -34,7 +36,19 @@ export interface DescriptionItemProps {
 }
 
 export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
-  ({ icon, wrap, inset, label, children, fallback, id: idProp }, ref) => {
+  (
+    {
+      icon,
+      wrap,
+      inset,
+      label,
+      children,
+      fallback,
+      id: idProp,
+      'aria-label': ariaLabel,
+    },
+    ref,
+  ) => {
     const id = useUID(idProp);
     const labelID = `${id}-label`;
     const isEmptyChildren = isEmptyReactNode(children);
@@ -45,6 +59,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
         ref={ref}
         space="xxsmall"
         align="center"
+        aria-label={ariaLabel}
         aria-labelledby={label == null ? undefined : labelID}
       >
         {!!(icon || inset) && (
