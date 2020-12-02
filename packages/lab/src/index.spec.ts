@@ -8,7 +8,6 @@ test('api', () => {
       "Columns": React.forwardRef(Columns),
       "DescriptionItem": React.forwardRef(DescriptionItem),
       "Inline": React.forwardRef(Inline),
-      "LabProvider": [Function],
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
       "isCollapsedBelow": [Function],

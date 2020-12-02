@@ -25,7 +25,8 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.10.0",
     "@mdi/js": "^5.3.45",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "styled-components": "^5.2.1"
   },
   "publishConfig": {
     "access": "public",
