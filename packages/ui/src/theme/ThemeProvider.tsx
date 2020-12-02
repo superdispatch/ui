@@ -11,6 +11,7 @@ import {
 import { useConstant } from '@superdispatch/hooks';
 import { Rule, StyleSheet } from 'jss';
 import { ReactElement, ReactNode } from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
@@ -164,9 +165,11 @@ export function ThemeProvider({
       <MaterialThemeProvider theme={theme}>
         <CssBaseline />
 
-        <ResponsiveContextProvider>
-          <SnackbarStackProvider>{children}</SnackbarStackProvider>
-        </ResponsiveContextProvider>
+        <StyledThemeProvider theme={theme}>
+          <ResponsiveContextProvider>
+            <SnackbarStackProvider>{children}</SnackbarStackProvider>
+          </ResponsiveContextProvider>
+        </StyledThemeProvider>
       </MaterialThemeProvider>
     </StylesProvider>
   );

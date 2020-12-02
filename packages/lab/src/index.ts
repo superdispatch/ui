@@ -1,4 +1,3 @@
-export * from './LabProvider';
 export * from './box/Box';
 export * from './column/Column';
 export * from './column/Columns';

@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@superdispatch/ui';
-import { LabProvider } from '@superdispatch/ui-lab';
 import { ReactElement, ReactNode, Suspense } from 'react';
 
 interface FrameComponentProps {
@@ -11,9 +10,7 @@ export default function FrameComponent({
 }: FrameComponentProps): ReactElement {
   return (
     <Suspense fallback="Loading…">
-      <ThemeProvider>
-        <LabProvider>{children}</LabProvider>
-      </ThemeProvider>
+      <ThemeProvider>{children}</ThemeProvider>
     </Suspense>
   );
 }
