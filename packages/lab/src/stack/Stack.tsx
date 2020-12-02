@@ -1,7 +1,7 @@
 import { HorizontalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
-import styled, { css } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
@@ -10,6 +10,22 @@ import {
   useResponsivePropTuple,
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
+
+function stackItemMixin(
+  space: SpaceProp,
+  align: HorizontalAlign,
+): readonly SimpleInterpolation[] {
+  return css`
+    flex-direction: column;
+    padding-top: ${normalizeSpace(space)};
+    align-items: ${normalizeAlignProp(align)};
+    display: ${align === 'left' ? 'block' : 'flex'};
+
+    &:first-child {
+      padding-top: 0;
+    }
+  `;
+}
 
 interface StackRootProps {
   space: ResponsivePropTuple<SpaceProp>;
@@ -21,28 +37,15 @@ const StackRoot = styled.div<StackRootProps>(
     css`
       width: 100%;
 
-      --stack-space: ${normalizeSpace(space[0])};
-      --stack-align: ${normalizeAlignProp(align[0])};
-
-      ${theme.breakpoints.up('sm')} {
-        --stack-space: ${normalizeSpace(space[1])};
-        --stack-align: ${normalizeAlignProp(align[1])};
-      }
-
-      ${theme.breakpoints.up('md')} {
-        --stack-space: ${normalizeSpace(space[2])};
-        --stack-align: ${normalizeAlignProp(align[2])};
-      }
-
       & > div {
-        display: flex;
-        flex-direction: column;
+        ${stackItemMixin(space[0], align[0])};
 
-        padding-top: var(--stack-space);
-        align-items: var(--stack-align);
+        ${theme.breakpoints.up('sm')} {
+          ${stackItemMixin(space[1], align[1])};
+        }
 
-        &:first-child {
-          padding-top: 0;
+        ${theme.breakpoints.up('md')} {
+          ${stackItemMixin(space[2], align[2])};
         }
       }
     `,
