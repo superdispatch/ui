@@ -11,9 +11,16 @@ import {
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
-const StackRoot = styled.div<StackItemProps>(
+interface StackRootProps {
+  space: ResponsivePropTuple<SpaceProp>;
+  align: ResponsivePropTuple<HorizontalAlign>;
+}
+
+const StackRoot = styled.div<StackRootProps>(
   ({ theme, space, align }) =>
     css`
+      width: 100%;
+
       --stack-space: ${normalizeSpace(space[0])};
       --stack-align: ${normalizeAlignProp(align[0])};
 
@@ -26,25 +33,20 @@ const StackRoot = styled.div<StackItemProps>(
         --stack-space: ${normalizeSpace(space[2])};
         --stack-align: ${normalizeAlignProp(align[2])};
       }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+
+        padding-top: var(--stack-space);
+        align-items: var(--stack-align);
+
+        &:first-child {
+          padding-top: 0;
+        }
+      }
     `,
 );
-
-interface StackItemProps {
-  space: ResponsivePropTuple<SpaceProp>;
-  align: ResponsivePropTuple<HorizontalAlign>;
-}
-
-const StackItem = styled.div<StackItemProps>`
-  display: flex;
-  flex-direction: column;
-
-  padding-top: var(--stack-space);
-  align-items: var(--stack-align);
-
-  &:first-child {
-    padding-top: 0;
-  }
-`;
 
 export interface StackProps {
   children?: ReactNode;
@@ -63,9 +65,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     return (
       <StackRoot ref={ref} align={align} space={space}>
         {flattenChildren(children).map((child, idx) => (
-          <StackItem key={idx} align={align} space={space}>
-            {child}
-          </StackItem>
+          <div key={idx}>{child}</div>
         ))}
       </StackRoot>
     );
