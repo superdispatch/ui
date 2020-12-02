@@ -31,6 +31,8 @@ const RESTRICTIONS: Restrictions = {
     GridStack: ['Stack', '@superdispatch/ui-lab'],
     Inline: ['Inline', '@superdispatch/ui-lab'],
     InlineGrid: ['Inline', '@superdispatch/ui-lab'],
+    DescriptionList: ['Stack', '@superdispatch/ui-lab'],
+    DescriptionListItem: ['DescriptionItem', '@superdispatch/ui-lab'],
   },
 };
 

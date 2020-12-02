@@ -34,6 +34,7 @@ function columnsRootMixin(
 }
 
 export interface ColumnsProps {
+  id?: string;
   children?: ReactNode;
   ref?: Ref<HTMLDivElement>;
 
