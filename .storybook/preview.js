@@ -8,7 +8,6 @@ import React, { Suspense } from 'react';
 import { ThemeProvider } from '@superdispatch/ui';
 import { withPlayroom } from 'storybook-addon-playroom';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
-import { LabProvider } from '@superdispatch/ui-lab';
 
 injectDisplayNames(require('@material-ui/lab'));
 injectDisplayNames(require('@material-ui/core'));
@@ -37,9 +36,7 @@ addDecorator((story) => (
 function SuperDispatchDocsContainer(props) {
   return (
     <ThemeProvider injectFirst={false}>
-      <LabProvider>
-        <DocsContainer {...props} />
-      </LabProvider>
+      <DocsContainer {...props} />
     </ThemeProvider>
   );
 }
