@@ -1,4 +1,5 @@
 import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
+import { Property } from 'csstype';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
@@ -72,6 +73,10 @@ interface BoxRules {
   height?: string;
   maxHeight?: string;
   minHeight?: string;
+
+  overflow?: Property.Overflow;
+  verticalOverflow?: Property.OverflowY;
+  horizontalOverflow?: Property.OverflowX;
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
@@ -111,6 +116,10 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   height: undefined,
   maxHeight: undefined,
   minHeight: undefined,
+
+  overflow: undefined,
+  verticalOverflow: undefined,
+  horizontalOverflow: undefined,
 };
 
 function injectRule(

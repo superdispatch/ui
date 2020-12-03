@@ -4,18 +4,24 @@ import styled, { css } from 'styled-components';
 
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
+import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
 const IconContainer = styled.div(
   ({ theme }) =>
     css`
-      --description-icon-size: 24px;
+      --description-icon-size: 20px;
 
       ${theme.breakpoints.up('sm')} {
         --description-icon-size: 16px;
       }
 
+      display: flex;
+      align-items: center;
+
       width: var(--description-icon-size);
+      height: calc(var(--description-icon-size) + 4px);
+
       & > .MuiSvgIcon-root {
         color: ${Color.Grey100};
         font-size: var(--description-icon-size);
@@ -57,8 +63,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
       <Columns
         id={id}
         ref={ref}
-        space="xxsmall"
-        align="center"
+        space={['xsmall', 'xxsmall']}
         aria-label={ariaLabel}
         aria-labelledby={label == null ? undefined : labelID}
       >
@@ -68,28 +73,28 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
           </Column>
         )}
 
-        {!!label && (
-          <Column width="content">
-            <TextBox id={labelID} color="secondary">
-              {label}
-            </TextBox>
-          </Column>
-        )}
-
         <Column width="adaptive">
-          {!isEmptyChildren ? (
-            <TextBox as="div" noWrap={!wrap}>
-              {children}
-            </TextBox>
-          ) : (
-            <TextBox
-              as="div"
-              noWrap={true}
-              color={label == null ? 'primary' : 'secondary'}
-            >
-              {fallback}
-            </TextBox>
-          )}
+          <Inline space="xxsmall" noWrap={!wrap}>
+            {!!label && (
+              <TextBox id={labelID} color="secondary">
+                {label}
+              </TextBox>
+            )}
+
+            {!isEmptyChildren ? (
+              <TextBox as="div" noWrap={!wrap} breakWord={!!wrap}>
+                {children}
+              </TextBox>
+            ) : (
+              <TextBox
+                as="div"
+                noWrap={true}
+                color={label == null ? 'primary' : 'secondary'}
+              >
+                {fallback}
+              </TextBox>
+            )}
+          </Inline>
         </Column>
       </Columns>
     );
