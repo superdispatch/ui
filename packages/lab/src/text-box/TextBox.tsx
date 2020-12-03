@@ -1,9 +1,13 @@
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
-import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import styled, { css, CSSObject, SimpleInterpolation } from 'styled-components';
 
 import { mergeStyles } from '../utils/mergeStyles';
-import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
+import {
+  ResponsiveProp,
+  ResponsivePropTuple,
+  toResponsivePropTuple,
+} from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
 
 export type TextAlignProp = 'left' | 'right' | 'center';
@@ -109,8 +113,35 @@ function textBoxMixin(
   `;
 }
 
-export interface TextLineProps {
-  ref?: Ref<unknown>;
+interface TextBoxRootProps {
+  variant: TextVariantProp;
+  noWrap: ResponsivePropTuple<boolean>;
+  wrapOverflow: ResponsivePropTuple<boolean>;
+  textAlign: ResponsivePropTuple<TextAlignProp>;
+  textColor: ResponsivePropTuple<TextColorProp>;
+}
+
+const TextBoxRoot = styled.span<TextBoxRootProps>(
+  ({ theme, variant, textAlign, textColor, noWrap, wrapOverflow }) =>
+    css`
+      margin: 0;
+      padding: 0;
+      text-overflow: ellipsis;
+
+      ${variantMixin(theme, variant)};
+      ${textBoxMixin(textAlign[0], textColor[0], noWrap[0], wrapOverflow[0])};
+
+      ${theme.breakpoints.up('sm')} {
+        ${textBoxMixin(textAlign[1], textColor[1], noWrap[1], wrapOverflow[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${textBoxMixin(textAlign[2], textColor[2], noWrap[2], wrapOverflow[2])};
+      }
+    `,
+);
+
+export interface TextBoxProps {
   children?: ReactNode;
   as?: keyof JSX.IntrinsicElements;
 
@@ -124,49 +155,35 @@ export interface TextLineProps {
   color?: ResponsiveProp<TextColorProp>;
 }
 
-function normalizeProps({
-  variant,
-  as = variant == null ? 'span' : VARIANT_TYPE_MAPPING[variant],
-  ...props
-}: TextLineProps): TextLineProps {
-  return { as, variant, ...props };
-}
-
-export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span
-  .attrs<TextLineProps>(normalizeProps)
-  .withConfig<TextLineProps>({
-    displayName: 'TextBox',
-    shouldForwardProp: (prop, defaultValidatorFn) =>
-      defaultValidatorFn(prop) && prop !== 'color' && prop !== 'align',
-  })(
-  ({
-    theme,
-    align: alignProp = 'left',
-    color: colorProp = 'primary',
-    noWrap: noWrapProp = false,
-    wrapOverflow: wrapOverflowProp = false,
-    variant = 'body',
-  }) => {
-    const align = toResponsivePropTuple(alignProp);
-    const color = toResponsivePropTuple(colorProp);
+export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
+  (
+    {
+      variant = 'body',
+      as = VARIANT_TYPE_MAPPING[variant],
+      align = 'left',
+      color = 'primary',
+      noWrap: noWrapProp = false,
+      wrapOverflow: wrapOverflowProp = false,
+      ...props
+    },
+    ref,
+  ) => {
+    const textAlign = toResponsivePropTuple(align);
+    const textColor = toResponsivePropTuple(color);
     const noWrap = toResponsivePropTuple(noWrapProp);
     const wrapOverflow = toResponsivePropTuple(wrapOverflowProp);
 
-    return css`
-      margin: 0;
-      padding: 0;
-      text-overflow: ellipsis;
-
-      ${variantMixin(theme, variant)};
-      ${textBoxMixin(align[0], color[0], noWrap[0], wrapOverflow[0])};
-
-      ${theme.breakpoints.up('sm')} {
-        ${textBoxMixin(align[1], color[1], noWrap[1], wrapOverflow[1])};
-      }
-
-      ${theme.breakpoints.up('md')} {
-        ${textBoxMixin(align[2], color[2], noWrap[2], wrapOverflow[2])};
-      }
-    `;
+    return (
+      <TextBoxRoot
+        {...props}
+        as={as}
+        ref={ref}
+        noWrap={noWrap}
+        variant={variant}
+        textAlign={textAlign}
+        textColor={textColor}
+        wrapOverflow={wrapOverflow}
+      />
+    );
   },
 );
