@@ -1,30 +1,39 @@
 import { Color, isEmptyReactNode, useUID } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
 import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
-const IconContainer = styled.div(
+function descriptionItemIconMixin(
+  size: 16 | 20,
+): readonly SimpleInterpolation[] {
+  return css`
+    width: ${size}px;
+    height: ${size + 4}px;
+
+    & > .MuiSvgIcon-root {
+      font-size: ${size}px;
+    }
+  `;
+}
+
+const DescriptionItemIcon = styled.div(
   ({ theme }) =>
     css`
-      --description-icon-size: 20px;
-
-      ${theme.breakpoints.up('sm')} {
-        --description-icon-size: 16px;
-      }
-
       display: flex;
       align-items: center;
 
-      width: var(--description-icon-size);
-      height: calc(var(--description-icon-size) + 4px);
-
       & > .MuiSvgIcon-root {
         color: ${Color.Grey100};
-        font-size: var(--description-icon-size);
+      }
+
+      ${descriptionItemIconMixin(20)};
+
+      ${theme.breakpoints.up('sm')} {
+        ${descriptionItemIconMixin(16)};
       }
     `,
 );
@@ -69,7 +78,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
       >
         {!!(icon || inset) && (
           <Column width="content">
-            <IconContainer>{icon}</IconContainer>
+            <DescriptionItemIcon>{icon}</DescriptionItemIcon>
           </Column>
         )}
 
