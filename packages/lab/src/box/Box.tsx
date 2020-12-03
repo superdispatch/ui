@@ -66,17 +66,17 @@ interface BoxRules {
 
   borderRadius?: ResponsiveProp<BorderRadiusProp>;
 
-  width?: string;
-  maxWidth?: string;
-  minWidth?: string;
+  width?: Property.Width;
+  maxWidth?: Property.MaxWidth;
+  minWidth?: Property.MinWidth;
 
-  height?: string;
-  maxHeight?: string;
-  minHeight?: string;
+  height?: Property.Height;
+  maxHeight?: Property.MaxHeight;
+  minHeight?: Property.MinHeight;
 
   overflow?: Property.Overflow;
-  verticalOverflow?: Property.OverflowY;
-  horizontalOverflow?: Property.OverflowX;
+  overflowY?: Property.OverflowY;
+  overflowX?: Property.OverflowX;
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
@@ -118,8 +118,8 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   minHeight: undefined,
 
   overflow: undefined,
-  verticalOverflow: undefined,
-  horizontalOverflow: undefined,
+  overflowY: undefined,
+  overflowX: undefined,
 };
 
 function injectRule(
