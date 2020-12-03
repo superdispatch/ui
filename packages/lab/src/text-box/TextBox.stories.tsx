@@ -102,3 +102,12 @@ export const noWrap = () => (
     </TextBox>
   </Box>
 );
+
+export const wrapOverflow = () => (
+  <Box width="128px">
+    <TextBox wrapOverflow={true}>
+      Most words are short and don‘t need to break. But
+      Antidisestablishmentarianism is long.
+    </TextBox>
+  </Box>
+);
