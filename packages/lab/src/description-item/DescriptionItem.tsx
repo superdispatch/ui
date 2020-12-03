@@ -1,24 +1,39 @@
 import { Color, isEmptyReactNode, useUID } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
+import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
-const IconContainer = styled.div(
+function descriptionItemIconMixin(
+  size: 16 | 20,
+): readonly SimpleInterpolation[] {
+  return css`
+    width: ${size}px;
+    height: ${size + 4}px;
+
+    & > .MuiSvgIcon-root {
+      font-size: ${size}px;
+    }
+  `;
+}
+
+const DescriptionItemIcon = styled.div(
   ({ theme }) =>
     css`
-      --description-icon-size: 24px;
+      display: flex;
+      align-items: center;
 
-      ${theme.breakpoints.up('sm')} {
-        --description-icon-size: 16px;
-      }
-
-      width: var(--description-icon-size);
       & > .MuiSvgIcon-root {
         color: ${Color.Grey100};
-        font-size: var(--description-icon-size);
+      }
+
+      ${descriptionItemIconMixin(20)};
+
+      ${theme.breakpoints.up('sm')} {
+        ${descriptionItemIconMixin(16)};
       }
     `,
 );
@@ -57,39 +72,33 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
       <Columns
         id={id}
         ref={ref}
-        space="xxsmall"
-        align="center"
+        space={['xsmall', 'xxsmall']}
         aria-label={ariaLabel}
         aria-labelledby={label == null ? undefined : labelID}
       >
         {!!(icon || inset) && (
           <Column width="content">
-            <IconContainer>{icon}</IconContainer>
-          </Column>
-        )}
-
-        {!!label && (
-          <Column width="content">
-            <TextBox id={labelID} color="secondary">
-              {label}
-            </TextBox>
+            <DescriptionItemIcon>{icon}</DescriptionItemIcon>
           </Column>
         )}
 
         <Column width="adaptive">
-          {!isEmptyChildren ? (
-            <TextBox as="div" noWrap={!wrap}>
-              {children}
-            </TextBox>
-          ) : (
+          <Inline space="xxsmall" noWrap={!wrap}>
+            {!!label && (
+              <TextBox id={labelID} color="secondary">
+                {label}
+              </TextBox>
+            )}
+
             <TextBox
               as="div"
-              noWrap={true}
+              noWrap={!wrap}
+              wrapOverflow={!!wrap}
               color={label == null ? 'primary' : 'secondary'}
             >
-              {fallback}
+              {isEmptyChildren ? fallback : children}
             </TextBox>
-          )}
+          </Inline>
         </Column>
       </Columns>
     );

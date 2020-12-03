@@ -22,11 +22,7 @@ export default {
 
 export const basic = () => (
   <Box maxWidth="200px">
-    <Stack space="xsmall">
-      <DescriptionItem icon={<RoomIcon />}>
-        167 Zosh Rd, Dallas, PA 18612
-      </DescriptionItem>
-
+    <Stack>
       <DescriptionItem icon={<PaymentIcon />}>
         <Inline space="xxsmall">
           <TextBox color="purple">$1,503</TextBox>
@@ -39,12 +35,35 @@ export const basic = () => (
         4 hr. ago
       </DescriptionItem>
 
-      <Stack space="xxsmall">
-        <DescriptionItem icon={<NotesIcon />} label="Notes" />
-        <DescriptionItem wrap={true} inset={true}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </DescriptionItem>
-      </Stack>
+      <DescriptionItem icon={<RoomIcon />}>
+        167 Zosh Rd, Dallas, PA 18612
+      </DescriptionItem>
+
+      <DescriptionItem icon={<FingerprintIcon />} label="ID">
+        202CB962AC59075B964B07152D234B70
+      </DescriptionItem>
+
+      <DescriptionItem icon={<NotesIcon />} label="Notes">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      </DescriptionItem>
+    </Stack>
+  </Box>
+);
+
+export const wrap = () => (
+  <Box maxWidth="200px">
+    <Stack>
+      <DescriptionItem icon={<RoomIcon />} wrap={true}>
+        167 Zosh Rd, Dallas, PA 18612
+      </DescriptionItem>
+
+      <DescriptionItem icon={<FingerprintIcon />} label="ID" wrap={true}>
+        202CB962AC59075B964B07152D234B70
+      </DescriptionItem>
+
+      <DescriptionItem icon={<NotesIcon />} label="Notes" wrap={true}>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      </DescriptionItem>
     </Stack>
   </Box>
 );
@@ -66,26 +85,28 @@ export const fallback = () => (
 );
 
 export const inset = () => (
-  <Stack space="xsmall">
-    <DescriptionItem icon={<PersonIcon />}>
-      <b>Antony Hoffman</b>
-    </DescriptionItem>
+  <Stack>
+    <Stack space="xxsmall">
+      <DescriptionItem icon={<PersonIcon />}>Antony Hoffman</DescriptionItem>
+      <DescriptionItem inset={true}>
+        <PhoneLink phone="303 555 0105" format="national" />
+      </DescriptionItem>
+      <DescriptionItem inset={true}>
+        <Link href="mailto:dustin.russel@example.com">
+          dustin.russel@example.com
+        </Link>
+      </DescriptionItem>
+    </Stack>
 
-    <DescriptionItem inset={true}>
-      <PhoneLink phone="303 555 0105" format="national" />
-    </DescriptionItem>
-
-    <DescriptionItem inset={true}>
-      <Link href="mailto:dustin.russel@example.com">
-        dustin.russel@example.com
-      </Link>
+    <DescriptionItem icon={<RoomIcon />}>
+      167 Zosh Rd, Dallas, PA 18612
     </DescriptionItem>
   </Stack>
 );
 
 export const complex = () => (
   <Box maxWidth="320px">
-    <Stack space="xsmall">
+    <Stack>
       <Columns space="xsmall">
         <Column width="adaptive">
           <DescriptionItem icon={<DomainIcon />}>Fast Shipper</DescriptionItem>
