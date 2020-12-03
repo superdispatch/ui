@@ -97,6 +97,7 @@ function textBoxMixin(
   align: TextAlignProp,
   color: TextColorProp,
   noWrap: boolean,
+  wrapOverflow: boolean,
 ): readonly SimpleInterpolation[] {
   return css`
     text-align: ${align};
@@ -104,6 +105,7 @@ function textBoxMixin(
     display: ${noWrap ? 'block' : 'initial'};
     overflow: ${noWrap ? 'hidden' : 'visible'};
     white-space: ${noWrap ? 'nowrap' : 'normal'};
+    overflow-wrap: ${wrapOverflow ? 'break-word' : 'normal'};
   `;
 }
 
@@ -116,6 +118,8 @@ export interface TextLineProps {
   variant?: TextVariantProp;
 
   noWrap?: ResponsiveProp<boolean>;
+  wrapOverflow?: ResponsiveProp<boolean>;
+
   align?: ResponsiveProp<TextAlignProp>;
   color?: ResponsiveProp<TextColorProp>;
 }
@@ -140,11 +144,13 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span
     align: alignProp = 'left',
     color: colorProp = 'primary',
     noWrap: noWrapProp = false,
+    wrapOverflow: wrapOverflowProp = false,
     variant = 'body',
   }) => {
     const align = toResponsivePropTuple(alignProp);
     const color = toResponsivePropTuple(colorProp);
     const noWrap = toResponsivePropTuple(noWrapProp);
+    const wrapOverflow = toResponsivePropTuple(wrapOverflowProp);
 
     return css`
       margin: 0;
@@ -152,14 +158,14 @@ export const TextBox: ForwardRefExoticComponent<TextLineProps> = styled.span
       text-overflow: ellipsis;
 
       ${variantMixin(theme, variant)};
-      ${textBoxMixin(align[0], color[0], noWrap[0])};
+      ${textBoxMixin(align[0], color[0], noWrap[0], wrapOverflow[0])};
 
       ${theme.breakpoints.up('sm')} {
-        ${textBoxMixin(align[1], color[1], noWrap[1])};
+        ${textBoxMixin(align[1], color[1], noWrap[1], wrapOverflow[1])};
       }
 
       ${theme.breakpoints.up('md')} {
-        ${textBoxMixin(align[2], color[2], noWrap[2])};
+        ${textBoxMixin(align[2], color[2], noWrap[2], wrapOverflow[2])};
       }
     `;
   },
