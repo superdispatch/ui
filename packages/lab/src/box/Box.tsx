@@ -1,4 +1,5 @@
 import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
+import { Property } from 'csstype';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
@@ -65,13 +66,17 @@ interface BoxRules {
 
   borderRadius?: ResponsiveProp<BorderRadiusProp>;
 
-  width?: string;
-  maxWidth?: string;
-  minWidth?: string;
+  width?: Property.Width;
+  maxWidth?: Property.MaxWidth;
+  minWidth?: Property.MinWidth;
 
-  height?: string;
-  maxHeight?: string;
-  minHeight?: string;
+  height?: Property.Height;
+  maxHeight?: Property.MaxHeight;
+  minHeight?: Property.MinHeight;
+
+  overflow?: Property.Overflow;
+  overflowY?: Property.OverflowY;
+  overflowX?: Property.OverflowX;
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
@@ -111,6 +116,10 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   height: undefined,
   maxHeight: undefined,
   minHeight: undefined,
+
+  overflow: undefined,
+  overflowY: undefined,
+  overflowX: undefined,
 };
 
 function injectRule(
