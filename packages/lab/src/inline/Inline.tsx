@@ -1,7 +1,7 @@
 import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
-import styled, { css } from 'styled-components';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
@@ -11,56 +11,85 @@ import {
 } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
+function inlineRootMixin(
+  space: SpaceProp,
+  noWrap: boolean,
+  verticalAlign: VerticalAlign,
+  horizontalAlign: HorizontalAlign,
+): readonly SimpleInterpolation[] {
+  const gap = normalizeSpace(space) as string;
+
+  return css`
+    &:before {
+      margin-top: calc(-${gap} - 1px);
+    }
+
+    & > div {
+      display: flex;
+      margin-left: -${gap};
+      flex-wrap: ${noWrap ? 'nowrap' : 'wrap'};
+      align-items: ${normalizeAlignProp(verticalAlign)};
+      justify-content: ${normalizeAlignProp(horizontalAlign)};
+
+      & > div {
+        min-width: 0;
+        flex-shrink: 0;
+        max-width: 100%;
+
+        margin-top: ${gap};
+        margin-left: ${gap};
+      }
+    }
+  `;
+}
+
 interface InlineRootProps {
   space: ResponsivePropTuple<SpaceProp>;
+  noWrap: ResponsivePropTuple<boolean>;
   verticalAlign: ResponsivePropTuple<VerticalAlign>;
   horizontalAlign: ResponsivePropTuple<HorizontalAlign>;
 }
 
 const InlineRoot = styled.div<InlineRootProps>(
-  ({ theme, space, verticalAlign, horizontalAlign }) =>
+  ({ theme, space, noWrap, verticalAlign, horizontalAlign }) =>
     css`
-      --inline-space: ${normalizeSpace(space[0])};
-      --inline-vertical-align: ${normalizeAlignProp(verticalAlign[0])};
-      --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[0])};
-
-      ${theme.breakpoints.up('sm')} {
-        --inline-space: ${normalizeSpace(space[1])};
-        --inline-vertical-align: ${normalizeAlignProp(verticalAlign[1])};
-        --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[1])};
-      }
-
-      ${theme.breakpoints.up('md')} {
-        --inline-space: ${normalizeSpace(space[2])};
-        --inline-vertical-align: ${normalizeAlignProp(verticalAlign[2])};
-        --inline-horizontal-align: ${normalizeAlignProp(horizontalAlign[2])};
-      }
-
       padding-top: 1px;
 
       &:before {
         content: '';
         display: block;
-        margin-top: calc(-1 * var(--inline-space) - 1px);
       }
 
-      & > div {
-        display: flex;
-        flex-wrap: wrap;
-        margin-left: calc(-1 * var(--inline-space));
-        align-items: var(--inline-vertical-align);
-        justify-content: var(--inline-horizontal-align);
+      ${inlineRootMixin(
+        space[0],
+        noWrap[0],
+        verticalAlign[0],
+        horizontalAlign[0],
+      )}
 
-        & > div {
-          margin-top: var(--inline-space);
-          margin-left: var(--inline-space);
-        }
+      ${theme.breakpoints.up('sm')} {
+        ${inlineRootMixin(
+          space[1],
+          noWrap[1],
+          verticalAlign[1],
+          horizontalAlign[1],
+        )}
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${inlineRootMixin(
+          space[2],
+          noWrap[2],
+          verticalAlign[2],
+          horizontalAlign[2],
+        )}
       }
     `,
 );
 
 export interface InlineProps {
   children?: ReactNode;
+  noWrap?: ResponsiveProp<boolean>;
   space?: ResponsiveProp<SpaceProp>;
   verticalAlign?: ResponsiveProp<VerticalAlign>;
   horizontalAlign?: ResponsiveProp<HorizontalAlign>;
@@ -70,6 +99,7 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
   (
     {
       children,
+      noWrap: noWrapProp = false,
       space: spaceProp = 'xsmall',
       verticalAlign: verticalAlignProp = 'top',
       horizontalAlign: horizontalAlignProp = 'left',
@@ -77,6 +107,7 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
     ref,
   ) => {
     const space = useResponsivePropTuple(spaceProp);
+    const noWrap = useResponsivePropTuple(noWrapProp);
     const verticalAlign = useResponsivePropTuple(verticalAlignProp);
     const horizontalAlign = useResponsivePropTuple(horizontalAlignProp);
 
@@ -84,6 +115,7 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
       <InlineRoot
         ref={ref}
         space={space}
+        noWrap={noWrap}
         verticalAlign={verticalAlign}
         horizontalAlign={horizontalAlign}
       >

@@ -80,3 +80,15 @@ export const responsiveVerticalAlignment = () => (
     <Placeholder width={48} height={24} />
   </Inline>
 );
+
+export const noWrap = () => (
+  <Box maxWidth="240px" overflow="hidden">
+    <Inline noWrap={true}>
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+    </Inline>
+  </Box>
+);
