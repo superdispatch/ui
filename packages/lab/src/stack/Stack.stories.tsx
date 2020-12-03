@@ -63,3 +63,41 @@ export const responsiveAlignment = () => (
     <Placeholder height={48} width={128} />
   </Stack>
 );
+
+export const dynamicWidth = () => (
+  <Stack>
+    <Box padding="small">
+      <Stack align={['left', 'right']}>
+        <Box
+          padding="small"
+          borderWidth="small"
+          borderRadius="small"
+          borderColor="Silver400"
+          backgroundColor="White"
+        >
+          Hey!
+        </Box>
+
+        <Box
+          padding="small"
+          borderWidth="small"
+          borderRadius="small"
+          borderColor="Silver400"
+          backgroundColor="White"
+        >
+          Ho!
+        </Box>
+
+        <Box
+          padding="small"
+          borderWidth="small"
+          borderRadius="small"
+          borderColor="Silver400"
+          backgroundColor="White"
+        >
+          Let’s Go!
+        </Box>
+      </Stack>
+    </Box>
+  </Stack>
+);
