@@ -7,6 +7,7 @@ import { TextBox } from './TextBox';
 export default {
   title: 'Lab/TextBox',
   component: TextBox,
+  parameters: { percy: { skip: false } },
 } as Meta;
 
 export const basic = () => (
