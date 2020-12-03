@@ -25,7 +25,7 @@ test('label id', () => {
             <div>
               <div>
                 <span
-                  class="TextBox-fCKStU kWqffC"
+                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 ibsGop"
                   id="text-label"
                 >
                   Label
@@ -33,7 +33,7 @@ test('label id', () => {
               </div>
               <div>
                 <div
-                  class="TextBox-fCKStU eVFrJd"
+                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 gsbdAA"
                 >
                   Text
                 </div>
@@ -69,7 +69,7 @@ test('aria label', () => {
             <div>
               <div>
                 <div
-                  class="TextBox-fCKStU eVFrJd"
+                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 kAkFaO"
                 >
                   Text
                 </div>
