@@ -12,29 +12,33 @@ test('label id', () => {
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
       aria-labelledby="text-label"
-      class="Columns-SD__sc-6ncr2h-0 eqdATw"
+      class="Columns-SD__sc-6ncr2h-0 bpLBqx"
       id="text"
     >
-      <div
-        class="ColumnRoot-byEqWs hFeTjT"
-      >
-        <div>
-          <span
-            class="TextBox-fCKStU kWqffC"
-            id="text-label"
-          >
-            Label
-          </span>
-        </div>
-      </div>
       <div
         class="ColumnRoot-byEqWs cLAoQi"
       >
         <div>
           <div
-            class="TextBox-fCKStU eVFrJd"
+            class="Inline__InlineRoot-SD__zf0xat-0 jLKDqz"
           >
-            Text
+            <div>
+              <div>
+                <span
+                  class="TextBox-fCKStU kWqffC"
+                  id="text-label"
+                >
+                  Label
+                </span>
+              </div>
+              <div>
+                <div
+                  class="TextBox-fCKStU eVFrJd"
+                >
+                  Text
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
