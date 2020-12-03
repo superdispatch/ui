@@ -20,7 +20,7 @@ test('label id', () => {
       >
         <div>
           <span
-            class="TextBox-fCKStU eSkwOh"
+            class="TextBox-fCKStU kWqffC"
             id="text-label"
           >
             Label
@@ -32,7 +32,7 @@ test('label id', () => {
       >
         <div>
           <div
-            class="TextBox-fCKStU dSbSXe"
+            class="TextBox-fCKStU eVFrJd"
           >
             Text
           </div>
