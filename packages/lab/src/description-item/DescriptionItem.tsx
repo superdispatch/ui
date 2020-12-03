@@ -82,7 +82,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
             )}
 
             {!isEmptyChildren ? (
-              <TextBox as="div" noWrap={!wrap} breakWord={!!wrap}>
+              <TextBox as="div" noWrap={!wrap} wrapOverflow={!!wrap}>
                 {children}
               </TextBox>
             ) : (
