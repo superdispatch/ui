@@ -5,6 +5,12 @@ import { Box } from './Box';
 export default {
   title: 'Lab/Box',
   component: Box,
+  parameters: {
+    percy: {
+      skip: false,
+      widths: [320, 768, 1024],
+    },
+  },
 } as Meta;
 
 export const basic = () => (
@@ -18,9 +24,6 @@ export const basic = () => (
     padding={['large', 'medium', 'small']}
     backgroundColor={['Blue50', 'Green50', 'Purple50']}
   >
-    Hey{' '}
-    <span role="img" aria-label="waving hand">
-      👋
-    </span>
+    Hey
   </Box>
 );

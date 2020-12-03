@@ -42,6 +42,11 @@ function SuperDispatchDocsContainer(props) {
 addParameters({
   docs: { container: SuperDispatchDocsContainer },
 
+  percy: {
+    skip: true,
+    widths: [320, 1024],
+  },
+
   playroom: {
     // Because Playroom is built inside Storybook on this example's deploy,
     // we must define the absolute path to it when NODE_ENV is production,
