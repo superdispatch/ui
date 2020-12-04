@@ -94,7 +94,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
               as="div"
               noWrap={!wrap}
               wrapOverflow={!!wrap}
-              color={label == null ? 'primary' : 'secondary'}
+              color={isEmptyChildren && label == null ? 'secondary' : 'primary'}
             >
               {isEmptyChildren ? fallback : children}
             </TextBox>
