@@ -21,10 +21,6 @@ export type ColumnWidth =
   | '3/5'
   | '4/5';
 
-interface ColumnRootProps {
-  width: ResponsivePropTuple<ColumnWidth>;
-}
-
 function computeFlexBasis(scale: number): string {
   return `${scale * 100}%`;
 }
@@ -63,23 +59,23 @@ function columnRootMixin(width: ColumnWidth): readonly SimpleInterpolation[] {
   `;
 }
 
-const ColumnRoot = styled.div.withConfig<ColumnRootProps>({
-  displayName: 'ColumnRoot',
-  shouldForwardProp: (prop, defaultValidatorFn) =>
-    defaultValidatorFn(prop) && prop !== 'width',
-})<ColumnRootProps>(
-  ({ theme, width }) =>
+interface ColumnRootProps {
+  columnWidth: ResponsivePropTuple<ColumnWidth>;
+}
+
+const ColumnRoot = styled.div<ColumnRootProps>(
+  ({ theme, columnWidth }) =>
     css`
       min-width: 0;
 
-      ${columnRootMixin(width[0])};
+      ${columnRootMixin(columnWidth[0])};
 
       ${theme.breakpoints.up('sm')} {
-        ${columnRootMixin(width[1])};
+        ${columnRootMixin(columnWidth[1])};
       }
 
       ${theme.breakpoints.up('md')} {
-        ${columnRootMixin(width[2])};
+        ${columnRootMixin(columnWidth[2])};
       }
 
       & > div {
@@ -101,11 +97,11 @@ export interface ColumnProps {
 }
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
-  ({ children, width: widthProp = 'fluid' }: ColumnProps, ref) => {
-    const width = useResponsivePropTuple(widthProp);
+  ({ children, width = 'fluid' }: ColumnProps, ref) => {
+    const columnWidth = useResponsivePropTuple(width);
 
     return (
-      <ColumnRoot ref={ref} width={width}>
+      <ColumnRoot ref={ref} columnWidth={columnWidth}>
         <div>{children}</div>
       </ColumnRoot>
     );
