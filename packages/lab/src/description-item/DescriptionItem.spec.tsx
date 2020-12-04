@@ -33,7 +33,7 @@ test('label id', () => {
               </div>
               <div>
                 <div
-                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 gsbdAA"
+                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 kAkFaO"
                 >
                   Text
                 </div>
