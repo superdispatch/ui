@@ -16,7 +16,7 @@ test('label id', () => {
       id="text"
     >
       <div
-        class="ColumnRoot-byEqWs cLAoQi"
+        class="Column__ColumnRoot-SD__bzrwgs-0 diAEQg"
       >
         <div>
           <div
@@ -60,7 +60,7 @@ test('aria label', () => {
       id="text"
     >
       <div
-        class="ColumnRoot-byEqWs cLAoQi"
+        class="Column__ColumnRoot-SD__bzrwgs-0 diAEQg"
       >
         <div>
           <div
