@@ -10,10 +10,6 @@ test('api', () => {
       "Inline": React.forwardRef(Inline),
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
-      "isCollapsedBelow": [Function],
-      "normalizeSpace": [Function],
-      "toResponsivePropTuple": [Function],
-      "useResponsivePropTuple": [Function],
     }
   `);
 });

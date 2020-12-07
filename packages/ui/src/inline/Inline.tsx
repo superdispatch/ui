@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import { HorizontalAlign, VerticalAlign } from '../props/AlignProps';
 import {
-  ResponsiveProp,
-  useResponsiveProp,
-} from '../responsive/ResponsiveProp';
+  ResponsivePropRecord,
+  useResponsivePropRecord,
+} from '../props/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
 type InlineClassKey =
   | 'root'
@@ -101,9 +101,9 @@ export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface InlineProps {
   children?: ReactNode;
-  space?: ResponsiveProp<InlineSpace>;
-  verticalAlign?: ResponsiveProp<VerticalAlign>;
-  horizontalAlign?: ResponsiveProp<HorizontalAlign>;
+  space?: ResponsivePropRecord<InlineSpace>;
+  verticalAlign?: ResponsivePropRecord<VerticalAlign>;
+  horizontalAlign?: ResponsivePropRecord<HorizontalAlign>;
 }
 
 export const Inline = forwardRef<HTMLDivElement, InlineProps>(
@@ -118,9 +118,9 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
     ref,
   ) => {
     const styles = useStyles({});
-    const space = useResponsiveProp(spaceProp);
-    const verticalAlign = useResponsiveProp(verticalAlignProp);
-    const horizontalAlign = useResponsiveProp(horizontalAlignProp);
+    const space = useResponsivePropRecord(spaceProp);
+    const verticalAlign = useResponsivePropRecord(verticalAlignProp);
+    const horizontalAlign = useResponsivePropRecord(horizontalAlignProp);
 
     return (
       <div

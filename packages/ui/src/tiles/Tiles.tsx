@@ -4,9 +4,9 @@ import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
 import {
-  ResponsiveProp,
-  useResponsiveProp,
-} from '../responsive/ResponsiveProp';
+  ResponsivePropRecord,
+  useResponsivePropRecord,
+} from '../props/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 const PREVENT_COLLAPSE = 1;
@@ -115,15 +115,15 @@ const useStyles = makeStyles<
 
 export interface TilesProps {
   children?: ReactNode;
-  space?: ResponsiveProp<TilesSpace>;
-  columns?: ResponsiveProp<TilesColumns>;
+  space?: ResponsivePropRecord<TilesSpace>;
+  columns?: ResponsivePropRecord<TilesColumns>;
 }
 
 export const Tiles = forwardRef<HTMLDivElement, TilesProps>(
   ({ children, space: spaceProp = 1, columns: columnsProp = 1 }, ref) => {
     const styles = useStyles({});
-    const space = useResponsiveProp(spaceProp);
-    const columns = useResponsiveProp(columnsProp);
+    const space = useResponsivePropRecord(spaceProp);
+    const columns = useResponsivePropRecord(columnsProp);
 
     return (
       <div

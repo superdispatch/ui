@@ -1,13 +1,14 @@
-import { Color, SuperDispatchTheme } from '@superdispatch/ui';
+import {
+  Color,
+  parseResponsiveProp,
+  ResponsiveProp,
+  ResponsivePropTuple,
+  SuperDispatchTheme,
+} from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled, { css, CSSObject, SimpleInterpolation } from 'styled-components';
 
 import { mergeStyles } from '../utils/mergeStyles';
-import {
-  ResponsiveProp,
-  ResponsivePropTuple,
-  toResponsivePropTuple,
-} from '../utils/ResponsiveProp';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
 
 export type TextAlignProp = 'left' | 'right' | 'center';
@@ -168,10 +169,10 @@ export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
     },
     ref,
   ) => {
-    const textAlign = toResponsivePropTuple(align);
-    const textColor = toResponsivePropTuple(color);
-    const noWrap = toResponsivePropTuple(noWrapProp);
-    const wrapOverflow = toResponsivePropTuple(wrapOverflowProp);
+    const textAlign = parseResponsiveProp(align);
+    const textColor = parseResponsiveProp(color);
+    const noWrap = parseResponsiveProp(noWrapProp);
+    const wrapOverflow = parseResponsiveProp(wrapOverflowProp);
 
     return (
       <TextBoxRoot

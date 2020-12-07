@@ -2,16 +2,16 @@ import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 
+import { VerticalAlign } from '../props/AlignProps';
+import {
+  ResponsivePropRecord,
+  useResponsivePropRecord,
+} from '../props/ResponsiveProp';
 import {
   CollapseBreakpoint,
   useCollapseBreakpoint,
 } from '../responsive/CollapseBreakpoint';
-import {
-  ResponsiveProp,
-  useResponsiveProp,
-} from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { VerticalAlign } from '../theme/types';
 
 type ColumnsClassKey =
   | 'root'
@@ -156,13 +156,13 @@ export type ColumnWidth =
 
 export interface ColumnProps {
   children?: ReactNode;
-  width?: ResponsiveProp<ColumnWidth>;
+  width?: ResponsivePropRecord<ColumnWidth>;
 }
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width: widthProp = 'fluid', ...props }, ref) => {
     const styles = useStyles();
-    const width = useResponsiveProp(widthProp);
+    const width = useResponsivePropRecord(widthProp);
 
     return (
       <div
@@ -193,9 +193,9 @@ export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface ColumnsProps {
   children?: ReactNode;
-  reverse?: ResponsiveProp<boolean>;
-  space?: ResponsiveProp<ColumnsSpace>;
-  align?: ResponsiveProp<VerticalAlign>;
+  reverse?: ResponsivePropRecord<boolean>;
+  space?: ResponsivePropRecord<ColumnsSpace>;
+  align?: ResponsivePropRecord<VerticalAlign>;
   collapseBelow?: CollapseBreakpoint;
 }
 
@@ -211,9 +211,9 @@ export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
     ref,
   ) => {
     const styles = useStyles();
-    const align = useResponsiveProp(alignProp);
-    const space = useResponsiveProp(spaceProp);
-    const isReversed = useResponsiveProp(reverseProp);
+    const align = useResponsivePropRecord(alignProp);
+    const space = useResponsivePropRecord(spaceProp);
+    const isReversed = useResponsivePropRecord(reverseProp);
     const isCollapsed = useCollapseBreakpoint(collapseBelow);
 
     return (
