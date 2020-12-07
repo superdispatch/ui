@@ -1,9 +1,13 @@
-import { normalizeAlignProp, VerticalAlign } from '@superdispatch/ui';
+import {
+  normalizeAlignProp,
+  parseResponsiveProp,
+  ResponsiveProp,
+  VerticalAlign,
+} from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
-import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function columnsRootMixin(
@@ -51,9 +55,9 @@ export const Columns: ForwardRefExoticComponent<ColumnsProps> = styled.div<Colum
     space: spaceProp = 'none',
     reverse: reverseProp = false,
   }) => {
-    const align = toResponsivePropTuple(alignProp);
-    const space = toResponsivePropTuple(spaceProp);
-    const reverse = toResponsivePropTuple(reverseProp);
+    const align = parseResponsiveProp(alignProp);
+    const space = parseResponsiveProp(spaceProp);
+    const reverse = parseResponsiveProp(reverseProp);
     const collapsed = isCollapsedBelow(collapseBelow);
 
     return css`

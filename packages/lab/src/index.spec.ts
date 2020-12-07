@@ -12,8 +12,6 @@ test('api', () => {
       "TextBox": React.forwardRef(TextBox),
       "isCollapsedBelow": [Function],
       "normalizeSpace": [Function],
-      "toResponsivePropTuple": [Function],
-      "useResponsivePropTuple": [Function],
     }
   `);
 });

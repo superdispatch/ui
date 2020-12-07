@@ -1,17 +1,15 @@
 import {
   HorizontalAlign,
   normalizeAlignProp,
+  ResponsiveProp,
+  ResponsivePropTuple,
+  useResponsiveProp,
   VerticalAlign,
 } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import {
-  ResponsiveProp,
-  ResponsivePropTuple,
-  useResponsivePropTuple,
-} from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function inlineRootMixin(
@@ -109,10 +107,10 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
     },
     ref,
   ) => {
-    const space = useResponsivePropTuple(spaceProp);
-    const noWrap = useResponsivePropTuple(noWrapProp);
-    const verticalAlign = useResponsivePropTuple(verticalAlignProp);
-    const horizontalAlign = useResponsivePropTuple(horizontalAlignProp);
+    const space = useResponsiveProp(spaceProp);
+    const noWrap = useResponsiveProp(noWrapProp);
+    const verticalAlign = useResponsiveProp(verticalAlignProp);
+    const horizontalAlign = useResponsiveProp(horizontalAlignProp);
 
     return (
       <InlineRoot

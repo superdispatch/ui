@@ -1,13 +1,14 @@
-import { HorizontalAlign, normalizeAlignProp } from '@superdispatch/ui';
+import {
+  HorizontalAlign,
+  normalizeAlignProp,
+  ResponsiveProp,
+  ResponsivePropTuple,
+  useResponsiveProp,
+} from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import {
-  ResponsiveProp,
-  ResponsivePropTuple,
-  useResponsivePropTuple,
-} from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function stackItemMixin(
@@ -61,8 +62,8 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     { children, space: spaceProp = 'xsmall', align: alignProp = 'left' },
     ref,
   ) => {
-    const align = useResponsivePropTuple(alignProp);
-    const space = useResponsivePropTuple(spaceProp);
+    const align = useResponsiveProp(alignProp);
+    const space = useResponsiveProp(spaceProp);
 
     return (
       <StackRoot ref={ref} align={align} space={space}>

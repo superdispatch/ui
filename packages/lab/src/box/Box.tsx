@@ -1,9 +1,14 @@
-import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
+import {
+  Color,
+  ColorProp,
+  isColorProp,
+  parseResponsiveProp,
+  ResponsiveProp,
+} from '@superdispatch/ui';
 import { Property } from 'csstype';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
-import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer, RuleNormalizer } from '../utils/RuleNormalizer';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
@@ -175,7 +180,7 @@ export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
         const prop = props[key];
 
         if (prop != null && key in normalizers) {
-          const [mobile, tablet, desktop] = toResponsivePropTuple(prop);
+          const [mobile, tablet, desktop] = parseResponsiveProp(prop);
 
           const normalizer = normalizers[key];
 

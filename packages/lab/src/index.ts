@@ -6,5 +6,4 @@ export * from './inline/Inline';
 export * from './stack/Stack';
 export * from './text-box/TextBox';
 export * from './utils/CollapseProp';
-export * from './utils/ResponsiveProp';
 export * from './utils/SpaceProp';

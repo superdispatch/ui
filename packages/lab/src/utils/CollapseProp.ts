@@ -1,4 +1,4 @@
-import { ResponsivePropTuple } from './ResponsiveProp';
+import { ResponsivePropTuple } from '@superdispatch/ui';
 
 export type CollapseProp = 'tablet' | 'desktop';
 
