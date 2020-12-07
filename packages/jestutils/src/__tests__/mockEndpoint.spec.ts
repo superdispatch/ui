@@ -203,13 +203,13 @@ it.each<
         },
       },
     ],
-    { pathname: '/', headers: { foo: 'Bar', bar: 'Baz' } },
+    { headers: { foo: 'Bar', bar: 'Baz' } },
   ],
   [
     'searchParams',
     { matcher: '/' },
     ['http://host/?foo=bar&bar=baz'],
-    { pathname: '/', searchParams: { foo: 'bar', bar: 'baz' } },
+    { searchParams: { foo: 'bar', bar: 'baz' } },
   ],
   [
     'params',
@@ -236,6 +236,7 @@ it.each<
       params: {},
       headers: {},
       searchParams: {},
+      pathname: '/',
       ...expected,
     });
 
