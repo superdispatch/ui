@@ -20,7 +20,7 @@ test('label id', () => {
       >
         <div>
           <div
-            class="Inline__InlineRoot-SD__zf0xat-0 jKpyvD"
+            class="Inline__InlineRoot-SD__zf0xat-0 chmaqq"
           >
             <div>
               <div>
@@ -64,7 +64,7 @@ test('aria label', () => {
       >
         <div>
           <div
-            class="Inline__InlineRoot-SD__zf0xat-0 jKpyvD"
+            class="Inline__InlineRoot-SD__zf0xat-0 chmaqq"
           >
             <div>
               <div>
