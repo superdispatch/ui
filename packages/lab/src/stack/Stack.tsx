@@ -53,20 +53,34 @@ const StackRoot = styled.div<StackRootProps>(
 
 export interface StackProps {
   children?: ReactNode;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
   space?: ResponsiveProp<SpaceProp>;
   align?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
   (
-    { children, space: spaceProp = 'xsmall', align: alignProp = 'left' },
+    {
+      children,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      space: spaceProp = 'xsmall',
+      align: alignProp = 'left',
+    },
     ref,
   ) => {
     const align = useResponsiveProp(alignProp);
     const space = useResponsiveProp(spaceProp);
 
     return (
-      <StackRoot ref={ref} align={align} space={space}>
+      <StackRoot
+        ref={ref}
+        align={align}
+        space={space}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+      >
         {flattenChildren(children).map((child, idx) => (
           <div key={idx}>{child}</div>
         ))}

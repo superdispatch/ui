@@ -40,6 +40,8 @@ function columnsRootMixin(
 export interface ColumnsProps {
   id?: string;
   children?: ReactNode;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
   ref?: Ref<HTMLDivElement>;
 
   reverse?: ResponsiveProp<boolean>;
