@@ -1,9 +1,8 @@
-import { VerticalAlign } from '@superdispatch/ui';
+import { normalizeAlignProp, VerticalAlign } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
-import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 

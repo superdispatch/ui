@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import { HorizontalAlign } from '../props/AlignProps';
 import {
   ResponsiveProp,
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { HorizontalAlign } from '../theme/types';
 
 type StackClassKey =
   | 'root'

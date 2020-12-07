@@ -101,6 +101,7 @@ it('exposes public api', () => {
       "isColorProp": [Function],
       "isEmptyReactNode": [Function],
       "mergeRefs": [Function],
+      "normalizeAlignProp": [Function],
       "renderChildren": [Function],
       "useCollapseBreakpoint": [Function],
       "useResponsiveContext": [Function],

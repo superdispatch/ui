@@ -1,5 +1,7 @@
-import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { Property } from 'csstype';
+
+export type VerticalAlign = 'top' | 'center' | 'bottom';
+export type HorizontalAlign = 'left' | 'center' | 'right';
 
 export function normalizeAlignProp(
   align: VerticalAlign | HorizontalAlign,

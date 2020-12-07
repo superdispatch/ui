@@ -2,6 +2,7 @@ import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 
+import { VerticalAlign } from '../props/AlignProps';
 import {
   CollapseBreakpoint,
   useCollapseBreakpoint,
@@ -11,7 +12,6 @@ import {
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { VerticalAlign } from '../theme/types';
 
 type ColumnsClassKey =
   | 'root'

@@ -1,9 +1,12 @@
-import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
+import {
+  HorizontalAlign,
+  normalizeAlignProp,
+  VerticalAlign,
+} from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { normalizeAlignProp } from '../utils/HorizontalAlignProp';
 import {
   ResponsiveProp,
   ResponsivePropTuple,

@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import { HorizontalAlign, VerticalAlign } from '../props/AlignProps';
 import {
   ResponsiveProp,
   useResponsiveProp,
 } from '../responsive/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { HorizontalAlign, VerticalAlign } from '../theme/types';
 
 type InlineClassKey =
   | 'root'
