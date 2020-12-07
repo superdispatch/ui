@@ -16,6 +16,7 @@ export * from './info-card/InfoCard';
 export * from './inline/Inline';
 export * from './overflow-text/OverflowText';
 export * from './props/AlignProps';
+export * from './props/CollapseProp';
 export * from './props/ResponsiveProp';
 export * from './props/SpaceProp';
 export * from './radio/RadioField';
