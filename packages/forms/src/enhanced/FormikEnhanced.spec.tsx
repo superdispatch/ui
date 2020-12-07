@@ -89,8 +89,8 @@ describe('useFormikEnhanced', () => {
   });
 
   test('onSubmitFailure', async () => {
-    const getFormErrors = jest.fn(() => ({ foo: 'Failed' }));
-    const onSubmit = jest.fn(() => Promise.reject({ meta: { status: 500 } }));
+    const getFormErrors = jest.fn((response) => response.data);
+    const onSubmit = jest.fn(() => Promise.reject({ data: { foo: 'Failed' } }));
     const onSubmitFailure = jest.fn();
 
     const { result, waitForNextUpdate } = renderHook(() =>
@@ -117,12 +117,12 @@ describe('useFormikEnhanced', () => {
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmitFailure).toHaveBeenCalledTimes(1);
     expect(onSubmitFailure).toHaveBeenLastCalledWith(
-      { meta: { status: 500 } },
+      { data: { foo: 'Failed' } },
       { foo: 'baz' },
     );
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
-    expect(getFormErrors).toHaveBeenLastCalledWith({ meta: { status: 500 } });
+    expect(getFormErrors).toHaveBeenLastCalledWith({ data: { foo: 'Failed' } });
 
     expect(result.current.errors).toEqual({ foo: 'Failed' });
   });
