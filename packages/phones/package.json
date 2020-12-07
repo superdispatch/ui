@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@superdispatch/ui": "^0.7.7",
-    "awesome-phonenumber": "^2.41.0",
+    "awesome-phonenumber": "^2.42.0",
     "clsx": "^1.1.1"
   },
   "peerDependencies": {
