@@ -22,7 +22,7 @@ function inlineRootMixin(
 
   return css`
     &:before {
-      margin-top: calc(-${space} - 1px);
+      margin-top: ${-space - 1}px;
     }
 
     & > div {
