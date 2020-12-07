@@ -1,31 +1,32 @@
 import {
-  normalizeAlignProp,
+  parseAlignProp,
   parseResponsiveProp,
+  parseSpaceProp,
   ResponsiveProp,
+  SpaceProp,
   VerticalAlign,
 } from '@superdispatch/ui';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { CollapseProp, isCollapsedBelow } from '../utils/CollapseProp';
-import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function columnsRootMixin(
   align: VerticalAlign,
-  space: SpaceProp,
+  spaceProp: SpaceProp,
   isReversed: boolean,
   isCollapsed: boolean,
 ): readonly SimpleInterpolation[] {
-  const gap = normalizeSpace(space) as string;
+  const space = parseSpaceProp(spaceProp);
 
   return css`
-    --column-space-left: ${isCollapsed ? 0 : gap};
-    --column-space-top: ${isCollapsed && isReversed ? gap : 0};
-    --column-space-bottom: ${isCollapsed && !isReversed ? gap : 0};
+    --column-space-left: ${isCollapsed ? 0 : space}px;
+    --column-space-top: ${isCollapsed && isReversed ? space : 0}px;
+    --column-space-bottom: ${isCollapsed && !isReversed ? space : 0}px;
 
-    align-items: ${normalizeAlignProp(align)};
-    margin-left: ${isCollapsed ? 0 : `-${gap}`};
-    width: ${isCollapsed ? '100%' : `calc(100% + ${gap})`};
+    align-items: ${parseAlignProp(align)};
+    margin-left: ${isCollapsed ? 0 : `-${space}`}px;
+    width: ${isCollapsed ? '100%' : `calc(100% + ${space}px)`};
     flex-direction: ${isCollapsed
       ? !isReversed
         ? 'column'

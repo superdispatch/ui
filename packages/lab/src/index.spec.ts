@@ -11,7 +11,6 @@ test('api', () => {
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
       "isCollapsedBelow": [Function],
-      "normalizeSpace": [Function],
     }
   `);
 });

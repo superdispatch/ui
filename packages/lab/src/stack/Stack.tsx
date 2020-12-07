@@ -1,15 +1,15 @@
 import {
   HorizontalAlign,
-  normalizeAlignProp,
+  parseAlignProp,
+  parseSpaceProp,
   ResponsiveProp,
   ResponsivePropTuple,
+  SpaceProp,
   useResponsiveProp,
 } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
-
-import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function stackItemMixin(
   space: SpaceProp,
@@ -17,8 +17,8 @@ function stackItemMixin(
 ): readonly SimpleInterpolation[] {
   return css`
     flex-direction: column;
-    padding-top: ${normalizeSpace(space)};
-    align-items: ${normalizeAlignProp(align)};
+    align-items: ${parseAlignProp(align)};
+    padding-top: ${parseSpaceProp(space)}px;
     display: ${align === 'left' ? 'block' : 'flex'};
 
     &:first-child {

@@ -3,7 +3,7 @@ import { Property } from 'csstype';
 export type VerticalAlign = 'top' | 'center' | 'bottom';
 export type HorizontalAlign = 'left' | 'center' | 'right';
 
-export function normalizeAlignProp(
+export function parseAlignProp(
   align: VerticalAlign | HorizontalAlign,
 ): Property.AlignItems {
   switch (align) {

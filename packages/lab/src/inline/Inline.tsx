@@ -1,8 +1,10 @@
 import {
   HorizontalAlign,
-  normalizeAlignProp,
+  parseAlignProp,
+  parseSpaceProp,
   ResponsiveProp,
   ResponsivePropTuple,
+  SpaceProp,
   useResponsiveProp,
   VerticalAlign,
 } from '@superdispatch/ui';
@@ -10,35 +12,33 @@ import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
-
 function inlineRootMixin(
-  space: SpaceProp,
+  spaceProp: SpaceProp,
   noWrap: boolean,
   verticalAlign: VerticalAlign,
   horizontalAlign: HorizontalAlign,
 ): readonly SimpleInterpolation[] {
-  const gap = normalizeSpace(space) as string;
+  const space = parseSpaceProp(spaceProp);
 
   return css`
     &:before {
-      margin-top: calc(-${gap} - 1px);
+      margin-top: calc(-${space} - 1px);
     }
 
     & > div {
       display: flex;
-      margin-left: -${gap};
+      margin-left: -${space}px;
       flex-wrap: ${noWrap ? 'nowrap' : 'wrap'};
-      align-items: ${normalizeAlignProp(verticalAlign)};
-      justify-content: ${normalizeAlignProp(horizontalAlign)};
+      align-items: ${parseAlignProp(verticalAlign)};
+      justify-content: ${parseAlignProp(horizontalAlign)};
 
       & > div {
         min-width: 0;
         flex-shrink: 0;
         max-width: 100%;
 
-        margin-top: ${gap};
-        margin-left: ${gap};
+        margin-top: ${space}px;
+        margin-left: ${space}px;
       }
     }
   `;
