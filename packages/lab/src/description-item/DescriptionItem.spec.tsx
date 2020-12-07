@@ -12,7 +12,7 @@ test('label id', () => {
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
       aria-labelledby="text-label"
-      class="Columns-SD__sc-6ncr2h-0 bpLBqx"
+      class="Columns-SD__sc-6ncr2h-0 ntdTZ"
       id="text"
     >
       <div
@@ -20,7 +20,7 @@ test('label id', () => {
       >
         <div>
           <div
-            class="Inline__InlineRoot-SD__zf0xat-0 jLKDqz"
+            class="Inline__InlineRoot-SD__zf0xat-0 chmaqq"
           >
             <div>
               <div>
@@ -56,7 +56,7 @@ test('aria label', () => {
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
       aria-label="Label"
-      class="Columns-SD__sc-6ncr2h-0 bpLBqx"
+      class="Columns-SD__sc-6ncr2h-0 ntdTZ"
       id="text"
     >
       <div
@@ -64,7 +64,7 @@ test('aria label', () => {
       >
         <div>
           <div
-            class="Inline__InlineRoot-SD__zf0xat-0 jLKDqz"
+            class="Inline__InlineRoot-SD__zf0xat-0 chmaqq"
           >
             <div>
               <div>

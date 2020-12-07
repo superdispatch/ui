@@ -1,11 +1,17 @@
-import { Color, ColorProp, isColorProp } from '@superdispatch/ui';
+import {
+  Color,
+  ColorProp,
+  isColorProp,
+  parseResponsiveProp,
+  parseSpaceProp,
+  ResponsiveProp,
+  SpaceProp,
+} from '@superdispatch/ui';
 import { Property } from 'csstype';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
 
-import { ResponsiveProp, toResponsivePropTuple } from '../utils/ResponsiveProp';
 import { createRuleNormalizer, RuleNormalizer } from '../utils/RuleNormalizer';
-import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 //
 // Colors
@@ -13,6 +19,14 @@ import { normalizeSpace, SpaceProp } from '../utils/SpaceProp';
 
 function normalizeColor(input: unknown): string | undefined {
   return isColorProp(input) ? Color[input] : undefined;
+}
+
+//
+// Space
+//
+
+function parseSpace(space: unknown): string {
+  return `${parseSpaceProp(space as SpaceProp)}px`;
 }
 
 //
@@ -95,17 +109,17 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   borderRightWidth: normalizeBorderWidth,
   borderBottomWidth: normalizeBorderWidth,
 
-  margin: normalizeSpace,
-  marginTop: normalizeSpace,
-  marginLeft: normalizeSpace,
-  marginRight: normalizeSpace,
-  marginBottom: normalizeSpace,
+  margin: parseSpace,
+  marginTop: parseSpace,
+  marginLeft: parseSpace,
+  marginRight: parseSpace,
+  marginBottom: parseSpace,
 
-  padding: normalizeSpace,
-  paddingTop: normalizeSpace,
-  paddingLeft: normalizeSpace,
-  paddingRight: normalizeSpace,
-  paddingBottom: normalizeSpace,
+  padding: parseSpace,
+  paddingTop: parseSpace,
+  paddingLeft: parseSpace,
+  paddingRight: parseSpace,
+  paddingBottom: parseSpace,
 
   borderRadius: normalizeBorderRadius,
 
@@ -175,7 +189,7 @@ export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
         const prop = props[key];
 
         if (prop != null && key in normalizers) {
-          const [mobile, tablet, desktop] = toResponsivePropTuple(prop);
+          const [mobile, tablet, desktop] = parseResponsiveProp(prop);
 
           const normalizer = normalizers[key];
 

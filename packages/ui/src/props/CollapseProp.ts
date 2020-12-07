@@ -2,8 +2,12 @@ import { ResponsivePropTuple } from './ResponsiveProp';
 
 export type CollapseProp = 'tablet' | 'desktop';
 
-export function isCollapsedBelow(
+export function parseCollapsedBelow(
   collapsedBelow: undefined | CollapseProp,
 ): ResponsivePropTuple<boolean> {
-  return [collapsedBelow != null, collapsedBelow === 'desktop', false];
+  return [
+    collapsedBelow === 'tablet' || collapsedBelow === 'desktop',
+    collapsedBelow === 'desktop',
+    false,
+  ];
 }

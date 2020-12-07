@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 
+import { HorizontalAlign } from '../props/AlignProps';
 import {
-  ResponsiveProp,
-  useResponsiveProp,
-} from '../responsive/ResponsiveProp';
+  ResponsivePropRecord,
+  useResponsivePropRecord,
+} from '../props/ResponsiveProp';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
-import { HorizontalAlign } from '../theme/types';
 
 type StackClassKey =
   | 'root'
@@ -75,8 +75,8 @@ export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface StackProps {
   children?: ReactNode;
-  space?: ResponsiveProp<StackSpace>;
-  align?: ResponsiveProp<HorizontalAlign>;
+  space?: ResponsivePropRecord<StackSpace>;
+  align?: ResponsivePropRecord<HorizontalAlign>;
 }
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
@@ -85,8 +85,8 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     ref,
   ) => {
     const styles = useStyles({});
-    const align = useResponsiveProp(alignProp);
-    const space = useResponsiveProp(spaceProp);
+    const align = useResponsivePropRecord(alignProp);
+    const space = useResponsivePropRecord(spaceProp);
 
     return (
       <div

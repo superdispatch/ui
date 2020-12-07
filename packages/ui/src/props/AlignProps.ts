@@ -1,7 +1,9 @@
-import { HorizontalAlign, VerticalAlign } from '@superdispatch/ui';
 import { Property } from 'csstype';
 
-export function normalizeAlignProp(
+export type VerticalAlign = 'top' | 'center' | 'bottom';
+export type HorizontalAlign = 'left' | 'center' | 'right';
+
+export function parseAlignProp(
   align: VerticalAlign | HorizontalAlign,
 ): Property.AlignItems {
   switch (align) {

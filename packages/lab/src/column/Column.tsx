@@ -1,11 +1,10 @@
-import { forwardRef, ReactNode } from 'react';
-import styled, { css, SimpleInterpolation } from 'styled-components';
-
 import {
   ResponsiveProp,
   ResponsivePropTuple,
-  useResponsivePropTuple,
-} from '../utils/ResponsiveProp';
+  useResponsiveProp,
+} from '@superdispatch/ui';
+import { forwardRef, ReactNode } from 'react';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
 export type ColumnWidth =
   | 'adaptive'
@@ -98,7 +97,7 @@ export interface ColumnProps {
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ children, width = 'fluid' }: ColumnProps, ref) => {
-    const columnWidth = useResponsivePropTuple(width);
+    const columnWidth = useResponsiveProp(width);
 
     return (
       <ColumnRoot ref={ref} columnWidth={columnWidth}>
