@@ -4,60 +4,33 @@ import { DescriptionItem } from './DescriptionItem';
 
 test('label id', () => {
   const { getByLabelText } = renderComponent(
-    <DescriptionItem id="text" label="Label">
-      Text
+    <DescriptionItem id="item" label="Label">
+      Content
     </DescriptionItem>,
   );
 
   expect(getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
-      aria-labelledby="text-label"
-      class="Columns-SD__sc-6ncr2h-0 ntdTZ"
-      id="text"
+      aria-labelledby="item-label"
+      class="TextBox__TextBoxRoot-SD__sc-9mywck-0 kAkFaO"
     >
-      <div
-        class="Column__ColumnRoot-SD__bzrwgs-0 diAEQg"
-      >
-        <div>
-          <div
-            class="Inline__InlineRoot-SD__zf0xat-0 chmaqq"
-          >
-            <div>
-              <div>
-                <span
-                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 ibsGop"
-                  id="text-label"
-                >
-                  Label
-                </span>
-              </div>
-              <div>
-                <div
-                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 kAkFaO"
-                >
-                  Text
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      Content
     </div>
   `);
 });
 
 test('aria label', () => {
   const { getByLabelText } = renderComponent(
-    <DescriptionItem id="text" aria-label="Label">
-      Text
+    <DescriptionItem id="item" aria-label="item label" label="Label">
+      Content
     </DescriptionItem>,
   );
 
-  expect(getByLabelText('Label')).toMatchInlineSnapshot(`
+  expect(getByLabelText('item label')).toMatchInlineSnapshot(`
     <div
-      aria-label="Label"
+      aria-label="item label"
       class="Columns-SD__sc-6ncr2h-0 ntdTZ"
-      id="text"
+      id="item"
     >
       <div
         class="Column__ColumnRoot-SD__bzrwgs-0 diAEQg"
@@ -68,10 +41,19 @@ test('aria label', () => {
           >
             <div>
               <div>
+                <label
+                  class="TextBox__TextBoxRoot-SD__sc-9mywck-0 ibsGop"
+                  id="item-label"
+                >
+                  Label
+                </label>
+              </div>
+              <div>
                 <div
+                  aria-labelledby="item-label"
                   class="TextBox__TextBoxRoot-SD__sc-9mywck-0 kAkFaO"
                 >
-                  Text
+                  Content
                 </div>
               </div>
             </div>

@@ -74,7 +74,6 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
         ref={ref}
         space={['xsmall', 'xxsmall']}
         aria-label={ariaLabel}
-        aria-labelledby={label == null ? undefined : labelID}
       >
         {!!(icon || inset) && (
           <Column width="content">
@@ -85,7 +84,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
         <Column width="adaptive">
           <Inline space="xxsmall" noWrap={!wrap}>
             {!!label && (
-              <TextBox id={labelID} color="secondary">
+              <TextBox as="label" id={labelID} color="secondary">
                 {label}
               </TextBox>
             )}
@@ -94,6 +93,7 @@ export const DescriptionItem = forwardRef<HTMLDivElement, DescriptionItemProps>(
               as="div"
               noWrap={!wrap}
               wrapOverflow={!!wrap}
+              aria-labelledby={label == null ? undefined : labelID}
               color={isEmptyChildren && label == null ? 'secondary' : 'primary'}
             >
               {isEmptyChildren ? fallback : children}
