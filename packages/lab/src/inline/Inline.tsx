@@ -90,6 +90,9 @@ const InlineRoot = styled.div<InlineRootProps>(
 
 export interface InlineProps {
   children?: ReactNode;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+
   noWrap?: ResponsiveProp<boolean>;
   space?: ResponsiveProp<SpaceProp>;
   verticalAlign?: ResponsiveProp<VerticalAlign>;
@@ -100,6 +103,9 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
   (
     {
       children,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+
       noWrap: noWrapProp = false,
       space: spaceProp = 'xsmall',
       verticalAlign: verticalAlignProp = 'top',
@@ -119,6 +125,8 @@ export const Inline = forwardRef<HTMLDivElement, InlineProps>(
         noWrap={noWrap}
         verticalAlign={verticalAlign}
         horizontalAlign={horizontalAlign}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
       >
         <div>
           {flattenChildren(children).map((child, idx) => (

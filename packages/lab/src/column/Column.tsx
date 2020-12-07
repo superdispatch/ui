@@ -92,15 +92,31 @@ const ColumnRoot = styled.div<ColumnRootProps>(
 
 export interface ColumnProps {
   children?: ReactNode;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+
   width?: ResponsiveProp<ColumnWidth>;
 }
 
 export const Column = forwardRef<HTMLDivElement, ColumnProps>(
-  ({ children, width = 'fluid' }: ColumnProps, ref) => {
+  (
+    {
+      children,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      width = 'fluid',
+    }: ColumnProps,
+    ref,
+  ) => {
     const columnWidth = useResponsiveProp(width);
 
     return (
-      <ColumnRoot ref={ref} columnWidth={columnWidth}>
+      <ColumnRoot
+        ref={ref}
+        columnWidth={columnWidth}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+      >
         <div>{children}</div>
       </ColumnRoot>
     );
