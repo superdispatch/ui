@@ -23,28 +23,28 @@ export const alignment = () => (
   <Columns space={1}>
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextBox as="p" align="right">
-          Align Right
-        </TextBox>
+        <TextBox align="right">Align Right</TextBox>
       </Box>
     </Column>
 
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextBox as="p" align="center">
-          Align Center
-        </TextBox>
+        <TextBox align="center">Align Center</TextBox>
       </Box>
     </Column>
 
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
-        <TextBox as="p" align="left">
-          Align Left
-        </TextBox>
+        <TextBox align="left">Align Left</TextBox>
       </Box>
     </Column>
   </Columns>
+);
+
+export const responsiveAlignment = () => (
+  <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
+    <TextBox align={['center', 'right']}>Text</TextBox>
+  </Box>
 );
 
 export const colors = () => (
