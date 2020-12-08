@@ -22,6 +22,12 @@ export type TextColorProp =
   | 'red'
   | 'teal'
   | 'yellow';
+export type TextDisplayProp =
+  | 'none'
+  | 'block'
+  | 'inline'
+  | 'initial'
+  | 'inherit';
 
 const normalizeTextColor = createRuleNormalizer<TextColorProp>({
   primary: Color.Grey500,
@@ -99,15 +105,18 @@ function variantMixin(
 }
 
 function textBoxMixin(
-  align: TextAlignProp,
-  color: TextColorProp,
   noWrap: boolean,
+  textAlign: TextAlignProp,
+  textColor: TextColorProp,
+  textDisplay: TextDisplayProp,
   wrapOverflow: boolean,
 ): readonly SimpleInterpolation[] {
   return css`
-    text-align: ${align};
-    color: ${normalizeTextColor(color)};
-    display: ${noWrap ? 'block' : 'initial'};
+    text-align: ${textAlign};
+    color: ${normalizeTextColor(textColor)};
+    display: ${textDisplay === 'initial' && (noWrap || textAlign !== 'left')
+      ? 'block'
+      : textDisplay};
     overflow: ${noWrap ? 'hidden' : 'visible'};
     white-space: ${noWrap ? 'nowrap' : 'normal'};
     overflow-wrap: ${wrapOverflow ? 'break-word' : 'normal'};
@@ -120,24 +129,51 @@ interface TextBoxRootProps {
   wrapOverflow: ResponsivePropTuple<boolean>;
   textAlign: ResponsivePropTuple<TextAlignProp>;
   textColor: ResponsivePropTuple<TextColorProp>;
+  textDisplay: ResponsivePropTuple<TextDisplayProp>;
 }
 
 const TextBoxRoot = styled.span<TextBoxRootProps>(
-  ({ theme, variant, textAlign, textColor, noWrap, wrapOverflow }) =>
+  ({
+    theme,
+    noWrap,
+    variant,
+    textAlign,
+    textColor,
+    textDisplay,
+    wrapOverflow,
+  }) =>
     css`
       margin: 0;
       padding: 0;
       text-overflow: ellipsis;
 
       ${variantMixin(theme, variant)};
-      ${textBoxMixin(textAlign[0], textColor[0], noWrap[0], wrapOverflow[0])};
+      ${textBoxMixin(
+        noWrap[0],
+        textAlign[0],
+        textColor[0],
+        textDisplay[0],
+        wrapOverflow[0],
+      )};
 
       ${theme.breakpoints.up('sm')} {
-        ${textBoxMixin(textAlign[1], textColor[1], noWrap[1], wrapOverflow[1])};
+        ${textBoxMixin(
+          noWrap[1],
+          textAlign[1],
+          textColor[1],
+          textDisplay[1],
+          wrapOverflow[1],
+        )};
       }
 
       ${theme.breakpoints.up('md')} {
-        ${textBoxMixin(textAlign[2], textColor[2], noWrap[2], wrapOverflow[2])};
+        ${textBoxMixin(
+          noWrap[2],
+          textAlign[2],
+          textColor[2],
+          textDisplay[2],
+          wrapOverflow[2],
+        )};
       }
     `,
 );
@@ -154,6 +190,7 @@ export interface TextBoxProps {
 
   align?: ResponsiveProp<TextAlignProp>;
   color?: ResponsiveProp<TextColorProp>;
+  display?: ResponsiveProp<TextDisplayProp>;
 }
 
 export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
@@ -163,6 +200,7 @@ export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
       as = VARIANT_TYPE_MAPPING[variant],
       align = 'left',
       color = 'primary',
+      display = 'initial',
       noWrap: noWrapProp = false,
       wrapOverflow: wrapOverflowProp = false,
       ...props
@@ -172,6 +210,7 @@ export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
     const textAlign = parseResponsiveProp(align);
     const textColor = parseResponsiveProp(color);
     const noWrap = parseResponsiveProp(noWrapProp);
+    const textDisplay = parseResponsiveProp(display);
     const wrapOverflow = parseResponsiveProp(wrapOverflowProp);
 
     return (
@@ -183,6 +222,7 @@ export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
         variant={variant}
         textAlign={textAlign}
         textColor={textColor}
+        textDisplay={textDisplay}
         wrapOverflow={wrapOverflow}
       />
     );
