@@ -94,17 +94,17 @@ interface BoxRules {
 
   borderRadius?: ResponsiveProp<BorderRadiusProp>;
 
-  width?: Property.Width;
-  maxWidth?: Property.MaxWidth;
-  minWidth?: Property.MinWidth;
+  width?: ResponsiveProp<Property.Width>;
+  maxWidth?: ResponsiveProp<Property.MaxWidth>;
+  minWidth?: ResponsiveProp<Property.MinWidth>;
 
-  height?: Property.Height;
-  maxHeight?: Property.MaxHeight;
-  minHeight?: Property.MinHeight;
+  height?: ResponsiveProp<Property.Height>;
+  maxHeight?: ResponsiveProp<Property.MaxHeight>;
+  minHeight?: ResponsiveProp<Property.MinHeight>;
 
-  overflow?: Property.Overflow;
-  overflowY?: Property.OverflowY;
-  overflowX?: Property.OverflowX;
+  overflow?: ResponsiveProp<Property.Overflow>;
+  overflowY?: ResponsiveProp<Property.OverflowY>;
+  overflowX?: ResponsiveProp<Property.OverflowX>;
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
