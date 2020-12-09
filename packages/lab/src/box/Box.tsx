@@ -30,6 +30,20 @@ function parseSpace(space: unknown): string {
 }
 
 //
+// Margins
+//
+
+export type MarginProp = SpaceProp | 'auto';
+function parseMargin(margin: unknown): string {
+  switch (margin as MarginProp) {
+    case 'auto':
+      return 'auto';
+    default:
+      return parseSpace(margin);
+  }
+}
+
+//
 // Borders
 //
 
@@ -72,11 +86,11 @@ interface BoxRules {
   paddingRight?: ResponsiveProp<SpaceProp>;
   paddingBottom?: ResponsiveProp<SpaceProp>;
 
-  margin?: ResponsiveProp<SpaceProp>;
-  marginTop?: ResponsiveProp<SpaceProp>;
-  marginLeft?: ResponsiveProp<SpaceProp>;
-  marginRight?: ResponsiveProp<SpaceProp>;
-  marginBottom?: ResponsiveProp<SpaceProp>;
+  margin?: ResponsiveProp<MarginProp>;
+  marginTop?: ResponsiveProp<MarginProp>;
+  marginLeft?: ResponsiveProp<MarginProp>;
+  marginRight?: ResponsiveProp<MarginProp>;
+  marginBottom?: ResponsiveProp<MarginProp>;
 
   borderRadius?: ResponsiveProp<BorderRadiusProp>;
 
@@ -109,11 +123,11 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   borderRightWidth: normalizeBorderWidth,
   borderBottomWidth: normalizeBorderWidth,
 
-  margin: parseSpace,
-  marginTop: parseSpace,
-  marginLeft: parseSpace,
-  marginRight: parseSpace,
-  marginBottom: parseSpace,
+  margin: parseMargin,
+  marginTop: parseMargin,
+  marginLeft: parseMargin,
+  marginRight: parseMargin,
+  marginBottom: parseMargin,
 
   padding: parseSpace,
   paddingTop: parseSpace,
