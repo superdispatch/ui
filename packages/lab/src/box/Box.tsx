@@ -105,6 +105,12 @@ interface BoxRules {
   overflow?: ResponsiveProp<Property.Overflow>;
   overflowY?: ResponsiveProp<Property.OverflowY>;
   overflowX?: ResponsiveProp<Property.OverflowX>;
+
+  top?: ResponsiveProp<Property.Top>;
+  left?: ResponsiveProp<Property.Left>;
+  right?: ResponsiveProp<Property.Right>;
+  bottom?: ResponsiveProp<Property.Bottom>;
+  position?: ResponsiveProp<Property.Position>;
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
@@ -148,6 +154,12 @@ const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
   overflow: undefined,
   overflowY: undefined,
   overflowX: undefined,
+
+  top: undefined,
+  left: undefined,
+  right: undefined,
+  bottom: undefined,
+  position: undefined,
 };
 
 function injectRule(
