@@ -191,8 +191,10 @@ function injectRule(
 
 export interface BoxProps extends BoxRules {
   ref?: Ref<unknown>;
-  children?: ReactNode;
   as?: keyof JSX.IntrinsicElements;
+
+  role?: string;
+  children?: ReactNode;
 }
 
 export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
