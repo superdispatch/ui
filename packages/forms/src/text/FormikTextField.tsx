@@ -8,6 +8,24 @@ import {
   ReactNode,
 } from 'react';
 
+function parseInputValue(
+  event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+): unknown {
+  return event.target.value;
+}
+
+function formatInputValue(value: unknown): string {
+  if (value == null) {
+    return '';
+  }
+
+  return String(value);
+}
+
+function formatInputError(error: string): ReactNode {
+  return error || undefined;
+}
+
 export interface FormikTextFieldProps
   extends Omit<StandardTextFieldProps, 'error'> {
   name: string;
@@ -25,28 +43,30 @@ export const FormikTextField: ForwardRefExoticComponent<FormikTextFieldProps> = 
   (
     {
       name,
-      parse,
-      format,
+
       validate,
-      formatError,
 
       id,
       onBlur,
       onChange,
       disabled,
       helperText,
+
+      parse = parseInputValue,
+      format = formatInputValue,
+      formatError = formatInputError,
       ...props
     },
     ref,
   ) => {
     const uid = useUID(id);
     const { isSubmitting } = useFormikContext();
-    const [field, { error, touched }, { setValue }] = useField<unknown>({
-      name,
-      validate,
-    });
-    const errorText: ReactNode =
-      touched && (error && formatError ? formatError(error) : error);
+    const [
+      field,
+      { error, touched },
+      { setValue, setTouched },
+    ] = useField<unknown>({ name, validate });
+    const errorText: ReactNode = touched && error && formatError(error);
 
     return (
       <TextField
@@ -58,18 +78,19 @@ export const FormikTextField: ForwardRefExoticComponent<FormikTextFieldProps> = 
         error={!!errorText}
         helperText={errorText || helperText}
         disabled={disabled ?? isSubmitting}
-        value={format ? format(field.value) : field.value}
+        value={format(field.value)}
         onBlur={(event) => {
           onBlur?.(event);
-          field.onBlur(event);
+
+          if (!event.defaultPrevented) {
+            setTouched(true);
+          }
         }}
         onChange={(event) => {
           onChange?.(event);
 
-          if (parse) {
+          if (!event.defaultPrevented) {
             setValue(parse(event));
-          } else {
-            field.onChange(event);
           }
         }}
       />

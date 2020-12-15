@@ -20,7 +20,7 @@ export type ResponsivePropTuple<T extends ResponsivePropPrimitive> = readonly [
 export function parseResponsiveProp<T extends ResponsivePropPrimitive>(
   prop: ResponsiveProp<T>,
 ): ResponsivePropTuple<T> {
-  if (!Array.isArray(prop)) {
+  if (typeof prop != 'object') {
     return [prop, prop, prop];
   }
 

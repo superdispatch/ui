@@ -60,6 +60,7 @@ module.exports = {
             allow: [
               '**/packages/*/src/**',
               'dequal/lite',
+              'react-dom/test-utils',
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
               '@material-ui/core/styles/createBreakpoints',
