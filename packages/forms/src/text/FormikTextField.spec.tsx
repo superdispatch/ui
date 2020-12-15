@@ -1,8 +1,8 @@
 import { MenuItem } from '@material-ui/core';
 import { Deferred } from '@superdispatch/ui-testutils';
 import { fireEvent, waitFor } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikTextField } from './FormikTextField';
@@ -10,7 +10,6 @@ import { FormikTextField } from './FormikTextField';
 test('changes', async () => {
   const onBlur = jest.fn();
   const onChange = jest.fn();
-  const onSubmit = jest.fn();
 
   const wrapper = renderFormField(
     <FormikTextField
@@ -19,18 +18,13 @@ test('changes', async () => {
       onBlur={onBlur}
       onChange={onChange}
     />,
-    {
-      onSubmit,
-      initialValues: { name: '' },
-    },
+    { initialValues: { name: '' } },
   );
 
   const input = wrapper.getByLabelText('Name');
 
-  void act(() => {
-    userEvent.type(input, 'John');
-    userEvent.tab();
-  });
+  userEvent.type(input, 'John');
+  userEvent.tab();
 
   expect(input).toHaveValue('John');
 
@@ -40,10 +34,10 @@ test('changes', async () => {
   wrapper.submitForm();
 
   await waitFor(() => {
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(wrapper.onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmit).toHaveBeenLastCalledWith({ name: 'John' });
+  expect(wrapper.onSubmit).toHaveBeenLastCalledWith({ name: 'John' });
 });
 
 test('errors', async () => {
@@ -58,15 +52,11 @@ test('errors', async () => {
 
   expect(wrapper.getByRole('textbox')).toBeValid();
 
-  void act(() => {
-    userEvent.type(wrapper.getByRole('textbox'), 'john');
-  });
+  userEvent.type(wrapper.getByRole('textbox'), 'john');
 
   expect(wrapper.getByRole('textbox')).toBeValid();
 
-  void act(() => {
-    fireEvent.blur(wrapper.getByRole('textbox'));
-  });
+  fireEvent.blur(wrapper.getByRole('textbox'));
 
   await waitFor(() => {
     expect(wrapper.getByRole('textbox')).toBeInvalid();
@@ -97,9 +87,7 @@ test('formatErrors', async () => {
 
   expect(wrapper.getByRole('textbox')).toBeValid();
 
-  void act(() => {
-    fireEvent.blur(wrapper.getByRole('textbox'));
-  });
+  fireEvent.blur(wrapper.getByRole('textbox'));
 
   await waitFor(() => {
     expect(wrapper.getByRole('textbox')).toBeInvalid();
@@ -151,6 +139,35 @@ test('submitting', async () => {
   await waitFor(() => {
     expect(input).toBeEnabled();
   });
+});
+
+test('default format and parse', async () => {
+  const wrapper = renderFormField(<FormikTextField name="name" />, {
+    initialValues: { name: null },
+  });
+
+  expect(wrapper.getByRole('textbox')).toHaveValue('');
+  expect(wrapper.formik.current.values.name).toBeNull();
+
+  userEvent.type(wrapper.getByRole('textbox'), 'foo');
+
+  expect(wrapper.getByRole('textbox')).toHaveValue('foo');
+  expect(wrapper.formik.current.values.name).toBe('foo');
+
+  act(() => {
+    wrapper.formik.current.setFieldValue('name', undefined);
+  });
+
+  expect(wrapper.getByRole('textbox')).toHaveValue('');
+  expect(wrapper.formik.current.values.name).toBeUndefined();
+
+  wrapper.submitForm();
+
+  await waitFor(() => {
+    expect(wrapper.onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  expect(wrapper.onSubmit).toHaveBeenLastCalledWith({});
 });
 
 test('format and parse', async () => {
