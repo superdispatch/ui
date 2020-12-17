@@ -24,11 +24,11 @@ module.exports = {
     },
 
     {
-      files: ['types/*.d.ts', '**/packages/**/*.{ts,tsx}'],
+      files: ['types/*.d.ts', 'packages/**/*.{ts,tsx}'],
       excludedFiles: [
-        '**/packages/jestutils/**/*.ts',
-        '**/packages/testutils/**/*.ts',
-        '**/packages/eslint-plugin/**/*.ts',
+        'packages/jestutils/**/*.ts',
+        'packages/testutils/**/*.ts',
+        'packages/eslint-plugin/**/*.ts',
       ],
       extends: [
         'plugin:@superdispatch/react',
@@ -107,19 +107,28 @@ module.exports = {
     },
 
     {
-      files: ['**/packages/eslint-plugin/**/*.ts'],
+      files: ['scripts/**/*.ts', 'packages/eslint-plugin/**/*.ts'],
       extends: ['plugin:@superdispatch/ts-node'],
+      rules: {
+        'import/no-extraneous-dependencies': [
+          'error',
+          {
+            peerDependencies: true,
+          },
+        ],
+      },
     },
 
     {
       files: [
-        '**/setupTests.ts',
-        '**/globalSetup.ts',
+        'setupTests.ts',
+        'globalSetup.ts',
+        'packages/jestutils/**/*.ts',
+        'packages/testutils/**/*.ts',
+
         '**/*.spec.{ts,tsx}',
         '**/__tests__/**/*.{ts,tsx}',
         '**/__testutils__/**/*.{ts,tsx}',
-        '**/packages/jestutils/**/*.ts',
-        '**/packages/testutils/**/*.ts',
       ],
       extends: ['plugin:@superdispatch/ts-jest'],
       rules: {
