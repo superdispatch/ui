@@ -2,6 +2,8 @@
   "exclude": ["**/pkg/**/*"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": false,
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo"
   }
 }

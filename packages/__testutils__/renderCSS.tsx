@@ -1,6 +1,6 @@
 import { Color, ThemeProvider } from '@superdispatch/ui';
 import { render } from '@testing-library/react';
-import css, { Stylesheet } from 'css';
+import { parse as parseCSS, stringify as stringifyCSS, Stylesheet } from 'css';
 import { format } from 'prettier';
 import { ReactElement } from 'react';
 
@@ -62,7 +62,7 @@ function getSheets(components: string[]): Element[] {
 }
 
 function parseStyleSheet(names: string[]): Stylesheet {
-  return css.parse(
+  return parseCSS(
     getSheets(names)
       .map((node) => node.textContent)
       .join('\n'),
@@ -71,9 +71,10 @@ function parseStyleSheet(names: string[]): Stylesheet {
 
 function formatAST(sheet: Stylesheet): string {
   return format(
-    css
-      .stringify(sheet)
-      .replace(colorRegExp, (color) => colors.get(color) as string),
+    stringifyCSS(sheet).replace(
+      colorRegExp,
+      (color) => colors.get(color) as string,
+    ),
     { parser: 'css', singleQuote: true },
   ).trim();
 }
