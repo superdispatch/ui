@@ -1,7 +1,10 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+import * as MaterialUICore from '@material-ui/core';
+import * as MaterialUIIcons from '@material-ui/icons';
+import * as MaterialUILab from '@material-ui/lab';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const DOCS_DIR = path.join(__dirname, '..', 'packages', '__docs__');
 const PLAYROOM_GENERATED_DIR = path.join(DOCS_DIR, 'generated');
@@ -16,8 +19,7 @@ const lines = [];
 // Internals
 //
 
-lines.push("export * from '../Placeholder';");
-lines.push("export * from '../UseState';");
+lines.push("export * from '../Placeholder';", "export * from '../UseState';");
 
 //
 // SD Components
@@ -36,41 +38,39 @@ lines.push(
 
 lines.push("type MuiComponent<T> = import('react').FunctionComponent<T>");
 
-reexportModules('@material-ui/core', {
-  filter(name, Component) {
-    return (
-      isComponentLike(name, Component) &&
-      !!Component.propTypes &&
-      !name.endsWith('Provider') &&
-      !name.startsWith('Unstable_') &&
-      ![
-        // Overridden components.
-        'Box',
-        'Button',
-        'Snackbar',
-        'SnackbarContent',
+reexportModules(
+  MaterialUICore,
+  reexportMuiModule.bind(null, '@material-ui/core'),
+  (name, Component) =>
+    isComponentLike(name, Component) &&
+    !!Component.propTypes &&
+    !name.endsWith('Provider') &&
+    !name.startsWith('Unstable_') &&
+    ![
+      // Overridden components.
+      'Box',
+      'Button',
+      'Snackbar',
+      'SnackbarContent',
 
-        // Overridden for docs.
-        'Dialog',
-        'Drawer',
+      // Overridden for docs.
+      'Dialog',
+      'Drawer',
 
-        // Non UI components.
-        'NoSsr',
-        'Portal',
-        'RootRef',
-        'ButtonBase',
-        'CssBaseline',
-        'ClickAwayListener',
-      ].includes(name)
-    );
-  },
+      // Non UI components.
+      'NoSsr',
+      'Portal',
+      'RootRef',
+      'ButtonBase',
+      'CssBaseline',
+      'ClickAwayListener',
+    ].includes(name),
+);
 
-  reexport: reexportMuiModule,
-});
-
-reexportModules('@material-ui/lab', {
-  reexport: reexportMuiModule,
-});
+reexportModules(
+  MaterialUILab,
+  reexportMuiModule.bind(null, '@material-ui/lab'),
+);
 
 // Icons
 
@@ -78,24 +78,22 @@ lines.push(
   "type MuiIcon = import('react').FunctionComponent<import('@material-ui/core/SvgIcon').SvgIconProps>",
 );
 
-reexportModules('@material-ui/icons', {
-  filter(name) {
-    return (
-      !name.endsWith('Sharp') &&
-      !name.endsWith('Rounded') &&
-      !name.endsWith('TwoTone') &&
-      !name.endsWith('Outlined')
-    );
-  },
-  reexport(name, Component, source) {
+reexportModules(
+  MaterialUIIcons,
+  (name) => {
     const internalName = `${name}IconInternal`;
 
     return [
-      `import ${internalName} from '${source}/${name}';`,
+      `import ${internalName} from '@material-ui/icons/${name}';`,
       `export const ${name}Icon = ${internalName} as MuiIcon;`,
     ].join('\n');
   },
-});
+  (name) =>
+    !name.endsWith('Sharp') &&
+    !name.endsWith('Rounded') &&
+    !name.endsWith('TwoTone') &&
+    !name.endsWith('Outlined'),
+);
 
 fs.mkdirSync(PLAYROOM_GENERATED_DIR, { recursive: true });
 fs.writeFileSync(PLAYROOM_COMPONENTS_FILE, lines.join('\n'), 'utf-8');
@@ -104,16 +102,27 @@ fs.writeFileSync(PLAYROOM_COMPONENTS_FILE, lines.join('\n'), 'utf-8');
 // Utils
 //
 
-function isComponentLike(name, Component) {
+interface ComponentLike {
+  Naked?: ComponentLike;
+  propTypes?: Record<string, unknown>;
+}
+
+function isComponentLike(
+  name: string,
+  Component: unknown,
+): Component is ComponentLike {
   return (
     name[0] === name[0].toUpperCase() &&
     (typeof Component === 'object' || typeof Component === 'function')
   );
 }
 
-function getComponentProps(Component, propsToIgnore = new Set()) {
+function getComponentProps(
+  Component: ComponentLike,
+  propsToIgnore = new Set<string>(),
+): string[] {
   const { propTypes } = Component.Naked || Component;
-  const props = [];
+  const props: string[] = [];
 
   if (propTypes) {
     const ignoredProps = new Set(['children', 'className', 'component']);
@@ -134,7 +143,11 @@ function getComponentProps(Component, propsToIgnore = new Set()) {
   return props;
 }
 
-function reexportMuiModule(name, Component, source) {
+function reexportMuiModule(
+  source: string,
+  name: string,
+  Component: ComponentLike,
+): string {
   let propsType = `${name}Props`;
   const internalName = `${name}Internal`;
   const propsToPick = getComponentProps(
@@ -169,7 +182,7 @@ function reexportMuiModule(name, Component, source) {
     propsType = `${propsType}<unknown, undefined, undefined, undefined>`;
   }
 
-  if (propsToPick && propsToPick.length) {
+  if (propsToPick.length) {
     propsType = `Pick<${propsType}, ${propsToPick
       .map((prop) => `'${prop}'`)
       .join(' | ')}>`;
@@ -182,18 +195,13 @@ function reexportMuiModule(name, Component, source) {
 }
 
 function reexportModules(
-  source,
-  {
-    filter = isComponentLike,
-    reexport = (name) =>
-      `export { default as ${name} } from '${source}/${name}';`,
-  } = {},
+  module: Record<string, unknown>,
+  reexport: (name: string, Component: ComponentLike) => string,
+  filter: (name: string, Component: unknown) => boolean = isComponentLike,
 ) {
-  const pkg = require(source);
-
-  for (const [name, Component] of Object.entries(pkg)) {
+  for (const [name, Component] of Object.entries(module)) {
     if (filter(name, Component)) {
-      lines.push(reexport(name, Component, source));
+      lines.push(reexport(name, Component as ComponentLike));
     }
   }
 }
