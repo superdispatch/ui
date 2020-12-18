@@ -37,8 +37,10 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 
     return (
       <SidebarRoot id={id} ref={ref}>
-        <SidebarTitle id={titleID}>
-          <TextBox variant="heading-2">{title}</TextBox>
+        <SidebarTitle>
+          <TextBox variant="heading-2" noWrap={true} id={titleID}>
+            {title}
+          </TextBox>
         </SidebarTitle>
 
         <SidebarContent>{children}</SidebarContent>

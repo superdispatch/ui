@@ -36,34 +36,44 @@ const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
   },
 );
 
-export interface SidebarMenuButtonProps {
+export interface SidebarMenuItemProps {
   selected?: boolean;
   external?: boolean;
 
   avatar?: ReactNode;
   children?: ReactNode;
+  endAdornment?: ReactNode;
 }
 
-export const SidebarMenuButton = forwardRef<
+export const SidebarMenuItem = forwardRef<
   HTMLButtonElement,
-  SidebarMenuButtonProps
->(({ selected, external, avatar, children }, ref) => {
+  SidebarMenuItemProps
+>(({ selected, external, avatar, children, endAdornment }, ref) => {
   return (
     <SidebarMenuItemRoot ref={ref} aria-current={selected} hasAvatar={!!avatar}>
       <Columns align="center" space="xsmall">
-        {!!avatar && <Column width="content">{avatar}</Column>}
+        <Column width="fluid">
+          <Columns align="center" space="xsmall">
+            {!!avatar && <Column width="content">{avatar}</Column>}
 
-        <Column width="adaptive">
-          <TextBox variant={selected ? 'body-semibold' : 'body'} noWrap={true}>
-            {children}
-          </TextBox>
+            <Column width="adaptive">
+              <TextBox
+                variant={selected ? 'body-semibold' : 'body'}
+                noWrap={true}
+              >
+                {children}
+              </TextBox>
+            </Column>
+
+            {external && (
+              <Column width="content">
+                <OpenInNew color="action" fontSize="small" />
+              </Column>
+            )}
+          </Columns>
         </Column>
 
-        {external && (
-          <Column width="content">
-            <OpenInNew color="action" fontSize="small" />
-          </Column>
-        )}
+        {endAdornment && <Column width="content">{endAdornment}</Column>}
       </Columns>
     </SidebarMenuItemRoot>
   );

@@ -1,13 +1,13 @@
 import { Avatar } from '@material-ui/core';
 import { forwardRef, useMemo } from 'react';
 
-export interface SidebarMenuButtonAvatar {
+export interface SidebarMenuItemAvatarProps {
   children: string;
 }
 
-export const SidebarMenuButtonAvatar = forwardRef<
+export const SidebarMenuItemAvatar = forwardRef<
   HTMLDivElement,
-  SidebarMenuButtonAvatar
+  SidebarMenuItemAvatarProps
 >(({ children }, ref) => {
   const initials = useMemo(() => {
     const matches = children.match(/\b\w/g) || [];

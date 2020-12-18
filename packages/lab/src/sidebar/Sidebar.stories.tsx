@@ -1,65 +1,81 @@
 import { Meta } from '@storybook/react';
 
 import { Sidebar } from './Sidebar';
-import { SidebarMenuButton } from './SidebarMenuButton';
-import { SidebarMenuButtonAvatar } from './SidebarMenuButtonAvatar';
+import { SidebarMenuItem } from './SidebarMenuItem';
+import { SidebarMenuItemAvatar } from './SidebarMenuItemAvatar';
+import { SidebarMenuItemBadge } from './SidebarMenuItemBadge';
 
 export default {
   title: 'Lab/Sidebar',
   component: Sidebar,
   subcomponents: {
-    SidebarMenuButton,
-    SidebarMenuButtonAvatar,
+    SidebarMenuItem,
+    SidebarMenuItemAvatar,
+    SidebarMenuItemBadge,
   },
 } as Meta;
 
 export const basic = () => (
   <Sidebar title="Settings">
-    <SidebarMenuButton selected={true}>General</SidebarMenuButton>
-    <SidebarMenuButton>Terminals</SidebarMenuButton>
-    <SidebarMenuButton>Driver App</SidebarMenuButton>
-    <SidebarMenuButton>Billing</SidebarMenuButton>
-    <SidebarMenuButton>Factoring</SidebarMenuButton>
-    <SidebarMenuButton external={true}>
-      Quickbooks Integration
-    </SidebarMenuButton>
-    <SidebarMenuButton>Subscription Details</SidebarMenuButton>
-    <SidebarMenuButton external={true}>Notification Emails</SidebarMenuButton>
-    <SidebarMenuButton external={true}>
-      Loadboard Notifications
-    </SidebarMenuButton>
+    <SidebarMenuItem selected={true}>General</SidebarMenuItem>
+    <SidebarMenuItem>Terminals</SidebarMenuItem>
+    <SidebarMenuItem>Driver App</SidebarMenuItem>
+    <SidebarMenuItem>Billing</SidebarMenuItem>
+    <SidebarMenuItem>Factoring</SidebarMenuItem>
+    <SidebarMenuItem external={true}>Quickbooks Integration</SidebarMenuItem>
+    <SidebarMenuItem>Subscription Details</SidebarMenuItem>
+    <SidebarMenuItem external={true}>Notification Emails</SidebarMenuItem>
+    <SidebarMenuItem external={true}>Loadboard Notifications</SidebarMenuItem>
   </Sidebar>
 );
 
 export const avatar = () => (
   <Sidebar title="Drivers">
-    <SidebarMenuButton
+    <SidebarMenuItem
       selected={true}
-      avatar={<SidebarMenuButtonAvatar>Eirwen Minoo</SidebarMenuButtonAvatar>}
+      avatar={<SidebarMenuItemAvatar>Eirwen Minoo</SidebarMenuItemAvatar>}
     >
       Eirwen Minoo
-    </SidebarMenuButton>
-    <SidebarMenuButton
-      avatar={<SidebarMenuButtonAvatar>Ole Kielo</SidebarMenuButtonAvatar>}
+    </SidebarMenuItem>
+    <SidebarMenuItem
+      avatar={<SidebarMenuItemAvatar>Ole Kielo</SidebarMenuItemAvatar>}
     >
       Ole Kielo
-    </SidebarMenuButton>
-    <SidebarMenuButton
-      avatar={
-        <SidebarMenuButtonAvatar>Virve Vivi Wangi</SidebarMenuButtonAvatar>
-      }
+    </SidebarMenuItem>
+    <SidebarMenuItem
+      avatar={<SidebarMenuItemAvatar>Virve Vivi Wangi</SidebarMenuItemAvatar>}
     >
       Virve Vivi Wangi
-    </SidebarMenuButton>
-    <SidebarMenuButton
+    </SidebarMenuItem>
+    <SidebarMenuItem
       avatar={
-        <SidebarMenuButtonAvatar>
+        <SidebarMenuItemAvatar>
           Radulf Čedomir Niĉjo Aparna
-        </SidebarMenuButtonAvatar>
+        </SidebarMenuItemAvatar>
       }
     >
       Radulf Čedomir Niĉjo Aparna
-    </SidebarMenuButton>
+    </SidebarMenuItem>
+  </Sidebar>
+);
+
+export const badge = () => (
+  <Sidebar title="Super Loadboard">
+    <SidebarMenuItem
+      selected={true}
+      endAdornment={<SidebarMenuItemBadge count={2339} />}
+    >
+      Available
+    </SidebarMenuItem>
+    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={5} />}>
+      Requested
+    </SidebarMenuItem>
+    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={0} />}>
+      Booked
+    </SidebarMenuItem>
+    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={56} />}>
+      Suggested
+    </SidebarMenuItem>
   </Sidebar>
 );
 
