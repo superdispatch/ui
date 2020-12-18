@@ -1,7 +1,7 @@
 import { ButtonBase } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
-import { forwardRef, ReactNode } from 'react';
+import { forwardRef, ReactNode, useLayoutEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Column } from '../column/Column';
@@ -92,6 +92,18 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
         ? '999+'
         : badgeProp;
 
+    const actionsRef = useRef<HTMLDivElement>(null);
+    const actionsPlaceholderRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+      const { current: actionsNode } = actionsRef;
+      const { current: actionsPlaceholderNode } = actionsPlaceholderRef;
+
+      if (actionsNode && actionsPlaceholderNode) {
+        actionsPlaceholderNode.style.width = `${actionsNode.offsetWidth}px`;
+      }
+    });
+
     return (
       <SidebarMenuItemRoot ref={ref} hasAvatar={!!avatar}>
         <ButtonBase aria-current={selected} disabled={disabled}>
@@ -126,11 +138,17 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
                 <SidebarMenuItemBadge>{badge}</SidebarMenuItemBadge>
               </Column>
             )}
+
+            {!!action && (
+              <Column width="content">
+                <div ref={actionsPlaceholderRef} />
+              </Column>
+            )}
           </Columns>
         </ButtonBase>
 
         {!!action && (
-          <SidebarMenuItemSecondaryAction>
+          <SidebarMenuItemSecondaryAction ref={actionsRef}>
             {action}
           </SidebarMenuItemSecondaryAction>
         )}

@@ -6,6 +6,8 @@ import { Columns } from '../column/Columns';
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarSubheaderRoot = styled.div`
+  height: 40px;
+  max-height: 40px;
   padding-left: 24px;
   padding-right: 24px;
 `;
@@ -24,7 +26,7 @@ export const SidebarSubheader = forwardRef<
     <SidebarSubheaderRoot ref={ref}>
       <Columns space="xsmall">
         <Column>
-          <TextBox id={id} variant="heading-6" color="secondary">
+          <TextBox id={id} variant="heading-6" color="secondary" noWrap={true}>
             {children}
           </TextBox>
         </Column>

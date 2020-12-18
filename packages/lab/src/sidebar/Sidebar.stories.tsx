@@ -1,3 +1,4 @@
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
 
@@ -97,5 +98,35 @@ export const complex = () => (
     >
       Load Alerts
     </SidebarSubheader>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      New York, NY - Kansas City, MO
+    </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      Kansas City, MO - New York, NY
+    </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      New York, NY - Kansas City, KS
+    </SidebarMenuItem>
   </Sidebar>
 );
