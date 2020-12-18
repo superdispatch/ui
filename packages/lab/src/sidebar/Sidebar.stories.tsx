@@ -1,3 +1,5 @@
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -70,17 +72,6 @@ export const avatar = () => (
   </Sidebar>
 );
 
-export const badge = () => (
-  <Sidebar title="Super Loadboard">
-    <SidebarMenuItem selected={true} badge={2339}>
-      Available
-    </SidebarMenuItem>
-    <SidebarMenuItem badge={5}>Requested</SidebarMenuItem>
-    <SidebarMenuItem badge={0}>Booked</SidebarMenuItem>
-    <SidebarMenuItem badge={56}>Suggested</SidebarMenuItem>
-  </Sidebar>
-);
-
 export const complex = () => (
   <Sidebar title="Super Loadboard">
     <SidebarMenuItem selected={true} badge={320}>
@@ -110,6 +101,17 @@ export const complex = () => (
         <SidebarMenuItemAction title="Mute">
           <NotificationsIcon color="primary" />
         </SidebarMenuItemAction>
+      }
+      secondaryActions={
+        <>
+          <SidebarMenuItemAction title="Edit">
+            <EditIcon />
+          </SidebarMenuItemAction>
+
+          <SidebarMenuItemAction title="Delete">
+            <DeleteIcon />
+          </SidebarMenuItemAction>
+        </>
       }
     >
       New York, NY - Kansas City, MO

@@ -1,11 +1,19 @@
 import { ButtonBase } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
-import { forwardRef, ReactNode, useLayoutEffect, useRef } from 'react';
+import {
+  forwardRef,
+  MouseEvent,
+  ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
+import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
 interface SidebarMenuItemRootProps {
@@ -65,11 +73,13 @@ export interface SidebarMenuItemProps {
   selected?: boolean;
   external?: boolean;
   disabled?: boolean;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 
   badge?: null | number;
   action?: ReactNode;
   avatar?: ReactNode;
   children?: ReactNode;
+  secondaryActions?: ReactNode;
 }
 
 export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
@@ -77,14 +87,17 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
     {
       action,
       avatar,
+      onClick,
       external,
       children,
       disabled,
       selected,
+      secondaryActions,
       badge: badgeProp,
     },
     ref,
   ) => {
+    const [isHovered, setIsHovered] = useState(false);
     const badge =
       !badgeProp || !Number.isFinite(badgeProp)
         ? null
@@ -97,13 +110,29 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
 
     useLayoutEffect(() => {
       if (actionsRef.current && actionsPlaceholderRef.current) {
-        actionsPlaceholderRef.current.style.width = `${actionsRef.current.offsetWidth}px`;
+        actionsPlaceholderRef.current.style.width = `${Math.max(
+          0,
+          actionsRef.current.offsetWidth - 8,
+        )}px`;
       }
     });
 
     return (
-      <SidebarMenuItemRoot ref={ref} hasAvatar={!!avatar}>
-        <ButtonBase aria-current={selected} disabled={disabled}>
+      <SidebarMenuItemRoot
+        ref={ref}
+        hasAvatar={!!avatar}
+        onMouseEnter={() => {
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false);
+        }}
+      >
+        <ButtonBase
+          onClick={onClick}
+          disabled={disabled}
+          aria-current={selected}
+        >
           <Columns align="center" space="xsmall">
             <Column>
               <Columns align="center" space="xsmall">
@@ -136,7 +165,7 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
               </Column>
             )}
 
-            {!!action && (
+            {(!!action || !!secondaryActions) && (
               <Column width="content">
                 <div ref={actionsPlaceholderRef} />
               </Column>
@@ -144,9 +173,12 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
           </Columns>
         </ButtonBase>
 
-        {!!action && (
+        {(!!action || !!secondaryActions) && (
           <SidebarMenuItemSecondaryAction ref={actionsRef}>
-            {action}
+            <Inline>
+              {isHovered && secondaryActions}
+              {action}
+            </Inline>
           </SidebarMenuItemSecondaryAction>
         )}
       </SidebarMenuItemRoot>
