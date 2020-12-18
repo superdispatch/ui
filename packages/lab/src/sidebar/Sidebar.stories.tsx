@@ -5,7 +5,6 @@ import { Sidebar } from './Sidebar';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { SidebarMenuItemAction } from './SidebarMenuItemAction';
 import { SidebarMenuItemAvatar } from './SidebarMenuItemAvatar';
-import { SidebarMenuItemBadge } from './SidebarMenuItemBadge';
 import { SidebarMenuItemDivider } from './SidebarMenuItemDivider';
 
 export default {
@@ -14,7 +13,6 @@ export default {
   subcomponents: {
     SidebarMenuItem,
     SidebarMenuItemAvatar,
-    SidebarMenuItemBadge,
     SidebarMenuItemAction,
     SidebarMenuItemDivider,
   },
@@ -66,41 +64,23 @@ export const avatar = () => (
 
 export const badge = () => (
   <Sidebar title="Super Loadboard">
-    <SidebarMenuItem
-      selected={true}
-      action={<SidebarMenuItemBadge count={2339} />}
-    >
+    <SidebarMenuItem selected={true} badge={2339}>
       Available
     </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={5} />}>
-      Requested
-    </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={0} />}>
-      Booked
-    </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={56} />}>
-      Suggested
-    </SidebarMenuItem>
+    <SidebarMenuItem badge={5}>Requested</SidebarMenuItem>
+    <SidebarMenuItem badge={0}>Booked</SidebarMenuItem>
+    <SidebarMenuItem badge={56}>Suggested</SidebarMenuItem>
   </Sidebar>
 );
 
 export const complex = () => (
   <Sidebar title="Super Loadboard">
-    <SidebarMenuItem
-      selected={true}
-      action={<SidebarMenuItemBadge count={320} />}
-    >
+    <SidebarMenuItem selected={true} badge={320}>
       Available
     </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={5} />}>
-      Requested
-    </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={12} />}>
-      Booked
-    </SidebarMenuItem>
-    <SidebarMenuItem action={<SidebarMenuItemBadge count={56} />}>
-      Suggested
-    </SidebarMenuItem>
+    <SidebarMenuItem badge={5}>Requested</SidebarMenuItem>
+    <SidebarMenuItem badge={12}>Booked</SidebarMenuItem>
+    <SidebarMenuItem badge={56}>Suggested</SidebarMenuItem>
 
     <SidebarMenuItemDivider />
 

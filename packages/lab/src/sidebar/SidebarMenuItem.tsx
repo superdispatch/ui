@@ -7,7 +7,6 @@ import styled, { css } from 'styled-components';
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
 import { TextBox } from '../text-box/TextBox';
-import { SidebarMenuItemContextProvider } from './SidebarMenuItemContext';
 
 interface SidebarMenuItemRootProps {
   hasAvatar: boolean;
@@ -39,6 +38,22 @@ const SidebarMenuItemRoot = styled.div<SidebarMenuItemRootProps>(
   },
 );
 
+const SidebarMenuItemBadge = styled.div`
+  font-size: 12px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 100px;
+
+  color: ${Color.Grey500};
+  background-color: ${Color.Silver300};
+
+  .MuiButtonBase-root[aria-current='true'] & {
+    color: ${Color.White};
+    background-color: ${Color.Grey450};
+  }
+`;
+
 const SidebarMenuItemSecondaryAction = styled.div`
   top: 50%;
   right: 24px;
@@ -51,48 +66,75 @@ export interface SidebarMenuItemProps {
   external?: boolean;
   disabled?: boolean;
 
+  badge?: null | number;
   action?: ReactNode;
   avatar?: ReactNode;
   children?: ReactNode;
 }
 
 export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
-  ({ selected, external, disabled, avatar, children, action }, ref) => {
+  (
+    {
+      action,
+      avatar,
+      external,
+      children,
+      disabled,
+      selected,
+      badge: badgeProp,
+    },
+    ref,
+  ) => {
+    const badge =
+      !badgeProp || !Number.isFinite(badgeProp)
+        ? null
+        : badgeProp > 999
+        ? '999+'
+        : badgeProp;
+
     return (
-      <SidebarMenuItemContextProvider selected={selected} disabled={disabled}>
-        <SidebarMenuItemRoot ref={ref} hasAvatar={!!avatar}>
-          <ButtonBase aria-current={selected}>
-            <Columns align="center" space="xsmall">
-              <Column width="fluid">
-                <Columns align="center" space="xsmall">
-                  {!!avatar && <Column width="content">{avatar}</Column>}
+      <SidebarMenuItemRoot ref={ref} hasAvatar={!!avatar}>
+        <ButtonBase aria-current={selected} disabled={disabled}>
+          <Columns align="center" space="xsmall">
+            <Column>
+              <Columns align="center" space="xsmall">
+                <Column width="fluid">
+                  <Columns align="center" space="xsmall">
+                    {!!avatar && <Column width="content">{avatar}</Column>}
 
-                  <Column width="adaptive">
-                    <TextBox
-                      variant={selected ? 'body-semibold' : 'body'}
-                      noWrap={true}
-                    >
-                      {children}
-                    </TextBox>
-                  </Column>
-
-                  {external && (
-                    <Column width="content">
-                      <OpenInNew color="action" fontSize="small" />
+                    <Column width="adaptive">
+                      <TextBox
+                        variant={selected ? 'body-semibold' : 'body'}
+                        noWrap={true}
+                      >
+                        {children}
+                      </TextBox>
                     </Column>
-                  )}
-                </Columns>
-              </Column>
-            </Columns>
-          </ButtonBase>
 
-          {!!action && (
-            <SidebarMenuItemSecondaryAction>
-              {action}
-            </SidebarMenuItemSecondaryAction>
-          )}
-        </SidebarMenuItemRoot>
-      </SidebarMenuItemContextProvider>
+                    {external && (
+                      <Column width="content">
+                        <OpenInNew color="action" fontSize="small" />
+                      </Column>
+                    )}
+                  </Columns>
+                </Column>
+              </Columns>
+            </Column>
+
+            {!!badge && (
+              <Column width="content">
+                <SidebarMenuItemBadge>{badge}</SidebarMenuItemBadge>
+              </Column>
+            )}
+          </Columns>
+        </ButtonBase>
+
+        {!!action && (
+          <SidebarMenuItemSecondaryAction>
+            {action}
+          </SidebarMenuItemSecondaryAction>
+        )}
+      </SidebarMenuItemRoot>
     );
   },
 );

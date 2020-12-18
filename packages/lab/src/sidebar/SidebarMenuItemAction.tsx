@@ -16,12 +16,12 @@ export interface SidebarMenuItemActionProps
 }
 
 export const SidebarMenuItemAction = forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   SidebarMenuItemActionProps
->(({ title, placement, children }) => {
+>(({ title, placement, children }, ref) => {
   return (
     <Tooltip title={title} placement={placement}>
-      <SidebarMenuItemActionRoot size="small" edge="end">
+      <SidebarMenuItemActionRoot ref={ref} size="small" edge="end">
         {children}
       </SidebarMenuItemActionRoot>
     </Tooltip>
