@@ -2,29 +2,39 @@ import { ButtonBase } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
 import { TextBox } from '../text-box/TextBox';
 
-const SidebarMenuItemRoot = styled(ButtonBase)`
-  && {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
+interface SidebarMenuItemRootProps {
+  hasAvatar: boolean;
+}
 
-    height: 40px;
-    max-height: 40px;
-    padding-left: 24px;
-    padding-right: 24px;
+const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
+  ({ hasAvatar }) => {
+    const height = hasAvatar ? 48 : 40;
 
-    &[aria-current='true'] {
-      background-color: ${Color.Silver200};
-      box-shadow: inset 4px 0 0 ${Color.Blue300};
-    }
-  }
-`;
+    return css`
+      && {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+
+        padding-left: 24px;
+        padding-right: 24px;
+        height: ${height}px;
+        max-height: ${height}px;
+
+        &[aria-current='true'] {
+          background-color: ${Color.Silver200};
+          box-shadow: inset 4px 0 0 ${Color.Blue300};
+        }
+      }
+    `;
+  },
+);
 
 export interface SidebarMenuButtonProps {
   selected?: boolean;
@@ -39,7 +49,7 @@ export const SidebarMenuButton = forwardRef<
   SidebarMenuButtonProps
 >(({ selected, external, avatar, children }, ref) => {
   return (
-    <SidebarMenuItemRoot ref={ref} aria-current={selected}>
+    <SidebarMenuItemRoot ref={ref} aria-current={selected} hasAvatar={!!avatar}>
       <Columns align="center" space="xsmall">
         {!!avatar && <Column width="content">{avatar}</Column>}
 
