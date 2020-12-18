@@ -6,6 +6,7 @@ import { TextBox } from '../text-box/TextBox';
 
 const SidebarRoot = styled.aside`
   width: 240px;
+  height: 100vh;
   background-color: ${Color.White};
   border-right: 1px solid ${Color.Silver400};
 `;

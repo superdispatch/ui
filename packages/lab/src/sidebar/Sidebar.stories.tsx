@@ -2,11 +2,15 @@ import { Meta } from '@storybook/react';
 
 import { Sidebar } from './Sidebar';
 import { SidebarMenuButton } from './SidebarMenuButton';
+import { SidebarMenuButtonAvatar } from './SidebarMenuButtonAvatar';
 
 export default {
   title: 'Lab/Sidebar',
   component: Sidebar,
-  subcomponents: { SidebarMenuItem: SidebarMenuButton },
+  subcomponents: {
+    SidebarMenuButton,
+    SidebarMenuButtonAvatar,
+  },
 } as Meta;
 
 export const basic = () => (
@@ -23,6 +27,38 @@ export const basic = () => (
     <SidebarMenuButton external={true}>Notification Emails</SidebarMenuButton>
     <SidebarMenuButton external={true}>
       Loadboard Notifications
+    </SidebarMenuButton>
+  </Sidebar>
+);
+
+export const avatar = () => (
+  <Sidebar title="Drivers">
+    <SidebarMenuButton
+      selected={true}
+      avatar={<SidebarMenuButtonAvatar>Eirwen Minoo</SidebarMenuButtonAvatar>}
+    >
+      Eirwen Minoo
+    </SidebarMenuButton>
+    <SidebarMenuButton
+      avatar={<SidebarMenuButtonAvatar>Ole Kielo</SidebarMenuButtonAvatar>}
+    >
+      Ole Kielo
+    </SidebarMenuButton>
+    <SidebarMenuButton
+      avatar={
+        <SidebarMenuButtonAvatar>Virve Vivi Wangi</SidebarMenuButtonAvatar>
+      }
+    >
+      Virve Vivi Wangi
+    </SidebarMenuButton>
+    <SidebarMenuButton
+      avatar={
+        <SidebarMenuButtonAvatar>
+          Radulf Čedomir Niĉjo Aparna
+        </SidebarMenuButtonAvatar>
+      }
+    >
+      Radulf Čedomir Niĉjo Aparna
     </SidebarMenuButton>
   </Sidebar>
 );
