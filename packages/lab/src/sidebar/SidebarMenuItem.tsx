@@ -96,12 +96,11 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
     const actionsPlaceholderRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
-      const { current: actionsNode } = actionsRef;
-      const { current: actionsPlaceholderNode } = actionsPlaceholderRef;
-
-      if (actionsNode && actionsPlaceholderNode) {
-        actionsPlaceholderNode.style.width = `${actionsNode.offsetWidth}px`;
+      if (!actionsRef.current || !actionsPlaceholderRef.current) {
+        return;
       }
+
+      actionsPlaceholderRef.current.style.width = `${actionsRef.current.offsetWidth}px`;
     });
 
     return (
