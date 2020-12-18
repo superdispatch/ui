@@ -1,15 +1,25 @@
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase, ButtonBaseProps } from '@material-ui/core';
+import { OpenInNew } from '@material-ui/icons';
 import { Color } from '@superdispatch/ui';
-import { forwardRef, ReactNode, Ref } from 'react';
+import {
+  AnchorHTMLAttributes,
+  forwardRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  Ref,
+} from 'react';
 import styled, { css } from 'styled-components';
 
+import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
-interface SidebarMenuItemRootProps {
+interface SidebarMenuItemRootProps extends ButtonBaseProps<'a'> {
   selected?: boolean;
 }
 
-const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
+const SidebarMenuItemRoot: ForwardRefExoticComponent<SidebarMenuItemRootProps> = styled(
+  ButtonBase,
+)<SidebarMenuItemRootProps>(
   ({ selected }) => css`
     width: 100%;
     display: flex;
@@ -25,6 +35,7 @@ const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
 );
 
 export interface SidebarMenuItemProps {
+  href?: string;
   selected?: boolean;
   children?: ReactNode;
 }
@@ -32,15 +43,25 @@ export interface SidebarMenuItemProps {
 export const SidebarMenuItem = forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
   SidebarMenuItemProps
->(({ selected, children }, ref) => {
+>(({ href, selected, children }, ref) => {
+  const linkProps: AnchorHTMLAttributes<HTMLAnchorElement> = !href
+    ? {}
+    : { href, target: '_blank', rel: 'noopener noreferrer' };
+
   return (
     <SidebarMenuItemRoot
-      ref={ref as Ref<HTMLButtonElement>}
+      {...linkProps}
+      href={href}
       selected={selected}
+      ref={ref as Ref<HTMLAnchorElement>}
     >
-      <TextBox variant={selected ? 'body-semibold' : 'body'}>
-        {children}
-      </TextBox>
+      <Inline verticalAlign="center" noWrap={true}>
+        <TextBox variant={selected ? 'body-semibold' : 'body'} noWrap={true}>
+          {children}
+        </TextBox>
+
+        {!!href && <OpenInNew color="action" fontSize="small" />}
+      </Inline>
     </SidebarMenuItemRoot>
   );
 });

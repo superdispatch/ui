@@ -16,10 +16,10 @@ export const basic = () => (
     <SidebarMenuItem>Driver App</SidebarMenuItem>
     <SidebarMenuItem>Billing</SidebarMenuItem>
     <SidebarMenuItem>Factoring</SidebarMenuItem>
-    <SidebarMenuItem>Quickbooks Integration</SidebarMenuItem>
+    <SidebarMenuItem href="/ ">Quickbooks Integration</SidebarMenuItem>
     <SidebarMenuItem>Subscription Details</SidebarMenuItem>
-    <SidebarMenuItem>Notification Emails</SidebarMenuItem>
-    <SidebarMenuItem>Loadboard Notifications</SidebarMenuItem>
+    <SidebarMenuItem href="/">Notification Emails</SidebarMenuItem>
+    <SidebarMenuItem href="/">Loadboard Notifications</SidebarMenuItem>
   </Sidebar>
 );
 
