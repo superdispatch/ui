@@ -6,7 +6,9 @@ export {
   Inline,
   Stack,
   Sidebar,
+  SidebarDivider,
   SidebarMenuItem,
+  SidebarMenuItemAction,
   SidebarMenuItemAvatar,
   TextBox,
 } from './src';

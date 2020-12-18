@@ -2,19 +2,20 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
 
 import { Sidebar } from './Sidebar';
+import { SidebarDivider } from './SidebarDivider';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { SidebarMenuItemAction } from './SidebarMenuItemAction';
 import { SidebarMenuItemAvatar } from './SidebarMenuItemAvatar';
-import { SidebarMenuItemDivider } from './SidebarMenuItemDivider';
+import { SidebarSubheader } from './SidebarSubheader';
 
 export default {
   title: 'Lab/Sidebar',
   component: Sidebar,
   subcomponents: {
+    SidebarDivider,
     SidebarMenuItem,
     SidebarMenuItemAvatar,
     SidebarMenuItemAction,
-    SidebarMenuItemDivider,
   },
 } as Meta;
 
@@ -82,9 +83,9 @@ export const complex = () => (
     <SidebarMenuItem badge={12}>Booked</SidebarMenuItem>
     <SidebarMenuItem badge={56}>Suggested</SidebarMenuItem>
 
-    <SidebarMenuItemDivider />
+    <SidebarDivider />
 
-    <SidebarMenuItem
+    <SidebarSubheader
       action={
         <SidebarMenuItemAction
           placement="right"
@@ -95,6 +96,6 @@ export const complex = () => (
       }
     >
       Load Alerts
-    </SidebarMenuItem>
+    </SidebarSubheader>
   </Sidebar>
 );

@@ -1,3 +1,35 @@
+import { forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const SidebarSubheader = styled.div``;
+import { Column } from '../column/Column';
+import { Columns } from '../column/Columns';
+import { TextBox } from '../text-box/TextBox';
+
+const SidebarSubheaderRoot = styled.div`
+  padding-left: 24px;
+  padding-right: 24px;
+`;
+
+export interface SidebarSubheaderProps {
+  id?: string;
+  action?: ReactNode;
+  children?: ReactNode;
+}
+
+export const SidebarSubheader = forwardRef<
+  HTMLDivElement,
+  SidebarSubheaderProps
+>(({ id, action, children }, ref) => {
+  return (
+    <SidebarSubheaderRoot ref={ref}>
+      <Columns space="xsmall">
+        <Column>
+          <TextBox id={id} variant="heading-6" color="secondary">
+            {children}
+          </TextBox>
+        </Column>
+        {!!action && <Column width="content">{action}</Column>}
+      </Columns>
+    </SidebarSubheaderRoot>
+  );
+});
