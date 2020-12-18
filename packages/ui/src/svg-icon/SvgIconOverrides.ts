@@ -4,6 +4,10 @@ import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 export function overrideSvgIcon(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
+  theme.props.MuiSvgIcon = {
+    color: 'action',
+  };
+
   theme.overrides.MuiSvgIcon = {
     root: {
       display: 'inherit',

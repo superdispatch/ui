@@ -1,3 +1,4 @@
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
@@ -101,8 +102,8 @@ export const complex = () => (
 
     <SidebarMenuItem
       action={
-        <SidebarMenuItemAction title="Unmute">
-          <NotificationsOffIcon />
+        <SidebarMenuItemAction title="Mute">
+          <NotificationsIcon color="primary" />
         </SidebarMenuItemAction>
       }
     >
