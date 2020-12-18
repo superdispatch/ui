@@ -1,22 +1,25 @@
 import { Color } from '@superdispatch/ui';
 import { forwardRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const SidebarMenuItemBadgeRoot = styled.div`
-  font-size: 12px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  border-radius: 100px;
+import {
+  SidebarMenuItemContext,
+  useSidebarMenuItemContext,
+} from './SidebarMenuItemContext';
 
-  color: ${Color.Grey500};
-  background-color: ${Color.Silver300};
+const SidebarMenuItemBadgeRoot = styled.div<SidebarMenuItemContext>(
+  ({ selected }) =>
+    css`
+      font-size: 12px;
+      line-height: 16px;
+      padding-left: 4px;
+      padding-right: 4px;
+      border-radius: 100px;
 
-  [aria-current='true'] & {
-    color: ${Color.White};
-    background-color: ${Color.Grey450};
-  }
-`;
+      color: ${selected ? Color.White : Color.Grey500};
+      background-color: ${selected ? Color.Grey450 : Color.Silver300};
+    `,
+);
 
 export interface SidebarMenuItemBadgeProps {
   count?: null | number;
@@ -26,12 +29,14 @@ export const SidebarMenuItemBadge = forwardRef<
   HTMLDivElement,
   SidebarMenuItemBadgeProps
 >(({ count }, ref) => {
+  const { selected } = useSidebarMenuItemContext();
+
   if (!count || !Number.isFinite(count)) {
     return null;
   }
 
   return (
-    <SidebarMenuItemBadgeRoot ref={ref}>
+    <SidebarMenuItemBadgeRoot ref={ref} selected={selected}>
       {count > 999 ? '999+' : count}
     </SidebarMenuItemBadgeRoot>
   );

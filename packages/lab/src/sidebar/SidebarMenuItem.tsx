@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
 import { TextBox } from '../text-box/TextBox';
+import { SidebarMenuItemContextProvider } from './SidebarMenuItemContext';
 
 interface SidebarMenuItemRootProps {
   hasAvatar: boolean;
@@ -48,8 +49,8 @@ export interface SidebarMenuItemProps {
 export const SidebarMenuItem = forwardRef<
   HTMLButtonElement,
   SidebarMenuItemProps
->(({ selected, external, avatar, children, endAdornment }, ref) => {
-  return (
+>(({ selected, external, avatar, children, endAdornment }, ref) => (
+  <SidebarMenuItemContextProvider selected={selected}>
     <SidebarMenuItemRoot ref={ref} aria-current={selected} hasAvatar={!!avatar}>
       <Columns align="center" space="xsmall">
         <Column width="fluid">
@@ -76,5 +77,5 @@ export const SidebarMenuItem = forwardRef<
         {endAdornment && <Column width="content">{endAdornment}</Column>}
       </Columns>
     </SidebarMenuItemRoot>
-  );
-});
+  </SidebarMenuItemContextProvider>
+));
