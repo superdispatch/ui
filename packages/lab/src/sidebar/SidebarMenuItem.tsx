@@ -15,6 +15,7 @@ import { Column } from '../column/Column';
 import { Columns } from '../column/Columns';
 import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
+import { SidebarMenuItemContextProvider } from './SidebarMenuItemContext';
 
 interface SidebarMenuItemRootProps {
   hasAvatar: boolean;
@@ -97,14 +98,7 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
     },
     ref,
   ) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const badge =
-      !badgeProp || !Number.isFinite(badgeProp)
-        ? null
-        : badgeProp > 999
-        ? '999+'
-        : badgeProp;
-
+    const [hovered, setHovered] = useState(false);
     const actionsRef = useRef<HTMLDivElement>(null);
     const actionsPlaceholderRef = useRef<HTMLDivElement>(null);
 
@@ -117,15 +111,22 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
       }
     });
 
+    const badge =
+      !badgeProp || !Number.isFinite(badgeProp)
+        ? null
+        : badgeProp > 999
+        ? '999+'
+        : badgeProp;
+
     return (
       <SidebarMenuItemRoot
         ref={ref}
         hasAvatar={!!avatar}
         onMouseEnter={() => {
-          setIsHovered(true);
+          setHovered(true);
         }}
         onMouseLeave={() => {
-          setIsHovered(false);
+          setHovered(false);
         }}
       >
         <ButtonBase
@@ -138,7 +139,14 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
               <Columns align="center" space="xsmall">
                 <Column width="fluid">
                   <Columns align="center" space="xsmall">
-                    {!!avatar && <Column width="content">{avatar}</Column>}
+                    {!!avatar && (
+                      <SidebarMenuItemContextProvider
+                        hovered={hovered}
+                        disabled={disabled}
+                      >
+                        <Column width="content">{avatar}</Column>
+                      </SidebarMenuItemContextProvider>
+                    )}
 
                     <Column width="adaptive">
                       <TextBox
@@ -176,7 +184,7 @@ export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
         {(!!action || !!secondaryActions) && (
           <SidebarMenuItemSecondaryAction ref={actionsRef}>
             <Inline>
-              {isHovered && secondaryActions}
+              {hovered && secondaryActions}
               {action}
             </Inline>
           </SidebarMenuItemSecondaryAction>

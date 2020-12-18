@@ -51,9 +51,7 @@ export const avatar = () => (
       Eirwen Minoo
     </SidebarMenuItem>
     <SidebarMenuItem
-      avatar={
-        <SidebarMenuItemAvatar value={true}>Ole Kielo</SidebarMenuItemAvatar>
-      }
+      avatar={<SidebarMenuItemAvatar>Ole Kielo</SidebarMenuItemAvatar>}
     >
       Ole Kielo
     </SidebarMenuItem>
@@ -65,6 +63,46 @@ export const avatar = () => (
     <SidebarMenuItem
       avatar={
         <SidebarMenuItemAvatar>
+          Radulf Čedomir Niĉjo Aparna
+        </SidebarMenuItemAvatar>
+      }
+    >
+      Radulf Čedomir Niĉjo Aparna
+    </SidebarMenuItem>
+  </Sidebar>
+);
+
+export const avatarCheckbox = () => (
+  <Sidebar title="Drivers">
+    <SidebarMenuItem
+      selected={true}
+      avatar={
+        <SidebarMenuItemAvatar value={false}>
+          Eirwen Minoo
+        </SidebarMenuItemAvatar>
+      }
+    >
+      Eirwen Minoo
+    </SidebarMenuItem>
+    <SidebarMenuItem
+      avatar={
+        <SidebarMenuItemAvatar value={true}>Ole Kielo</SidebarMenuItemAvatar>
+      }
+    >
+      Ole Kielo
+    </SidebarMenuItem>
+    <SidebarMenuItem
+      avatar={
+        <SidebarMenuItemAvatar value={false}>
+          Virve Vivi Wangi
+        </SidebarMenuItemAvatar>
+      }
+    >
+      Virve Vivi Wangi
+    </SidebarMenuItem>
+    <SidebarMenuItem
+      avatar={
+        <SidebarMenuItemAvatar value={false}>
           Radulf Čedomir Niĉjo Aparna
         </SidebarMenuItemAvatar>
       }
