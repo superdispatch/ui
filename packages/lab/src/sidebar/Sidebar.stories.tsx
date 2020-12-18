@@ -2,7 +2,9 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
+import { Button } from '@superdispatch/ui';
 
+import { Box } from '../box/Box';
 import { Sidebar } from './Sidebar';
 import { SidebarDivider } from './SidebarDivider';
 import { SidebarMenuItem } from './SidebarMenuItem';
@@ -18,6 +20,9 @@ export default {
     SidebarMenuItem,
     SidebarMenuItemAvatar,
     SidebarMenuItemAction,
+  },
+  parameters: {
+    percy: { skip: false },
   },
 } as Meta;
 
@@ -129,5 +134,58 @@ export const complex = () => (
     >
       New York, NY - Kansas City, KS
     </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      Kansas City, MO - New York, NY
+    </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      New York, NY - Kansas City, KS
+    </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      Kansas City, MO - New York, NY
+    </SidebarMenuItem>
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction title="Unmute">
+          <NotificationsOffIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      New York, NY - Kansas City, KS
+    </SidebarMenuItem>
+
+    <Box
+      bottom={0}
+      position="sticky"
+      paddingTop="small"
+      paddingBottom="small"
+      paddingLeft="medium"
+      paddingRight="medium"
+    >
+      <Button fullWidth={true} startIcon={<NotificationsOffIcon />}>
+        Create Load Alert
+      </Button>
+    </Box>
   </Sidebar>
 );

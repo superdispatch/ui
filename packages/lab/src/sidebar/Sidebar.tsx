@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarRoot = styled.aside`
+  overflow-y: auto;
+  overflow-x: hidden;
+
   width: 240px;
   height: 100vh;
   background-color: ${Color.White};
