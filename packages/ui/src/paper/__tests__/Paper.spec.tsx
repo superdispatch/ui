@@ -24,7 +24,7 @@ it('checks component css', () => {
     }
 
     .MuiPaper-outlined {
-      border: 1px solid rgba(0, 0, 0, 0.12);
+      border: 1px solid Color.Silver400;
     }
 
     .MuiPaper-elevation0 {
