@@ -13,12 +13,14 @@ interface SidebarMenuItemRootProps {
   hasAvatar: boolean;
 }
 
-const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
+const SidebarMenuItemRoot = styled.div<SidebarMenuItemRootProps>(
   ({ hasAvatar }) => {
     const height = hasAvatar ? 48 : 40;
 
     return css`
-      && {
+      position: relative;
+
+      & > .MuiButtonBase-root {
         width: 100%;
         display: flex;
         justify-content: flex-start;
@@ -37,45 +39,60 @@ const SidebarMenuItemRoot = styled(ButtonBase)<SidebarMenuItemRootProps>(
   },
 );
 
+const SidebarMenuItemSecondaryAction = styled.div`
+  top: 50%;
+  right: 24px;
+  position: absolute;
+  transform: translate3d(0, -50%, 0);
+`;
+
 export interface SidebarMenuItemProps {
   selected?: boolean;
   external?: boolean;
+  disabled?: boolean;
 
+  action?: ReactNode;
   avatar?: ReactNode;
   children?: ReactNode;
-  endAdornment?: ReactNode;
 }
 
-export const SidebarMenuItem = forwardRef<
-  HTMLButtonElement,
-  SidebarMenuItemProps
->(({ selected, external, avatar, children, endAdornment }, ref) => (
-  <SidebarMenuItemContextProvider selected={selected}>
-    <SidebarMenuItemRoot ref={ref} aria-current={selected} hasAvatar={!!avatar}>
-      <Columns align="center" space="xsmall">
-        <Column width="fluid">
-          <Columns align="center" space="xsmall">
-            {!!avatar && <Column width="content">{avatar}</Column>}
+export const SidebarMenuItem = forwardRef<HTMLDivElement, SidebarMenuItemProps>(
+  ({ selected, external, disabled, avatar, children, action }, ref) => {
+    return (
+      <SidebarMenuItemContextProvider selected={selected} disabled={disabled}>
+        <SidebarMenuItemRoot ref={ref} hasAvatar={!!avatar}>
+          <ButtonBase aria-current={selected}>
+            <Columns align="center" space="xsmall">
+              <Column width="fluid">
+                <Columns align="center" space="xsmall">
+                  {!!avatar && <Column width="content">{avatar}</Column>}
 
-            <Column width="adaptive">
-              <TextBox
-                variant={selected ? 'body-semibold' : 'body'}
-                noWrap={true}
-              >
-                {children}
-              </TextBox>
-            </Column>
+                  <Column width="adaptive">
+                    <TextBox
+                      variant={selected ? 'body-semibold' : 'body'}
+                      noWrap={true}
+                    >
+                      {children}
+                    </TextBox>
+                  </Column>
 
-            {external && (
-              <Column width="content">
-                <OpenInNew color="action" fontSize="small" />
+                  {external && (
+                    <Column width="content">
+                      <OpenInNew color="action" fontSize="small" />
+                    </Column>
+                  )}
+                </Columns>
               </Column>
-            )}
-          </Columns>
-        </Column>
+            </Columns>
+          </ButtonBase>
 
-        {endAdornment && <Column width="content">{endAdornment}</Column>}
-      </Columns>
-    </SidebarMenuItemRoot>
-  </SidebarMenuItemContextProvider>
-));
+          {!!action && (
+            <SidebarMenuItemSecondaryAction>
+              {action}
+            </SidebarMenuItemSecondaryAction>
+          )}
+        </SidebarMenuItemRoot>
+      </SidebarMenuItemContextProvider>
+    );
+  },
+);

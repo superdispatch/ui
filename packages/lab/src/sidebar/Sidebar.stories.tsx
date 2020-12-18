@@ -1,9 +1,12 @@
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
 
 import { Sidebar } from './Sidebar';
 import { SidebarMenuItem } from './SidebarMenuItem';
+import { SidebarMenuItemAction } from './SidebarMenuItemAction';
 import { SidebarMenuItemAvatar } from './SidebarMenuItemAvatar';
 import { SidebarMenuItemBadge } from './SidebarMenuItemBadge';
+import { SidebarMenuItemDivider } from './SidebarMenuItemDivider';
 
 export default {
   title: 'Lab/Sidebar',
@@ -12,6 +15,8 @@ export default {
     SidebarMenuItem,
     SidebarMenuItemAvatar,
     SidebarMenuItemBadge,
+    SidebarMenuItemAction,
+    SidebarMenuItemDivider,
   },
 } as Meta;
 
@@ -63,52 +68,53 @@ export const badge = () => (
   <Sidebar title="Super Loadboard">
     <SidebarMenuItem
       selected={true}
-      endAdornment={<SidebarMenuItemBadge count={2339} />}
+      action={<SidebarMenuItemBadge count={2339} />}
     >
       Available
     </SidebarMenuItem>
-    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={5} />}>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={5} />}>
       Requested
     </SidebarMenuItem>
-    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={0} />}>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={0} />}>
       Booked
     </SidebarMenuItem>
-    <SidebarMenuItem endAdornment={<SidebarMenuItemBadge count={56} />}>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={56} />}>
       Suggested
     </SidebarMenuItem>
   </Sidebar>
 );
 
-// <SidebarMenuItem
-//   endAdornment={<SidebarMenuItemBadge>4</SidebarMenuItemBadge>}
-// >
-//   Item Label
-// </SidebarMenuItem>
-//
-// <SidebarMenuItem
-//   selected={true}
-//   endAdornment={<SidebarMenuItemBadge>4</SidebarMenuItemBadge>}
-// >
-//   Item Label
-// </SidebarMenuItem>
-//
-// <SidebarMenuItem
-//   selected={true}
-//   endAdornment={<SidebarMenuItemAction icon={<NotificationOffIcon />} />}
-//   endActions={
-//     <>
-//       <EditIcon />
-//       <DeleteIcon />
-//     </>
-//   }
-// >
-//   New York, NY - Kansas...
-// </SidebarMenuItem>
-//
-// <SidebarMenuItem
-//   startAdornment={
-//     <SidebarMenuItemAvatar value="Darrell Steward" checked={false} />
-//   }
-// >
-//   Darrell Steward
-// </SidebarMenuItem>
+export const complex = () => (
+  <Sidebar title="Super Loadboard">
+    <SidebarMenuItem
+      selected={true}
+      action={<SidebarMenuItemBadge count={320} />}
+    >
+      Available
+    </SidebarMenuItem>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={5} />}>
+      Requested
+    </SidebarMenuItem>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={12} />}>
+      Booked
+    </SidebarMenuItem>
+    <SidebarMenuItem action={<SidebarMenuItemBadge count={56} />}>
+      Suggested
+    </SidebarMenuItem>
+
+    <SidebarMenuItemDivider />
+
+    <SidebarMenuItem
+      action={
+        <SidebarMenuItemAction
+          placement="right"
+          title="Loadboard Notifications"
+        >
+          <SettingsIcon />
+        </SidebarMenuItemAction>
+      }
+    >
+      Load Alerts
+    </SidebarMenuItem>
+  </Sidebar>
+);

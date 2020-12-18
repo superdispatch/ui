@@ -70,6 +70,8 @@ function createTheme(): SuperDispatchTheme {
         hint: Color.Grey100,
         disabled: Color.Grey100,
       },
+
+      divider: Color.Silver400,
     },
 
     typography: createTypographyOptions(breakpoints),

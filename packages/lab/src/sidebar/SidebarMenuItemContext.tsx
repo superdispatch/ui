@@ -9,6 +9,7 @@ import {
 export interface SidebarMenuItemContext {
   hovered?: boolean;
   selected?: boolean;
+  disabled?: boolean;
 }
 
 const context = createContext<SidebarMenuItemContext>({});
@@ -26,8 +27,13 @@ export function SidebarMenuItemContextProvider({
   children,
   hovered = false,
   selected = false,
+  disabled = false,
 }: SidebarMenuItemContextProviderProps): ReactElement {
-  const ctx = useMemo(() => ({ hovered, selected }), [hovered, selected]);
+  const ctx = useMemo(() => ({ hovered, selected, disabled }), [
+    hovered,
+    selected,
+    disabled,
+  ]);
 
   return <context.Provider value={ctx}>{children}</context.Provider>;
 }
