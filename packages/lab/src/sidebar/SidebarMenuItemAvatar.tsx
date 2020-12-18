@@ -1,6 +1,10 @@
 import { Avatar, Checkbox } from '@material-ui/core';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, SyntheticEvent, useMemo } from 'react';
 import styled from 'styled-components';
+
+function stopPropagation(event: SyntheticEvent): void {
+  event.stopPropagation();
+}
 
 const SidebarMenuItemAvatarCheckbox = styled.div`
   margin: -5px;
@@ -32,6 +36,8 @@ export const SidebarMenuItemAvatar = forwardRef<
         <Checkbox
           color="primary"
           checked={value}
+          onMouseDown={stopPropagation}
+          onTouchStart={stopPropagation}
           onChange={(_, checked) => {
             onChange?.(checked);
           }}
