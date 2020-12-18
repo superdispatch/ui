@@ -1,25 +1,29 @@
 import { Meta } from '@storybook/react';
 
 import { Sidebar } from './Sidebar';
-import { SidebarMenuItem } from './SidebarMenuItem';
+import { SidebarMenuButton } from './SidebarMenuButton';
 
 export default {
   title: 'Lab/Sidebar',
   component: Sidebar,
-  subcomponents: { SidebarMenuItem },
+  subcomponents: { SidebarMenuItem: SidebarMenuButton },
 } as Meta;
 
 export const basic = () => (
   <Sidebar title="Settings">
-    <SidebarMenuItem selected={true}>General</SidebarMenuItem>
-    <SidebarMenuItem>Terminals</SidebarMenuItem>
-    <SidebarMenuItem>Driver App</SidebarMenuItem>
-    <SidebarMenuItem>Billing</SidebarMenuItem>
-    <SidebarMenuItem>Factoring</SidebarMenuItem>
-    <SidebarMenuItem href="/ ">Quickbooks Integration</SidebarMenuItem>
-    <SidebarMenuItem>Subscription Details</SidebarMenuItem>
-    <SidebarMenuItem href="/">Notification Emails</SidebarMenuItem>
-    <SidebarMenuItem href="/">Loadboard Notifications</SidebarMenuItem>
+    <SidebarMenuButton selected={true}>General</SidebarMenuButton>
+    <SidebarMenuButton>Terminals</SidebarMenuButton>
+    <SidebarMenuButton>Driver App</SidebarMenuButton>
+    <SidebarMenuButton>Billing</SidebarMenuButton>
+    <SidebarMenuButton>Factoring</SidebarMenuButton>
+    <SidebarMenuButton external={true}>
+      Quickbooks Integration
+    </SidebarMenuButton>
+    <SidebarMenuButton>Subscription Details</SidebarMenuButton>
+    <SidebarMenuButton external={true}>Notification Emails</SidebarMenuButton>
+    <SidebarMenuButton external={true}>
+      Loadboard Notifications
+    </SidebarMenuButton>
   </Sidebar>
 );
 
