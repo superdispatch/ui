@@ -51,7 +51,9 @@ export const avatar = () => (
       Eirwen Minoo
     </SidebarMenuItem>
     <SidebarMenuItem
-      avatar={<SidebarMenuItemAvatar>Ole Kielo</SidebarMenuItemAvatar>}
+      avatar={
+        <SidebarMenuItemAvatar value={true}>Ole Kielo</SidebarMenuItemAvatar>
+      }
     >
       Ole Kielo
     </SidebarMenuItem>
