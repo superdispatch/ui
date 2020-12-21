@@ -66,5 +66,5 @@ function takeStorySnapshot(
   widths?: SnapshotWidths,
 ): void {
   cy.selectStory(kind, name);
-  cy.takeSnapshots(`${kind} - ${name}`, widths);
+  cy.takeSnapshots(`${kind}: ${name}`, widths);
 }

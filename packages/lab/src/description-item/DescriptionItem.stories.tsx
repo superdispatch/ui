@@ -17,7 +17,6 @@ import { DescriptionItem } from './DescriptionItem';
 export default {
   title: 'Lab/DescriptionItem',
   component: DescriptionItem,
-  parameters: { percy: { skip: false } },
 } as Meta;
 
 export const basic = () => (
