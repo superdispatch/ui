@@ -138,6 +138,9 @@ module.exports = {
     },
 
     {
+      parserOptions: {
+        project: './cypress/tsconfig.json',
+      },
       files: ['cypress/**/*.{ts,tsx}'],
       extends: ['plugin:@superdispatch/ts-cypress'],
       rules: {

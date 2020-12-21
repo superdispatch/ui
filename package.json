@@ -107,6 +107,7 @@
     "@superdispatch/js-tools": "^0.2.24",
     "@superdispatch/prettier-config": "^0.2.22",
     "@superdispatch/tsconfig": "^0.2.22",
+    "@testing-library/cypress": "^7.0.3",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/react-hooks": "^3.7.0",
