@@ -2,16 +2,7 @@ import { Meta } from '@storybook/react';
 
 import { Box } from './Box';
 
-export default {
-  title: 'Lab/Box',
-  component: Box,
-  parameters: {
-    percy: {
-      skip: false,
-      widths: [320, 768, 1024],
-    },
-  },
-} as Meta;
+export default { title: 'Lab/Box', component: Box } as Meta;
 
 export const basic = () => (
   <Box

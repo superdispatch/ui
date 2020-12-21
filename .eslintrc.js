@@ -140,6 +140,9 @@ module.exports = {
     {
       files: ['cypress/**/*.{ts,tsx}'],
       extends: ['plugin:@superdispatch/ts-cypress'],
+      rules: {
+        '@typescript-eslint/no-namespace': 'off',
+      },
     },
 
     {

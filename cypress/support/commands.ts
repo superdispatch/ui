@@ -1,25 +1,66 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import type { ClientApi } from '@storybook/client-api';
+
+declare global {
+  namespace Cypress {
+    interface Chainable<Subject = any> {
+      storyAPI: typeof storyAPI;
+      visitStory: typeof visitStory;
+      takeSnapshots: typeof takeSnapshots;
+      takeStorySnapshot: typeof takeStorySnapshot;
+    }
+  }
+}
+
+Cypress.Commands.add('storyAPI', storyAPI);
+function storyAPI() {
+  return cy
+    .window()
+    .then((win) => Cypress._.get(win, '__STORYBOOK_CLIENT_API__') as ClientApi);
+}
+
+Cypress.Commands.add('visitStory', visitStory);
+function visitStory(kind: string, name: string) {
+  cy.visit('http://localhost:5000/iframe.html');
+
+  storyAPI().then((api) => {
+    const store = api.store();
+    const story = store.getRawStory(kind, name);
+
+    expect(story).to.have.property('id');
+
+    store.setSelection({ viewMode: 'story', storyId: story.id });
+  });
+}
+
+type SnapshotWidths = ReadonlyArray<'mobile' | 'tablet' | 'desktop'>;
+
+Cypress.Commands.add('takeSnapshots', takeSnapshots);
+function takeSnapshots(
+  name: string,
+  widths: SnapshotWidths = ['desktop'],
+): void {
+  cy.percySnapshot(name, {
+    widths: widths.map((width) => {
+      switch (width) {
+        case 'mobile':
+          return 320;
+
+        case 'tablet':
+          return 768;
+
+        case 'desktop':
+          return 1024;
+      }
+    }),
+  });
+}
+
+Cypress.Commands.add('takeStorySnapshot', takeStorySnapshot);
+function takeStorySnapshot(
+  kind: string,
+  name: string,
+  widths?: SnapshotWidths,
+): void {
+  cy.visitStory(kind, name);
+  cy.takeSnapshots(`${kind} - ${name}`, widths);
+}
