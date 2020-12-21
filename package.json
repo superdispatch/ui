@@ -12,6 +12,7 @@
     ]
   },
   "scripts": {
+    "check:types": "yarn tsc && yarn tsc --project cypress",
     "build": "lerna run version --no-private",
     "build-size": "yarn build && size-limit",
     "clean": "git clean -fxd -e '.idea' -e '.vscode'",
@@ -38,7 +39,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "tsc"
+      "pre-push": "yarn check:types"
     }
   },
   "lint-staged": {
