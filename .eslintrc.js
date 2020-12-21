@@ -138,6 +138,11 @@ module.exports = {
     },
 
     {
+      files: ['cypress/**/*.{ts,tsx}'],
+      extends: ['plugin:@superdispatch/ts-cypress'],
+    },
+
+    {
       files: ['**/packages/__docs__/**/**.*'],
       rules: {
         'import/no-internal-modules': 'off',
