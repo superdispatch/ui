@@ -14,7 +14,9 @@ declare global {
 
 Cypress.Commands.add('visitStorybook', visitStorybook);
 function visitStorybook() {
-  cy.visit('http://localhost:5000/iframe.html');
+  const host = Cypress.env('HOST') || 'http://localhost:5000';
+
+  cy.visit(`${host}/iframe.html`);
 }
 
 Cypress.Commands.add('storyAPI', storyAPI);
