@@ -4,11 +4,17 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject = any> {
       storyAPI: typeof storyAPI;
-      visitStory: typeof visitStory;
+      selectStory: typeof selectStory;
+      visitStorybook: typeof visitStorybook;
       takeSnapshots: typeof takeSnapshots;
       takeStorySnapshot: typeof takeStorySnapshot;
     }
   }
+}
+
+Cypress.Commands.add('visitStorybook', visitStorybook);
+function visitStorybook() {
+  cy.visit('http://localhost:5000/iframe.html');
 }
 
 Cypress.Commands.add('storyAPI', storyAPI);
@@ -18,10 +24,8 @@ function storyAPI() {
     .then((win) => Cypress._.get(win, '__STORYBOOK_CLIENT_API__') as ClientApi);
 }
 
-Cypress.Commands.add('visitStory', visitStory);
-function visitStory(kind: string, name: string) {
-  cy.visit('http://localhost:5000/iframe.html');
-
+Cypress.Commands.add('selectStory', selectStory);
+function selectStory(kind: string, name: string) {
   storyAPI().then((api) => {
     const store = api.store();
     const story = store.getRawStory(kind, name);
@@ -61,6 +65,6 @@ function takeStorySnapshot(
   name: string,
   widths?: SnapshotWidths,
 ): void {
-  cy.visitStory(kind, name);
+  cy.selectStory(kind, name);
   cy.takeSnapshots(`${kind} - ${name}`, widths);
 }
