@@ -9,8 +9,8 @@ it('take snapshots', () => {
 
   cy.takeStorySnapshot('Lab/Stack', 'Responsive Alignment', [
     'mobile',
-    'tablet',
+    'desktop',
   ]);
 
-  cy.takeStorySnapshot('Lab/Stack', 'Dynamic Width', ['mobile', 'tablet']);
+  cy.takeStorySnapshot('Lab/Stack', 'Dynamic Width', ['mobile', 'desktop']);
 });
