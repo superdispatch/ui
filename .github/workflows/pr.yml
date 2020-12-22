@@ -80,7 +80,7 @@ jobs:
           restore-keys: |
             yarn-
       - run: yarn install --frozen-lockfile
-      - run: percy exec -- cypress run
+      - run: yarn percy exec -- cypress run
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
           CYPRESS_HOST: https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app
