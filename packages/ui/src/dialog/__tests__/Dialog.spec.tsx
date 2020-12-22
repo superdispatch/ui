@@ -189,8 +189,8 @@ it('checks component css', () => {
 
     .MuiDialogContent-dividers {
       padding: 16px 24px;
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-top: 1px solid Color.Silver400;
+      border-bottom: 1px solid Color.Silver400;
     }
 
     .MuiDialogTitle-root {

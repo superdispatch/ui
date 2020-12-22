@@ -31,6 +31,7 @@ it('exposes public api', () => {
         "Grey200": "#6A707C",
         "Grey300": "#5B6371",
         "Grey400": "#323C4E",
+        "Grey450": "#222F44",
         "Grey500": "#192334",
         "Purple100": "#CBC8EE",
         "Purple200": "#A7A1E8",

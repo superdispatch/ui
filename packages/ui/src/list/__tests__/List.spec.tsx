@@ -108,7 +108,7 @@ it('checks component css', () => {
     }
 
     .MuiListItem-divider {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-bottom: 1px solid Color.Silver400;
       background-clip: padding-box;
     }
 
