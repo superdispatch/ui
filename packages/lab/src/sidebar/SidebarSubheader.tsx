@@ -1,8 +1,8 @@
 import { forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Column } from '../column/Column';
-import { Columns } from '../column/Columns';
+import { Column } from '../columns/Column';
+import { Columns } from '../columns/Columns';
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarSubheaderRoot = styled.div`

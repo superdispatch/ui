@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarRoot = styled.aside`
+  top: 0;
+  position: sticky;
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -46,7 +48,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
           </TextBox>
         </SidebarTitle>
 
-        <SidebarContent>{children}</SidebarContent>
+        <SidebarContent aria-labelledby={titleID}>{children}</SidebarContent>
       </SidebarRoot>
     );
   },

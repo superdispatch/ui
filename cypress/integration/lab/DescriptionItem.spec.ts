@@ -21,7 +21,7 @@ it('selects by label', () => {
   );
 });
 
-it('take snapshots', () => {
+it('takes snapshots', () => {
   cy.takeStorySnapshot('Lab/DescriptionItem', 'Basic', ['mobile', 'desktop']);
   cy.takeStorySnapshot('Lab/DescriptionItem', 'Wrap', ['mobile', 'desktop']);
   cy.takeStorySnapshot('Lab/DescriptionItem', 'Fallback', [
