@@ -89,19 +89,19 @@ it('checks component css', () => {
     }
 
     .MuiDrawer-paperAnchorDockedLeft {
-      border-right: 1px solid rgba(0, 0, 0, 0.12);
+      border-right: 1px solid Color.Silver400;
     }
 
     .MuiDrawer-paperAnchorDockedTop {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-bottom: 1px solid Color.Silver400;
     }
 
     .MuiDrawer-paperAnchorDockedRight {
-      border-left: 1px solid rgba(0, 0, 0, 0.12);
+      border-left: 1px solid Color.Silver400;
     }
 
     .MuiDrawer-paperAnchorDockedBottom {
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      border-top: 1px solid Color.Silver400;
     }
 
     .SD-DrawerActions-appBar.SD-DrawerActions-appBar {

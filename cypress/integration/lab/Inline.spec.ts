@@ -1,4 +1,4 @@
-it('take snapshots', () => {
+it('takes snapshots', () => {
   cy.visitStorybook();
 
   cy.takeStorySnapshot('Lab/Inline', 'Responsive Space', [
