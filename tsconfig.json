@@ -1,5 +1,6 @@
 {
   "exclude": ["**/pkg/**/*"],
+  "include": ["scripts", "packages", "setupTests.ts", "globalSetup.ts"],
   "extends": "@superdispatch/tsconfig",
   "compilerOptions": {
     "module": "CommonJS",

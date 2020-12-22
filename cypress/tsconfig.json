@@ -1,0 +1,11 @@
+{
+  "include": ["**/*.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "target": "ES5",
+    "lib": ["ES5", "DOM"],
+    "skipLibCheck": true,
+    "types": ["cypress", "@testing-library/cypress"]
+  }
+}

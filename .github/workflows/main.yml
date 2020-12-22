@@ -27,7 +27,7 @@ jobs:
             yarn-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn tsc
+      - run: yarn check:types
       - run: yarn lint
       - run: yarn test
       - uses: codecov/codecov-action@v1

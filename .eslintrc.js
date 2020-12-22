@@ -138,6 +138,17 @@ module.exports = {
     },
 
     {
+      parserOptions: {
+        project: './cypress/tsconfig.json',
+      },
+      files: ['cypress/**/*.{ts,tsx}'],
+      extends: ['plugin:@superdispatch/ts-cypress'],
+      rules: {
+        '@typescript-eslint/no-namespace': 'off',
+      },
+    },
+
+    {
       files: ['**/packages/__docs__/**/**.*'],
       rules: {
         'import/no-internal-modules': 'off',
