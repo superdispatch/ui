@@ -18,7 +18,6 @@ it('docks to the screen', () => {
   cy.get('#root').invoke('css', { height: 3000 });
 
   cy.selectStory('Lab/Sidebar', 'Basic');
-
   cy.findByLabelText('Settings').should('exist');
 
   cy.scrollTo('bottom');
