@@ -19,7 +19,7 @@ function injectDisplayNames(module, { suffix = '' } = {}) {
       key[0] === key[0].toUpperCase() &&
       (typeof value == 'object' || typeof value == 'function')
     ) {
-      value.displayName = `${key}${suffix}`;
+      value.displayName = key + suffix;
     }
   }
 }
