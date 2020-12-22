@@ -27,7 +27,6 @@ export default {
     ),
   ],
   parameters: {
-    percy: { skip: false },
     componentSubtitle: (
       <>
         Heavily inspired by the{' '}

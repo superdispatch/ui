@@ -19,7 +19,7 @@ function injectDisplayNames(module, { suffix = '' } = {}) {
       key[0] === key[0].toUpperCase() &&
       (typeof value == 'object' || typeof value == 'function')
     ) {
-      value.displayName = `${key}${suffix}`;
+      value.displayName = key + suffix;
     }
   }
 }
@@ -41,11 +41,6 @@ function SuperDispatchDocsContainer(props) {
 
 addParameters({
   docs: { container: SuperDispatchDocsContainer },
-
-  percy: {
-    skip: true,
-    widths: [320, 1024],
-  },
 
   playroom: {
     // Because Playroom is built inside Storybook on this example's deploy,
