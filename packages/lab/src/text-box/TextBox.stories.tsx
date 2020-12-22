@@ -4,11 +4,7 @@ import { Column, Columns, Inline } from '@superdispatch/ui';
 import { Box, Stack } from '..';
 import { TextBox } from './TextBox';
 
-export default {
-  title: 'Lab/TextBox',
-  component: TextBox,
-  parameters: { percy: { skip: false } },
-} as Meta;
+export default { title: 'Lab/TextBox', component: TextBox } as Meta;
 
 export const basic = () => (
   <TextBox>

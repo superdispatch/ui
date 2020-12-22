@@ -17,13 +17,12 @@ import { DescriptionItem } from './DescriptionItem';
 export default {
   title: 'Lab/DescriptionItem',
   component: DescriptionItem,
-  parameters: { percy: { skip: false } },
 } as Meta;
 
 export const basic = () => (
   <Box maxWidth="200px">
     <Stack>
-      <DescriptionItem icon={<PaymentIcon />}>
+      <DescriptionItem icon={<PaymentIcon />} aria-label="payment">
         <Inline space="xxsmall">
           <TextBox color="purple">$1,503</TextBox>
           COD
@@ -35,7 +34,7 @@ export const basic = () => (
         4 hr. ago
       </DescriptionItem>
 
-      <DescriptionItem icon={<RoomIcon />}>
+      <DescriptionItem icon={<RoomIcon />} aria-label="address">
         167 Zosh Rd, Dallas, PA 18612
       </DescriptionItem>
 

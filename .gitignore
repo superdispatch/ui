@@ -4,6 +4,8 @@
 
 # tests
 coverage
+cypress/videos
+cypress/screenshots
 
 # dependencies
 node_modules/
