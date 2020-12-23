@@ -20,11 +20,9 @@ export default {
   subcomponents: {
     SidebarDivider,
     SidebarMenuItem,
-    SidebarMenuItemAvatar,
     SidebarMenuItemAction,
-  },
-  parameters: {
-    percy: { skip: false },
+    SidebarMenuItemAvatar,
+    SidebarSubheader,
   },
 } as Meta;
 
