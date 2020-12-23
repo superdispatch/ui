@@ -4,11 +4,12 @@ export {
   Columns,
   DescriptionItem,
   Inline,
-  Stack,
   Sidebar,
   SidebarDivider,
   SidebarMenuItem,
   SidebarMenuItemAction,
   SidebarMenuItemAvatar,
+  SidebarSubheader,
+  Stack,
   TextBox,
 } from './src';
