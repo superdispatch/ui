@@ -141,11 +141,11 @@ export const responsiveReverse = () => (
 
 export const collapseBelowTablet = () => (
   <Columns space="xsmall" collapseBelow="tablet">
-    <Column>
+    <Column width="1/2">
       <Placeholder height={48} text="First" />
     </Column>
 
-    <Column>
+    <Column width="1/3">
       <Placeholder height={48} text="Second" />
     </Column>
 
@@ -157,11 +157,11 @@ export const collapseBelowTablet = () => (
 
 export const collapseBelowDesktop = () => (
   <Columns space="xsmall" collapseBelow="desktop">
-    <Column>
+    <Column width="1/2">
       <Placeholder height={48} text="First" />
     </Column>
 
-    <Column>
+    <Column width="1/3">
       <Placeholder height={48} text="Second" />
     </Column>
 
