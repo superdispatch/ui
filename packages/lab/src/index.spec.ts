@@ -13,6 +13,7 @@ test('api', () => {
       "SidebarMenuItem": React.forwardRef(SidebarMenuItem),
       "SidebarMenuItemAction": React.forwardRef(SidebarMenuItemAction),
       "SidebarMenuItemAvatar": React.forwardRef(SidebarMenuItemAvatar),
+      "SidebarSubheader": React.forwardRef(SidebarSubheader),
       "Stack": React.forwardRef(Stack),
       "TextBox": React.forwardRef(TextBox),
     }

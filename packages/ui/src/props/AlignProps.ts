@@ -9,7 +9,8 @@ export function parseAlignProp(
   switch (align) {
     case 'top':
     case 'left':
-      return 'flex-start';
+    default:
+      return 'initial';
 
     case 'center':
       return 'center';
