@@ -25,7 +25,7 @@ it('docks to the screen', () => {
 
 it('takes snapshots', () => {
   cy.takeStorySnapshot('Lab/Sidebar', 'Basic', ['mobile', 'desktop']);
-  cy.takeStorySnapshot('Lab/Sidebar', 'Avatar', ['mobile', 'desktop']);
-  cy.takeStorySnapshot('Lab/Sidebar', 'Avatar Checkbox', ['mobile', 'desktop']);
+  cy.takeStorySnapshot('Lab/Sidebar', 'List', ['mobile', 'desktop']);
+  cy.takeStorySnapshot('Lab/Sidebar', 'Checkbox', ['mobile', 'desktop']);
   cy.takeStorySnapshot('Lab/Sidebar', 'Complex', ['mobile', 'desktop']);
 });

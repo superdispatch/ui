@@ -5,6 +5,7 @@ export {
   DescriptionItem,
   Inline,
   Sidebar,
+  SidebarContainer,
   SidebarDivider,
   SidebarMenuItem,
   SidebarMenuItemAction,
