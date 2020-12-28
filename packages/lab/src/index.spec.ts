@@ -9,6 +9,7 @@ test('api', () => {
       "DescriptionItem": React.forwardRef(DescriptionItem),
       "Inline": React.forwardRef(Inline),
       "Sidebar": React.forwardRef(Sidebar),
+      "SidebarContainer": React.forwardRef(SidebarContainer),
       "SidebarDivider": React.forwardRef(SidebarDivider),
       "SidebarMenuItem": React.forwardRef(SidebarMenuItem),
       "SidebarMenuItemAction": React.forwardRef(SidebarMenuItemAction),
