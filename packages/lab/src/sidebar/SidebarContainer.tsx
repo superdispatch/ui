@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const SidebarContainerRoot = styled.div`
   display: flex;
+
   height: inherit;
   max-height: inherit;
   min-height: inherit;
