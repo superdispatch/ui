@@ -12,9 +12,9 @@ import {
 } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
 import { PropsLink, UseState } from '@superdispatch/ui-docs';
-import { Inline, Stack } from '@superdispatch/ui-lab';
+import { Inline } from '@superdispatch/ui-lab';
 
-import { Button } from '..';
+import { Button, Stack } from '..';
 import { DrawerActions } from './DrawerActions';
 import { DrawerContent } from './DrawerContent';
 import { DrawerList } from './DrawerList';

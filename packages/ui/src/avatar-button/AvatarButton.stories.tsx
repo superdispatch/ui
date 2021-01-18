@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react';
+import { Stack } from '@superdispatch/ui';
 import { UseState } from '@superdispatch/ui-docs';
-import { Inline, Stack } from '@superdispatch/ui-lab';
+import { Inline } from '@superdispatch/ui-lab';
 
 import { AvatarButton } from './AvatarButton';
 

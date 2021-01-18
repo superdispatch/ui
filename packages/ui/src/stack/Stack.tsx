@@ -1,119 +1,84 @@
-import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { HorizontalAlign } from '../props/AlignProps';
+import { HorizontalAlign, parseAlignProp } from '../props/AlignProps';
 import {
-  ResponsivePropRecord,
-  useResponsivePropRecord,
+  parseResponsiveProp,
+  ResponsiveProp,
+  ResponsivePropTuple,
 } from '../props/ResponsiveProp';
-import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
+import { parseSpaceProp, SpaceProp } from '../props/SpaceProp';
 
-type StackClassKey =
-  | 'root'
-  | 'item'
-  | 'alignRight'
-  | 'alignCenter'
-  | 'space1'
-  | 'space2'
-  | 'space3'
-  | 'space4'
-  | 'space5'
-  | 'space6'
-  | 'space7'
-  | 'space8'
-  | 'space9'
-  | 'space10';
+function stackItemMixin(
+  space: SpaceProp,
+  align: HorizontalAlign,
+): readonly SimpleInterpolation[] {
+  return css`
+    flex-direction: column;
+    align-items: ${parseAlignProp(align)};
+    padding-top: ${parseSpaceProp(space)}px;
+    display: ${align === 'left' ? 'block' : 'flex'};
 
-function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
-  return {
-    '&:not(:last-child)': { paddingBottom: theme.spacing(space) },
-  };
+    &:first-child {
+      padding-top: 0;
+    }
+  `;
 }
 
-function alignVariant(align: HorizontalAlign): CSSProperties {
-  return {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems:
-      align === 'right'
-        ? 'flex-end'
-        : align === 'center'
-        ? 'center'
-        : undefined,
-  };
+interface StackRootProps {
+  space: ResponsivePropTuple<SpaceProp>;
+  align: ResponsivePropTuple<HorizontalAlign>;
 }
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  { classes?: Partial<ClassNameMap<StackClassKey>> },
-  StackClassKey
->(
-  (theme) => ({
-    root: {},
-    item: {},
+const StackRoot = styled.div<StackRootProps>(
+  ({ theme, space, align }) =>
+    css`
+      width: 100%;
 
-    space1: { '& > $item': spaceVariant(theme, 1) },
-    space2: { '& > $item': spaceVariant(theme, 2) },
-    space3: { '& > $item': spaceVariant(theme, 3) },
-    space4: { '& > $item': spaceVariant(theme, 4) },
-    space5: { '& > $item': spaceVariant(theme, 5) },
-    space6: { '& > $item': spaceVariant(theme, 6) },
-    space7: { '& > $item': spaceVariant(theme, 7) },
-    space8: { '& > $item': spaceVariant(theme, 8) },
-    space9: { '& > $item': spaceVariant(theme, 9) },
-    space10: { '& > $item': spaceVariant(theme, 10) },
+      & > div {
+        ${stackItemMixin(space[0], align[0])};
 
-    alignRight: { '& > $item': alignVariant('right') },
-    alignCenter: { '& > $item': alignVariant('center') },
-  }),
-  { name: 'SD-Stack' },
+        ${theme.breakpoints.up('sm')} {
+          ${stackItemMixin(space[1], align[1])};
+        }
+
+        ${theme.breakpoints.up('md')} {
+          ${stackItemMixin(space[2], align[2])};
+        }
+      }
+    `,
 );
-
-export type StackSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface StackProps {
   children?: ReactNode;
-  space?: ResponsivePropRecord<StackSpace>;
-  align?: ResponsivePropRecord<HorizontalAlign>;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  space?: ResponsiveProp<SpaceProp>;
+  align?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
   (
-    { children, space: spaceProp = 1, align: alignProp = 'left', ...props },
+    {
+      children,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      space = 'xsmall',
+      align = 'left',
+    },
     ref,
-  ) => {
-    const styles = useStyles({});
-    const align = useResponsivePropRecord(alignProp);
-    const space = useResponsivePropRecord(spaceProp);
-
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={clsx(styles.root, {
-          [styles.space1]: space === 1,
-          [styles.space2]: space === 2,
-          [styles.space3]: space === 3,
-          [styles.space4]: space === 4,
-          [styles.space5]: space === 5,
-          [styles.space6]: space === 6,
-          [styles.space7]: space === 7,
-          [styles.space8]: space === 8,
-          [styles.space9]: space === 9,
-          [styles.space10]: space === 10,
-
-          [styles.alignRight]: align === 'right',
-          [styles.alignCenter]: align === 'center',
-        })}
-      >
-        {flattenChildren(children).map((child, idx) => (
-          <div key={idx} className={styles.item}>
-            {child}
-          </div>
-        ))}
-      </div>
-    );
-  },
+  ) => (
+    <StackRoot
+      ref={ref}
+      align={parseResponsiveProp(align)}
+      space={parseResponsiveProp(space)}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+    >
+      {flattenChildren(children).map((child, idx) => (
+        <div key={idx}>{child}</div>
+      ))}
+    </StackRoot>
+  ),
 );

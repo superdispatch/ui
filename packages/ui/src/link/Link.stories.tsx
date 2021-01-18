@@ -1,6 +1,8 @@
 import { Link, Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { Box, Stack } from '@superdispatch/ui-lab';
+import { Box } from '@superdispatch/ui-lab';
+
+import { Stack } from '../stack/Stack';
 
 export default { title: 'Navigation/Link' } as Meta;
 

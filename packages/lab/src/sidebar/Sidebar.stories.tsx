@@ -7,11 +7,10 @@ import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
-import { Button } from '@superdispatch/ui';
+import { Button, Stack } from '@superdispatch/ui';
 
 import { Placeholder } from '../../../__docs__';
 import { Box } from '../box/Box';
-import { Stack } from '../stack/Stack';
 import { Sidebar } from './Sidebar';
 import { SidebarContainer } from './SidebarContainer';
 import { SidebarDivider } from './SidebarDivider';
