@@ -70,11 +70,11 @@ describe('useFormikEnhanced', () => {
       }),
     );
 
-    void act(() => {
+    act(() => {
       result.current.setFieldValue('foo', 'baz');
     });
 
-    void act(() => {
+    act(() => {
       result.current.handleSubmit();
     });
 
@@ -104,11 +104,11 @@ describe('useFormikEnhanced', () => {
 
     expect(result.current.errors).toEqual({});
 
-    void act(() => {
+    act(() => {
       result.current.setFieldValue('foo', 'baz');
     });
 
-    void act(() => {
+    act(() => {
       result.current.handleSubmit();
     });
 
@@ -140,7 +140,7 @@ describe('useFormikEnhanced', () => {
       }),
     );
 
-    void act(() => {
+    act(() => {
       result.current.handleSubmit();
     });
 
@@ -160,7 +160,7 @@ describe('useFormikEnhanced', () => {
 
     deferred.reset();
 
-    void act(() => {
+    act(() => {
       result.current.handleSubmit();
     });
 
@@ -187,7 +187,7 @@ describe('useFormikEnhanced', () => {
         }),
     );
 
-    void act(() => {
+    act(() => {
       result.current.setFieldValue('foo', 'baz');
     });
 
