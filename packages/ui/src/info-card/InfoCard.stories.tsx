@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { Stack } from '@superdispatch/ui-lab';
 
 import { Button } from '../button/Button';
+import { Stack } from '../stack/Stack';
 import { InfoCard } from './InfoCard';
 
 export default { title: 'Surfaces/InfoCard', component: InfoCard } as Meta;

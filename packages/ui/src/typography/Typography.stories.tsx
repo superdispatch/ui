@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-import { Stack } from '@superdispatch/ui-lab';
+
+import { Stack } from '../stack/Stack';
 
 export default {
   title: 'Data Display/Typography',
