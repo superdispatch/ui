@@ -11,6 +11,5 @@ export {
   SidebarMenuItemAction,
   SidebarMenuItemAvatar,
   SidebarSubheader,
-  Stack,
   TextBox,
 } from './src';

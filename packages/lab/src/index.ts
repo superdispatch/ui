@@ -10,5 +10,4 @@ export * from './sidebar/SidebarMenuItem';
 export * from './sidebar/SidebarSubheader';
 export * from './sidebar/SidebarMenuItemAction';
 export * from './sidebar/SidebarMenuItemAvatar';
-export * from './stack/Stack';
 export * from './text-box/TextBox';

@@ -10,8 +10,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { PhoneLink } from '@superdispatch/phones';
+import { Stack } from '@superdispatch/ui';
 
-import { Box, Column, Columns, Inline, Stack, TextBox } from '..';
+import { Box, Column, Columns, Inline, TextBox } from '..';
 import { DescriptionItem } from './DescriptionItem';
 
 export default {

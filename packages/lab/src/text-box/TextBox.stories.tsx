@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
-import { Column, Columns, Inline } from '@superdispatch/ui';
+import { Column, Columns, Stack } from '@superdispatch/ui';
 
-import { Box, Stack } from '..';
+import { Box, Inline } from '..';
 import { TextBox } from './TextBox';
 
 export default { title: 'Lab/TextBox', component: TextBox } as Meta;
