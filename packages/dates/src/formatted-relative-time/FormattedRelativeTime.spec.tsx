@@ -9,9 +9,8 @@ beforeEach(() => {
 });
 
 describe('FormattedRelativeTime', () => {
-  const now = DateTime.fromMillis(Date.now());
-
   test('basic', () => {
+    const now = DateTime.fromMillis(Date.now());
     const { container } = renderComponent(
       <>
         <FormattedRelativeTime date={now} />
@@ -32,24 +31,25 @@ describe('FormattedRelativeTime', () => {
 
     expect(container).toMatchInlineSnapshot(`
       <div>
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
-        in 1 yr.
+        in 0 sec.
+        14 sec. ago
+        in 45 sec.
+        13 min. ago
+        in 46 min.
+        7 hr. ago
+        in 16 hr.
+        4 days ago
+        in 2 days
+        23 days ago
+        in 7 days
+        4 mo. ago
         in 7 mo.
-        in 1 yr.
       </div>
     `);
   });
 
   test('base', () => {
+    const now = DateTime.fromMillis(Date.now());
     const { container } = renderComponent(
       <FormattedRelativeTime
         date={now.plus({ days: 10 })}
@@ -65,6 +65,7 @@ describe('FormattedRelativeTime', () => {
   });
 
   test('invalid', () => {
+    const now = DateTime.fromMillis(Date.now());
     const { container } = renderComponent(
       <>
         <FormattedRelativeTime date={NaN} />
