@@ -35,9 +35,9 @@ function selectStory(kind: string, name: string): void {
     expect(story).to.have.property('id');
 
     store.setSelection({ viewMode: 'story', storyId: story.id });
-  });
 
-  cy.get('#root').should('not.be.empty');
+    cy.get(`[data-story="${story.id}"]`).should('exist');
+  });
 }
 
 type SnapshotWidths = ReadonlyArray<'mobile' | 'tablet' | 'desktop'>;
