@@ -13,21 +13,21 @@ declare global {
 }
 
 Cypress.Commands.add('visitStorybook', visitStorybook);
-function visitStorybook() {
+function visitStorybook(): void {
   const host = Cypress.env('HOST') || 'http://localhost:5000';
 
   cy.visit(`${host}/iframe.html`);
 }
 
 Cypress.Commands.add('storyAPI', storyAPI);
-function storyAPI() {
+function storyAPI(): Cypress.Chainable<ClientApi> {
   return cy
     .window()
     .then((win) => Cypress._.get(win, '__STORYBOOK_CLIENT_API__') as ClientApi);
 }
 
 Cypress.Commands.add('selectStory', selectStory);
-function selectStory(kind: string, name: string) {
+function selectStory(kind: string, name: string): void {
   storyAPI().then((api) => {
     const store = api.store();
     const story = store.getRawStory(kind, name);
@@ -35,6 +35,8 @@ function selectStory(kind: string, name: string) {
     expect(story).to.have.property('id');
 
     store.setSelection({ viewMode: 'story', storyId: story.id });
+
+    cy.get(`[data-story="${story.id}"]`).should('be.visible');
   });
 }
 
@@ -46,18 +48,9 @@ function takeSnapshots(
   widths: SnapshotWidths = ['desktop'],
 ): void {
   cy.percySnapshot(name, {
-    widths: widths.map((width) => {
-      switch (width) {
-        case 'mobile':
-          return 320;
-
-        case 'tablet':
-          return 768;
-
-        case 'desktop':
-          return 1024;
-      }
-    }),
+    widths: widths.map((width) =>
+      width === 'mobile' ? 320 : width === 'tablet' ? 768 : 1024,
+    ),
   });
 }
 
