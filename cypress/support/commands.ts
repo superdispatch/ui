@@ -36,7 +36,7 @@ function selectStory(kind: string, name: string): void {
 
     store.setSelection({ viewMode: 'story', storyId: story.id });
 
-    cy.get(`[data-story="${story.id}"]`).should('exist');
+    cy.get(`[data-story="${story.id}"]`).should('be.visible');
   });
 }
 
