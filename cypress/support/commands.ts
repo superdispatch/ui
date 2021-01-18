@@ -13,21 +13,21 @@ declare global {
 }
 
 Cypress.Commands.add('visitStorybook', visitStorybook);
-function visitStorybook() {
+function visitStorybook(): void {
   const host = Cypress.env('HOST') || 'http://localhost:5000';
 
   cy.visit(`${host}/iframe.html`);
 }
 
 Cypress.Commands.add('storyAPI', storyAPI);
-function storyAPI() {
+function storyAPI(): Cypress.Chainable<ClientApi> {
   return cy
     .window()
     .then((win) => Cypress._.get(win, '__STORYBOOK_CLIENT_API__') as ClientApi);
 }
 
 Cypress.Commands.add('selectStory', selectStory);
-function selectStory(kind: string, name: string) {
+function selectStory(kind: string, name: string): void {
   storyAPI().then((api) => {
     const store = api.store();
     const story = store.getRawStory(kind, name);
@@ -45,6 +45,7 @@ function takeSnapshots(
   name: string,
   widths: SnapshotWidths = ['desktop'],
 ): void {
+  cy.findByLabelText('Loading story…').should('not.exist');
   cy.percySnapshot(name, {
     widths: widths.map((width) => {
       switch (width) {
