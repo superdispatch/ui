@@ -25,9 +25,11 @@ function injectDisplayNames(module, { suffix = '' } = {}) {
 }
 
 addDecorator(withPlayroom);
-addDecorator((story) => (
-  <Suspense fallback="Loading…">
-    <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+addDecorator((story, context) => (
+  <Suspense fallback="Loading story…">
+    <div data-story={context.id}>
+      <ThemeProvider injectFirst={false}>{story()}</ThemeProvider>
+    </div>
   </Suspense>
 ));
 
