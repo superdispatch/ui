@@ -45,7 +45,7 @@ function takeSnapshots(
   name: string,
   widths: SnapshotWidths = ['desktop'],
 ): void {
-  cy.findByLabelText('Loading story…').should('not.exist');
+  cy.findByText('Loading story…').should('not.exist');
   cy.percySnapshot(name, {
     widths: widths.map((width) => {
       switch (width) {
