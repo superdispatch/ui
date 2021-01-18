@@ -36,6 +36,9 @@ function selectStory(kind: string, name: string): void {
 
     store.setSelection({ viewMode: 'story', storyId: story.id });
   });
+
+  cy.log(`Loaded ${kind}/${name}`);
+  cy.findByText('Loading story…').should('not.exist');
 }
 
 type SnapshotWidths = ReadonlyArray<'mobile' | 'tablet' | 'desktop'>;
@@ -45,20 +48,10 @@ function takeSnapshots(
   name: string,
   widths: SnapshotWidths = ['desktop'],
 ): void {
-  cy.findByText('Loading story…').should('not.exist');
   cy.percySnapshot(name, {
-    widths: widths.map((width) => {
-      switch (width) {
-        case 'mobile':
-          return 320;
-
-        case 'tablet':
-          return 768;
-
-        case 'desktop':
-          return 1024;
-      }
-    }),
+    widths: widths.map((width) =>
+      width === 'mobile' ? 320 : width === 'tablet' ? 768 : 1024,
+    ),
   });
 }
 
