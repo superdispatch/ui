@@ -37,8 +37,7 @@ function selectStory(kind: string, name: string): void {
     store.setSelection({ viewMode: 'story', storyId: story.id });
   });
 
-  cy.log(`Loaded ${kind}/${name}`);
-  cy.findByText('Loading story…').should('not.exist');
+  cy.get('#root').should('not.be.empty');
 }
 
 type SnapshotWidths = ReadonlyArray<'mobile' | 'tablet' | 'desktop'>;
