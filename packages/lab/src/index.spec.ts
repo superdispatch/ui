@@ -7,7 +7,6 @@ test('api', () => {
       "Column": React.forwardRef(Column),
       "Columns": React.forwardRef(Columns),
       "DescriptionItem": React.forwardRef(DescriptionItem),
-      "Inline": React.forwardRef(Inline),
       "Sidebar": React.forwardRef(Sidebar),
       "SidebarContainer": React.forwardRef(SidebarContainer),
       "SidebarDivider": React.forwardRef(SidebarDivider),

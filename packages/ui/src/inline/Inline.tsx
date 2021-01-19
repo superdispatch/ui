@@ -1,158 +1,141 @@
-import { ClassNameMap, CSSProperties, makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { HorizontalAlign, VerticalAlign } from '../props/AlignProps';
 import {
-  ResponsivePropRecord,
-  useResponsivePropRecord,
+  HorizontalAlign,
+  parseAlignProp,
+  VerticalAlign,
+} from '../props/AlignProps';
+import {
+  ResponsiveProp,
+  ResponsivePropTuple,
+  useResponsiveProp,
 } from '../props/ResponsiveProp';
-import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
+import { parseSpaceProp, SpaceProp } from '../props/SpaceProp';
 
-type InlineClassKey =
-  | 'root'
-  | 'container'
-  | 'space1'
-  | 'space2'
-  | 'space3'
-  | 'space4'
-  | 'space5'
-  | 'space6'
-  | 'space7'
-  | 'space8'
-  | 'space9'
-  | 'space10'
-  | 'verticalBottom'
-  | 'verticalCenter'
-  | 'horizontalRight'
-  | 'horizontalCenter'
-  | 'item';
+function inlineRootMixin(
+  spaceProp: SpaceProp,
+  noWrap: boolean,
+  verticalAlign: VerticalAlign,
+  horizontalAlign: HorizontalAlign,
+): readonly SimpleInterpolation[] {
+  const space = parseSpaceProp(spaceProp);
 
-function spaceVariant(theme: SuperDispatchTheme, space: number): CSSProperties {
-  const preventCollapse = 1;
-  const gap = theme.spacing(space);
+  return css`
+    &:before {
+      margin-top: ${-space - 1}px;
+    }
 
-  return {
-    paddingTop: preventCollapse,
+    & > div {
+      display: flex;
+      margin-left: -${space}px;
+      flex-wrap: ${noWrap ? 'nowrap' : 'wrap'};
+      align-items: ${parseAlignProp(verticalAlign)};
+      justify-content: ${parseAlignProp(horizontalAlign)};
 
-    '&:before': {
-      content: '""',
-      display: 'block',
-      marginTop: -gap - preventCollapse,
-    },
+      & > div {
+        min-width: 0;
+        flex-shrink: 0;
+        max-width: 100%;
 
-    '& > $container': {
-      marginLeft: -gap,
-
-      '& > $item': {
-        marginTop: gap,
-        marginLeft: gap,
-      },
-    },
-  };
+        margin-top: ${space}px;
+        margin-left: ${space}px;
+      }
+    }
+  `;
 }
 
-const useStyles = makeStyles<
-  SuperDispatchTheme,
-  { classes?: Partial<ClassNameMap<InlineClassKey>> },
-  InlineClassKey
->(
-  (theme) => ({
-    root: {},
+interface InlineRootProps {
+  space: ResponsivePropTuple<SpaceProp>;
+  noWrap: ResponsivePropTuple<boolean>;
+  verticalAlign: ResponsivePropTuple<VerticalAlign>;
+  horizontalAlign: ResponsivePropTuple<HorizontalAlign>;
+}
 
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
+const InlineRoot = styled.div<InlineRootProps>(
+  ({ theme, space, noWrap, verticalAlign, horizontalAlign }) =>
+    css`
+      padding-top: 1px;
 
-    item: {},
+      &:before {
+        content: '';
+        display: block;
+      }
 
-    space1: spaceVariant(theme, 1),
-    space2: spaceVariant(theme, 2),
-    space3: spaceVariant(theme, 3),
-    space4: spaceVariant(theme, 4),
-    space5: spaceVariant(theme, 5),
-    space6: spaceVariant(theme, 6),
-    space7: spaceVariant(theme, 7),
-    space8: spaceVariant(theme, 8),
-    space9: spaceVariant(theme, 9),
-    space10: spaceVariant(theme, 10),
+      ${inlineRootMixin(
+        space[0],
+        noWrap[0],
+        verticalAlign[0],
+        horizontalAlign[0],
+      )}
 
-    verticalCenter: {
-      '& > $container': { alignItems: 'center' },
-    },
-    verticalBottom: {
-      '& > $container': { alignItems: 'flex-end' },
-    },
+      ${theme.breakpoints.up('sm')} {
+        ${inlineRootMixin(
+          space[1],
+          noWrap[1],
+          verticalAlign[1],
+          horizontalAlign[1],
+        )}
+      }
 
-    horizontalRight: {
-      '& > $container': { justifyContent: 'flex-end' },
-    },
-
-    horizontalCenter: {
-      '& > $container': { justifyContent: 'center' },
-    },
-  }),
-  { name: 'SD-Inline' },
+      ${theme.breakpoints.up('md')} {
+        ${inlineRootMixin(
+          space[2],
+          noWrap[2],
+          verticalAlign[2],
+          horizontalAlign[2],
+        )}
+      }
+    `,
 );
-
-export type InlineSpace = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface InlineProps {
   children?: ReactNode;
-  space?: ResponsivePropRecord<InlineSpace>;
-  verticalAlign?: ResponsivePropRecord<VerticalAlign>;
-  horizontalAlign?: ResponsivePropRecord<HorizontalAlign>;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+
+  noWrap?: ResponsiveProp<boolean>;
+  space?: ResponsiveProp<SpaceProp>;
+  verticalAlign?: ResponsiveProp<VerticalAlign>;
+  horizontalAlign?: ResponsiveProp<HorizontalAlign>;
 }
 
 export const Inline = forwardRef<HTMLDivElement, InlineProps>(
   (
     {
       children,
-      space: spaceProp = 1,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+
+      noWrap: noWrapProp = false,
+      space: spaceProp = 'xsmall',
       verticalAlign: verticalAlignProp = 'top',
       horizontalAlign: horizontalAlignProp = 'left',
-      ...props
     },
     ref,
   ) => {
-    const styles = useStyles({});
-    const space = useResponsivePropRecord(spaceProp);
-    const verticalAlign = useResponsivePropRecord(verticalAlignProp);
-    const horizontalAlign = useResponsivePropRecord(horizontalAlignProp);
+    const space = useResponsiveProp(spaceProp);
+    const noWrap = useResponsiveProp(noWrapProp);
+    const verticalAlign = useResponsiveProp(verticalAlignProp);
+    const horizontalAlign = useResponsiveProp(horizontalAlignProp);
 
     return (
-      <div
-        {...props}
+      <InlineRoot
         ref={ref}
-        className={clsx(styles.root, {
-          [styles.space1]: space === 1,
-          [styles.space2]: space === 2,
-          [styles.space3]: space === 3,
-          [styles.space4]: space === 4,
-          [styles.space5]: space === 5,
-          [styles.space6]: space === 6,
-          [styles.space7]: space === 7,
-          [styles.space8]: space === 8,
-          [styles.space9]: space === 9,
-          [styles.space10]: space === 10,
-
-          [styles.verticalBottom]: verticalAlign === 'bottom',
-          [styles.verticalCenter]: verticalAlign === 'center',
-
-          [styles.horizontalRight]: horizontalAlign === 'right',
-          [styles.horizontalCenter]: horizontalAlign === 'center',
-        })}
+        space={space}
+        noWrap={noWrap}
+        verticalAlign={verticalAlign}
+        horizontalAlign={horizontalAlign}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
       >
-        <div className={styles.container}>
+        <div>
           {flattenChildren(children).map((child, idx) => (
-            <div key={idx} className={styles.item}>
-              {child}
-            </div>
+            <div key={idx}>{child}</div>
           ))}
         </div>
-      </div>
+      </InlineRoot>
     );
   },
 );

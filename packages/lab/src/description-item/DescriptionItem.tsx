@@ -1,10 +1,9 @@
-import { Color, isEmptyReactNode, useUID } from '@superdispatch/ui';
+import { Color, Inline, isEmptyReactNode, useUID } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
 
 import { Column } from '../columns/Column';
 import { Columns } from '../columns/Columns';
-import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 
 function descriptionItemIconMixin(

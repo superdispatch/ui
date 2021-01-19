@@ -1,7 +1,7 @@
 import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
-import { Box } from '@superdispatch/ui-lab';
+import { Box } from '@superdispatch/ui-lab/pkg/dist-types';
 
 import { Inline } from './Inline';
 
@@ -34,33 +34,61 @@ export default {
 
 export const basic = () => (
   <Inline>
-    {Array.from({ length: 10 }, (_, idx) => (
-      <Placeholder key={idx} width={48} height={48} />
-    ))}
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
   </Inline>
 );
 
 export const responsiveSpace = () => (
-  <Inline space={{ xs: 1, sm: 2 }}>
-    {Array.from({ length: 10 }, (_, idx) => (
-      <Placeholder key={idx} width={48} height={48} />
-    ))}
+  <Inline space={['xsmall', 'small']}>
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
   </Inline>
 );
 
 export const horizontalAlignment = () => (
   <Inline horizontalAlign="center">
-    {Array.from({ length: 10 }, (_, idx) => (
-      <Placeholder key={idx} width={48} height={48} />
-    ))}
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
   </Inline>
 );
 
 export const responsiveHorizontalAlignment = () => (
-  <Inline horizontalAlign={{ xs: 'center', sm: 'left' }}>
-    {Array.from({ length: 10 }, (_, idx) => (
-      <Placeholder key={idx} width={48} height={48} />
-    ))}
+  <Inline horizontalAlign={['center', 'left']}>
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
   </Inline>
 );
 
@@ -73,9 +101,21 @@ export const verticalAlignment = () => (
 );
 
 export const responsiveVerticalAlignment = () => (
-  <Inline verticalAlign={{ xs: 'center', sm: 'bottom' }}>
+  <Inline verticalAlign={['center', 'bottom']}>
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={64} />
     <Placeholder width={48} height={24} />
   </Inline>
+);
+
+export const noWrap = () => (
+  <Box maxWidth="240px" overflow="hidden">
+    <Inline noWrap={true}>
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+      <Placeholder width={48} height={48} />
+    </Inline>
+  </Box>
 );
