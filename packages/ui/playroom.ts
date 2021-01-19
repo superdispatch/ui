@@ -6,6 +6,8 @@ export {
   CheckboxField,
   CheckboxGroupField,
   Color,
+  Column,
+  Columns,
   DescriptionList,
   DescriptionListItem,
   DrawerActions,

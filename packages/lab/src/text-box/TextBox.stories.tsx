@@ -16,7 +16,7 @@ export const basic = () => (
 );
 
 export const alignment = () => (
-  <Columns space={1}>
+  <Columns space="xsmall">
     <Column>
       <Box backgroundColor="Silver300" padding="xsmall" borderRadius="small">
         <TextBox align="right">Align Right</TextBox>

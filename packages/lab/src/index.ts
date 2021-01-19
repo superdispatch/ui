@@ -1,6 +1,4 @@
 export * from './box/Box';
-export * from './columns/Column';
-export * from './columns/Columns';
 export * from './description-item/DescriptionItem';
 export * from './sidebar/Sidebar';
 export * from './sidebar/SidebarContainer';

@@ -1,10 +1,11 @@
+import { forwardRef, ReactNode } from 'react';
+import styled, { css, SimpleInterpolation } from 'styled-components';
+
 import {
   ResponsiveProp,
   ResponsivePropTuple,
   useResponsiveProp,
-} from '@superdispatch/ui';
-import { forwardRef, ReactNode } from 'react';
-import styled, { css, SimpleInterpolation } from 'styled-components';
+} from '../props/ResponsiveProp';
 
 export type ColumnWidth =
   | 'adaptive'

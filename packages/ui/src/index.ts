@@ -4,6 +4,7 @@ export * from './button/Button';
 export * from './card-button/CardButton';
 export * from './checkbox/CheckboxField';
 export * from './checkbox/CheckboxGroudField';
+export * from './columns/Column';
 export * from './columns/Columns';
 export * from './description-list/DescriptionList';
 export * from './drawer/DrawerActions';

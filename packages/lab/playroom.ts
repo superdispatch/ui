@@ -1,7 +1,5 @@
 export {
   Box,
-  Column,
-  Columns,
   DescriptionItem,
   Sidebar,
   SidebarContainer,
