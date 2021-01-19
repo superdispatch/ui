@@ -1,247 +1,76 @@
-import { CSSProperties, makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
-import { forwardRef, ReactNode } from 'react';
+import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 
-import { VerticalAlign } from '../props/AlignProps';
-import {
-  ResponsivePropRecord,
-  useResponsivePropRecord,
-} from '../props/ResponsiveProp';
-import {
-  CollapseBreakpoint,
-  useCollapseBreakpoint,
-} from '../responsive/CollapseBreakpoint';
-import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
+import { parseAlignProp, VerticalAlign } from '../props/AlignProps';
+import { CollapseProp, parseCollapsedBelow } from '../props/CollapseProp';
+import { parseResponsiveProp, ResponsiveProp } from '../props/ResponsiveProp';
+import { parseSpaceProp, SpaceProp } from '../props/SpaceProp';
 
-type ColumnsClassKey =
-  | 'root'
-  | 'column'
-  | 'columnContent'
-  | 'layoutDefault'
-  | 'layoutCollapsed'
-  | 'directionDefault'
-  | 'directionReversed'
-  | 'space0'
-  | 'space1'
-  | 'space2'
-  | 'space3'
-  | 'space4'
-  | 'space5'
-  | 'space6'
-  | 'space7'
-  | 'space8'
-  | 'space9'
-  | 'space10'
-  | 'alignCenter'
-  | 'alignBottom'
-  | 'widthContent'
-  | 'widthFluid'
-  | 'widthAdaptive'
-  | 'width1of2'
-  | 'width1of3'
-  | 'width2of3'
-  | 'width1of4'
-  | 'width3of4'
-  | 'width1of5'
-  | 'width2of5'
-  | 'width3of5'
-  | 'width4of5';
+function columnsRootMixin(
+  align: VerticalAlign,
+  spaceProp: SpaceProp,
+  isReversed: boolean,
+  isCollapsed: boolean,
+): readonly SimpleInterpolation[] {
+  const space = parseSpaceProp(spaceProp);
 
-function spaceMixin(theme: SuperDispatchTheme, space: number): CSSProperties {
-  const gap = theme.spacing(space);
+  return css`
+    --column-space-left: ${isCollapsed ? 0 : space}px;
+    --column-space-top: ${isCollapsed && isReversed ? space : 0}px;
+    --column-space-bottom: ${isCollapsed && !isReversed ? space : 0}px;
 
-  return {
-    '&$layoutDefault': {
-      marginLeft: -gap,
-      width: `calc(100% + ${gap}px)`,
-      '& > $column > $columnContent': {
-        paddingLeft: gap,
-      },
-    },
-
-    '&$layoutCollapsed > $column > $columnContent': {
-      paddingBottom: gap,
-    },
-  };
+    align-items: ${parseAlignProp(align)};
+    margin-left: ${isCollapsed ? 0 : `-${space}`}px;
+    width: ${isCollapsed ? '100%' : `calc(100% + ${space}px)`};
+    flex-direction: ${isCollapsed
+      ? !isReversed
+        ? 'column'
+        : 'column-reverse'
+      : !isReversed
+      ? 'row'
+      : 'row-reverse'};
+  `;
 }
-
-function widthMixin(scale: number): CSSProperties {
-  return { flex: `0 0 ${scale * 100}%` };
-}
-
-const useStyles = makeStyles(
-  (theme: SuperDispatchTheme): Record<ColumnsClassKey, CSSProperties> => ({
-    root: {
-      width: '100%',
-      display: 'flex',
-    },
-
-    column: {
-      minWidth: 0,
-    },
-
-    columnContent: {},
-
-    layoutDefault: {
-      flexDirection: 'row',
-      '&$directionReversed': { flexDirection: 'row-reverse' },
-    },
-
-    layoutCollapsed: {
-      flexDirection: 'column',
-
-      '&$directionDefault': {
-        '& > $column:last-child > $columnContent': {
-          paddingBottom: 0,
-        },
-      },
-
-      '&$directionReversed': {
-        flexDirection: 'column-reverse',
-
-        '& > $column:first-child > $columnContent': {
-          paddingBottom: 0,
-        },
-      },
-    },
-
-    directionDefault: {},
-    directionReversed: {},
-
-    space0: {},
-    space1: spaceMixin(theme, 1),
-    space2: spaceMixin(theme, 2),
-    space3: spaceMixin(theme, 3),
-    space4: spaceMixin(theme, 4),
-    space5: spaceMixin(theme, 5),
-    space6: spaceMixin(theme, 6),
-    space7: spaceMixin(theme, 7),
-    space8: spaceMixin(theme, 8),
-    space9: spaceMixin(theme, 9),
-    space10: spaceMixin(theme, 10),
-
-    alignCenter: { alignItems: 'center' },
-    alignBottom: { alignItems: 'flex-end' },
-
-    widthFluid: { width: '100%' },
-    widthContent: { flexShrink: 0 },
-    widthAdaptive: { flexShrink: 1 },
-
-    width1of2: widthMixin(1 / 2),
-    width1of3: widthMixin(1 / 3),
-    width2of3: widthMixin(2 / 3),
-    width1of4: widthMixin(1 / 4),
-    width3of4: widthMixin(3 / 4),
-    width1of5: widthMixin(1 / 5),
-    width2of5: widthMixin(2 / 5),
-    width3of5: widthMixin(3 / 5),
-    width4of5: widthMixin(4 / 5),
-  }),
-  { name: 'SD-Columns' },
-);
-
-export type ColumnWidth =
-  | 'adaptive'
-  | 'content'
-  | 'fluid'
-  | '1/2'
-  | '1/3'
-  | '2/3'
-  | '1/4'
-  | '3/4'
-  | '1/5'
-  | '2/5'
-  | '3/5'
-  | '4/5';
-
-export interface ColumnProps {
-  children?: ReactNode;
-  width?: ResponsivePropRecord<ColumnWidth>;
-}
-
-export const Column = forwardRef<HTMLDivElement, ColumnProps>(
-  ({ children, width: widthProp = 'fluid', ...props }, ref) => {
-    const styles = useStyles();
-    const width = useResponsivePropRecord(widthProp);
-
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={clsx(styles.column, {
-          [styles.widthAdaptive]: width === 'adaptive',
-          [styles.widthContent]: width === 'content',
-          [styles.widthFluid]: width === 'fluid',
-          [styles.width1of2]: width === '1/2',
-          [styles.width1of3]: width === '1/3',
-          [styles.width2of3]: width === '2/3',
-          [styles.width1of4]: width === '1/4',
-          [styles.width3of4]: width === '3/4',
-          [styles.width1of5]: width === '1/5',
-          [styles.width2of5]: width === '2/5',
-          [styles.width3of5]: width === '3/5',
-          [styles.width4of5]: width === '4/5',
-        })}
-      >
-        <div className={styles.columnContent}>{children}</div>
-      </div>
-    );
-  },
-);
-
-export type ColumnsSpace = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface ColumnsProps {
+  id?: string;
   children?: ReactNode;
-  reverse?: ResponsivePropRecord<boolean>;
-  space?: ResponsivePropRecord<ColumnsSpace>;
-  align?: ResponsivePropRecord<VerticalAlign>;
-  collapseBelow?: CollapseBreakpoint;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  ref?: Ref<HTMLDivElement>;
+
+  reverse?: ResponsiveProp<boolean>;
+  space?: ResponsiveProp<SpaceProp>;
+  align?: ResponsiveProp<VerticalAlign>;
+  collapseBelow?: CollapseProp;
 }
 
-export const Columns = forwardRef<HTMLDivElement, ColumnsProps>(
-  (
-    {
-      collapseBelow,
-      space: spaceProp = 0,
-      align: alignProp = 'top',
-      reverse: reverseProp = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const styles = useStyles();
-    const align = useResponsivePropRecord(alignProp);
-    const space = useResponsivePropRecord(spaceProp);
-    const isReversed = useResponsivePropRecord(reverseProp);
-    const isCollapsed = useCollapseBreakpoint(collapseBelow);
+export const Columns: ForwardRefExoticComponent<ColumnsProps> = styled.div<ColumnsProps>(
+  ({
+    theme,
+    collapseBelow,
+    align: alignProp = 'top',
+    space: spaceProp = 'none',
+    reverse: reverseProp = false,
+  }) => {
+    const align = parseResponsiveProp(alignProp);
+    const space = parseResponsiveProp(spaceProp);
+    const reverse = parseResponsiveProp(reverseProp);
+    const collapsed = parseCollapsedBelow(collapseBelow);
 
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={clsx(styles.root, {
-          [styles.layoutDefault]: !isCollapsed,
-          [styles.layoutCollapsed]: isCollapsed,
-          [styles.directionDefault]: !isReversed,
-          [styles.directionReversed]: isReversed,
+    return css`
+      width: 100%;
+      display: flex;
 
-          [styles.space0]: space === 0,
-          [styles.space1]: space === 1,
-          [styles.space2]: space === 2,
-          [styles.space3]: space === 3,
-          [styles.space4]: space === 4,
-          [styles.space5]: space === 5,
-          [styles.space6]: space === 6,
-          [styles.space7]: space === 7,
-          [styles.space8]: space === 8,
-          [styles.space9]: space === 9,
-          [styles.space10]: space === 10,
+      ${columnsRootMixin(align[0], space[0], reverse[0], collapsed[0])};
 
-          [styles.alignCenter]: align === 'center',
-          [styles.alignBottom]: align === 'bottom',
-        })}
-      />
-    );
+      ${theme.breakpoints.up('sm')} {
+        ${columnsRootMixin(align[1], space[1], reverse[1], collapsed[1])};
+      }
+
+      ${theme.breakpoints.up('md')} {
+        ${columnsRootMixin(align[2], space[2], reverse[2], collapsed[2])};
+      }
+    `;
   },
 );
