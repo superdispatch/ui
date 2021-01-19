@@ -4,8 +4,6 @@ test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "Box": React.forwardRef(Box),
-      "Column": React.forwardRef(Column),
-      "Columns": React.forwardRef(Columns),
       "DescriptionItem": React.forwardRef(DescriptionItem),
       "Sidebar": React.forwardRef(Sidebar),
       "SidebarContainer": React.forwardRef(SidebarContainer),
