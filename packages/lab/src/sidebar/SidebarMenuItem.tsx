@@ -1,6 +1,6 @@
 import { ButtonBase } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
-import { Color } from '@superdispatch/ui';
+import { Color, Inline } from '@superdispatch/ui';
 import {
   forwardRef,
   MouseEvent,
@@ -13,7 +13,6 @@ import styled, { css } from 'styled-components';
 
 import { Column } from '../columns/Column';
 import { Columns } from '../columns/Columns';
-import { Inline } from '../inline/Inline';
 import { TextBox } from '../text-box/TextBox';
 import { SidebarMenuItemContextProvider } from './SidebarMenuItemContext';
 

@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/react';
-import { Stack } from '@superdispatch/ui';
 import { UseState } from '@superdispatch/ui-docs';
-import { Inline } from '@superdispatch/ui-lab';
 
+import { Inline } from '../inline/Inline';
+import { Stack } from '../stack/Stack';
 import { AvatarButton } from './AvatarButton';
 
 export default {

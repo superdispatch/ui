@@ -3,7 +3,6 @@ export {
   Column,
   Columns,
   DescriptionItem,
-  Inline,
   Sidebar,
   SidebarContainer,
   SidebarDivider,
