@@ -11,7 +11,7 @@ import { Column } from './Column';
 import { Columns } from './Columns';
 
 export default {
-  title: 'Lab/Columns',
+  title: 'Layout/Columns',
   component: Columns,
   subcomponents: { Column },
   decorators: [
