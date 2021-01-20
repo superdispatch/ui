@@ -1,19 +1,23 @@
+import { CircularProgress } from '@material-ui/core';
 import { Color } from '@superdispatch/ui';
-import { forwardRef, ReactNode } from 'react';
+import { AriaAttributes, forwardRef, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-export type ButtonColorProp = 'default' | 'primary' | 'critical' | 'inverted';
 export type ButtonSizeProp = 'small' | 'medium' | 'large';
-export type ButtonVariantProp = 'contained' | 'outlined' | 'text';
+export type ButtonVariantProp =
+  | 'default'
+  | 'primary'
+  | 'neutral'
+  | 'critical'
+  | 'inverted';
 
 interface ButtonStyleProps {
+  pending: boolean;
   disabled: boolean;
   buttonActive: boolean;
-  buttonLoading: boolean;
 
   size: ButtonSizeProp;
   variant: ButtonVariantProp;
-  buttonColor: ButtonColorProp;
 }
 
 interface ButtonVariables {
@@ -28,19 +32,27 @@ interface ButtonVariables {
   paddingYMobile: number;
 
   textColor: Color;
+  textColorHovered: Color;
   borderColor: Color;
+  borderColorHovered: Color;
   outlineColor: Color;
   backgroundColor: Color;
-  backgroundColorActive: Color;
+  backgroundColorHovered: Color;
 }
 
-function getButtonVariables({ size }: ButtonStyleProps): ButtonVariables {
+function getDefaultVariables({
+  size,
+  disabled,
+}: ButtonStyleProps): ButtonVariables {
   return {
-    textColor: Color.Transparent,
+    textColor: Color.White,
     borderColor: Color.Transparent,
-    outlineColor: Color.Transparent,
-    backgroundColor: Color.Transparent,
-    backgroundColorActive: Color.Transparent,
+    outlineColor: Color.Blue100,
+    backgroundColor: disabled ? Color.Blue100 : Color.Blue300,
+
+    textColorHovered: Color.White,
+    borderColorHovered: Color.Transparent,
+    backgroundColorHovered: Color.Blue500,
 
     fontSize: size === 'large' ? 16 : 14,
     lineHeight: size === 'large' ? 24 : 20,
@@ -54,45 +66,37 @@ function getButtonVariables({ size }: ButtonStyleProps): ButtonVariables {
   };
 }
 
-function getContainedButtonVariables(props: ButtonStyleProps): ButtonVariables {
-  const { buttonColor, disabled, buttonLoading } = props;
-  const variables = getButtonVariables(props);
+function getPrimaryVariables(props: ButtonStyleProps): ButtonVariables {
+  return getDefaultVariables(props);
+}
 
-  const [
-    backgroundColor,
-    outlineColor,
-    backgroundColorActive,
-    disabledTextColor = Color.White,
-    disabledBackgroundColor,
-  ] =
-    buttonColor === 'critical'
-      ? [Color.Red300, Color.Red100, Color.Red500, undefined, Color.Red100]
-      : buttonColor === 'inverted'
-      ? [
-          Color.White20,
-          Color.White40,
-          Color.White40,
-          Color.White50,
-          Color.White08,
-        ]
-      : [Color.Blue300, Color.Blue100, Color.Blue500, undefined, Color.Blue100];
+function getNeutralVariables(props: ButtonStyleProps): ButtonVariables {
+  const { disabled } = props;
+  const variables = getDefaultVariables(props);
 
-  return {
-    ...variables,
-    outlineColor,
-    backgroundColorActive,
-    textColor: disabled && !buttonLoading ? disabledTextColor : Color.White,
-    backgroundColor:
-      disabled && !buttonLoading ? disabledBackgroundColor : backgroundColor,
-  };
+  variables.textColor = disabled ? Color.Silver500 : Color.Grey500;
+  variables.borderColor = Color.Silver500;
+  variables.backgroundColor = Color.White;
+
+  variables.textColorHovered = Color.Blue300;
+  variables.borderColorHovered = Color.Blue300;
+  variables.backgroundColorHovered = Color.Blue50;
+
+  return variables;
 }
 
 const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
-  const { theme, variant, disabled } = props;
+  const { theme, pending, variant, disabled } = props;
   const variables =
-    variant === 'contained'
-      ? getContainedButtonVariables(props)
-      : getButtonVariables(props);
+    variant === 'primary'
+      ? getPrimaryVariables(props)
+      : variant === 'neutral'
+      ? getNeutralVariables(props)
+      : variant === 'critical'
+      ? getPrimaryVariables(props)
+      : variant === 'inverted'
+      ? getPrimaryVariables(props)
+      : getDefaultVariables(props);
 
   //
 
@@ -132,6 +136,13 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
     }
 
     /* Button styles */
+    --button-visibility: ${pending ? 'hidden' : 'visible'};
+
+    --button-text-color: ${variables.textColor};
+    --button-border-color: ${variables.borderColor};
+    --button-outline-color: ${Color.Transparent};
+    --button-background-color: ${variables.backgroundColor};
+
     --button-padding-x: ${variables.paddingXMobile}px;
     --button-padding-y: ${variables.paddingYMobile}px;
     --button-font-size: ${variables.fontSizeMobile}px;
@@ -150,8 +161,8 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
     align-items: center;
     justify-content: center;
 
-    color: ${variables.textColor};
-    background-color: ${variables.backgroundColor};
+    color: var(--button-text-color);
+    background-color: var(--button-background-color);
 
     font-family: ${theme.typography.fontFamily};
     font-weight: ${theme.typography.fontWeightBold};
@@ -168,8 +179,8 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
     ])};
 
     transform: scale(1);
-    box-shadow: inset 0 0 0 1px ${variables.borderColor},
-      0 0 0 0 ${variables.outlineColor};
+    box-shadow: inset 0 0 0 1px var(--button-border-color),
+      0 0 0 2px var(--button-outline-color);
 
     ${!disabled &&
     css`
@@ -178,17 +189,20 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
       }
 
       &:focus {
-        box-shadow: inset 0 0 0 1px ${variables.borderColor},
-          0 0 0 2px ${variables.outlineColor};
+        --button-outline-color: ${variables.outlineColor};
       }
 
       &[aria-expanded='true'] {
-        background-color: ${variables.backgroundColorActive};
+        --button-text-color: ${variables.textColorHovered};
+        --button-border-color: ${variables.borderColorHovered};
+        --button-background-color: ${variables.backgroundColorHovered};
       }
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {
-          background-color: ${variables.backgroundColorActive};
+          --button-text-color: ${variables.textColorHovered};
+          --button-border-color: ${variables.borderColorHovered};
+          --button-background-color: ${variables.backgroundColorHovered};
         }
       }
     `}
@@ -199,6 +213,7 @@ const ButtonLabel = styled.span`
   display: inherit;
   align-items: inherit;
   justify-content: inherit;
+  visibility: var(--button-visibility);
 `;
 
 const ButtonStartIcon = styled.span`
@@ -209,13 +224,24 @@ const ButtonEndIcon = styled.span`
   margin-left: 4px;
 `;
 
-export interface ButtonProps {
+const ButtonPendingIndicator = styled.span`
+  left: 50%;
+  display: flex;
+  position: absolute;
+  visibility: visible;
+  transform: translate(-50%);
+`;
+
+export interface ButtonProps
+  extends Pick<
+    AriaAttributes,
+    'aria-label' | 'aria-controls' | 'aria-haspopup' | 'aria-labelledby'
+  > {
   active?: boolean;
-  loading?: boolean;
+  pending?: boolean;
   disabled?: boolean;
 
   size?: ButtonSizeProp;
-  color?: ButtonColorProp;
   variant?: ButtonVariantProp;
 
   children?: ReactNode;
@@ -238,34 +264,33 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       tabIndex: tabIndexProp = 0,
 
       active = false,
-      loading = false,
+      pending = false,
       disabled: disabledProp = false,
 
       size = 'medium',
-      color = 'default',
-      variant = 'outlined',
+      variant = 'default',
+      ...props
     },
     ref,
   ) => {
-    const disabled = loading || disabledProp;
+    const disabled = pending || disabledProp;
     const tabIndex = disabled ? -0 : tabIndexProp;
     const styleProps: ButtonStyleProps = {
-      disabled,
-      buttonActive: active,
-      buttonLoading: loading,
-
       size,
       variant,
-      buttonColor: color,
+      pending,
+      disabled,
+      buttonActive: active,
     };
 
     return (
       <ButtonRoot
+        {...props}
         {...styleProps}
         ref={ref}
         type={type}
         tabIndex={tabIndex}
-        aria-busy={loading}
+        aria-busy={pending}
         aria-expanded={active}
         aria-disabled={disabled}
       >
@@ -273,6 +298,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {!!startIcon && <ButtonStartIcon>{startIcon}</ButtonStartIcon>}
           {children}
           {!!endIcon && <ButtonEndIcon>{endIcon}</ButtonEndIcon>}
+
+          {pending && (
+            <ButtonPendingIndicator>
+              <CircularProgress size="1em" color="inherit" />
+            </ButtonPendingIndicator>
+          )}
         </ButtonLabel>
       </ButtonRoot>
     );

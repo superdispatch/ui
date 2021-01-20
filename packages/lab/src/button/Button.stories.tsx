@@ -9,534 +9,144 @@ import { Button } from './Button';
 
 export default {
   title: 'Lab/Button',
+  component: Button,
 } as Meta;
 
-export const contained = () => (
+export const basic = () => (
+  <Inline>
+    <Stack align="center">
+      <Button variant="primary">Primary</Button>
+      <Button variant="primary" active={true}>
+        Primary
+      </Button>
+      <Button variant="primary" pending={true}>
+        Primary
+      </Button>
+      <Button variant="primary" disabled={true}>
+        Primary
+      </Button>
+    </Stack>
+
+    <Stack align="center">
+      <Button variant="default">Default</Button>
+      <Button variant="default" active={true}>
+        Default
+      </Button>
+      <Button variant="default" pending={true}>
+        Default
+      </Button>
+      <Button variant="default" disabled={true}>
+        Default
+      </Button>
+    </Stack>
+
+    <Stack align="center">
+      <Button variant="neutral">Neutral</Button>
+      <Button variant="neutral" active={true}>
+        Neutral
+      </Button>
+      <Button variant="neutral" pending={true}>
+        Neutral
+      </Button>
+      <Button variant="neutral" disabled={true}>
+        Neutral
+      </Button>
+    </Stack>
+
+    <Stack align="center">
+      <Button variant="critical">Critical</Button>
+      <Button variant="critical" active={true}>
+        Critical
+      </Button>
+      <Button variant="critical" pending={true}>
+        Critical
+      </Button>
+      <Button variant="critical" disabled={true}>
+        Critical
+      </Button>
+    </Stack>
+
+    <Stack align="center">
+      <Button variant="inverted">Inverted</Button>
+      <Button variant="inverted" active={true}>
+        Inverted
+      </Button>
+      <Button variant="inverted" pending={true}>
+        Inverted
+      </Button>
+      <Button variant="inverted" disabled={true}>
+        Inverted
+      </Button>
+    </Stack>
+  </Inline>
+);
+
+export const sizes = () => (
   <Stack space="medium">
     <Stack space="small">
       <Inline>
-        <Button variant="contained" color="default" size="small">
+        <Button variant="default" size="small">
           <MoreHorizIcon />
         </Button>
 
-        <Button variant="contained" color="default" size="small">
+        <Button variant="default" size="small">
           Submit
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="small"
-          startIcon={<CloudUploadIcon />}
-        >
+        <Button variant="default" size="small" startIcon={<CloudUploadIcon />}>
           Import
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="small"
-          endIcon={<SaveIcon />}
-        >
+        <Button variant="default" size="small" endIcon={<SaveIcon />}>
           Save
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="small"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="small"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="small"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
+        <Button variant="default" size="small" pending={true}>
+          Pending
         </Button>
       </Inline>
 
       <Inline>
-        <Button variant="contained" color="default" size="medium">
+        <Button variant="default" size="medium">
           <MoreHorizIcon />
         </Button>
 
-        <Button variant="contained" color="default" size="medium">
+        <Button variant="default" size="medium">
           Submit
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="medium"
-          startIcon={<CloudUploadIcon />}
-        >
+        <Button variant="default" size="medium" startIcon={<CloudUploadIcon />}>
           Import
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="medium"
-          endIcon={<SaveIcon />}
-        >
+        <Button variant="default" size="medium" endIcon={<SaveIcon />}>
           Save
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="medium"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="medium"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="medium"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
+        <Button variant="default" size="medium" pending={true}>
+          Pending
         </Button>
       </Inline>
 
       <Inline>
-        <Button variant="contained" color="default" size="large">
+        <Button variant="default" size="large">
           <MoreHorizIcon />
         </Button>
 
-        <Button variant="contained" color="default" size="large">
+        <Button variant="default" size="large">
           Submit
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="large"
-          startIcon={<CloudUploadIcon />}
-        >
+        <Button variant="default" size="large" startIcon={<CloudUploadIcon />}>
           Import
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="large"
-          endIcon={<SaveIcon />}
-        >
+        <Button variant="default" size="large" endIcon={<SaveIcon />}>
           Save
         </Button>
 
-        <Button
-          variant="contained"
-          color="default"
-          size="large"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="large"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="default"
-          size="large"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-    </Stack>
-
-    <Stack space="small">
-      <Inline>
-        <Button variant="contained" color="critical" size="small">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="critical" size="small">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="small"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="small"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="small"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="small"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="small"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-
-      <Inline>
-        <Button variant="contained" color="critical" size="medium">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="critical" size="medium">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="medium"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="medium"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="medium"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="medium"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="medium"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-
-      <Inline>
-        <Button variant="contained" color="critical" size="large">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="critical" size="large">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="large"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="large"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="large"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="large"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="critical"
-          size="large"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-    </Stack>
-
-    <Stack space="small">
-      <Inline>
-        <Button variant="contained" color="positive" size="small">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="positive" size="small">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="small"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="small"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="small"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="small"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="small"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-
-      <Inline>
-        <Button variant="contained" color="positive" size="medium">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="positive" size="medium">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="medium"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="medium"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="medium"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="medium"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="medium"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
-        </Button>
-      </Inline>
-
-      <Inline>
-        <Button variant="contained" color="positive" size="large">
-          <MoreHorizIcon />
-        </Button>
-
-        <Button variant="contained" color="positive" size="large">
-          Submit
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="large"
-          startIcon={<CloudUploadIcon />}
-        >
-          Import
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="large"
-          endIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="large"
-          endIcon={<SaveIcon />}
-          active={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="large"
-          endIcon={<SaveIcon />}
-          disabled={true}
-        >
-          Save
-        </Button>
-
-        <Button
-          variant="contained"
-          color="positive"
-          size="large"
-          endIcon={<SaveIcon />}
-          loading={true}
-        >
-          Save
+        <Button variant="default" size="large" pending={true}>
+          Pending
         </Button>
       </Inline>
     </Stack>
@@ -544,176 +154,80 @@ export const contained = () => (
     <Box backgroundColor="Grey500" padding="xsmall" borderRadius="small">
       <Stack space="small">
         <Inline>
-          <Button variant="contained" color="inverted" size="small">
+          <Button variant="inverted" size="small">
             <MoreHorizIcon />
           </Button>
 
-          <Button variant="contained" color="inverted" size="small">
+          <Button variant="inverted" size="small">
             Submit
           </Button>
 
           <Button
-            variant="contained"
-            color="inverted"
+            variant="inverted"
             size="small"
             startIcon={<CloudUploadIcon />}
           >
             Import
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="small"
-            endIcon={<SaveIcon />}
-          >
+          <Button variant="inverted" size="small" endIcon={<SaveIcon />}>
             Save
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="small"
-            endIcon={<SaveIcon />}
-            active={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="small"
-            endIcon={<SaveIcon />}
-            disabled={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="small"
-            endIcon={<SaveIcon />}
-            loading={true}
-          >
-            Save
+          <Button variant="inverted" size="small" pending={true}>
+            Submit
           </Button>
         </Inline>
 
         <Inline>
-          <Button variant="contained" color="inverted" size="medium">
+          <Button variant="inverted" size="medium">
             <MoreHorizIcon />
           </Button>
 
-          <Button variant="contained" color="inverted" size="medium">
+          <Button variant="inverted" size="medium">
             Submit
           </Button>
 
           <Button
-            variant="contained"
-            color="inverted"
+            variant="inverted"
             size="medium"
             startIcon={<CloudUploadIcon />}
           >
             Import
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="medium"
-            endIcon={<SaveIcon />}
-          >
+          <Button variant="inverted" size="medium" endIcon={<SaveIcon />}>
             Save
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="medium"
-            endIcon={<SaveIcon />}
-            active={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="medium"
-            endIcon={<SaveIcon />}
-            disabled={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="medium"
-            endIcon={<SaveIcon />}
-            loading={true}
-          >
-            Save
+          <Button variant="inverted" size="medium" pending={true}>
+            Submit
           </Button>
         </Inline>
 
         <Inline>
-          <Button variant="contained" color="inverted" size="large">
+          <Button variant="inverted" size="large">
             <MoreHorizIcon />
           </Button>
 
-          <Button variant="contained" color="inverted" size="large">
+          <Button variant="inverted" size="large">
             Submit
           </Button>
 
           <Button
-            variant="contained"
-            color="inverted"
+            variant="inverted"
             size="large"
             startIcon={<CloudUploadIcon />}
           >
             Import
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="large"
-            endIcon={<SaveIcon />}
-          >
+          <Button variant="inverted" size="large" endIcon={<SaveIcon />}>
             Save
           </Button>
 
-          <Button
-            variant="contained"
-            color="inverted"
-            size="large"
-            endIcon={<SaveIcon />}
-            active={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="large"
-            endIcon={<SaveIcon />}
-            disabled={true}
-          >
-            Save
-          </Button>
-
-          <Button
-            variant="contained"
-            color="inverted"
-            size="large"
-            endIcon={<SaveIcon />}
-            loading={true}
-          >
-            Save
+          <Button variant="inverted" size="large" pending={true}>
+            Submit
           </Button>
         </Inline>
       </Stack>
