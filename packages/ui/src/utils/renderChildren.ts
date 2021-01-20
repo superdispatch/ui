@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
 export function renderChildren(node: ReactNode): null | ReactElement {
-  if (node == null) {
+  if (node == null || typeof node == 'boolean') {
     return null;
   }
 

@@ -1,4 +1,6 @@
-import { CloudUpload, MoreHoriz, Save } from '@material-ui/icons';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import SaveIcon from '@material-ui/icons/Save';
 import { Meta } from '@storybook/react';
 import { Box } from '@superdispatch/ui-lab';
 
@@ -105,20 +107,20 @@ export const basic = ({
       target={target}
       startIcon={
         startIcon === 'Save' ? (
-          <Save />
+          <SaveIcon />
         ) : startIcon === 'CloudUpload' ? (
-          <CloudUpload />
+          <CloudUploadIcon />
         ) : null
       }
       endIcon={
         endIcon === 'Save' ? (
-          <Save />
+          <SaveIcon />
         ) : endIcon === 'CloudUpload' ? (
-          <CloudUpload />
+          <CloudUploadIcon />
         ) : null
       }
     >
-      {children === 'Text' ? 'Text' : <MoreHoriz />}
+      {children === 'Text' ? 'Text' : <MoreHorizIcon />}
     </Button>
   );
 
