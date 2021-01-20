@@ -129,6 +129,21 @@ function getNeutralVariables(size: ButtonSizeProp): ButtonVariables {
   });
 }
 
+function getCriticalVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
+    textColor: Color.Red300,
+    borderColor: Color.Red300,
+    outlineColor: Color.Red75,
+    backgroundColor: Color.Red50,
+
+    backgroundColorHovered: Color.Red75,
+
+    textColorDisabled: Color.Red100,
+    borderColorDisabled: Color.Red100,
+    backgroundColorDisabled: Color.Red50,
+  });
+}
+
 const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
   const { size, theme, variant, disabled } = props;
   const variables =
@@ -137,7 +152,7 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
       : variant === 'neutral'
       ? getNeutralVariables(size)
       : variant === 'critical'
-      ? getPrimaryVariables(size)
+      ? getCriticalVariables(size)
       : variant === 'inverted'
       ? getPrimaryVariables(size)
       : getDefaultVariables(size);
