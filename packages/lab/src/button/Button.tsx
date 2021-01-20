@@ -12,10 +12,6 @@ export type ButtonVariantProp =
   | 'inverted';
 
 interface ButtonStyleProps {
-  pending: boolean;
-  disabled: boolean;
-  buttonActive: boolean;
-
   size: ButtonSizeProp;
   variant: ButtonVariantProp;
 }
@@ -33,72 +29,118 @@ interface ButtonVariables {
 
   textColor: Color;
   textColorHovered: Color;
+  textColorDisabled: Color;
+
+  outlineColor: Color;
+
   borderColor: Color;
   borderColorHovered: Color;
-  outlineColor: Color;
+  borderColorDisabled: Color;
+
   backgroundColor: Color;
   backgroundColorHovered: Color;
+  backgroundColorDisabled: Color;
 }
 
-function getDefaultVariables({
-  size,
-  disabled,
-}: ButtonStyleProps): ButtonVariables {
+function createButtonVariables(
+  size: ButtonSizeProp,
+  {
+    fontSize = size === 'large' ? 16 : 14,
+    lineHeight = size === 'large' ? 24 : 20,
+    fontSizeMobile = size === 'large' ? 18 : 16,
+    lineHeightMobile = size === 'large' ? 28 : 24,
+
+    paddingX = size === 'large' ? 32 : 16,
+    paddingY = size === 'large' ? 8 : size === 'small' ? 2 : 6,
+    paddingXMobile = size === 'large' ? 64 : 24,
+    paddingYMobile = size === 'large' ? 14 : size === 'small' ? 4 : 10,
+
+    textColor = Color.Transparent,
+    textColorHovered = textColor,
+    textColorDisabled = textColor,
+
+    outlineColor = Color.Transparent,
+
+    borderColor = Color.Transparent,
+    borderColorHovered = borderColor,
+    borderColorDisabled = borderColor,
+
+    backgroundColor = Color.Transparent,
+    backgroundColorHovered = backgroundColor,
+    backgroundColorDisabled = backgroundColor,
+  }: Partial<ButtonVariables>,
+): ButtonVariables {
   return {
+    paddingX,
+    paddingY,
+    fontSize,
+    lineHeight,
+
+    paddingXMobile,
+    paddingYMobile,
+    fontSizeMobile,
+    lineHeightMobile,
+
+    textColor,
+    borderColor,
+    outlineColor,
+    backgroundColor,
+
+    textColorHovered,
+    borderColorHovered,
+    backgroundColorHovered,
+
+    textColorDisabled,
+    borderColorDisabled,
+    backgroundColorDisabled,
+  };
+}
+
+function getDefaultVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
     textColor: Color.White,
-    borderColor: Color.Transparent,
     outlineColor: Color.Blue100,
-    backgroundColor: disabled ? Color.Blue100 : Color.Blue300,
+    backgroundColor: Color.Blue300,
 
     textColorHovered: Color.White,
     borderColorHovered: Color.Transparent,
     backgroundColorHovered: Color.Blue500,
 
-    fontSize: size === 'large' ? 16 : 14,
-    lineHeight: size === 'large' ? 24 : 20,
-    fontSizeMobile: size === 'large' ? 18 : 16,
-    lineHeightMobile: size === 'large' ? 28 : 24,
-
-    paddingX: size === 'large' ? 32 : 16,
-    paddingY: size === 'large' ? 8 : size === 'small' ? 2 : 6,
-    paddingXMobile: size === 'large' ? 64 : 24,
-    paddingYMobile: size === 'large' ? 14 : size === 'small' ? 4 : 10,
-  };
+    backgroundColorDisabled: Color.Blue100,
+  });
 }
 
-function getPrimaryVariables(props: ButtonStyleProps): ButtonVariables {
-  return getDefaultVariables(props);
+function getPrimaryVariables(size: ButtonSizeProp): ButtonVariables {
+  return getDefaultVariables(size);
 }
 
-function getNeutralVariables(props: ButtonStyleProps): ButtonVariables {
-  const { disabled } = props;
-  const variables = getDefaultVariables(props);
+function getNeutralVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
+    textColor: Color.Grey500,
+    borderColor: Color.Silver500,
+    outlineColor: Color.Blue100,
+    backgroundColor: Color.White,
 
-  variables.textColor = disabled ? Color.Silver500 : Color.Grey500;
-  variables.borderColor = Color.Silver500;
-  variables.backgroundColor = Color.White;
+    textColorHovered: Color.Blue300,
+    borderColorHovered: Color.Blue300,
+    backgroundColorHovered: Color.Blue50,
 
-  variables.textColorHovered = Color.Blue300;
-  variables.borderColorHovered = Color.Blue300;
-  variables.backgroundColorHovered = Color.Blue50;
-
-  return variables;
+    textColorDisabled: Color.Silver500,
+  });
 }
 
 const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
-  const { theme, pending, variant, disabled } = props;
+  const { size, theme, variant, disabled } = props;
   const variables =
     variant === 'primary'
-      ? getPrimaryVariables(props)
+      ? getPrimaryVariables(size)
       : variant === 'neutral'
-      ? getNeutralVariables(props)
+      ? getNeutralVariables(size)
       : variant === 'critical'
-      ? getPrimaryVariables(props)
+      ? getPrimaryVariables(size)
       : variant === 'inverted'
-      ? getPrimaryVariables(props)
-      : getDefaultVariables(props);
-
-  //
+      ? getPrimaryVariables(size)
+      : getDefaultVariables(size);
 
   return css`
     /* Reset button styles */
@@ -136,8 +178,8 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
     }
 
     /* Button styles */
-    --button-visibility: ${pending ? 'hidden' : 'visible'};
 
+    --button-visibility: visible;
     --button-text-color: ${variables.textColor};
     --button-border-color: ${variables.borderColor};
     --button-outline-color: ${Color.Transparent};
@@ -155,57 +197,65 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
       --button-line-height: ${variables.lineHeight}px;
     }
 
+    ${disabled
+      ? css`
+          --button-text-color: ${variables.textColorDisabled};
+          --button-border-color: ${variables.borderColorDisabled};
+          --button-background-color: ${variables.backgroundColorDisabled};
+
+          &[aria-busy='true'] {
+            --button-visibility: hidden;
+          }
+        `
+      : css`
+          &:active {
+            /* TODO Change background color */
+            opacity: 0.9;
+          }
+
+          &:focus {
+            --button-outline-color: ${variables.outlineColor};
+          }
+
+          &[aria-expanded='true'] {
+            --button-text-color: ${variables.textColorHovered};
+            --button-border-color: ${variables.borderColorHovered};
+            --button-background-color: ${variables.backgroundColorHovered};
+          }
+
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              --button-text-color: ${variables.textColorHovered};
+              --button-border-color: ${variables.borderColorHovered};
+              --button-background-color: ${variables.backgroundColorHovered};
+            }
+          }
+        `}
+
     --mui-svg-icon-size: var(--button-line-height);
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    color: var(--button-text-color);
-    background-color: var(--button-background-color);
-
+    border-radius: 4px;
     font-family: ${theme.typography.fontFamily};
     font-weight: ${theme.typography.fontWeightBold};
 
-    border-radius: 4px;
+    color: var(--button-text-color);
+    background-color: var(--button-background-color);
     font-size: var(--button-font-size);
     line-height: var(--button-line-height);
     padding: var(--button-padding-y) var(--button-padding-x);
+
+    box-shadow: inset 0 0 0 1px var(--button-border-color),
+      0 0 0 2px var(--button-outline-color);
 
     transition: ${theme.transitions.create([
       'color',
       'box-shadow',
       'background-color',
     ])};
-
-    transform: scale(1);
-    box-shadow: inset 0 0 0 1px var(--button-border-color),
-      0 0 0 2px var(--button-outline-color);
-
-    ${!disabled &&
-    css`
-      &:active {
-        opacity: 0.9;
-      }
-
-      &:focus {
-        --button-outline-color: ${variables.outlineColor};
-      }
-
-      &[aria-expanded='true'] {
-        --button-text-color: ${variables.textColorHovered};
-        --button-border-color: ${variables.borderColorHovered};
-        --button-background-color: ${variables.backgroundColorHovered};
-      }
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          --button-text-color: ${variables.textColorHovered};
-          --button-border-color: ${variables.borderColorHovered};
-          --button-background-color: ${variables.backgroundColorHovered};
-        }
-      }
-    `}
   `;
 });
 
@@ -275,13 +325,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const disabled = pending || disabledProp;
     const tabIndex = disabled ? -0 : tabIndexProp;
-    const styleProps: ButtonStyleProps = {
-      size,
-      variant,
-      pending,
-      disabled,
-      buttonActive: active,
-    };
+    const styleProps: ButtonStyleProps = { size, variant };
 
     return (
       <ButtonRoot
@@ -289,6 +333,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...styleProps}
         ref={ref}
         type={type}
+        disabled={disabled}
         tabIndex={tabIndex}
         aria-busy={pending}
         aria-expanded={active}
