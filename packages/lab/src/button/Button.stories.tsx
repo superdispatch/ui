@@ -13,7 +13,7 @@ export default {
 } as Meta;
 
 export const basic = () => (
-  <Inline>
+  <Inline verticalAlign="center">
     <Stack align="center">
       <Button variant="primary">Primary</Button>
       <Button variant="primary" active={true}>
@@ -66,18 +66,20 @@ export const basic = () => (
       </Button>
     </Stack>
 
-    <Stack align="center">
-      <Button variant="inverted">Inverted</Button>
-      <Button variant="inverted" active={true}>
-        Inverted
-      </Button>
-      <Button variant="inverted" pending={true}>
-        Inverted
-      </Button>
-      <Button variant="inverted" disabled={true}>
-        Inverted
-      </Button>
-    </Stack>
+    <Box backgroundColor="Grey500" padding="xsmall" borderRadius="small">
+      <Stack align="center">
+        <Button variant="inverted">Inverted</Button>
+        <Button variant="inverted" active={true}>
+          Inverted
+        </Button>
+        <Button variant="inverted" pending={true}>
+          Inverted
+        </Button>
+        <Button variant="inverted" disabled={true}>
+          Inverted
+        </Button>
+      </Stack>
+    </Box>
   </Inline>
 );
 

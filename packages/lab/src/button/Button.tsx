@@ -103,7 +103,6 @@ function getDefaultVariables(size: ButtonSizeProp): ButtonVariables {
     backgroundColor: Color.Blue300,
 
     textColorHovered: Color.White,
-    borderColorHovered: Color.Transparent,
     backgroundColorHovered: Color.Blue500,
 
     backgroundColorDisabled: Color.Blue100,
@@ -144,6 +143,20 @@ function getCriticalVariables(size: ButtonSizeProp): ButtonVariables {
   });
 }
 
+function getInvertedVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
+    textColor: Color.White,
+    outlineColor: Color.White40,
+    backgroundColor: Color.White20,
+
+    textColorHovered: Color.White,
+    backgroundColorHovered: Color.White40,
+
+    textColorDisabled: Color.White50,
+    backgroundColorDisabled: Color.White08,
+  });
+}
+
 const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
   const { size, theme, variant, disabled } = props;
   const variables =
@@ -154,7 +167,7 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
       : variant === 'critical'
       ? getCriticalVariables(size)
       : variant === 'inverted'
-      ? getPrimaryVariables(size)
+      ? getInvertedVariables(size)
       : getDefaultVariables(size);
 
   return css`
