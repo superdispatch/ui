@@ -19,6 +19,7 @@ it('check focus states', () => {
     'Inverted',
   ]) {
     cy.findByRole('button', { name }).focus();
+    cy.wait(300);
     cy.takeSnapshots(`Lab/Button: Basic - Focus ${name}`);
   }
 });
