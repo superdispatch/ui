@@ -16,7 +16,7 @@ it('checks component css', () => {
 
     strong,
     b {
-      font-weight: 700;
+      font-weight: 600;
     }
 
     body {
