@@ -51,7 +51,7 @@ export const basic = () => (
     </Stack>
 
     <Stack align="center">
-      <Button variant="text">Critical</Button>
+      <Button variant="text">Text</Button>
       <Button variant="text" active={true}>
         Hover
       </Button>

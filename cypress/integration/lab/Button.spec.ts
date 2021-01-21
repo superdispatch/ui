@@ -14,6 +14,7 @@ it('check focus states', () => {
     'Primary',
     'Default',
     'Neutral',
+    'Text',
     'Critical',
     'Inverted',
   ]) {
