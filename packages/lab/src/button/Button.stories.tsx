@@ -301,6 +301,74 @@ export const sizes = () => (
 
     <Stack space="small" align="center">
       <Inline>
+        <Button variant="text" size="small">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="text" size="small">
+          Submit
+        </Button>
+
+        <Button variant="text" size="small" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="text" size="small" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="text" size="small" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="text" size="medium">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="text" size="medium">
+          Submit
+        </Button>
+
+        <Button variant="text" size="medium" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="text" size="medium" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="text" size="medium" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="text" size="large">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="text" size="large">
+          Submit
+        </Button>
+
+        <Button variant="text" size="large" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="text" size="large" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="text" size="large" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+    </Stack>
+
+    <Stack space="small" align="center">
+      <Inline>
         <Button variant="critical" size="small">
           <MoreHorizIcon />
         </Button>
