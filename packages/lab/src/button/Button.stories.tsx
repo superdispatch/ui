@@ -7,13 +7,10 @@ import { Inline, Stack } from '@superdispatch/ui';
 import { Box } from '../box/Box';
 import { Button } from './Button';
 
-export default {
-  title: 'Lab/Button',
-  component: Button,
-} as Meta;
+export default { title: 'Lab/Button', component: Button } as Meta;
 
 export const basic = () => (
-  <Inline verticalAlign="center">
+  <Inline verticalAlign="center" horizontalAlign="center">
     <Stack align="center">
       <Button variant="primary">Primary</Button>
       <Button variant="primary" active={true}>
@@ -84,8 +81,76 @@ export const basic = () => (
 );
 
 export const sizes = () => (
-  <Stack space="medium">
-    <Stack space="small">
+  <Stack space="medium" align="center">
+    <Stack space="small" align="center">
+      <Inline>
+        <Button variant="primary" size="small">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="primary" size="small">
+          Submit
+        </Button>
+
+        <Button variant="primary" size="small" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="primary" size="small" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="primary" size="small" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="primary" size="medium">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="primary" size="medium">
+          Submit
+        </Button>
+
+        <Button variant="primary" size="medium" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="primary" size="medium" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="primary" size="medium" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="primary" size="large">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="primary" size="large">
+          Submit
+        </Button>
+
+        <Button variant="primary" size="large" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="primary" size="large" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="primary" size="large" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+    </Stack>
+
+    <Stack space="small" align="center">
       <Inline>
         <Button variant="default" size="small">
           <MoreHorizIcon />
@@ -153,8 +218,148 @@ export const sizes = () => (
       </Inline>
     </Stack>
 
+    <Stack space="small" align="center">
+      <Inline>
+        <Button variant="neutral" size="small">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="neutral" size="small">
+          Submit
+        </Button>
+
+        <Button variant="neutral" size="small" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="neutral" size="small" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="neutral" size="small" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="neutral" size="medium">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="neutral" size="medium">
+          Submit
+        </Button>
+
+        <Button variant="neutral" size="medium" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="neutral" size="medium" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="neutral" size="medium" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="neutral" size="large">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="neutral" size="large">
+          Submit
+        </Button>
+
+        <Button variant="neutral" size="large" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="neutral" size="large" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="neutral" size="large" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+    </Stack>
+
+    <Stack space="small" align="center">
+      <Inline>
+        <Button variant="critical" size="small">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="critical" size="small">
+          Submit
+        </Button>
+
+        <Button variant="critical" size="small" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="critical" size="small" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="critical" size="small" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="critical" size="medium">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="critical" size="medium">
+          Submit
+        </Button>
+
+        <Button
+          variant="critical"
+          size="medium"
+          startIcon={<CloudUploadIcon />}
+        >
+          Import
+        </Button>
+
+        <Button variant="critical" size="medium" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="critical" size="medium" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+
+      <Inline>
+        <Button variant="critical" size="large">
+          <MoreHorizIcon />
+        </Button>
+
+        <Button variant="critical" size="large">
+          Submit
+        </Button>
+
+        <Button variant="critical" size="large" startIcon={<CloudUploadIcon />}>
+          Import
+        </Button>
+
+        <Button variant="critical" size="large" endIcon={<SaveIcon />}>
+          Save
+        </Button>
+
+        <Button variant="critical" size="large" pending={true}>
+          Pending
+        </Button>
+      </Inline>
+    </Stack>
+
     <Box backgroundColor="Grey500" padding="xsmall" borderRadius="small">
-      <Stack space="small">
+      <Stack space="small" align="center">
         <Inline>
           <Button variant="inverted" size="small">
             <MoreHorizIcon />
