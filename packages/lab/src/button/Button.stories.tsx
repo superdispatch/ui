@@ -51,6 +51,19 @@ export const basic = () => (
     </Stack>
 
     <Stack align="center">
+      <Button variant="text">Critical</Button>
+      <Button variant="text" active={true}>
+        Hover
+      </Button>
+      <Button variant="text" pending={true}>
+        Pending
+      </Button>
+      <Button variant="text" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Stack align="center">
       <Button variant="critical">Critical</Button>
       <Button variant="critical" active={true}>
         Hover

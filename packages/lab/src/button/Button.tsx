@@ -5,11 +5,12 @@ import styled, { css } from 'styled-components';
 
 export type ButtonSizeProp = 'small' | 'medium' | 'large';
 export type ButtonVariantProp =
-  | 'default'
-  | 'primary'
-  | 'neutral'
   | 'critical'
-  | 'inverted';
+  | 'default'
+  | 'inverted'
+  | 'neutral'
+  | 'primary'
+  | 'text';
 
 interface ButtonStyleProps {
   size: ButtonSizeProp;
@@ -157,6 +158,19 @@ function getInvertedVariables(size: ButtonSizeProp): ButtonVariables {
   });
 }
 
+function getTextVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
+    textColor: Color.Blue400,
+
+    outlineColor: Color.Blue100,
+
+    textColorHovered: Color.Blue500,
+    backgroundColorHovered: Color.Blue50,
+
+    textColorDisabled: Color.Blue100,
+  });
+}
+
 const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
   const { size, theme, variant, disabled } = props;
   const variables =
@@ -168,6 +182,8 @@ const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
       ? getCriticalVariables(size)
       : variant === 'inverted'
       ? getInvertedVariables(size)
+      : variant === 'text'
+      ? getTextVariables(size)
       : getDefaultVariables(size);
 
   return css`
