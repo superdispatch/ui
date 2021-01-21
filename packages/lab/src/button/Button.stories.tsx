@@ -14,52 +14,52 @@ export const basic = () => (
     <Stack align="center">
       <Button variant="primary">Primary</Button>
       <Button variant="primary" active={true}>
-        Primary
+        Hover
       </Button>
       <Button variant="primary" pending={true}>
-        Primary
+        Pending
       </Button>
       <Button variant="primary" disabled={true}>
-        Primary
+        Disabled
       </Button>
     </Stack>
 
     <Stack align="center">
       <Button variant="default">Default</Button>
       <Button variant="default" active={true}>
-        Default
+        Hover
       </Button>
       <Button variant="default" pending={true}>
-        Default
+        Pending
       </Button>
       <Button variant="default" disabled={true}>
-        Default
+        Disabled
       </Button>
     </Stack>
 
     <Stack align="center">
       <Button variant="neutral">Neutral</Button>
       <Button variant="neutral" active={true}>
-        Neutral
+        Hover
       </Button>
       <Button variant="neutral" pending={true}>
-        Neutral
+        Pending
       </Button>
       <Button variant="neutral" disabled={true}>
-        Neutral
+        Disabled
       </Button>
     </Stack>
 
     <Stack align="center">
       <Button variant="critical">Critical</Button>
       <Button variant="critical" active={true}>
-        Critical
+        Hover
       </Button>
       <Button variant="critical" pending={true}>
-        Critical
+        Pending
       </Button>
       <Button variant="critical" disabled={true}>
-        Critical
+        Disabled
       </Button>
     </Stack>
 
@@ -67,13 +67,13 @@ export const basic = () => (
       <Stack align="center">
         <Button variant="inverted">Inverted</Button>
         <Button variant="inverted" active={true}>
-          Inverted
+          Hover
         </Button>
         <Button variant="inverted" pending={true}>
-          Inverted
+          Pending
         </Button>
         <Button variant="inverted" disabled={true}>
-          Inverted
+          Disabled
         </Button>
       </Stack>
     </Box>
