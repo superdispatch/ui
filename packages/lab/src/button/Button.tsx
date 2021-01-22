@@ -21,6 +21,7 @@ export type ButtonVariantProp =
 
 interface ButtonStyleProps {
   disabled: boolean;
+  fullWidth: boolean;
   size: ButtonSizeProp;
   variant: ButtonVariantProp;
 }
@@ -179,137 +180,141 @@ function getTextVariables(size: ButtonSizeProp): ButtonVariables {
   });
 }
 
-const ButtonRoot = styled.button<ButtonStyleProps>((props) => {
-  const { size, theme, variant, disabled } = props;
-  const variables =
-    variant === 'primary'
-      ? getPrimaryVariables(size)
-      : variant === 'neutral'
-      ? getNeutralVariables(size)
-      : variant === 'critical'
-      ? getCriticalVariables(size)
-      : variant === 'inverted'
-      ? getInvertedVariables(size)
-      : variant === 'text'
-      ? getTextVariables(size)
-      : getDefaultVariables(size);
+const ButtonRoot = styled.button<ButtonStyleProps>(
+  ({ size, theme, variant, disabled, fullWidth }) => {
+    const variables =
+      variant === 'primary'
+        ? getPrimaryVariables(size)
+        : variant === 'neutral'
+        ? getNeutralVariables(size)
+        : variant === 'critical'
+        ? getCriticalVariables(size)
+        : variant === 'inverted'
+        ? getInvertedVariables(size)
+        : variant === 'text'
+        ? getTextVariables(size)
+        : getDefaultVariables(size);
 
-  return css`
-    /* Reset button styles */
-    border: 0;
-    margin: 0;
-    outline: 0;
-    position: relative;
-    vertical-align: middle;
+    return css`
+      /* Reset button styles */
+      border: 0;
+      margin: 0;
+      outline: 0;
+      position: relative;
+      vertical-align: middle;
 
-    /* Fixes for the anchor element */
-    cursor: pointer;
-    text-decoration: none;
+      /* Fixes for the anchor element */
+      cursor: pointer;
+      text-decoration: none;
 
-    &[disabled],
-    &[aria-disabled='true'] {
-      cursor: default;
-      /* Disable link interactions */
-      pointer-events: none;
-    }
+      &[disabled],
+      &[aria-disabled='true'] {
+        cursor: default;
+        /* Disable link interactions */
+        pointer-events: none;
+      }
 
-    /* Firefox fixes */
-    -moz-appearance: none;
+      /* Firefox fixes */
+      -moz-appearance: none;
 
-    &::-moz-focus-inner {
-      /* Remove Firefox dotted outline */
-      border-style: none;
-    }
+      &::-moz-focus-inner {
+        /* Remove Firefox dotted outline */
+        border-style: none;
+      }
 
-    /* Webkit fixes */
-    -webkit-appearance: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    @media print {
-      -webkit-print-color-adjust: exact;
-    }
+      /* Webkit fixes */
+      -webkit-appearance: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      @media print {
+        -webkit-print-color-adjust: exact;
+      }
 
-    /* Button styles */
+      /* Button styles */
 
-    --button-visibility: visible;
-    --button-text-color: ${variables.textColor};
-    --button-border-color: ${variables.borderColor};
-    --button-outline-color: ${Color.Transparent};
-    --button-background-color: ${variables.backgroundColor};
+      --button-visibility: visible;
+      --button-text-color: ${variables.textColor};
+      --button-border-color: ${variables.borderColor};
+      --button-outline-color: ${Color.Transparent};
+      --button-background-color: ${variables.backgroundColor};
 
-    --button-padding-x: ${variables.paddingXMobile}px;
-    --button-padding-y: ${variables.paddingYMobile}px;
-    --button-font-size: ${variables.fontSizeMobile}px;
-    --button-line-height: ${variables.lineHeightMobile}px;
+      --button-padding-x: ${variables.paddingXMobile}px;
+      --button-padding-y: ${variables.paddingYMobile}px;
+      --button-font-size: ${variables.fontSizeMobile}px;
+      --button-line-height: ${variables.lineHeightMobile}px;
 
-    ${theme.breakpoints.up('sm')} {
-      --button-padding-x: ${variables.paddingX}px;
-      --button-padding-y: ${variables.paddingY}px;
-      --button-font-size: ${variables.fontSize}px;
-      --button-line-height: ${variables.lineHeight}px;
-    }
+      ${theme.breakpoints.up('sm')} {
+        --button-padding-x: ${variables.paddingX}px;
+        --button-padding-y: ${variables.paddingY}px;
+        --button-font-size: ${variables.fontSize}px;
+        --button-line-height: ${variables.lineHeight}px;
+      }
 
-    ${disabled
-      ? css`
-          --button-text-color: ${variables.textColorDisabled};
-          --button-border-color: ${variables.borderColorDisabled};
-          --button-background-color: ${variables.backgroundColorDisabled};
+      ${disabled
+        ? css`
+            --button-text-color: ${variables.textColorDisabled};
+            --button-border-color: ${variables.borderColorDisabled};
+            --button-background-color: ${variables.backgroundColorDisabled};
 
-          &[aria-busy='true'] {
-            --button-visibility: hidden;
-          }
-        `
-      : css`
-          &:active {
-            /* TODO Change background color */
-            opacity: 0.9;
-          }
+            &[aria-busy='true'] {
+              --button-visibility: hidden;
+            }
+          `
+        : css`
+            &:active {
+              /* TODO Change background color */
+              opacity: 0.9;
+            }
 
-          &:focus {
-            --button-outline-color: ${variables.outlineColor};
-          }
+            &:focus {
+              --button-outline-color: ${variables.outlineColor};
+            }
 
-          &[aria-expanded='true'] {
-            --button-text-color: ${variables.textColorHovered};
-            --button-border-color: ${variables.borderColorHovered};
-            --button-background-color: ${variables.backgroundColorHovered};
-          }
-
-          @media (hover: hover) and (pointer: fine) {
-            &:hover {
+            &[aria-expanded='true'] {
               --button-text-color: ${variables.textColorHovered};
               --button-border-color: ${variables.borderColorHovered};
               --button-background-color: ${variables.backgroundColorHovered};
             }
-          }
-        `}
 
-    --mui-svg-icon-size: var(--button-line-height);
+            @media (hover: hover) and (pointer: fine) {
+              &:hover {
+                --button-text-color: ${variables.textColorHovered};
+                --button-border-color: ${variables.borderColorHovered};
+                --button-background-color: ${variables.backgroundColorHovered};
+              }
+            }
+          `}
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+      --mui-svg-icon-size: var(--button-line-height);
 
-    border-radius: 4px;
-    font-family: ${theme.typography.fontFamily};
-    font-weight: ${theme.typography.fontWeightBold};
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-    color: var(--button-text-color);
-    background-color: var(--button-background-color);
-    font-size: var(--button-font-size);
-    line-height: var(--button-line-height);
-    padding: var(--button-padding-y) var(--button-padding-x);
+      min-width: 48px;
+      width: ${fullWidth ? '100%' : 'auto'};
 
-    box-shadow: inset 0 0 0 1px var(--button-border-color),
-      0 0 0 2px var(--button-outline-color);
+      border-radius: 4px;
+      font-family: ${theme.typography.fontFamily};
+      font-weight: ${theme.typography.fontWeightBold};
 
-    transition: ${theme.transitions.create([
-      'color',
-      'box-shadow',
-      'background-color',
-    ])};
-  `;
-});
+      color: var(--button-text-color);
+      background-color: var(--button-background-color);
+      font-size: var(--button-font-size);
+      line-height: var(--button-line-height);
+      padding: var(--button-padding-y) var(--button-padding-x);
+
+      box-shadow: inset 0 0 0 1px var(--button-border-color),
+        0 0 0 2px var(--button-outline-color);
+
+      transition: ${theme.transitions.create([
+        'color',
+        'box-shadow',
+        'background-color',
+      ])};
+    `;
+  },
+);
 
 const ButtonLabel = styled.span`
   display: inherit;
@@ -344,6 +349,7 @@ interface BaseButtonProps<T extends HTMLElement>
   disabled?: boolean;
   autoFocus?: boolean;
 
+  fullWidth?: boolean;
   size?: ButtonSizeProp;
   variant?: ButtonVariantProp;
 
@@ -371,6 +377,7 @@ function useButtonProps<T extends HTMLElement>({
   disabled: disabledProp = false,
 
   size = 'medium',
+  fullWidth = false,
   variant = 'default',
   ...props
 }: BaseButtonProps<T>): ButtonStyleProps & HTMLAttributes<T> {
@@ -381,6 +388,7 @@ function useButtonProps<T extends HTMLElement>({
     ...props,
     size,
     variant,
+    fullWidth,
     tabIndex,
     disabled,
     'aria-busy': pending,
