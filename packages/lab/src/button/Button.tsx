@@ -181,7 +181,7 @@ function getTextVariables(size: ButtonSizeProp): ButtonVariables {
 }
 
 const ButtonRoot = styled.button<ButtonStyleProps>(
-  ({ size, theme, variant, disabled, fullWidth }) => {
+  ({ size, theme, variant, fullWidth }) => {
     const variables =
       variant === 'primary'
         ? getPrimaryVariables(size)
@@ -207,7 +207,6 @@ const ButtonRoot = styled.button<ButtonStyleProps>(
       cursor: pointer;
       text-decoration: none;
 
-      &[disabled],
       &[aria-disabled='true'] {
         cursor: default;
         /* Disable link interactions */
@@ -250,42 +249,40 @@ const ButtonRoot = styled.button<ButtonStyleProps>(
         --button-line-height: ${variables.lineHeight}px;
       }
 
-      ${disabled
-        ? css`
-            --button-text-color: ${variables.textColorDisabled};
-            --button-border-color: ${variables.borderColorDisabled};
-            --button-background-color: ${variables.backgroundColorDisabled};
+      &[aria-disabled='true'] {
+        --button-text-color: ${variables.textColorDisabled};
+        --button-border-color: ${variables.borderColorDisabled};
+        --button-background-color: ${variables.backgroundColorDisabled};
 
-            &[aria-busy='true'] {
-              --button-visibility: hidden;
-            }
-          `
-        : css`
-            &:active {
-              /* TODO Change background color */
-              opacity: 0.9;
-            }
+        &[aria-busy='true'] {
+          --button-visibility: hidden;
+        }
+      }
 
-            &:focus {
-              --button-outline-color: ${variables.outlineColor};
-            }
+      &[aria-disabled='false'] {
+        &:focus {
+          --button-outline-color: ${variables.outlineColor};
+        }
 
-            &[aria-expanded='true'] {
-              --button-text-color: ${variables.textColorHovered};
-              --button-border-color: ${variables.borderColorHovered};
-              --button-background-color: ${variables.backgroundColorHovered};
-            }
+        &:active {
+          /* TODO Change background color */
+          opacity: 0.9;
+        }
 
-            @media (hover: hover) and (pointer: fine) {
-              &:hover {
-                --button-text-color: ${variables.textColorHovered};
-                --button-border-color: ${variables.borderColorHovered};
-                --button-background-color: ${variables.backgroundColorHovered};
-              }
-            }
-          `}
+        &[aria-expanded='true'] {
+          --button-text-color: ${variables.textColorHovered};
+          --button-border-color: ${variables.borderColorHovered};
+          --button-background-color: ${variables.backgroundColorHovered};
+        }
 
-      --mui-svg-icon-size: var(--button-line-height);
+        @media (hover: hover) and (pointer: fine) {
+          &:hover {
+            --button-text-color: ${variables.textColorHovered};
+            --button-border-color: ${variables.borderColorHovered};
+            --button-background-color: ${variables.backgroundColorHovered};
+          }
+        }
+      }
 
       display: inline-flex;
       align-items: center;
@@ -321,6 +318,7 @@ const ButtonLabel = styled.span`
   align-items: inherit;
   justify-content: inherit;
   visibility: var(--button-visibility);
+  --mui-svg-icon-size: var(--button-line-height);
 `;
 
 const ButtonStartIcon = styled.span`
@@ -357,6 +355,7 @@ interface BaseButtonProps<T extends HTMLElement>
   startIcon?: ReactNode;
   endIcon?: ReactNode;
 
+  id?: string;
   tabIndex?: number;
 
   onClick?: MouseEventHandler<T>;
@@ -399,7 +398,6 @@ function useButtonProps<T extends HTMLElement>({
         {!!startIcon && <ButtonStartIcon>{startIcon}</ButtonStartIcon>}
         {children}
         {!!endIcon && <ButtonEndIcon>{endIcon}</ButtonEndIcon>}
-
         {pending && (
           <ButtonPendingIndicator>
             <CircularProgress size="1em" color="inherit" />
