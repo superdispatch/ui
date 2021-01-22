@@ -48,6 +48,7 @@ interface ButtonVariables {
   borderColorDisabled: Color;
 
   backgroundColor: Color;
+  backgroundColorActive: Color;
   backgroundColorHovered: Color;
   backgroundColorDisabled: Color;
 }
@@ -77,6 +78,7 @@ function createButtonVariables(
 
     backgroundColor = Color.Transparent,
     backgroundColorHovered = backgroundColor,
+    backgroundColorActive = backgroundColorHovered,
     backgroundColorDisabled = backgroundColor,
   }: Partial<ButtonVariables>,
 ): ButtonVariables {
@@ -100,6 +102,8 @@ function createButtonVariables(
     borderColorHovered,
     backgroundColorHovered,
 
+    backgroundColorActive,
+
     textColorDisabled,
     borderColorDisabled,
     backgroundColorDisabled,
@@ -114,6 +118,8 @@ function getDefaultVariables(size: ButtonSizeProp): ButtonVariables {
 
     textColorHovered: Color.White,
     backgroundColorHovered: Color.Blue500,
+
+    backgroundColorActive: Color.Blue400,
 
     backgroundColorDisabled: Color.Blue100,
   });
@@ -134,6 +140,8 @@ function getNeutralVariables(size: ButtonSizeProp): ButtonVariables {
     borderColorHovered: Color.Blue300,
     backgroundColorHovered: Color.Blue50,
 
+    backgroundColorActive: Color.Blue75,
+
     textColorDisabled: Color.Silver500,
   });
 }
@@ -147,23 +155,11 @@ function getCriticalVariables(size: ButtonSizeProp): ButtonVariables {
 
     backgroundColorHovered: Color.Red75,
 
+    backgroundColorActive: Color.Red100,
+
     textColorDisabled: Color.Red100,
     borderColorDisabled: Color.Red100,
     backgroundColorDisabled: Color.Red50,
-  });
-}
-
-function getInvertedVariables(size: ButtonSizeProp): ButtonVariables {
-  return createButtonVariables(size, {
-    textColor: Color.White,
-    outlineColor: Color.White40,
-    backgroundColor: Color.White20,
-
-    textColorHovered: Color.White,
-    backgroundColorHovered: Color.White40,
-
-    textColorDisabled: Color.White50,
-    backgroundColorDisabled: Color.White08,
   });
 }
 
@@ -176,7 +172,25 @@ function getTextVariables(size: ButtonSizeProp): ButtonVariables {
     textColorHovered: Color.Blue500,
     backgroundColorHovered: Color.Blue50,
 
+    backgroundColorActive: Color.Blue75,
+
     textColorDisabled: Color.Blue100,
+  });
+}
+
+function getInvertedVariables(size: ButtonSizeProp): ButtonVariables {
+  return createButtonVariables(size, {
+    textColor: Color.White,
+    outlineColor: Color.White40,
+    backgroundColor: Color.White20,
+
+    textColorHovered: Color.White,
+    backgroundColorHovered: Color.White40,
+
+    backgroundColorActive: Color.White20,
+
+    textColorDisabled: Color.White50,
+    backgroundColorDisabled: Color.White08,
   });
 }
 
@@ -189,10 +203,10 @@ const ButtonRoot = styled.button<ButtonStyleProps>(
         ? getNeutralVariables(size)
         : variant === 'critical'
         ? getCriticalVariables(size)
-        : variant === 'inverted'
-        ? getInvertedVariables(size)
         : variant === 'text'
         ? getTextVariables(size)
+        : variant === 'inverted'
+        ? getInvertedVariables(size)
         : getDefaultVariables(size);
 
     return css`
@@ -260,26 +274,28 @@ const ButtonRoot = styled.button<ButtonStyleProps>(
       }
 
       &[aria-disabled='false'] {
-        &:focus {
-          --button-outline-color: ${variables.outlineColor};
-        }
-
-        &:active {
-          /* TODO Change background color */
-          opacity: 0.9;
-        }
-
         &[aria-expanded='true'] {
           --button-text-color: ${variables.textColorHovered};
           --button-border-color: ${variables.borderColorHovered};
           --button-background-color: ${variables.backgroundColorHovered};
         }
 
-        @media (hover: hover) and (pointer: fine) {
-          &:hover {
-            --button-text-color: ${variables.textColorHovered};
-            --button-border-color: ${variables.borderColorHovered};
-            --button-background-color: ${variables.backgroundColorHovered};
+        &,
+        &[aria-expanded='true'] {
+          &:focus {
+            --button-outline-color: ${variables.outlineColor};
+          }
+
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              --button-text-color: ${variables.textColorHovered};
+              --button-border-color: ${variables.borderColorHovered};
+              --button-background-color: ${variables.backgroundColorHovered};
+            }
+          }
+
+          &:active {
+            --button-background-color: ${variables.backgroundColorActive};
           }
         }
       }
