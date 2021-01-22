@@ -2679,10 +2679,10 @@
     which "^2.0.1"
     winston "^3.0.0"
 
-"@percy/cypress@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@percy/cypress/-/cypress-2.3.3.tgz#bf35962769d4e0a63a0b5a30b2eb5c51de89a8ba"
-  integrity sha512-MpCZDJM/YJjoyrI5yncRCNVwnKflbP6TVz47iuQ1w6l1oB7yRvB2cXr+YcgvSz5oG5x77sko9Inc8M5YIEV3cA==
+"@percy/cypress@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@percy/cypress/-/cypress-2.3.4.tgz#9605fd848ab27aab795515a22a8868078ba57838"
+  integrity sha512-UiVnLdcgRnOD1C5orkQiCQC1OFcb/Kt4CWSOVg61JkWNgeWb03os9HN2vjlwgb11eCR8gLHBs+O7T9MRMy28Qg==
   dependencies:
     "@percy/agent" "~0"
     axios "^0.21.0"
@@ -3538,10 +3538,10 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^7.28.1"
 
-"@testing-library/user-event@^12.6.0":
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-12.6.0.tgz#2d0229e399eb5a0c6c112e848611432356cac886"
-  integrity sha512-FNEH/HLmOk5GO70I52tKjs7WvGYckeE/SrnLX/ip7z2IGbffyd5zOUM1tZ10vsTphqm+VbDFI0oaXu0wcfQsAQ==
+"@testing-library/user-event@^12.6.2":
+  version "12.6.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-12.6.2.tgz#accce6be0353be38e07bce55b31232d89ae10bc2"
+  integrity sha512-4OsiTSo2vbQm+eOnm1un8b9i2Re4mn+D7d7ET6HXtzYKY7vPe3O01iYKRmSW9vS5mNrQcCLwvRhVq1gWs5YGKA==
   dependencies:
     "@babel/runtime" "^7.12.5"
 
@@ -3744,10 +3744,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.149", "@types/lodash@^4.14.167":
-  version "4.14.167"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.167.tgz#ce7d78553e3c886d4ea643c37ec7edc20f16765e"
-  integrity sha512-w7tQPjARrvdeBkX/Rwg95S592JwxqOjmms3zWQ0XZgSyxSLdzWaYH3vErBhdVS/lRBX7F8aBYcYJYTr5TMGOzw==
+"@types/lodash@^4.14.149", "@types/lodash@^4.14.168":
+  version "4.14.168"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
+  integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
 "@types/luxon@^1.25.1":
   version "1.25.1"
@@ -7243,10 +7243,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.2.1.tgz#27d5fbcf008c698c390fdb0c03441804176d06c4"
-  integrity sha512-OYkSgzA4J4Q7eMjZvNf5qWpBLR4RXrkqjL3UZ1UzGGLAskO0nFTi/RomNTG6TKvL3Zp4tw4zFY1gp5MtmkCZrA==
+cypress@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.3.0.tgz#e27bba01d7e493265700e1e85333dca0b0127ede"
+  integrity sha512-Ec6TAFOxdSB2HPINNJ1f7z75pENXcfCaQkz+A9j0eGSvusFJ2NNErq650DexCbNJAnCQkPqXB4XPH9kXnSQnUA==
   dependencies:
     "@cypress/listr-verbose-renderer" "^0.4.1"
     "@cypress/request" "^2.88.5"
@@ -14503,10 +14503,10 @@ pkg-up@3.1.0, pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
-playroom@^0.22.4:
-  version "0.22.4"
-  resolved "https://registry.yarnpkg.com/playroom/-/playroom-0.22.4.tgz#59465a91abe160f776f11cd15420587e161163a8"
-  integrity sha512-dlMTu8hVZ5Co+txhPMZci/3jR+i1pD9OBZGsVM7PnuweTKHO3/RvO1ovncbxIWKJG9NnqnhgV0ChP8W8XqqQjw==
+playroom@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/playroom/-/playroom-0.23.0.tgz#53c13ffc9797d7133a123d97db1a9694b09d6345"
+  integrity sha512-uS1Ry7zmZUpl2+XFAesHiSEz0y9a0BdR+QlTJ7X8GdLixYarwz8BkTsSp7F21wMiwxxm+3pW9Tens4EvIGS0qw==
   dependencies:
     "@babel/cli" "^7.8.3"
     "@babel/core" "^7.8.3"
@@ -14554,6 +14554,7 @@ playroom@^0.22.4:
     mini-css-extract-plugin "^0.9.0"
     open "^7.0.0"
     parse-prop-types "^0.3.0"
+    portfinder "^1.0.26"
     postcss-loader "^3.0.0"
     prettier "^2.0.5"
     prop-types "^15.7.2"

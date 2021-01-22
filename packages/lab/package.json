@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-lab",
-  "version": "0.7.15",
+  "version": "0.7.16",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@superdispatch/hooks": "^0.7.1",
-    "@superdispatch/ui": "^0.7.14"
+    "@superdispatch/ui": "^0.7.16"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
