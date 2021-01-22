@@ -191,6 +191,102 @@ export const anchor = () => {
   );
 };
 
+export const fullWidth = () => (
+  <Stack>
+    <Stack>
+      <Button fullWidth={true} variant="primary">
+        Primary
+      </Button>
+      <Button fullWidth={true} variant="primary" active={true}>
+        Hover
+      </Button>
+      <Button fullWidth={true} variant="primary" pending={true}>
+        Pending
+      </Button>
+      <Button fullWidth={true} variant="primary" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Stack>
+      <Button fullWidth={true} variant="default">
+        Default
+      </Button>
+      <Button fullWidth={true} variant="default" active={true}>
+        Hover
+      </Button>
+      <Button fullWidth={true} variant="default" pending={true}>
+        Pending
+      </Button>
+      <Button fullWidth={true} variant="default" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Stack>
+      <Button fullWidth={true} variant="neutral">
+        Neutral
+      </Button>
+      <Button fullWidth={true} variant="neutral" active={true}>
+        Hover
+      </Button>
+      <Button fullWidth={true} variant="neutral" pending={true}>
+        Pending
+      </Button>
+      <Button fullWidth={true} variant="neutral" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Stack>
+      <Button fullWidth={true} variant="text">
+        Text
+      </Button>
+      <Button fullWidth={true} variant="text" active={true}>
+        Hover
+      </Button>
+      <Button fullWidth={true} variant="text" pending={true}>
+        Pending
+      </Button>
+      <Button fullWidth={true} variant="text" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Stack>
+      <Button fullWidth={true} variant="critical">
+        Critical
+      </Button>
+      <Button fullWidth={true} variant="critical" active={true}>
+        Hover
+      </Button>
+      <Button fullWidth={true} variant="critical" pending={true}>
+        Pending
+      </Button>
+      <Button fullWidth={true} variant="critical" disabled={true}>
+        Disabled
+      </Button>
+    </Stack>
+
+    <Box backgroundColor="Grey500" padding="xsmall" borderRadius="small">
+      <Stack>
+        <Button fullWidth={true} variant="inverted">
+          Inverted
+        </Button>
+        <Button fullWidth={true} variant="inverted" active={true}>
+          Hover
+        </Button>
+        <Button fullWidth={true} variant="inverted" pending={true}>
+          Pending
+        </Button>
+        <Button fullWidth={true} variant="inverted" disabled={true}>
+          Disabled
+        </Button>
+      </Stack>
+    </Box>
+  </Stack>
+);
+
 export const sizes = () => (
   <Stack space="medium" align="center">
     <Stack space="small" align="center">
