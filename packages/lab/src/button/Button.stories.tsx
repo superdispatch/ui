@@ -5,7 +5,7 @@ import { Meta } from '@storybook/react';
 import { Inline, Stack } from '@superdispatch/ui';
 
 import { Box } from '../box/Box';
-import { Button } from './Button';
+import { AnchorButton, Button } from './Button';
 
 export default { title: 'Lab/Button', component: Button } as Meta;
 
@@ -92,6 +92,104 @@ export const basic = () => (
     </Box>
   </Inline>
 );
+
+export const anchor = () => {
+  return (
+    <Inline verticalAlign="center" horizontalAlign="center">
+      <Stack align="center">
+        <AnchorButton href="/" variant="primary">
+          Primary
+        </AnchorButton>
+        <AnchorButton href="/" variant="primary" active={true}>
+          Hover
+        </AnchorButton>
+        <AnchorButton href="/" variant="primary" pending={true}>
+          Pending
+        </AnchorButton>
+        <AnchorButton href="/" variant="primary" disabled={true}>
+          Disabled
+        </AnchorButton>
+      </Stack>
+
+      <Stack align="center">
+        <AnchorButton href="/" variant="default">
+          Default
+        </AnchorButton>
+        <AnchorButton href="/" variant="default" active={true}>
+          Hover
+        </AnchorButton>
+        <AnchorButton href="/" variant="default" pending={true}>
+          Pending
+        </AnchorButton>
+        <AnchorButton href="/" variant="default" disabled={true}>
+          Disabled
+        </AnchorButton>
+      </Stack>
+
+      <Stack align="center">
+        <AnchorButton href="/" variant="neutral">
+          Neutral
+        </AnchorButton>
+        <AnchorButton href="/" variant="neutral" active={true}>
+          Hover
+        </AnchorButton>
+        <AnchorButton href="/" variant="neutral" pending={true}>
+          Pending
+        </AnchorButton>
+        <AnchorButton href="/" variant="neutral" disabled={true}>
+          Disabled
+        </AnchorButton>
+      </Stack>
+
+      <Stack align="center">
+        <AnchorButton href="/" variant="text">
+          Text
+        </AnchorButton>
+        <AnchorButton href="/" variant="text" active={true}>
+          Hover
+        </AnchorButton>
+        <AnchorButton href="/" variant="text" pending={true}>
+          Pending
+        </AnchorButton>
+        <AnchorButton href="/" variant="text" disabled={true}>
+          Disabled
+        </AnchorButton>
+      </Stack>
+
+      <Stack align="center">
+        <AnchorButton href="/" variant="critical">
+          Critical
+        </AnchorButton>
+        <AnchorButton href="/" variant="critical" active={true}>
+          Hover
+        </AnchorButton>
+        <AnchorButton href="/" variant="critical" pending={true}>
+          Pending
+        </AnchorButton>
+        <AnchorButton href="/" variant="critical" disabled={true}>
+          Disabled
+        </AnchorButton>
+      </Stack>
+
+      <Box backgroundColor="Grey500" padding="xsmall" borderRadius="small">
+        <Stack align="center">
+          <AnchorButton href="/" variant="inverted">
+            Inverted
+          </AnchorButton>
+          <AnchorButton href="/" variant="inverted" active={true}>
+            Hover
+          </AnchorButton>
+          <AnchorButton href="/" variant="inverted" pending={true}>
+            Pending
+          </AnchorButton>
+          <AnchorButton href="/" variant="inverted" disabled={true}>
+            Disabled
+          </AnchorButton>
+        </Stack>
+      </Box>
+    </Inline>
+  );
+};
 
 export const sizes = () => (
   <Stack space="medium" align="center">

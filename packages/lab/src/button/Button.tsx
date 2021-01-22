@@ -1,6 +1,13 @@
 import { CircularProgress } from '@material-ui/core';
 import { Color } from '@superdispatch/ui';
-import { AriaAttributes, forwardRef, ReactNode } from 'react';
+import {
+  AriaAttributes,
+  FocusEventHandler,
+  forwardRef,
+  HTMLAttributes,
+  MouseEventHandler,
+  ReactNode,
+} from 'react';
 import styled, { css } from 'styled-components';
 
 export type ButtonSizeProp = 'small' | 'medium' | 'large';
@@ -13,6 +20,7 @@ export type ButtonVariantProp =
   | 'text';
 
 interface ButtonStyleProps {
+  disabled: boolean;
   size: ButtonSizeProp;
   variant: ButtonVariantProp;
 }
@@ -326,7 +334,7 @@ const ButtonPendingIndicator = styled.span`
   transform: translate(-50%);
 `;
 
-export interface ButtonProps
+interface BaseButtonProps<T extends HTMLElement>
   extends Pick<
     AriaAttributes,
     'aria-label' | 'aria-controls' | 'aria-haspopup' | 'aria-labelledby'
@@ -343,58 +351,87 @@ export interface ButtonProps
   endIcon?: ReactNode;
 
   tabIndex?: number;
+
+  onClick?: MouseEventHandler<T>;
+  onFocus?: FocusEventHandler<T>;
+  onBlur?: FocusEventHandler<T>;
+}
+
+function useButtonProps<T extends HTMLElement>({
+  children,
+
+  endIcon,
+  startIcon,
+
+  tabIndex: tabIndexProp = 0,
+
+  active = false,
+  pending = false,
+  disabled: disabledProp = false,
+
+  size = 'medium',
+  variant = 'default',
+  ...props
+}: BaseButtonProps<T>): ButtonStyleProps & HTMLAttributes<T> {
+  const disabled = pending || disabledProp;
+  const tabIndex = disabled ? -0 : tabIndexProp;
+
+  return {
+    ...props,
+    size,
+    variant,
+    tabIndex,
+    disabled,
+    'aria-busy': pending,
+    'aria-expanded': active,
+    'aria-disabled': disabled,
+    children: (
+      <ButtonLabel>
+        {!!startIcon && <ButtonStartIcon>{startIcon}</ButtonStartIcon>}
+        {children}
+        {!!endIcon && <ButtonEndIcon>{endIcon}</ButtonEndIcon>}
+
+        {pending && (
+          <ButtonPendingIndicator>
+            <CircularProgress size="1em" color="inherit" />
+          </ButtonPendingIndicator>
+        )}
+      </ButtonLabel>
+    ),
+  };
+}
+
+export interface ButtonProps extends BaseButtonProps<HTMLButtonElement> {
   type?: 'button' | 'submit';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
+  ({ type = 'button', ...props }, ref) => {
+    const buttonProps = useButtonProps(props);
 
-      endIcon,
-      startIcon,
+    return <ButtonRoot {...buttonProps} ref={ref} type={type} />;
+  },
+);
 
-      type = 'button',
-      tabIndex: tabIndexProp = 0,
+export interface AnchorButtonProps extends BaseButtonProps<HTMLAnchorElement> {
+  href: string;
+  target?: '_self' | '_blank';
+}
 
-      active = false,
-      pending = false,
-      disabled: disabledProp = false,
-
-      size = 'medium',
-      variant = 'default',
-      ...props
-    },
-    ref,
-  ) => {
-    const disabled = pending || disabledProp;
-    const tabIndex = disabled ? -0 : tabIndexProp;
-    const styleProps: ButtonStyleProps = { size, variant };
+export const AnchorButton = forwardRef<HTMLAnchorElement, AnchorButtonProps>(
+  ({ href, target, ...props }, ref) => {
+    const buttonProps = useButtonProps(props);
+    const rel = target === '_blank' ? 'noopener noreferrer' : undefined;
 
     return (
       <ButtonRoot
-        {...props}
-        {...styleProps}
+        {...buttonProps}
+        as="a"
         ref={ref}
-        type={type}
-        disabled={disabled}
-        tabIndex={tabIndex}
-        aria-busy={pending}
-        aria-expanded={active}
-        aria-disabled={disabled}
-      >
-        <ButtonLabel>
-          {!!startIcon && <ButtonStartIcon>{startIcon}</ButtonStartIcon>}
-          {children}
-          {!!endIcon && <ButtonEndIcon>{endIcon}</ButtonEndIcon>}
-
-          {pending && (
-            <ButtonPendingIndicator>
-              <CircularProgress size="1em" color="inherit" />
-            </ButtonPendingIndicator>
-          )}
-        </ButtonLabel>
-      </ButtonRoot>
+        rel={rel}
+        href={href}
+        target={target}
+      />
     );
   },
 );
