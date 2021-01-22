@@ -1,7 +1,6 @@
 export {
   AdaptiveToolbar,
   AvatarButton,
-  Button,
   CardButton,
   CheckboxField,
   CheckboxGroupField,

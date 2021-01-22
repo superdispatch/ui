@@ -14,7 +14,7 @@ it('checks component css', () => {
       width: 1em;
       height: 1em;
       display: inherit;
-      font-size: 32px;
+      font-size: var(--mui-svg-icon-size, 32px);
       transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       flex-shrink: 0;
       user-select: none;
@@ -22,7 +22,7 @@ it('checks component css', () => {
 
     @media (min-width: 600px) {
       .MuiSvgIcon-root {
-        font-size: 24px;
+        font-size: var(--mui-svg-icon-size, 24px);
       }
     }
 
@@ -51,17 +51,17 @@ it('checks component css', () => {
     }
 
     .MuiSvgIcon-fontSizeSmall {
-      font-size: 24px;
+      font-size: var(--mui-svg-icon-size, 24px);
     }
 
     @media (min-width: 600px) {
       .MuiSvgIcon-fontSizeSmall {
-        font-size: 16px;
+        font-size: var(--mui-svg-icon-size, 16px);
       }
     }
 
     .MuiSvgIcon-fontSizeLarge {
-      font-size: 32px;
+      font-size: var(--mui-svg-icon-size, 32px);
     }
   `);
 });
