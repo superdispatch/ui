@@ -397,7 +397,7 @@ function useButtonProps<T extends HTMLElement>({
   ...props
 }: BaseButtonProps<T>): ButtonStyleProps & HTMLAttributes<T> {
   const disabled = pending || disabledProp;
-  const tabIndex = disabled ? -0 : tabIndexProp;
+  const tabIndex = disabled ? -1 : tabIndexProp;
 
   return {
     ...props,
