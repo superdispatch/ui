@@ -342,6 +342,7 @@ interface BaseButtonProps<T extends HTMLElement>
   active?: boolean;
   pending?: boolean;
   disabled?: boolean;
+  autoFocus?: boolean;
 
   size?: ButtonSizeProp;
   variant?: ButtonVariantProp;
