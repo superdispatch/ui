@@ -145,6 +145,7 @@ module.exports = {
       extends: ['plugin:@superdispatch/ts-cypress'],
       rules: {
         '@typescript-eslint/no-namespace': 'off',
+        'cypress/no-unnecessary-waiting': 'off',
       },
     },
 

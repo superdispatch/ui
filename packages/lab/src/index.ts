@@ -1,4 +1,5 @@
 export * from './box/Box';
+export * from './button/Button';
 export * from './description-item/DescriptionItem';
 export * from './sidebar/Sidebar';
 export * from './sidebar/SidebarContainer';

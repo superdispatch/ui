@@ -7,17 +7,22 @@ export function overrideSvgIcon(theme: SuperDispatchTheme): void {
   theme.overrides.MuiSvgIcon = {
     root: {
       display: 'inherit',
-      fontSize: theme.spacing(4),
-      [sm]: { fontSize: theme.spacing(3) },
+
+      fontSize: 'var(--mui-svg-icon-size, 32px)',
+      [sm]: {
+        fontSize: 'var(--mui-svg-icon-size, 24px)',
+      },
     },
 
     fontSizeSmall: {
-      fontSize: theme.spacing(3),
-      [sm]: { fontSize: theme.spacing(2) },
+      fontSize: 'var(--mui-svg-icon-size, 24px)',
+      [sm]: {
+        fontSize: 'var(--mui-svg-icon-size, 16px)',
+      },
     },
 
     fontSizeLarge: {
-      fontSize: theme.spacing(4),
+      fontSize: 'var(--mui-svg-icon-size, 32px)',
     },
 
     colorAction: {

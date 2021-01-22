@@ -20,11 +20,12 @@ const RESTRICTIONS: Restrictions = {
   '@material-ui/core': {
     Grid: ['Columns', '@superdispatch/ui-lab'],
     Box: ['Box', '@superdispatch/ui-lab'],
-    Button: ['Button', '@superdispatch/ui'],
+    Button: ['Button', '@superdispatch/ui-lab'],
     Snackbar: ['Snackbar', '@superdispatch/ui'],
     SnackbarContent: ['SnackbarContent', '@superdispatch/ui'],
   },
   '@superdispatch/ui': {
+    Button: ['Button', '@superdispatch/ui-lab'],
     GridStack: ['Stack', '@superdispatch/ui'],
     InlineGrid: ['Inline', '@superdispatch/ui'],
     DescriptionList: ['Stack', '@superdispatch/ui-lab'],

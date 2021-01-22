@@ -57,7 +57,7 @@ ruleTester.run('no-restricted-modules', rule, {
             restrictedName: 'Button',
             restrictedModule: '@material-ui/core',
             suggestedName: 'Button',
-            suggestedModule: '@superdispatch/ui',
+            suggestedModule: '@superdispatch/ui-lab',
           },
         },
 
