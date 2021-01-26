@@ -59,7 +59,6 @@ module.exports = {
           {
             allow: [
               '**/packages/*/src/**',
-              'dequal/lite',
               'react-dom/test-utils',
               '@material-ui/core/transitions',
               '@material-ui/core/styles/createTypography',
@@ -83,11 +82,6 @@ module.exports = {
           'error',
           {
             paths: [
-              {
-                name: 'dequal',
-                message: 'Use "dequal/lite" instead.',
-              },
-
               {
                 name: '@material-ui/core',
                 importNames: ['makeStyles'],
