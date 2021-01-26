@@ -1,4 +1,4 @@
-import { dequal } from 'dequal/lite';
+import { dequal } from 'dequal';
 import { useLayoutEffect, useRef } from 'react';
 
 export function useDeepEqualValue<T>(value: T): T {
