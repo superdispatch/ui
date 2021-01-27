@@ -17,6 +17,9 @@ type Restrictions = {
 };
 
 const RESTRICTIONS: Restrictions = {
+  '@material-ui/lab': {
+    Alert: ['Alert', '@superdispatch/ui-lab'],
+  },
   '@material-ui/core': {
     Grid: ['Columns', '@superdispatch/ui-lab'],
     Box: ['Box', '@superdispatch/ui-lab'],
