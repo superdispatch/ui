@@ -22,7 +22,7 @@ const lines = [];
 lines.push("export * from '../Placeholder';", "export * from '../UseState';");
 
 //
-// SD Components
+// @superdispatch/*
 //
 
 lines.push(
@@ -33,70 +33,78 @@ lines.push(
 );
 
 //
-// MaterialUI
+// @material-ui/core and @material-ui/lab
 //
 
-lines.push("type MuiComponent<T> = import('react').FunctionComponent<T>");
+{
+  lines.push("type MuiComponent<T> = import('react').FunctionComponent<T>");
 
-reexportModules(
-  MaterialUICore,
-  reexportMuiModule.bind(null, '@material-ui/core'),
-  (name, Component) =>
-    isComponentLike(name, Component) &&
-    !!Component.propTypes &&
-    !name.endsWith('Provider') &&
-    !name.startsWith('Unstable_') &&
-    ![
-      // Overridden components.
-      'Box',
-      'Button',
-      'Snackbar',
-      'SnackbarContent',
+  const skipComponents = new Set([
+    // Overridden components.
+    'Box',
+    'Button',
+    'Snackbar',
+    'SnackbarContent',
 
-      // Overridden for docs.
-      'Dialog',
-      'Drawer',
+    // Overridden for docs.
+    'Dialog',
+    'Drawer',
 
-      // Non UI components.
-      'NoSsr',
-      'Portal',
-      'RootRef',
-      'ButtonBase',
-      'CssBaseline',
-      'ClickAwayListener',
-    ].includes(name),
-);
+    // Non UI components.
+    'NoSsr',
+    'Portal',
+    'RootRef',
+    'ButtonBase',
+    'CssBaseline',
+    'ClickAwayListener',
+  ]);
 
-reexportModules(
-  MaterialUILab,
-  reexportMuiModule.bind(null, '@material-ui/lab'),
-);
+  reexportModules(
+    MaterialUICore,
+    reexportMuiModule.bind(null, '@material-ui/core'),
+    (name, Component) =>
+      isComponentLike(name, Component) &&
+      !!Component.propTypes &&
+      !name.endsWith('Provider') &&
+      !name.startsWith('Unstable_') &&
+      !skipComponents.has(name),
+  );
 
-// Icons
+  reexportModules(
+    MaterialUILab,
+    reexportMuiModule.bind(null, '@material-ui/lab'),
+  );
+}
 
-lines.push(
-  "type MuiIcon = import('react').FunctionComponent<import('@material-ui/core/SvgIcon').SvgIconProps>",
-);
+//
+// @material-ui/icons
+//
 
-reexportModules(
-  MaterialUIIcons,
-  (name) => {
-    const internalName = `${name}IconInternal`;
+{
+  lines.push(
+    "type MuiIcon = import('react').FunctionComponent<import('@material-ui/core/SvgIcon').SvgIconProps>",
+  );
 
-    return [
-      `import ${internalName} from '@material-ui/icons/${name}';`,
-      `export const ${name}Icon = ${internalName} as MuiIcon;`,
-    ].join('\n');
-  },
-  (name) =>
-    !name.endsWith('Sharp') &&
-    !name.endsWith('Rounded') &&
-    !name.endsWith('TwoTone') &&
-    !name.endsWith('Outlined'),
-);
+  reexportModules(
+    MaterialUIIcons,
+    (name) => {
+      const internalName = `${name}IconInternal`;
 
-fs.mkdirSync(PLAYROOM_GENERATED_DIR, { recursive: true });
-fs.writeFileSync(PLAYROOM_COMPONENTS_FILE, lines.join('\n'), 'utf-8');
+      return [
+        `import ${internalName} from '@material-ui/icons/${name}';`,
+        `export const ${name}Icon = ${internalName} as MuiIcon;`,
+      ].join('\n');
+    },
+    (name) =>
+      !name.endsWith('Sharp') &&
+      !name.endsWith('Rounded') &&
+      !name.endsWith('TwoTone') &&
+      !name.endsWith('Outlined'),
+  );
+
+  fs.mkdirSync(PLAYROOM_GENERATED_DIR, { recursive: true });
+  fs.writeFileSync(PLAYROOM_COMPONENTS_FILE, lines.join('\n'), 'utf-8');
+}
 
 //
 // Utils
