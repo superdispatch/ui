@@ -25,7 +25,7 @@
     "playroom:generate": "ts-node scripts/generate-playroom-components.ts",
     "preplayroom:start": "yarn playroom:generate",
     "playroom:start": "playroom start",
-    "prerelease": "yarn --force && yarn lint && yarn test",
+    "prerelease": "git fetch origin && git pull --rebase origin && yarn --force && yarn lint && yarn test",
     "release": "yarn lerna publish",
     "prestart": "yarn",
     "start": "run-p storybook:start playroom:start",
