@@ -3,6 +3,7 @@ import * as api from '.';
 test('api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
+      "Alert": React.forwardRef(Alert),
       "AnchorButton": React.forwardRef(AnchorButton),
       "Box": React.forwardRef(Box),
       "Button": React.forwardRef(Button),

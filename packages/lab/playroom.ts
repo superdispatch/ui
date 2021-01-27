@@ -1,4 +1,5 @@
 export {
+  Alert,
   Box,
   Button,
   DescriptionItem,
