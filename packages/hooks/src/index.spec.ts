@@ -4,7 +4,6 @@ test('public api', () => {
   expect(api).toMatchInlineSnapshot(`
     Object {
       "useConstant": [Function],
-      "useDeepEqualDeps": [Function],
       "useDeepEqualMemo": [Function],
       "useDeepEqualValue": [Function],
       "useEventHandler": [Function],

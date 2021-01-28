@@ -1,12 +1,36 @@
-import { DependencyList, useMemo } from 'react';
+import { dequal } from 'dequal';
+import { DependencyList, useEffect, useRef } from 'react';
 
-import { useDeepEqualDeps } from '../deep-equal-deps/useDeepEqualDeps';
-import { useDeepEqualValue } from '../deep-equal-value/useDeepEqualValue';
+interface State<T> {
+  value: T;
+}
 
-export function useDeepEqualMemo<T>(factory: () => T, deps: DependencyList): T {
-  const pureDeps = useDeepEqualDeps(deps);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const value = useMemo(factory, pureDeps);
+export function useDeepEqualMemo<T>(
+  factory: (prevValue: T | undefined) => T,
+  deps: DependencyList,
+): T {
+  const depsRef = useRef(deps);
+  const stateRef = useRef<State<T>>();
 
-  return useDeepEqualValue(value);
+  let nextState: undefined | State<T> = undefined;
+
+  if (stateRef.current == null) {
+    stateRef.current = { value: factory(undefined) };
+  } else if (!dequal(depsRef.current, deps)) {
+    const nextValue = factory(stateRef.current.value);
+
+    if (!dequal(nextValue, stateRef.current.value)) {
+      nextState = { value: nextValue };
+    }
+  }
+
+  useEffect(() => {
+    depsRef.current = deps;
+
+    if (nextState) {
+      stateRef.current = nextState;
+    }
+  });
+
+  return nextState != null ? nextState.value : stateRef.current.value;
 }
