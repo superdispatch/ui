@@ -32,8 +32,6 @@ function colorMixin(
 }
 
 const StyledAlert = styled(MaterialAlert)`
-  max-width: 512px;
-
   &.MuiAlert-outlinedSuccess {
     ${colorMixin(Color.Green500, Color.Green50, Color.Green400)};
   }
