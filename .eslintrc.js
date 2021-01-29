@@ -70,8 +70,7 @@ module.exports = {
         'react-hooks/exhaustive-deps': [
           'error',
           {
-            additionalHooks:
-              '^(useMemoWith|usePureMemo|usePromise|useIsomorphicLayoutEffect)$',
+            additionalHooks: '^(useDeepEqualMemo)$',
           },
         ],
 
