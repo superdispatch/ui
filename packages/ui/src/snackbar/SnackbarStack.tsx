@@ -137,10 +137,14 @@ export function SnackbarStackProvider({
     [getNextTransientKey],
   );
 
-  const snackbarProps = useDeepEqualMemo<SnackbarProps>((prev) => {
-    const next = Array.from(stack.values()).pop();
-    return next ? { ...next, open: true } : { ...prev, open: false };
-  }, []);
+  const snackbarProps = useDeepEqualMemo<SnackbarProps>(
+    (prev) => {
+      const next = Array.from(stack.values()).pop();
+
+      return next ? { ...next, open: true } : { ...prev, open: false };
+    },
+    [stack],
+  );
 
   const api = useMemo<SnackbarStack>(() => ({ clearStack, addSnackbar }), [
     clearStack,
