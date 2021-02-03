@@ -1,4 +1,4 @@
-import { CheckCircle, Error } from '@material-ui/icons';
+import { CheckCircle, Error, Info } from '@material-ui/icons';
 import {
   Alert as MaterialAlert,
   AlertProps as MaterialAlertProps,
@@ -89,7 +89,7 @@ function toMaterialSeverity(
 
 const iconMapping: MaterialAlertProps['iconMapping'] = {
   success: <CheckCircle />,
-  info: <Error />,
+  info: <Info />,
   error: <Error />,
 };
 
