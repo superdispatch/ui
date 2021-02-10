@@ -10,23 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: styfle/cancel-workflow-action@0.4.0
-        with:
-          access_token: ${{ github.token }}
-
+      - uses: styfle/cancel-workflow-action@0.7.0
       - uses: actions/checkout@v2
+      - uses: umidbekk/actions/npm/install@v1
 
-      - id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-
-
-      - run: yarn install --frozen-lockfile
       - run: yarn check:types
       - run: yarn lint
       - run: yarn test
@@ -38,18 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: umidbekk/actions/npm/install@v1
 
-      - id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-
-
-      - run: yarn install --frozen-lockfile
       - run: yarn docs
       - uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
@@ -64,15 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-
-      - run: yarn install --frozen-lockfile
+      - uses: umidbekk/actions/npm/install@v1
+      - run: yarn cypress install
       - run: yarn percy exec -- cypress run
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
