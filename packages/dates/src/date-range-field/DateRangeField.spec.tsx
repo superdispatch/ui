@@ -56,8 +56,8 @@ test('basic', () => {
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
-    dateValue: [expect.any(DateTime), undefined],
-    stringValue: ['2019-05-24T00:00:00.000-05:00', undefined],
+    dateValue: [expect.any(DateTime), null],
+    stringValue: ['2019-05-24T00:00:00.000-05:00', null],
   });
 
   expect(wrapper.queryAllByRole('grid')).toHaveLength(2);
@@ -218,8 +218,8 @@ test('enableClearable', () => {
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
-    dateValue: [undefined, undefined],
-    stringValue: [undefined, undefined],
+    dateValue: [null, null],
+    stringValue: [null, null],
   });
 
   wrapper.rerender(
@@ -238,8 +238,8 @@ test('enableClearable', () => {
   expect(onChange).toHaveBeenCalledTimes(2);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
-    dateValue: [undefined, undefined],
-    stringValue: [undefined, undefined],
+    dateValue: [null, null],
+    stringValue: [null, null],
   });
 });
 
@@ -253,16 +253,16 @@ test('time normalization', () => {
       result: DateStringRange,
     ]
   > = [
-    [undefined, /May 24/, ['2019-05-24T00:00:00.000-05:00', undefined]],
+    [undefined, /May 24/, ['2019-05-24T00:00:00.000-05:00', null]],
 
     [
-      ['2019-05-29T00:00:00.000-05:00', undefined],
+      ['2019-05-29T00:00:00.000-05:00', null],
       /May 24/,
       ['2019-05-24T00:00:00.000-05:00', '2019-05-29T23:59:59.999-05:00'],
     ],
 
     [
-      ['2019-05-29T10:11:12.134-05:00', undefined],
+      ['2019-05-29T10:11:12.134-05:00', null],
       /May 24/,
       ['2019-05-24T10:11:12.134-05:00', '2019-05-29T23:59:59.999-05:00'],
     ],
