@@ -8,7 +8,6 @@ import {
   Suspense,
   useMemo,
 } from 'react';
-
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 import {
   PhoneNumberFormat,

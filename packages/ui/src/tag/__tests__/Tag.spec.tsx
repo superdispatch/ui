@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { Tag } from '../..';
 
 it('checks component css', () => {

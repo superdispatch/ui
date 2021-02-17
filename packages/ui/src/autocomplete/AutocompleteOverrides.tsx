@@ -1,5 +1,4 @@
 import { SvgIcon } from '@material-ui/core';
-
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function overrideAutocomplete(theme: SuperDispatchTheme): void {

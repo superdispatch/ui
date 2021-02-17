@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-
 import { PhoneText } from './PhoneText';
 
 export default { title: 'Phones/PhoneText', component: PhoneText } as Meta;

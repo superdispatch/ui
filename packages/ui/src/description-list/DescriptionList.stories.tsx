@@ -8,7 +8,6 @@ import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { PhoneLink, PhoneText } from '@superdispatch/phones';
 import { Box } from '@superdispatch/ui-lab';
-
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
 export default {

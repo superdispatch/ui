@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-
 import { AdaptiveToolbar } from './AdaptiveToolbar';
 
 export default {

@@ -1,7 +1,6 @@
 import { mockDate, resetMockDate } from '@superdispatch/ui-testutils';
 import { renderHook } from '@testing-library/react-hooks';
 import { DateTime } from 'luxon';
-
 import { DateConfig } from '../date-config/DateConfig';
 import { NullableDateInput } from '../date-time-utils/DateTimeUtils';
 import { useDateTime } from './useDateTime';

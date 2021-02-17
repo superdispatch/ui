@@ -15,7 +15,6 @@ import {
   Ref,
   RefAttributes,
 } from 'react';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 

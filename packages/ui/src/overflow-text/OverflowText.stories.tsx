@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import { Box } from '@superdispatch/ui-lab';
-
 import { OverflowText } from './OverflowText';
 
 export default {

@@ -1,5 +1,4 @@
 import AwesomePhoneNumber from 'awesome-phonenumber';
-
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 import {
   PhoneNumberFormat,

@@ -8,7 +8,6 @@ import {
 } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
-
 import { TextBox } from '../text-box/TextBox';
 
 function descriptionItemIconMixin(

@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, FormikProvider } from 'formik';
 import { createRef, MutableRefObject, ReactElement, Suspense } from 'react';
-
 import {
   FormikContextTypeEnhanced,
   FormikEnhancedConfig,

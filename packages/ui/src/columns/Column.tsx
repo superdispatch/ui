@@ -1,6 +1,5 @@
 import { forwardRef, ReactNode } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
-
 import {
   ResponsiveProp,
   ResponsivePropTuple,

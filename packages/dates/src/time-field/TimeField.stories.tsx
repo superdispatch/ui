@@ -1,6 +1,5 @@
 import { InputAdornment } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-
 import { TimeField } from './TimeField.playroom';
 
 export default {

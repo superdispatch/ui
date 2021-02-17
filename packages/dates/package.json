@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@superdispatch/ui": "^0.7.21",
-    "luxon": "^1.24.1",
+    "luxon": "^1.26.0",
     "react-day-picker": "7.4.0"
   },
   "peerDependencies": {

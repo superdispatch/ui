@@ -4,7 +4,6 @@ import {
   Switch,
   TextField,
 } from '@material-ui/core';
-
 import { CheckboxField, RadioField, RadioGroupField } from '..';
 
 export default { title: 'Inputs/RadioField', component: RadioField };

@@ -1,7 +1,6 @@
 import { extractCSS, renderComponent } from '@superdispatch/ui-testutils';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useState } from 'react';
-
 import { PhoneField, PhoneFieldProps } from './PhoneField';
 
 function UncontrolledPhoneField({ value, ...props }: PhoneFieldProps) {

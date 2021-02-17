@@ -7,7 +7,6 @@ import { fireEvent, Matcher } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-
 import { defaultDateConfig } from '../date-config/DateConfig';
 import {
   DateStringRange,

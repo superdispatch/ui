@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles';
 import { SuperDispatchTheme } from '@superdispatch/ui';
 import clsx from 'clsx';
 import { forwardRef, ImgHTMLAttributes, Ref } from 'react';
-
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 
 const useStyles = makeStyles(

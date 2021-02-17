@@ -2,7 +2,6 @@ import { BaseTextFieldProps, InputBaseProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { forwardRef, ReactNode, useMemo, useRef, useState } from 'react';
-
 import {
   BaseDatePicker,
   InternalBaseDateFieldAPI,

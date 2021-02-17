@@ -1,7 +1,6 @@
-import 'whatwg-fetch';
-
 import { fromPairs } from 'lodash';
 import { Match, match, MatchFunction } from 'path-to-regexp';
+import 'whatwg-fetch';
 
 export type MockEndpointParams = Record<string, string>;
 export type MockEndpointResponse = Response | Record<string, unknown>;

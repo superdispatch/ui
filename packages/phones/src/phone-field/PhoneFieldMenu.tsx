@@ -2,7 +2,6 @@ import { Divider, Menu, MenuProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { SuperDispatchTheme } from '@superdispatch/ui';
 import { forwardRef } from 'react';
-
 import {
   CountryISO,
   listCountries,

@@ -1,7 +1,6 @@
 import { Avatar, Checkbox } from '@material-ui/core';
 import { forwardRef, SyntheticEvent, useMemo } from 'react';
 import styled from 'styled-components';
-
 import { useSidebarMenuItemContext } from './SidebarMenuItemContext';
 
 function stopPropagation(event: SyntheticEvent): void {

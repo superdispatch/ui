@@ -1,5 +1,4 @@
 import { CSSProperties } from '@material-ui/styles';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 

@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react';
-
 import { PhoneLink } from './PhoneLink';
 
 export default { title: 'Phones/PhoneLink', component: PhoneLink } as Meta;

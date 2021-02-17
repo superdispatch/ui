@@ -20,7 +20,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
 import { Button } from '../button/Button';
 
 function useResizeObserver<T extends HTMLElement>(

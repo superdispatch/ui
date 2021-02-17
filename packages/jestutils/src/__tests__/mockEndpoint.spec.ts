@@ -1,5 +1,4 @@
 import { flatMap } from 'lodash';
-
 import {
   mockEndpoint,
   MockEndpointOptions,

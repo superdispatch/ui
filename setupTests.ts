@@ -1,7 +1,6 @@
-import '@testing-library/jest-dom';
-
 import { spyLogs } from '@superdispatch/jestutils';
 import { resetMockDate } from '@superdispatch/ui-testutils';
+import '@testing-library/jest-dom';
 import { ForwardRef } from 'react-is';
 
 spyLogs({ warn: 'forbid', error: 'forbid' });

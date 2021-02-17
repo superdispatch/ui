@@ -1,5 +1,4 @@
 import { forwardRef, useMemo, useState } from 'react';
-
 import { usePhoneService } from '../phone-service/PhoneService';
 import { PhoneField as SdPhoneField, PhoneFieldProps } from './PhoneField';
 

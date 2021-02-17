@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { CardButton } from '../..';
 
 it('checks component css', () => {

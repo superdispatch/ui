@@ -12,7 +12,6 @@ import {
   ForwardRefExoticComponent,
   useState,
 } from 'react';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { VisibilityObserver } from '../utils/VisibilityObserver';

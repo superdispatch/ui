@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-
 import { APNStatic, APNType, getAPN, loadAPN } from '../apn/APN';
 import {
   CountryISO,

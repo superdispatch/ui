@@ -1,5 +1,4 @@
 import { ESLintUtils } from '@typescript-eslint/experimental-utils';
-
 import { rule } from './no-restricted-modules';
 
 const ruleTester = new ESLintUtils.RuleTester({

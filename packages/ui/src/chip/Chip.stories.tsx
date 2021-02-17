@@ -1,6 +1,5 @@
 import { Chip } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-
 import { Inline } from '..';
 
 export default {

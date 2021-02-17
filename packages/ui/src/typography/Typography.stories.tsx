@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-
 import { Stack } from '../stack/Stack';
 
 export default {

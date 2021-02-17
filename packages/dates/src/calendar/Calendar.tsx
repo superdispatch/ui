@@ -10,7 +10,6 @@ import DayPicker, {
   FunctionModifier,
   Modifiers,
 } from 'react-day-picker';
-
 import {
   DateConfig,
   DateFormat,

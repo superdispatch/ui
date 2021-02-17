@@ -1,5 +1,4 @@
 import { DateTime, Settings, ToRelativeOptions } from 'luxon';
-
 import {
   DateConfig,
   DateFormat,

@@ -3,7 +3,6 @@ import { Deferred } from '@superdispatch/ui-testutils';
 import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikTextField } from './FormikTextField';
 

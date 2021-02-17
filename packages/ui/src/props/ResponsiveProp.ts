@@ -1,5 +1,4 @@
 import { useDeepEqualValue } from '@superdispatch/hooks';
-
 import { useResponsiveContext } from '../responsive/ResponsiveContext';
 
 export type ResponsivePropPrimitive = boolean | number | string;

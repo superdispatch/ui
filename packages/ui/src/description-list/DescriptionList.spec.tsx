@@ -1,5 +1,4 @@
 import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
-
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
 test('label id', () => {

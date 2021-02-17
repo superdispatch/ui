@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { noop } from 'lodash';
-
 import { useEventHandler } from './useEventHandler';
 
 test('basic', () => {

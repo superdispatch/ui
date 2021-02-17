@@ -7,7 +7,6 @@ import {
   useContext,
   useMemo,
 } from 'react';
-
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export interface ResponsiveContext {

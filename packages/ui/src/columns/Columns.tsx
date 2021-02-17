@@ -1,6 +1,5 @@
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { css, SimpleInterpolation } from 'styled-components';
-
 import { parseAlignProp, VerticalAlign } from '../props/AlignProps';
 import { CollapseProp, parseCollapsedBelow } from '../props/CollapseProp';
 import { parseResponsiveProp, ResponsiveProp } from '../props/ResponsiveProp';
