@@ -27,7 +27,7 @@ test('basic', () => {
   );
 
   expect(result.current[0]?.toISO()).toBe('2020-05-24T00:00:00.000-05:00');
-  expect(result.current[1]).toBeUndefined();
+  expect(result.current[1]).toBeNull();
 });
 
 test('warnings', () => {
@@ -43,7 +43,7 @@ test('warnings', () => {
     },
   );
 
-  expect(result.current).toEqual([undefined, undefined]);
+  expect(result.current).toEqual([null, null]);
   expect(error).toHaveBeenCalledTimes(1);
   expect(error).toHaveBeenLastCalledWith(
     '[useDateTime] Failed to parse "2020-05-24" string with "JodaISO" format.',

@@ -108,7 +108,7 @@ export function parseDate(
 export function stringifyDate(
   input: NullableDateInput,
   config: DateConfig = defaultDateConfig,
-): string | undefined {
+): string | null {
   const date = parseDate(input, config);
 
   if (date.isValid) {
@@ -124,7 +124,7 @@ export function stringifyDate(
     }
   }
 
-  return undefined;
+  return null;
 }
 
 export interface FormatDateConfig {
@@ -182,7 +182,7 @@ export function formatRelativeTime(
 export interface DatePayload {
   readonly config: DateConfig;
   readonly dateValue: DateTime;
-  readonly stringValue: undefined | DateString;
+  readonly stringValue: null | DateString;
 }
 
 export function toDatePayload(
@@ -202,8 +202,8 @@ export function toDatePayload(
 // Date Range Utils
 //
 
-export type DateTimeRange = [undefined | DateTime, undefined | DateTime];
-export type DateStringRange = [undefined | DateString, undefined | DateString];
+export type DateTimeRange = [null | DateTime, null | DateTime];
+export type DateStringRange = [null | DateString, null | DateString];
 export type NullableDateRangeInput =
   | null
   | undefined
@@ -227,11 +227,11 @@ export function parseDateRange(
   input: NullableDateRangeInput,
   config?: DateConfig,
 ): DateTimeRange {
-  let start: undefined | DateTime;
-  let finish: undefined | DateTime;
+  let start: null | DateTime = null;
+  let finish: null | DateTime = null;
 
   if (Array.isArray(input)) {
-    [start, finish] = input
+    [start = null, finish = null] = input
       .map((value) => parseDate(value, config))
       .filter((date) => date.isValid)
       .sort((a, b) => a.valueOf() - b.valueOf());
