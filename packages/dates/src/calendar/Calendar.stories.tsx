@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-
 import { Calendar } from './Calendar.playroom';
 import {
   CalendarQuickSelection,

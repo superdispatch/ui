@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { OverflowText } from '../OverflowText';
 
 it('checks component css', () => {

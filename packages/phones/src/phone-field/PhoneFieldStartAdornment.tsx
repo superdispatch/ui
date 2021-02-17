@@ -3,7 +3,6 @@ import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { Color, SuperDispatchTheme } from '@superdispatch/ui';
 import { forwardRef, useMemo } from 'react';
-
 import {
   CountryISO,
   formatCountry,

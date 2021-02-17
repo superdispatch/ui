@@ -12,7 +12,6 @@ import {
   ReactElement,
   ReactNode,
 } from 'react';
-
 import { SnackbarContent, SnackbarVariant } from './SnackbarContent';
 
 function SlideTransition(props: TransitionProps): ReactElement {

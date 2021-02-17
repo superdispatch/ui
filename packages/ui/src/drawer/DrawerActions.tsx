@@ -2,7 +2,6 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { forwardRef, HTMLAttributes } from 'react';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 import { VisibilityObserver } from '../utils/VisibilityObserver';

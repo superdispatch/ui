@@ -1,5 +1,4 @@
 import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
-
 import { Button } from '../..';
 
 it('checks default props', () => {

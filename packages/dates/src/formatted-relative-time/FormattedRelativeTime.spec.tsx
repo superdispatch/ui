@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { mockDate, renderComponent } from '@superdispatch/ui-testutils';
 import { DateTime } from 'luxon';
-
 import { FormattedRelativeTime } from '../formatted-relative-time/FormattedRelativeTime';
 
 beforeEach(() => {

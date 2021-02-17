@@ -1,7 +1,6 @@
 import { Column, Columns } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
-
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarSubheaderRoot = styled.div`

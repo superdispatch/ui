@@ -6,7 +6,7 @@ export * from './sidebar/Sidebar';
 export * from './sidebar/SidebarContainer';
 export * from './sidebar/SidebarDivider';
 export * from './sidebar/SidebarMenuItem';
-export * from './sidebar/SidebarSubheader';
 export * from './sidebar/SidebarMenuItemAction';
 export * from './sidebar/SidebarMenuItemAvatar';
+export * from './sidebar/SidebarSubheader';
 export * from './text-box/TextBox';

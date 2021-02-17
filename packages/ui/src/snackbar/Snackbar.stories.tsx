@@ -1,6 +1,5 @@
 import { FormControlLabel, FormGroup, Switch } from '@material-ui/core';
 import { UseState } from '@superdispatch/ui-docs';
-
 import {
   Button,
   Inline,

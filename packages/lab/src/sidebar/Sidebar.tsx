@@ -1,7 +1,6 @@
 import { Color, Column, Columns, useUID } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
-
 import { TextBox } from '../text-box/TextBox';
 
 const SidebarRoot = styled.aside`

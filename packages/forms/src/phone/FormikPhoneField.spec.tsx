@@ -1,5 +1,4 @@
 import { act, fireEvent, waitFor } from '@testing-library/react';
-
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikPhoneField } from './FormikPhoneField';
 

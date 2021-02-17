@@ -1,6 +1,5 @@
 import { SvgIcon, SvgIconProps } from '@material-ui/core';
 import { forwardRef } from 'react';
-
 import { Color } from '../theme/Color';
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 

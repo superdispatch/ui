@@ -1,6 +1,5 @@
 import { Color } from '@superdispatch/ui';
 import { TSESTree } from '@typescript-eslint/types';
-
 import { createRule } from '../utils/createRule';
 
 //

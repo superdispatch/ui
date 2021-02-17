@@ -8,7 +8,6 @@ import {
 import { CSSProperties, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { forwardRef, ForwardRefExoticComponent } from 'react';
-
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export type InfoCardClassKey = 'sizeLarge' | 'content' | CardClassKey;

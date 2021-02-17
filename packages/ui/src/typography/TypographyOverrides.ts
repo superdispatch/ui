@@ -1,6 +1,5 @@
 import { Breakpoints } from '@material-ui/core/styles/createBreakpoints';
 import { TypographyOptions } from '@material-ui/core/styles/createTypography';
-
 import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 
 export function createTypographyOptions(

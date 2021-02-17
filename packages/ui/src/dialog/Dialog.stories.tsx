@@ -1,6 +1,5 @@
 import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { PropsLink, UseState } from '@superdispatch/ui-docs';
-
 import { Button } from '..';
 import { Dialog } from './Dialog.playroom';
 

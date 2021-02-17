@@ -11,7 +11,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
 import { Snackbar, SnackbarProps } from './Snackbar';
 
 export interface SnackbarStackOptions

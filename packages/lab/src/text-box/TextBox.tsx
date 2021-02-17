@@ -7,7 +7,6 @@ import {
 } from '@superdispatch/ui';
 import { forwardRef, ReactNode } from 'react';
 import styled, { css, CSSObject, SimpleInterpolation } from 'styled-components';
-
 import { mergeStyles } from '../utils/mergeStyles';
 import { createRuleNormalizer } from '../utils/RuleNormalizer';
 

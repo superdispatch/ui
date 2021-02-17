@@ -1,6 +1,5 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/experimental-utils';
 import { TSESTree } from '@typescript-eslint/types';
-
 import { createRule } from '../utils/createRule';
 
 const messages = {

@@ -1,5 +1,4 @@
 import { forwardRef, useState } from 'react';
-
 import { DateString } from '../date-time-utils/DateTimeUtils';
 import { TimeField as SDTimeField, TimeFieldProps } from './TimeField';
 

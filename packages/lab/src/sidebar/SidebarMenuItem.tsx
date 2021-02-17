@@ -10,7 +10,6 @@ import {
   useState,
 } from 'react';
 import styled, { css } from 'styled-components';
-
 import { TextBox } from '../text-box/TextBox';
 import { SidebarMenuItemContextProvider } from './SidebarMenuItemContext';
 

@@ -12,7 +12,6 @@ import {
   RefAttributes,
   useMemo,
 } from 'react';
-
 import {
   CountryISO,
   formatCountry,

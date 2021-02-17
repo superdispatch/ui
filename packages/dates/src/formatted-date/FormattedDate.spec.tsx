@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { mockDate, renderComponent } from '@superdispatch/ui-testutils';
 import { renderHook } from '@testing-library/react-hooks';
-
 import { NullableDateInput } from '../date-time-utils/DateTimeUtils';
 import {
   FormattedDate,

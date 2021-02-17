@@ -1,6 +1,5 @@
 import { Button, Tooltip } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-
 import { Inline } from '../inline/Inline';
 
 export default {

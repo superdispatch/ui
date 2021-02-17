@@ -15,7 +15,6 @@ import {
   ReactNode,
   RefAttributes,
 } from 'react';
-
 import { Color } from '../theme/Color';
 
 type SnackbarContentClassKey =

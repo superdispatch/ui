@@ -3,7 +3,6 @@ import {
   AttachFile as AttachFileIcon,
 } from '@material-ui/icons';
 import { Meta } from '@storybook/react';
-
 import { CardButton } from './CardButton';
 
 export default { title: 'Inputs/CardButton', component: CardButton } as Meta;

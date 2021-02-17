@@ -1,7 +1,6 @@
 'use strict';
 
 import { ESLintUtils } from '@typescript-eslint/experimental-utils';
-
 import { rule } from './no-color-literals';
 
 const ruleTester = new ESLintUtils.RuleTester({

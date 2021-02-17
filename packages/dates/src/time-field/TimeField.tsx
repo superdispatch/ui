@@ -6,7 +6,6 @@ import {
 import { Autocomplete, FilterOptionsState } from '@material-ui/lab';
 import { DateTime } from 'luxon';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
-
 import {
   DateConfig,
   DateFormat,

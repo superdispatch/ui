@@ -21,12 +21,12 @@
     "@babel/runtime": "^7.0.0",
     "@testing-library/react": "^9.5.0"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "publishConfig": {
     "access": "public",
     "directory": "pkg"
-  },
-  "engines": {
-    "node": ">=10"
   },
   "@pika/pack": {
     "pipeline": [

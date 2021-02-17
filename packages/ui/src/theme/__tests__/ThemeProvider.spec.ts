@@ -1,5 +1,4 @@
 import { renderTheme } from '@superdispatch/ui-testutils';
-
 import { Color } from '../Color';
 
 const colors = new Map<string, string>(

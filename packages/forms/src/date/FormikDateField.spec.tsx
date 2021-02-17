@@ -4,9 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import MockDate from 'mockdate';
 import { ReactElement } from 'react';
-
-import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikEnhancedConfig } from '../enhanced/useFormikEnhanced';
+import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikDateField } from './FormikDateField';
 
 function renderDateField<T, R>(

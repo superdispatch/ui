@@ -1,6 +1,5 @@
 import { mockDate, resetMockDate } from '@superdispatch/ui-testutils';
 import { renderHook } from '@testing-library/react-hooks';
-
 import { DateConfig } from '../date-config/DateConfig';
 import {
   DateTimeRange,

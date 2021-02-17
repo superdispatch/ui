@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { AdaptiveToolbar } from '../AdaptiveToolbar';
 
 it('checks component css', () => {

@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { AvatarButton } from '../AvatarButton';
 
 it('checks component css', () => {

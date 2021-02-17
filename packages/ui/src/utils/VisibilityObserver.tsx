@@ -1,6 +1,5 @@
 import { useValueObserver } from '@superdispatch/hooks';
 import { ReactElement, ReactNode, useLayoutEffect, useState } from 'react';
-
 import { renderChildren } from './renderChildren';
 
 export type ElementVisibility = 'undetermined' | 'visible' | 'invisible';

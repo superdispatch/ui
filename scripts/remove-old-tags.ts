@@ -2,7 +2,6 @@
 
 import * as execa from 'execa';
 import * as semver from 'semver';
-
 import * as lerna from '../lerna.json';
 
 const version = semver.parse(lerna.version);

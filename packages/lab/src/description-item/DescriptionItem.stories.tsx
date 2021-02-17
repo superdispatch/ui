@@ -11,7 +11,6 @@ import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { PhoneLink } from '@superdispatch/phones';
 import { Column, Columns, Inline, Stack } from '@superdispatch/ui';
-
 import { Box } from '../box/Box';
 import { TextBox } from '../text-box/TextBox';
 import { DescriptionItem } from './DescriptionItem';

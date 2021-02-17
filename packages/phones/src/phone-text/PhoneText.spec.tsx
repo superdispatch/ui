@@ -1,6 +1,5 @@
 import { renderComponent } from '@superdispatch/ui-testutils';
 import { waitFor } from '@testing-library/react';
-
 import { PhoneText } from './PhoneText';
 
 test('basic', async () => {

@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { InfoCard } from '../..';
 
 it('checks component css', () => {

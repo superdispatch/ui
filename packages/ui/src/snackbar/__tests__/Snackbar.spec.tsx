@@ -1,5 +1,4 @@
 import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
-
 import { Snackbar } from '../../index';
 
 it('checks default props', () => {

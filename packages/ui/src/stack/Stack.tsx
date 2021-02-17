@@ -1,7 +1,6 @@
 import { forwardRef, ReactNode } from 'react';
 import flattenChildren from 'react-keyed-flatten-children';
 import styled, { css, SimpleInterpolation } from 'styled-components';
-
 import { HorizontalAlign, parseAlignProp } from '../props/AlignProps';
 import {
   parseResponsiveProp,

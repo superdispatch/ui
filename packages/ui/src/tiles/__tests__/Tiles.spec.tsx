@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { Tiles } from '../Tiles';
 
 it('checks component css', () => {

@@ -8,7 +8,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Meta } from '@storybook/react';
 import { Button, Stack } from '@superdispatch/ui';
-
 import { Placeholder } from '../../../__docs__';
 import { Box } from '../box/Box';
 import { Sidebar } from './Sidebar';

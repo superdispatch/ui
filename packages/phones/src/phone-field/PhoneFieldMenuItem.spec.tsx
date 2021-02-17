@@ -1,5 +1,4 @@
 import { renderCSS } from '@superdispatch/ui-testutils';
-
 import { PhoneFieldMenuItem } from './PhoneFieldMenuItem';
 
 test('css', () => {

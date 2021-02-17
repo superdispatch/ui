@@ -1,5 +1,4 @@
 import { forwardRef, useState } from 'react';
-
 import { DateStringRange } from '../date-time-utils/DateTimeUtils';
 import {
   DateRangeField as SDDateRangeField,

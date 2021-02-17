@@ -5,7 +5,6 @@ import {
   TextField,
 } from '@material-ui/core';
 import { PropsLink } from '@superdispatch/ui-docs';
-
 import { CheckboxField, RadioField, RadioGroupField } from '..';
 
 export default {

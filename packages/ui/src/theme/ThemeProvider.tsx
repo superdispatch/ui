@@ -12,7 +12,6 @@ import { useConstant } from '@superdispatch/hooks';
 import { Rule, StyleSheet } from 'jss';
 import { ReactElement, ReactNode } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-
 import { overrideAppBar } from '../app-bar/AppBarOverrides';
 import { overrideAutocomplete } from '../autocomplete/AutocompleteOverrides';
 import { overrideAvatar } from '../avatar/AvatarOverrides';

@@ -1,6 +1,5 @@
 import { mockDate } from '@superdispatch/ui-testutils';
 import { DateTime, FixedOffsetZone } from 'luxon';
-
 import { DateFormat, setDefaultTimeZone } from '../date-config/DateConfig';
 import {
   DateDisplayVariant,

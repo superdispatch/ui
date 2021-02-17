@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-
 import { Button } from '../button/Button';
 import { Stack } from '../stack/Stack';
 import { InfoCard } from './InfoCard';

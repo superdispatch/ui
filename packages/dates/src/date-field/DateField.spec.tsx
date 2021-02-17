@@ -4,7 +4,6 @@ import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-
 import {
   DateConfigProvider,
   DateFormat,

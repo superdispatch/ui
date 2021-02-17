@@ -4,7 +4,6 @@ import RoomIcon from '@material-ui/icons/Room';
 import { Meta } from '@storybook/react';
 import { Placeholder } from '@superdispatch/ui-docs';
 import { Box } from '@superdispatch/ui-lab';
-
 import { OverflowText } from '../overflow-text/OverflowText';
 import { Stack } from '../stack/Stack';
 import { Column } from './Column';

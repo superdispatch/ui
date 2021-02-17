@@ -10,7 +10,6 @@ import {
 import { Property } from 'csstype';
 import { ForwardRefExoticComponent, ReactNode, Ref } from 'react';
 import styled, { CSSObject } from 'styled-components';
-
 import { createRuleNormalizer, RuleNormalizer } from '../utils/RuleNormalizer';
 
 //

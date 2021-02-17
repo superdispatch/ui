@@ -1,6 +1,5 @@
 import { renderChildren } from '@superdispatch/ui';
 import { ReactElement, ReactNode, Suspense } from 'react';
-
 import { CountryISO } from '../country-code-metadata/CountryCodeMetadata';
 import { useFormattedPhoneNumber } from '../formatted-phone-number/FormattedPhoneNumber';
 import { PhoneNumberFormat } from '../phone-service/PhoneService';
