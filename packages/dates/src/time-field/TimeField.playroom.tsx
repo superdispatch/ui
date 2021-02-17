@@ -1,10 +1,10 @@
 import { forwardRef, useState } from 'react';
-import { DateString } from '../date-time-utils/DateTimeUtils';
+import { NullableDateInput } from '../date-time-utils/DateTimeUtils';
 import { TimeField as SDTimeField, TimeFieldProps } from './TimeField';
 
 export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
   ({ value, onChange, ...props }, ref) => {
-    const [state, setState] = useState<DateString>();
+    const [state, setState] = useState<NullableDateInput>();
 
     return (
       <SDTimeField

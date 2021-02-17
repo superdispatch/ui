@@ -11,6 +11,7 @@ import {
   formatRelativeTime,
   NullableDateInput,
   NullableDateRangeInput,
+  NullableDateString,
   parseDate,
   parseDateRange,
   PrimitiveDateInput,
@@ -146,23 +147,13 @@ test.each<
   [
     input: null | undefined | string,
     ...cases: Array<
-      [offset: number, results: Record<DateFormat, string | undefined>]
+      [offset: number, results: Record<DateFormat, null | string>]
     >
   ]
 >([
-  [
-    null,
-    [0, { JodaISO: undefined, DateISO: undefined, DateTimeISO: undefined }],
-  ],
-  [
-    undefined,
-    [0, { JodaISO: undefined, DateISO: undefined, DateTimeISO: undefined }],
-  ],
-
-  [
-    '0000-00-00',
-    [0, { JodaISO: undefined, DateISO: undefined, DateTimeISO: undefined }],
-  ],
+  [null, [0, { JodaISO: null, DateISO: null, DateTimeISO: null }]],
+  [null, [0, { JodaISO: null, DateISO: null, DateTimeISO: null }]],
+  ['0000-00-00', [0, { JodaISO: null, DateISO: null, DateTimeISO: null }]],
 
   [
     '2019-05-24T00:00:00.000Z',
@@ -433,34 +424,34 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
   [
     null,
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
   [
     undefined,
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
   [
     [null, undefined],
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
 
   [
     [NaN, '0000-00-00'],
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
 
@@ -468,9 +459,9 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
     [null, STUB_UTC],
 
     {
-      JodaISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateTimeISO: [DateTime.fromMillis(STUB_UTC), undefined],
+      JodaISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateTimeISO: [DateTime.fromMillis(STUB_UTC), null],
     },
   ],
 
@@ -478,9 +469,9 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
     [null, new Date(STUB_UTC)],
 
     {
-      JodaISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateTimeISO: [DateTime.fromMillis(STUB_UTC), undefined],
+      JodaISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateTimeISO: [DateTime.fromMillis(STUB_UTC), null],
     },
   ],
 
@@ -488,18 +479,18 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
     [null, DateTime.fromMillis(STUB_UTC)],
 
     {
-      JodaISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateTimeISO: [DateTime.fromMillis(STUB_UTC), undefined],
+      JodaISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateTimeISO: [DateTime.fromMillis(STUB_UTC), null],
     },
   ],
 
   [
     [null, '2019-05-24'],
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [DateTime.fromISO('2019-05-24'), undefined],
-      DateTimeISO: [DateTime.fromISO('2019-05-24'), undefined],
+      JodaISO: [null, null],
+      DateISO: [DateTime.fromISO('2019-05-24'), null],
+      DateTimeISO: [DateTime.fromISO('2019-05-24'), null],
     },
   ],
 
@@ -507,16 +498,16 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
     [null, '2019-05-24T01:02:03.004Z'],
 
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [DateTime.fromMillis(STUB_UTC), undefined],
-      DateTimeISO: [DateTime.fromMillis(STUB_UTC), undefined],
+      JodaISO: [null, null],
+      DateISO: [DateTime.fromMillis(STUB_UTC), null],
+      DateTimeISO: [DateTime.fromMillis(STUB_UTC), null],
     },
   ],
 
   [
     ['2019-05-24T03:02:03.004-02:00', '2000-01-02T03:04:05.678+02:00'],
     {
-      JodaISO: [undefined, undefined],
+      JodaISO: [null, null],
       DateISO: [
         DateTime.fromISO('2000-01-02T03:04:05.678+02:00'),
         DateTime.fromISO('2019-05-24T03:02:03.004-02:00'),
@@ -555,31 +546,36 @@ test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([
   expect(results).toEqual(expectations);
 });
 
-test.each<[DateStringRange, Record<DateFormat, DateStringRange>]>([
+test.each<
+  [
+    [NullableDateString, NullableDateString],
+    Record<DateFormat, DateStringRange>,
+  ]
+>([
   [
     [undefined, undefined],
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
 
   [
     [undefined, '0000-00-00'],
     {
-      JodaISO: [undefined, undefined],
-      DateISO: [undefined, undefined],
-      DateTimeISO: [undefined, undefined],
+      JodaISO: [null, null],
+      DateISO: [null, null],
+      DateTimeISO: [null, null],
     },
   ],
 
   [
     [undefined, '2019-05-24T00:00:00.000Z'],
     {
-      JodaISO: ['2019-05-23T19:00:00.000-0500', undefined],
-      DateISO: ['2019-05-23', undefined],
-      DateTimeISO: ['2019-05-23T19:00:00.000-05:00', undefined],
+      JodaISO: ['2019-05-23T19:00:00.000-0500', null],
+      DateISO: ['2019-05-23', null],
+      DateTimeISO: ['2019-05-23T19:00:00.000-05:00', null],
     },
   ],
 
@@ -622,7 +618,9 @@ test.each<[DateStringRange, Record<DateFormat, DateStringRange>]>([
   expect(results).toEqual(expectations);
 });
 
-test.each<[DateStringRange, string | undefined, string]>([
+test.each<
+  [[NullableDateString, NullableDateString], string | undefined, string]
+>([
   [[undefined, undefined], '', ''],
   [[undefined, undefined], undefined, 'Invalid Date Range'],
   [[undefined, '0000-00-00'], 'Custom Empty Text', 'Custom Empty Text'],

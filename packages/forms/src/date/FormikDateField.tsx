@@ -2,7 +2,6 @@ import {
   DateField,
   DateFieldProps,
   DatePayload,
-  DateString,
   NullableDateInput,
   parseDate,
   stringifyDate,
@@ -43,9 +42,11 @@ export const FormikDateField = forwardRef<HTMLDivElement, FormikDateFieldProps>(
       });
     }
 
-    const [{ value }, { error, touched }, { setValue, setTouched }] = useField<
-      undefined | DateString
-    >({ name, validate });
+    const [
+      { value },
+      { error, touched },
+      { setValue, setTouched },
+    ] = useField<NullableDateInput>({ name, validate });
     const errorText = touched && error;
 
     return (

@@ -257,7 +257,7 @@ test('enableClearable', () => {
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
-    stringValue: undefined,
+    stringValue: null,
     dateValue: expect.any(DateTime),
   });
 
@@ -277,7 +277,7 @@ test('enableClearable', () => {
   expect(onChange).toHaveBeenCalledTimes(2);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
-    stringValue: undefined,
+    stringValue: null,
     dateValue: expect.any(DateTime),
   });
 });

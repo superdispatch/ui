@@ -1,10 +1,10 @@
 import { forwardRef, useState } from 'react';
-import { DateString } from '../date-time-utils/DateTimeUtils';
+import { NullableDateInput } from '../date-time-utils/DateTimeUtils';
 import { Calendar as SDCalendar, CalendarProps } from './Calendar';
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
   ({ onDayClick, selectedDays, ...props }, ref) => {
-    const [value, setValue] = useState<DateString>();
+    const [value, setValue] = useState<NullableDateInput>();
 
     return (
       <SDCalendar
