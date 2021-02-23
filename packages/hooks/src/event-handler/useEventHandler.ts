@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from '../isomorphic-layout-effect/useIsomorphicLayoutEffect';
 
 export type EventHandler<T> = (event: T) => void;
 
@@ -23,7 +24,7 @@ export function useEventHandler<T>(
     callbackRef.current?.(event);
   });
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     mountRef.current = true;
     callbackRef.current = handler;
 

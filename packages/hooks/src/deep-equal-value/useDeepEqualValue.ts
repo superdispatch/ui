@@ -1,11 +1,12 @@
 import { dequal } from 'dequal';
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from '../isomorphic-layout-effect/useIsomorphicLayoutEffect';
 
 export function useDeepEqualValue<T>(value: T): T {
   const ref = useRef(value);
   const isEqual = dequal(value, ref.current);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!isEqual) {
       ref.current = value;
     }
