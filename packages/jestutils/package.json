@@ -15,7 +15,7 @@
     "lodash": "^4.17.21",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.9.6",
-    "whatwg-fetch": "^3.6.1"
+    "whatwg-fetch": "^3.6.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
