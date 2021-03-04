@@ -2,6 +2,7 @@ import {
   Color,
   ColorProp,
   isColorProp,
+  NegativeSpaceProp,
   parseResponsiveProp,
   parseSpaceProp,
   ResponsiveProp,
@@ -32,7 +33,7 @@ function parseSpace(space: unknown): string {
 // Margins
 //
 
-export type MarginProp = 'auto' | SpaceProp | `-${SpaceProp}`;
+export type MarginProp = 'auto' | SpaceProp | NegativeSpaceProp;
 function parseMargin(input: unknown): string {
   if (input === 'auto') {
     return input;

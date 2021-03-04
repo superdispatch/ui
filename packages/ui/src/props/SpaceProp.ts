@@ -8,6 +8,15 @@ export type SpaceProp =
   | 'xlarge'
   | 'xxlarge';
 
+export type NegativeSpaceProp =
+  | '-xxsmall'
+  | '-xsmall'
+  | '-small'
+  | '-medium'
+  | '-large'
+  | '-xlarge'
+  | '-xxlarge';
+
 export function parseSpaceProp(prop: SpaceProp): number {
   switch (prop) {
     case 'none':
