@@ -2,6 +2,7 @@ import {
   Color,
   ColorProp,
   isColorProp,
+  NegativeSpaceProp,
   parseResponsiveProp,
   parseSpaceProp,
   ResponsiveProp,
@@ -32,14 +33,20 @@ function parseSpace(space: unknown): string {
 // Margins
 //
 
-export type MarginProp = SpaceProp | 'auto';
-function parseMargin(margin: unknown): string {
-  switch (margin as MarginProp) {
-    case 'auto':
-      return 'auto';
-    default:
-      return parseSpace(margin);
+export type MarginProp = 'auto' | SpaceProp | NegativeSpaceProp;
+function parseMargin(input: unknown): string {
+  if (input === 'auto') {
+    return input;
   }
+
+  let prefix = '';
+
+  if (typeof input == 'string' && input.startsWith('-')) {
+    prefix = '-';
+    input = input.slice(1);
+  }
+
+  return prefix + parseSpace(input);
 }
 
 //
@@ -64,6 +71,8 @@ const normalizeBorderWidth = createRuleNormalizer<BorderWidthProp>({
 //
 
 interface BoxRules {
+  display?: ResponsiveProp<Property.Display>;
+
   color?: ResponsiveProp<ColorProp>;
   backgroundColor?: ResponsiveProp<ColorProp>;
 
@@ -113,6 +122,8 @@ interface BoxRules {
 }
 
 const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
+  display: undefined,
+
   color: normalizeColor,
   backgroundColor: normalizeColor,
 
