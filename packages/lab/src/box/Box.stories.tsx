@@ -5,7 +5,7 @@ export default { title: 'Lab/Box', component: Box } as Meta;
 
 export const basic = () => (
   <Box
-    as="span"
+    display="inline-block"
     borderWidth="small"
     borderRadius="small"
     borderColor={['Blue200', 'Green200', 'Purple200']}
