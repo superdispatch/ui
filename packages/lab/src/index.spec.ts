@@ -8,6 +8,8 @@ test('api', () => {
       "Box": React.forwardRef(Box),
       "Button": React.forwardRef(Button),
       "DescriptionItem": React.forwardRef(DescriptionItem),
+      "FileDropZone": React.forwardRef(FileDropZone),
+      "FileListItem": React.forwardRef(FileListItem),
       "Sidebar": React.forwardRef(Sidebar),
       "SidebarContainer": React.forwardRef(SidebarContainer),
       "SidebarDivider": React.forwardRef(SidebarDivider),
@@ -16,6 +18,8 @@ test('api', () => {
       "SidebarMenuItemAvatar": React.forwardRef(SidebarMenuItemAvatar),
       "SidebarSubheader": React.forwardRef(SidebarSubheader),
       "TextBox": React.forwardRef(TextBox),
+      "formatBytes": [Function],
+      "toBytes": [Function],
     }
   `);
 });

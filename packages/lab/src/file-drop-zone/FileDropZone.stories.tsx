@@ -11,20 +11,20 @@ export const basic = () => (
   />
 );
 
-export const maxSize = () => (
+export const accept = () => (
   <FileDropZone
-    maxSize={toBytes(20, 'mb')}
-    hintText="or Drag & Drop files less than 20 MB"
+    accept={['.jpeg', '.jpg', '.png', '.gif']}
+    hintText="or Drag & Drop .jpeg .jpg .png .gif files"
     onDropAccepted={(files) => {
       alert(`Accepted files: ${files.map((file) => file.name).join(', ')}`);
     }}
   />
 );
 
-export const accept = () => (
+export const maxSize = () => (
   <FileDropZone
-    accept={['.jpeg', '.jpg', '.png', '.gif']}
-    hintText="or Drag & Drop .jpeg .jpg .png .gif files"
+    maxSize={toBytes(20, 'mb')}
+    hintText="or Drag & Drop files less than 20 MB"
     onDropAccepted={(files) => {
       alert(`Accepted files: ${files.map((file) => file.name).join(', ')}`);
     }}
