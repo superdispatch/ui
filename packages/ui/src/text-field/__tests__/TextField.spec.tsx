@@ -510,7 +510,6 @@ it('checks component css', () => {
 
     .MuiSelect-select:focus {
       border-radius: 0;
-      background-color: rgba(0, 0, 0, 0.05);
     }
 
     .MuiSelect-select::-ms-expand {

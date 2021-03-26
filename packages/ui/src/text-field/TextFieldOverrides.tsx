@@ -99,6 +99,12 @@ export function overrideTextField(theme: SuperDispatchTheme): void {
       [sm]: { right: theme.spacing(1) },
     },
 
+    select: {
+      '&:focus': {
+        backgroundColor: undefined,
+      },
+    },
+
     selectMenu: {
       '&&': {
         paddingRight: theme.spacing(4.5),
