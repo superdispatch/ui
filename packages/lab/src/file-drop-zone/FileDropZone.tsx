@@ -60,7 +60,7 @@ function UploadRejection({
   );
 }
 
-export interface UploadCardButtonProps {
+export interface FileDropZoneProps {
   children?: ReactNode;
   startIcon?: ReactNode;
   hintText?: ReactNode;
@@ -73,88 +73,87 @@ export interface UploadCardButtonProps {
   onDropRejected?: (fileRejections: FileRejection[]) => void;
 }
 
-export const FileDropZone = forwardRef<
-  HTMLButtonElement,
-  UploadCardButtonProps
->((props, ref) => {
-  const {
-    // CardButton
-    disabled = false,
-    children = 'Upload Attachments',
-    hintText = 'or Drag & Drop files',
-    startIcon = (
-      <SvgIcon>
-        <path d={mdiUpload} />
-      </SvgIcon>
-    ),
-    fallback = (
-      <CardButton
-        ref={ref}
-        disabled={true}
-        startIcon={<CircularProgress size="1em" color="inherit" />}
-      >
-        Loading dependencies…
-      </CardButton>
-    ),
+export const FileDropZone = forwardRef<HTMLButtonElement, FileDropZoneProps>(
+  (props, ref) => {
+    const {
+      // CardButton
+      disabled = false,
+      children = 'Upload Attachments',
+      hintText = 'or Drag & Drop files',
+      startIcon = (
+        <SvgIcon>
+          <path d={mdiUpload} />
+        </SvgIcon>
+      ),
+      fallback = (
+        <CardButton
+          ref={ref}
+          disabled={true}
+          startIcon={<CircularProgress size="1em" color="inherit" />}
+        >
+          Loading dependencies…
+        </CardButton>
+      ),
 
-    // Dropzone
-    accept,
-    maxSize = Infinity,
-    onDropRejected,
-    onDropAccepted,
-    ...dropzoneProps
-  } = props;
+      // Dropzone
+      accept,
+      maxSize = Infinity,
+      onDropRejected,
+      onDropAccepted,
+      ...dropzoneProps
+    } = props;
 
-  return (
-    <Suspense fallback={fallback}>
-      <Dropzone
-        {...dropzoneProps}
-        accept={accept}
-        maxSize={maxSize}
-        disabled={disabled}
-        onDropAccepted={(files) => {
-          onDropAccepted?.(files);
-        }}
-        onDropRejected={(fileRejections) => {
-          onDropRejected?.(fileRejections);
-        }}
-      >
-        {({
-          isDragActive,
-          isDragReject,
-          getRootProps,
-          getInputProps,
-          fileRejections,
-        }) => {
-          return (
-            <>
-              <input {...getInputProps()} />
+    return (
+      <Suspense fallback={fallback}>
+        <Dropzone
+          {...dropzoneProps}
+          accept={accept}
+          maxSize={maxSize}
+          disabled={disabled}
+          onDropAccepted={(files) => {
+            onDropAccepted?.(files);
+          }}
+          onDropRejected={(fileRejections) => {
+            onDropRejected?.(fileRejections);
+          }}
+        >
+          {({
+            isDragActive,
+            isDragReject,
+            getRootProps,
+            getInputProps,
+            fileRejections,
+          }) => {
+            return (
+              <>
+                <input {...getInputProps()} />
 
-              <StyledCardButton
-                {...getRootProps()}
-                ref={ref}
-                hint={hintText}
-                disabled={disabled}
-                startIcon={startIcon}
-                status={
-                  isDragActive ? 'active' : isDragReject ? 'error' : 'idle'
-                }
-                error={
-                  !!fileRejections.length && (
-                    <UploadRejection
-                      accept={accept}
-                      maxSize={maxSize}
-                      rejection={fileRejections[0]}
-                    />
-                  )
-                }
-              >
-                {children}
-              </StyledCardButton>
-            </>
-          );
-        }}
-      </Dropzone>
-    </Suspense>
-  );
-});
+                <StyledCardButton
+                  {...getRootProps()}
+                  ref={ref}
+                  hint={hintText}
+                  disabled={disabled}
+                  startIcon={startIcon}
+                  status={
+                    isDragActive ? 'active' : isDragReject ? 'error' : 'idle'
+                  }
+                  error={
+                    !!fileRejections.length && (
+                      <UploadRejection
+                        accept={accept}
+                        maxSize={maxSize}
+                        rejection={fileRejections[0]}
+                      />
+                    )
+                  }
+                >
+                  {children}
+                </StyledCardButton>
+              </>
+            );
+          }}
+        </Dropzone>
+      </Suspense>
+    );
+  },
+);
