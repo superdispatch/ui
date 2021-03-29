@@ -30,3 +30,15 @@ export const maxSize = () => (
     }}
   />
 );
+
+export const maxFiles = () => (
+  <FileDropZone
+    maxFiles={1}
+    hintText="or Drag & Drop file"
+    onDropAccepted={(files) => {
+      alert(`Accepted files: ${files.map((file) => file.name).join(', ')}`);
+    }}
+  >
+    Upload attachment
+  </FileDropZone>
+);

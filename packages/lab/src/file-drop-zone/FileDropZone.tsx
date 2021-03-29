@@ -68,6 +68,7 @@ export interface FileDropZoneProps {
   disabled?: boolean;
 
   maxSize?: number;
+  maxFiles?: number;
   accept?: string | string[];
   onDropAccepted?: (files: File[]) => void;
   onDropRejected?: (fileRejections: FileRejection[]) => void;
@@ -98,6 +99,7 @@ export const FileDropZone = forwardRef<HTMLButtonElement, FileDropZoneProps>(
       // Dropzone
       accept,
       maxSize = Infinity,
+      maxFiles = Infinity,
       onDropRejected,
       onDropAccepted,
       ...dropzoneProps
@@ -109,6 +111,7 @@ export const FileDropZone = forwardRef<HTMLButtonElement, FileDropZoneProps>(
           {...dropzoneProps}
           accept={accept}
           maxSize={maxSize}
+          maxFiles={maxFiles}
           disabled={disabled}
           onDropAccepted={(files) => {
             onDropAccepted?.(files);
