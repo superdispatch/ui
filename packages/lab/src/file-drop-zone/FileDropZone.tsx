@@ -1,7 +1,7 @@
 import { CircularProgress, SvgIcon } from '@material-ui/core';
 import { Error } from '@material-ui/icons';
 import { mdiUpload } from '@mdi/js';
-import { CardButton, Color, Inline } from '@superdispatch/ui';
+import { CardButton, Color, Column, Columns } from '@superdispatch/ui';
 import { forwardRef, lazy, ReactElement, ReactNode, Suspense } from 'react';
 import { FileRejection } from 'react-dropzone';
 import styled from 'styled-components';
@@ -47,16 +47,19 @@ function UploadRejection({
   const [error] = rejection.errors;
 
   return (
-    <Inline noWrap={true} verticalAlign="center">
-      <Error />
-      <span>
+    <Columns align="center">
+      <Column width="content">
+        <Error />
+      </Column>
+
+      <Column>
         {error.code === 'file-too-large'
           ? maxSize == null
             ? 'Attachment size is too large'
             : `Attachment size should be less than ${formatBytes(maxSize)}`
           : error.message}
-      </span>
-    </Inline>
+      </Column>
+    </Columns>
   );
 }
 
