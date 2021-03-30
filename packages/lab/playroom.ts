@@ -3,6 +3,8 @@ export {
   Box,
   Button,
   DescriptionItem,
+  FileDropZone,
+  FileListItem,
   Sidebar,
   SidebarContainer,
   SidebarDivider,
