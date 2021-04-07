@@ -413,11 +413,11 @@ test.each<
 );
 
 test('formatRelative(…)', () => {
-  expect(formatRelativeTime('2019-05-24')).toBe('7 hr. ago');
-  expect(formatRelativeTime('2019-05-24T05:00:00Z')).toBe('7 hr. ago');
-  expect(formatRelativeTime('2019-05-24T05:00:00-0000')).toBe('7 hr. ago');
-  expect(formatRelativeTime('2019-05-24T00:00:00-0500')).toBe('7 hr. ago');
-  expect(formatRelativeTime('2019-05-24T10:00:00+0500')).toBe('7 hr. ago');
+  expect(formatRelativeTime('2019-05-24')).toBe('7h ago');
+  expect(formatRelativeTime('2019-05-24T05:00:00Z')).toBe('7h ago');
+  expect(formatRelativeTime('2019-05-24T05:00:00-0000')).toBe('7h ago');
+  expect(formatRelativeTime('2019-05-24T00:00:00-0500')).toBe('7h ago');
+  expect(formatRelativeTime('2019-05-24T10:00:00+0500')).toBe('7h ago');
 });
 
 test.each<[NullableDateRangeInput, Record<DateFormat, DateTimeRange>]>([

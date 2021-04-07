@@ -30,13 +30,13 @@ describe('FormattedRelativeTime', () => {
 
     expect(container).toMatchInlineSnapshot(`
       <div>
-        in 0 sec.
-        14 sec. ago
-        in 45 sec.
-        13 min. ago
-        in 46 min.
-        7 hr. ago
-        in 16 hr.
+        in 0s
+        14s ago
+        in 45s
+        13m ago
+        in 46m
+        7h ago
+        in 16h
         4 days ago
         in 2 days
         23 days ago

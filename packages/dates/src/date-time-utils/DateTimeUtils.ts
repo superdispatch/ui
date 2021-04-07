@@ -172,7 +172,10 @@ export function formatRelativeTime(
     const formatted = date.toRelative({ base, unit, style, round, padding });
 
     if (formatted) {
-      return formatted;
+      return formatted
+        .replace(/\ssec\./g, 's')
+        .replace(/\shr\./g, 'h')
+        .replace(/\smin\./g, 'm');
     }
   }
 
