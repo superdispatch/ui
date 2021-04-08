@@ -173,7 +173,11 @@ export function formatRelativeTime(
 
     if (formatted) {
       return formatted
+        .replace(/\sdays?/g, 'd')
         .replace(/\ssec\./g, 's')
+        .replace(/\swk\./g, 'w')
+        .replace(/\syr\./g, 'y')
+        .replace(/\smo\./g, 'mo')
         .replace(/\shr\./g, 'h')
         .replace(/\smin\./g, 'm');
     }
