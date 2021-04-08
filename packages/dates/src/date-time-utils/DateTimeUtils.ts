@@ -1,4 +1,4 @@
-import { DateTime, Settings, ToRelativeOptions } from 'luxon';
+import { DateTime, Settings, ToRelativeOptions, ToRelativeUnit } from 'luxon';
 import {
   DateConfig,
   DateFormat,
@@ -8,7 +8,6 @@ import {
 //
 // Config
 //
-
 export type DateDisplayVariant = 'Date' | 'ShortDate' | 'Time' | 'DateTime';
 
 const DATE_FORMATS: Readonly<Record<DateFormat, string>> = {
@@ -146,8 +145,29 @@ export function formatDate(
   return date.toLocaleString(DATE_DISPLAY_VARIANTS[variant]);
 }
 
+function formatUnit(unit: ToRelativeUnit): string {
+  switch (unit) {
+    case 'quarters':
+      return 'q';
+    case 'years':
+      return 'y';
+    case 'months':
+      return 'mo';
+    case 'weeks':
+      return 'w';
+    case 'days':
+      return 'd';
+    case 'hours':
+      return 'h';
+    case 'minutes':
+      return 'm';
+    case 'seconds':
+      return 's';
+  }
+}
+
 export interface FormatRelativeTimeOptions
-  extends Pick<ToRelativeOptions, 'unit' | 'round' | 'padding' | 'style'> {
+  extends Pick<ToRelativeOptions, 'unit' | 'round' | 'padding'> {
   fallback?: string;
   base?: NullableDateInput;
 }
@@ -155,32 +175,63 @@ export interface FormatRelativeTimeOptions
 export function formatRelativeTime(
   input: NullableDateInput,
   {
-    unit,
-    round,
-    style,
-    padding,
+    round = true,
 
+    unit: unitOption,
     base: baseOption,
+    padding: optionOption,
     fallback = 'Invalid Date',
   }: FormatRelativeTimeOptions = {},
   config: DateConfig = defaultDateConfig,
 ): string {
+  const base =
+    baseOption == null
+      ? DateTime.fromObject({ zone: Settings.defaultZone })
+      : parseDate(baseOption, config);
   const date = parseDate(input, config);
-  const base = baseOption == null ? undefined : parseDate(baseOption, config);
+  const padding = optionOption
+    ? date < base
+      ? -optionOption
+      : optionOption
+    : 0;
 
-  if (date.isValid && (!base || base.isValid)) {
-    const formatted = date.toRelative({ base, unit, style, round, padding });
+  function format(value: number, unit: ToRelativeUnit): string {
+    const isPast = Object.is(value, -0) || value < 0;
+    const diff = Math.abs(!round ? value : Math.trunc(value));
+    const formattedUnit = formatUnit(unit);
 
-    if (formatted) {
-      return formatted
-        .replace(/\sdays?/g, 'd')
-        .replace(/\ssec\./g, 's')
-        .replace(/\swk\./g, 'w')
-        .replace(/\syr\./g, 'y')
-        .replace(/\smo\./g, 'mo')
-        .replace(/\shr\./g, 'h')
-        .replace(/\smin\./g, 'm');
+    return isPast
+      ? `${diff}${formattedUnit} ago`
+      : `in ${diff}${formattedUnit}`;
+  }
+
+  function differ(unit: ToRelativeUnit): number {
+    return date.plus(padding).diff(base, unit).get(unit);
+  }
+
+  if (date.isValid && base.isValid) {
+    const units: ToRelativeUnit[] = [
+      'years',
+      'months',
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ];
+
+    if (unitOption) {
+      return format(differ(unitOption), unitOption);
     }
+
+    for (const unit of units) {
+      const diff = differ(unit);
+
+      if (Math.abs(diff) >= 1) {
+        return format(diff, unit);
+      }
+    }
+
+    return format(0, 'seconds');
   }
 
   return fallback;
