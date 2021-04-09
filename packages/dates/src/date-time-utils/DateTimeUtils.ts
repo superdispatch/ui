@@ -148,7 +148,7 @@ export function formatDate(
 function formatUnit(unit: ToRelativeUnit): string {
   switch (unit) {
     case 'quarters':
-      return 'q';
+      return unit.charCodeAt(0);
     case 'years':
       return 'y';
     case 'months':
