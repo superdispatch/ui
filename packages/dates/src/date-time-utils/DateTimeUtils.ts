@@ -147,22 +147,10 @@ export function formatDate(
 
 function formatUnit(unit: ToRelativeUnit): string {
   switch (unit) {
-    case 'quarters':
-      return unit.charCodeAt(0);
-    case 'years':
-      return 'y';
     case 'months':
       return 'mo';
-    case 'weeks':
-      return 'w';
-    case 'days':
-      return 'd';
-    case 'hours':
-      return 'h';
-    case 'minutes':
-      return 'm';
-    case 'seconds':
-      return 's';
+    default:
+      return unit.charAt(0);
   }
 }
 
@@ -179,20 +167,18 @@ export function formatRelativeTime(
 
     unit: unitOption,
     base: baseOption,
-    padding: optionOption,
+    padding: paddingOption,
     fallback = 'Invalid Date',
   }: FormatRelativeTimeOptions = {},
   config: DateConfig = defaultDateConfig,
 ): string {
   const base =
-    baseOption == null
-      ? DateTime.fromObject({ zone: Settings.defaultZone })
-      : parseDate(baseOption, config);
+    baseOption == null ? DateTime.now() : parseDate(baseOption, config);
   const date = parseDate(input, config);
-  const padding = optionOption
+  const padding = paddingOption
     ? date < base
-      ? -optionOption
-      : optionOption
+      ? -paddingOption
+      : paddingOption
     : 0;
 
   function format(value: number, unit: ToRelativeUnit): string {
