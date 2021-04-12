@@ -19,8 +19,8 @@ export function overrideAutocomplete(theme: SuperDispatchTheme): void {
     MuiAutocomplete: {
       paper: { ...theme.typography.body2 },
       tag: {
-        margin: theme.spacing(0.5),
-        [sm]: { margin: theme.spacing(0.25) },
+        margin: '4px',
+        [sm]: { margin: '2px' },
       },
       endAdornment: {
         top: 0,
@@ -30,26 +30,26 @@ export function overrideAutocomplete(theme: SuperDispatchTheme): void {
       },
       popupIndicator: {
         '& .MuiSvgIcon-root': {
-          fontSize: theme.spacing(3),
-          [sm]: { fontSize: theme.spacing(2) },
+          fontSize: '24px',
+          [sm]: { fontSize: '16px' },
         },
       },
       inputRoot: {
         '&[class*="MuiOutlinedInput-root"]': {
-          padding: theme.spacing(0.75, 1),
+          padding: '6px 8px',
 
           '& $input': {
-            padding: theme.spacing(0.5),
-            minWidth: theme.spacing(18),
+            width: '144px',
+            padding: '4px',
           },
 
           '& $input:first-child': { paddingLeft: undefined },
-          '& $endAdornment': { right: theme.spacing(1.5) },
+          '& $endAdornment': { right: '12px' },
 
           [sm]: {
             padding: theme.spacing(0.5, 0.75),
-            '& $input': { padding: theme.spacing(0.25) },
-            '& $endAdornment': { right: theme.spacing(1) },
+            '& $input': { padding: '2px' },
+            '& $endAdornment': { right: '8px' },
           },
         },
       },
