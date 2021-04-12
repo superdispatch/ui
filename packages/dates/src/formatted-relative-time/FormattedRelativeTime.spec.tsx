@@ -25,6 +25,7 @@ describe('FormattedRelativeTime', () => {
         <FormattedRelativeTime date={now.endOf('month')} />
         <FormattedRelativeTime date={now.startOf('year')} />
         <FormattedRelativeTime date={now.endOf('year')} />
+        <FormattedRelativeTime date={now.minus({ year: 1 })} />
       </>,
     );
 
@@ -37,12 +38,13 @@ describe('FormattedRelativeTime', () => {
         in 46m
         7h ago
         in 16h
-        4 days ago
-        in 2 days
-        23 days ago
-        in 7 days
-        4 mo. ago
-        in 7 mo.
+        4d ago
+        in 2d
+        23d ago
+        in 7d
+        4mo ago
+        in 7mo
+        1y ago
       </div>
     `);
   });
@@ -58,7 +60,7 @@ describe('FormattedRelativeTime', () => {
 
     expect(container).toMatchInlineSnapshot(`
       <div>
-        in 20 days
+        in 20d
       </div>
     `);
   });

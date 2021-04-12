@@ -16,7 +16,6 @@ export function useFormattedRelativeTime(
   input: NullableDateInput,
   {
     unit,
-    style,
     round,
     padding,
     fallback,
@@ -34,10 +33,10 @@ export function useFormattedRelativeTime(
     () =>
       formatRelativeTime(
         date,
-        { base, unit, style, round, padding, fallback },
+        { base, unit, round, padding, fallback },
         config,
       ),
-    [base, date, unit, style, round, config, padding, fallback],
+    [base, date, unit, round, config, padding, fallback],
   );
 }
 
