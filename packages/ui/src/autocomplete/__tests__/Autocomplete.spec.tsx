@@ -139,8 +139,8 @@ it('checks component css', () => {
 
     .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
       .MuiAutocomplete-input {
+      width: 144px;
       padding: 4px;
-      min-width: 144px;
     }
 
     .MuiAutocomplete-inputRoot[class*='MuiOutlinedInput-root']
