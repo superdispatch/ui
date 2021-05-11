@@ -25,6 +25,7 @@ import { overrideIconButton } from '../icon-button/IconButtonOverrides';
 import { overrideLink } from '../link/LinkOverrides';
 import { overrideList } from '../list/ListOverrides';
 import { overrideMenu } from '../menu/MenuOverrides';
+import { overridePagination } from '../pagination/PaginationOverrides';
 import { overridePaper } from '../paper/PaperOverrides';
 import { overrideRadio } from '../radio/RadioOverrides';
 import { ResponsiveContextProvider } from '../responsive/ResponsiveContext';
@@ -102,6 +103,7 @@ function createTheme(): SuperDispatchTheme {
   overrideToolbar(theme);
   overrideTooltip(theme);
   overrideTypography(theme);
+  overridePagination(theme);
 
   return theme;
 }
