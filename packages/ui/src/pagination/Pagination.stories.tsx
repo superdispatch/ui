@@ -32,5 +32,5 @@ export const basic = () => (
 );
 
 export const disabled = () => (
-  <Pagination count={154} page={-1} siblingCount={3} disabled={true} />
+  <Pagination count={154} page={1} siblingCount={3} disabled={true} />
 );
