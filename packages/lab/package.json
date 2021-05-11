@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui-lab",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@superdispatch/hooks": "^0.8.0",
-    "@superdispatch/ui": "^0.8.0",
+    "@superdispatch/ui": "^0.8.2",
     "react-dropzone": "^11.3.2"
   },
   "peerDependencies": {
