@@ -6,7 +6,7 @@ it('checks default props', () => {
 
   expect(props.MuiPaper).toMatchInlineSnapshot(`
     Object {
-      "elevation": 0,
+      "variant": "outlined",
     }
   `);
 });
@@ -28,7 +28,6 @@ it('checks component css', () => {
     }
 
     .MuiPaper-elevation0 {
-      border: 1px solid Color.Silver400;
       box-shadow: none;
     }
 
