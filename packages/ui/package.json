@@ -14,7 +14,7 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@juggle/resize-observer": "^3.3.0",
+    "@juggle/resize-observer": "^3.3.1",
     "@superdispatch/hooks": "^0.8.0",
     "clsx": "^1.1.1",
     "react-keyed-flatten-children": "^1.2.0"
