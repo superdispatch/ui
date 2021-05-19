@@ -6,10 +6,10 @@ export const PhoneField = forwardRef<HTMLDivElement, PhoneFieldProps>(
   ({ value, onChange, error, helperText, ...props }, ref) => {
     const [state, setState] = useState('');
     const phoneService = usePhoneService();
-    const errorMessage = useMemo(() => phoneService.validate(value), [
-      value,
-      phoneService,
-    ]);
+    const errorMessage = useMemo(
+      () => phoneService.validate(value),
+      [value, phoneService],
+    );
 
     return (
       <SdPhoneField

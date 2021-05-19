@@ -11,9 +11,8 @@ export function renderProvider<TValues extends FormikValues, TResponse>(
   formConfig: FormikEnhancedConfig<TValues, TResponse>,
 ) {
   function Foo() {
-    const { handleSubmit, errors } = useFormikEnhanced<TValues, TResponse>(
-      formConfig,
-    );
+    const { handleSubmit, errors } =
+      useFormikEnhanced<TValues, TResponse>(formConfig);
 
     return (
       <div>

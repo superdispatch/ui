@@ -97,10 +97,10 @@ export const DateField = forwardRef<HTMLDivElement, DateFieldProps>(
       fallback,
       ...config,
     });
-    const dateString = useMemo(() => stringifyDate(date, config), [
-      date,
-      config,
-    ]);
+    const dateString = useMemo(
+      () => stringifyDate(date, config),
+      [date, config],
+    );
 
     function handleClose(): void {
       apiRef.current?.close();

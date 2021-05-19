@@ -133,9 +133,10 @@ export const TimeField = forwardRef<HTMLDivElement, TimeFieldProps>(
       () => (!date.isValid ? undefined : toTimeFieldOption(date, config)),
       [date, config],
     );
-    const [options, filterOptions] = useMemo(() => makeOptions(config), [
-      config,
-    ]);
+    const [options, filterOptions] = useMemo(
+      () => makeOptions(config),
+      [config],
+    );
 
     const [inputValue, setInputValue] = useState('');
 

@@ -3,9 +3,8 @@ import { useResponsiveContext } from '../responsive/ResponsiveContext';
 
 export type ResponsivePropPrimitive = boolean | number | string;
 
-export type ResponsivePropTupleInit<
-  T extends ResponsivePropPrimitive
-> = readonly [mobile: T, tablet?: T, desktop?: T];
+export type ResponsivePropTupleInit<T extends ResponsivePropPrimitive> =
+  readonly [mobile: T, tablet?: T, desktop?: T];
 export type ResponsiveProp<T extends ResponsivePropPrimitive> =
   | T
   | ResponsivePropTupleInit<T>;

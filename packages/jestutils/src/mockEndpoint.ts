@@ -25,67 +25,69 @@ const endpoints = new Map<string, MockEndpoint>();
 let fetchMock: jest.SpyInstance;
 
 beforeEach(() => {
-  fetchMock = jest.spyOn(window, 'fetch').mockImplementation(
-    (input: RequestInfo, init?: RequestInit): Promise<Response> => {
-      const request = new Request(input, init);
-      const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
+  fetchMock = jest
+    .spyOn(window, 'fetch')
+    .mockImplementation(
+      (input: RequestInfo, init?: RequestInit): Promise<Response> => {
+        const request = new Request(input, init);
+        const [endpoint, endpointMatch, searchParams] = findEndpoint(request);
 
-      if (!endpoint || !endpointMatch) {
-        console.warn(
-          "Unmatched '%s' request to '%s'",
-          request.method,
-          request.url,
-        );
+        if (!endpoint || !endpointMatch) {
+          console.warn(
+            "Unmatched '%s' request to '%s'",
+            request.method,
+            request.url,
+          );
 
-        return Promise.resolve(new Response(null, { status: 404 }));
-      }
-
-      let body: unknown;
-
-      const { _bodyText, _bodyFormData } = request as Request & {
-        _bodyText: string;
-        _bodyFormData?: FormData;
-      };
-
-      if (_bodyFormData) {
-        body = _bodyFormData;
-      } else {
-        try {
-          body = JSON.parse(_bodyText) as unknown;
-        } catch {
-          body = _bodyText;
+          return Promise.resolve(new Response(null, { status: 404 }));
         }
-      }
 
-      const requiredHeaders = new Headers(endpoint.headers);
-      const parsedHeaders = fromPairs(
-        Array.from(request.headers).filter(
-          ([key]) =>
-            key !== 'accept' &&
-            key !== 'content-type' &&
-            !requiredHeaders.has(key),
-        ),
-      );
-      const parsedSearchParams = Array.from(searchParams.entries());
-      const response = endpoint.resolver({
-        body,
-        headers: parsedHeaders,
-        pathname: endpointMatch.path,
-        params: endpointMatch.params,
-        searchParams: fromPairs(parsedSearchParams),
-      });
+        let body: unknown;
 
-      if (response instanceof Response) {
-        return Promise.resolve(response);
-      }
+        const { _bodyText, _bodyFormData } = request as Request & {
+          _bodyText: string;
+          _bodyFormData?: FormData;
+        };
 
-      return Promise.resolve(
-        new Response(JSON.stringify(response), {
-          headers: { 'Content-Type': 'application/json' },
-        }),
-      );
-    },
-  );
+        if (_bodyFormData) {
+          body = _bodyFormData;
+        } else {
+          try {
+            body = JSON.parse(_bodyText) as unknown;
+          } catch {
+            body = _bodyText;
+          }
+        }
+
+        const requiredHeaders = new Headers(endpoint.headers);
+        const parsedHeaders = fromPairs(
+          Array.from(request.headers).filter(
+            ([key]) =>
+              key !== 'accept' &&
+              key !== 'content-type' &&
+              !requiredHeaders.has(key),
+          ),
+        );
+        const parsedSearchParams = Array.from(searchParams.entries());
+        const response = endpoint.resolver({
+          body,
+          headers: parsedHeaders,
+          pathname: endpointMatch.path,
+          params: endpointMatch.params,
+          searchParams: fromPairs(parsedSearchParams),
+        });
+
+        if (response instanceof Response) {
+          return Promise.resolve(response);
+        }
+
+        return Promise.resolve(
+          new Response(JSON.stringify(response), {
+            headers: { 'Content-Type': 'application/json' },
+          }),
+        );
+      },
+    );
 });
 
 afterEach(() => {

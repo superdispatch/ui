@@ -41,7 +41,7 @@ export function overridePagination(theme: SuperDispatchTheme): void {
     },
   };
 
-  // TODO: Remove `Object.assign` after official release of `PaginationItem`.
+  // Remove `Object.assign` after official release of `PaginationItem`.
   Object.assign(theme.props, { MuiPaginationItem: props });
   Object.assign(theme.overrides, { MuiPaginationItem: overrides });
 }

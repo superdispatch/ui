@@ -38,15 +38,8 @@ function stubDateObject({
 }
 
 function stubTimestamp(values?: Partial<DateObject>): number {
-  const {
-    year,
-    month,
-    day,
-    hour,
-    minute,
-    second,
-    millisecond,
-  } = stubDateObject(values);
+  const { year, month, day, hour, minute, second, millisecond } =
+    stubDateObject(values);
 
   return Date.UTC(year, month - 1, day, hour, minute, second, millisecond);
 }

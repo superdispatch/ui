@@ -47,8 +47,7 @@ ruleTester.run('no-restricted-modules', rule, {
     },
 
     {
-      code:
-        'import { Avatar, Button, Card, Grid, Snackbar, SnackbarContent } from "@material-ui/core"',
+      code: 'import { Avatar, Button, Card, Grid, Snackbar, SnackbarContent } from "@material-ui/core"',
       errors: [
         {
           messageId: 'restrict',

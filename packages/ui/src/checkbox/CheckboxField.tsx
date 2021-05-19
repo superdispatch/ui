@@ -19,32 +19,38 @@ export interface CheckboxFieldProps
   >;
 }
 
-export const CheckboxField: ForwardRefExoticComponent<CheckboxFieldProps> = forwardRef(
-  (
-    {
-      label,
-      error,
-      checked,
-      onBlur,
-      onChange,
-      helperText,
-      FormControlLabelProps: formControlLabelProps,
-      ...props
-    },
-    ref,
-  ) => (
-    <FormControl error={error}>
-      <FormControlLabel
-        {...formControlLabelProps}
-        label={label}
-        checked={checked}
-        onBlur={onBlur as FormControlLabelProps['onBlur']}
-        onChange={onChange as FormControlLabelProps['onChange']}
-        control={
-          <Checkbox ref={ref} color="primary" disableRipple={true} {...props} />
-        }
-      />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </FormControl>
-  ),
-);
+export const CheckboxField: ForwardRefExoticComponent<CheckboxFieldProps> =
+  forwardRef(
+    (
+      {
+        label,
+        error,
+        checked,
+        onBlur,
+        onChange,
+        helperText,
+        FormControlLabelProps: formControlLabelProps,
+        ...props
+      },
+      ref,
+    ) => (
+      <FormControl error={error}>
+        <FormControlLabel
+          {...formControlLabelProps}
+          label={label}
+          checked={checked}
+          onBlur={onBlur as FormControlLabelProps['onBlur']}
+          onChange={onChange as FormControlLabelProps['onChange']}
+          control={
+            <Checkbox
+              ref={ref}
+              color="primary"
+              disableRipple={true}
+              {...props}
+            />
+          }
+        />
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
+    ),
+  );
