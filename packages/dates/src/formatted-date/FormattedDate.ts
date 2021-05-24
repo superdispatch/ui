@@ -19,12 +19,10 @@ export function useFormattedDate(
   const config = useDateConfig(dateConfig);
   const date = useDateTime(input, config);
 
-  return useMemo(() => formatDate(date, { variant, fallback }, config), [
-    date,
-    config,
-    variant,
-    fallback,
-  ]);
+  return useMemo(
+    () => formatDate(date, { variant, fallback }, config),
+    [date, config, variant, fallback],
+  );
 }
 
 export interface FormattedDateProps

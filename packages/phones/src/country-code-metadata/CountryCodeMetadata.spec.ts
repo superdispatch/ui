@@ -1286,6 +1286,6 @@ test.each([
   ['noop', false],
   ['US', true],
   ['NZ', true],
-])('toCountryISO(%p) -> %p', (input, expected) => {
+])('isCountryISO(%p) -> %p', (input, expected) => {
   expect(isCountryISO(input)).toBe(expected);
 });

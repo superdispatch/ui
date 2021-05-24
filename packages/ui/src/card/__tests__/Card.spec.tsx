@@ -6,7 +6,7 @@ it('checks default props', () => {
 
   expect(props.MuiCard).toMatchInlineSnapshot(`
     Object {
-      "elevation": 0,
+      "variant": "outlined",
     }
   `);
   expect(props.MuiCardHeader).toMatchInlineSnapshot(`undefined`);
@@ -25,44 +25,44 @@ it('checks component css', () => {
       ['MuiCard', 'MuiCardHeader', 'MuiCardContent', 'MuiCardActions'],
     ),
   ).toMatchInlineSnapshot(`
-.MuiCard-root {
-  overflow: hidden;
-}
+    .MuiCard-root {
+      overflow: hidden;
+    }
 
-.MuiCardActions-root {
-  display: flex;
-  padding: 8px;
-  align-items: center;
-}
+    .MuiCardActions-root {
+      display: flex;
+      padding: 8px;
+      align-items: center;
+    }
 
-.MuiCardActions-spacing > :not(:first-child) {
-  margin-left: 8px;
-}
+    .MuiCardActions-spacing > :not(:first-child) {
+      margin-left: 8px;
+    }
 
-.MuiCardContent-root {
-  padding: 16px;
-}
+    .MuiCardContent-root {
+      padding: 16px;
+    }
 
-.MuiCardHeader-root {
-  display: flex;
-  padding: 16px;
-  align-items: center;
-}
+    .MuiCardHeader-root {
+      display: flex;
+      padding: 16px;
+      align-items: center;
+    }
 
-.MuiCardHeader-avatar {
-  flex: 0 0 auto;
-  margin-right: 16px;
-}
+    .MuiCardHeader-avatar {
+      flex: 0 0 auto;
+      margin-right: 16px;
+    }
 
-.MuiCardHeader-action {
-  flex: 0 0 auto;
-  align-self: flex-start;
-  margin-top: -8px;
-  margin-right: -8px;
-}
+    .MuiCardHeader-action {
+      flex: 0 0 auto;
+      align-self: flex-start;
+      margin-top: -8px;
+      margin-right: -8px;
+    }
 
-.MuiCardHeader-content {
-  flex: 1 1 auto;
-}
-`);
+    .MuiCardHeader-content {
+      flex: 1 1 auto;
+    }
+  `);
 });

@@ -17,9 +17,8 @@ export function useDateTimeRange(
   const startDate = useDateTime(startInput, config);
   const finishDate = useDateTime(finishInput, config);
 
-  return useMemo(() => parseDateRange([startDate, finishDate], config), [
-    config,
-    startDate,
-    finishDate,
-  ]);
+  return useMemo(
+    () => parseDateRange([startDate, finishDate], config),
+    [config, startDate, finishDate],
+  );
 }

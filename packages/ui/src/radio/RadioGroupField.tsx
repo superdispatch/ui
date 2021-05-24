@@ -22,42 +22,43 @@ export interface RadioGroupFieldProps
   FormHelperTextProps?: Omit<FormHelperTextProps, 'children'>;
 }
 
-export const RadioGroupField: ForwardRefExoticComponent<RadioGroupFieldProps> = forwardRef(
-  (
-    {
-      name,
-      value = '',
-      onChange,
-      RadioGroupProps: radioGroupProps,
+export const RadioGroupField: ForwardRefExoticComponent<RadioGroupFieldProps> =
+  forwardRef(
+    (
+      {
+        name,
+        value = '',
+        onChange,
+        RadioGroupProps: radioGroupProps,
 
-      label,
-      FormLabelProps: formLabelProps,
+        label,
+        FormLabelProps: formLabelProps,
 
-      helperText,
-      FormHelperTextProps: formHelperTextProps,
+        helperText,
+        FormHelperTextProps: formHelperTextProps,
 
-      children,
+        children,
 
-      ...formControlProps
-    },
-    ref,
-  ) => (
-    <FormControl {...formControlProps} hiddenLabel={!label}>
-      {!!label && <FormLabel {...formLabelProps}>{label}</FormLabel>}
+        ...formControlProps
+      },
+      ref,
+    ) => (
+      <FormControl {...formControlProps} hiddenLabel={!label}>
+        {!!label && <FormLabel {...formLabelProps}>{label}</FormLabel>}
 
-      <RadioGroup
-        ref={ref}
-        {...radioGroupProps}
-        name={name}
-        value={value as unknown}
-        onChange={onChange}
-      >
-        {children}
-      </RadioGroup>
+        <RadioGroup
+          ref={ref}
+          {...radioGroupProps}
+          name={name}
+          value={value as unknown}
+          onChange={onChange}
+        >
+          {children}
+        </RadioGroup>
 
-      {!!helperText && (
-        <FormHelperText {...formHelperTextProps}>{helperText}</FormHelperText>
-      )}
-    </FormControl>
-  ),
-);
+        {!!helperText && (
+          <FormHelperText {...formHelperTextProps}>{helperText}</FormHelperText>
+        )}
+      </FormControl>
+    ),
+  );

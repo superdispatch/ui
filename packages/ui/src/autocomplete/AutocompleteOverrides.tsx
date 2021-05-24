@@ -4,7 +4,7 @@ import { SuperDispatchTheme } from '../theme/SuperDispatchTheme';
 export function overrideAutocomplete(theme: SuperDispatchTheme): void {
   const sm = theme.breakpoints.up('sm');
 
-  // TODO: Remove `Object.assign` after official release of `Autocomplete`.
+  // Remove `Object.assign` after official release of `Autocomplete`.
   Object.assign(theme.props, {
     MuiAutocomplete: {
       popupIcon: (

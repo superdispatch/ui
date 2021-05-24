@@ -4,7 +4,7 @@ import { renderCSS, renderTheme } from '@superdispatch/ui-testutils';
 it('checks default props', () => {
   const { props } = renderTheme();
 
-  // FIXME Use proper type after after official release.
+  // Remove `any` after official release.
   expect((props as any).MuiPagination).toMatchInlineSnapshot(`undefined`);
   expect((props as any).MuiPaginationItem).toMatchInlineSnapshot(`Object {}`);
 });

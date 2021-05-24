@@ -131,71 +131,72 @@ export interface CardButtonProps
   classes?: Partial<ClassNameMap<CardButtonClassKey>>;
 }
 
-export const CardButton: ForwardRefExoticComponent<CardButtonProps> = forwardRef(
-  (
-    {
-      hint,
-      size,
-      error,
-      classes,
-      className,
-      children,
-      endIcon,
-      startIcon,
-      disabled,
-      ...props
-    },
-    ref,
-  ) => {
-    const styles = useStyles({ classes });
+export const CardButton: ForwardRefExoticComponent<CardButtonProps> =
+  forwardRef(
+    (
+      {
+        hint,
+        size,
+        error,
+        classes,
+        className,
+        children,
+        endIcon,
+        startIcon,
+        disabled,
+        ...props
+      },
+      ref,
+    ) => {
+      const styles = useStyles({ classes });
 
-    return (
-      <ButtonBase
-        {...props}
-        ref={ref}
-        disabled={disabled}
-        className={clsx(
-          styles.root,
-          {
-            [styles.disabled]: disabled,
-            [styles.error]: !disabled && error,
-            [styles.primary]: !disabled && !error,
-            [styles.sizeSmall]: size === 'small',
-            [styles.sizeLarge]: size === 'large',
-          },
-          className,
-        )}
-      >
-        {error ? (
-          <Typography variant="h4" color="inherit" className={styles.label}>
-            {error}
-          </Typography>
-        ) : (
-          <>
+      return (
+        <ButtonBase
+          {...props}
+          ref={ref}
+          disabled={disabled}
+          className={clsx(
+            styles.root,
+            {
+              [styles.disabled]: disabled,
+              [styles.error]: !disabled && error,
+              [styles.primary]: !disabled && !error,
+              [styles.sizeSmall]: size === 'small',
+              [styles.sizeLarge]: size === 'large',
+            },
+            className,
+          )}
+        >
+          {error ? (
             <Typography variant="h4" color="inherit" className={styles.label}>
-              {!!startIcon && (
-                <span className={clsx(styles.icon, styles.startIcon)}>
-                  {startIcon}
-                </span>
-              )}
-
-              {children}
-
-              {!!endIcon && (
-                <span className={clsx(styles.icon, styles.endIcon)}>
-                  {endIcon}
-                </span>
-              )}
+              {error}
             </Typography>
+          ) : (
+            <>
+              <Typography variant="h4" color="inherit" className={styles.label}>
+                {!!startIcon && (
+                  <span className={clsx(styles.icon, styles.startIcon)}>
+                    {startIcon}
+                  </span>
+                )}
 
-            {!!hint && (
-              <Typography color="textSecondary" className={styles.hint}>
-                {hint}
+                {children}
+
+                {!!endIcon && (
+                  <span className={clsx(styles.icon, styles.endIcon)}>
+                    {endIcon}
+                  </span>
+                )}
               </Typography>
-            )}
-          </>
-        )}
-      </ButtonBase>
-    );
-  },
-);
+
+              {!!hint && (
+                <Typography color="textSecondary" className={styles.hint}>
+                  {hint}
+                </Typography>
+              )}
+            </>
+          )}
+        </ButtonBase>
+      );
+    },
+  );

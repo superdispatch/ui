@@ -51,10 +51,10 @@ export function DateConfigProvider({
   children,
 }: DateConfigProviderProps): ReactElement {
   const prev = useDateConfig();
-  const ctx = useMemo((): DateConfig => ({ format: format || prev.format }), [
-    format,
-    prev.format,
-  ]);
+  const ctx = useMemo(
+    (): DateConfig => ({ format: format || prev.format }),
+    [format, prev.format],
+  );
 
   return <Context.Provider value={ctx}>{children}</Context.Provider>;
 }

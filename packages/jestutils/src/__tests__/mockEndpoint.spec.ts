@@ -30,9 +30,8 @@ it('wraps global fetch', async () => {
     response: { foo: 'bar' },
   });
 
-  const mockArgs: Array<Parameters<typeof fetch>> = makeFetchArgs(
-    'http://host/foo',
-  );
+  const mockArgs: Array<Parameters<typeof fetch>> =
+    makeFetchArgs('http://host/foo');
 
   for (const args of mockArgs) {
     expect(mock).toHaveBeenCalledTimes(0);

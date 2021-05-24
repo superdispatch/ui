@@ -21,32 +21,33 @@ export interface CheckboxGroupFieldProps
   FormHelperTextProps?: Omit<FormHelperTextProps, 'children'>;
 }
 
-export const CheckboxGroupField: ForwardRefExoticComponent<CheckboxGroupFieldProps> = forwardRef(
-  (
-    {
-      FormGroupProps: formGroupProps,
+export const CheckboxGroupField: ForwardRefExoticComponent<CheckboxGroupFieldProps> =
+  forwardRef(
+    (
+      {
+        FormGroupProps: formGroupProps,
 
-      label,
-      FormLabelProps: formLabelProps,
+        label,
+        FormLabelProps: formLabelProps,
 
-      helperText,
-      FormHelperTextProps: formHelperTextProps,
+        helperText,
+        FormHelperTextProps: formHelperTextProps,
 
-      children,
-      ...formControlProps
-    },
-    ref,
-  ) => (
-    <FormControl {...formControlProps} hiddenLabel={!label}>
-      {!!label && <FormLabel {...formLabelProps}>{label}</FormLabel>}
+        children,
+        ...formControlProps
+      },
+      ref,
+    ) => (
+      <FormControl {...formControlProps} hiddenLabel={!label}>
+        {!!label && <FormLabel {...formLabelProps}>{label}</FormLabel>}
 
-      <FormGroup ref={ref} {...formGroupProps}>
-        {children}
-      </FormGroup>
+        <FormGroup ref={ref} {...formGroupProps}>
+          {children}
+        </FormGroup>
 
-      {!!helperText && (
-        <FormHelperText {...formHelperTextProps}>{helperText}</FormHelperText>
-      )}
-    </FormControl>
-  ),
-);
+        {!!helperText && (
+          <FormHelperText {...formHelperTextProps}>{helperText}</FormHelperText>
+        )}
+      </FormControl>
+    ),
+  );

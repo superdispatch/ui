@@ -173,8 +173,7 @@ ruleTester.run('prefer-design-system-colors', rule, {
     },
 
     {
-      code:
-        'const Icon = styled.svg`color: ${Color.White}; background-color: #6a707c`',
+      code: 'const Icon = styled.svg`color: ${Color.White}; background-color: #6a707c`',
       errors: [
         {
           line: 1,
@@ -199,8 +198,7 @@ ruleTester.run('prefer-design-system-colors', rule, {
     },
 
     {
-      code:
-        'const Icon = styled.svg`display: flex; ${() => `color: ${"#FFF"}`}`',
+      code: 'const Icon = styled.svg`display: flex; ${() => `color: ${"#FFF"}`}`',
       errors: [
         {
           line: 1,
@@ -213,8 +211,7 @@ ruleTester.run('prefer-design-system-colors', rule, {
     },
 
     {
-      code:
-        'const Icon = styled.svg`display: flex; ${() => `color: ${`#FFF`}`}`',
+      code: 'const Icon = styled.svg`display: flex; ${() => `color: ${`#FFF`}`}`',
       errors: [
         {
           line: 1,
