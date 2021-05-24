@@ -35,7 +35,7 @@ const StackRoot = styled.div<StackRootProps>(
     css`
       width: 100%;
 
-      & > div {
+      & > div:not(:empty) {
         ${stackItemMixin(space[0], align[0])};
 
         ${theme.breakpoints.up('sm')} {
