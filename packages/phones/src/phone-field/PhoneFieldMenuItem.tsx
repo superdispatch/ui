@@ -43,19 +43,19 @@ export interface PhoneFieldMenuItemProps
   classes?: Partial<ClassNameMap<PhoneFieldMenuItemClassKey>>;
 }
 
-export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemProps> = forwardRef<
-  HTMLLIElement,
-  PhoneFieldMenuItemProps
->(({ country, classes, ...props }, ref) => {
-  const { flag: flagClassName, ...styles } = useStyles({ classes });
-  const countryCode = useMemo(() => getCountryCode(country), [country]);
+export const PhoneFieldMenuItem: ForwardRefExoticComponent<PhoneFieldMenuItemProps> =
+  forwardRef<HTMLLIElement, PhoneFieldMenuItemProps>(
+    ({ country, classes, ...props }, ref) => {
+      const { flag: flagClassName, ...styles } = useStyles({ classes });
+      const countryCode = useMemo(() => getCountryCode(country), [country]);
 
-  return (
-    <MenuItem {...props} ref={ref} button={true} classes={styles}>
-      <PhoneFieldFlag country={country} className={flagClassName} />
-      {formatCountry(country)}
-      &nbsp;
-      <Typography color="textSecondary">{countryCode}</Typography>
-    </MenuItem>
+      return (
+        <MenuItem {...props} ref={ref} button={true} classes={styles}>
+          <PhoneFieldFlag country={country} className={flagClassName} />
+          {formatCountry(country)}
+          &nbsp;
+          <Typography color="textSecondary">{countryCode}</Typography>
+        </MenuItem>
+      );
+    },
   );
-});

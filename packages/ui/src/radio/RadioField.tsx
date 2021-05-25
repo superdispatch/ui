@@ -25,30 +25,31 @@ export interface RadioFieldProps
   >;
 }
 
-export const RadioField: ForwardRefExoticComponent<RadioFieldProps> = forwardRef(
-  (
-    {
-      label,
-      error,
-      checked,
-      onBlur,
-      onChange,
-      helperText,
-      FormControlLabelProps: formControlLabelProps,
-      ...props
-    },
-    ref,
-  ) => (
-    <FormControl error={error}>
-      <FormControlLabel
-        {...formControlLabelProps}
-        label={label}
-        checked={checked}
-        onBlur={onBlur}
-        onChange={onChange}
-        control={<Radio ref={ref} color="primary" {...props} />}
-      />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </FormControl>
-  ),
-);
+export const RadioField: ForwardRefExoticComponent<RadioFieldProps> =
+  forwardRef(
+    (
+      {
+        label,
+        error,
+        checked,
+        onBlur,
+        onChange,
+        helperText,
+        FormControlLabelProps: formControlLabelProps,
+        ...props
+      },
+      ref,
+    ) => (
+      <FormControl error={error}>
+        <FormControlLabel
+          {...formControlLabelProps}
+          label={label}
+          checked={checked}
+          onBlur={onBlur}
+          onChange={onChange}
+          control={<Radio ref={ref} color="primary" {...props} />}
+        />
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
+    ),
+  );

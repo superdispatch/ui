@@ -51,10 +51,9 @@ export interface SuspendedPhoneLinkProps extends PhoneLinkProps {
   suspenseFallback?: ReactNode;
 }
 
-export const SuspendedPhoneLink: ForwardRefExoticComponent<SuspendedPhoneLinkProps> = forwardRef(
-  ({ suspenseFallback = null, ...props }, ref) => (
+export const SuspendedPhoneLink: ForwardRefExoticComponent<SuspendedPhoneLinkProps> =
+  forwardRef(({ suspenseFallback = null, ...props }, ref) => (
     <Suspense fallback={suspenseFallback}>
       <PhoneLink {...props} ref={ref} />
     </Suspense>
-  ),
-);
+  ));

@@ -64,8 +64,8 @@ export interface AdaptiveToolbarProps
   items: AdaptiveToolbarItem[];
 }
 
-export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = forwardRef(
-  ({ items, ...props }, ref) => {
+export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> =
+  forwardRef(({ items, ...props }, ref) => {
     const styles = useStyles();
 
     const itemNodes = useRef<Array<null | HTMLElement>>([]);
@@ -81,7 +81,8 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
       const rootRect = node.getBoundingClientRect();
       const rootWidth = rootRect.left + rootRect.width;
 
-      const optionsButtonRect = optionsButtonRef.current?.getBoundingClientRect();
+      const optionsButtonRect =
+        optionsButtonRef.current?.getBoundingClientRect();
       const optionsButtonWidth = optionsButtonRect?.width || 0;
       const maxRightPosition = rootWidth - optionsButtonWidth;
 
@@ -169,5 +170,4 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> = 
         </Grid>
       </Toolbar>
     );
-  },
-);
+  });

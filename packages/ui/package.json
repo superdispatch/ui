@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/ui",
-  "version": "0.8.2",
+  "version": "0.9.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -14,8 +14,8 @@
     "version": "pika build"
   },
   "dependencies": {
-    "@juggle/resize-observer": "^3.3.0",
-    "@superdispatch/hooks": "^0.8.0",
+    "@juggle/resize-observer": "^3.3.1",
+    "@superdispatch/hooks": "^0.9.0",
     "clsx": "^1.1.1",
     "react-keyed-flatten-children": "^1.2.0"
   },

@@ -34,10 +34,10 @@ export type FormikEnhancedStatus<TResponse> =
   | { type: 'submitted'; payload: TResponse }
   | { type: 'rejected'; payload: Error };
 
-// TODO Remove after https://github.com/jaredpalmer/formik/pull/2323
+// Remove after https://github.com/jaredpalmer/formik/pull/2323 merge
 export interface FormikContextTypeEnhanced<
   TValues extends FormikValues,
-  TResponse
+  TResponse,
 > extends FormikContextType<TValues> {
   status: FormikEnhancedStatus<TResponse>;
   setStatus: (status: FormikEnhancedStatus<TResponse>) => void;

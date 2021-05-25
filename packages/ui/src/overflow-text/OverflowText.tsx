@@ -46,68 +46,69 @@ export interface OverflowTextProps extends Omit<TypographyProps, 'noWrap'> {
   TooltipProps?: Omit<Partial<TooltipProps>, 'open' | 'children'>;
 }
 
-export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> = forwardRef(
-  (
-    {
-      onClick,
-      children,
-      className,
-      disableUnderline,
-      TooltipProps: {
-        title = children,
-        enterDelay = 1000,
-        ...tooltipProps
-      } = {} as const,
-      ...props
-    },
-    rootRef,
-  ) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const styles = useStyles();
-    return (
-      <VisibilityObserver
-        render={({ ref, visibility }) => {
-          const isTooltipEnabled = !!children && visibility === 'invisible';
+export const OverflowText: ForwardRefExoticComponent<OverflowTextProps> =
+  forwardRef(
+    (
+      {
+        onClick,
+        children,
+        className,
+        disableUnderline,
+        TooltipProps: {
+          title = children,
+          enterDelay = 1000,
+          ...tooltipProps
+        } = {} as const,
+        ...props
+      },
+      rootRef,
+    ) => {
+      const [isOpen, setIsOpen] = useState(false);
+      const styles = useStyles();
+      return (
+        <VisibilityObserver
+          render={({ ref, visibility }) => {
+            const isTooltipEnabled = !!children && visibility === 'invisible';
 
-          return (
-            <Tooltip
-              {...tooltipProps}
-              enterDelay={1000}
-              title={title || ''}
-              disableFocusListener={true}
-              open={isOpen && isTooltipEnabled}
-              onOpen={() => {
-                setIsOpen(true);
-              }}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-            >
-              <Typography
-                {...props}
-                ref={rootRef}
-                noWrap={true}
-                onClick={(event) => {
+            return (
+              <Tooltip
+                {...tooltipProps}
+                enterDelay={1000}
+                title={title || ''}
+                disableFocusListener={true}
+                open={isOpen && isTooltipEnabled}
+                onOpen={() => {
                   setIsOpen(true);
-                  onClick?.(event);
                 }}
-                className={clsx(
-                  styles.root,
-                  {
-                    [styles.truncated]:
-                      !disableUnderline && visibility === 'invisible',
-                  },
-                  className,
-                )}
+                onClose={() => {
+                  setIsOpen(false);
+                }}
               >
-                {children}
+                <Typography
+                  {...props}
+                  ref={rootRef}
+                  noWrap={true}
+                  onClick={(event) => {
+                    setIsOpen(true);
+                    onClick?.(event);
+                  }}
+                  className={clsx(
+                    styles.root,
+                    {
+                      [styles.truncated]:
+                        !disableUnderline && visibility === 'invisible',
+                    },
+                    className,
+                  )}
+                >
+                  {children}
 
-                {!!children && <span ref={ref} className={styles.sentinel} />}
-              </Typography>
-            </Tooltip>
-          );
-        }}
-      />
-    );
-  },
-);
+                  {!!children && <span ref={ref} className={styles.sentinel} />}
+                </Typography>
+              </Tooltip>
+            );
+          }}
+        />
+      );
+    },
+  );

@@ -52,8 +52,6 @@ module.exports = {
           { allow: ['eslint-disable-next-line'] },
         ],
 
-        'import/no-cycle': 'error',
-
         'import/no-internal-modules': [
           'error',
           {

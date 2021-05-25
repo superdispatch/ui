@@ -145,10 +145,10 @@ export function SnackbarStackProvider({
     [stack],
   );
 
-  const api = useMemo<SnackbarStack>(() => ({ clearStack, addSnackbar }), [
-    clearStack,
-    addSnackbar,
-  ]);
+  const api = useMemo<SnackbarStack>(
+    () => ({ clearStack, addSnackbar }),
+    [clearStack, addSnackbar],
+  );
 
   return (
     <Context.Provider value={api}>

@@ -29,7 +29,7 @@ it('checks component css', () => {
       [
         'MuiMenu',
         'MuiMenuItem',
-        // TODO: Move to `Popover` component styles.
+        // Move to `Popover` component styles.
         'MuiPopover',
       ],
     ),

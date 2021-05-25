@@ -39,61 +39,59 @@ export interface FormikTextFieldProps
   ) => unknown;
 }
 
-export const FormikTextField: ForwardRefExoticComponent<FormikTextFieldProps> = forwardRef(
-  (
-    {
-      name,
+export const FormikTextField: ForwardRefExoticComponent<FormikTextFieldProps> =
+  forwardRef(
+    (
+      {
+        name,
 
-      validate,
+        validate,
 
-      id,
-      onBlur,
-      onChange,
-      disabled,
-      helperText,
+        id,
+        onBlur,
+        onChange,
+        disabled,
+        helperText,
 
-      parse = parseInputValue,
-      format = formatInputValue,
-      formatError = formatInputError,
-      ...props
+        parse = parseInputValue,
+        format = formatInputValue,
+        formatError = formatInputError,
+        ...props
+      },
+      ref,
+    ) => {
+      const uid = useUID(id);
+      const { isSubmitting } = useFormikContext();
+      const [field, { error, touched }, { setValue, setTouched }] =
+        useField<unknown>({ name, validate });
+      const errorText: ReactNode = touched && error && formatError(error);
+
+      return (
+        <TextField
+          {...props}
+          {...field}
+          id={uid}
+          ref={ref}
+          name={name}
+          error={!!errorText}
+          helperText={errorText || helperText}
+          disabled={disabled ?? isSubmitting}
+          value={format(field.value)}
+          onBlur={(event) => {
+            onBlur?.(event);
+
+            if (!event.defaultPrevented) {
+              setTouched(true);
+            }
+          }}
+          onChange={(event) => {
+            onChange?.(event);
+
+            if (!event.defaultPrevented) {
+              setValue(parse(event));
+            }
+          }}
+        />
+      );
     },
-    ref,
-  ) => {
-    const uid = useUID(id);
-    const { isSubmitting } = useFormikContext();
-    const [
-      field,
-      { error, touched },
-      { setValue, setTouched },
-    ] = useField<unknown>({ name, validate });
-    const errorText: ReactNode = touched && error && formatError(error);
-
-    return (
-      <TextField
-        {...props}
-        {...field}
-        id={uid}
-        ref={ref}
-        name={name}
-        error={!!errorText}
-        helperText={errorText || helperText}
-        disabled={disabled ?? isSubmitting}
-        value={format(field.value)}
-        onBlur={(event) => {
-          onBlur?.(event);
-
-          if (!event.defaultPrevented) {
-            setTouched(true);
-          }
-        }}
-        onChange={(event) => {
-          onChange?.(event);
-
-          if (!event.defaultPrevented) {
-            setValue(parse(event));
-          }
-        }}
-      />
-    );
-  },
-);
+  );

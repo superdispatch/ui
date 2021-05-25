@@ -42,11 +42,8 @@ export const FormikDateField = forwardRef<HTMLDivElement, FormikDateFieldProps>(
       });
     }
 
-    const [
-      { value },
-      { error, touched },
-      { setValue, setTouched },
-    ] = useField<NullableDateInput>({ name, validate });
+    const [{ value }, { error, touched }, { setValue, setTouched }] =
+      useField<NullableDateInput>({ name, validate });
     const errorText = touched && error;
 
     return (

@@ -148,75 +148,76 @@ export interface AvatarButtonProps
   imgProps?: AvatarTypeMap['props']['imgProps'];
 }
 
-export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> = forwardRef(
-  (
-    {
-      size,
-      icon,
-      isLoading = false,
+export const AvatarButton: ForwardRefExoticComponent<AvatarButtonProps> =
+  forwardRef(
+    (
+      {
+        size,
+        icon,
+        isLoading = false,
 
-      classes,
-      disabled = false,
-      avatarRef,
-      className,
+        classes,
+        disabled = false,
+        avatarRef,
+        className,
 
-      alt,
-      imgProps,
-      sizes,
-      src,
-      srcSet,
-      variant,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const {
-      button: buttonClassName,
-      overlay: overlayClassName,
-      progress: progressClassName,
-      withIcon: withIconClassName,
-      sizeLarge: sizeLargeClassName,
-      ...avatarClasses
-    } = useStyles({ classes });
+        alt,
+        imgProps,
+        sizes,
+        src,
+        srcSet,
+        variant,
+        children,
+        ...props
+      },
+      ref,
+    ) => {
+      const {
+        button: buttonClassName,
+        overlay: overlayClassName,
+        progress: progressClassName,
+        withIcon: withIconClassName,
+        sizeLarge: sizeLargeClassName,
+        ...avatarClasses
+      } = useStyles({ classes });
 
-    return (
-      <ButtonBase
-        {...props}
-        ref={ref}
-        aria-busy={isLoading}
-        aria-disabled={disabled}
-        disabled={disabled || isLoading}
-        className={clsx(className, buttonClassName, {
-          [withIconClassName]: !!icon,
-          [sizeLargeClassName]: size === 'large',
-        })}
-      >
-        <Avatar
-          ref={avatarRef}
-          classes={avatarClasses}
-          variant={variant}
-          alt={alt}
-          src={src}
-          sizes={sizes}
-          srcSet={srcSet}
-          imgProps={imgProps}
+      return (
+        <ButtonBase
+          {...props}
+          ref={ref}
+          aria-busy={isLoading}
+          aria-disabled={disabled}
+          disabled={disabled || isLoading}
+          className={clsx(className, buttonClassName, {
+            [withIconClassName]: !!icon,
+            [sizeLargeClassName]: size === 'large',
+          })}
         >
-          {children}
-        </Avatar>
+          <Avatar
+            ref={avatarRef}
+            classes={avatarClasses}
+            variant={variant}
+            alt={alt}
+            src={src}
+            sizes={sizes}
+            srcSet={srcSet}
+            imgProps={imgProps}
+          >
+            {children}
+          </Avatar>
 
-        <div className={overlayClassName}>
-          {icon}
+          <div className={overlayClassName}>
+            {icon}
 
-          {isLoading && (
-            <CircularProgress
-              size="1em"
-              className={progressClassName}
-              thickness={size === 'large' ? 2.5 : 1.5}
-            />
-          )}
-        </div>
-      </ButtonBase>
-    );
-  },
-);
+            {isLoading && (
+              <CircularProgress
+                size="1em"
+                className={progressClassName}
+                thickness={size === 'large' ? 2.5 : 1.5}
+              />
+            )}
+          </div>
+        </ButtonBase>
+      );
+    },
+  );
