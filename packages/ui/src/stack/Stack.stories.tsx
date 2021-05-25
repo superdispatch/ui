@@ -31,10 +31,22 @@ export default {
   },
 } as Meta;
 
+const Empty = () => null;
+
 export const basic = () => (
   <Stack>
     <Placeholder height={48} />
     <Placeholder height={48} />
+    <Placeholder height={48} />
+  </Stack>
+);
+
+export const emptyElements = () => (
+  <Stack>
+    <Placeholder height={48} />
+    <Empty />
+    <Placeholder height={48} />
+    <Empty />
     <Placeholder height={48} />
   </Stack>
 );

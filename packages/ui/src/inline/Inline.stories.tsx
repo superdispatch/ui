@@ -31,6 +31,8 @@ export default {
   },
 } as Meta;
 
+const Empty = () => null;
+
 export const basic = () => (
   <Inline>
     <Placeholder width={48} height={48} />
@@ -42,6 +44,20 @@ export const basic = () => (
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+  </Inline>
+);
+
+export const emptyElements = () => (
+  <Inline>
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
     <Placeholder width={48} height={48} />
   </Inline>
 );
