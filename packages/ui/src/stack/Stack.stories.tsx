@@ -41,6 +41,7 @@ export const basic = () => (
 
 export const emptyElements = () => (
   <Stack>
+    <Empty />
     <Placeholder height={48} />
     <Empty />
     <Placeholder height={48} />

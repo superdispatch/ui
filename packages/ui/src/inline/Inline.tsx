@@ -33,7 +33,11 @@ function inlineRootMixin(
       align-items: ${parseAlignProp(verticalAlign)};
       justify-content: ${parseAlignProp(horizontalAlign)};
 
-      & > div:not(:empty) {
+      & > div {
+        &:empty {
+          display: none;
+        }
+
         min-width: 0;
         flex-shrink: 0;
         max-width: 100%;

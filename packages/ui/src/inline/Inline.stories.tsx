@@ -48,6 +48,7 @@ export const basic = () => (
 
 export const emptyElements = () => (
   <Inline>
+    <Empty />
     <Placeholder width={48} height={48} />
     <Empty />
     <Placeholder width={48} height={48} />
