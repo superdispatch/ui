@@ -1,6 +1,6 @@
 import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { Placeholder } from '@superdispatch/ui-docs';
+import { Empty, Placeholder } from '@superdispatch/ui-docs';
 import { Box } from '@superdispatch/ui-lab';
 import { Inline } from './Inline';
 
@@ -30,8 +30,6 @@ export default {
     ),
   },
 } as Meta;
-
-const Empty = () => null;
 
 export const basic = () => (
   <Inline>
