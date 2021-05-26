@@ -1,6 +1,8 @@
 it('takes snapshots', () => {
   cy.visitStorybook();
 
+  cy.takeStorySnapshot('Layout/Inline', 'Empty Elements', ['desktop']);
+
   cy.takeStorySnapshot('Layout/Inline', 'Responsive Space', [
     'mobile',
     'tablet',

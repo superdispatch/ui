@@ -1,6 +1,6 @@
 import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { Placeholder } from '@superdispatch/ui-docs';
+import { Empty, Placeholder } from '@superdispatch/ui-docs';
 import { Box } from '@superdispatch/ui-lab';
 import { Stack } from './Stack';
 
@@ -35,6 +35,17 @@ export const basic = () => (
   <Stack>
     <Placeholder height={48} />
     <Placeholder height={48} />
+    <Placeholder height={48} />
+  </Stack>
+);
+
+export const emptyElements = () => (
+  <Stack>
+    <Empty />
+    <Placeholder height={48} />
+    <Empty />
+    <Placeholder height={48} />
+    <Empty />
     <Placeholder height={48} />
   </Stack>
 );

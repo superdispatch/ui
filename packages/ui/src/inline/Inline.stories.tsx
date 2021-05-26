@@ -1,6 +1,6 @@
 import { Link } from '@material-ui/core';
 import { Meta } from '@storybook/react';
-import { Placeholder } from '@superdispatch/ui-docs';
+import { Empty, Placeholder } from '@superdispatch/ui-docs';
 import { Box } from '@superdispatch/ui-lab';
 import { Inline } from './Inline';
 
@@ -42,6 +42,21 @@ export const basic = () => (
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={48} />
     <Placeholder width={48} height={48} />
+    <Placeholder width={48} height={48} />
+  </Inline>
+);
+
+export const emptyElements = () => (
+  <Inline>
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
+    <Placeholder width={48} height={48} />
+    <Empty />
     <Placeholder width={48} height={48} />
   </Inline>
 );

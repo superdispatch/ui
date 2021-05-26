@@ -34,6 +34,10 @@ function inlineRootMixin(
       justify-content: ${parseAlignProp(horizontalAlign)};
 
       & > div {
+        &:empty {
+          display: none;
+        }
+
         min-width: 0;
         flex-shrink: 0;
         max-width: 100%;

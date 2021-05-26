@@ -16,11 +16,14 @@ function stackItemMixin(
   return css`
     flex-direction: column;
     align-items: ${parseAlignProp(align)};
-    padding-top: ${parseSpaceProp(space)}px;
     display: ${align === 'left' ? 'block' : 'flex'};
 
-    &:first-child {
-      padding-top: 0;
+    &:empty {
+      display: none;
+    }
+
+    &:not(:empty) ~ div {
+      padding-top: ${parseSpaceProp(space)}px;
     }
   `;
 }
