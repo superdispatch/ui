@@ -19,7 +19,11 @@ const lines = [];
 // Internals
 //
 
-lines.push("export * from '../Placeholder';", "export * from '../UseState';");
+lines.push(
+  "export * from '../Placeholder';",
+  "export * from '../UseState';",
+  "export * from '../Empty';",
+);
 
 //
 // @superdispatch/*
