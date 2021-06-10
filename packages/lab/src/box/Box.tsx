@@ -59,10 +59,11 @@ const normalizeBorderRadius = createRuleNormalizer<BorderRadiusProp>({
   small: 4,
 });
 
-export type BorderWidthProp = 'none' | 'small' | 'large';
+export type BorderWidthProp = 'none' | 'small' | 'medium' | 'large';
 const normalizeBorderWidth = createRuleNormalizer<BorderWidthProp>({
   none: 0,
   small: 1,
+  medium: 2,
   large: 4,
 });
 
