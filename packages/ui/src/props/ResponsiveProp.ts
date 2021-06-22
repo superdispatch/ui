@@ -18,11 +18,11 @@ export type ResponsivePropTuple<T extends ResponsivePropPrimitive> = readonly [
 export function parseResponsiveProp<T extends ResponsivePropPrimitive>(
   prop: ResponsiveProp<T>,
 ): ResponsivePropTuple<T> {
-  if (typeof prop != 'object') {
-    return [prop, prop, prop];
-  }
+  if (typeof prop != 'object') return [prop, prop, prop];
+  let [mobile, tablet, desktop] = prop;
 
-  const [mobile, tablet = mobile, desktop = tablet] = prop;
+  tablet ??= mobile;
+  desktop ??= tablet;
 
   return [mobile, tablet, desktop];
 }
@@ -59,11 +59,7 @@ export function useResponsiveValue<T>(
 export function useResponsivePropRecord<T extends ResponsivePropPrimitive>(
   prop: ResponsivePropRecord<T>,
 ): T {
-  if (typeof prop !== 'object') {
-    prop = { xs: prop };
-  }
-
-  const { xs, sm = xs, md, lg, xl } = prop;
-
-  return useResponsiveValue(xs, sm, md, lg, xl);
+  if (typeof prop != 'object') prop = { xs: prop };
+  const { xs, sm, md, lg, xl } = prop;
+  return useResponsiveValue(xs, sm ?? xs, md, lg, xl);
 }

@@ -155,8 +155,9 @@ function formatUnit(unit: ToRelativeUnit): string {
 }
 
 export interface FormatRelativeTimeOptions
-  extends Pick<ToRelativeOptions, 'unit' | 'round' | 'padding'> {
+  extends Pick<ToRelativeOptions, 'round' | 'padding'> {
   fallback?: string;
+  unit?: ToRelativeUnit;
   base?: NullableDateInput;
 }
 

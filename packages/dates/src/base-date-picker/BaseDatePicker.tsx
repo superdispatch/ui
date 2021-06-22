@@ -53,8 +53,9 @@ export const BaseDatePicker = forwardRef<HTMLDivElement, BaseDatePickerProps>(
 
     const inputRef = useRef<HTMLInputElement>(null);
     const textFieldRef = useRef<HTMLDivElement>(null);
-    const [popoverAnchor, setPopoverAnchor] =
-      useState<null | HTMLElement>(null);
+    const [popoverAnchor, setPopoverAnchor] = useState<null | HTMLElement>(
+      null,
+    );
 
     function handleOpen(): void {
       if (!disabled && textFieldRef.current) {
