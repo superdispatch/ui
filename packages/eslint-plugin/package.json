@@ -1,6 +1,6 @@
 {
   "name": "@superdispatch/eslint-plugin-ui",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/superdispatch/ui.git"
@@ -11,7 +11,7 @@
     "version": "rimraf pkg && tsc -b"
   },
   "dependencies": {
-    "@superdispatch/ui": "^0.9.2"
+    "@superdispatch/ui": "^0.9.3"
   },
   "peerDependencies": {
     "@typescript-eslint/experimental-utils": "^4.0.0",
