@@ -35,9 +35,7 @@ function parseSpace(space: unknown): string {
 
 export type MarginProp = 'auto' | SpaceProp | NegativeSpaceProp;
 function parseMargin(input: unknown): string {
-  if (input === 'auto') {
-    return input;
-  }
+  if (input === 'auto') return input;
 
   let prefix = '';
 
@@ -107,6 +105,8 @@ interface BoxRules {
   borderBottomLeftRadius?: ResponsiveProp<BorderRadiusProp>;
   borderBottomRightRadius?: ResponsiveProp<BorderRadiusProp>;
 
+  fontSize?: ResponsiveProp<Property.FontSize>;
+
   width?: ResponsiveProp<Property.Width>;
   maxWidth?: ResponsiveProp<Property.MaxWidth>;
   minWidth?: ResponsiveProp<Property.MinWidth>;
@@ -157,6 +157,8 @@ const normalizers: Array<[keyof BoxRules, undefined | RuleNormalizer]> = [
   ['paddingBottom', parseSpace],
 
   ['borderRadius', normalizeBorderRadius],
+
+  ['fontSize', undefined],
 
   ['width', undefined],
   ['maxWidth', undefined],
