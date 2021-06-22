@@ -102,6 +102,10 @@ interface BoxRules {
   marginBottom?: ResponsiveProp<MarginProp>;
 
   borderRadius?: ResponsiveProp<BorderRadiusProp>;
+  borderTopLeftRadius?: ResponsiveProp<BorderRadiusProp>;
+  borderTopRightRadius?: ResponsiveProp<BorderRadiusProp>;
+  borderBottomLeftRadius?: ResponsiveProp<BorderRadiusProp>;
+  borderBottomRightRadius?: ResponsiveProp<BorderRadiusProp>;
 
   width?: ResponsiveProp<Property.Width>;
   maxWidth?: ResponsiveProp<Property.MaxWidth>;
@@ -122,56 +126,56 @@ interface BoxRules {
   position?: ResponsiveProp<Property.Position>;
 }
 
-const normalizers: Record<keyof BoxRules, undefined | RuleNormalizer> = {
-  display: undefined,
+const normalizers: Array<[keyof BoxRules, undefined | RuleNormalizer]> = [
+  ['display', undefined],
 
-  color: normalizeColor,
-  backgroundColor: normalizeColor,
+  ['color', normalizeColor],
+  ['backgroundColor', normalizeColor],
 
-  borderColor: normalizeColor,
-  borderTopColor: normalizeColor,
-  borderLeftColor: normalizeColor,
-  borderRightColor: normalizeColor,
-  borderBottomColor: normalizeColor,
+  ['borderColor', normalizeColor],
+  ['borderTopColor', normalizeColor],
+  ['borderLeftColor', normalizeColor],
+  ['borderRightColor', normalizeColor],
+  ['borderBottomColor', normalizeColor],
 
-  borderWidth: normalizeBorderWidth,
-  borderTopWidth: normalizeBorderWidth,
-  borderLeftWidth: normalizeBorderWidth,
-  borderRightWidth: normalizeBorderWidth,
-  borderBottomWidth: normalizeBorderWidth,
+  ['borderWidth', normalizeBorderWidth],
+  ['borderTopWidth', normalizeBorderWidth],
+  ['borderLeftWidth', normalizeBorderWidth],
+  ['borderRightWidth', normalizeBorderWidth],
+  ['borderBottomWidth', normalizeBorderWidth],
 
-  margin: parseMargin,
-  marginTop: parseMargin,
-  marginLeft: parseMargin,
-  marginRight: parseMargin,
-  marginBottom: parseMargin,
+  ['margin', parseMargin],
+  ['marginTop', parseMargin],
+  ['marginLeft', parseMargin],
+  ['marginRight', parseMargin],
+  ['marginBottom', parseMargin],
 
-  padding: parseSpace,
-  paddingTop: parseSpace,
-  paddingLeft: parseSpace,
-  paddingRight: parseSpace,
-  paddingBottom: parseSpace,
+  ['padding', parseSpace],
+  ['paddingTop', parseSpace],
+  ['paddingLeft', parseSpace],
+  ['paddingRight', parseSpace],
+  ['paddingBottom', parseSpace],
 
-  borderRadius: normalizeBorderRadius,
+  ['borderRadius', normalizeBorderRadius],
 
-  width: undefined,
-  maxWidth: undefined,
-  minWidth: undefined,
+  ['width', undefined],
+  ['maxWidth', undefined],
+  ['minWidth', undefined],
 
-  height: undefined,
-  maxHeight: undefined,
-  minHeight: undefined,
+  ['height', undefined],
+  ['maxHeight', undefined],
+  ['minHeight', undefined],
 
-  overflow: undefined,
-  overflowY: undefined,
-  overflowX: undefined,
+  ['overflow', undefined],
+  ['overflowY', undefined],
+  ['overflowX', undefined],
 
-  top: undefined,
-  left: undefined,
-  right: undefined,
-  bottom: undefined,
-  position: undefined,
-};
+  ['top', undefined],
+  ['left', undefined],
+  ['right', undefined],
+  ['bottom', undefined],
+  ['position', undefined],
+];
 
 function injectRule(
   styles: CSSObject,
@@ -180,9 +184,7 @@ function injectRule(
   value: unknown,
   normalizer: undefined | RuleNormalizer,
 ): void {
-  if (normalizer != null) {
-    value = normalizer(value);
-  }
+  if (normalizer != null) value = normalizer(value);
 
   if (value != null) {
     let rules = styles[breakpoint];
@@ -222,20 +224,14 @@ export const Box: ForwardRefExoticComponent<BoxProps> = styled.div<BoxProps>(
       borderStyle: 'solid',
     };
 
-    for (const k in props) {
-      if (Object.prototype.hasOwnProperty.call(props, k)) {
-        const key = k as keyof BoxRules;
-        const prop = props[key];
+    for (const [key, normalizer] of normalizers) {
+      const prop = props[key];
 
-        if (prop != null && key in normalizers) {
-          const [mobile, tablet, desktop] = parseResponsiveProp(prop);
-
-          const normalizer = normalizers[key];
-
-          injectRule(styles, key, xs, mobile, normalizer);
-          injectRule(styles, key, sm, tablet, normalizer);
-          injectRule(styles, key, md, desktop, normalizer);
-        }
+      if (prop != null) {
+        const [mobile, tablet, desktop] = parseResponsiveProp(prop);
+        injectRule(styles, key, xs, mobile, normalizer);
+        injectRule(styles, key, sm, tablet, normalizer);
+        injectRule(styles, key, md, desktop, normalizer);
       }
     }
 
