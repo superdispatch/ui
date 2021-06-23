@@ -7,7 +7,8 @@ export const basic = () => (
   <Box
     display="inline-block"
     borderWidth="small"
-    borderRadius="small"
+    borderTopRightRadius="small"
+    borderBottomRightRadius="small"
     borderColor={['Blue200', 'Green200', 'Purple200']}
     borderLeftWidth="large"
     borderLeftColor={['Blue300', 'Green300', 'Purple300']}
