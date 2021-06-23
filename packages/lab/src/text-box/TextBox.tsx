@@ -35,7 +35,7 @@ const normalizeTextColor = createRuleNormalizer<TextColorProp>({
   white: Color.White,
   blue: Color.Blue300,
   green: Color.Green300,
-  purple: Color.Purple300,
+  purple: Color.Purple500,
   red: Color.Red300,
   teal: Color.Teal300,
   yellow: Color.Yellow300,
