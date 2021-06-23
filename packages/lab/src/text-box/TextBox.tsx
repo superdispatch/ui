@@ -105,17 +105,17 @@ function variantMixin(
 
 function textBoxMixin(
   noWrap: boolean,
-  textAlign: TextAlignProp,
-  textColor: TextColorProp,
-  textDisplay: TextDisplayProp,
+  align: TextAlignProp,
+  color: TextColorProp,
+  display: TextDisplayProp,
   wrapOverflow: boolean,
 ): readonly SimpleInterpolation[] {
   return css`
-    text-align: ${textAlign};
-    color: ${normalizeTextColor(textColor)};
-    display: ${textDisplay === 'initial' && (noWrap || textAlign !== 'left')
+    text-align: ${align};
+    color: ${normalizeTextColor(color)};
+    display: ${display === 'initial' && (noWrap || align !== 'left')
       ? 'block'
-      : textDisplay};
+      : display};
     overflow: ${noWrap ? 'hidden' : 'visible'};
     white-space: ${noWrap ? 'nowrap' : 'normal'};
     overflow-wrap: ${wrapOverflow ? 'break-word' : 'normal'};
@@ -123,55 +123,48 @@ function textBoxMixin(
 }
 
 interface TextBoxRootProps {
-  variant: TextVariantProp;
-  noWrap: ResponsivePropTuple<boolean>;
-  wrapOverflow: ResponsivePropTuple<boolean>;
-  textAlign: ResponsivePropTuple<TextAlignProp>;
-  textColor: ResponsivePropTuple<TextColorProp>;
-  textDisplay: ResponsivePropTuple<TextDisplayProp>;
+  $variant: TextVariantProp;
+  $noWrap: ResponsivePropTuple<boolean>;
+  $wrapOverflow: ResponsivePropTuple<boolean>;
+  $align: ResponsivePropTuple<TextAlignProp>;
+  $color: ResponsivePropTuple<TextColorProp>;
+  $display: ResponsivePropTuple<TextDisplayProp>;
 }
 
 const TextBoxRoot = styled.span<TextBoxRootProps>(
-  ({
-    theme,
-    noWrap,
-    variant,
-    textAlign,
-    textColor,
-    textDisplay,
-    wrapOverflow,
-  }) =>
+  ({ theme, $noWrap, $variant, $align, $color, $display, $wrapOverflow }) =>
     css`
       margin: 0;
       padding: 0;
       text-overflow: ellipsis;
 
-      ${variantMixin(theme, variant)};
+      ${variantMixin(theme, $variant)};
+
       ${textBoxMixin(
-        noWrap[0],
-        textAlign[0],
-        textColor[0],
-        textDisplay[0],
-        wrapOverflow[0],
+        $noWrap[0],
+        $align[0],
+        $color[0],
+        $display[0],
+        $wrapOverflow[0],
       )};
 
       ${theme.breakpoints.up('sm')} {
         ${textBoxMixin(
-          noWrap[1],
-          textAlign[1],
-          textColor[1],
-          textDisplay[1],
-          wrapOverflow[1],
+          $noWrap[1],
+          $align[1],
+          $color[1],
+          $display[1],
+          $wrapOverflow[1],
         )};
       }
 
       ${theme.breakpoints.up('md')} {
         ${textBoxMixin(
-          noWrap[2],
-          textAlign[2],
-          textColor[2],
-          textDisplay[2],
-          wrapOverflow[2],
+          $noWrap[2],
+          $align[2],
+          $color[2],
+          $display[2],
+          $wrapOverflow[2],
         )};
       }
     `,
@@ -182,6 +175,10 @@ export interface TextBoxProps {
   as?: keyof JSX.IntrinsicElements;
 
   id?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  'aria-describedby'?: string;
+
   variant?: TextVariantProp;
 
   noWrap?: ResponsiveProp<boolean>;
@@ -195,34 +192,34 @@ export interface TextBoxProps {
 export const TextBox = forwardRef<HTMLElement, TextBoxProps>(
   (
     {
-      variant = 'body',
-      as = VARIANT_TYPE_MAPPING[variant],
+      variant: $variant = 'body',
+      as = VARIANT_TYPE_MAPPING[$variant],
       align = 'left',
       color = 'primary',
       display = 'initial',
-      noWrap: noWrapProp = false,
-      wrapOverflow: wrapOverflowProp = false,
+      noWrap = false,
+      wrapOverflow = false,
       ...props
     },
     ref,
   ) => {
-    const textAlign = parseResponsiveProp(align);
-    const textColor = parseResponsiveProp(color);
-    const noWrap = parseResponsiveProp(noWrapProp);
-    const textDisplay = parseResponsiveProp(display);
-    const wrapOverflow = parseResponsiveProp(wrapOverflowProp);
+    const $align = parseResponsiveProp(align);
+    const $color = parseResponsiveProp(color);
+    const $noWrap = parseResponsiveProp(noWrap);
+    const $display = parseResponsiveProp(display);
+    const $wrapOverflow = parseResponsiveProp(wrapOverflow);
 
     return (
       <TextBoxRoot
         {...props}
         as={as}
         ref={ref}
-        noWrap={noWrap}
-        variant={variant}
-        textAlign={textAlign}
-        textColor={textColor}
-        textDisplay={textDisplay}
-        wrapOverflow={wrapOverflow}
+        $align={$align}
+        $color={$color}
+        $noWrap={$noWrap}
+        $display={$display}
+        $variant={$variant}
+        $wrapOverflow={$wrapOverflow}
       />
     );
   },
