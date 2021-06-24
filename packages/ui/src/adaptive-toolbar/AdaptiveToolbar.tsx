@@ -20,7 +20,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Button } from '../button/Button';
+import { Button, ButtonProps } from '../button/Button';
 
 function useResizeObserver<T extends HTMLElement>(
   node: null | undefined | T,
@@ -56,6 +56,7 @@ export interface AdaptiveToolbarItem {
   key: Key;
   label: ReactNode;
   onClick?: () => void;
+  ButtonProps?: Omit<ButtonProps, 'type' | 'onClick'>;
 }
 
 export interface AdaptiveToolbarProps
@@ -125,7 +126,11 @@ export const AdaptiveToolbar: ForwardRefExoticComponent<AdaptiveToolbarProps> =
                     itemNodes.current[idx] = node;
                   }}
                 >
-                  <Button type="button" onClick={item.onClick}>
+                  <Button
+                    type="button"
+                    onClick={item.onClick}
+                    {...item.ButtonProps}
+                  >
                     <Typography noWrap={true} variant="inherit">
                       {item.label}
                     </Typography>
