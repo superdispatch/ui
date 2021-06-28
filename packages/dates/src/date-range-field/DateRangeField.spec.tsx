@@ -3,7 +3,7 @@ import {
   renderComponent,
   renderCSS,
 } from '@superdispatch/ui-testutils';
-import { fireEvent, Matcher } from '@testing-library/react';
+import { fireEvent, Matcher, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
@@ -38,20 +38,18 @@ beforeEach(() => {
 
 test('basic', () => {
   const onChange = jest.fn();
-  const wrapper = renderComponent(
-    <DateRangeField label="Range" onChange={onChange} />,
-  );
+  renderComponent(<DateRangeField label="Range" onChange={onChange} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
-  expect(wrapper.getByLabelText('Range')).toHaveValue('');
+  expect(screen.queryByRole('grid')).toBeNull();
+  expect(screen.getByLabelText('Range')).toHaveValue('');
 
-  userEvent.click(wrapper.getByLabelText('Range'));
+  userEvent.click(screen.getByLabelText('Range'));
 
   expect(onChange).not.toHaveBeenCalled();
 
-  expect(wrapper.queryAllByRole('grid')).toHaveLength(2);
+  expect(screen.queryAllByRole('grid')).toHaveLength(2);
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
@@ -60,42 +58,40 @@ test('basic', () => {
     stringValue: ['2019-05-24T00:00:00.000-05:00', null],
   });
 
-  expect(wrapper.queryAllByRole('grid')).toHaveLength(2);
-  expect(wrapper.getByLabelText('Range')).toHaveValue('');
+  expect(screen.queryAllByRole('grid')).toHaveLength(2);
+  expect(screen.getByLabelText('Range')).toHaveValue('');
 });
 
 test('uncontrolled', () => {
-  const wrapper = renderComponent(<UncontrolledDateRangeField label="Range" />);
+  renderComponent(<UncontrolledDateRangeField label="Range" />);
 
-  expect(wrapper.getByLabelText('Range')).toHaveValue('');
+  expect(screen.getByLabelText('Range')).toHaveValue('');
 
-  userEvent.click(wrapper.getByLabelText('Range'));
+  userEvent.click(screen.getByLabelText('Range'));
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
-  expect(wrapper.getByLabelText('Range')).toHaveValue('May 24, 2019 - …');
+  expect(screen.getByLabelText('Range')).toHaveValue('May 24, 2019 - …');
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 30/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 30/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
-  expect(wrapper.getByLabelText('Range')).toHaveValue('May 24 - May 30, 2019');
+  expect(screen.queryByRole('grid')).toBeNull();
+  expect(screen.getByLabelText('Range')).toHaveValue('May 24 - May 30, 2019');
 });
 
 test('close on select', () => {
-  const wrapper = renderComponent(<DateRangeField value={[Date.now()]} />);
+  renderComponent(<DateRangeField value={[Date.now()]} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 25/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 25/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 });
 
 test('selected days', () => {
-  const wrapper = renderComponent(
-    <DateRangeField value={['2019-05-24T00:00:00.000-05:00']} />,
-  );
+  renderComponent(<DateRangeField value={['2019-05-24T00:00:00.000-05:00']} />);
 
   function assertSelection(startDay: number, finishDay?: number): void {
     const selected = queryByClassName('SD-DateRangeField-selected').filter(
@@ -138,19 +134,19 @@ test('selected days', () => {
     }
   }
 
-  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(screen.getByRole('textbox'));
 
   assertSelection(24);
 
-  fireEvent.mouseEnter(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  fireEvent.mouseEnter(screen.getByRole('gridcell', { name: /May 24/ }));
 
   assertSelection(24, 24);
 
-  fireEvent.mouseEnter(wrapper.getByRole('gridcell', { name: /May 26/ }));
+  fireEvent.mouseEnter(screen.getByRole('gridcell', { name: /May 26/ }));
 
   assertSelection(24, 26);
 
-  fireEvent.mouseEnter(wrapper.getByRole('gridcell', { name: /May 20/ }));
+  fireEvent.mouseEnter(screen.getByRole('gridcell', { name: /May 20/ }));
 
   assertSelection(20, 24);
 });
@@ -159,7 +155,7 @@ test('disabledDays', () => {
   const onChange = jest.fn();
   const onDayClick = jest.fn();
 
-  const wrapper = renderComponent(
+  renderComponent(
     <DateRangeField
       onChange={onChange}
       CalendarProps={{
@@ -169,16 +165,16 @@ test('disabledDays', () => {
     />,
   );
 
-  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(screen.getByRole('textbox'));
 
   expect(onChange).not.toHaveBeenCalled();
   expect(onDayClick).not.toHaveBeenCalled();
 
-  expect(wrapper.getByRole('gridcell', { name: /May 24/ })).toHaveClass(
+  expect(screen.getByRole('gridcell', { name: /May 24/ })).toHaveClass(
     'SD-Calendar-disabled',
   );
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
   expect(onChange).not.toHaveBeenCalled();
   expect(onDayClick).toHaveBeenCalledTimes(1);
@@ -186,22 +182,22 @@ test('disabledDays', () => {
 
 test('enableClearable', () => {
   const onChange = jest.fn();
-  const wrapper = renderComponent(
+  const view = renderComponent(
     <DateRangeField onChange={onChange} enableClearable={true} />,
   );
 
-  expect(wrapper.queryByRole('button', { name: 'clear' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 
-  wrapper.rerender(
+  view.rerender(
     <DateRangeField
       onChange={onChange}
       enableClearable={true}
       value={[Date.now(), undefined]}
     />,
   );
-  expect(wrapper.queryByRole('button', { name: 'clear' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 
-  wrapper.rerender(
+  view.rerender(
     <DateRangeField
       onChange={onChange}
       enableClearable={true}
@@ -209,11 +205,11 @@ test('enableClearable', () => {
     />,
   );
 
-  expect(wrapper.getByRole('button', { name: 'clear' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'clear' })).toBeInTheDocument();
 
   expect(onChange).not.toHaveBeenCalled();
 
-  userEvent.click(wrapper.getByRole('button', { name: 'clear' }));
+  userEvent.click(screen.getByRole('button', { name: 'clear' }));
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
@@ -222,7 +218,7 @@ test('enableClearable', () => {
     stringValue: [null, null],
   });
 
-  wrapper.rerender(
+  view.rerender(
     <DateRangeField
       label="Custom Label"
       onChange={onChange}
@@ -231,9 +227,9 @@ test('enableClearable', () => {
     />,
   );
 
-  expect(wrapper.queryByRole('button', { name: 'clear' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 
-  userEvent.click(wrapper.getByRole('button', { name: 'clear Custom Label' }));
+  userEvent.click(screen.getByRole('button', { name: 'clear Custom Label' }));
 
   expect(onChange).toHaveBeenCalledTimes(2);
   expect(onChange).toHaveBeenLastCalledWith({
@@ -244,7 +240,7 @@ test('enableClearable', () => {
 });
 
 test('time normalization', () => {
-  const wrapper = renderComponent(<DateRangeField />);
+  const view = renderComponent(<DateRangeField />);
 
   const variants: Array<
     [
@@ -271,7 +267,7 @@ test('time normalization', () => {
   for (const [input, labelMatcher, stringValue] of variants) {
     const onChange = jest.fn();
 
-    wrapper.rerender(
+    view.rerender(
       <DateRangeField
         id="range"
         label="Range"
@@ -280,8 +276,8 @@ test('time normalization', () => {
       />,
     );
 
-    userEvent.click(wrapper.getByLabelText('Range'));
-    userEvent.click(wrapper.getByLabelText(labelMatcher));
+    userEvent.click(screen.getByLabelText('Range'));
+    userEvent.click(screen.getByLabelText(labelMatcher));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenLastCalledWith({

@@ -1,8 +1,9 @@
 import { renderComponent, renderCSS } from '@superdispatch/ui-testutils';
+import { screen } from '@testing-library/react';
 import { DescriptionList, DescriptionListItem } from './DescriptionList';
 
 test('label id', () => {
-  const { getByLabelText } = renderComponent(
+  renderComponent(
     <DescriptionListItem
       label="Label"
       labelTypographyProps={{ id: 'label-id' }}
@@ -10,7 +11,7 @@ test('label id', () => {
     />,
   );
 
-  expect(getByLabelText('Label')).toMatchInlineSnapshot(`
+  expect(screen.getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
       aria-labelledby="label-id"
       class="SD-DescriptionList-item"
@@ -36,11 +37,9 @@ test('label id', () => {
 });
 
 test('dynamic label id', () => {
-  const { getByLabelText } = renderComponent(
-    <DescriptionListItem label="Label" content="Text" />,
-  );
+  renderComponent(<DescriptionListItem label="Label" content="Text" />);
 
-  expect(getByLabelText('Label')).toMatchInlineSnapshot(`
+  expect(screen.getByLabelText('Label')).toMatchInlineSnapshot(`
     <div
       aria-labelledby="uid_2"
       class="SD-DescriptionList-item"

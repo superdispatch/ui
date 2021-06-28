@@ -1,4 +1,4 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikPhoneField } from './FormikPhoneField';
 
@@ -7,7 +7,7 @@ test('basic', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikPhoneField
       name="phone"
       onBlur={handleBlur}
@@ -16,7 +16,7 @@ test('basic', async () => {
     { initialValues: { phone: '' }, onSubmit: handleSubmit },
   );
 
-  const input = await wrapper.findByRole('textbox');
+  const input = await screen.findByRole('textbox');
 
   expect(handleBlur).toHaveBeenCalledTimes(0);
   expect(handleChange).toHaveBeenCalledTimes(0);
@@ -37,7 +37,7 @@ test('basic', async () => {
 
   expect(handleSubmit).toHaveBeenCalledTimes(0);
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -50,7 +50,7 @@ test('validation', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikPhoneField
       name="phone"
       onChange={handleChange}
@@ -62,21 +62,21 @@ test('validation', async () => {
     },
   );
 
-  await wrapper.findByRole('textbox');
+  await screen.findByRole('textbox');
 
-  expect(wrapper.getByRole('textbox')).toBeValid();
+  expect(screen.getByRole('textbox')).toBeValid();
 
   act(() => {
-    fireEvent.change(wrapper.getByRole('textbox'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: '20155501' },
     });
   });
 
-  wrapper.submitForm();
+  view.submitForm();
 
-  await wrapper.findByText('Phone number is too short');
+  await screen.findByText('Phone number is too short');
 
-  expect(wrapper.getByRole('textbox')).toBeInvalid();
+  expect(screen.getByRole('textbox')).toBeInvalid();
   expect(handleSubmit).toHaveBeenCalledTimes(0);
 });
 
@@ -86,25 +86,22 @@ test('submitting', async () => {
     () => new Promise((resolve) => setTimeout(resolve, 200)),
   );
 
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikPhoneField name="phone" onChange={handleChange} />,
-    {
-      onSubmit: handleSubmit,
-      initialValues: { phone: '' },
-    },
+    { onSubmit: handleSubmit, initialValues: { phone: '' } },
   );
 
-  await wrapper.findByRole('textbox');
+  await screen.findByRole('textbox');
 
-  expect(wrapper.getByRole('textbox')).toBeEnabled();
+  expect(screen.getByRole('textbox')).toBeEnabled();
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
-    expect(wrapper.getByRole('textbox')).toBeDisabled();
+    expect(screen.getByRole('textbox')).toBeDisabled();
   });
 
   await waitFor(() => {
-    expect(wrapper.getByRole('textbox')).toBeEnabled();
+    expect(screen.getByRole('textbox')).toBeEnabled();
   });
 });

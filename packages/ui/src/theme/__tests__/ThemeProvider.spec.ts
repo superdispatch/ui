@@ -33,8 +33,8 @@ it('exposes overridden theme', () => {
 
 it('allows to modify overridden theme', () => {
   const modifier = jest.fn((x) => x);
-  const theme = renderTheme(modifier);
+  const view = renderTheme(modifier);
 
   expect(modifier).toHaveBeenCalledTimes(1);
-  expect(modifier).toHaveBeenCalledWith(theme);
+  expect(modifier).toHaveBeenCalledWith(view);
 });

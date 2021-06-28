@@ -1,6 +1,6 @@
 import { InputAdornment } from '@material-ui/core';
 import { mockDate, renderComponent } from '@superdispatch/ui-testutils';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
@@ -28,15 +28,15 @@ function UncontrolledDateField(props: DateFieldProps) {
 
 test('basic', () => {
   const onChange = jest.fn();
-  const wrapper = renderComponent(<DateField onChange={onChange} />);
+  renderComponent(<DateField onChange={onChange} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
-  expect(wrapper.getByRole('textbox')).toHaveValue('');
+  expect(screen.queryByRole('grid')).toBeNull();
+  expect(screen.getByRole('textbox')).toHaveValue('');
 
-  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(screen.getByRole('textbox'));
 
   expect(onChange).not.toHaveBeenCalled();
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
     config: defaultDateConfig,
@@ -44,19 +44,19 @@ test('basic', () => {
     stringValue: '2019-05-24T00:00:00.000-05:00',
   });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
-  expect(wrapper.getByRole('textbox')).toHaveValue('');
+  expect(screen.queryByRole('grid')).toBeNull();
+  expect(screen.getByRole('textbox')).toHaveValue('');
 });
 
 test('uncontrolled', () => {
-  const wrapper = renderComponent(<UncontrolledDateField />);
+  renderComponent(<UncontrolledDateField />);
 
-  expect(wrapper.getByRole('textbox')).toHaveValue('');
+  expect(screen.getByRole('textbox')).toHaveValue('');
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
-  expect(wrapper.getByRole('textbox')).toHaveValue('May 24, 2019');
+  expect(screen.getByRole('textbox')).toHaveValue('May 24, 2019');
 });
 
 test.each<
@@ -99,16 +99,16 @@ test.each<
     expectedValue,
   ) => {
     const onChange = jest.fn();
-    const wrapper = renderComponent(
+    renderComponent(
       <DateConfigProvider format={contextFormat}>
         <DateField value={input} onChange={onChange} format={propsFormat} />
       </DateConfigProvider>,
     );
 
-    expect(wrapper.getByRole('textbox')).toHaveValue(inputValue);
+    expect(screen.getByRole('textbox')).toHaveValue(inputValue);
 
-    userEvent.click(wrapper.getByRole('textbox'));
-    userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+    userEvent.click(screen.getByRole('textbox'));
+    userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
     expect(onChange).toHaveBeenLastCalledWith({
       dateValue: expect.any(DateTime),
@@ -119,103 +119,99 @@ test.each<
 );
 
 test('close on select', () => {
-  const wrapper = renderComponent(<DateField />);
+  renderComponent(<DateField />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 25/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 25/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 });
 
 test('onClick', () => {
   let prevent = false;
 
-  const wrapper = renderComponent(
+  renderComponent(
     <DateField
       onClick={(event) => {
-        if (prevent) {
-          event.preventDefault();
-        }
+        if (prevent) event.preventDefault();
       }}
     />,
   );
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 25/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 25/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
   prevent = true;
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  userEvent.click(screen.getByRole('textbox'));
+  expect(screen.queryByRole('grid')).toBeNull();
 });
 
 test('onKeyDown', () => {
   let prevent = false;
 
-  const wrapper = renderComponent(
+  renderComponent(
     <DateField
       onKeyDown={(event) => {
-        if (prevent) {
-          event.preventDefault();
-        }
+        if (prevent) event.preventDefault();
       }}
     />,
   );
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: ' ' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: ' ' });
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: 'Enter' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 25/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 25/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
   prevent = true;
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: ' ' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: ' ' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: 'Enter' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 });
 
 test('disabled', () => {
-  const wrapper = renderComponent(<DateField disabled={true} />);
+  renderComponent(<DateField disabled={true} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(screen.getByRole('textbox'));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: ' ' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: ' ' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  fireEvent.keyDown(wrapper.getByRole('textbox'), { key: 'Enter' });
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 });
 
 test('disabledDays', () => {
   const onChange = jest.fn();
   const onDayClick = jest.fn();
 
-  const wrapper = renderComponent(
+  renderComponent(
     <DateField
       onChange={onChange}
       CalendarProps={{
@@ -225,16 +221,16 @@ test('disabledDays', () => {
     />,
   );
 
-  userEvent.click(wrapper.getByRole('textbox'));
+  userEvent.click(screen.getByRole('textbox'));
 
   expect(onChange).not.toHaveBeenCalled();
   expect(onDayClick).not.toHaveBeenCalled();
 
-  expect(wrapper.getByRole('gridcell', { name: /May 24/ })).toHaveClass(
+  expect(screen.getByRole('gridcell', { name: /May 24/ })).toHaveClass(
     'SD-Calendar-disabled',
   );
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
   expect(onChange).not.toHaveBeenCalled();
   expect(onDayClick).toHaveBeenCalledTimes(1);
@@ -242,17 +238,17 @@ test('disabledDays', () => {
 
 test('enableClearable', () => {
   const onChange = jest.fn();
-  const wrapper = renderComponent(<DateField enableClearable={true} />);
+  const view = renderComponent(<DateField enableClearable={true} />);
 
-  expect(wrapper.queryByRole('button', { name: 'clear' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 
-  wrapper.rerender(
+  view.rerender(
     <DateField value={Date.now()} onChange={onChange} enableClearable={true} />,
   );
 
   expect(onChange).not.toHaveBeenCalled();
 
-  userEvent.click(wrapper.getByRole('button', { name: 'clear' }));
+  userEvent.click(screen.getByRole('button', { name: 'clear' }));
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith({
@@ -261,7 +257,7 @@ test('enableClearable', () => {
     dateValue: expect.any(DateTime),
   });
 
-  wrapper.rerender(
+  view.rerender(
     <DateField
       label="Custom Label"
       value={Date.now()}
@@ -270,9 +266,9 @@ test('enableClearable', () => {
     />,
   );
 
-  expect(wrapper.queryByRole('button', { name: 'clear' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 
-  userEvent.click(wrapper.getByRole('button', { name: 'clear Custom Label' }));
+  userEvent.click(screen.getByRole('button', { name: 'clear Custom Label' }));
 
   expect(onChange).toHaveBeenCalledTimes(2);
   expect(onChange).toHaveBeenLastCalledWith({
@@ -284,50 +280,48 @@ test('enableClearable', () => {
 
 test('disableCloseOnSelect', () => {
   const onChange = jest.fn();
-  const wrapper = renderComponent(<DateField onChange={onChange} />);
+  const view = renderComponent(<DateField onChange={onChange} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 24/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 24/ }));
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenLastCalledWith(
     expect.objectContaining({ stringValue: '2019-05-24T00:00:00.000-05:00' }),
   );
 
-  wrapper.rerender(
-    <DateField onChange={onChange} disableCloseOnSelect={true} />,
-  );
+  view.rerender(<DateField onChange={onChange} disableCloseOnSelect={true} />);
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 25/ }));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 25/ }));
 
-  expect(wrapper.getByRole('grid')).toBeInTheDocument();
+  expect(screen.getByRole('grid')).toBeInTheDocument();
   expect(onChange).toHaveBeenCalledTimes(2);
   expect(onChange).toHaveBeenLastCalledWith(
     expect.objectContaining({ stringValue: '2019-05-25T00:00:00.000-05:00' }),
   );
 
-  userEvent.click(wrapper.getByRole('gridcell', { name: /May 26/ }));
+  userEvent.click(screen.getByRole('gridcell', { name: /May 26/ }));
 
-  expect(wrapper.getByRole('grid')).toBeInTheDocument();
+  expect(screen.getByRole('grid')).toBeInTheDocument();
   expect(onChange).toHaveBeenCalledTimes(3);
   expect(onChange).toHaveBeenLastCalledWith(
     expect.objectContaining({ stringValue: '2019-05-26T00:00:00.000-05:00' }),
   );
 
-  fireEvent.keyDown(wrapper.getByRole('presentation'), { key: 'Escape' });
+  fireEvent.keyDown(screen.getByRole('presentation'), { key: 'Escape' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
   expect(onChange).toHaveBeenCalledTimes(3);
 });
 
 test('startAdornment', () => {
-  const wrapper = renderComponent(
+  renderComponent(
     <DateField
       InputProps={{
         'aria-labelledby': 'label',
@@ -340,17 +334,17 @@ test('startAdornment', () => {
     />,
   );
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByLabelText('Start Adornment'));
+  userEvent.click(screen.getByLabelText('Start Adornment'));
 
-  expect(wrapper.getByRole('grid')).toBeInTheDocument();
+  expect(screen.getByRole('grid')).toBeInTheDocument();
 
-  fireEvent.keyDown(wrapper.getByRole('presentation'), { key: 'Escape' });
+  fireEvent.keyDown(screen.getByRole('presentation'), { key: 'Escape' });
 
-  expect(wrapper.queryByRole('grid')).toBeNull();
+  expect(screen.queryByRole('grid')).toBeNull();
 
-  userEvent.click(wrapper.getByText('Start Adornment'));
+  userEvent.click(screen.getByText('Start Adornment'));
 
-  expect(wrapper.getByRole('grid')).toBeInTheDocument();
+  expect(screen.getByRole('grid')).toBeInTheDocument();
 });

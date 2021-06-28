@@ -31,11 +31,10 @@ function findColorName(color: string): undefined | string {
 const HEX_COLOR_PATTERN = /(#\b([a-f0-9]{3}|[a-f0-9]{6})\b)/gim;
 function* listColorNames(text: string): Generator<string, void> {
   for (const [, hex] of text.matchAll(HEX_COLOR_PATTERN)) {
-    const color = normalizeHex(hex);
-    const name = findColorName(color);
-
-    if (name) {
-      yield name;
+    if (hex) {
+      const color = normalizeHex(hex);
+      const name = findColorName(color);
+      if (name) yield name;
     }
   }
 }

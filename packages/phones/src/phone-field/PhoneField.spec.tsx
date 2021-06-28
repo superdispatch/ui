@@ -1,4 +1,5 @@
 import { extractCSS, renderComponent } from '@superdispatch/ui-testutils';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useEffect, useState } from 'react';
 import { PhoneField, PhoneFieldProps } from './PhoneField';
@@ -14,94 +15,117 @@ function UncontrolledPhoneField({ value, ...props }: PhoneFieldProps) {
 }
 
 test('basic', async () => {
-  const { getByRole, findByRole } = renderComponent(<PhoneField />);
+  renderComponent(<PhoneField />);
 
-  await findByRole('textbox');
+  await screen.findByRole('textbox');
 
-  expect(getByRole('textbox')).toHaveAttribute('placeholder', '(201) 555-0123');
+  expect(screen.getByRole('textbox')).toHaveAttribute(
+    'placeholder',
+    '(201) 555-0123',
+  );
 
-  expect(getByRole('button')).toHaveTextContent('+1');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('button')).toHaveTextContent('+1');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 
-  expect(getByRole('button')).toContainElement(
-    getByRole('img', { name: 'US' }),
+  expect(screen.getByRole('button')).toContainElement(
+    screen.getByRole('img', { name: 'US' }),
   );
 });
 
 test('controlled', async () => {
-  const { getByRole, findByRole } = renderComponent(
-    <PhoneField value="+123" />,
+  renderComponent(<PhoneField value="+123" />);
+
+  await screen.findByRole('textbox');
+
+  expect(screen.getByRole('textbox')).toHaveValue('23');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
   );
 
-  await findByRole('textbox');
+  userEvent.type(screen.getByRole('textbox'), '123123');
 
-  expect(getByRole('textbox')).toHaveValue('23');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('23');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 
-  userEvent.type(getByRole('textbox'), '123123');
+  userEvent.click(screen.getByRole('button'));
+  userEvent.click(screen.getByRole('menuitem', { name: /Australia/ }));
 
-  expect(getByRole('textbox')).toHaveValue('23');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
-
-  userEvent.click(getByRole('button'));
-  userEvent.click(getByRole('menuitem', { name: /Australia/ }));
-
-  expect(getByRole('textbox')).toHaveValue('23');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('23');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 });
 
 test('interactive', async () => {
-  const { getByRole, findByRole } = renderComponent(<UncontrolledPhoneField />);
+  renderComponent(<UncontrolledPhoneField />);
 
-  await findByRole('textbox');
+  await screen.findByRole('textbox');
 
-  expect(getByRole('textbox')).toHaveValue('');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 
-  userEvent.click(getByRole('button'));
-  userEvent.click(getByRole('menuitem', { name: /Australia/ }));
+  userEvent.click(screen.getByRole('button'));
+  userEvent.click(screen.getByRole('menuitem', { name: /Australia/ }));
 
-  expect(getByRole('textbox')).toHaveValue('');
-  expect(getByRole('button')).toHaveAttribute('title', 'Australia: +61');
+  expect(screen.getByRole('textbox')).toHaveValue('');
+  expect(screen.getByRole('button')).toHaveAttribute('title', 'Australia: +61');
 
-  userEvent.type(getByRole('textbox'), '123');
+  userEvent.type(screen.getByRole('textbox'), '123');
 
-  expect(getByRole('textbox')).toHaveValue('123');
-  expect(getByRole('button')).toHaveAttribute('title', 'Australia: +61');
+  expect(screen.getByRole('textbox')).toHaveValue('123');
+  expect(screen.getByRole('button')).toHaveAttribute('title', 'Australia: +61');
 });
 
 test('local state sync with the props', async () => {
-  const { rerender, getByRole, findByRole } = renderComponent(
-    <UncontrolledPhoneField />,
+  const view = renderComponent(<UncontrolledPhoneField />);
+
+  await screen.findByRole('textbox');
+
+  expect(screen.getByRole('textbox')).toHaveValue('');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
   );
 
-  await findByRole('textbox');
+  userEvent.type(screen.getByRole('textbox'), '!5@0#6$ %2^3&4* (5)6-7_8=');
 
-  expect(getByRole('textbox')).toHaveValue('');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
-
-  userEvent.type(getByRole('textbox'), '!5@0#6$ %2^3&4* (5)6-7_8=');
-
-  expect(getByRole('textbox')).toHaveValue('(506) 234-5678');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('(506) 234-5678');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 
   // Using same phone as in the state.
-  rerender(<UncontrolledPhoneField value="+15062345678" />);
+  view.rerender(<UncontrolledPhoneField value="+15062345678" />);
 
-  expect(getByRole('textbox')).toHaveValue('(506) 234-5678');
-  expect(getByRole('button')).toHaveAttribute('title', 'United States: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('(506) 234-5678');
+  expect(screen.getByRole('button')).toHaveAttribute(
+    'title',
+    'United States: +1',
+  );
 
   // Using same phone number with the different format
-  rerender(<UncontrolledPhoneField value="+1 (506) 234-5678" />);
+  view.rerender(<UncontrolledPhoneField value="+1 (506) 234-5678" />);
 
-  expect(getByRole('textbox')).toHaveValue('(506) 234-5678');
-  expect(getByRole('button')).toHaveAttribute('title', 'Canada: +1');
+  expect(screen.getByRole('textbox')).toHaveValue('(506) 234-5678');
+  expect(screen.getByRole('button')).toHaveAttribute('title', 'Canada: +1');
 });
 
 test('css', async () => {
-  const { findByRole } = renderComponent(<PhoneField />);
+  renderComponent(<PhoneField />);
 
-  await findByRole('textbox');
+  await screen.findByRole('textbox');
 
   expect(
     extractCSS([

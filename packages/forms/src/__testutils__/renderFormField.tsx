@@ -1,5 +1,5 @@
 import { ThemeProvider, ThemeProviderProps } from '@superdispatch/ui';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, FormikProvider } from 'formik';
 import { createRef, MutableRefObject, ReactElement, Suspense } from 'react';
@@ -41,15 +41,15 @@ export function renderFormField<TValues, TResponse>(
     );
   }
 
-  const wrapper = render(element, { wrapper: Wrapper });
+  const view = render(element, { wrapper: Wrapper });
 
   return {
-    ...wrapper,
+    ...view,
     childrenRef,
     onSubmit,
     formik: formikRef,
     submitForm: () => {
-      userEvent.click(wrapper.getByRole('button', { name: 'Submit' }));
+      userEvent.click(screen.getByRole('button', { name: 'Submit' }));
     },
   };
 }

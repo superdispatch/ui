@@ -1,4 +1,5 @@
 import { Deferred } from '@superdispatch/ui-testutils';
+import { screen } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
 import { renderProvider } from '../__testutils__/renderProvider';
@@ -7,7 +8,7 @@ import { FormikEnhancedConfig, useFormikEnhanced } from './useFormikEnhanced';
 describe('FormsProvider', () => {
   test('default configs', async () => {
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
-    const wrapper = renderProvider(
+    renderProvider(
       { getFormErrors },
       {
         initialValues: { foo: '' },
@@ -16,9 +17,9 @@ describe('FormsProvider', () => {
       },
     );
 
-    userEvent.click(wrapper.getByText('Submit'));
+    userEvent.click(screen.getByText('Submit'));
 
-    await wrapper.findByText('Name is Required.');
+    await screen.findByText('Name is Required.');
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
     expect(getFormErrors).toHaveBeenLastCalledWith({
@@ -31,7 +32,7 @@ describe('FormsProvider', () => {
       (errorResponse) => errorResponse.fieldErrors,
     );
     const getFormErrors = jest.fn((errorResponse) => errorResponse.fieldErrors);
-    const wrapper = renderProvider(
+    renderProvider(
       { getFormErrors: defaultGetFormErrors },
       {
         initialValues: { foo: '' },
@@ -41,9 +42,9 @@ describe('FormsProvider', () => {
       },
     );
 
-    userEvent.click(wrapper.getByText('Submit'));
+    userEvent.click(screen.getByText('Submit'));
 
-    await wrapper.findByText('Name is Required.');
+    await screen.findByText('Name is Required.');
 
     expect(getFormErrors).toHaveBeenCalledTimes(1);
     expect(defaultGetFormErrors).toHaveBeenCalledTimes(0);

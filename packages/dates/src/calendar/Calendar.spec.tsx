@@ -4,7 +4,7 @@ import {
   renderComponent,
   renderCSS,
 } from '@superdispatch/ui-testutils';
-import { EventType, fireEvent } from '@testing-library/react';
+import { EventType, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateObjectUnits, DateTime } from 'luxon';
 import { setDefaultTimeZone } from '../date-config/DateConfig';
@@ -31,39 +31,36 @@ beforeEach(() => {
 });
 
 test('month', () => {
-  const wrapper = renderComponent(<Calendar />);
+  renderComponent(<Calendar />);
 
-  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+  expect(screen.getByRole('heading')).toHaveTextContent('May 2019');
 
-  userEvent.click(wrapper.getByLabelText('Previous Month'));
+  userEvent.click(screen.getByLabelText('Previous Month'));
 
-  expect(wrapper.getByRole('heading')).toHaveTextContent('April 2019');
+  expect(screen.getByRole('heading')).toHaveTextContent('April 2019');
 
-  userEvent.click(wrapper.getByLabelText('Next Month'));
+  userEvent.click(screen.getByLabelText('Next Month'));
 
-  expect(wrapper.getByRole('heading')).toHaveTextContent('May 2019');
+  expect(screen.getByRole('heading')).toHaveTextContent('May 2019');
 });
 
 test('weeks', () => {
-  const wrapper = renderComponent(<Calendar />);
+  renderComponent(<Calendar />);
 
-  const [weeksRow] = wrapper.getAllByRole('row');
-
-  expect(weeksRow).toBeTruthy();
-  expect(weeksRow.childNodes).toHaveLength(7);
-  expect(weeksRow.childNodes[0]).toHaveTextContent('S');
-  expect(weeksRow.childNodes[1]).toHaveTextContent('M');
-  expect(weeksRow.childNodes[2]).toHaveTextContent('T');
-  expect(weeksRow.childNodes[3]).toHaveTextContent('W');
-  expect(weeksRow.childNodes[4]).toHaveTextContent('T');
-  expect(weeksRow.childNodes[5]).toHaveTextContent('F');
-  expect(weeksRow.childNodes[6]).toHaveTextContent('S');
+  const [weeksRow] = screen.getAllByRole('row');
+  expect(weeksRow!.childNodes).toHaveLength(7);
+  expect(weeksRow!.childNodes[0]).toHaveTextContent('S');
+  expect(weeksRow!.childNodes[1]).toHaveTextContent('M');
+  expect(weeksRow!.childNodes[2]).toHaveTextContent('T');
+  expect(weeksRow!.childNodes[3]).toHaveTextContent('W');
+  expect(weeksRow!.childNodes[4]).toHaveTextContent('T');
+  expect(weeksRow!.childNodes[5]).toHaveTextContent('F');
+  expect(weeksRow!.childNodes[6]).toHaveTextContent('S');
 });
 
 test('days', () => {
-  const wrapper = renderComponent(<Calendar />);
-
-  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
+  renderComponent(<Calendar />);
+  expect(screen.getByLabelText(/May 24 2019/)).toHaveTextContent('24');
 });
 
 test.each<
@@ -133,7 +130,7 @@ test.each<
     [7, '2019-05-24T03:00:00.000+07:00', { hour: 3 }],
   ],
 ])('initialTime(%p)', (initialTime, ...cases) => {
-  const wrapper = renderComponent(<Calendar />);
+  const view = renderComponent(<Calendar />);
 
   for (const [offset, expectedString, expectedObject] of cases) {
     setDefaultTimeZone(offset * 60);
@@ -149,7 +146,7 @@ test.each<
       touchStart: jest.fn(),
     };
 
-    wrapper.rerender(
+    view.rerender(
       <Calendar
         key={offset /* force rerender on offset change */}
         initialTime={initialTime}
@@ -168,14 +165,14 @@ test.each<
       [EventType, MockCalendarDayEventHandler]
     >) {
       expect(handler).not.toHaveBeenCalled();
-      fireEvent[event](wrapper.getByLabelText(/May 24/));
+      fireEvent[event](screen.getByLabelText(/May 24/));
       expect(handler).toHaveBeenCalledTimes(1);
 
       const [call] = handler.mock.calls;
 
       expect(call).toHaveLength(1);
 
-      const [info] = call;
+      const [info] = call!;
 
       expect(info.stringValue).toBe(expectedString);
       expect(info.dateValue.toObject()).toEqual({
@@ -195,27 +192,27 @@ test('onDayClick', () => {
   const onDayClick: MockCalendarDayEventHandler = jest.fn();
 
   const now = DateTime.local().startOf('day');
-  const wrapper = renderComponent(
+  renderComponent(
     <Calendar
       onDayClick={onDayClick}
       selectedDays={({ dateValue }) => dateValue >= now}
     />,
   );
 
-  expect(wrapper.getByLabelText(/May 23 2019/)).not.toHaveClass(
+  expect(screen.getByLabelText(/May 23 2019/)).not.toHaveClass(
     'SD-Calendar-selected',
   );
 
   for (let idx = 1; idx < now.day; idx++) {
     const day = String(idx).padStart(2, '0');
-    const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
+    const element = screen.getByLabelText(new RegExp(`May ${day} 2019`));
 
     expect(element).not.toHaveClass('SD-Calendar-selected');
   }
 
   for (let idx = now.day; idx <= now.daysInMonth; idx++) {
     const day = String(idx).padStart(2, '0');
-    const element = wrapper.getByLabelText(new RegExp(`May ${day} 2019`));
+    const element = screen.getByLabelText(new RegExp(`May ${day} 2019`));
 
     expect(element).toHaveClass('SD-Calendar-selected');
 
@@ -223,7 +220,7 @@ test('onDayClick', () => {
 
     expect(onDayClick).toHaveBeenCalledTimes(1);
 
-    const [[info]] = onDayClick.mock.calls;
+    const info = onDayClick.mock.calls[0]![0]!;
 
     expect(info.stringValue).toBe(`2019-05-${day}T00:00:00.000-05:00`);
 
@@ -233,22 +230,22 @@ test('onDayClick', () => {
 
 test('disabledDays', () => {
   const onDayClick: MockCalendarDayEventHandler = jest.fn();
-  const wrapper = renderComponent(
+  renderComponent(
     <Calendar
       onDayClick={onDayClick}
       disabledDays={({ dateValue }) => dateValue.day === 24}
     />,
   );
 
-  expect(wrapper.getByLabelText(/May 24 2019/)).toHaveClass(
+  expect(screen.getByLabelText(/May 24 2019/)).toHaveClass(
     'SD-Calendar-disabled',
   );
 
-  userEvent.click(wrapper.getByLabelText(/May 24 2019/));
+  userEvent.click(screen.getByLabelText(/May 24 2019/));
 
   expect(onDayClick).toHaveBeenCalledTimes(1);
 
-  const [[info]] = onDayClick.mock.calls;
+  const info = onDayClick.mock.calls[0]![0]!;
 
   expect(info.disabled).toBe(true);
   expect(info.selected).toBe(false);
@@ -256,7 +253,7 @@ test('disabledDays', () => {
 });
 
 test('highlightedDays', () => {
-  const wrapper = renderComponent(<Calendar />);
+  const view = renderComponent(<Calendar />);
   const highlights: CalendarDayHighlightColor[] = [
     'blue',
     'green',
@@ -271,11 +268,11 @@ test('highlightedDays', () => {
   }
 
   for (const currentHighlight of highlights) {
-    wrapper.rerender(
+    view.rerender(
       <Calendar highlightedDays={{ [currentHighlight]: modifier }} />,
     );
 
-    const day = wrapper.getByLabelText(/May 24 2019/);
+    const day = screen.getByLabelText(/May 24 2019/);
 
     for (const highlight of highlights) {
       if (highlight === currentHighlight) {
@@ -290,17 +287,17 @@ test('highlightedDays', () => {
 });
 
 test('footer', () => {
-  const wrapper = renderComponent(
+  renderComponent(
     <Calendar
       footer={<Typography color="textSecondary">Footer helper text</Typography>}
     />,
   );
 
-  expect(wrapper.getByText('Footer helper text')).toBeInTheDocument();
+  expect(screen.getByText('Footer helper text')).toBeInTheDocument();
 });
 
 test('quickSelection', () => {
-  const wrapper = renderComponent(
+  renderComponent(
     <Calendar
       quickSelection={
         <CalendarQuickSelection>
@@ -312,9 +309,9 @@ test('quickSelection', () => {
     />,
   );
 
-  expect(wrapper.getByText('Today')).toBeInTheDocument();
-  expect(wrapper.getByText('Tomorrow')).toBeInTheDocument();
-  expect(wrapper.getByText('Yesterday')).toBeInTheDocument();
+  expect(screen.getByText('Today')).toBeInTheDocument();
+  expect(screen.getByText('Tomorrow')).toBeInTheDocument();
+  expect(screen.getByText('Yesterday')).toBeInTheDocument();
 });
 
 test('css', () => {

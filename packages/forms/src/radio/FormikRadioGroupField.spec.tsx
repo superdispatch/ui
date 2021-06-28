@@ -1,5 +1,5 @@
 import { RadioField } from '@superdispatch/ui';
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikRadioGroupField } from './FormikRadioGroupField';
@@ -8,7 +8,7 @@ test('changes', async () => {
   const onSubmit = jest.fn();
   const onChange = jest.fn();
   const onBlur = jest.fn();
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikRadioGroupField
       name="color"
       label="Color"
@@ -24,7 +24,7 @@ test('changes', async () => {
     },
   );
 
-  const red = wrapper.getByLabelText('Red');
+  const red = screen.getByLabelText('Red');
 
   act(() => {
     userEvent.click(red);
@@ -37,7 +37,7 @@ test('changes', async () => {
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onBlur).toHaveBeenCalledTimes(1);
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -50,7 +50,7 @@ test('errors', async () => {
   const onSubmit = jest.fn();
   const handleChange = jest.fn();
   const handleBlur = jest.fn();
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikRadioGroupField
       name="color"
       label="Color"
@@ -67,7 +67,7 @@ test('errors', async () => {
     },
   );
 
-  const red = wrapper.getByLabelText('Red');
+  const red = screen.getByLabelText('Red');
 
   act(() => {
     userEvent.click(red);
@@ -77,9 +77,9 @@ test('errors', async () => {
     fireEvent.blur(red);
   });
 
-  wrapper.submitForm();
+  view.submitForm();
 
   expect(onSubmit).not.toHaveBeenCalled();
 
-  await wrapper.findByText('No');
+  await screen.findByText('No');
 });

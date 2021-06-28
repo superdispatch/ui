@@ -24,10 +24,7 @@ function normalize(input: unknown): string {
     const matches = input
       .replace(NON_PHONE_SYMBOLS_PATTERN, '')
       .match(PHONE_PATTERN);
-
-    if (matches) {
-      return matches[0];
-    }
+    if (matches?.[0]) return matches[0];
   }
 
   return '';

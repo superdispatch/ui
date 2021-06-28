@@ -1,4 +1,4 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderFormField } from '../__testutils__/renderFormField';
 import { FormikCheckboxField } from './FormikCheckboxField';
@@ -7,20 +7,17 @@ test('handles changes', async () => {
   const handleSubmit = jest.fn();
   const handleChange = jest.fn();
   const handleBlur = jest.fn();
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikCheckboxField
       label="Agree"
       name="agree"
       onChange={handleChange}
       onBlur={handleBlur}
     />,
-    {
-      initialValues: { agree: true },
-      onSubmit: handleSubmit,
-    },
+    { initialValues: { agree: true }, onSubmit: handleSubmit },
   );
 
-  const field = wrapper.getByLabelText('Agree');
+  const field = screen.getByLabelText('Agree');
 
   act(() => {
     userEvent.click(field);
@@ -34,7 +31,7 @@ test('handles changes', async () => {
   expect(handleChange).toHaveBeenCalledTimes(1);
   expect(handleBlur).toHaveBeenCalledTimes(1);
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -46,20 +43,17 @@ test('handles changes', async () => {
 test('format and parse value', async () => {
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikCheckboxField
       label="Agree"
       name="agree"
       format={(_, checked) => !checked}
       parse={(_, checked) => !checked}
     />,
-    {
-      initialValues: { agree: true },
-      onSubmit: handleSubmit,
-    },
+    { initialValues: { agree: true }, onSubmit: handleSubmit },
   );
 
-  const field = wrapper.getByLabelText('Agree');
+  const field = screen.getByLabelText('Agree');
 
   expect(field).not.toBeChecked();
 
@@ -73,7 +67,7 @@ test('format and parse value', async () => {
 
   expect(field).toBeChecked();
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -85,20 +79,17 @@ test('format and parse value', async () => {
 test('format and parse value with enum', async () => {
   const handleSubmit = jest.fn();
 
-  const wrapper = renderFormField(
+  const view = renderFormField(
     <FormikCheckboxField
       name="status"
       label="Status"
       format={(value) => value === 'active'}
       parse={(_, checked) => (checked ? 'active' : 'inactive')}
     />,
-    {
-      initialValues: { status: 'active' },
-      onSubmit: handleSubmit,
-    },
+    { initialValues: { status: 'active' }, onSubmit: handleSubmit },
   );
 
-  const field = wrapper.getByLabelText('Status');
+  const field = screen.getByLabelText('Status');
 
   expect(field).toBeChecked();
 
@@ -119,7 +110,7 @@ test('format and parse value with enum', async () => {
       expect(field).not.toBeChecked();
     }
 
-    wrapper.submitForm();
+    view.submitForm();
 
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -134,7 +125,7 @@ test('validates field', async () => {
   const handleSubmit = jest.fn();
   const handleChange = jest.fn();
   const handleBlur = jest.fn();
-  const wrapper = renderFormField(
+  renderFormField(
     <FormikCheckboxField
       label="Agree"
       name="agree"
@@ -144,13 +135,10 @@ test('validates field', async () => {
         value === false ? 'Check agree before continue' : undefined
       }
     />,
-    {
-      initialValues: { agree: true },
-      onSubmit: handleSubmit,
-    },
+    { initialValues: { agree: true }, onSubmit: handleSubmit },
   );
 
-  const field = wrapper.getByLabelText('Agree');
+  const field = screen.getByLabelText('Agree');
 
   expect(field).toBeValid();
 
@@ -162,5 +150,5 @@ test('validates field', async () => {
     fireEvent.blur(field);
   });
 
-  await wrapper.findByText('Check agree before continue');
+  await screen.findByText('Check agree before continue');
 });

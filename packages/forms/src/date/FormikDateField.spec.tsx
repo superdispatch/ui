@@ -1,5 +1,5 @@
 import { DateConfigProvider, defaultDateConfig } from '@superdispatch/dates';
-import { waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DateTime } from 'luxon';
 import MockDate from 'mockdate';
@@ -30,7 +30,7 @@ test('changes', async () => {
   const handleBlur = jest.fn();
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
-  const wrapper = renderDateField(
+  const view = renderDateField(
     <FormikDateField
       name="date"
       label="Date"
@@ -43,10 +43,10 @@ test('changes', async () => {
     },
   );
 
-  const field = wrapper.getByLabelText('Date');
+  const field = screen.getByLabelText('Date');
 
   userEvent.click(field);
-  userEvent.click(wrapper.getByLabelText('Wed May 29 2019'));
+  userEvent.click(screen.getByLabelText('Wed May 29 2019'));
 
   expect(handleBlur).toHaveBeenCalledTimes(1);
   expect(handleChange).toHaveBeenCalledTimes(1);
@@ -56,7 +56,7 @@ test('changes', async () => {
     stringValue: '2019-05-29T01:02:03.045-05:00',
   });
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -69,7 +69,7 @@ test('changes', async () => {
 
 test('format', async () => {
   const handleSubmit = jest.fn();
-  const wrapper = renderDateField(
+  const view = renderDateField(
     <FormikDateField name="date" format="DateISO" />,
     {
       onSubmit: handleSubmit,
@@ -77,7 +77,7 @@ test('format', async () => {
     },
   );
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -87,10 +87,10 @@ test('format', async () => {
     date: '2019-05-29T01:02:03.045-05:00',
   });
 
-  userEvent.click(wrapper.getByRole('textbox'));
-  userEvent.click(wrapper.getByLabelText(/May 24/));
+  userEvent.click(screen.getByRole('textbox'));
+  userEvent.click(screen.getByLabelText(/May 24/));
 
-  wrapper.submitForm();
+  view.submitForm();
 
   await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -104,33 +104,24 @@ test('format', async () => {
 test('errors', async () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
-  const { formik, ...wrapper } = renderDateField(
+  renderDateField(
     <FormikDateField
       name="date"
       label="Date"
       onChange={handleChange}
       validate={({ dateValue }) => {
-        if (!dateValue.isValid) {
-          return 'Required';
-        }
-
-        if (dateValue.valueOf() < Date.now()) {
-          return 'Invalid';
-        }
-
+        if (!dateValue.isValid) return 'Required';
+        if (dateValue.valueOf() < Date.now()) return 'Invalid';
         return undefined;
       }}
     />,
-    {
-      onSubmit: handleSubmit,
-      initialValues: { date: undefined },
-    },
+    { onSubmit: handleSubmit, initialValues: { date: undefined } },
   );
 
-  userEvent.click(wrapper.getByLabelText('Date'));
-  userEvent.click(wrapper.getByLabelText(/May 20/));
+  userEvent.click(screen.getByLabelText('Date'));
+  userEvent.click(screen.getByLabelText(/May 20/));
 
   expect(handleSubmit).not.toHaveBeenCalled();
 
-  await wrapper.findByText('Invalid');
+  await screen.findByText('Invalid');
 });

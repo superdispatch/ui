@@ -124,8 +124,8 @@ function isComponentLike(
   Component: unknown,
 ): Component is ComponentLike {
   return (
-    name[0] === name[0].toUpperCase() &&
-    (typeof Component === 'object' || typeof Component === 'function')
+    name.charAt(0) === name.charAt(0).toUpperCase() &&
+    (typeof Component == 'object' || typeof Component == 'function')
   );
 }
 

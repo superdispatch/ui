@@ -111,7 +111,7 @@ function findEndpoint(
 
     if (headers.length > 0) {
       const hasInvalidHeader = headers.some(
-        ([key, value]) => request.headers.get(key) !== value,
+        ([key, value]) => key && request.headers.get(key) !== value,
       );
 
       if (hasInvalidHeader) {
