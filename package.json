@@ -22,7 +22,7 @@
     "lint": "js-tools lint",
     "lint-changed": "git add . && yarn lint-staged",
     "preplayroom:build": "yarn playroom:generate",
-    "playroom:build": "playroom build",
+    "playroom:build": "NODE_OPTIONS=--max_old_space_size=4096 playroom build",
     "playroom:generate": "ts-node scripts/generate-playroom-components.ts",
     "preplayroom:start": "yarn playroom:generate",
     "playroom:start": "playroom start",
