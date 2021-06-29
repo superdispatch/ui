@@ -16,7 +16,7 @@
   "dependencies": {
     "@superdispatch/hooks": "^0.9.0",
     "@superdispatch/ui": "^0.9.8",
-    "react-dropzone": "^11.3.2"
+    "react-dropzone": "^11.3.4"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
