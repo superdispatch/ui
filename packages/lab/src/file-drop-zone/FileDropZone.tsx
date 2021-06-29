@@ -2,8 +2,8 @@ import { CircularProgress, SvgIcon } from '@material-ui/core';
 import { Error } from '@material-ui/icons';
 import { mdiUpload } from '@mdi/js';
 import { CardButton, Color, Column, Columns } from '@superdispatch/ui';
-import { forwardRef, lazy, ReactElement, ReactNode, Suspense } from 'react';
-import { FileRejection } from 'react-dropzone';
+import { forwardRef, ReactElement, ReactNode, Suspense } from 'react';
+import Dropzone, { FileRejection } from 'react-dropzone';
 import styled from 'styled-components';
 
 export function toBytes(input: number, unit: 'kb' | 'mb' | 'gb'): number {
@@ -36,8 +36,6 @@ const StyledCardButton = styled(CardButton)<{
 }>(({ status }) => ({
   backgroundColor: status === 'active' ? Color.Blue50 : undefined,
 }));
-
-const Dropzone = lazy(() => import('react-dropzone'));
 
 interface UploadRejectionProps {
   maxSize?: number;
