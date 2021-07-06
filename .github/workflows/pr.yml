@@ -6,7 +6,7 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: styfle/cancel-workflow-action@0.7.0
+      - uses: styfle/cancel-workflow-action@0.9.0
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
       - run: yarn check:types
@@ -26,16 +26,23 @@ jobs:
 
   preview:
     runs-on: ubuntu-latest
+
+    outputs:
+      deploy-url: ${{ steps.deploy.outputs.details_url }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
       - run: yarn storybook:build
       - run: yarn playroom:build
-      - uses: superdispatch/actions/deploy-preview@v1
+      - id: deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          dir: docs
-          netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          target: superdispatch-ui
+          channelId: ${{ github.event.number }}
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          projectId: ${{ secrets.FIREBASE_PROJECT }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_HOSTING_SERVICE_ACCOUNT_JSON }}
 
   e2e:
     needs:
@@ -49,4 +56,4 @@ jobs:
       - run: yarn percy exec -- cypress run
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          CYPRESS_HOST: https://preview-${{ github.event.number }}--ui-superdispatch.netlify.app
+          CYPRESS_HOST: ${{ needs.preview.outputs.deploy-url }}
