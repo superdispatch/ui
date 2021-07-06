@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: styfle/cancel-workflow-action@0.7.0
+      - uses: styfle/cancel-workflow-action@0.9.0
       - uses: actions/checkout@v2
       - uses: umidbekk/actions/npm/install@v1
 
@@ -28,11 +28,13 @@ jobs:
       - uses: umidbekk/actions/npm/install@v1
 
       - run: yarn docs
-      - uses: JamesIves/github-pages-deploy-action@releases/v3
+      - id: deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs
+          channelId: live
+          target: superdispatch-ui
+          projectId: ${{ secrets.FIREBASE_PROJECT }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_HOSTING_SERVICE_ACCOUNT_JSON }}
 
   e2e:
     needs:
