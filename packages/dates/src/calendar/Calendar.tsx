@@ -4,7 +4,6 @@ import { Color, ColorVariant } from '@superdispatch/ui';
 import { DateTime } from 'luxon';
 import { forwardRef, ReactNode, useMemo } from 'react';
 import DayPicker, {
-  ClassNames,
   DayModifiers,
   DayPickerProps,
   FunctionModifier,
@@ -37,7 +36,7 @@ export type CalendarDayHighlightColor = Exclude<
 >;
 
 export type CalendarClassNames =
-  | keyof ClassNames
+  | keyof NonNullable<DayPickerProps['classNames']>
   | CalendarDayHighlightColor
   | 'firstDayOfMonth'
   | 'lastDayOfMonth';

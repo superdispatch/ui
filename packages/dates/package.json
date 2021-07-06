@@ -16,7 +16,7 @@
   "dependencies": {
     "@superdispatch/ui": "^0.9.9",
     "luxon": "^1.27.0",
-    "react-day-picker": "7.4.0"
+    "react-day-picker": "7.4.10"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",

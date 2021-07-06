@@ -12,7 +12,7 @@ export function overrideDrawer(theme: SuperDispatchTheme): void {
 
       [theme.breakpoints.up('sm')]: {
         minWidth: theme.spacing(54),
-        maxWidth: theme.breakpoints.width('sm'),
+        maxWidth: theme.breakpoints.values.sm,
       },
     },
   };

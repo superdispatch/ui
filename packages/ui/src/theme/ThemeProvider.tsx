@@ -1,6 +1,6 @@
 import {
   createGenerateClassName,
-  createMuiTheme,
+  createTheme,
   CssBaseline,
 } from '@material-ui/core';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
@@ -44,9 +44,9 @@ import {
 import { Color } from './Color';
 import { SuperDispatchTheme } from './SuperDispatchTheme';
 
-function createTheme(): SuperDispatchTheme {
+function createSuperDispatchTheme(): SuperDispatchTheme {
   const breakpoints = createBreakpoints({});
-  const theme = createMuiTheme({
+  const theme = createTheme({
     breakpoints,
 
     palette: {
@@ -155,7 +155,7 @@ export function ThemeProvider({
   injectFirst = true,
 }: ThemeProviderProps): ReactElement {
   const theme = useConstant(() => {
-    const nextTheme = createTheme();
+    const nextTheme = createSuperDispatchTheme();
 
     return !modifier ? nextTheme : modifier(nextTheme);
   });
