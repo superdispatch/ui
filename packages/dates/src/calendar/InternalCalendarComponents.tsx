@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { ReactElement } from 'react';
 import {
   CaptionElementProps,
-  LocaleUtils,
   NavbarElementProps,
   WeekdayElementProps,
 } from 'react-day-picker';
@@ -16,7 +15,7 @@ export function CalendarCaption({
 }: CaptionElementProps): ReactElement {
   return (
     <Typography variant="h4" onClick={onClick} className={classNames.caption}>
-      {(localeUtils as LocaleUtils).formatMonthTitle(date)}
+      {localeUtils.formatMonthTitle(date)}
     </Typography>
   );
 }
@@ -72,7 +71,7 @@ export function CalendarWeekDay({
       variant="h5"
       component="abbr"
       className={className}
-      title={(localeUtils as LocaleUtils).formatWeekdayLong(weekday)}
+      title={localeUtils.formatWeekdayLong(weekday)}
     >
       {SHORT_WEEKDAYS[weekday]}
     </Typography>
